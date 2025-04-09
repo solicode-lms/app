@@ -105,7 +105,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $this->viewState->setContextKey('commentaireRealisationTache.edit_' . $id);
 
 
-        $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->find($id);
+        $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->edit($id);
 
 
         $realisationTaches = $this->realisationTacheService->all();
@@ -125,7 +125,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $this->viewState->setContextKey('commentaireRealisationTache.edit_' . $id);
 
 
-        $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->find($id);
+        $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->edit($id);
 
 
         $realisationTaches = $this->realisationTacheService->all();
@@ -138,6 +138,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+
 
     }
     public function update(CommentaireRealisationTacheRequest $request, string $id) {

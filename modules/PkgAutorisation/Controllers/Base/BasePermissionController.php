@@ -105,7 +105,7 @@ class BasePermissionController extends AdminController
         $this->viewState->setContextKey('permission.edit_' . $id);
 
 
-        $itemPermission = $this->permissionService->find($id);
+        $itemPermission = $this->permissionService->edit($id);
 
 
         $sysControllers = $this->sysControllerService->all();
@@ -125,7 +125,7 @@ class BasePermissionController extends AdminController
         $this->viewState->setContextKey('permission.edit_' . $id);
 
 
-        $itemPermission = $this->permissionService->find($id);
+        $itemPermission = $this->permissionService->edit($id);
 
 
         $sysControllers = $this->sysControllerService->all();
@@ -138,6 +138,7 @@ class BasePermissionController extends AdminController
         }
 
         return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
+
 
     }
     public function update(PermissionRequest $request, string $id) {

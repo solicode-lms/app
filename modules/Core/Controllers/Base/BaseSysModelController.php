@@ -102,7 +102,7 @@ class BaseSysModelController extends AdminController
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
 
-        $itemSysModel = $this->sysModelService->find($id);
+        $itemSysModel = $this->sysModelService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -128,7 +128,7 @@ class BaseSysModelController extends AdminController
         $this->viewState->setContextKey('sysModel.edit_' . $id);
 
 
-        $itemSysModel = $this->sysModelService->find($id);
+        $itemSysModel = $this->sysModelService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -147,6 +147,7 @@ class BaseSysModelController extends AdminController
         }
 
         return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+
 
     }
     public function update(SysModelRequest $request, string $id) {

@@ -98,7 +98,7 @@ class BaseFeatureDomainController extends AdminController
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
 
-        $itemFeatureDomain = $this->featureDomainService->find($id);
+        $itemFeatureDomain = $this->featureDomainService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -123,7 +123,7 @@ class BaseFeatureDomainController extends AdminController
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
 
 
-        $itemFeatureDomain = $this->featureDomainService->find($id);
+        $itemFeatureDomain = $this->featureDomainService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -141,6 +141,7 @@ class BaseFeatureDomainController extends AdminController
         }
 
         return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
+
 
     }
     public function update(FeatureDomainRequest $request, string $id) {

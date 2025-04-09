@@ -107,7 +107,7 @@ class BaseChapitreController extends AdminController
         $this->viewState->setContextKey('chapitre.edit_' . $id);
 
 
-        $itemChapitre = $this->chapitreService->find($id);
+        $itemChapitre = $this->chapitreService->edit($id);
 
 
         $formations = $this->formationService->all();
@@ -142,7 +142,7 @@ class BaseChapitreController extends AdminController
         $this->viewState->setContextKey('chapitre.edit_' . $id);
 
 
-        $itemChapitre = $this->chapitreService->find($id);
+        $itemChapitre = $this->chapitreService->edit($id);
 
 
         $formations = $this->formationService->all();
@@ -170,6 +170,7 @@ class BaseChapitreController extends AdminController
         }
 
         return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
+
 
     }
     public function update(ChapitreRequest $request, string $id) {

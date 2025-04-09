@@ -93,7 +93,7 @@ class BaseVilleController extends AdminController
         $this->viewState->setContextKey('ville.edit_' . $id);
 
 
-        $itemVille = $this->villeService->find($id);
+        $itemVille = $this->villeService->edit($id);
 
 
 
@@ -110,7 +110,7 @@ class BaseVilleController extends AdminController
         $this->viewState->setContextKey('ville.edit_' . $id);
 
 
-        $itemVille = $this->villeService->find($id);
+        $itemVille = $this->villeService->edit($id);
 
 
 
@@ -120,6 +120,7 @@ class BaseVilleController extends AdminController
         }
 
         return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));
+
 
     }
     public function update(VilleRequest $request, string $id) {

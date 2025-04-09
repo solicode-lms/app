@@ -101,7 +101,7 @@ class BaseUserController extends AdminController
         $this->viewState->setContextKey('user.edit_' . $id);
 
 
-        $itemUser = $this->userService->find($id);
+        $itemUser = $this->userService->edit($id);
 
 
         $roles = $this->roleService->all();
@@ -147,7 +147,7 @@ class BaseUserController extends AdminController
         $this->viewState->setContextKey('user.edit_' . $id);
 
 
-        $itemUser = $this->userService->find($id);
+        $itemUser = $this->userService->edit($id);
 
 
         $roles = $this->roleService->all();
@@ -186,6 +186,7 @@ class BaseUserController extends AdminController
         }
 
         return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
+
 
     }
     public function update(UserRequest $request, string $id) {

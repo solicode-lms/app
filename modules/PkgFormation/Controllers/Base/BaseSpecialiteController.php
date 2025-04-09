@@ -97,7 +97,7 @@ class BaseSpecialiteController extends AdminController
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
 
-        $itemSpecialite = $this->specialiteService->find($id);
+        $itemSpecialite = $this->specialiteService->edit($id);
 
 
         $formateurs = $this->formateurService->all();
@@ -115,7 +115,7 @@ class BaseSpecialiteController extends AdminController
         $this->viewState->setContextKey('specialite.edit_' . $id);
 
 
-        $itemSpecialite = $this->specialiteService->find($id);
+        $itemSpecialite = $this->specialiteService->edit($id);
 
 
         $formateurs = $this->formateurService->all();
@@ -126,6 +126,7 @@ class BaseSpecialiteController extends AdminController
         }
 
         return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite','formateurs'),));
+
 
     }
     public function update(SpecialiteRequest $request, string $id) {

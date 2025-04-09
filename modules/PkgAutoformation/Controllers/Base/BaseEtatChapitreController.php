@@ -113,7 +113,7 @@ class BaseEtatChapitreController extends AdminController
         $this->viewState->setContextKey('etatChapitre.edit_' . $id);
 
 
-        $itemEtatChapitre = $this->etatChapitreService->find($id);
+        $itemEtatChapitre = $this->etatChapitreService->edit($id);
         $this->authorize('view', $itemEtatChapitre);
 
 
@@ -134,7 +134,7 @@ class BaseEtatChapitreController extends AdminController
         $this->viewState->setContextKey('etatChapitre.edit_' . $id);
 
 
-        $itemEtatChapitre = $this->etatChapitreService->find($id);
+        $itemEtatChapitre = $this->etatChapitreService->edit($id);
         $this->authorize('edit', $itemEtatChapitre);
 
 
@@ -148,6 +148,7 @@ class BaseEtatChapitreController extends AdminController
         }
 
         return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
+
 
     }
     public function update(EtatChapitreRequest $request, string $id) {

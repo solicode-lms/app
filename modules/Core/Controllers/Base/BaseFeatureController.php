@@ -101,7 +101,7 @@ class BaseFeatureController extends AdminController
         $this->viewState->setContextKey('feature.edit_' . $id);
 
 
-        $itemFeature = $this->featureService->find($id);
+        $itemFeature = $this->featureService->edit($id);
 
 
         $featureDomains = $this->featureDomainService->all();
@@ -120,7 +120,7 @@ class BaseFeatureController extends AdminController
         $this->viewState->setContextKey('feature.edit_' . $id);
 
 
-        $itemFeature = $this->featureService->find($id);
+        $itemFeature = $this->featureService->edit($id);
 
 
         $featureDomains = $this->featureDomainService->all();
@@ -132,6 +132,7 @@ class BaseFeatureController extends AdminController
         }
 
         return view('Core::feature.edit', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
+
 
     }
     public function update(FeatureRequest $request, string $id) {

@@ -109,7 +109,7 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
 
-        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+        $itemLivrablesRealisation = $this->livrablesRealisationService->edit($id);
         $this->authorize('view', $itemLivrablesRealisation);
 
 
@@ -129,7 +129,7 @@ class BaseLivrablesRealisationController extends AdminController
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
 
 
-        $itemLivrablesRealisation = $this->livrablesRealisationService->find($id);
+        $itemLivrablesRealisation = $this->livrablesRealisationService->edit($id);
         $this->authorize('edit', $itemLivrablesRealisation);
 
 
@@ -142,6 +142,7 @@ class BaseLivrablesRealisationController extends AdminController
         }
 
         return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('itemLivrablesRealisation','livrables', 'realisationProjets'),));
+
 
     }
     public function update(LivrablesRealisationRequest $request, string $id) {

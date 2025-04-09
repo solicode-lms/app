@@ -98,7 +98,7 @@ class BaseWorkflowFormationController extends AdminController
         $this->viewState->setContextKey('workflowFormation.edit_' . $id);
 
 
-        $itemWorkflowFormation = $this->workflowFormationService->find($id);
+        $itemWorkflowFormation = $this->workflowFormationService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -123,7 +123,7 @@ class BaseWorkflowFormationController extends AdminController
         $this->viewState->setContextKey('workflowFormation.edit_' . $id);
 
 
-        $itemWorkflowFormation = $this->workflowFormationService->find($id);
+        $itemWorkflowFormation = $this->workflowFormationService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -141,6 +141,7 @@ class BaseWorkflowFormationController extends AdminController
         }
 
         return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
+
 
     }
     public function update(WorkflowFormationRequest $request, string $id) {

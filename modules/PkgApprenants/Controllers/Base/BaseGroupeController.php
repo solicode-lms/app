@@ -110,7 +110,7 @@ class BaseGroupeController extends AdminController
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
 
-        $itemGroupe = $this->groupeService->find($id);
+        $itemGroupe = $this->groupeService->edit($id);
 
 
         $filieres = $this->filiereService->all();
@@ -138,7 +138,7 @@ class BaseGroupeController extends AdminController
         $this->viewState->setContextKey('groupe.edit_' . $id);
 
 
-        $itemGroupe = $this->groupeService->find($id);
+        $itemGroupe = $this->groupeService->edit($id);
 
 
         $filieres = $this->filiereService->all();
@@ -159,6 +159,7 @@ class BaseGroupeController extends AdminController
         }
 
         return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+
 
     }
     public function update(GroupeRequest $request, string $id) {

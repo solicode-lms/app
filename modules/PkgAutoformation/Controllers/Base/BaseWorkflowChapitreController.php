@@ -98,7 +98,7 @@ class BaseWorkflowChapitreController extends AdminController
         $this->viewState->setContextKey('workflowChapitre.edit_' . $id);
 
 
-        $itemWorkflowChapitre = $this->workflowChapitreService->find($id);
+        $itemWorkflowChapitre = $this->workflowChapitreService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -123,7 +123,7 @@ class BaseWorkflowChapitreController extends AdminController
         $this->viewState->setContextKey('workflowChapitre.edit_' . $id);
 
 
-        $itemWorkflowChapitre = $this->workflowChapitreService->find($id);
+        $itemWorkflowChapitre = $this->workflowChapitreService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -141,6 +141,7 @@ class BaseWorkflowChapitreController extends AdminController
         }
 
         return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
+
 
     }
     public function update(WorkflowChapitreRequest $request, string $id) {

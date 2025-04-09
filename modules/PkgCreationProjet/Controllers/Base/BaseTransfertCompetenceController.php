@@ -117,7 +117,7 @@ class BaseTransfertCompetenceController extends AdminController
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
 
 
-        $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
+        $itemTransfertCompetence = $this->transfertCompetenceService->edit($id);
         $this->authorize('view', $itemTransfertCompetence);
 
 
@@ -139,7 +139,7 @@ class BaseTransfertCompetenceController extends AdminController
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
 
 
-        $itemTransfertCompetence = $this->transfertCompetenceService->find($id);
+        $itemTransfertCompetence = $this->transfertCompetenceService->edit($id);
         $this->authorize('edit', $itemTransfertCompetence);
 
 
@@ -154,6 +154,7 @@ class BaseTransfertCompetenceController extends AdminController
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
+
 
     }
     public function update(TransfertCompetenceRequest $request, string $id) {

@@ -105,7 +105,7 @@ class BaseNiveauDifficulteController extends AdminController
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
 
 
-        $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
+        $itemNiveauDifficulte = $this->niveauDifficulteService->edit($id);
         $this->authorize('view', $itemNiveauDifficulte);
 
 
@@ -124,7 +124,7 @@ class BaseNiveauDifficulteController extends AdminController
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
 
 
-        $itemNiveauDifficulte = $this->niveauDifficulteService->find($id);
+        $itemNiveauDifficulte = $this->niveauDifficulteService->edit($id);
         $this->authorize('edit', $itemNiveauDifficulte);
 
 
@@ -136,6 +136,7 @@ class BaseNiveauDifficulteController extends AdminController
         }
 
         return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));
+
 
     }
     public function update(NiveauDifficulteRequest $request, string $id) {

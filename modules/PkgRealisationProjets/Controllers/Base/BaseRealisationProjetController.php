@@ -126,7 +126,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
 
-        $itemRealisationProjet = $this->realisationProjetService->find($id);
+        $itemRealisationProjet = $this->realisationProjetService->edit($id);
         $this->authorize('view', $itemRealisationProjet);
 
         // scopeDataInEditContext
@@ -180,7 +180,7 @@ class BaseRealisationProjetController extends AdminController
         $this->viewState->setContextKey('realisationProjet.edit_' . $id);
 
 
-        $itemRealisationProjet = $this->realisationProjetService->find($id);
+        $itemRealisationProjet = $this->realisationProjetService->edit($id);
         $this->authorize('edit', $itemRealisationProjet);
 
         // scopeDataInEditContext
@@ -227,6 +227,7 @@ class BaseRealisationProjetController extends AdminController
         }
 
         return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
+
 
     }
     public function update(RealisationProjetRequest $request, string $id) {

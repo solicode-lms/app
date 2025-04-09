@@ -94,7 +94,7 @@ class BaseNationaliteController extends AdminController
         $this->viewState->setContextKey('nationalite.edit_' . $id);
 
 
-        $itemNationalite = $this->nationaliteService->find($id);
+        $itemNationalite = $this->nationaliteService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseNationaliteController extends AdminController
         $this->viewState->setContextKey('nationalite.edit_' . $id);
 
 
-        $itemNationalite = $this->nationaliteService->find($id);
+        $itemNationalite = $this->nationaliteService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseNationaliteController extends AdminController
         }
 
         return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
+
 
     }
     public function update(NationaliteRequest $request, string $id) {

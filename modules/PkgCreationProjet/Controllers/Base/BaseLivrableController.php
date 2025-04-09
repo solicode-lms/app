@@ -117,7 +117,7 @@ class BaseLivrableController extends AdminController
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
 
-        $itemLivrable = $this->livrableService->find($id);
+        $itemLivrable = $this->livrableService->edit($id);
         $this->authorize('view', $itemLivrable);
 
         // scopeDataInEditContext
@@ -142,7 +142,7 @@ class BaseLivrableController extends AdminController
         $this->viewState->setContextKey('livrable.edit_' . $id);
 
 
-        $itemLivrable = $this->livrableService->find($id);
+        $itemLivrable = $this->livrableService->edit($id);
         $this->authorize('edit', $itemLivrable);
 
         // scopeDataInEditContext
@@ -160,6 +160,7 @@ class BaseLivrableController extends AdminController
         }
 
         return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
+
 
     }
     public function update(LivrableRequest $request, string $id) {

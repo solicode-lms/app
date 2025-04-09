@@ -94,7 +94,7 @@ class BaseCategoryTechnologyController extends AdminController
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
 
 
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+        $itemCategoryTechnology = $this->categoryTechnologyService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseCategoryTechnologyController extends AdminController
         $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
 
 
-        $itemCategoryTechnology = $this->categoryTechnologyService->find($id);
+        $itemCategoryTechnology = $this->categoryTechnologyService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseCategoryTechnologyController extends AdminController
         }
 
         return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
+
 
     }
     public function update(CategoryTechnologyRequest $request, string $id) {

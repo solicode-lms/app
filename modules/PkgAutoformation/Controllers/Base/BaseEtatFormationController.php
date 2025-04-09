@@ -113,7 +113,7 @@ class BaseEtatFormationController extends AdminController
         $this->viewState->setContextKey('etatFormation.edit_' . $id);
 
 
-        $itemEtatFormation = $this->etatFormationService->find($id);
+        $itemEtatFormation = $this->etatFormationService->edit($id);
         $this->authorize('view', $itemEtatFormation);
 
 
@@ -134,7 +134,7 @@ class BaseEtatFormationController extends AdminController
         $this->viewState->setContextKey('etatFormation.edit_' . $id);
 
 
-        $itemEtatFormation = $this->etatFormationService->find($id);
+        $itemEtatFormation = $this->etatFormationService->edit($id);
         $this->authorize('edit', $itemEtatFormation);
 
 
@@ -148,6 +148,7 @@ class BaseEtatFormationController extends AdminController
         }
 
         return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
+
 
     }
     public function update(EtatFormationRequest $request, string $id) {

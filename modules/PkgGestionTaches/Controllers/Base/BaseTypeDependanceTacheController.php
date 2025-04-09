@@ -94,7 +94,7 @@ class BaseTypeDependanceTacheController extends AdminController
         $this->viewState->setContextKey('typeDependanceTache.edit_' . $id);
 
 
-        $itemTypeDependanceTache = $this->typeDependanceTacheService->find($id);
+        $itemTypeDependanceTache = $this->typeDependanceTacheService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseTypeDependanceTacheController extends AdminController
         $this->viewState->setContextKey('typeDependanceTache.edit_' . $id);
 
 
-        $itemTypeDependanceTache = $this->typeDependanceTacheService->find($id);
+        $itemTypeDependanceTache = $this->typeDependanceTacheService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseTypeDependanceTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
+
 
     }
     public function update(TypeDependanceTacheRequest $request, string $id) {

@@ -94,7 +94,7 @@ class BaseNiveauxScolaireController extends AdminController
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
 
 
-        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+        $itemNiveauxScolaire = $this->niveauxScolaireService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseNiveauxScolaireController extends AdminController
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
 
 
-        $itemNiveauxScolaire = $this->niveauxScolaireService->find($id);
+        $itemNiveauxScolaire = $this->niveauxScolaireService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseNiveauxScolaireController extends AdminController
         }
 
         return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
+
 
     }
     public function update(NiveauxScolaireRequest $request, string $id) {

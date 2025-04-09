@@ -113,7 +113,7 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->viewState->setContextKey('etatRealisationTache.edit_' . $id);
 
 
-        $itemEtatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $itemEtatRealisationTache = $this->etatRealisationTacheService->edit($id);
         $this->authorize('view', $itemEtatRealisationTache);
 
 
@@ -134,7 +134,7 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->viewState->setContextKey('etatRealisationTache.edit_' . $id);
 
 
-        $itemEtatRealisationTache = $this->etatRealisationTacheService->find($id);
+        $itemEtatRealisationTache = $this->etatRealisationTacheService->edit($id);
         $this->authorize('edit', $itemEtatRealisationTache);
 
 
@@ -148,6 +148,7 @@ class BaseEtatRealisationTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+
 
     }
     public function update(EtatRealisationTacheRequest $request, string $id) {

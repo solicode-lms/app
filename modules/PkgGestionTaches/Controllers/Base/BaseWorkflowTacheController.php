@@ -94,7 +94,7 @@ class BaseWorkflowTacheController extends AdminController
         $this->viewState->setContextKey('workflowTache.edit_' . $id);
 
 
-        $itemWorkflowTache = $this->workflowTacheService->find($id);
+        $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseWorkflowTacheController extends AdminController
         $this->viewState->setContextKey('workflowTache.edit_' . $id);
 
 
-        $itemWorkflowTache = $this->workflowTacheService->find($id);
+        $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseWorkflowTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
+
 
     }
     public function update(WorkflowTacheRequest $request, string $id) {

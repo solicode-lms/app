@@ -95,7 +95,7 @@ class BaseAnneeFormationController extends AdminController
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
 
 
-        $itemAnneeFormation = $this->anneeFormationService->find($id);
+        $itemAnneeFormation = $this->anneeFormationService->edit($id);
 
 
 
@@ -126,7 +126,7 @@ class BaseAnneeFormationController extends AdminController
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
 
 
-        $itemAnneeFormation = $this->anneeFormationService->find($id);
+        $itemAnneeFormation = $this->anneeFormationService->edit($id);
 
 
 
@@ -150,6 +150,7 @@ class BaseAnneeFormationController extends AdminController
         }
 
         return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+
 
     }
     public function update(AnneeFormationRequest $request, string $id) {

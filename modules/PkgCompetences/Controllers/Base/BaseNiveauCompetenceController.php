@@ -97,7 +97,7 @@ class BaseNiveauCompetenceController extends AdminController
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
 
 
-        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $itemNiveauCompetence = $this->niveauCompetenceService->edit($id);
 
 
         $competences = $this->competenceService->all();
@@ -115,7 +115,7 @@ class BaseNiveauCompetenceController extends AdminController
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
 
 
-        $itemNiveauCompetence = $this->niveauCompetenceService->find($id);
+        $itemNiveauCompetence = $this->niveauCompetenceService->edit($id);
 
 
         $competences = $this->competenceService->all();
@@ -126,6 +126,7 @@ class BaseNiveauCompetenceController extends AdminController
         }
 
         return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence','competences'),));
+
 
     }
     public function update(NiveauCompetenceRequest $request, string $id) {

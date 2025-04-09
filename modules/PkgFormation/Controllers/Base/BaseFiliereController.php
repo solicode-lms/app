@@ -96,7 +96,7 @@ class BaseFiliereController extends AdminController
         $this->viewState->setContextKey('filiere.edit_' . $id);
 
 
-        $itemFiliere = $this->filiereService->find($id);
+        $itemFiliere = $this->filiereService->edit($id);
 
 
 
@@ -134,7 +134,7 @@ class BaseFiliereController extends AdminController
         $this->viewState->setContextKey('filiere.edit_' . $id);
 
 
-        $itemFiliere = $this->filiereService->find($id);
+        $itemFiliere = $this->filiereService->edit($id);
 
 
 
@@ -165,6 +165,7 @@ class BaseFiliereController extends AdminController
         }
 
         return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+
 
     }
     public function update(FiliereRequest $request, string $id) {

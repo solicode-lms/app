@@ -124,7 +124,7 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->setContextKey('realisationTache.edit_' . $id);
 
 
-        $itemRealisationTache = $this->realisationTacheService->find($id);
+        $itemRealisationTache = $this->realisationTacheService->edit($id);
         $this->authorize('view', $itemRealisationTache);
 
         // scopeDataInEditContext
@@ -181,6 +181,7 @@ class BaseRealisationTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+
 
     }
     public function update(RealisationTacheRequest $request, string $id) {

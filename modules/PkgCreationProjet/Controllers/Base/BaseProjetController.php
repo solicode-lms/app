@@ -120,7 +120,7 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKey('projet.edit_' . $id);
 
 
-        $itemProjet = $this->projetService->find($id);
+        $itemProjet = $this->projetService->edit($id);
         $this->authorize('view', $itemProjet);
 
 
@@ -187,7 +187,7 @@ class BaseProjetController extends AdminController
         $this->viewState->setContextKey('projet.edit_' . $id);
 
 
-        $itemProjet = $this->projetService->find($id);
+        $itemProjet = $this->projetService->edit($id);
         $this->authorize('edit', $itemProjet);
 
 
@@ -247,6 +247,7 @@ class BaseProjetController extends AdminController
         }
 
         return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $livrable_compact_value, $tache_compact_value, $resource_compact_value));
+
 
     }
     public function update(ProjetRequest $request, string $id) {

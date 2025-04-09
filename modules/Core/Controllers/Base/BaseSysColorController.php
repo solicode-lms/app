@@ -102,7 +102,7 @@ class BaseSysColorController extends AdminController
         $this->viewState->setContextKey('sysColor.edit_' . $id);
 
 
-        $itemSysColor = $this->sysColorService->find($id);
+        $itemSysColor = $this->sysColorService->edit($id);
 
 
 
@@ -182,7 +182,7 @@ class BaseSysColorController extends AdminController
         $this->viewState->setContextKey('sysColor.edit_' . $id);
 
 
-        $itemSysColor = $this->sysColorService->find($id);
+        $itemSysColor = $this->sysColorService->edit($id);
 
 
 
@@ -255,6 +255,7 @@ class BaseSysColorController extends AdminController
         }
 
         return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
+
 
     }
     public function update(SysColorRequest $request, string $id) {

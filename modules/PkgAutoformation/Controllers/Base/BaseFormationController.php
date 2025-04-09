@@ -124,7 +124,7 @@ class BaseFormationController extends AdminController
         $this->viewState->setContextKey('formation.edit_' . $id);
 
 
-        $itemFormation = $this->formationService->find($id);
+        $itemFormation = $this->formationService->edit($id);
         $this->authorize('view', $itemFormation);
 
         // scopeDataInEditContext
@@ -176,7 +176,7 @@ class BaseFormationController extends AdminController
         $this->viewState->setContextKey('formation.edit_' . $id);
 
 
-        $itemFormation = $this->formationService->find($id);
+        $itemFormation = $this->formationService->edit($id);
         $this->authorize('edit', $itemFormation);
 
         // scopeDataInEditContext
@@ -221,6 +221,7 @@ class BaseFormationController extends AdminController
         }
 
         return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
+
 
     }
     public function update(FormationRequest $request, string $id) {

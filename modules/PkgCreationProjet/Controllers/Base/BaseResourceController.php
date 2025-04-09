@@ -105,7 +105,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKey('resource.edit_' . $id);
 
 
-        $itemResource = $this->resourceService->find($id);
+        $itemResource = $this->resourceService->edit($id);
         $this->authorize('view', $itemResource);
 
 
@@ -124,7 +124,7 @@ class BaseResourceController extends AdminController
         $this->viewState->setContextKey('resource.edit_' . $id);
 
 
-        $itemResource = $this->resourceService->find($id);
+        $itemResource = $this->resourceService->edit($id);
         $this->authorize('edit', $itemResource);
 
 
@@ -136,6 +136,7 @@ class BaseResourceController extends AdminController
         }
 
         return view('PkgCreationProjet::resource.edit', array_merge(compact('itemResource','projets'),));
+
 
     }
     public function update(ResourceRequest $request, string $id) {

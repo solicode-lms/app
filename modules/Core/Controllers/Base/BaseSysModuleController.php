@@ -100,7 +100,7 @@ class BaseSysModuleController extends AdminController
         $this->viewState->setContextKey('sysModule.edit_' . $id);
 
 
-        $itemSysModule = $this->sysModuleService->find($id);
+        $itemSysModule = $this->sysModuleService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -139,7 +139,7 @@ class BaseSysModuleController extends AdminController
         $this->viewState->setContextKey('sysModule.edit_' . $id);
 
 
-        $itemSysModule = $this->sysModuleService->find($id);
+        $itemSysModule = $this->sysModuleService->edit($id);
 
 
         $sysColors = $this->sysColorService->all();
@@ -171,6 +171,7 @@ class BaseSysModuleController extends AdminController
         }
 
         return view('Core::sysModule.edit', array_merge(compact('itemSysModule','sysColors'),$featureDomain_compact_value, $sysController_compact_value, $sysModel_compact_value));
+
 
     }
     public function update(SysModuleRequest $request, string $id) {

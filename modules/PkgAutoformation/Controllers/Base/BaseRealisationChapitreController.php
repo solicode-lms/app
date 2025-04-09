@@ -105,7 +105,7 @@ class BaseRealisationChapitreController extends AdminController
         $this->viewState->setContextKey('realisationChapitre.edit_' . $id);
 
 
-        $itemRealisationChapitre = $this->realisationChapitreService->find($id);
+        $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
 
 
         $chapitres = $this->chapitreService->all();
@@ -125,7 +125,7 @@ class BaseRealisationChapitreController extends AdminController
         $this->viewState->setContextKey('realisationChapitre.edit_' . $id);
 
 
-        $itemRealisationChapitre = $this->realisationChapitreService->find($id);
+        $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
 
 
         $chapitres = $this->chapitreService->all();
@@ -138,6 +138,7 @@ class BaseRealisationChapitreController extends AdminController
         }
 
         return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
+
 
     }
     public function update(RealisationChapitreRequest $request, string $id) {

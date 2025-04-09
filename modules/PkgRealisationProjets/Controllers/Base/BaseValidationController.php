@@ -115,7 +115,7 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKey('validation.edit_' . $id);
 
 
-        $itemValidation = $this->validationService->find($id);
+        $itemValidation = $this->validationService->edit($id);
         $this->authorize('view', $itemValidation);
 
 
@@ -135,7 +135,7 @@ class BaseValidationController extends AdminController
         $this->viewState->setContextKey('validation.edit_' . $id);
 
 
-        $itemValidation = $this->validationService->find($id);
+        $itemValidation = $this->validationService->edit($id);
         $this->authorize('edit', $itemValidation);
 
 
@@ -148,6 +148,7 @@ class BaseValidationController extends AdminController
         }
 
         return view('PkgRealisationProjets::validation.edit', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
+
 
     }
     public function update(ValidationRequest $request, string $id) {

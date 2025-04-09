@@ -105,7 +105,7 @@ class BaseRoleController extends AdminController
         $this->viewState->setContextKey('role.edit_' . $id);
 
 
-        $itemRole = $this->roleService->find($id);
+        $itemRole = $this->roleService->edit($id);
 
 
         $permissions = $this->permissionService->all();
@@ -125,7 +125,7 @@ class BaseRoleController extends AdminController
         $this->viewState->setContextKey('role.edit_' . $id);
 
 
-        $itemRole = $this->roleService->find($id);
+        $itemRole = $this->roleService->edit($id);
 
 
         $permissions = $this->permissionService->all();
@@ -138,6 +138,7 @@ class BaseRoleController extends AdminController
         }
 
         return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
+
 
     }
     public function update(RoleRequest $request, string $id) {

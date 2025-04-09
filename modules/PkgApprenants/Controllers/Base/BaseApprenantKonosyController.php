@@ -93,7 +93,7 @@ class BaseApprenantKonosyController extends AdminController
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
 
-        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+        $itemApprenantKonosy = $this->apprenantKonosyService->edit($id);
 
 
 
@@ -110,7 +110,7 @@ class BaseApprenantKonosyController extends AdminController
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
 
 
-        $itemApprenantKonosy = $this->apprenantKonosyService->find($id);
+        $itemApprenantKonosy = $this->apprenantKonosyService->edit($id);
 
 
 
@@ -120,6 +120,7 @@ class BaseApprenantKonosyController extends AdminController
         }
 
         return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('itemApprenantKonosy',),));
+
 
     }
     public function update(ApprenantKonosyRequest $request, string $id) {

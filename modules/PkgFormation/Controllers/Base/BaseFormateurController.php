@@ -113,7 +113,7 @@ class BaseFormateurController extends AdminController
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
 
-        $itemFormateur = $this->formateurService->find($id);
+        $itemFormateur = $this->formateurService->edit($id);
 
 
         $specialites = $this->specialiteService->all();
@@ -189,7 +189,7 @@ class BaseFormateurController extends AdminController
         $this->viewState->setContextKey('formateur.edit_' . $id);
 
 
-        $itemFormateur = $this->formateurService->find($id);
+        $itemFormateur = $this->formateurService->edit($id);
 
 
         $specialites = $this->specialiteService->all();
@@ -258,6 +258,7 @@ class BaseFormateurController extends AdminController
         }
 
         return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+
 
     }
     public function update(FormateurRequest $request, string $id) {

@@ -105,7 +105,7 @@ class BasePrioriteTacheController extends AdminController
         $this->viewState->setContextKey('prioriteTache.edit_' . $id);
 
 
-        $itemPrioriteTache = $this->prioriteTacheService->find($id);
+        $itemPrioriteTache = $this->prioriteTacheService->edit($id);
         $this->authorize('view', $itemPrioriteTache);
 
 
@@ -124,7 +124,7 @@ class BasePrioriteTacheController extends AdminController
         $this->viewState->setContextKey('prioriteTache.edit_' . $id);
 
 
-        $itemPrioriteTache = $this->prioriteTacheService->find($id);
+        $itemPrioriteTache = $this->prioriteTacheService->edit($id);
         $this->authorize('edit', $itemPrioriteTache);
 
 
@@ -136,6 +136,7 @@ class BasePrioriteTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache','formateurs'),));
+
 
     }
     public function update(PrioriteTacheRequest $request, string $id) {

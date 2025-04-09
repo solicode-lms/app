@@ -109,7 +109,7 @@ class BaseLabelRealisationTacheController extends AdminController
         $this->viewState->setContextKey('labelRealisationTache.edit_' . $id);
 
 
-        $itemLabelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $itemLabelRealisationTache = $this->labelRealisationTacheService->edit($id);
         $this->authorize('view', $itemLabelRealisationTache);
 
 
@@ -129,7 +129,7 @@ class BaseLabelRealisationTacheController extends AdminController
         $this->viewState->setContextKey('labelRealisationTache.edit_' . $id);
 
 
-        $itemLabelRealisationTache = $this->labelRealisationTacheService->find($id);
+        $itemLabelRealisationTache = $this->labelRealisationTacheService->edit($id);
         $this->authorize('edit', $itemLabelRealisationTache);
 
 
@@ -142,6 +142,7 @@ class BaseLabelRealisationTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
+
 
     }
     public function update(LabelRealisationTacheRequest $request, string $id) {

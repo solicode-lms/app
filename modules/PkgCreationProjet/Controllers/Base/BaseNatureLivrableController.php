@@ -94,7 +94,7 @@ class BaseNatureLivrableController extends AdminController
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
 
 
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
+        $itemNatureLivrable = $this->natureLivrableService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseNatureLivrableController extends AdminController
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
 
 
-        $itemNatureLivrable = $this->natureLivrableService->find($id);
+        $itemNatureLivrable = $this->natureLivrableService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseNatureLivrableController extends AdminController
         }
 
         return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
+
 
     }
     public function update(NatureLivrableRequest $request, string $id) {

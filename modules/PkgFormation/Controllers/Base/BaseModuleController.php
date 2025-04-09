@@ -98,7 +98,7 @@ class BaseModuleController extends AdminController
         $this->viewState->setContextKey('module.edit_' . $id);
 
 
-        $itemModule = $this->moduleService->find($id);
+        $itemModule = $this->moduleService->edit($id);
 
 
         $filieres = $this->filiereService->all();
@@ -123,7 +123,7 @@ class BaseModuleController extends AdminController
         $this->viewState->setContextKey('module.edit_' . $id);
 
 
-        $itemModule = $this->moduleService->find($id);
+        $itemModule = $this->moduleService->edit($id);
 
 
         $filieres = $this->filiereService->all();
@@ -141,6 +141,7 @@ class BaseModuleController extends AdminController
         }
 
         return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
+
 
     }
     public function update(ModuleRequest $request, string $id) {

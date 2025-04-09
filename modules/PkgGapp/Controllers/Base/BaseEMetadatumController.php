@@ -105,7 +105,7 @@ class BaseEMetadatumController extends AdminController
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
 
-        $itemEMetadatum = $this->eMetadatumService->find($id);
+        $itemEMetadatum = $this->eMetadatumService->edit($id);
 
 
         $eModels = $this->eModelService->all();
@@ -125,7 +125,7 @@ class BaseEMetadatumController extends AdminController
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
 
 
-        $itemEMetadatum = $this->eMetadatumService->find($id);
+        $itemEMetadatum = $this->eMetadatumService->edit($id);
 
 
         $eModels = $this->eModelService->all();
@@ -138,6 +138,7 @@ class BaseEMetadatumController extends AdminController
         }
 
         return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+
 
     }
     public function update(EMetadatumRequest $request, string $id) {

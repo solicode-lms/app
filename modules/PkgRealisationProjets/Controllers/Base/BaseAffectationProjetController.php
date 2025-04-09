@@ -133,7 +133,7 @@ class BaseAffectationProjetController extends AdminController
             $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-        $itemAffectationProjet = $this->affectationProjetService->find($id);
+        $itemAffectationProjet = $this->affectationProjetService->edit($id);
         $this->authorize('view', $itemAffectationProjet);
 
 
@@ -171,7 +171,7 @@ class BaseAffectationProjetController extends AdminController
             $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
 
-        $itemAffectationProjet = $this->affectationProjetService->find($id);
+        $itemAffectationProjet = $this->affectationProjetService->edit($id);
         $this->authorize('edit', $itemAffectationProjet);
 
 
@@ -196,6 +196,7 @@ class BaseAffectationProjetController extends AdminController
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+
 
     }
     public function update(AffectationProjetRequest $request, string $id) {

@@ -105,7 +105,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
 
-        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->edit($id);
         $this->authorize('view', $itemEtatsRealisationProjet);
 
 
@@ -124,7 +124,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
 
 
-        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($id);
+        $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->edit($id);
         $this->authorize('edit', $itemEtatsRealisationProjet);
 
 
@@ -136,6 +136,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+
 
     }
     public function update(EtatsRealisationProjetRequest $request, string $id) {

@@ -97,7 +97,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
 
 
-        $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->find($id);
+        $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->edit($id);
 
 
         $realisationTaches = $this->realisationTacheService->all();
@@ -115,7 +115,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
 
 
-        $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->find($id);
+        $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->edit($id);
 
 
         $realisationTaches = $this->realisationTacheService->all();
@@ -126,6 +126,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
+
 
     }
     public function update(HistoriqueRealisationTacheRequest $request, string $id) {

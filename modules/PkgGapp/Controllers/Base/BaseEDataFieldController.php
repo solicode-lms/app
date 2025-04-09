@@ -102,7 +102,7 @@ class BaseEDataFieldController extends AdminController
         $this->viewState->setContextKey('eDataField.edit_' . $id);
 
 
-        $itemEDataField = $this->eDataFieldService->find($id);
+        $itemEDataField = $this->eDataFieldService->edit($id);
 
 
         $eModels = $this->eModelService->all();
@@ -128,7 +128,7 @@ class BaseEDataFieldController extends AdminController
         $this->viewState->setContextKey('eDataField.edit_' . $id);
 
 
-        $itemEDataField = $this->eDataFieldService->find($id);
+        $itemEDataField = $this->eDataFieldService->edit($id);
 
 
         $eModels = $this->eModelService->all();
@@ -147,6 +147,7 @@ class BaseEDataFieldController extends AdminController
         }
 
         return view('PkgGapp::eDataField.edit', array_merge(compact('itemEDataField','eModels', 'eRelationships'),$eMetadatum_compact_value));
+
 
     }
     public function update(EDataFieldRequest $request, string $id) {

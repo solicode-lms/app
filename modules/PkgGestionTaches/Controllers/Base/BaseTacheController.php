@@ -115,7 +115,7 @@ class BaseTacheController extends AdminController
         $this->viewState->setContextKey('tache.edit_' . $id);
 
 
-        $itemTache = $this->tacheService->find($id);
+        $itemTache = $this->tacheService->edit($id);
 
         // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet.formateur_id');
@@ -192,6 +192,7 @@ class BaseTacheController extends AdminController
         }
 
         return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+
 
     }
     public function update(TacheRequest $request, string $id) {

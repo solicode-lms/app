@@ -103,7 +103,7 @@ class BaseCompetenceController extends AdminController
         $this->viewState->setContextKey('competence.edit_' . $id);
 
 
-        $itemCompetence = $this->competenceService->find($id);
+        $itemCompetence = $this->competenceService->edit($id);
 
 
         $modules = $this->moduleService->all();
@@ -136,7 +136,7 @@ class BaseCompetenceController extends AdminController
         $this->viewState->setContextKey('competence.edit_' . $id);
 
 
-        $itemCompetence = $this->competenceService->find($id);
+        $itemCompetence = $this->competenceService->edit($id);
 
 
         $modules = $this->moduleService->all();
@@ -162,6 +162,7 @@ class BaseCompetenceController extends AdminController
         }
 
         return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+
 
     }
     public function update(CompetenceRequest $request, string $id) {

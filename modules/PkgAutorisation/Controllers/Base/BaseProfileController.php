@@ -130,7 +130,7 @@ class BaseProfileController extends AdminController
             $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
 
-        $itemProfile = $this->profileService->find($id);
+        $itemProfile = $this->profileService->edit($id);
         $this->authorize('view', $itemProfile);
 
 
@@ -155,7 +155,7 @@ class BaseProfileController extends AdminController
             $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
         }
 
-        $itemProfile = $this->profileService->find($id);
+        $itemProfile = $this->profileService->edit($id);
         $this->authorize('edit', $itemProfile);
 
 
@@ -167,6 +167,7 @@ class BaseProfileController extends AdminController
         }
 
         return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
+
 
     }
     public function update(ProfileRequest $request, string $id) {

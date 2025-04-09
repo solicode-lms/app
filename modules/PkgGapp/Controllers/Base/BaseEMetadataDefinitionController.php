@@ -94,7 +94,7 @@ class BaseEMetadataDefinitionController extends AdminController
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
 
 
-        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+        $itemEMetadataDefinition = $this->eMetadataDefinitionService->edit($id);
 
 
 
@@ -118,7 +118,7 @@ class BaseEMetadataDefinitionController extends AdminController
         $this->viewState->setContextKey('eMetadataDefinition.edit_' . $id);
 
 
-        $itemEMetadataDefinition = $this->eMetadataDefinitionService->find($id);
+        $itemEMetadataDefinition = $this->eMetadataDefinitionService->edit($id);
 
 
 
@@ -135,6 +135,7 @@ class BaseEMetadataDefinitionController extends AdminController
         }
 
         return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
+
 
     }
     public function update(EMetadataDefinitionRequest $request, string $id) {

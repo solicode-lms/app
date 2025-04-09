@@ -98,7 +98,7 @@ class BaseSysControllerController extends AdminController
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
 
-        $itemSysController = $this->sysControllerService->find($id);
+        $itemSysController = $this->sysControllerService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -123,7 +123,7 @@ class BaseSysControllerController extends AdminController
         $this->viewState->setContextKey('sysController.edit_' . $id);
 
 
-        $itemSysController = $this->sysControllerService->find($id);
+        $itemSysController = $this->sysControllerService->edit($id);
 
 
         $sysModules = $this->sysModuleService->all();
@@ -141,6 +141,7 @@ class BaseSysControllerController extends AdminController
         }
 
         return view('Core::sysController.edit', array_merge(compact('itemSysController','sysModules'),$permission_compact_value));
+
 
     }
     public function update(SysControllerRequest $request, string $id) {

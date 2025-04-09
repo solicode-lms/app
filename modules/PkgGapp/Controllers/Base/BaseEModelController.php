@@ -99,7 +99,7 @@ class BaseEModelController extends AdminController
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
 
-        $itemEModel = $this->eModelService->find($id);
+        $itemEModel = $this->eModelService->edit($id);
 
 
         $ePackages = $this->ePackageService->all();
@@ -131,7 +131,7 @@ class BaseEModelController extends AdminController
         $this->viewState->setContextKey('eModel.edit_' . $id);
 
 
-        $itemEModel = $this->eModelService->find($id);
+        $itemEModel = $this->eModelService->edit($id);
 
 
         $ePackages = $this->ePackageService->all();
@@ -156,6 +156,7 @@ class BaseEModelController extends AdminController
         }
 
         return view('PkgGapp::eModel.edit', array_merge(compact('itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
+
 
     }
     public function update(EModelRequest $request, string $id) {

@@ -106,7 +106,7 @@ class BaseRealisationFormationController extends AdminController
         $this->viewState->setContextKey('realisationFormation.edit_' . $id);
 
 
-        $itemRealisationFormation = $this->realisationFormationService->find($id);
+        $itemRealisationFormation = $this->realisationFormationService->edit($id);
 
 
         $formations = $this->formationService->all();
@@ -133,7 +133,7 @@ class BaseRealisationFormationController extends AdminController
         $this->viewState->setContextKey('realisationFormation.edit_' . $id);
 
 
-        $itemRealisationFormation = $this->realisationFormationService->find($id);
+        $itemRealisationFormation = $this->realisationFormationService->edit($id);
 
 
         $formations = $this->formationService->all();
@@ -153,6 +153,7 @@ class BaseRealisationFormationController extends AdminController
         }
 
         return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
+
 
     }
     public function update(RealisationFormationRequest $request, string $id) {
