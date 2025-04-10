@@ -23,6 +23,7 @@ class Role extends ModelsRole
     // }
 
     public const ADMIN_ROLE = "admin";
+    public const ADMIN_FORMATEUR_ROLE = "admin-formateur";
     public const FORMATEUR_ROLE = "formateur";
     public const GAPP_ROLE = "gapp";
 
