@@ -81,8 +81,7 @@ use Illuminate\Support\Facades\Auth;
         // Fusionner les données de la requête et de la route
         $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
     
-        // TODO : dans ui : remplacer "." ver "__" ensuit ici, replace "__" to "." pour resoudre le problème de 
-        // convertion automatique de "." vers "_" par laravel
+        
         foreach ($allParams as $key => $value) {
             if (preg_match('/^(filter|scope)_(.*?)_(.*?)$/', $key, $matches)) {
                 // Récupérer le préfixe (filter ou scope)
