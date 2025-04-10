@@ -82,7 +82,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             $workflowTaches = $workflowTacheService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
                 __("PkgGestionTaches::workflowTache.plural"), 
-                'etatRealisationTache.workflow_tache_id', 
+                'EtatRealisationTache.Workflow_tache_id', 
                 WorkflowTache::class, 
                 "id",
                 $workflowTaches

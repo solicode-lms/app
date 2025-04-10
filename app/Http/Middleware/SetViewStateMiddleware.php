@@ -76,32 +76,80 @@ use Illuminate\Support\Facades\Auth;
      * @param Request $request
      * @param ContextState $contextState
      */
-    protected function readFromRequest(Request $request, ViewStateService $viewState)
-    {
-        // Fusionner les données de la requête et de la route
-        $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
+    // protected function readFromRequest(Request $request, ViewStateService $viewState)
+    // {
+    //     // Fusionner les données de la requête et de la route
+    //     $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
     
         
-        foreach ($allParams as $key => $value) {
-            if (preg_match('/^(filter|scope)_(.*?)_(.*?)$/', $key, $matches)) {
-                // Récupérer le préfixe (filter ou scope)
-                $prefix = $matches[1];
+    //     foreach ($allParams as $key => $value) {
+    //         if (preg_match('/^(filter|scope)_(.*?)_(.*?)$/', $key, $matches)) {
+    //             // Récupérer le préfixe (filter ou scope)
+    //             $prefix = $matches[1];
     
-                // Récupérer le ModelName (entre les underscores)
-                $modelName = $matches[2];
+    //             // Récupérer le ModelName (entre les underscores)
+    //             $modelName = $matches[2];
     
-                // L'attribut peut être une relation 
-                // La relation est envoyer par "/" et non par "." car Laravel converti "." vers "_"
-                // Récupérer et normaliser l'attribut (remplacer "/" par ".")
-                $attribute = str_replace('/', '.', $matches[3]);
+    //             // L'attribut peut être une relation 
+    //             // La relation est envoyer par "/" et non par "." car Laravel converti "." vers "_"
+    //             // Récupérer et normaliser l'attribut (remplacer "/" par ".")
+    //             $attribute = str_replace('/', '.', $matches[3]);
 
-                // Construire la nouvelle clé avec des "."
-                $normalizedKey = "$prefix.$modelName.$attribute";
+    //             // Construire la nouvelle clé avec des "."
+    //             $normalizedKey = "$prefix.$modelName.$attribute";
     
-                // Enregistrer la valeur corrigée dans ViewState
-                $viewState->set($normalizedKey, $value);
-            } 
+    //             // Enregistrer la valeur corrigée dans ViewState
+    //             $viewState->set($normalizedKey, $value);
+    //         } 
+    //     }
+    // }
+protected function readFromRequest(Request $request, ViewStateService $viewState)
+{
+
+   
+    // Fusionner les données de la requête et de la route
+    $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
+
+    foreach ($allParams as $key => $value) {
+        // Remplacer les underscores par des points pour retrouver la hiérarchie originale
+        $normalizedKey = str_replace('_', '.', $key);
+
+
+        // Diviser la clé en segments
+        $segments = explode('.', $normalizedKey);
+
+        // Explication de problème de convertion automatique de "." vers "_" par Laravel
+        // La solution : utilisation des attribute qui commencer par une lettre majuscule
+        // et convertion vers la forme normale par ce code
+
+        // Vérifier si le premier segment est 'filter' ou 'scope'
+        if (in_array($segments[0], ['filter', 'scope'])) {
+            // Initialiser les segments normalisés avec le premier niveau (filter ou scope)
+            $normalizedSegments = [$segments[0]];
+        
+            // Supprimer le premier segment de la liste (filter ou scope)
+            $remainingSegments = array_slice($segments, 1);
+        
+            foreach ($remainingSegments as $segment) {
+                // Si le segment commence par une majuscule, on démarre un nouveau segment
+                if (preg_match('/^[A-Z]/', $segment)) {
+                    $normalizedSegments[] = lcfirst($segment);
+                } else {
+                    // Sinon, on concatène au dernier segment avec un underscore
+                    $lastIndex = count($normalizedSegments) - 1;
+                    $normalizedSegments[$lastIndex] .= '_' . $segment;
+                }
+            }
+        
+            // Reconstituer la clé normalisée
+            $finalKey = implode('.', $normalizedSegments);
+        
+            // Enregistrer la valeur corrigée dans ViewState
+            $viewState->set($finalKey, $value);
         }
+        
     }
+}
+
     
  }
