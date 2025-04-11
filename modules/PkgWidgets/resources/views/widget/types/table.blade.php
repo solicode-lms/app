@@ -6,12 +6,22 @@
             </h3>
             <div class="card-tools ">
                 <span title="Nombre des éléménts" class="badge badge-info">{{ $widget->count }}</span>
-                <button type="button" class="btn btn-tool text-white" data-card-widget="collapse">
+
+                
+                @if($widget->link )
+                <a href="{{ $widget->link }}" class="btn btn-tool text-{{$widget?->sysColor?->textColor}}"  title="Voir les détails">  
+                    <i class="fas fa-search-plus"></i></a>
+                @endif
+
+                <button type="button" class="btn btn-tool text-{{$widget?->sysColor?->textColor}}" 
+                    data-store-key="collapse-widget-{{ $widget->id }}"
+                    data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-tool text-white" data-card-widget="remove">
+                <button type="button" class="btn btn-tool text-{{$widget?->sysColor?->textColor}}" data-card-widget="remove">
                   <i class="fas fa-times"></i>
                 </button>
+             
             </div>
         </div>
         <div class="card-body">
@@ -35,6 +45,12 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer clearfix">
+            @if($widget->link )
+            <a href="{{ $widget->link }}" class="small-box-footer"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
+            @endif
+           
         </div>
     </div>
     

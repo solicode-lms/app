@@ -104,6 +104,11 @@ class ViewStateService
         return $this->viewStateData ?? [];
     }
 
+    public function getDataSourceVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['dataSource']);
+    }
+
     public function getScopeVariables(string $modelName): array
     {
         return $this->extractVariables($modelName, ['scope']);

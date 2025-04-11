@@ -36,7 +36,7 @@
     <x-crud-header 
         id="apprenant-crud-header" icon="fas fa-id-card"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::apprenant.plural') }}"
+        title="{{ $apprenant_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

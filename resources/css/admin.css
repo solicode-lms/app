@@ -31,6 +31,9 @@
 }
 
 
+.text-black{
+    color: #000 !important;
+}
 /* Menu Aside */
 
 [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link {

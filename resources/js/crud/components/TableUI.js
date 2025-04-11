@@ -147,6 +147,39 @@ export class TableUI {
                 }
             );
         });
+
+        this.widgetStateLocalStorage();
     }
+
+    widgetStateLocalStorage() {
+        document.querySelectorAll('[data-card-widget="collapse"]').forEach(button => {
+            const card = button.closest('.card');
+            const key = button.dataset.storeKey;
+    
+            if (!card || !key) return;
+    
+            // 🟢 Appliquer l'état initial
+            const savedState = localStorage.getItem(key);
+            if (savedState === 'collapsed' && !card.classList.contains('collapsed-card')) {
+                button.click();
+            }
+    
+            // 👁️ Observer le changement de classe collapsed-card
+            const observer = new MutationObserver((mutationsList) => {
+                for (const mutation of mutationsList) {
+                    if (mutation.attributeName === 'class') {
+                        if (card.classList.contains('collapsed-card')) {
+                            localStorage.setItem(key, 'collapsed');
+                        } else {
+                            localStorage.setItem(key, 'expanded');
+                        }
+                    }
+                }
+            });
+    
+            observer.observe(card, { attributes: true });
+        });
+    }
+    
 
 }

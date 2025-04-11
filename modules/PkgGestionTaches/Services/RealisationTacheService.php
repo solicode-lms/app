@@ -6,7 +6,9 @@ namespace Modules\PkgGestionTaches\Services;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Services\ApprenantService;
+use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgGestionTaches\Models\Tache;
@@ -40,6 +42,25 @@ class RealisationTacheService extends BaseRealisationTacheService
         $this->fieldsFilterable = [];
         $sessionState = $this->sessionState;
 
+        // Groupe 
+        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
+            // Affichage de l'état de solicode
+            $groupeService = new GroupeService();
+            $groupes = $groupeService->all();
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgApprenants::Groupe.plural"), 
+                'RealisationProjet.AffectationProjet.Groupe_id', 
+                Groupe::class, 
+                "code",
+                "id",
+                $groupes,
+                "[name='RealisationProjet.Affectation_projet_id']",
+                route('affectationProjets.getData'),
+                "groupe_id"
+            );
+        }
+
+
         // TODO Gapp :  ajouter les params de DynamicDromdonw depuis metaData DynamicDropdonw
         // AffectationProjet
         $affectationProjetService = new AffectationProjetService();
@@ -50,7 +71,7 @@ class RealisationTacheService extends BaseRealisationTacheService
         };
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgRealisationProjets::affectationProjet.plural"), 
-            'realisationProjet.affectation_projet_id', 
+            'RealisationProjet.Affectation_projet_id', 
             AffectationProjet::class, 
             "id","id",
             $affectationProjets, 
@@ -76,7 +97,10 @@ class RealisationTacheService extends BaseRealisationTacheService
                 \Modules\PkgGestionTaches\Models\EtatRealisationTache::class, 
                 'nom',
                 $etatRealisationTaches);
-        }else{
+        }
+        
+      
+        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.EtatRealisationTache.WorkflowTache.Code") ) ) {
             // Affichage de l'état de solicode
             $workflowTacheService = new WorkflowTacheService();
             $workflowTaches = $workflowTacheService->all();

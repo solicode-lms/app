@@ -47,6 +47,18 @@ abstract class BaseService implements ServiceInterface
     protected $totalFilteredCount;
 
     /**
+     * Le titre à afficher dnas la page Index
+     *
+     * @var [type]
+     */
+    protected $title;
+
+    /** Configuration pour afficher CRUD sur une source donnée Query à partie d'une méthode 
+     * qui retourne un objet de type builder
+     */
+    protected $dataSources = [];
+
+    /**
      * Méthode abstraite pour obtenir les champs recherchables.
      *
      * @return array

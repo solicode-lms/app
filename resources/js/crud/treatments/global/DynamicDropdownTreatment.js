@@ -14,7 +14,15 @@ export default class DynamicDropdownTreatment {
         this.apiUrlTemplate = triggerElement.dataset.targetDynamicDropdownApiUrl;
         this.targetDynamicDropdownFilter = triggerElement.dataset.targetDynamicDropdownFilter;
 
-        this.loader = new LoadingIndicator(this.config.formSelector);
+        let containerSelector = '#card_crud';
+        if (this.config.formSelector && document.querySelector(this.config.formSelector)) {
+            containerSelector = this.config.formSelector;
+        } else if (this.config.filterFormSelector && document.querySelector(this.config.filterFormSelector)) {
+            containerSelector = this.config.filterFormSelector;
+        }
+        this.loader = new LoadingIndicator(containerSelector);
+
+
         if (!this.targetSelector || !this.apiUrlTemplate) {
             console.warn("Attributs data-target ou data-api-url manquants pour DynamicDropdownTreatment.");
             return;
@@ -41,8 +49,10 @@ export default class DynamicDropdownTreatment {
             await this.updateTargetDropdown(event.target.value);
         });
 
-        // Cas de mise à jour : si le champ déclencheur a une valeur initiale, charger les options
+        // Cas de mise à jour : si le champ déclencheur a une valeur initiale, 
+        // id target element est vide : charger les options
         if (this.triggerElement.value) {
+ 
              this.updateTargetDropdown(this.triggerElement.value);
         }
 
@@ -54,8 +64,12 @@ export default class DynamicDropdownTreatment {
      */
     async updateTargetDropdown(selectedValue) {
 
-        if(!selectedValue){
-            return;
+        if(!selectedValue){ return; }
+
+        // Vérifier si la valeur est déjà chargée
+        const previouslyLoadedFor = this.targetElement.getAttribute("data-loaded-for");
+        if (previouslyLoadedFor === selectedValue) {
+            return; // Ne rien faire si les données sont déjà chargées
         }
         const apiUrl = `${this.apiUrlTemplate}?filter=${this.targetDynamicDropdownFilter}&value=${selectedValue}`;
         const previousSelection = this.targetElement.value;
@@ -69,6 +83,9 @@ export default class DynamicDropdownTreatment {
           
             const data =  html;
             this.populateDropdown(data, previousSelection);
+
+            // 🔄 Marquer comme chargée pour cette valeur
+            this.targetElement.setAttribute("data-loaded-for", selectedValue);
         })
         .fail((xhr) => {
             AjaxErrorHandler.handleError(xhr, 'Impossible de charger les options.');

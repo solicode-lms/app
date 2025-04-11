@@ -7,6 +7,32 @@ use Illuminate\Support\Str;
 
 trait QueryBuilderTrait
 {
+    public function newQuery(){
+
+        // $this->dataSources
+        // Exemple de configuration : DataSouce
+        // protected $dataSources = [
+        //     "apprenantSansTacheEnCours" => [
+        //         "title" => "Apprenants qui n'ont pas de tâches en cours",
+        //         "method" => "apprenantSansTacheEnCoursQuery"
+        //     ],
+        // ];
+        $dataSource = $this->viewState->getDataSourceVariables($this->modelName);
+    
+        if ($dataSource && isset($this->dataSources[$dataSource["code"]])) {
+            $sourceConfig = $this->dataSources[$dataSource["code"]];
+    
+            // On récupère dynamiquement la méthode de requête à appeler
+            $method = $sourceConfig['method'] ?? null;
+    
+            if ($method && method_exists($this, $method)) {
+                $this->title = $sourceConfig['title'] ?? $this->title;
+                return $this->$method();
+            }
+        }
+        
+        return $this->model->newQuery();
+    }
 
     // TODO : ajouter une recherche sur les relation ManyToOne,
     // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
@@ -19,7 +45,7 @@ trait QueryBuilderTrait
     public function allQuery(array $params = [],$query = null): Builder
     {
         if($query == null) {
-            $query = $this->model->newQuery();
+            $query = $this->newQuery();
         }
      
         $table = $this->model->getTable();

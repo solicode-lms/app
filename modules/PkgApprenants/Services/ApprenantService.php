@@ -6,16 +6,28 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprenants\Services\ApprenantService\ApprenantServiceWidgets;
 use Modules\PkgApprenants\Services\Base\BaseApprenantService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgFormation\Models\Filiere;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Classe ApprenantService pour gérer la persistance de l'entité Apprenant.
  */
 class ApprenantService extends BaseApprenantService
 {
+    use ApprenantServiceWidgets;
+
+    protected $dataSources = [
+        "apprenantSansTacheEnCours" => [
+            "title" => "Apprenants qui n'ont pas de tâches en cours",
+            "method" => "apprenantSansTacheEnCoursQuery"
+        ],
+        // Tu peux ajouter d'autres sources ici
+    ];
+    
 
     public function find(int $id, array $columns = ['*']){
         return $this->model::withoutGlobalScope('inactif')->find($id);

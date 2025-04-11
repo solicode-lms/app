@@ -13,6 +13,8 @@ use Modules\Core\Services\BaseService;
  */
 class BaseApprenantService extends BaseService
 {
+
+  
     /**
      * Les champs de recherche disponibles pour apprenants.
      *
@@ -56,6 +58,7 @@ class BaseApprenantService extends BaseService
     {
         parent::__construct(new Apprenant());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::apprenant.plural');
     }
 
 
@@ -158,7 +161,7 @@ class BaseApprenantService extends BaseService
         $apprenant_instance = $this->createInstance();
         $apprenant_viewTypes = $this->getViewTypes();
         $apprenant_partialViewName = $this->getPartialViewName($apprenant_viewType);
-    
+        $apprenant_title = $this->title;
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.apprenant.stats', $apprenants_stats);
     
@@ -169,7 +172,8 @@ class BaseApprenantService extends BaseService
             'apprenants_data',
             'apprenants_stats',
             'apprenants_filters',
-            'apprenant_instance'
+            'apprenant_instance',
+            'apprenant_title'
         );
     
         return [

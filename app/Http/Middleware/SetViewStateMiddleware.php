@@ -124,39 +124,41 @@ use Illuminate\Support\Facades\Auth;
             $request->all(),
             $request->route() ? $request->route()->parameters() : []
         );
-
+    
         foreach ($allParams as $key => $value) {
             // Remplacer les underscores par des points pour simuler l’arborescence
             $normalizedKey = str_replace('_', '.', $key);
             $segments = explode('.', $normalizedKey);
-
+    
             // On ne traite que les clés commençant par "filter" ou "scope"
-            if (!preg_match('/^(filter|scope)\.[A-Z][a-zA-Z0-9]*(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
+            if (!preg_match('/^(filter|scope|dataSource)(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
                 continue;
             }
-
-            // Initialiser les segments normalisés avec 'filter'/'scope' et 'Model'
-            $normalizedSegments = [$segments[0], $segments[1]];
-            $remainingSegments = array_slice($segments, 2);
-
-            foreach ($remainingSegments as $segment) {
-                // Nouveau niveau : segment commençant par une majuscule (ex: EtatTache)
+    
+            // Initialiser avec les deux premiers segments (ex: filter, RealisationTache)
+            $normalizedSegments = [$segments[0], $segments[1], $segments[2]];
+    
+            // Analyse à partir du 3e index (4e segment)
+            foreach (array_slice($segments, 3) as $i => $segment) {
+                $absoluteIndex = $i + 2;
+    
                 if (preg_match('/^[A-Z]/', $segment)) {
-                    $normalizedSegments[] = $segment; // camelCase
+                    // Nouveau niveau hiérarchique
+                    $normalizedSegments[] = $segment;
                 } else {
-                    // Attribut : conserver en snake_case
+                    // Ajouter comme suffixe à l’élément précédent (avec _)
                     $lastIndex = count($normalizedSegments) - 1;
                     $normalizedSegments[$lastIndex] .= '_' . $segment;
                 }
             }
-
-            // Reconstruction finale du nom hiérarchique
+    
+            // Clé finale sous forme hiérarchique
             $finalKey = implode('.', $normalizedSegments);
-
+    
             // Enregistrement dans ViewState
             $viewState->set($finalKey, $value);
         }
     }
-
+    
     
  }
