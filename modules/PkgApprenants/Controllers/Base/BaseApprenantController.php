@@ -42,11 +42,10 @@ class BaseApprenantController extends AdminController
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
 
       
-        $dataSource = $this->viewState->getDataSourceVariables("apprenant");
-    
-        if ($dataSource) {
-            $this->viewState->set('dataSource.apprenant.code',$dataSource["code"]);
-        }
+        // $dataSource = $this->viewState->getDataSourceVariables("apprenant");
+        // if ($dataSource) {
+        //     $this->viewState->set('dataSource.apprenant.code',$dataSource["code"],'apprenant.index');
+        // }
 
 
         // scopeDataByRole pour Model

@@ -42,6 +42,9 @@ class ViewStateService
     public function setContextKey(string $currentContextKey){
         $this->currentContextKey = $currentContextKey;
     }
+    public function getContextKey(){
+        return $this->currentContextKey;
+    }
     public function setContextKeyIfEmpty(string $currentContextKey){
         if($this->currentContextKey == "default_context"){
             $this->currentContextKey = $currentContextKey;
@@ -61,10 +64,17 @@ class ViewStateService
         return $this->viewStateData[$this->currentContextKey][$key] ?? $default;
     }
 
-    public function set(string $key, mixed $value): void
+    public function set(string $key, mixed $value, ?string $contextKey = null): void
     {
-        $this->viewStateData[$this->currentContextKey][$key] = $value;
+        $context = $contextKey ?? $this->currentContextKey;
+
+        if (!isset($this->viewStateData[$context])) {
+            $this->viewStateData[$context] = [];
+        }
+
+        $this->viewStateData[$context][$key] = $value;
     }
+    
     public function setIfEmpty(string $key, mixed $value): void
     {
         if($this->get($key) == null){

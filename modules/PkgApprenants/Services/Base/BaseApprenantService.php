@@ -160,6 +160,7 @@ class BaseApprenantService extends BaseService
         $apprenant_viewTypes = $this->getViewTypes();
         $apprenant_partialViewName = $this->getPartialViewName($apprenant_viewType);
         $apprenant_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.apprenant.stats', $apprenants_stats);
     
@@ -171,7 +172,8 @@ class BaseApprenantService extends BaseService
             'apprenants_stats',
             'apprenants_filters',
             'apprenant_instance',
-            'apprenant_title'
+            'apprenant_title',
+            'contextKey'
         );
     
         return [
@@ -182,6 +184,7 @@ class BaseApprenantService extends BaseService
             'apprenant_viewType' => $apprenant_viewType,
             'apprenant_viewTypes' => $apprenant_viewTypes,
             'apprenant_partialViewName' => $apprenant_partialViewName,
+            'contextKey' => $contextKey,
             'apprenant_compact_value' => $compact_value
         ];
     }
