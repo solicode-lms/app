@@ -17,7 +17,7 @@ trait ApprenantServiceWidgets
 // Widgets - DataSource 
 
 
-    public function getApprenantSansTacheAFaire()
+    public function getApprenantSansTacheAFaireQuery(): Builder
     {
         $user = Auth::user();
 
@@ -38,6 +38,13 @@ trait ApprenantServiceWidgets
         }
 
         // return $query->get();
+
+        return $query;
+    }
+
+    public function getApprenantSansTacheAFaire()
+    {
+        $query = $this->getApprenantSansTacheAFaireQuery();
 
         return $query->get()->map(function ($apprenant) {
 

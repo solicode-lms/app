@@ -25,7 +25,10 @@ class ApprenantService extends BaseApprenantService
             "title" => "Apprenants qui n'ont pas de tâches en cours",
             "method" => "apprenantSansTacheEnCoursQuery"
         ],
-        // Tu peux ajouter d'autres sources ici
+        "apprenantSansTacheAFaire" => [
+            "title" => "Apprenants qui n'ont pas de tâches à faire",
+            "method" => "getApprenantSansTacheAFaireQuery"
+        ],
     ];
     
 
