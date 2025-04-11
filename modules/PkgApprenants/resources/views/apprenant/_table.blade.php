@@ -33,12 +33,7 @@
                     </span>
                     </td>
                     <td>
-                     <span @if(strlen($apprenant->duree_sans_terminer_tache) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $apprenant->duree_sans_terminer_tache }}" 
-                        @endif>
-                        {{ Str::limit($apprenant->duree_sans_terminer_tache, 40) }}
-                    </span>
+                        <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
                     </td>
                     <td>
                         <ul>

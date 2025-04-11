@@ -9,7 +9,7 @@
 
                 
                 @if($widget->link )
-                <a href="{{ $widget->link }}" class="btn btn-tool text-{{$widget?->sysColor?->textColor}}"  title="Voir les détails">  
+                <a href="{{ $widget->link }}" class="btn btn-tool text-{{$widget?->sysColor?->textColor}} showIndex"  title="Voir les détails">  
                     <i class="fas fa-search-plus"></i></a>
                 @endif
 
@@ -48,7 +48,7 @@
         </div>
         <div class="card-footer clearfix">
             @if($widget->link )
-            <a href="{{ $widget->link }}" class="small-box-footer"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ $widget->link }}" class="small-box-footer showIndex"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
             @endif
            
         </div>

@@ -7,6 +7,7 @@ import { DeleteAction } from '../actions/DeleteAction';
 import EventUtil from './../utils/EventUtil';
 import { EntityAction } from './../actions/EntityAction';
 import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
+import { ShowIndexAction } from "../actions/ShowIndexAction";
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -17,6 +18,7 @@ export class TableUI {
         // Initialisation des actions CRUD
         this.entityCreator = new CreateAction(config,this);
         this.entityViewer = new ShowAction(config,this);
+        this.showIndex = new ShowIndexAction(config,this);
         this.entityEditor = new EditAction(config,this);
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
@@ -30,6 +32,7 @@ export class TableUI {
         this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
+        this.showIndex.init();
         this.entityAction.init();
         this.handleSorting();
         TableUI.initTooltip();
