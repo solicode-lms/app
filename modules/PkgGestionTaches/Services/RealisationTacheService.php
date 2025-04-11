@@ -52,7 +52,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             __("PkgRealisationProjets::affectationProjet.plural"), 
             'realisationProjet.affectation_projet_id', 
             AffectationProjet::class, 
-            "id",
+            "id","id",
             $affectationProjets, 
              "[name='tache_id']",
             route('taches.getData'),
@@ -82,9 +82,10 @@ class RealisationTacheService extends BaseRealisationTacheService
             $workflowTaches = $workflowTacheService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
                 __("PkgGestionTaches::workflowTache.plural"), 
-                'EtatRealisationTache.Workflow_tache_id', 
+                'EtatRealisationTache.WorkflowTache.Code', 
                 WorkflowTache::class, 
-                "id",
+                "code",
+                "code",
                 $workflowTaches
             );
         }
@@ -105,7 +106,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             __("PkgApprenants::apprenant.plural"), 
             'realisationProjet.apprenant_id', 
             \Modules\PkgApprenants\Models\Apprenant::class,
-            "id",
+            "id","id",
             $apprenants);
 
         // Tâches

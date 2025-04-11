@@ -101,7 +101,14 @@ trait QueryBuilderTrait
 
             // Vérifier si la clé contient une relation imbriquée (ex: competence.module.ecole.filiere_id)
             if (Str::contains($key, '.')) {
-                $relations = explode('.', $key);
+
+
+                // Parfois le début de segment commence par une Lettre Majuscule dure à 
+                // une solution appliquer pour passer le key en params de laravel 
+                $relations = array_map(function ($segment) {
+                    return lcfirst($segment);
+                }, explode('.', $key));
+
                 $attribute = array_pop($relations); // Récupère le dernier élément (filiere_id)
 
                 // Vérifier si la première relation existe sur le modèle

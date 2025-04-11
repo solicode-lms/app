@@ -134,6 +134,7 @@ trait FilterTrait
         string $relation, 
         string $relatedModel, 
         string $displayField = 'id', 
+        string $valueField = 'id', 
         $data = null,
         $targetDynamicDropdown = null,
         $targetDynamicDropdownApiUrl = null,
@@ -145,7 +146,7 @@ trait FilterTrait
         // Récupération des données du modèle lié en tenant compte des relations
         $data = $data ?? $relatedModel::withScope(fn() => $relatedModel::all());
 
-          $data =  $data->map(fn($item) => ['id' => $item['id'], 'label' => $item])
+          $data =  $data->map(fn($item) => ['id' => $item[$valueField], 'label' => $item])
             ->toArray();
 
         return [

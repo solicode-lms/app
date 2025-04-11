@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Auth;
              }
          }
 
-        // Charger les variables de contexte depuis la requête
+        // Charger les variables de contexte depuis la requête qui commence par filter ou scope
         $this->readFromRequest($request,$viewState);
 
  
@@ -103,53 +103,60 @@ use Illuminate\Support\Facades\Auth;
     //         } 
     //     }
     // }
-protected function readFromRequest(Request $request, ViewStateService $viewState)
-{
 
-   
-    // Fusionner les données de la requête et de la route
-    $allParams = array_merge($request->all(), $request->route() ? $request->route()->parameters() : []);
+    /**
+     * Lecture et normalisation des paramètres "filter" et "scope" depuis la requête
+     *
+     * Laravel convertit automatiquement les clés comme "filter.Model.Attr1.Attr2"
+     * en "filter_model_attr1_attr2", ce qui rend leur interprétation complexe.
+     * Cette méthode restaure la hiérarchie d'origine en utilisant une convention :
+     * - Chaque nouveau niveau est marqué par une majuscule en début de segment
+     * - Le dernier segment (attribut réel) reste en snake_case
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Modules\Core\Services\ViewStateService $viewState
+     * @return void
+     */
+    protected function readFromRequest(Request $request, ViewStateService $viewState)
+    {
+        // Fusionner les paramètres de la requête et de la route
+        $allParams = array_merge(
+            $request->all(),
+            $request->route() ? $request->route()->parameters() : []
+        );
 
-    foreach ($allParams as $key => $value) {
-        // Remplacer les underscores par des points pour retrouver la hiérarchie originale
-        $normalizedKey = str_replace('_', '.', $key);
+        foreach ($allParams as $key => $value) {
+            // Remplacer les underscores par des points pour simuler l’arborescence
+            $normalizedKey = str_replace('_', '.', $key);
+            $segments = explode('.', $normalizedKey);
 
+            // On ne traite que les clés commençant par "filter" ou "scope"
+            if (!in_array($segments[0], ['filter', 'scope'])) {
+                continue;
+            }
 
-        // Diviser la clé en segments
-        $segments = explode('.', $normalizedKey);
+            // Initialiser les segments normalisés avec 'filter'/'scope' et 'Model'
+            $normalizedSegments = [$segments[0], $segments[1]];
+            $remainingSegments = array_slice($segments, 2);
 
-        // Explication de problème de convertion automatique de "." vers "_" par Laravel
-        // La solution : utilisation des attribute qui commencer par une lettre majuscule
-        // et convertion vers la forme normale par ce code
-
-        // Vérifier si le premier segment est 'filter' ou 'scope'
-        if (in_array($segments[0], ['filter', 'scope'])) {
-            // Initialiser les segments normalisés avec le premier niveau (filter ou scope)
-            $normalizedSegments = [$segments[0]];
-        
-            // Supprimer le premier segment de la liste (filter ou scope)
-            $remainingSegments = array_slice($segments, 1);
-        
             foreach ($remainingSegments as $segment) {
-                // Si le segment commence par une majuscule, on démarre un nouveau segment
+                // Nouveau niveau : segment commençant par une majuscule (ex: EtatTache)
                 if (preg_match('/^[A-Z]/', $segment)) {
-                    $normalizedSegments[] = lcfirst($segment);
+                    $normalizedSegments[] = $segment; // camelCase
                 } else {
-                    // Sinon, on concatène au dernier segment avec un underscore
+                    // Attribut : conserver en snake_case
                     $lastIndex = count($normalizedSegments) - 1;
                     $normalizedSegments[$lastIndex] .= '_' . $segment;
                 }
             }
-        
-            // Reconstituer la clé normalisée
+
+            // Reconstruction finale du nom hiérarchique
             $finalKey = implode('.', $normalizedSegments);
-        
-            // Enregistrer la valeur corrigée dans ViewState
+
+            // Enregistrement dans ViewState
             $viewState->set($finalKey, $value);
         }
-        
     }
-}
 
     
  }
