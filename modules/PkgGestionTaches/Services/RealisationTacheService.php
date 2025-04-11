@@ -128,7 +128,7 @@ class RealisationTacheService extends BaseRealisationTacheService
         };
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgApprenants::apprenant.plural"), 
-            'realisationProjet.apprenant_id', 
+            'RealisationProjet.Apprenant_id', 
             \Modules\PkgApprenants\Models\Apprenant::class,
             "id","id",
             $apprenants);

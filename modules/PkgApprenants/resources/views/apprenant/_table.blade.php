@@ -48,7 +48,7 @@
                     <a 
                         data-toggle="tooltip" 
                         title="Voir les tâches" 
-                        href="{{ route('realisationTaches.index', ['filter.realisationTache.realisationProjet.apprenant_id' => $apprenant->id]) }}" 
+                        href="{{ route('realisationTaches.index', ['showIndex'=>true,'filter.realisationTache.RealisationProjet.Apprenant_id' => $apprenant->id]) }}" 
                         data-id="{{$apprenant->id}}" 
                         
                         class="btn btn-default btn-sm context-state actionEntity showIndex">

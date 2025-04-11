@@ -29,6 +29,11 @@ class ApprenantService extends BaseApprenantService
             "title" => "Apprenants qui n'ont pas de tâches à faire",
             "method" => "getApprenantSansTacheAFaireQuery"
         ],
+        "apprenantSansTacheTerminee7Jours" => [
+            "title" => "Apprenants sans tâches terminé pendant une semaine",
+            "method" => "apprenantSansTacheTermineeDepuis7JoursQuery"
+        ],
+        
     ];
     
 
