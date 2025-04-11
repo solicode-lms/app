@@ -53,6 +53,10 @@ export default class DynamicDropdownTreatment {
      * @param {string} selectedValue - Valeur sélectionnée dans le champ déclencheur.
      */
     async updateTargetDropdown(selectedValue) {
+
+        if(!selectedValue){
+            return;
+        }
         const apiUrl = `${this.apiUrlTemplate}?filter=${this.targetDynamicDropdownFilter}&value=${selectedValue}`;
         const previousSelection = this.targetElement.value;
         this.targetElement.value = "";

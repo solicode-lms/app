@@ -12,7 +12,13 @@ export class AjaxErrorHandler {
             if (xhr.responseJSON) {
                 if (xhr.responseJSON.errors) {
                     // Gestion des erreurs de validation (ex: Laravel)
-                    message = Object.values(xhr.responseJSON.errors).flat().join('<br>');
+                    if(Array.isArray(xhr.responseJSON.errors)){
+                        message = Object.values(xhr.responseJSON.errors).flat().join('<br>');
+                    }else{
+                        message = xhr.responseJSON.errors;
+                    }
+
+                    
                 } else if (xhr.responseJSON.message) {
                     // Autre erreur renvoyée par l’API
                     message = xhr.responseJSON.message;

@@ -131,7 +131,7 @@ use Illuminate\Support\Facades\Auth;
             $segments = explode('.', $normalizedKey);
 
             // On ne traite que les clés commençant par "filter" ou "scope"
-            if (!in_array($segments[0], ['filter', 'scope'])) {
+            if (!preg_match('/^(filter|scope)\.[A-Z][a-zA-Z0-9]*(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
                 continue;
             }
 

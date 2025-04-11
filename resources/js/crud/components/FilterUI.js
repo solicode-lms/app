@@ -46,7 +46,6 @@ export class FilterUI {
             formData[name] = value;
         });
        
-        
         // Parcourir les champs du formulaire
         form.serializeArray().forEach((field) => {
             const value = field.value.trim(); // Supprimer les espaces inutiles
@@ -68,9 +67,6 @@ export class FilterUI {
         Object.entries(this.getFormData(true)).forEach(([key, value]) => {
             data[`filter.${this.config.entity_name}.${key}`] = value;
         });
-
-       
-        
         return data;
     }
 
@@ -195,9 +191,8 @@ export class FilterUI {
         const filterIcon = document.querySelector(this.config.filterIconSelector);
         const filterForm = document.querySelector(this.config.filterFormSelector);
     
-      
-        // Réinitialiser les filtres au clic sur l'icône
-        filterIcon.addEventListener('click', () => {
+
+        EventUtil.bindEvent('click', this.config.filterIconSelector, (e) => {
             filterForm.querySelectorAll('input, select').forEach((field) => {
                 field.value = ''; // Réinitialiser les champs
             });
@@ -208,7 +203,24 @@ export class FilterUI {
 
             this.updateFilterState();
             this.submitForm(); // Soumettre le formulaire après réinitialisation
+
+
         });
+
+      
+        // Réinitialiser les filtres au clic sur l'icône
+        // filterIcon.addEventListener('click', () => {
+        //     filterForm.querySelectorAll('input, select').forEach((field) => {
+        //         field.value = ''; // Réinitialiser les champs
+        //     });
+
+        //      // Réinitialiser Select2
+        //     $(filterForm).find('.select2').val(null).trigger('change');
+
+
+        //     this.updateFilterState();
+        //     this.submitForm(); // Soumettre le formulaire après réinitialisation
+        // });
     
         // Vérifier l'état des filtres au chargement et sur modification
         this.updateFilterState();
