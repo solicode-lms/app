@@ -13,8 +13,6 @@ use Modules\Core\Services\BaseService;
  */
 class BaseApprenantService extends BaseService
 {
-
-  
     /**
      * Les champs de recherche disponibles pour apprenants.
      *
