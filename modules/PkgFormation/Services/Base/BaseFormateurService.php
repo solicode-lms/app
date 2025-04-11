@@ -51,6 +51,7 @@ class BaseFormateurService extends BaseService
     {
         parent::__construct(new Formateur());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::formateur.plural');
     }
 
 
@@ -159,7 +160,8 @@ class BaseFormateurService extends BaseService
         $formateur_instance = $this->createInstance();
         $formateur_viewTypes = $this->getViewTypes();
         $formateur_partialViewName = $this->getPartialViewName($formateur_viewType);
-    
+        $formateur_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formateur.stats', $formateurs_stats);
     
@@ -170,7 +172,9 @@ class BaseFormateurService extends BaseService
             'formateurs_data',
             'formateurs_stats',
             'formateurs_filters',
-            'formateur_instance'
+            'formateur_instance',
+            'formateur_title',
+            'contextKey'
         );
     
         return [
@@ -181,6 +185,7 @@ class BaseFormateurService extends BaseService
             'formateur_viewType' => $formateur_viewType,
             'formateur_viewTypes' => $formateur_viewTypes,
             'formateur_partialViewName' => $formateur_partialViewName,
+            'contextKey' => $contextKey,
             'formateur_compact_value' => $compact_value
         ];
     }

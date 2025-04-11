@@ -40,6 +40,7 @@ class BaseSysColorService extends BaseService
     {
         parent::__construct(new SysColor());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysColor.plural');
     }
 
 
@@ -126,7 +127,8 @@ class BaseSysColorService extends BaseService
         $sysColor_instance = $this->createInstance();
         $sysColor_viewTypes = $this->getViewTypes();
         $sysColor_partialViewName = $this->getPartialViewName($sysColor_viewType);
-    
+        $sysColor_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysColor.stats', $sysColors_stats);
     
@@ -137,7 +139,9 @@ class BaseSysColorService extends BaseService
             'sysColors_data',
             'sysColors_stats',
             'sysColors_filters',
-            'sysColor_instance'
+            'sysColor_instance',
+            'sysColor_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +152,7 @@ class BaseSysColorService extends BaseService
             'sysColor_viewType' => $sysColor_viewType,
             'sysColor_viewTypes' => $sysColor_viewTypes,
             'sysColor_partialViewName' => $sysColor_partialViewName,
+            'contextKey' => $contextKey,
             'sysColor_compact_value' => $compact_value
         ];
     }

@@ -42,6 +42,7 @@ class BaseWorkflowChapitreService extends BaseService
     {
         parent::__construct(new WorkflowChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::workflowChapitre.plural');
     }
 
 
@@ -131,7 +132,8 @@ class BaseWorkflowChapitreService extends BaseService
         $workflowChapitre_instance = $this->createInstance();
         $workflowChapitre_viewTypes = $this->getViewTypes();
         $workflowChapitre_partialViewName = $this->getPartialViewName($workflowChapitre_viewType);
-    
+        $workflowChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowChapitre.stats', $workflowChapitres_stats);
     
@@ -142,7 +144,9 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitres_data',
             'workflowChapitres_stats',
             'workflowChapitres_filters',
-            'workflowChapitre_instance'
+            'workflowChapitre_instance',
+            'workflowChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -153,6 +157,7 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitre_viewType' => $workflowChapitre_viewType,
             'workflowChapitre_viewTypes' => $workflowChapitre_viewTypes,
             'workflowChapitre_partialViewName' => $workflowChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'workflowChapitre_compact_value' => $compact_value
         ];
     }

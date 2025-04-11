@@ -58,7 +58,11 @@ class BaseChapitreController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($chapitre_partialViewName, $chapitre_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutoformation::chapitre._index', $chapitre_compact_value)->render();
+            }else{
+                return view($chapitre_partialViewName, $chapitre_compact_value)->render();
+            }
         }
 
         return view('PkgAutoformation::chapitre.index', $chapitre_compact_value);

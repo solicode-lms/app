@@ -44,6 +44,7 @@ class BaseTacheService extends BaseService
     {
         parent::__construct(new Tache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::tache.plural');
     }
 
 
@@ -136,7 +137,8 @@ class BaseTacheService extends BaseService
         $tache_instance = $this->createInstance();
         $tache_viewTypes = $this->getViewTypes();
         $tache_partialViewName = $this->getPartialViewName($tache_viewType);
-    
+        $tache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.tache.stats', $taches_stats);
     
@@ -147,7 +149,9 @@ class BaseTacheService extends BaseService
             'taches_data',
             'taches_stats',
             'taches_filters',
-            'tache_instance'
+            'tache_instance',
+            'tache_title',
+            'contextKey'
         );
     
         return [
@@ -158,6 +162,7 @@ class BaseTacheService extends BaseService
             'tache_viewType' => $tache_viewType,
             'tache_viewTypes' => $tache_viewTypes,
             'tache_partialViewName' => $tache_partialViewName,
+            'contextKey' => $contextKey,
             'tache_compact_value' => $compact_value
         ];
     }

@@ -43,6 +43,7 @@ class BaseLivrablesRealisationService extends BaseService
     {
         parent::__construct(new LivrablesRealisation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::livrablesRealisation.plural');
     }
 
 
@@ -149,7 +150,8 @@ class BaseLivrablesRealisationService extends BaseService
         $livrablesRealisation_instance = $this->createInstance();
         $livrablesRealisation_viewTypes = $this->getViewTypes();
         $livrablesRealisation_partialViewName = $this->getPartialViewName($livrablesRealisation_viewType);
-    
+        $livrablesRealisation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.livrablesRealisation.stats', $livrablesRealisations_stats);
     
@@ -160,7 +162,9 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisations_data',
             'livrablesRealisations_stats',
             'livrablesRealisations_filters',
-            'livrablesRealisation_instance'
+            'livrablesRealisation_instance',
+            'livrablesRealisation_title',
+            'contextKey'
         );
     
         return [
@@ -171,6 +175,7 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisation_viewType' => $livrablesRealisation_viewType,
             'livrablesRealisation_viewTypes' => $livrablesRealisation_viewTypes,
             'livrablesRealisation_partialViewName' => $livrablesRealisation_partialViewName,
+            'contextKey' => $contextKey,
             'livrablesRealisation_compact_value' => $compact_value
         ];
     }

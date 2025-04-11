@@ -36,7 +36,7 @@
     <x-crud-header 
         id="typeDependanceTache-crud-header" icon="fas fa-random"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::typeDependanceTache.plural') }}"
+        title="{{ $typeDependanceTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

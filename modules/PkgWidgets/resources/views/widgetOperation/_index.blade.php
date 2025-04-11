@@ -36,7 +36,7 @@
     <x-crud-header 
         id="widgetOperation-crud-header" icon="fas fa-calculator"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widgetOperation.plural') }}"
+        title="{{ $widgetOperation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

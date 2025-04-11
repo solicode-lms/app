@@ -36,7 +36,7 @@
     <x-crud-header 
         id="eMetadatum-crud-header" icon="fas fa-th-list"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eMetadatum.plural') }}"
+        title="{{ $eMetadatum_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

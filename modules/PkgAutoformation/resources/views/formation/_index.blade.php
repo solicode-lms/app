@@ -36,7 +36,7 @@
     <x-crud-header 
         id="formation-crud-header" icon="fas fa-chalkboard-teacher"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::formation.plural') }}"
+        title="{{ $formation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

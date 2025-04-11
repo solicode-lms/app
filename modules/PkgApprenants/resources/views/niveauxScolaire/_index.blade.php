@@ -36,7 +36,7 @@
     <x-crud-header 
         id="niveauxScolaire-crud-header" icon="fas fa-award"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::niveauxScolaire.plural') }}"
+        title="{{ $niveauxScolaire_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

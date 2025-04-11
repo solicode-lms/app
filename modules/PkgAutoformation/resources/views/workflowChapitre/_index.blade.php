@@ -36,7 +36,7 @@
     <x-crud-header 
         id="workflowChapitre-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::workflowChapitre.plural') }}"
+        title="{{ $workflowChapitre_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

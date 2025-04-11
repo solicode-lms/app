@@ -36,7 +36,7 @@
     <x-crud-header 
         id="eDataField-crud-header" icon="fas fa-th"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eDataField.plural') }}"
+        title="{{ $eDataField_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

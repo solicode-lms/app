@@ -40,6 +40,7 @@ class BaseSpecialiteService extends BaseService
     {
         parent::__construct(new Specialite());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::specialite.plural');
     }
 
 
@@ -129,7 +130,8 @@ class BaseSpecialiteService extends BaseService
         $specialite_instance = $this->createInstance();
         $specialite_viewTypes = $this->getViewTypes();
         $specialite_partialViewName = $this->getPartialViewName($specialite_viewType);
-    
+        $specialite_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.specialite.stats', $specialites_stats);
     
@@ -140,7 +142,9 @@ class BaseSpecialiteService extends BaseService
             'specialites_data',
             'specialites_stats',
             'specialites_filters',
-            'specialite_instance'
+            'specialite_instance',
+            'specialite_title',
+            'contextKey'
         );
     
         return [
@@ -151,6 +155,7 @@ class BaseSpecialiteService extends BaseService
             'specialite_viewType' => $specialite_viewType,
             'specialite_viewTypes' => $specialite_viewTypes,
             'specialite_partialViewName' => $specialite_partialViewName,
+            'contextKey' => $contextKey,
             'specialite_compact_value' => $compact_value
         ];
     }

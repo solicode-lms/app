@@ -36,7 +36,7 @@
     <x-crud-header 
         id="niveauDifficulte-crud-header" icon="fas fa-battery-three-quarters"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::niveauDifficulte.plural') }}"
+        title="{{ $niveauDifficulte_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

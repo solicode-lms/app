@@ -58,7 +58,11 @@ class BaseLivrablesRealisationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($livrablesRealisation_partialViewName, $livrablesRealisation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgRealisationProjets::livrablesRealisation._index', $livrablesRealisation_compact_value)->render();
+            }else{
+                return view($livrablesRealisation_partialViewName, $livrablesRealisation_compact_value)->render();
+            }
         }
 
         return view('PkgRealisationProjets::livrablesRealisation.index', $livrablesRealisation_compact_value);

@@ -40,6 +40,7 @@ class BaseEPackageService extends BaseService
     {
         parent::__construct(new EPackage());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::ePackage.plural');
     }
 
 
@@ -126,7 +127,8 @@ class BaseEPackageService extends BaseService
         $ePackage_instance = $this->createInstance();
         $ePackage_viewTypes = $this->getViewTypes();
         $ePackage_partialViewName = $this->getPartialViewName($ePackage_viewType);
-    
+        $ePackage_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.ePackage.stats', $ePackages_stats);
     
@@ -137,7 +139,9 @@ class BaseEPackageService extends BaseService
             'ePackages_data',
             'ePackages_stats',
             'ePackages_filters',
-            'ePackage_instance'
+            'ePackage_instance',
+            'ePackage_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +152,7 @@ class BaseEPackageService extends BaseService
             'ePackage_viewType' => $ePackage_viewType,
             'ePackage_viewTypes' => $ePackage_viewTypes,
             'ePackage_partialViewName' => $ePackage_partialViewName,
+            'contextKey' => $contextKey,
             'ePackage_compact_value' => $compact_value
         ];
     }

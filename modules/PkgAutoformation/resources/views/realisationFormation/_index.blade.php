@@ -36,7 +36,7 @@
     <x-crud-header 
         id="realisationFormation-crud-header" icon="fas fa-coffee"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::realisationFormation.plural') }}"
+        title="{{ $realisationFormation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

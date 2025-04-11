@@ -41,6 +41,7 @@ class BaseDependanceTacheService extends BaseService
     {
         parent::__construct(new DependanceTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::dependanceTache.plural');
     }
 
 
@@ -136,7 +137,8 @@ class BaseDependanceTacheService extends BaseService
         $dependanceTache_instance = $this->createInstance();
         $dependanceTache_viewTypes = $this->getViewTypes();
         $dependanceTache_partialViewName = $this->getPartialViewName($dependanceTache_viewType);
-    
+        $dependanceTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.dependanceTache.stats', $dependanceTaches_stats);
     
@@ -147,7 +149,9 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTaches_data',
             'dependanceTaches_stats',
             'dependanceTaches_filters',
-            'dependanceTache_instance'
+            'dependanceTache_instance',
+            'dependanceTache_title',
+            'contextKey'
         );
     
         return [
@@ -158,6 +162,7 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTache_viewType' => $dependanceTache_viewType,
             'dependanceTache_viewTypes' => $dependanceTache_viewTypes,
             'dependanceTache_partialViewName' => $dependanceTache_partialViewName,
+            'contextKey' => $contextKey,
             'dependanceTache_compact_value' => $compact_value
         ];
     }

@@ -41,6 +41,7 @@ class BasePermissionService extends BaseService
     {
         parent::__construct(new Permission());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::permission.plural');
     }
 
 
@@ -130,7 +131,8 @@ class BasePermissionService extends BaseService
         $permission_instance = $this->createInstance();
         $permission_viewTypes = $this->getViewTypes();
         $permission_partialViewName = $this->getPartialViewName($permission_viewType);
-    
+        $permission_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.permission.stats', $permissions_stats);
     
@@ -141,7 +143,9 @@ class BasePermissionService extends BaseService
             'permissions_data',
             'permissions_stats',
             'permissions_filters',
-            'permission_instance'
+            'permission_instance',
+            'permission_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +156,7 @@ class BasePermissionService extends BaseService
             'permission_viewType' => $permission_viewType,
             'permission_viewTypes' => $permission_viewTypes,
             'permission_partialViewName' => $permission_partialViewName,
+            'contextKey' => $contextKey,
             'permission_compact_value' => $compact_value
         ];
     }

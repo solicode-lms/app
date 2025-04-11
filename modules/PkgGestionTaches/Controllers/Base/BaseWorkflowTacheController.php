@@ -49,7 +49,11 @@ class BaseWorkflowTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($workflowTache_partialViewName, $workflowTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::workflowTache._index', $workflowTache_compact_value)->render();
+            }else{
+                return view($workflowTache_partialViewName, $workflowTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::workflowTache.index', $workflowTache_compact_value);

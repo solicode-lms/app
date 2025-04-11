@@ -43,6 +43,7 @@ class BaseRealisationChapitreService extends BaseService
     {
         parent::__construct(new RealisationChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::realisationChapitre.plural');
     }
 
 
@@ -138,7 +139,8 @@ class BaseRealisationChapitreService extends BaseService
         $realisationChapitre_instance = $this->createInstance();
         $realisationChapitre_viewTypes = $this->getViewTypes();
         $realisationChapitre_partialViewName = $this->getPartialViewName($realisationChapitre_viewType);
-    
+        $realisationChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationChapitre.stats', $realisationChapitres_stats);
     
@@ -149,7 +151,9 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitres_data',
             'realisationChapitres_stats',
             'realisationChapitres_filters',
-            'realisationChapitre_instance'
+            'realisationChapitre_instance',
+            'realisationChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +164,7 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitre_viewType' => $realisationChapitre_viewType,
             'realisationChapitre_viewTypes' => $realisationChapitre_viewTypes,
             'realisationChapitre_partialViewName' => $realisationChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'realisationChapitre_compact_value' => $compact_value
         ];
     }

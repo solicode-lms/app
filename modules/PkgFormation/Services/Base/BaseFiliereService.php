@@ -41,6 +41,7 @@ class BaseFiliereService extends BaseService
     {
         parent::__construct(new Filiere());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::filiere.plural');
     }
 
 
@@ -127,7 +128,8 @@ class BaseFiliereService extends BaseService
         $filiere_instance = $this->createInstance();
         $filiere_viewTypes = $this->getViewTypes();
         $filiere_partialViewName = $this->getPartialViewName($filiere_viewType);
-    
+        $filiere_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.filiere.stats', $filieres_stats);
     
@@ -138,7 +140,9 @@ class BaseFiliereService extends BaseService
             'filieres_data',
             'filieres_stats',
             'filieres_filters',
-            'filiere_instance'
+            'filiere_instance',
+            'filiere_title',
+            'contextKey'
         );
     
         return [
@@ -149,6 +153,7 @@ class BaseFiliereService extends BaseService
             'filiere_viewType' => $filiere_viewType,
             'filiere_viewTypes' => $filiere_viewTypes,
             'filiere_partialViewName' => $filiere_partialViewName,
+            'contextKey' => $contextKey,
             'filiere_compact_value' => $compact_value
         ];
     }

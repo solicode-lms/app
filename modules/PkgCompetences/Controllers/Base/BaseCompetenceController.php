@@ -56,7 +56,11 @@ class BaseCompetenceController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($competence_partialViewName, $competence_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCompetences::competence._index', $competence_compact_value)->render();
+            }else{
+                return view($competence_partialViewName, $competence_compact_value)->render();
+            }
         }
 
         return view('PkgCompetences::competence.index', $competence_compact_value);

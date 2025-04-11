@@ -57,7 +57,11 @@ class BaseEMetadatumController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($eMetadatum_partialViewName, $eMetadatum_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGapp::eMetadatum._index', $eMetadatum_compact_value)->render();
+            }else{
+                return view($eMetadatum_partialViewName, $eMetadatum_compact_value)->render();
+            }
         }
 
         return view('PkgGapp::eMetadatum.index', $eMetadatum_compact_value);

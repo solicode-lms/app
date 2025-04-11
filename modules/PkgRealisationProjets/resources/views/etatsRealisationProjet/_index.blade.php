@@ -36,7 +36,7 @@
     <x-crud-header 
         id="etatsRealisationProjet-crud-header" icon="fas fa-check"  
         iconColor="text-info"
-        title="{{ __('PkgRealisationProjets::etatsRealisationProjet.plural') }}"
+        title="{{ $etatsRealisationProjet_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

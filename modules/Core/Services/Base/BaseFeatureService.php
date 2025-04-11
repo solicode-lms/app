@@ -41,6 +41,7 @@ class BaseFeatureService extends BaseService
     {
         parent::__construct(new Feature());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::feature.plural');
     }
 
 
@@ -130,7 +131,8 @@ class BaseFeatureService extends BaseService
         $feature_instance = $this->createInstance();
         $feature_viewTypes = $this->getViewTypes();
         $feature_partialViewName = $this->getPartialViewName($feature_viewType);
-    
+        $feature_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.feature.stats', $features_stats);
     
@@ -141,7 +143,9 @@ class BaseFeatureService extends BaseService
             'features_data',
             'features_stats',
             'features_filters',
-            'feature_instance'
+            'feature_instance',
+            'feature_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +156,7 @@ class BaseFeatureService extends BaseService
             'feature_viewType' => $feature_viewType,
             'feature_viewTypes' => $feature_viewTypes,
             'feature_partialViewName' => $feature_partialViewName,
+            'contextKey' => $contextKey,
             'feature_compact_value' => $compact_value
         ];
     }

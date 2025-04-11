@@ -36,7 +36,7 @@
     <x-crud-header 
         id="commentaireRealisationTache-crud-header" icon="fas fa-comments"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::commentaireRealisationTache.plural') }}"
+        title="{{ $commentaireRealisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

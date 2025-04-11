@@ -64,7 +64,11 @@ class BaseTransfertCompetenceController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($transfertCompetence_partialViewName, $transfertCompetence_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCreationProjet::transfertCompetence._index', $transfertCompetence_compact_value)->render();
+            }else{
+                return view($transfertCompetence_partialViewName, $transfertCompetence_compact_value)->render();
+            }
         }
 
         return view('PkgCreationProjet::transfertCompetence.index', $transfertCompetence_compact_value);

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="niveauCompetence-crud-header" icon="fas fa-battery-three-quarters"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::niveauCompetence.plural') }}"
+        title="{{ $niveauCompetence_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

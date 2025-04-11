@@ -36,7 +36,7 @@
     <x-crud-header 
         id="filiere-crud-header" icon="fas fa-book"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::filiere.plural') }}"
+        title="{{ $filiere_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

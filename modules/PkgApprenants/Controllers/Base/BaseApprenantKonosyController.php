@@ -48,7 +48,11 @@ class BaseApprenantKonosyController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($apprenantKonosy_partialViewName, $apprenantKonosy_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::apprenantKonosy._index', $apprenantKonosy_compact_value)->render();
+            }else{
+                return view($apprenantKonosy_partialViewName, $apprenantKonosy_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::apprenantKonosy.index', $apprenantKonosy_compact_value);

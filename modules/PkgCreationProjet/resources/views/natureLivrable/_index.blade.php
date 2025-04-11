@@ -36,7 +36,7 @@
     <x-crud-header 
         id="natureLivrable-crud-header" icon="fas fa-file-archive"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::natureLivrable.plural') }}"
+        title="{{ $natureLivrable_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

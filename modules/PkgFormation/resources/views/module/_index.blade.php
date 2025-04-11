@@ -36,7 +36,7 @@
     <x-crud-header 
         id="module-crud-header" icon="fas fa-puzzle-piece"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::module.plural') }}"
+        title="{{ $module_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

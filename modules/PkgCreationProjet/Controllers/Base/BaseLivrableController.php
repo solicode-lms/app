@@ -61,7 +61,11 @@ class BaseLivrableController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($livrable_partialViewName, $livrable_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCreationProjet::livrable._index', $livrable_compact_value)->render();
+            }else{
+                return view($livrable_partialViewName, $livrable_compact_value)->render();
+            }
         }
 
         return view('PkgCreationProjet::livrable.index', $livrable_compact_value);

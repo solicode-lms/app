@@ -36,7 +36,7 @@
     <x-crud-header 
         id="nationalite-crud-header" icon="fas fa-map-marked-alt"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::nationalite.plural') }}"
+        title="{{ $nationalite_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

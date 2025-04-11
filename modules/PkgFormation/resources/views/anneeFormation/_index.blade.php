@@ -36,7 +36,7 @@
     <x-crud-header 
         id="anneeFormation-crud-header" icon="fas fa-calendar-plus"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::anneeFormation.plural') }}"
+        title="{{ $anneeFormation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

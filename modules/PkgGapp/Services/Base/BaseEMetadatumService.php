@@ -50,6 +50,7 @@ class BaseEMetadatumService extends BaseService
     {
         parent::__construct(new EMetadatum());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eMetadatum.plural');
     }
 
 
@@ -145,7 +146,8 @@ class BaseEMetadatumService extends BaseService
         $eMetadatum_instance = $this->createInstance();
         $eMetadatum_viewTypes = $this->getViewTypes();
         $eMetadatum_partialViewName = $this->getPartialViewName($eMetadatum_viewType);
-    
+        $eMetadatum_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eMetadatum.stats', $eMetadata_stats);
     
@@ -156,7 +158,9 @@ class BaseEMetadatumService extends BaseService
             'eMetadata_data',
             'eMetadata_stats',
             'eMetadata_filters',
-            'eMetadatum_instance'
+            'eMetadatum_instance',
+            'eMetadatum_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +171,7 @@ class BaseEMetadatumService extends BaseService
             'eMetadatum_viewType' => $eMetadatum_viewType,
             'eMetadatum_viewTypes' => $eMetadatum_viewTypes,
             'eMetadatum_partialViewName' => $eMetadatum_partialViewName,
+            'contextKey' => $contextKey,
             'eMetadatum_compact_value' => $compact_value
         ];
     }

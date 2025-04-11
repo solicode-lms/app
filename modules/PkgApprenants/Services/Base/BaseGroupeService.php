@@ -43,6 +43,7 @@ class BaseGroupeService extends BaseService
     {
         parent::__construct(new Groupe());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::groupe.plural');
     }
 
 
@@ -141,7 +142,8 @@ class BaseGroupeService extends BaseService
         $groupe_instance = $this->createInstance();
         $groupe_viewTypes = $this->getViewTypes();
         $groupe_partialViewName = $this->getPartialViewName($groupe_viewType);
-    
+        $groupe_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.groupe.stats', $groupes_stats);
     
@@ -152,7 +154,9 @@ class BaseGroupeService extends BaseService
             'groupes_data',
             'groupes_stats',
             'groupes_filters',
-            'groupe_instance'
+            'groupe_instance',
+            'groupe_title',
+            'contextKey'
         );
     
         return [
@@ -163,6 +167,7 @@ class BaseGroupeService extends BaseService
             'groupe_viewType' => $groupe_viewType,
             'groupe_viewTypes' => $groupe_viewTypes,
             'groupe_partialViewName' => $groupe_partialViewName,
+            'contextKey' => $contextKey,
             'groupe_compact_value' => $compact_value
         ];
     }

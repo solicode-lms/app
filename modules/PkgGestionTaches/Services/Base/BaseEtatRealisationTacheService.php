@@ -44,6 +44,7 @@ class BaseEtatRealisationTacheService extends BaseService
     {
         parent::__construct(new EtatRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::etatRealisationTache.plural');
     }
 
 
@@ -153,7 +154,8 @@ class BaseEtatRealisationTacheService extends BaseService
         $etatRealisationTache_instance = $this->createInstance();
         $etatRealisationTache_viewTypes = $this->getViewTypes();
         $etatRealisationTache_partialViewName = $this->getPartialViewName($etatRealisationTache_viewType);
-    
+        $etatRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatRealisationTache.stats', $etatRealisationTaches_stats);
     
@@ -164,7 +166,9 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTaches_data',
             'etatRealisationTaches_stats',
             'etatRealisationTaches_filters',
-            'etatRealisationTache_instance'
+            'etatRealisationTache_instance',
+            'etatRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +179,7 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTache_viewType' => $etatRealisationTache_viewType,
             'etatRealisationTache_viewTypes' => $etatRealisationTache_viewTypes,
             'etatRealisationTache_partialViewName' => $etatRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'etatRealisationTache_compact_value' => $compact_value
         ];
     }

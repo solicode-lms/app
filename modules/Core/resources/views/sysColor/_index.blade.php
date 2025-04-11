@@ -36,7 +36,7 @@
     <x-crud-header 
         id="sysColor-crud-header" icon="fas fa-palette"  
         iconColor="text-info"
-        title="{{ __('Core::sysColor.plural') }}"
+        title="{{ $sysColor_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -40,6 +40,7 @@ class BaseNatureLivrableService extends BaseService
     {
         parent::__construct(new NatureLivrable());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::natureLivrable.plural');
     }
 
 
@@ -126,7 +127,8 @@ class BaseNatureLivrableService extends BaseService
         $natureLivrable_instance = $this->createInstance();
         $natureLivrable_viewTypes = $this->getViewTypes();
         $natureLivrable_partialViewName = $this->getPartialViewName($natureLivrable_viewType);
-    
+        $natureLivrable_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.natureLivrable.stats', $natureLivrables_stats);
     
@@ -137,7 +139,9 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrables_data',
             'natureLivrables_stats',
             'natureLivrables_filters',
-            'natureLivrable_instance'
+            'natureLivrable_instance',
+            'natureLivrable_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +152,7 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrable_viewType' => $natureLivrable_viewType,
             'natureLivrable_viewTypes' => $natureLivrable_viewTypes,
             'natureLivrable_partialViewName' => $natureLivrable_partialViewName,
+            'contextKey' => $contextKey,
             'natureLivrable_compact_value' => $compact_value
         ];
     }

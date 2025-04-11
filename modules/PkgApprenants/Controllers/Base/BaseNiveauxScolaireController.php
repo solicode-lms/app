@@ -49,7 +49,11 @@ class BaseNiveauxScolaireController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($niveauxScolaire_partialViewName, $niveauxScolaire_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::niveauxScolaire._index', $niveauxScolaire_compact_value)->render();
+            }else{
+                return view($niveauxScolaire_partialViewName, $niveauxScolaire_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::niveauxScolaire.index', $niveauxScolaire_compact_value);

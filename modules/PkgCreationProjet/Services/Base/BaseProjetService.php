@@ -45,6 +45,7 @@ class BaseProjetService extends BaseService
     {
         parent::__construct(new Projet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::projet.plural');
     }
 
 
@@ -151,7 +152,8 @@ class BaseProjetService extends BaseService
         $projet_instance = $this->createInstance();
         $projet_viewTypes = $this->getViewTypes();
         $projet_partialViewName = $this->getPartialViewName($projet_viewType);
-    
+        $projet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.projet.stats', $projets_stats);
     
@@ -162,7 +164,9 @@ class BaseProjetService extends BaseService
             'projets_data',
             'projets_stats',
             'projets_filters',
-            'projet_instance'
+            'projet_instance',
+            'projet_title',
+            'contextKey'
         );
     
         return [
@@ -173,6 +177,7 @@ class BaseProjetService extends BaseService
             'projet_viewType' => $projet_viewType,
             'projet_viewTypes' => $projet_viewTypes,
             'projet_partialViewName' => $projet_partialViewName,
+            'contextKey' => $contextKey,
             'projet_compact_value' => $compact_value
         ];
     }

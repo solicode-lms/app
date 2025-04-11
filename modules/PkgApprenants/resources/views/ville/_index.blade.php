@@ -36,7 +36,7 @@
     <x-crud-header 
         id="ville-crud-header" icon="fas fa-city"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::ville.plural') }}"
+        title="{{ $ville_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

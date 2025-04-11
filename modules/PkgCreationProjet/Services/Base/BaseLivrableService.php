@@ -43,6 +43,7 @@ class BaseLivrableService extends BaseService
     {
         parent::__construct(new Livrable());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::livrable.plural');
     }
 
 
@@ -149,7 +150,8 @@ class BaseLivrableService extends BaseService
         $livrable_instance = $this->createInstance();
         $livrable_viewTypes = $this->getViewTypes();
         $livrable_partialViewName = $this->getPartialViewName($livrable_viewType);
-    
+        $livrable_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.livrable.stats', $livrables_stats);
     
@@ -160,7 +162,9 @@ class BaseLivrableService extends BaseService
             'livrables_data',
             'livrables_stats',
             'livrables_filters',
-            'livrable_instance'
+            'livrable_instance',
+            'livrable_title',
+            'contextKey'
         );
     
         return [
@@ -171,6 +175,7 @@ class BaseLivrableService extends BaseService
             'livrable_viewType' => $livrable_viewType,
             'livrable_viewTypes' => $livrable_viewTypes,
             'livrable_partialViewName' => $livrable_partialViewName,
+            'contextKey' => $contextKey,
             'livrable_compact_value' => $compact_value
         ];
     }

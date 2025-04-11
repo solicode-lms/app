@@ -36,7 +36,7 @@
     <x-crud-header 
         id="transfertCompetence-crud-header" icon="fas fa-book-open"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::transfertCompetence.plural') }}"
+        title="{{ $transfertCompetence_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

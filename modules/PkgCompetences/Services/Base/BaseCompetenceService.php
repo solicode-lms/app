@@ -43,6 +43,7 @@ class BaseCompetenceService extends BaseService
     {
         parent::__construct(new Competence());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCompetences::competence.plural');
     }
 
 
@@ -138,7 +139,8 @@ class BaseCompetenceService extends BaseService
         $competence_instance = $this->createInstance();
         $competence_viewTypes = $this->getViewTypes();
         $competence_partialViewName = $this->getPartialViewName($competence_viewType);
-    
+        $competence_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.competence.stats', $competences_stats);
     
@@ -149,7 +151,9 @@ class BaseCompetenceService extends BaseService
             'competences_data',
             'competences_stats',
             'competences_filters',
-            'competence_instance'
+            'competence_instance',
+            'competence_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +164,7 @@ class BaseCompetenceService extends BaseService
             'competence_viewType' => $competence_viewType,
             'competence_viewTypes' => $competence_viewTypes,
             'competence_partialViewName' => $competence_partialViewName,
+            'contextKey' => $contextKey,
             'competence_compact_value' => $compact_value
         ];
     }

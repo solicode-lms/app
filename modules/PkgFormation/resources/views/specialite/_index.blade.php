@@ -36,7 +36,7 @@
     <x-crud-header 
         id="specialite-crud-header" icon="fas fa-award"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::specialite.plural') }}"
+        title="{{ $specialite_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -44,6 +44,7 @@ class BaseRealisationProjetService extends BaseService
     {
         parent::__construct(new RealisationProjet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::realisationProjet.plural');
     }
 
 
@@ -153,7 +154,8 @@ class BaseRealisationProjetService extends BaseService
         $realisationProjet_instance = $this->createInstance();
         $realisationProjet_viewTypes = $this->getViewTypes();
         $realisationProjet_partialViewName = $this->getPartialViewName($realisationProjet_viewType);
-    
+        $realisationProjet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationProjet.stats', $realisationProjets_stats);
     
@@ -164,7 +166,9 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjets_data',
             'realisationProjets_stats',
             'realisationProjets_filters',
-            'realisationProjet_instance'
+            'realisationProjet_instance',
+            'realisationProjet_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +179,7 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjet_viewType' => $realisationProjet_viewType,
             'realisationProjet_viewTypes' => $realisationProjet_viewTypes,
             'realisationProjet_partialViewName' => $realisationProjet_partialViewName,
+            'contextKey' => $contextKey,
             'realisationProjet_compact_value' => $compact_value
         ];
     }

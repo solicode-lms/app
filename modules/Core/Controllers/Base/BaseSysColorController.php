@@ -57,7 +57,11 @@ class BaseSysColorController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($sysColor_partialViewName, $sysColor_compact_value)->render();
+            if($request['showIndex']){
+                return view('Core::sysColor._index', $sysColor_compact_value)->render();
+            }else{
+                return view($sysColor_partialViewName, $sysColor_compact_value)->render();
+            }
         }
 
         return view('Core::sysColor.index', $sysColor_compact_value);

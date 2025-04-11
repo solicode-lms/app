@@ -59,7 +59,11 @@ class BaseTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($tache_partialViewName, $tache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::tache._index', $tache_compact_value)->render();
+            }else{
+                return view($tache_partialViewName, $tache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::tache.index', $tache_compact_value);

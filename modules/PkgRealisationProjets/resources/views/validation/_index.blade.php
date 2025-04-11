@@ -36,7 +36,7 @@
     <x-crud-header 
         id="validation-crud-header" icon="fas fa-check-circle"  
         iconColor="text-info"
-        title="{{ __('PkgRealisationProjets::validation.plural') }}"
+        title="{{ $validation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

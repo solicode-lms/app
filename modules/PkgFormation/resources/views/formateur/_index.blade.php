@@ -36,7 +36,7 @@
     <x-crud-header 
         id="formateur-crud-header" icon="fas fa-user-tie"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::formateur.plural') }}"
+        title="{{ $formateur_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="groupe-crud-header" icon="fas fa-users"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::groupe.plural') }}"
+        title="{{ $groupe_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

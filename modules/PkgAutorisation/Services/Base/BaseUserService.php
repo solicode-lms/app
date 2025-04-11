@@ -44,6 +44,7 @@ class BaseUserService extends BaseService
     {
         parent::__construct(new User());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::user.plural');
     }
 
 
@@ -140,7 +141,8 @@ class BaseUserService extends BaseService
         $user_instance = $this->createInstance();
         $user_viewTypes = $this->getViewTypes();
         $user_partialViewName = $this->getPartialViewName($user_viewType);
-    
+        $user_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.user.stats', $users_stats);
     
@@ -151,7 +153,9 @@ class BaseUserService extends BaseService
             'users_data',
             'users_stats',
             'users_filters',
-            'user_instance'
+            'user_instance',
+            'user_title',
+            'contextKey'
         );
     
         return [
@@ -162,6 +166,7 @@ class BaseUserService extends BaseService
             'user_viewType' => $user_viewType,
             'user_viewTypes' => $user_viewTypes,
             'user_partialViewName' => $user_partialViewName,
+            'contextKey' => $contextKey,
             'user_compact_value' => $compact_value
         ];
     }

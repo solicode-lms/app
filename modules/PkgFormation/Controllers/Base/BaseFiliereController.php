@@ -51,7 +51,11 @@ class BaseFiliereController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($filiere_partialViewName, $filiere_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgFormation::filiere._index', $filiere_compact_value)->render();
+            }else{
+                return view($filiere_partialViewName, $filiere_compact_value)->render();
+            }
         }
 
         return view('PkgFormation::filiere.index', $filiere_compact_value);

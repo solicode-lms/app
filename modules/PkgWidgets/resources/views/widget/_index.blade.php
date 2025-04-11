@@ -36,7 +36,7 @@
     <x-crud-header 
         id="widget-crud-header" icon="fas fa-chart-bar"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widget.plural') }}"
+        title="{{ $widget_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -41,6 +41,7 @@ class BaseTechnologyService extends BaseService
     {
         parent::__construct(new Technology());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCompetences::technology.plural');
     }
 
 
@@ -130,7 +131,8 @@ class BaseTechnologyService extends BaseService
         $technology_instance = $this->createInstance();
         $technology_viewTypes = $this->getViewTypes();
         $technology_partialViewName = $this->getPartialViewName($technology_viewType);
-    
+        $technology_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.technology.stats', $technologies_stats);
     
@@ -141,7 +143,9 @@ class BaseTechnologyService extends BaseService
             'technologies_data',
             'technologies_stats',
             'technologies_filters',
-            'technology_instance'
+            'technology_instance',
+            'technology_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +156,7 @@ class BaseTechnologyService extends BaseService
             'technology_viewType' => $technology_viewType,
             'technology_viewTypes' => $technology_viewTypes,
             'technology_partialViewName' => $technology_partialViewName,
+            'contextKey' => $contextKey,
             'technology_compact_value' => $compact_value
         ];
     }

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="eModel-crud-header" icon="fas fa-table"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eModel.plural') }}"
+        title="{{ $eModel_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

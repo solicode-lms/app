@@ -45,6 +45,7 @@ class BaseFormationService extends BaseService
     {
         parent::__construct(new Formation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::formation.plural');
     }
 
 
@@ -154,7 +155,8 @@ class BaseFormationService extends BaseService
         $formation_instance = $this->createInstance();
         $formation_viewTypes = $this->getViewTypes();
         $formation_partialViewName = $this->getPartialViewName($formation_viewType);
-    
+        $formation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formation.stats', $formations_stats);
     
@@ -165,7 +167,9 @@ class BaseFormationService extends BaseService
             'formations_data',
             'formations_stats',
             'formations_filters',
-            'formation_instance'
+            'formation_instance',
+            'formation_title',
+            'contextKey'
         );
     
         return [
@@ -176,6 +180,7 @@ class BaseFormationService extends BaseService
             'formation_viewType' => $formation_viewType,
             'formation_viewTypes' => $formation_viewTypes,
             'formation_partialViewName' => $formation_partialViewName,
+            'contextKey' => $contextKey,
             'formation_compact_value' => $compact_value
         ];
     }

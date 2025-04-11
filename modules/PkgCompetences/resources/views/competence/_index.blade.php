@@ -36,7 +36,7 @@
     <x-crud-header 
         id="competence-crud-header" icon="fas fa-user-graduate"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::competence.plural') }}"
+        title="{{ $competence_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

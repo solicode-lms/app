@@ -36,7 +36,7 @@
     <x-crud-header 
         id="role-crud-header" icon="fas fa-id-badge"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::role.plural') }}"
+        title="{{ $role_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

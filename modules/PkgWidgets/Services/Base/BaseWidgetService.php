@@ -48,6 +48,7 @@ class BaseWidgetService extends BaseService
     {
         parent::__construct(new Widget());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgWidgets::widget.plural');
     }
 
 
@@ -140,7 +141,8 @@ class BaseWidgetService extends BaseService
         $widget_instance = $this->createInstance();
         $widget_viewTypes = $this->getViewTypes();
         $widget_partialViewName = $this->getPartialViewName($widget_viewType);
-    
+        $widget_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widget.stats', $widgets_stats);
     
@@ -151,7 +153,9 @@ class BaseWidgetService extends BaseService
             'widgets_data',
             'widgets_stats',
             'widgets_filters',
-            'widget_instance'
+            'widget_instance',
+            'widget_title',
+            'contextKey'
         );
     
         return [
@@ -162,6 +166,7 @@ class BaseWidgetService extends BaseService
             'widget_viewType' => $widget_viewType,
             'widget_viewTypes' => $widget_viewTypes,
             'widget_partialViewName' => $widget_partialViewName,
+            'contextKey' => $contextKey,
             'widget_compact_value' => $compact_value
         ];
     }

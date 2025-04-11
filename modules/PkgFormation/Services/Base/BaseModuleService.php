@@ -43,6 +43,7 @@ class BaseModuleService extends BaseService
     {
         parent::__construct(new Module());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::module.plural');
     }
 
 
@@ -138,7 +139,8 @@ class BaseModuleService extends BaseService
         $module_instance = $this->createInstance();
         $module_viewTypes = $this->getViewTypes();
         $module_partialViewName = $this->getPartialViewName($module_viewType);
-    
+        $module_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.module.stats', $modules_stats);
     
@@ -149,7 +151,9 @@ class BaseModuleService extends BaseService
             'modules_data',
             'modules_stats',
             'modules_filters',
-            'module_instance'
+            'module_instance',
+            'module_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +164,7 @@ class BaseModuleService extends BaseService
             'module_viewType' => $module_viewType,
             'module_viewTypes' => $module_viewTypes,
             'module_partialViewName' => $module_partialViewName,
+            'contextKey' => $contextKey,
             'module_compact_value' => $compact_value
         ];
     }

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="etatChapitre-crud-header" icon="fas fa-check"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::etatChapitre.plural') }}"
+        title="{{ $etatChapitre_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

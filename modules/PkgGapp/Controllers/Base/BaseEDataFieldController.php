@@ -55,7 +55,11 @@ class BaseEDataFieldController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($eDataField_partialViewName, $eDataField_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGapp::eDataField._index', $eDataField_compact_value)->render();
+            }else{
+                return view($eDataField_partialViewName, $eDataField_compact_value)->render();
+            }
         }
 
         return view('PkgGapp::eDataField.index', $eDataField_compact_value);

@@ -44,6 +44,7 @@ class BaseEtatChapitreService extends BaseService
     {
         parent::__construct(new EtatChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::etatChapitre.plural');
     }
 
 
@@ -153,7 +154,8 @@ class BaseEtatChapitreService extends BaseService
         $etatChapitre_instance = $this->createInstance();
         $etatChapitre_viewTypes = $this->getViewTypes();
         $etatChapitre_partialViewName = $this->getPartialViewName($etatChapitre_viewType);
-    
+        $etatChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatChapitre.stats', $etatChapitres_stats);
     
@@ -164,7 +166,9 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitres_data',
             'etatChapitres_stats',
             'etatChapitres_filters',
-            'etatChapitre_instance'
+            'etatChapitre_instance',
+            'etatChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +179,7 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitre_viewType' => $etatChapitre_viewType,
             'etatChapitre_viewTypes' => $etatChapitre_viewTypes,
             'etatChapitre_partialViewName' => $etatChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'etatChapitre_compact_value' => $compact_value
         ];
     }

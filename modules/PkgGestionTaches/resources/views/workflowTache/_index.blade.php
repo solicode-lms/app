@@ -36,7 +36,7 @@
     <x-crud-header 
         id="workflowTache-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::workflowTache.plural') }}"
+        title="{{ $workflowTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

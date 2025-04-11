@@ -43,6 +43,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     {
         parent::__construct(new CommentaireRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::commentaireRealisationTache.plural');
     }
 
 
@@ -138,7 +139,8 @@ class BaseCommentaireRealisationTacheService extends BaseService
         $commentaireRealisationTache_instance = $this->createInstance();
         $commentaireRealisationTache_viewTypes = $this->getViewTypes();
         $commentaireRealisationTache_partialViewName = $this->getPartialViewName($commentaireRealisationTache_viewType);
-    
+        $commentaireRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.commentaireRealisationTache.stats', $commentaireRealisationTaches_stats);
     
@@ -149,7 +151,9 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTaches_data',
             'commentaireRealisationTaches_stats',
             'commentaireRealisationTaches_filters',
-            'commentaireRealisationTache_instance'
+            'commentaireRealisationTache_instance',
+            'commentaireRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +164,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTache_viewType' => $commentaireRealisationTache_viewType,
             'commentaireRealisationTache_viewTypes' => $commentaireRealisationTache_viewTypes,
             'commentaireRealisationTache_partialViewName' => $commentaireRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'commentaireRealisationTache_compact_value' => $compact_value
         ];
     }

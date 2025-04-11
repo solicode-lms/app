@@ -44,6 +44,7 @@ class BaseEtatFormationService extends BaseService
     {
         parent::__construct(new EtatFormation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::etatFormation.plural');
     }
 
 
@@ -153,7 +154,8 @@ class BaseEtatFormationService extends BaseService
         $etatFormation_instance = $this->createInstance();
         $etatFormation_viewTypes = $this->getViewTypes();
         $etatFormation_partialViewName = $this->getPartialViewName($etatFormation_viewType);
-    
+        $etatFormation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatFormation.stats', $etatFormations_stats);
     
@@ -164,7 +166,9 @@ class BaseEtatFormationService extends BaseService
             'etatFormations_data',
             'etatFormations_stats',
             'etatFormations_filters',
-            'etatFormation_instance'
+            'etatFormation_instance',
+            'etatFormation_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +179,7 @@ class BaseEtatFormationService extends BaseService
             'etatFormation_viewType' => $etatFormation_viewType,
             'etatFormation_viewTypes' => $etatFormation_viewTypes,
             'etatFormation_partialViewName' => $etatFormation_partialViewName,
+            'contextKey' => $contextKey,
             'etatFormation_compact_value' => $compact_value
         ];
     }

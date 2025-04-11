@@ -39,6 +39,7 @@ class BaseVilleService extends BaseService
     {
         parent::__construct(new Ville());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::ville.plural');
     }
 
 
@@ -125,7 +126,8 @@ class BaseVilleService extends BaseService
         $ville_instance = $this->createInstance();
         $ville_viewTypes = $this->getViewTypes();
         $ville_partialViewName = $this->getPartialViewName($ville_viewType);
-    
+        $ville_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.ville.stats', $villes_stats);
     
@@ -136,7 +138,9 @@ class BaseVilleService extends BaseService
             'villes_data',
             'villes_stats',
             'villes_filters',
-            'ville_instance'
+            'ville_instance',
+            'ville_title',
+            'contextKey'
         );
     
         return [
@@ -147,6 +151,7 @@ class BaseVilleService extends BaseService
             'ville_viewType' => $ville_viewType,
             'ville_viewTypes' => $ville_viewTypes,
             'ville_partialViewName' => $ville_partialViewName,
+            'contextKey' => $contextKey,
             'ville_compact_value' => $compact_value
         ];
     }

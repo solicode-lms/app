@@ -49,7 +49,11 @@ class BaseNatureLivrableController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($natureLivrable_partialViewName, $natureLivrable_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCreationProjet::natureLivrable._index', $natureLivrable_compact_value)->render();
+            }else{
+                return view($natureLivrable_partialViewName, $natureLivrable_compact_value)->render();
+            }
         }
 
         return view('PkgCreationProjet::natureLivrable.index', $natureLivrable_compact_value);

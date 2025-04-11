@@ -65,7 +65,11 @@ class BaseRealisationTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($realisationTache_partialViewName, $realisationTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::realisationTache._index', $realisationTache_compact_value)->render();
+            }else{
+                return view($realisationTache_partialViewName, $realisationTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::realisationTache.index', $realisationTache_compact_value);

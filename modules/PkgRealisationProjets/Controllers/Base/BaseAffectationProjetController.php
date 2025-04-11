@@ -69,7 +69,11 @@ class BaseAffectationProjetController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($affectationProjet_partialViewName, $affectationProjet_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgRealisationProjets::affectationProjet._index', $affectationProjet_compact_value)->render();
+            }else{
+                return view($affectationProjet_partialViewName, $affectationProjet_compact_value)->render();
+            }
         }
 
         return view('PkgRealisationProjets::affectationProjet.index', $affectationProjet_compact_value);

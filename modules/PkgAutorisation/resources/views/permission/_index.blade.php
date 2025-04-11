@@ -36,7 +36,7 @@
     <x-crud-header 
         id="permission-crud-header" icon="fas fa-lock-open"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::permission.plural') }}"
+        title="{{ $permission_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

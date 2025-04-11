@@ -36,7 +36,7 @@
     <x-crud-header 
         id="apprenantKonosy-crud-header" icon="fas fa-id-badge"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::apprenantKonosy.plural') }}"
+        title="{{ $apprenantKonosy_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

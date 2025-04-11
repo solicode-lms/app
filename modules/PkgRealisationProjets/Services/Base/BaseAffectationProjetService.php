@@ -44,6 +44,7 @@ class BaseAffectationProjetService extends BaseService
     {
         parent::__construct(new AffectationProjet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::affectationProjet.plural');
     }
 
 
@@ -150,7 +151,8 @@ class BaseAffectationProjetService extends BaseService
         $affectationProjet_instance = $this->createInstance();
         $affectationProjet_viewTypes = $this->getViewTypes();
         $affectationProjet_partialViewName = $this->getPartialViewName($affectationProjet_viewType);
-    
+        $affectationProjet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.affectationProjet.stats', $affectationProjets_stats);
     
@@ -161,7 +163,9 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjets_data',
             'affectationProjets_stats',
             'affectationProjets_filters',
-            'affectationProjet_instance'
+            'affectationProjet_instance',
+            'affectationProjet_title',
+            'contextKey'
         );
     
         return [
@@ -172,6 +176,7 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjet_viewType' => $affectationProjet_viewType,
             'affectationProjet_viewTypes' => $affectationProjet_viewTypes,
             'affectationProjet_partialViewName' => $affectationProjet_partialViewName,
+            'contextKey' => $contextKey,
             'affectationProjet_compact_value' => $compact_value
         ];
     }

@@ -51,7 +51,11 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($historiqueRealisationTache_partialViewName, $historiqueRealisationTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::historiqueRealisationTache._index', $historiqueRealisationTache_compact_value)->render();
+            }else{
+                return view($historiqueRealisationTache_partialViewName, $historiqueRealisationTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::historiqueRealisationTache.index', $historiqueRealisationTache_compact_value);

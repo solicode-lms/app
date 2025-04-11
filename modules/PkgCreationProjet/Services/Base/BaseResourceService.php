@@ -42,6 +42,7 @@ class BaseResourceService extends BaseService
     {
         parent::__construct(new Resource());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::resource.plural');
     }
 
 
@@ -145,7 +146,8 @@ class BaseResourceService extends BaseService
         $resource_instance = $this->createInstance();
         $resource_viewTypes = $this->getViewTypes();
         $resource_partialViewName = $this->getPartialViewName($resource_viewType);
-    
+        $resource_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.resource.stats', $resources_stats);
     
@@ -156,7 +158,9 @@ class BaseResourceService extends BaseService
             'resources_data',
             'resources_stats',
             'resources_filters',
-            'resource_instance'
+            'resource_instance',
+            'resource_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +171,7 @@ class BaseResourceService extends BaseService
             'resource_viewType' => $resource_viewType,
             'resource_viewTypes' => $resource_viewTypes,
             'resource_partialViewName' => $resource_partialViewName,
+            'contextKey' => $contextKey,
             'resource_compact_value' => $compact_value
         ];
     }

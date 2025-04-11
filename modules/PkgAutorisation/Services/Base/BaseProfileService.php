@@ -43,6 +43,7 @@ class BaseProfileService extends BaseService
     {
         parent::__construct(new Profile());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::profile.plural');
     }
 
 
@@ -146,7 +147,8 @@ class BaseProfileService extends BaseService
         $profile_instance = $this->createInstance();
         $profile_viewTypes = $this->getViewTypes();
         $profile_partialViewName = $this->getPartialViewName($profile_viewType);
-    
+        $profile_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.profile.stats', $profiles_stats);
     
@@ -157,7 +159,9 @@ class BaseProfileService extends BaseService
             'profiles_data',
             'profiles_stats',
             'profiles_filters',
-            'profile_instance'
+            'profile_instance',
+            'profile_title',
+            'contextKey'
         );
     
         return [
@@ -168,6 +172,7 @@ class BaseProfileService extends BaseService
             'profile_viewType' => $profile_viewType,
             'profile_viewTypes' => $profile_viewTypes,
             'profile_partialViewName' => $profile_partialViewName,
+            'contextKey' => $contextKey,
             'profile_compact_value' => $compact_value
         ];
     }

@@ -41,6 +41,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     {
         parent::__construct(new HistoriqueRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::historiqueRealisationTache.plural');
     }
 
 
@@ -130,7 +131,8 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         $historiqueRealisationTache_instance = $this->createInstance();
         $historiqueRealisationTache_viewTypes = $this->getViewTypes();
         $historiqueRealisationTache_partialViewName = $this->getPartialViewName($historiqueRealisationTache_viewType);
-    
+        $historiqueRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.historiqueRealisationTache.stats', $historiqueRealisationTaches_stats);
     
@@ -141,7 +143,9 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTaches_data',
             'historiqueRealisationTaches_stats',
             'historiqueRealisationTaches_filters',
-            'historiqueRealisationTache_instance'
+            'historiqueRealisationTache_instance',
+            'historiqueRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +156,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTache_viewType' => $historiqueRealisationTache_viewType,
             'historiqueRealisationTache_viewTypes' => $historiqueRealisationTache_viewTypes,
             'historiqueRealisationTache_partialViewName' => $historiqueRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'historiqueRealisationTache_compact_value' => $compact_value
         ];
     }

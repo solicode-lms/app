@@ -55,7 +55,11 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($etatsRealisationProjet_partialViewName, $etatsRealisationProjet_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgRealisationProjets::etatsRealisationProjet._index', $etatsRealisationProjet_compact_value)->render();
+            }else{
+                return view($etatsRealisationProjet_partialViewName, $etatsRealisationProjet_compact_value)->render();
+            }
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.index', $etatsRealisationProjet_compact_value);

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="technology-crud-header" icon="fas fa-tag"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::technology.plural') }}"
+        title="{{ $technology_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

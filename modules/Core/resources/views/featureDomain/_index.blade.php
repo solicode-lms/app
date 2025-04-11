@@ -36,7 +36,7 @@
     <x-crud-header 
         id="featureDomain-crud-header" icon="fas fa-th-large"  
         iconColor="text-info"
-        title="{{ __('Core::featureDomain.plural') }}"
+        title="{{ $featureDomain_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="sysModel-crud-header" icon="fas fa-cubes"  
         iconColor="text-info"
-        title="{{ __('Core::sysModel.plural') }}"
+        title="{{ $sysModel_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

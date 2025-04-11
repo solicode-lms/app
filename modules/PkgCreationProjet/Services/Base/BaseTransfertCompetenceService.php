@@ -43,6 +43,7 @@ class BaseTransfertCompetenceService extends BaseService
     {
         parent::__construct(new TransfertCompetence());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::transfertCompetence.plural');
     }
 
 
@@ -152,7 +153,8 @@ class BaseTransfertCompetenceService extends BaseService
         $transfertCompetence_instance = $this->createInstance();
         $transfertCompetence_viewTypes = $this->getViewTypes();
         $transfertCompetence_partialViewName = $this->getPartialViewName($transfertCompetence_viewType);
-    
+        $transfertCompetence_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.transfertCompetence.stats', $transfertCompetences_stats);
     
@@ -163,7 +165,9 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetences_data',
             'transfertCompetences_stats',
             'transfertCompetences_filters',
-            'transfertCompetence_instance'
+            'transfertCompetence_instance',
+            'transfertCompetence_title',
+            'contextKey'
         );
     
         return [
@@ -174,6 +178,7 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetence_viewType' => $transfertCompetence_viewType,
             'transfertCompetence_viewTypes' => $transfertCompetence_viewTypes,
             'transfertCompetence_partialViewName' => $transfertCompetence_partialViewName,
+            'contextKey' => $contextKey,
             'transfertCompetence_compact_value' => $compact_value
         ];
     }

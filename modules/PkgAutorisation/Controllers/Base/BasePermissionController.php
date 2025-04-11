@@ -57,7 +57,11 @@ class BasePermissionController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($permission_partialViewName, $permission_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutorisation::permission._index', $permission_compact_value)->render();
+            }else{
+                return view($permission_partialViewName, $permission_compact_value)->render();
+            }
         }
 
         return view('PkgAutorisation::permission.index', $permission_compact_value);

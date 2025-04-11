@@ -43,6 +43,7 @@ class BaseSysControllerService extends BaseService
     {
         parent::__construct(new SysController());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysController.plural');
     }
 
 
@@ -132,7 +133,8 @@ class BaseSysControllerService extends BaseService
         $sysController_instance = $this->createInstance();
         $sysController_viewTypes = $this->getViewTypes();
         $sysController_partialViewName = $this->getPartialViewName($sysController_viewType);
-    
+        $sysController_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysController.stats', $sysControllers_stats);
     
@@ -143,7 +145,9 @@ class BaseSysControllerService extends BaseService
             'sysControllers_data',
             'sysControllers_stats',
             'sysControllers_filters',
-            'sysController_instance'
+            'sysController_instance',
+            'sysController_title',
+            'contextKey'
         );
     
         return [
@@ -154,6 +158,7 @@ class BaseSysControllerService extends BaseService
             'sysController_viewType' => $sysController_viewType,
             'sysController_viewTypes' => $sysController_viewTypes,
             'sysController_partialViewName' => $sysController_partialViewName,
+            'contextKey' => $contextKey,
             'sysController_compact_value' => $compact_value
         ];
     }

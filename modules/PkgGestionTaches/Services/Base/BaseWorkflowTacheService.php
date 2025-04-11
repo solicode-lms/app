@@ -41,6 +41,7 @@ class BaseWorkflowTacheService extends BaseService
     {
         parent::__construct(new WorkflowTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::workflowTache.plural');
     }
 
 
@@ -127,7 +128,8 @@ class BaseWorkflowTacheService extends BaseService
         $workflowTache_instance = $this->createInstance();
         $workflowTache_viewTypes = $this->getViewTypes();
         $workflowTache_partialViewName = $this->getPartialViewName($workflowTache_viewType);
-    
+        $workflowTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowTache.stats', $workflowTaches_stats);
     
@@ -138,7 +140,9 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTaches_data',
             'workflowTaches_stats',
             'workflowTaches_filters',
-            'workflowTache_instance'
+            'workflowTache_instance',
+            'workflowTache_title',
+            'contextKey'
         );
     
         return [
@@ -149,6 +153,7 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTache_viewType' => $workflowTache_viewType,
             'workflowTache_viewTypes' => $workflowTache_viewTypes,
             'workflowTache_partialViewName' => $workflowTache_partialViewName,
+            'contextKey' => $contextKey,
             'workflowTache_compact_value' => $compact_value
         ];
     }

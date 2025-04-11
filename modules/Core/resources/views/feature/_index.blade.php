@@ -36,7 +36,7 @@
     <x-crud-header 
         id="feature-crud-header" icon="fas fa-plug"  
         iconColor="text-info"
-        title="{{ __('Core::feature.plural') }}"
+        title="{{ $feature_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

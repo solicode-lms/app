@@ -36,7 +36,7 @@
     <x-crud-header 
         id="widgetUtilisateur-crud-header" icon="fas fa-chart-pie"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widgetUtilisateur.plural') }}"
+        title="{{ $widgetUtilisateur_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

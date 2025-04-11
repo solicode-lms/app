@@ -49,7 +49,11 @@ class BaseEPackageController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($ePackage_partialViewName, $ePackage_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGapp::ePackage._index', $ePackage_compact_value)->render();
+            }else{
+                return view($ePackage_partialViewName, $ePackage_compact_value)->render();
+            }
         }
 
         return view('PkgGapp::ePackage.index', $ePackage_compact_value);

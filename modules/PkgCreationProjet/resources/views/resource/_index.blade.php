@@ -36,7 +36,7 @@
     <x-crud-header 
         id="resource-crud-header" icon="fas fa-book"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::resource.plural') }}"
+        title="{{ $resource_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

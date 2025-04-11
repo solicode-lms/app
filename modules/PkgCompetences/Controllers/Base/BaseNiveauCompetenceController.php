@@ -51,7 +51,11 @@ class BaseNiveauCompetenceController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($niveauCompetence_partialViewName, $niveauCompetence_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCompetences::niveauCompetence._index', $niveauCompetence_compact_value)->render();
+            }else{
+                return view($niveauCompetence_partialViewName, $niveauCompetence_compact_value)->render();
+            }
         }
 
         return view('PkgCompetences::niveauCompetence.index', $niveauCompetence_compact_value);

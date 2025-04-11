@@ -45,6 +45,7 @@ class BaseSysModuleService extends BaseService
     {
         parent::__construct(new SysModule());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysModule.plural');
     }
 
 
@@ -134,7 +135,8 @@ class BaseSysModuleService extends BaseService
         $sysModule_instance = $this->createInstance();
         $sysModule_viewTypes = $this->getViewTypes();
         $sysModule_partialViewName = $this->getPartialViewName($sysModule_viewType);
-    
+        $sysModule_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysModule.stats', $sysModules_stats);
     
@@ -145,7 +147,9 @@ class BaseSysModuleService extends BaseService
             'sysModules_data',
             'sysModules_stats',
             'sysModules_filters',
-            'sysModule_instance'
+            'sysModule_instance',
+            'sysModule_title',
+            'contextKey'
         );
     
         return [
@@ -156,6 +160,7 @@ class BaseSysModuleService extends BaseService
             'sysModule_viewType' => $sysModule_viewType,
             'sysModule_viewTypes' => $sysModule_viewTypes,
             'sysModule_partialViewName' => $sysModule_partialViewName,
+            'contextKey' => $contextKey,
             'sysModule_compact_value' => $compact_value
         ];
     }

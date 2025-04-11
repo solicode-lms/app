@@ -42,6 +42,7 @@ class BaseWorkflowFormationService extends BaseService
     {
         parent::__construct(new WorkflowFormation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::workflowFormation.plural');
     }
 
 
@@ -131,7 +132,8 @@ class BaseWorkflowFormationService extends BaseService
         $workflowFormation_instance = $this->createInstance();
         $workflowFormation_viewTypes = $this->getViewTypes();
         $workflowFormation_partialViewName = $this->getPartialViewName($workflowFormation_viewType);
-    
+        $workflowFormation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowFormation.stats', $workflowFormations_stats);
     
@@ -142,7 +144,9 @@ class BaseWorkflowFormationService extends BaseService
             'workflowFormations_data',
             'workflowFormations_stats',
             'workflowFormations_filters',
-            'workflowFormation_instance'
+            'workflowFormation_instance',
+            'workflowFormation_title',
+            'contextKey'
         );
     
         return [
@@ -153,6 +157,7 @@ class BaseWorkflowFormationService extends BaseService
             'workflowFormation_viewType' => $workflowFormation_viewType,
             'workflowFormation_viewTypes' => $workflowFormation_viewTypes,
             'workflowFormation_partialViewName' => $workflowFormation_partialViewName,
+            'contextKey' => $contextKey,
             'workflowFormation_compact_value' => $compact_value
         ];
     }

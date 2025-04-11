@@ -36,7 +36,7 @@
     <x-crud-header 
         id="ePackage-crud-header" icon="fas fa-box"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::ePackage.plural') }}"
+        title="{{ $ePackage_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

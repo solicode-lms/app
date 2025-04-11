@@ -58,7 +58,11 @@ class BaseLabelRealisationTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($labelRealisationTache_partialViewName, $labelRealisationTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::labelRealisationTache._index', $labelRealisationTache_compact_value)->render();
+            }else{
+                return view($labelRealisationTache_partialViewName, $labelRealisationTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::labelRealisationTache.index', $labelRealisationTache_compact_value);

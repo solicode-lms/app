@@ -44,6 +44,7 @@ class BaseEModelService extends BaseService
     {
         parent::__construct(new EModel());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eModel.plural');
     }
 
 
@@ -133,7 +134,8 @@ class BaseEModelService extends BaseService
         $eModel_instance = $this->createInstance();
         $eModel_viewTypes = $this->getViewTypes();
         $eModel_partialViewName = $this->getPartialViewName($eModel_viewType);
-    
+        $eModel_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eModel.stats', $eModels_stats);
     
@@ -144,7 +146,9 @@ class BaseEModelService extends BaseService
             'eModels_data',
             'eModels_stats',
             'eModels_filters',
-            'eModel_instance'
+            'eModel_instance',
+            'eModel_title',
+            'contextKey'
         );
     
         return [
@@ -155,6 +159,7 @@ class BaseEModelService extends BaseService
             'eModel_viewType' => $eModel_viewType,
             'eModel_viewTypes' => $eModel_viewTypes,
             'eModel_partialViewName' => $eModel_partialViewName,
+            'contextKey' => $contextKey,
             'eModel_compact_value' => $compact_value
         ];
     }

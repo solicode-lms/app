@@ -36,7 +36,7 @@
     <x-crud-header 
         id="user-crud-header" icon="fas fa-user"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::user.plural') }}"
+        title="{{ $user_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -36,7 +36,7 @@
     <x-crud-header 
         id="prioriteTache-crud-header" icon="fas fa-list-ol"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::prioriteTache.plural') }}"
+        title="{{ $prioriteTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

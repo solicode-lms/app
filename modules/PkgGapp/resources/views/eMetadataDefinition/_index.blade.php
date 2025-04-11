@@ -36,7 +36,7 @@
     <x-crud-header 
         id="eMetadataDefinition-crud-header" icon="fas fa-database"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eMetadataDefinition.plural') }}"
+        title="{{ $eMetadataDefinition_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

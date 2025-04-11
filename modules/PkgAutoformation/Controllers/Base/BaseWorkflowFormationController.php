@@ -52,7 +52,11 @@ class BaseWorkflowFormationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($workflowFormation_partialViewName, $workflowFormation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutoformation::workflowFormation._index', $workflowFormation_compact_value)->render();
+            }else{
+                return view($workflowFormation_partialViewName, $workflowFormation_compact_value)->render();
+            }
         }
 
         return view('PkgAutoformation::workflowFormation.index', $workflowFormation_compact_value);

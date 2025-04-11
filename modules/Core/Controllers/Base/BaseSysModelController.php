@@ -55,7 +55,11 @@ class BaseSysModelController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($sysModel_partialViewName, $sysModel_compact_value)->render();
+            if($request['showIndex']){
+                return view('Core::sysModel._index', $sysModel_compact_value)->render();
+            }else{
+                return view($sysModel_partialViewName, $sysModel_compact_value)->render();
+            }
         }
 
         return view('Core::sysModel.index', $sysModel_compact_value);

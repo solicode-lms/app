@@ -40,6 +40,7 @@ class BaseRoleService extends BaseService
     {
         parent::__construct(new Role());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::role.plural');
     }
 
 
@@ -126,7 +127,8 @@ class BaseRoleService extends BaseService
         $role_instance = $this->createInstance();
         $role_viewTypes = $this->getViewTypes();
         $role_partialViewName = $this->getPartialViewName($role_viewType);
-    
+        $role_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.role.stats', $roles_stats);
     
@@ -137,7 +139,9 @@ class BaseRoleService extends BaseService
             'roles_data',
             'roles_stats',
             'roles_filters',
-            'role_instance'
+            'role_instance',
+            'role_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +152,7 @@ class BaseRoleService extends BaseService
             'role_viewType' => $role_viewType,
             'role_viewTypes' => $role_viewTypes,
             'role_partialViewName' => $role_partialViewName,
+            'contextKey' => $contextKey,
             'role_compact_value' => $compact_value
         ];
     }

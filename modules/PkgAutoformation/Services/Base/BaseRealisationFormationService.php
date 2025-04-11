@@ -43,6 +43,7 @@ class BaseRealisationFormationService extends BaseService
     {
         parent::__construct(new RealisationFormation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::realisationFormation.plural');
     }
 
 
@@ -138,7 +139,8 @@ class BaseRealisationFormationService extends BaseService
         $realisationFormation_instance = $this->createInstance();
         $realisationFormation_viewTypes = $this->getViewTypes();
         $realisationFormation_partialViewName = $this->getPartialViewName($realisationFormation_viewType);
-    
+        $realisationFormation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationFormation.stats', $realisationFormations_stats);
     
@@ -149,7 +151,9 @@ class BaseRealisationFormationService extends BaseService
             'realisationFormations_data',
             'realisationFormations_stats',
             'realisationFormations_filters',
-            'realisationFormation_instance'
+            'realisationFormation_instance',
+            'realisationFormation_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +164,7 @@ class BaseRealisationFormationService extends BaseService
             'realisationFormation_viewType' => $realisationFormation_viewType,
             'realisationFormation_viewTypes' => $realisationFormation_viewTypes,
             'realisationFormation_partialViewName' => $realisationFormation_partialViewName,
+            'contextKey' => $contextKey,
             'realisationFormation_compact_value' => $compact_value
         ];
     }

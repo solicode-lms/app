@@ -36,7 +36,7 @@
     <x-crud-header 
         id="tache-crud-header" icon="fas fa-clipboard-list"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::tache.plural') }}"
+        title="{{ $tache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

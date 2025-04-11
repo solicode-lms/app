@@ -36,7 +36,7 @@
     <x-crud-header 
         id="historiqueRealisationTache-crud-header" icon="fas fa-history"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::historiqueRealisationTache.plural') }}"
+        title="{{ $historiqueRealisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

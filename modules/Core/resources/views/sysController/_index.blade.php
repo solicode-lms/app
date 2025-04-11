@@ -36,7 +36,7 @@
     <x-crud-header 
         id="sysController-crud-header" icon="fas fa-server"  
         iconColor="text-info"
-        title="{{ __('Core::sysController.plural') }}"
+        title="{{ $sysController_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

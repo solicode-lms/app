@@ -49,7 +49,11 @@ class BaseWidgetTypeController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($widgetType_partialViewName, $widgetType_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgWidgets::widgetType._index', $widgetType_compact_value)->render();
+            }else{
+                return view($widgetType_partialViewName, $widgetType_compact_value)->render();
+            }
         }
 
         return view('PkgWidgets::widgetType.index', $widgetType_compact_value);
