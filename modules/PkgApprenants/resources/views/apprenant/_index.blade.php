@@ -8,7 +8,6 @@
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         editOnFullScreen : false,
         entity_name: 'apprenant',
-        dataSource: '{{ isset($dataSource) ? $dataSource : 'default' }}',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'apprenant.index' }}', 
         filterFormSelector: '#apprenant-crud-filter-form',
         crudSelector: '#apprenant-crud',

@@ -43,6 +43,17 @@
                         </ul>
                     </td>
                     <td class="text-right">
+                    @can('index-realisationTache')
+                    <a 
+                        data-toggle="tooltip" 
+                        title="Voir les tâches" 
+                        href="{{ route('realisationTaches.index', ['filter.realisationTache.realisationProjet.apprenant_id' => $apprenant->id]) }}" 
+                        data-id="{{$apprenant->id}}" 
+                        
+                        class="btn btn-default btn-sm context-state actionEntity showIndex">
+                            <i class="fas fa-laptop-code"></i>
+                    </a>
+                    @endcan
                        @can('initPassword-apprenant')
                         <a 
                         data-toggle="tooltip" 

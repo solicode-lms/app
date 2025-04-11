@@ -40,13 +40,7 @@ class BaseApprenantController extends AdminController
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
-
-      
-        // $dataSource = $this->viewState->getDataSourceVariables("apprenant");
-        // if ($dataSource) {
-        //     $this->viewState->set('dataSource.apprenant.code',$dataSource["code"],'apprenant.index');
-        // }
-
+        
 
         // scopeDataByRole pour Model
         if(Auth::user()->hasRole('formateur')){
@@ -75,7 +69,6 @@ class BaseApprenantController extends AdminController
             }else{
                 return view($apprenant_partialViewName, $apprenant_compact_value)->render();
             }
-            
         }
 
         return view('PkgApprenants::apprenant.index', $apprenant_compact_value);
