@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ add linkAction --}}
 
 @section('apprenant-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="apprenants-crud-card-body">
@@ -43,6 +43,7 @@
                         </ul>
                     </td>
                     <td class="text-right">
+                    {{-- //TODO : Add metaData : linkAction  --}}
                     @can('index-realisationTache')
                     <a 
                         data-toggle="tooltip" 
