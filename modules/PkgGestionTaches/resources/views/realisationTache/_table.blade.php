@@ -5,10 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="40" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column width="15" field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
-                <x-sortable-column width="15" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
-                <x-sortable-column width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
+                <x-sortable-column width="25" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column width="18"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
+                <x-sortable-column width="12"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
+                <x-sortable-column width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
+                <x-sortable-column width="18"  field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,25 +17,29 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td style="max-width: 40%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
+                    <td style="max-width: 25%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                     <x-field :data="$realisationTache" field="tache">
                        
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->realisationProjet }}" >
-                    <x-field :data="$realisationTache" field="realisationProjet">
-                       
-                         {{  $realisationTache->realisationProjet }}
+                    <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <x-field :data="$realisationTache" field="projet_title">
+                        {{ $realisationTache->projet_title }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
+                    <td style="max-width: 12%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
+                    <x-field :data="$realisationTache" field="nom_prenom_apprenant">
+                        {{ $realisationTache->nom_prenom_apprenant }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 12%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                     <x-field :data="$realisationTache" field="etatRealisationTache">
                        
                          {{  $realisationTache->etatRealisationTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                     <x-field :data="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>

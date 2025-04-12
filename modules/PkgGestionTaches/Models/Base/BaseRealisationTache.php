@@ -29,6 +29,19 @@ class BaseRealisationTache extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "RealisationProjet.AffectationProjet.Projet.Formateur.user,RealisationProjet.Apprenant.user";
+        // Colonne dynamique : projet_title
+        $sql = "SELECT p.titre
+        FROM realisation_projets rp
+        JOIN affectation_projets ap ON ap.id = rp.affectation_projet_id
+        JOIN projets p ON p.id = ap.projet_id
+        WHERE rp.id = realisation_taches.realisation_projet_id";
+        static::addDynamicAttribute('projet_title', $sql);
+        // Colonne dynamique : nom_prenom_apprenant
+        $sql = "SELECT CONCAT(a.nom, ' ', a.prenom)
+        FROM realisation_projets rp
+        JOIN apprenants a ON a.id = rp.apprenant_id
+        WHERE rp.id = realisation_taches.realisation_projet_id";
+        static::addDynamicAttribute('nom_prenom_apprenant', $sql);
         // Colonne dynamique : nombre_livrables
         $sql = "SELECT COUNT(*) 
         FROM livrables_realisations lr
