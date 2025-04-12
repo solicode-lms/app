@@ -2,12 +2,12 @@
 
 @section('etatFormation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="etatFormations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,38 @@
             @section('etatFormation-table-tbody')
             @foreach ($etatFormations_data as $etatFormation)
                 <tr id="etatFormation-row-{{$etatFormation->id}}">
-                    <td>
-                     <span @if(strlen($etatFormation->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->nom }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->nom, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
+                    <x-field :data="$etatFormation" field="nom">
+                        {{ $etatFormation->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatFormation->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
+                    <x-field :data="$etatFormation" field="sysColor">
+                       
+                         {{  $etatFormation->sysColor }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatFormation->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatFormation->formateur }}" 
-                        @endif>
-                        {{ Str::limit($etatFormation->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
+                    <x-field :data="$etatFormation" field="formateur">
+                       
+                         {{  $etatFormation->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-etatFormation')
-                        @can('view', $etatFormation)
-                            <a href="{{ route('etatFormations.show', ['etatFormation' => $etatFormation->id]) }}" data-id="{{$etatFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-etatFormation')
                         @can('update', $etatFormation)
                             <a href="{{ route('etatFormations.edit', ['etatFormation' => $etatFormation->id]) }}" data-id="{{$etatFormation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-etatFormation')
+                        @can('view', $etatFormation)
+                            <a href="{{ route('etatFormations.show', ['etatFormation' => $etatFormation->id]) }}" data-id="{{$etatFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

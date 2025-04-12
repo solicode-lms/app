@@ -2,13 +2,13 @@
 
 @section('competence-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="competences-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
-                <x-sortable-column field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
-                <x-sortable-column field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
-                <x-sortable-column field="module_id" modelname="competence" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
+                <x-sortable-column width="21.25"  field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
+                <x-sortable-column width="21.25"  field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
+                <x-sortable-column width="21.25"  field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
+                <x-sortable-column width="21.25" field="module_id" modelname="competence" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,51 +16,42 @@
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
-                    <td>
-                     <span @if(strlen($competence->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $competence->code }}" 
-                        @endif>
-                        {{ Str::limit($competence->code, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
+                    <x-field :data="$competence" field="code">
+                        {{ $competence->code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($competence->mini_code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $competence->mini_code }}" 
-                        @endif>
-                        {{ Str::limit($competence->mini_code, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->mini_code }}" >
+                    <x-field :data="$competence" field="mini_code">
+                        {{ $competence->mini_code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($competence->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $competence->nom }}" 
-                        @endif>
-                        {{ Str::limit($competence->nom, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->nom }}" >
+                    <x-field :data="$competence" field="nom">
+                        {{ $competence->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($competence->module) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $competence->module }}" 
-                        @endif>
-                        {{ Str::limit($competence->module, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->module }}" >
+                    <x-field :data="$competence" field="module">
+                       
+                         {{  $competence->module }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-competence')
-                        @can('view', $competence)
-                            <a href="{{ route('competences.show', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-competence')
                         @can('update', $competence)
                             <a href="{{ route('competences.edit', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-competence')
+                        @can('view', $competence)
+                            <a href="{{ route('competences.show', ['competence' => $competence->id]) }}" data-id="{{$competence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

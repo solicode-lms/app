@@ -2,12 +2,12 @@
 
 @section('eMetadataDefinition-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="eMetadataDefinitions-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
-                <x-sortable-column field="groupe" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}" />
-                <x-sortable-column field="description" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="groupe" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="description" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,36 +15,36 @@
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
-                    <td>
-                     <span @if(strlen($eMetadataDefinition->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $eMetadataDefinition->name }}" 
-                        @endif>
-                        {{ Str::limit($eMetadataDefinition->name, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
+                    <x-field :data="$eMetadataDefinition" field="name">
+                        {{ $eMetadataDefinition->name }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($eMetadataDefinition->groupe) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $eMetadataDefinition->groupe }}" 
-                        @endif>
-                        {{ Str::limit($eMetadataDefinition->groupe, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
+                    <x-field :data="$eMetadataDefinition" field="groupe">
+                        {{ $eMetadataDefinition->groupe }}
+                    </x-field>
                     </td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 50) !!}</td>
-                    <td class="text-right">
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
+                    <x-field :data="$eMetadataDefinition" field="description">
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-eMetadataDefinition')
-                        @can('view', $eMetadataDefinition)
-                            <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-eMetadataDefinition')
                         @can('update', $eMetadataDefinition)
                             <a href="{{ route('eMetadataDefinitions.edit', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-eMetadataDefinition')
+                        @can('view', $eMetadataDefinition)
+                            <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

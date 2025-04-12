@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysModel.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $sysModel_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="sysModel-crud" class="crud">
     @section('sysModel-crud-header')
     @php

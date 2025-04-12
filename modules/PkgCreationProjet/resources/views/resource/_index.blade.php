@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::resource.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $resource_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="resource-crud" class="crud">
     @section('resource-crud-header')
     @php

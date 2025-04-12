@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::etatsRealisationProjet.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $etatsRealisationProjet_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="etatsRealisationProjet-crud" class="crud">
     @section('etatsRealisationProjet-crud-header')
     @php

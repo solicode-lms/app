@@ -2,14 +2,14 @@
 
 @section('widget-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="widgets-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="ordre" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.ordre')) }}" />
-                <x-sortable-column field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
-                <x-sortable-column field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
-                <x-sortable-column field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <x-sortable-column width="17"  field="ordre" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.ordre')) }}" />
+                <x-sortable-column width="17"  field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
+                <x-sortable-column width="17"  field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column width="17" field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
+                <x-sortable-column width="17"  field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,58 +17,51 @@
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
-                    <td>
-                     <span @if(strlen($widget->ordre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->ordre }}" 
-                        @endif>
-                        {{ Str::limit($widget->ordre, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->ordre }}" >
+                    <x-field :data="$widget" field="ordre">
+                        {{ $widget->ordre }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widget->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->name }}" 
-                        @endif>
-                        {{ Str::limit($widget->name, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
+                    <x-field :data="$widget" field="name">
+                        {{ $widget->name }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widget->label) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->label }}" 
-                        @endif>
-                        {{ Str::limit($widget->label, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
+                    <x-field :data="$widget" field="label">
+                        {{ $widget->label }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widget->type) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $widget->type }}" 
-                        @endif>
-                        {{ Str::limit($widget->type, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->type }}" >
+                    <x-field :data="$widget" field="type">
+                       
+                         {{  $widget->type }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->roles }}" >
+                    <x-field :data="$widget" field="roles">
                         <ul>
                             @foreach ($widget->roles as $role)
-                                <li @if(strlen($role) > 40) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 40)</li>
+                                <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-widget')
-                        @can('view', $widget)
-                            <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-widget')
                         @can('update', $widget)
                             <a href="{{ route('widgets.edit', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-widget')
+                        @can('view', $widget)
+                            <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

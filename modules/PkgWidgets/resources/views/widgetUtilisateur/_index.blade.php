@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetUtilisateur.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $widgetUtilisateur_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="widgetUtilisateur-crud" class="crud">
     @section('widgetUtilisateur-crud-header')
     @php

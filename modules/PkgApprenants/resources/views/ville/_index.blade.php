@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::ville.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $ville_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="ville-crud" class="crud">
     @section('ville-crud-header')
     @php

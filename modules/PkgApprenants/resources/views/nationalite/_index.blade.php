@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::nationalite.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $nationalite_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="nationalite-crud" class="crud">
     @section('nationalite-crud-header')
     @php

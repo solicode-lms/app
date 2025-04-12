@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $groupe_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="groupe-crud" class="crud">
     @section('groupe-crud-header')
     @php

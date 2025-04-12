@@ -2,12 +2,12 @@
 
 @section('dependanceTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="dependanceTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
-                <x-sortable-column field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,39 @@
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}">
-                    <td>
-                     <span @if(strlen($dependanceTache->tache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $dependanceTache->tache }}" 
-                        @endif>
-                        {{ Str::limit($dependanceTache->tache, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
+                    <x-field :data="$dependanceTache" field="tache">
+                       
+                         {{  $dependanceTache->tache }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($dependanceTache->typeDependanceTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $dependanceTache->typeDependanceTache }}" 
-                        @endif>
-                        {{ Str::limit($dependanceTache->typeDependanceTache, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->typeDependanceTache }}" >
+                    <x-field :data="$dependanceTache" field="typeDependanceTache">
+                       
+                         {{  $dependanceTache->typeDependanceTache }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($dependanceTache->tacheCible) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $dependanceTache->tacheCible }}" 
-                        @endif>
-                        {{ Str::limit($dependanceTache->tacheCible, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tacheCible }}" >
+                    <x-field :data="$dependanceTache" field="tacheCible">
+                       
+                         {{  $dependanceTache->tacheCible }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-dependanceTache')
-                        @can('view', $dependanceTache)
-                            <a href="{{ route('dependanceTaches.show', ['dependanceTache' => $dependanceTache->id]) }}" data-id="{{$dependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-dependanceTache')
                         @can('update', $dependanceTache)
                             <a href="{{ route('dependanceTaches.edit', ['dependanceTache' => $dependanceTache->id]) }}" data-id="{{$dependanceTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-dependanceTache')
+                        @can('view', $dependanceTache)
+                            <a href="{{ route('dependanceTaches.show', ['dependanceTache' => $dependanceTache->id]) }}" data-id="{{$dependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

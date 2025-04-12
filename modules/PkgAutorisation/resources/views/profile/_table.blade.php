@@ -2,10 +2,10 @@
 
 @section('profile-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="profiles-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="user_id" modelname="profile" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
+                <x-sortable-column width="85" field="user_id" modelname="profile" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,27 @@
             @section('profile-table-tbody')
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
-                    <td>
-                     <span @if(strlen($profile->user) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $profile->user }}" 
-                        @endif>
-                        {{ Str::limit($profile->user, 50) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $profile->user }}" >
+                    <x-field :data="$profile" field="user">
+                       
+                         {{  $profile->user }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-profile')
-                        @can('view', $profile)
-                            <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-profile')
                         @can('update', $profile)
                             <a href="{{ route('profiles.edit', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-profile')
+                        @can('view', $profile)
+                            <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

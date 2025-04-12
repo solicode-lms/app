@@ -2,13 +2,13 @@
 
 @section('formation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="formations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
-                <x-sortable-column field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
-                <x-sortable-column field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="21.25"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
+                <x-sortable-column width="21.25" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column width="21.25"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
+                <x-sortable-column width="21.25" field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,48 +16,45 @@
             @section('formation-table-tbody')
             @foreach ($formations_data as $formation)
                 <tr id="formation-row-{{$formation->id}}">
-                    <td>
-                     <span @if(strlen($formation->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->nom }}" 
-                        @endif>
-                        {{ Str::limit($formation->nom, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->nom }}" >
+                    <x-field :data="$formation" field="nom">
+                        {{ $formation->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($formation->competence) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->competence }}" 
-                        @endif>
-                        {{ Str::limit($formation->competence, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->competence }}" >
+                    <x-field :data="$formation" field="competence">
+                       
+                         {{  $formation->competence }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
+                    <x-field :data="$formation" field="is_officiel">
                         <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
                             {{ $formation->is_officiel ? 'Oui' : 'Non' }}
                         </span>
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($formation->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $formation->formateur }}" 
-                        @endif>
-                        {{ Str::limit($formation->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->formateur }}" >
+                    <x-field :data="$formation" field="formateur">
+                       
+                         {{  $formation->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-formation')
-                        @can('view', $formation)
-                            <a href="{{ route('formations.show', ['formation' => $formation->id]) }}" data-id="{{$formation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-formation')
                         @can('update', $formation)
                             <a href="{{ route('formations.edit', ['formation' => $formation->id]) }}" data-id="{{$formation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-formation')
+                        @can('view', $formation)
+                            <a href="{{ route('formations.show', ['formation' => $formation->id]) }}" data-id="{{$formation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

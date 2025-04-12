@@ -2,14 +2,14 @@
 
 @section('eModel-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="eModels-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
                  <th>
                     IcôNe
                 </th>
-                <x-sortable-column field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
-                <x-sortable-column field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
+                <x-sortable-column width="28.333333333333332" field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,36 +17,37 @@
             @section('eModel-table-tbody')
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
-                    <td>@limit($eModel->getIcone(), 50)</td>
-                    <td>
-                     <span @if(strlen($eModel->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $eModel->name }}" 
-                        @endif>
-                        {{ Str::limit($eModel->name, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icon }}" >
+                    <x-field :data="$eModel" field="icon">
+                     ComputableFields :  getIcone() 
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($eModel->ePackage) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $eModel->ePackage }}" 
-                        @endif>
-                        {{ Str::limit($eModel->ePackage, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >
+                    <x-field :data="$eModel" field="name">
+                        {{ $eModel->name }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->ePackage }}" >
+                    <x-field :data="$eModel" field="ePackage">
+                       
+                         {{  $eModel->ePackage }}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-eModel')
-                        @can('view', $eModel)
-                            <a href="{{ route('eModels.show', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-eModel')
                         @can('update', $eModel)
                             <a href="{{ route('eModels.edit', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-eModel')
+                        @can('view', $eModel)
+                            <a href="{{ route('eModels.show', ['eModel' => $eModel->id]) }}" data-id="{{$eModel->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -2,12 +2,12 @@
 
 @section('labelRealisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="labelRealisationTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="labelRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::labelRealisationTache.nom')) }}" />
-                <x-sortable-column field="formateur_id" modelname="labelRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="labelRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="nom" modelname="labelRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::labelRealisationTache.nom')) }}" />
+                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="labelRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="labelRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,38 @@
             @section('labelRealisationTache-table-tbody')
             @foreach ($labelRealisationTaches_data as $labelRealisationTache)
                 <tr id="labelRealisationTache-row-{{$labelRealisationTache->id}}">
-                    <td>
-                     <span @if(strlen($labelRealisationTache->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $labelRealisationTache->nom }}" 
-                        @endif>
-                        {{ Str::limit($labelRealisationTache->nom, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->nom }}" >
+                    <x-field :data="$labelRealisationTache" field="nom">
+                        {{ $labelRealisationTache->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($labelRealisationTache->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $labelRealisationTache->formateur }}" 
-                        @endif>
-                        {{ Str::limit($labelRealisationTache->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->formateur }}" >
+                    <x-field :data="$labelRealisationTache" field="formateur">
+                       
+                         {{  $labelRealisationTache->formateur }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($labelRealisationTache->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $labelRealisationTache->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($labelRealisationTache->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
+                    <x-field :data="$labelRealisationTache" field="sysColor">
+                       
+                         {{  $labelRealisationTache->sysColor }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-labelRealisationTache')
-                        @can('view', $labelRealisationTache)
-                            <a href="{{ route('labelRealisationTaches.show', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-labelRealisationTache')
                         @can('update', $labelRealisationTache)
                             <a href="{{ route('labelRealisationTaches.edit', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-labelRealisationTache')
+                        @can('view', $labelRealisationTache)
+                            <a href="{{ route('labelRealisationTaches.show', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

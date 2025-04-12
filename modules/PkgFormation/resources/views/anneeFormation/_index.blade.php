@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::anneeFormation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $anneeFormation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="anneeFormation-crud" class="crud">
     @section('anneeFormation-crud-header')
     @php

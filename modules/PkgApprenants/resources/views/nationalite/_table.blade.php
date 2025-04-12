@@ -2,10 +2,10 @@
 
 @section('nationalite-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="nationalites-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="nationalite" label="{{ ucfirst(__('PkgApprenants::nationalite.code')) }}" />
+                <x-sortable-column width="85"  field="code" modelname="nationalite" label="{{ ucfirst(__('PkgApprenants::nationalite.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
-                    <td>
-                     <span @if(strlen($nationalite->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $nationalite->code }}" 
-                        @endif>
-                        {{ Str::limit($nationalite->code, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
+                    <x-field :data="$nationalite" field="code">
+                        {{ $nationalite->code }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-nationalite')
-                        @can('view', $nationalite)
-                            <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-nationalite')
                         @can('update', $nationalite)
                             <a href="{{ route('nationalites.edit', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-nationalite')
+                        @can('view', $nationalite)
+                            <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

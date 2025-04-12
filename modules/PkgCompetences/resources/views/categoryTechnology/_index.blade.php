@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $categoryTechnology_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="categoryTechnology-crud" class="crud">
     @section('categoryTechnology-crud-header')
     @php

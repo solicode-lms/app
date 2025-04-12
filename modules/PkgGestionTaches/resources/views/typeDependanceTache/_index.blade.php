@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $typeDependanceTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="typeDependanceTache-crud" class="crud">
     @section('typeDependanceTache-crud-header')
     @php

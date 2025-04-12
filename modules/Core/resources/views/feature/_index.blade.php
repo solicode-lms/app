@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::feature.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $feature_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="feature-crud" class="crud">
     @section('feature-crud-header')
     @php

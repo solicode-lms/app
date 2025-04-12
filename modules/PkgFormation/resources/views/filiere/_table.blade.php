@@ -2,11 +2,11 @@
 
 @section('filiere-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="filieres-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
-                <x-sortable-column field="nom" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.nom')) }}" />
+                <x-sortable-column width="42.5"  field="code" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
+                <x-sortable-column width="42.5"  field="nom" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,35 +14,31 @@
             @section('filiere-table-tbody')
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
-                    <td>
-                     <span @if(strlen($filiere->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $filiere->code }}" 
-                        @endif>
-                        {{ Str::limit($filiere->code, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->code }}" >
+                    <x-field :data="$filiere" field="code">
+                        {{ $filiere->code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($filiere->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $filiere->nom }}" 
-                        @endif>
-                        {{ Str::limit($filiere->nom, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->nom }}" >
+                    <x-field :data="$filiere" field="nom">
+                        {{ $filiere->nom }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-filiere')
-                        @can('view', $filiere)
-                            <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-filiere')
                         @can('update', $filiere)
                             <a href="{{ route('filieres.edit', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-filiere')
+                        @can('view', $filiere)
+                            <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

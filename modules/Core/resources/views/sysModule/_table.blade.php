@@ -2,12 +2,12 @@
 
 @section('sysModule-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="sysModules-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
-                <x-sortable-column field="is_active" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="sysModule" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="name" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="is_active" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="sysModule" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,37 @@
             @section('sysModule-table-tbody')
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}">
-                    <td>
-                     <span @if(strlen($sysModule->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysModule->name }}" 
-                        @endif>
-                        {{ Str::limit($sysModule->name, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->name }}" >
+                    <x-field :data="$sysModule" field="name">
+                        {{ $sysModule->name }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($sysModule->is_active) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysModule->is_active }}" 
-                        @endif>
-                        {{ Str::limit($sysModule->is_active, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
+                    <x-field :data="$sysModule" field="is_active">
+                        {{ $sysModule->is_active }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($sysModule->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysModule->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($sysModule->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
+                    <x-field :data="$sysModule" field="sysColor">
+                       
+                         {{  $sysModule->sysColor }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-sysModule')
-                        @can('view', $sysModule)
-                            <a href="{{ route('sysModules.show', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-sysModule')
                         @can('update', $sysModule)
                             <a href="{{ route('sysModules.edit', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-sysModule')
+                        @can('view', $sysModule)
+                            <a href="{{ route('sysModules.show', ['sysModule' => $sysModule->id]) }}" data-id="{{$sysModule->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -2,11 +2,11 @@
 
 @section('specialite-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="specialites-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="specialite" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
-                <x-sortable-column field="formateurs" modelname="specialite" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
+                <x-sortable-column width="42.5"  field="nom" modelname="specialite" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
+                <x-sortable-column width="42.5"  field="formateurs" modelname="specialite" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,34 +14,35 @@
             @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
-                    <td>
-                     <span @if(strlen($specialite->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $specialite->nom }}" 
-                        @endif>
-                        {{ Str::limit($specialite->nom, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $specialite->nom }}" >
+                    <x-field :data="$specialite" field="nom">
+                        {{ $specialite->nom }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
+                    <x-field :data="$specialite" field="formateurs">
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)
-                                <li @if(strlen($formateur) > 40) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 40)</li>
+                                <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-specialite')
-                        @can('view', $specialite)
-                            <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-specialite')
                         @can('update', $specialite)
                             <a href="{{ route('specialites.edit', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-specialite')
+                        @can('view', $specialite)
+                            <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

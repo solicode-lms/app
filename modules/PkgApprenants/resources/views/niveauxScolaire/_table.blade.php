@@ -2,10 +2,10 @@
 
 @section('niveauxScolaire-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="niveauxScolaires-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="niveauxScolaire" label="{{ ucfirst(__('PkgApprenants::niveauxScolaire.code')) }}" />
+                <x-sortable-column width="85"  field="code" modelname="niveauxScolaire" label="{{ ucfirst(__('PkgApprenants::niveauxScolaire.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('niveauxScolaire-table-tbody')
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
-                    <td>
-                     <span @if(strlen($niveauxScolaire->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $niveauxScolaire->code }}" 
-                        @endif>
-                        {{ Str::limit($niveauxScolaire->code, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
+                    <x-field :data="$niveauxScolaire" field="code">
+                        {{ $niveauxScolaire->code }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-niveauxScolaire')
-                        @can('view', $niveauxScolaire)
-                            <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-niveauxScolaire')
                         @can('update', $niveauxScolaire)
                             <a href="{{ route('niveauxScolaires.edit', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-niveauxScolaire')
+                        @can('view', $niveauxScolaire)
+                            <a href="{{ route('niveauxScolaires.show', ['niveauxScolaire' => $niveauxScolaire->id]) }}" data-id="{{$niveauxScolaire->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

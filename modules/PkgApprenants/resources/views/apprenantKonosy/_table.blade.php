@@ -2,10 +2,10 @@
 
 @section('apprenantKonosy-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="apprenantKonosies-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="Nom" modelname="apprenantKonosy" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
+                <x-sortable-column width="85"  field="Nom" modelname="apprenantKonosy" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('apprenantKonosy-table-tbody')
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
                 <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}">
-                    <td>
-                     <span @if(strlen($apprenantKonosy->Nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $apprenantKonosy->Nom }}" 
-                        @endif>
-                        {{ Str::limit($apprenantKonosy->Nom, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenantKonosy->Nom }}" >
+                    <x-field :data="$apprenantKonosy" field="Nom">
+                        {{ $apprenantKonosy->Nom }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-apprenantKonosy')
-                        @can('view', $apprenantKonosy)
-                            <a href="{{ route('apprenantKonosies.show', ['apprenantKonosy' => $apprenantKonosy->id]) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-apprenantKonosy')
                         @can('update', $apprenantKonosy)
                             <a href="{{ route('apprenantKonosies.edit', ['apprenantKonosy' => $apprenantKonosy->id]) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-apprenantKonosy')
+                        @can('view', $apprenantKonosy)
+                            <a href="{{ route('apprenantKonosies.show', ['apprenantKonosy' => $apprenantKonosy->id]) }}" data-id="{{$apprenantKonosy->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

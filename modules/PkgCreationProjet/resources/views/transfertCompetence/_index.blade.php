@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $transfertCompetence_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="transfertCompetence-crud" class="crud">
     @section('transfertCompetence-crud-header')
     @php

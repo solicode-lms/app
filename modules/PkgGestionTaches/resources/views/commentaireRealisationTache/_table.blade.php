@@ -2,13 +2,13 @@
 
 @section('commentaireRealisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="commentaireRealisationTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="commentaire" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}" />
-                <x-sortable-column field="realisation_tache_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column field="apprenant_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column width="21.25"  field="commentaire" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}" />
+                <x-sortable-column width="21.25" field="realisation_tache_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
+                <x-sortable-column width="21.25" field="formateur_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="21.25" field="apprenant_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,44 +16,44 @@
             @section('commentaireRealisationTache-table-tbody')
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}">
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 50) !!}</td>
-                    <td>
-                     <span @if(strlen($commentaireRealisationTache->realisationTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $commentaireRealisationTache->realisationTache }}" 
-                        @endif>
-                        {{ Str::limit($commentaireRealisationTache->realisationTache, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
+                    <x-field :data="$commentaireRealisationTache" field="commentaire">
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($commentaireRealisationTache->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $commentaireRealisationTache->formateur }}" 
-                        @endif>
-                        {{ Str::limit($commentaireRealisationTache->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
+                    <x-field :data="$commentaireRealisationTache" field="realisationTache">
+                       
+                         {{  $commentaireRealisationTache->realisationTache }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($commentaireRealisationTache->apprenant) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $commentaireRealisationTache->apprenant }}" 
-                        @endif>
-                        {{ Str::limit($commentaireRealisationTache->apprenant, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->formateur }}" >
+                    <x-field :data="$commentaireRealisationTache" field="formateur">
+                       
+                         {{  $commentaireRealisationTache->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->apprenant }}" >
+                    <x-field :data="$commentaireRealisationTache" field="apprenant">
+                       
+                         {{  $commentaireRealisationTache->apprenant }}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-commentaireRealisationTache')
-                        @can('view', $commentaireRealisationTache)
-                            <a href="{{ route('commentaireRealisationTaches.show', ['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" data-id="{{$commentaireRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-commentaireRealisationTache')
                         @can('update', $commentaireRealisationTache)
                             <a href="{{ route('commentaireRealisationTaches.edit', ['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" data-id="{{$commentaireRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-commentaireRealisationTache')
+                        @can('view', $commentaireRealisationTache)
+                            <a href="{{ route('commentaireRealisationTaches.show', ['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" data-id="{{$commentaireRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

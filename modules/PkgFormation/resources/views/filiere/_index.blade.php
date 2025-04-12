@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::filiere.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $filiere_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="filiere-crud" class="crud">
     @section('filiere-crud-header')
     @php

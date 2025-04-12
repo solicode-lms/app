@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $niveauxScolaire_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="niveauxScolaire-crud" class="crud">
     @section('niveauxScolaire-crud-header')
     @php

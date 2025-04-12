@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::competence.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $competence_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="competence-crud" class="crud">
     @section('competence-crud-header')
     @php

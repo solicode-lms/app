@@ -2,14 +2,14 @@
 
 @section('realisationFormation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationFormations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
-                <x-sortable-column field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
-                <x-sortable-column field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
+                <x-sortable-column width="17"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
+                <x-sortable-column width="17"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
+                <x-sortable-column width="17" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
+                <x-sortable-column width="17" field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column width="17" field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,59 +17,49 @@
             @section('realisationFormation-table-tbody')
             @foreach ($realisationFormations_data as $realisationFormation)
                 <tr id="realisationFormation-row-{{$realisationFormation->id}}">
-                    <td>
-                     <span @if(strlen($realisationFormation->date_debut) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationFormation->date_debut }}" 
-                        @endif>
-                        {{ Str::limit($realisationFormation->date_debut, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
+                    <x-field :data="$realisationFormation" field="date_debut">
+                        {{ $realisationFormation->date_debut }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($realisationFormation->date_fin) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationFormation->date_fin }}" 
-                        @endif>
-                        {{ Str::limit($realisationFormation->date_fin, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
+                    <x-field :data="$realisationFormation" field="date_fin">
+                        {{ $realisationFormation->date_fin }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($realisationFormation->formation) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationFormation->formation }}" 
-                        @endif>
-                        {{ Str::limit($realisationFormation->formation, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
+                    <x-field :data="$realisationFormation" field="formation">
+                       
+                         {{  $realisationFormation->formation }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($realisationFormation->apprenant) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationFormation->apprenant }}" 
-                        @endif>
-                        {{ Str::limit($realisationFormation->apprenant, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
+                    <x-field :data="$realisationFormation" field="apprenant">
+                       
+                         {{  $realisationFormation->apprenant }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($realisationFormation->etatFormation) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationFormation->etatFormation }}" 
-                        @endif>
-                        {{ Str::limit($realisationFormation->etatFormation, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
+                    <x-field :data="$realisationFormation" field="etatFormation">
+                       
+                         {{  $realisationFormation->etatFormation }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-realisationFormation')
-                        @can('view', $realisationFormation)
-                            <a href="{{ route('realisationFormations.show', ['realisationFormation' => $realisationFormation->id]) }}" data-id="{{$realisationFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-realisationFormation')
                         @can('update', $realisationFormation)
                             <a href="{{ route('realisationFormations.edit', ['realisationFormation' => $realisationFormation->id]) }}" data-id="{{$realisationFormation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-realisationFormation')
+                        @can('view', $realisationFormation)
+                            <a href="{{ route('realisationFormations.show', ['realisationFormation' => $realisationFormation->id]) }}" data-id="{{$realisationFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

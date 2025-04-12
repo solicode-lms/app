@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysColor.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $sysColor_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="sysColor-crud" class="crud">
     @section('sysColor-crud-header')
     @php

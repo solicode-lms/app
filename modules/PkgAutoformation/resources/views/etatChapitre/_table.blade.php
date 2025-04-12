@@ -2,12 +2,12 @@
 
 @section('etatChapitre-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="etatChapitres-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,38 @@
             @section('etatChapitre-table-tbody')
             @foreach ($etatChapitres_data as $etatChapitre)
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}">
-                    <td>
-                     <span @if(strlen($etatChapitre->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatChapitre->nom }}" 
-                        @endif>
-                        {{ Str::limit($etatChapitre->nom, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
+                    <x-field :data="$etatChapitre" field="nom">
+                        {{ $etatChapitre->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatChapitre->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatChapitre->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($etatChapitre->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->sysColor }}" >
+                    <x-field :data="$etatChapitre" field="sysColor">
+                       
+                         {{  $etatChapitre->sysColor }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatChapitre->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatChapitre->formateur }}" 
-                        @endif>
-                        {{ Str::limit($etatChapitre->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->formateur }}" >
+                    <x-field :data="$etatChapitre" field="formateur">
+                       
+                         {{  $etatChapitre->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-etatChapitre')
-                        @can('view', $etatChapitre)
-                            <a href="{{ route('etatChapitres.show', ['etatChapitre' => $etatChapitre->id]) }}" data-id="{{$etatChapitre->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-etatChapitre')
                         @can('update', $etatChapitre)
                             <a href="{{ route('etatChapitres.edit', ['etatChapitre' => $etatChapitre->id]) }}" data-id="{{$etatChapitre->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-etatChapitre')
+                        @can('view', $etatChapitre)
+                            <a href="{{ route('etatChapitres.show', ['etatChapitre' => $etatChapitre->id]) }}" data-id="{{$etatChapitre->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -2,10 +2,10 @@
 
 @section('natureLivrable-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="natureLivrables-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="natureLivrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}" />
+                <x-sortable-column width="85"  field="nom" modelname="natureLivrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('natureLivrable-table-tbody')
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
-                    <td>
-                     <span @if(strlen($natureLivrable->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $natureLivrable->nom }}" 
-                        @endif>
-                        {{ Str::limit($natureLivrable->nom, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
+                    <x-field :data="$natureLivrable" field="nom">
+                        {{ $natureLivrable->nom }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-natureLivrable')
-                        @can('view', $natureLivrable)
-                            <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-natureLivrable')
                         @can('update', $natureLivrable)
                             <a href="{{ route('natureLivrables.edit', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-natureLivrable')
+                        @can('view', $natureLivrable)
+                            <a href="{{ route('natureLivrables.show', ['natureLivrable' => $natureLivrable->id]) }}" data-id="{{$natureLivrable->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

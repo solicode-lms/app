@@ -2,10 +2,10 @@
 
 @section('ePackage-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="ePackages-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="ePackage" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
+                <x-sortable-column width="85"  field="name" modelname="ePackage" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
-                    <td>
-                     <span @if(strlen($ePackage->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $ePackage->name }}" 
-                        @endif>
-                        {{ Str::limit($ePackage->name, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
+                    <x-field :data="$ePackage" field="name">
+                        {{ $ePackage->name }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-ePackage')
-                        @can('view', $ePackage)
-                            <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-ePackage')
                         @can('update', $ePackage)
                             <a href="{{ route('ePackages.edit', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-ePackage')
+                        @can('view', $ePackage)
+                            <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

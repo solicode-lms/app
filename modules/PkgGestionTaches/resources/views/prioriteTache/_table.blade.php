@@ -2,11 +2,11 @@
 
 @section('prioriteTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="prioriteTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
-                <x-sortable-column field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="42.5"  field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
+                <x-sortable-column width="42.5" field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,35 +14,32 @@
             @section('prioriteTache-table-tbody')
             @foreach ($prioriteTaches_data as $prioriteTache)
                 <tr id="prioriteTache-row-{{$prioriteTache->id}}">
-                    <td>
-                     <span @if(strlen($prioriteTache->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $prioriteTache->nom }}" 
-                        @endif>
-                        {{ Str::limit($prioriteTache->nom, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
+                    <x-field :data="$prioriteTache" field="nom">
+                        {{ $prioriteTache->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($prioriteTache->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $prioriteTache->formateur }}" 
-                        @endif>
-                        {{ Str::limit($prioriteTache->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->formateur }}" >
+                    <x-field :data="$prioriteTache" field="formateur">
+                       
+                         {{  $prioriteTache->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-prioriteTache')
-                        @can('view', $prioriteTache)
-                            <a href="{{ route('prioriteTaches.show', ['prioriteTache' => $prioriteTache->id]) }}" data-id="{{$prioriteTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-prioriteTache')
                         @can('update', $prioriteTache)
                             <a href="{{ route('prioriteTaches.edit', ['prioriteTache' => $prioriteTache->id]) }}" data-id="{{$prioriteTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-prioriteTache')
+                        @can('view', $prioriteTache)
+                            <a href="{{ route('prioriteTaches.show', ['prioriteTache' => $prioriteTache->id]) }}" data-id="{{$prioriteTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

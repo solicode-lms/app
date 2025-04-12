@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eMetadataDefinition_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eMetadataDefinition-crud" class="crud">
     @section('eMetadataDefinition-crud-header')
     @php

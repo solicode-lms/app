@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eModel_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eModel-crud" class="crud">
     @section('eModel-crud-header')
     @php

@@ -26,8 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::livrable.singular") }}',
     });
 </script>
-
-
+<script>
+    window.modalTitle = '{{ $livrable_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="livrable-crud" class="crud">
     @section('livrable-crud-header')
     @php

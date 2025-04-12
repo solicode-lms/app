@@ -2,12 +2,12 @@
 
 @section('validation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="validations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="transfert_competence_id" modelname="validation" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
-                <x-sortable-column field="note" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
-                <x-sortable-column field="message" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
+                <x-sortable-column width="28.333333333333332" field="transfert_competence_id" modelname="validation" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="note" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="message" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,36 +15,37 @@
             @section('validation-table-tbody')
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
-                    <td>
-                     <span @if(strlen($validation->transfertCompetence) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $validation->transfertCompetence }}" 
-                        @endif>
-                        {{ Str::limit($validation->transfertCompetence, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
+                    <x-field :data="$validation" field="transfertCompetence">
+                       
+                         {{  $validation->transfertCompetence }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($validation->note) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $validation->note }}" 
-                        @endif>
-                        {{ Str::limit($validation->note, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->note }}" >
+                    <x-field :data="$validation" field="note">
+                        {{ $validation->note }}
+                    </x-field>
                     </td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 50) !!}</td>
-                    <td class="text-right">
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->message }}" >
+                    <x-field :data="$validation" field="message">
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 30) !!}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-validation')
-                        @can('view', $validation)
-                            <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-validation')
                         @can('update', $validation)
                             <a href="{{ route('validations.edit', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-validation')
+                        @can('view', $validation)
+                            <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::formation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $formation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="formation-crud" class="crud">
     @section('formation-crud-header')
     @php

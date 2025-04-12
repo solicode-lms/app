@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::labelRealisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $labelRealisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="labelRealisationTache-crud" class="crud">
     @section('labelRealisationTache-crud-header')
     @php

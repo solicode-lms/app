@@ -2,10 +2,10 @@
 
 @section('ville-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="villes-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="ville" label="{{ ucfirst(__('PkgApprenants::ville.nom')) }}" />
+                <x-sortable-column width="85"  field="nom" modelname="ville" label="{{ ucfirst(__('PkgApprenants::ville.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('ville-table-tbody')
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}">
-                    <td>
-                     <span @if(strlen($ville->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $ville->nom }}" 
-                        @endif>
-                        {{ Str::limit($ville->nom, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $ville->nom }}" >
+                    <x-field :data="$ville" field="nom">
+                        {{ $ville->nom }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-ville')
-                        @can('view', $ville)
-                            <a href="{{ route('villes.show', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-ville')
                         @can('update', $ville)
                             <a href="{{ route('villes.edit', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-ville')
+                        @can('view', $ville)
+                            <a href="{{ route('villes.show', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

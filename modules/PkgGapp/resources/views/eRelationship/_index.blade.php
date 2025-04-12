@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eRelationship.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eRelationship_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eRelationship-crud" class="crud">
     @section('eRelationship-crud-header')
     @php

@@ -2,12 +2,12 @@
 
 @section('tache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="taches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
-                <x-sortable-column field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,38 @@
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
                 <tr id="tache-row-{{$tache->id}}">
-                    <td>
-                     <span @if(strlen($tache->titre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $tache->titre }}" 
-                        @endif>
-                        {{ Str::limit($tache->titre, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->titre }}" >
+                    <x-field :data="$tache" field="titre">
+                        {{ $tache->titre }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($tache->projet) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $tache->projet }}" 
-                        @endif>
-                        {{ Str::limit($tache->projet, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->projet }}" >
+                    <x-field :data="$tache" field="projet">
+                       
+                         {{  $tache->projet }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($tache->prioriteTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $tache->prioriteTache }}" 
-                        @endif>
-                        {{ Str::limit($tache->prioriteTache, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
+                    <x-field :data="$tache" field="prioriteTache">
+                       
+                         {{  $tache->prioriteTache }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-tache')
-                        @can('view', $tache)
-                            <a href="{{ route('taches.show', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-tache')
                         @can('update', $tache)
                             <a href="{{ route('taches.edit', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-tache')
+                        @can('view', $tache)
+                            <a href="{{ route('taches.show', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::commentaireRealisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $commentaireRealisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="commentaireRealisationTache-crud" class="crud">
     @section('commentaireRealisationTache-crud-header')
     @php

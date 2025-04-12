@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::workflowChapitre.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $workflowChapitre_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="workflowChapitre-crud" class="crud">
     @section('workflowChapitre-crud-header')
     @php

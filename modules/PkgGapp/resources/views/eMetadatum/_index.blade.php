@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadatum.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eMetadatum_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eMetadatum-crud" class="crud">
     @section('eMetadatum-crud-header')
     @php

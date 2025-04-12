@@ -2,10 +2,10 @@
 
 @section('role-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="roles-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="role" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
+                <x-sortable-column width="85"  field="name" modelname="role" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('role-table-tbody')
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
-                    <td>
-                     <span @if(strlen($role->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $role->name }}" 
-                        @endif>
-                        {{ Str::limit($role->name, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $role->name }}" >
+                    <x-field :data="$role" field="name">
+                        {{ $role->name }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-role')
-                        @can('view', $role)
-                            <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-role')
                         @can('update', $role)
                             <a href="{{ route('roles.edit', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-role')
+                        @can('view', $role)
+                            <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

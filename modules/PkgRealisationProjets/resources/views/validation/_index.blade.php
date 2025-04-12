@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::validation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $validation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="validation-crud" class="crud">
     @section('validation-crud-header')
     @php
