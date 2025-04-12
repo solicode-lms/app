@@ -43,7 +43,8 @@
                         </ul>
                     </td>
                     <td class="text-right">
-                    {{-- //TODO : Add metaData : linkAction  --}}
+
+
                     @can('index-realisationTache')
                     <a 
                         data-toggle="tooltip" 

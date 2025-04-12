@@ -462,5 +462,26 @@
         },
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "realisation_taches_linkAction",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-file-alt",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 1,
+                "route": "livrables.index",
+                "params": {
+                    "showIndex": true,
+                    "filter.realisationTache.RealisationProjet.Apprenant_id": "$realisationTache->id"
+                },
+                "tooltip": "Livrables",
+                "permission": "index-livrable"
+            }
+        ],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "linkAction"
     }
 ]
