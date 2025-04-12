@@ -51,7 +51,7 @@
                                 title="Livrables"
                                 href="{{ route('livrablesRealisations.index', [
                                         'showIndex' => true,
-                                        'contextKey' => 'livrablesRealisation-index',
+                                        'contextKey' => 'livrablesRealisation.index',
                                         'scope.livrable.projet_id' => $realisationTache->realisationProjet->affectationProjet->projet_id,
                                         'scope.livrablesRealisation.realisation_projet_id' => $realisationTache->realisation_projet_id,
                                 ]) }}"
@@ -60,18 +60,34 @@
                                 <i class="fas fa-file-alt"></i>
                             </a>
                         @endcan
-
-                        @can('show-realisationTache')
-                        @can('view', $realisationTache)
-                            <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
+                        @can('show-projet')
+                            <a
+                                data-toggle="tooltip"
+                                title="Projets"
+                                href="{{ route('projets.show', [
+                                        'projet' => $realisationTache->realisationProjet->affectationProjet->projet_id,
+                                        'showIndex' => true,
+                                        'contextKey' => 'projets.show',
+                                ]) }}"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                data-id="{{ $realisationTache->id }}">
+                                <i class="fas fa-laptop"></i>
                             </a>
                         @endcan
-                        @endcan
+
+
+                       
+
                         @can('edit-realisationTache')
                         @can('update', $realisationTache)
                             <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-realisationTache')
+                        @can('view', $realisationTache)
+                            <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

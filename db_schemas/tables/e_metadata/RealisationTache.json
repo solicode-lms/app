@@ -469,12 +469,25 @@
                 "route": "livrablesRealisations.index",
                 "params": {
                     "showIndex": true,
-                    "contextKey": "'livrablesRealisation-index'",
+                    "contextKey": "'livrablesRealisation.index'",
                     "scope.livrable.projet_id": "$realisationTache->realisationProjet->affectationProjet->projet_id",
                     "scope.livrablesRealisation.realisation_projet_id": "$realisationTache->realisation_projet_id"
                 },
                 "tooltip": "Livrables",
                 "permission": "index-livrablesRealisation"
+            },
+            {
+                "icon": "fas fa-laptop",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 2,
+                "route": "projets.show",
+                "params": {
+                    "projet": "$realisationTache->realisationProjet->affectationProjet->projet_id",
+                    "showIndex": true,
+                    "contextKey": "'projets.show'"
+                },
+                "tooltip": "Projets",
+                "permission": "show-projet"
             }
         ],
         "e_model_reference": "realisation_taches",
