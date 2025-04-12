@@ -5,7 +5,7 @@
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                 <th>
+                <th>
                     Livrables
                 </th>
                 <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
