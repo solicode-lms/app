@@ -27,6 +27,7 @@
     });
 </script>
 
+
 <div id="livrable-crud" class="crud">
     @section('livrable-crud-header')
     @php

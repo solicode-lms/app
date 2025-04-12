@@ -472,16 +472,18 @@
                 "icon": "fas fa-file-alt",
                 "class": "btn btn-default btn-sm context-state actionEntity showIndex",
                 "ordre": 1,
-                "route": "livrables.index",
+                "route": "livrablesRealisations.index",
                 "params": {
                     "showIndex": true,
-                    "filter.realisationTache.RealisationProjet.Apprenant_id": "$realisationTache->id"
+                    "contextKey": "'livrablesRealisation-index'",
+                    "scope.livrable.projet_id": "$realisationTache->realisationProjet->affectationProjet->projet_id",
+                    "scope.livrablesRealisation.realisation_projet_id": "$realisationTache->realisation_projet_id"
                 },
                 "tooltip": "Livrables",
-                "permission": "index-livrable"
+                "permission": "index-livrablesRealisation"
             }
         ],
         "e_model_reference": "realisation_taches",
-        "e_metadata_definition_reference": "linkAction"
+        "e_metadata_definition_reference": "linksAction"
     }
 ]

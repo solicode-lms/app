@@ -21,12 +21,12 @@ export class ShowIndexAction extends Action {
      * Gère les événements liés à l'affichage de l'index dans une modale.
      */
     handleShowIndex() {
-        $(document).on('click', `${this.config.crudSelector} .showIndex`, (e) => {
+         EventUtil.bindEvent('click', `${this.config.crudSelector} .showIndex`, (e) => {
             e.preventDefault();
 
             const url = e.currentTarget.href;
             this.loadIndexContent(url);
-        });
+                });
     }
 
     /**

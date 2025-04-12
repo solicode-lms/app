@@ -1,18 +1,14 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-
 @section('realisationTache-table')
-
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                @section('realisationTache-table-th-livrables')
-                <th>Livrables</th>
-                @show
-                @section('realisationTache-table-th-realisationTache')
+                 <th>
+                    Livrables
+                </th>
                 <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                @show
                 <x-sortable-column field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
                 <x-sortable-column field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -23,38 +19,56 @@
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
                     <td>
-                    <x-field :data="$realisationTache" field="livrables">
-                        livrables
+                    <x-field :data="$realisationTache" field="Livrables">
+                     ComputableFields :  livrables() 
                     </x-field>
                     </td>
-
                     <td>
-                     <span @if(strlen($realisationTache->tache) > 50) 
+                    <x-field :data="$realisationTache" field="tache">
+                     <span @if(strlen($realisationTache->tache) > 30) 
                             data-toggle="tooltip" 
                             title="{{ $realisationTache->tache }}" 
                         @endif>
-                        {{ Str::limit($realisationTache->tache, 50) }}
+                        {{ Str::limit($realisationTache->tache, 30) }}
                     </span>
+                    </x-field>
                     </td>
                     <td>
-                     <span @if(strlen($realisationTache->realisationProjet) > 50) 
+                    <x-field :data="$realisationTache" field="realisationProjet">
+                     <span @if(strlen($realisationTache->realisationProjet) > 30) 
                             data-toggle="tooltip" 
                             title="{{ $realisationTache->realisationProjet }}" 
                         @endif>
-                        {{ Str::limit($realisationTache->realisationProjet, 50) }}
+                        {{ Str::limit($realisationTache->realisationProjet, 30) }}
                     </span>
+                    </x-field>
                     </td>
                     <td>
-                     <span @if(strlen($realisationTache->etatRealisationTache) > 50) 
+                    <x-field :data="$realisationTache" field="etatRealisationTache">
+                     <span @if(strlen($realisationTache->etatRealisationTache) > 30) 
                             data-toggle="tooltip" 
                             title="{{ $realisationTache->etatRealisationTache }}" 
                         @endif>
-                        {{ Str::limit($realisationTache->etatRealisationTache, 50) }}
+                        {{ Str::limit($realisationTache->etatRealisationTache, 30) }}
                     </span>
+                    </x-field>
                     </td>
                     <td class="text-right">
-
-
+                        @can('index-livrablesRealisation')
+                            <a
+                                data-toggle="tooltip"
+                                title="Livrables"
+                                href="{{ route('livrablesRealisations.index', [
+                                        'showIndex' => true,
+                                        'contextKey' => 'livrablesRealisation-index',
+                                        'scope.livrable.projet_id' => $realisationTache->realisationProjet->affectationProjet->projet_id,
+                                        'scope.livrablesRealisation.realisation_projet_id' => $realisationTache->realisation_projet_id,
+                                ]) }}"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                data-id="{{ $realisationTache->id }}">
+                                <i class="fas fa-file-alt"></i>
+                            </a>
+                        @endcan
 
                         @can('show-realisationTache')
                         @can('view', $realisationTache)

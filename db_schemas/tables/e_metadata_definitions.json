@@ -769,11 +769,11 @@
     },
     {
         "id": 65,
-        "reference": "linkAction",
+        "reference": "linksAction",
         "name": "linksAction",
         "type": "Json",
         "scope": "model",
-        "default_value": "[\r\n    {\r\n    \"ordre\":1,\r\n    \"icon\": \"fas fa-laptop-code\",\r\n    \"tooltip\": \"Voir les tâches\",\r\n    \"route\": \"realisationTaches.index\",\r\n    \"params\": {\r\n    \"showIndex\": true,\r\n    \"filter.realisationTache.RealisationProjet.Apprenant_id\": \"$apprenant->id\"\r\n    },\r\n    \"class\": \"btn btn-default btn-sm context-state actionEntity showIndex\",\r\n    \"permission\": \"index-realisationTache\"\r\n    }\r\n]",
+        "default_value": "[\r\n  {\r\n    \"icon\": \"fas fa-file-alt\",\r\n    \"class\": \"btn btn-default btn-sm context-state actionEntity showIndex\",\r\n    \"ordre\": 1,\r\n    \"route\": \"livrablesRealisations.index\",\r\n    \"params\": {\r\n      \"showIndex\": true,\r\n      \"contextKey\":\"livrablesRealisation-index\",\r\n      \"scope.livrablesRealisation.realisation_projet_id\": \"$realisationTache->realisation_projet_id\",\r\n      \"scope.livrable.projet_id\": \"$realisationTache->realisationProjet->affectationProjet->projet_id\"\r\n    },\r\n    \"tooltip\": \"Livrables\",\r\n    \"permission\": \"index-livrablesRealisation\"\r\n  }\r\n]",
         "groupe": "table",
         "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Permet d’ajouter un bouton ou une icône dans chaque ligne de la <span style=\"color: #800000;\">`TableUI`</span>, afin de rediriger </div><div>l'utilisateur vers une autre page (souvent un index ou un détail) avec des paramètres dynamiques </div><div>liés à l'entité de la ligne. Cela facilite la navigation vers des vues filtrées ou contextuelles </div><div>(ex. : tâches d’un apprenant, livrables d’un projet).</div><br></div>",
         "created_at": null,
