@@ -1,4 +1,4 @@
-{{-- //TODO: add metaData :  linkAction --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('apprenant-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="apprenants-crud-card-body">

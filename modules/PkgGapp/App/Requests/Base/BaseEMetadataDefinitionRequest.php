@@ -34,7 +34,7 @@ class BaseEMetadataDefinitionRequest extends FormRequest
             'type' => 'required|string|max:255',
             'scope' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'default_value' => 'nullable|string|max:255'
+            'default_value' => 'nullable|string'
         ];
     }
 
@@ -55,8 +55,7 @@ class BaseEMetadataDefinitionRequest extends FormRequest
             'scope.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.scope')]),
             'scope.max' => __('validation.scopeMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.description')]),
-            'default_value.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.default_value')]),
-            'default_value.max' => __('validation.default_valueMax')
+            'default_value.required' => __('validation.required', ['attribute' => __('PkgGapp::EMetadataDefinition.default_value')])
         ];
     }
 

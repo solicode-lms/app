@@ -123,16 +123,14 @@
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}
             
           </label>
-           <input
+                      <textarea rows="" cols=""
                 name="default_value"
-                type="input"
-                class="form-control"
+                class="form-control "
                 
                 
                 
                 id="default_value"
-                placeholder="{{ __('PkgGapp::eMetadataDefinition.default_value') }}"
-                value="{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->default_value : old('default_value') }}">
+                placeholder="{{ __('PkgGapp::eMetadataDefinition.default_value') }}">{{ $itemEMetadataDefinition ? $itemEMetadataDefinition->default_value : old('default_value') }}</textarea>
           @error('default_value')
             <div class="text-danger">{{ $message }}</div>
           @enderror

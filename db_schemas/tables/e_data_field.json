@@ -2023,7 +2023,7 @@
         "reference": "EMetadataDefinition_default_value",
         "name": "default_value",
         "column_name": "default_value",
-        "data_type": "String",
+        "data_type": "Text",
         "field_order": 8,
         "db_nullable": 1,
         "db_primaryKey": 0,
@@ -9874,6 +9874,20 @@
     },
     {
         "id": 759,
+        "reference": "Apprenant-duree_sans_terminer_tache",
+        "name": "duree_sans_terminer_tache",
+        "column_name": "duree_sans_terminer_tache",
+        "data_type": "Integer",
+        "field_order": 5,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('TERMINEE', 'EN_VALIDATION')",
+        "description": ""
+    },
+    {
+        "id": 760,
         "reference": "Formation-Filière",
         "name": "filiere_id",
         "column_name": "competence.module.filiere_id",
@@ -9887,7 +9901,7 @@
         "description": ""
     },
     {
-        "id": 760,
+        "id": 761,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -9901,7 +9915,7 @@
         "description": ""
     },
     {
-        "id": 761,
+        "id": 762,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -9915,7 +9929,7 @@
         "description": ""
     },
     {
-        "id": 762,
+        "id": 763,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -9929,7 +9943,7 @@
         "description": ""
     },
     {
-        "id": 763,
+        "id": 764,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",
@@ -9940,20 +9954,6 @@
         "db_unique": 0,
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
-        "description": ""
-    },
-    {
-        "id": 764,
-        "reference": "Apprenant-duree_sans_terminer_tache",
-        "name": "duree_sans_terminer_tache",
-        "column_name": "duree_sans_terminer_tache",
-        "data_type": "Integer",
-        "field_order": 5,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('TERMINEE', 'EN_VALIDATION')",
         "description": ""
     }
 ]
