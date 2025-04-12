@@ -22,17 +22,11 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-
-
-                <x-field :data="['realisationTache' => $realisationTache]"
-                    :partial="'PkgGestionTaches::realisationTache.custom._td_livrables'" 
-                    
-                >
                     <td>
-                        Livrable
+                    <x-field :data="$realisationTache" field="livrables">
+                        livrables
+                    </x-field>
                     </td>
-                </x-field>
-                
 
                     <td>
                      <span @if(strlen($realisationTache->tache) > 50) 
