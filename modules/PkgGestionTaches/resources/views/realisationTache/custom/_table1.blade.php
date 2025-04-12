@@ -1,20 +1,20 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
+@extends('PkgGestionTaches::realisationTache._table')
 
+{{-- L'ordre de computableField n'est pas correct  --}}
+ 
 @section('realisationTache-table')
-
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
-            <tr>
-                @section('realisationTache-table-th-livrables')
-                <th>Livrables</th>
-                @show
-                @section('realisationTache-table-th-realisationTache')
+            <tr> 
+                @section('realisationTache-table')
                 <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                @show
                 <x-sortable-column field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
                 <x-sortable-column field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
+                <th>
+                    Livrables
+                </th>
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,46 +22,30 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-
-
-                <x-field :data="['realisationTache' => $realisationTache]"
-                    :partial="'PkgGestionTaches::realisationTache.custom._td_livrables'" 
-                    
-                >
+                    <td>@limit($realisationTache->tache, 50)</td>
+                    <td>@limit($realisationTache->realisationProjet, 50)</td>
                     <td>
-                        Livrable
-                    </td>
-                </x-field>
-                
-
-                    <td>
-                     <span @if(strlen($realisationTache->tache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->tache }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->tache, 50) }}
-                    </span>
+                        <x-badge 
+                        :text="Str::limit($realisationTache->etatRealisationTache->nom ?? '', 20)" 
+                        :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
+                        />                    
                     </td>
                     <td>
-                     <span @if(strlen($realisationTache->realisationProjet) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->realisationProjet }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->realisationProjet, 50) }}
-                    </span>
-                    </td>
-                    <td>
-                     <span @if(strlen($realisationTache->etatRealisationTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->etatRealisationTache }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->etatRealisationTache, 50) }}
-                    </span>
+                        <ul>
+                            @php
+                                $isFormateur = auth()->user()?->hasAnyRole(['formateur', 'admin']);
+                            @endphp
+                            @foreach ($realisationTache->getRealisationLivrable() as $realisationLivrable)
+                                @if(!$realisationLivrable->livrable->is_affichable_seulement_par_formateur  || $isFormateur)
+                                <li><a href="{{ $realisationLivrable->lien }}" target="_blank">{{ $realisationLivrable->livrable->titre }}</a></li>
+                                @else
+                                <li>{{ $realisationLivrable->livrable->titre }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
                     </td>
                     <td class="text-right">
-
-
-
+            
                         @can('show-realisationTache')
                         @can('view', $realisationTache)
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
@@ -94,15 +78,4 @@
         </tbody>
     </table>
 </div>
-@show
-
-<div class="card-footer">
-    @section('realisationTache-crud-pagination')
-    <ul class="pagination m-0 d-flex justify-content-center">
-        {{ $realisationTaches_data->onEachSide(1)->links() }}
-    </ul>
-    @show
-</div>
-<script>
-    window.viewState = @json($viewState);
-</script>
+@endsection
