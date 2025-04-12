@@ -9955,5 +9955,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 765,
+        "reference": "RealisationTache-nombre_livrables",
+        "name": "nombre_livrables",
+        "column_name": "nombre_livrables",
+        "data_type": "Integer",
+        "field_order": 20,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT COUNT(*)\r\nFROM livrable_tache lt\r\nWHERE lt.realisation_tache_id = realisation_taches.id",
+        "description": ""
     }
 ]

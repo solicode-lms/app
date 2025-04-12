@@ -28,7 +28,12 @@ class BaseRealisationTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user,realisationProjet.apprenant.user";
+        $this->ownerRelationPath = "RealisationProjet.AffectationProjet.Projet.Formateur.user,RealisationProjet.Apprenant.user";
+        // Colonne dynamique : nombre_livrables
+        $sql = "SELECT COUNT(*)
+        FROM livrable_tache lt
+        WHERE lt.realisation_tache_id = realisation_taches.id";
+        static::addDynamicAttribute('nombre_livrables', $sql);
     }
 
     

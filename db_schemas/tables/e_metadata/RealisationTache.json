@@ -311,13 +311,13 @@
                 "role": "formateur",
                 "dataScope": "filter",
                 "userModelName": "Formateur",
-                "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.Projet.Formateur.user"
             },
             {
                 "role": "apprenant",
                 "dataScope": "filter",
                 "userModelName": "Apprenant",
-                "ownerRelationPath": "realisationProjet.apprenant.user"
+                "ownerRelationPath": "RealisationProjet.Apprenant.user"
             }
         ],
         "e_model_reference": "realisation_taches",
@@ -485,5 +485,17 @@
         ],
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "linksAction"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_displayOrder",
+        "value_integer": 20,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayOrder"
     }
 ]
