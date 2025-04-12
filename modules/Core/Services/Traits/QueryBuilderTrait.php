@@ -67,7 +67,10 @@ trait QueryBuilderTrait
         $sortVariables = $this->viewState->getSortVariables($this->modelName);
         if (!empty($sortVariables)) {
             $this->applySort($query,$sortVariables);
-         }
+        }else{
+            // appliquer les tris par défaut
+            $this->applySort($query,null);
+        }
 
         return $query;
     }

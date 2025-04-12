@@ -766,5 +766,17 @@
         "description": "",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 65,
+        "reference": "linkAction",
+        "name": "linkAction",
+        "type": "Json",
+        "scope": "model",
+        "default_value": null,
+        "groupe": "table",
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Permet d’ajouter un bouton ou une icône dans chaque ligne de la <span style=\"color: #800000;\">`TableUI`</span>, afin de rediriger </div><div>l'utilisateur vers une autre page (souvent un index ou un détail) avec des paramètres dynamiques </div><div>liés à l'entité de la ligne. Cela facilite la navigation vers des vues filtrées ou contextuelles </div><div>(ex. : tâches d’un apprenant, livrables d’un projet).</div><br></div>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
