@@ -1,11 +1,11 @@
-{{--  <td>@limit($realisationTache->livrables(), 50)</td> --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
     <table class="table table-striped text-nowrap">
         <thead>
             <tr>
-                <th>
+                 <th>
                     Livrables
                 </th>
                 <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
@@ -18,7 +18,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                   
+                    <td> ComputableFields :  livrables() </td>
                     <td>
                      <span @if(strlen($realisationTache->tache) > 50) 
                             data-toggle="tooltip" 
@@ -44,6 +44,19 @@
                     </span>
                     </td>
                     <td class="text-right">
+
+
+                    @can('index-realisationTache')
+                    <a 
+                        data-toggle="tooltip" 
+                        title="Voir les tâches" 
+                        href="{{ route('realisationTaches.index',['showIndex'=>true,'filter.realisationTache.RealisationProjet.Apprenant_id' => $realisationTache->id]) }}" 
+                        data-id="{{$realisationTache->id}}" 
+                        
+                        class="btn btn-default btn-sm context-state actionEntity showIndex">
+                            <i class="fas fa-laptop-code"></i>
+                    </a>
+                    @endcan
 
                         @can('show-realisationTache')
                         @can('view', $realisationTache)

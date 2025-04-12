@@ -29,15 +29,11 @@
                         :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />                    
                     </td>
-
-
                     <td>
-                        
                         <ul>
                             @php
                                 $isFormateur = auth()->user()?->hasAnyRole(['formateur', 'admin']);
                             @endphp
-
                             @foreach ($realisationTache->getRealisationLivrable() as $realisationLivrable)
                                 @if(!$realisationLivrable->livrable->is_affichable_seulement_par_formateur  || $isFormateur)
                                 <li><a href="{{ $realisationLivrable->lien }}" target="_blank">{{ $realisationLivrable->livrable->titre }}</a></li>
@@ -46,7 +42,6 @@
                                 @endif
                             @endforeach
                         </ul>
-
                     </td>
                     <td class="text-right">
             
