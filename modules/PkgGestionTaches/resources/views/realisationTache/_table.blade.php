@@ -2,58 +2,43 @@
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap " style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                 <th>
-                    Livrables
-                </th>
-                <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
-                <x-sortable-column field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
-                <th class="text-center">{{ __('Core::msg.action') }}</th>
+                <x-sortable-column width="20" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column width="20" field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
+                <x-sortable-column width="20" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
+                <x-sortable-column width="20" field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
+                <th class="text-center" style="width: 20%">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td>
-                    <x-field :data="$realisationTache" field="Livrables">
-                     ComputableFields :  livrables() 
-                    </x-field>
-                    </td>
-                    <td>
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}"  >
                     <x-field :data="$realisationTache" field="tache">
-                     <span @if(strlen($realisationTache->tache) > 30) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->tache }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->tache, 30) }}
-                    </span>
+                        {{$realisationTache->tache}}
                     </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->realisationProjet }}"  >
                     <x-field :data="$realisationTache" field="realisationProjet">
-                     <span @if(strlen($realisationTache->realisationProjet) > 30) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->realisationProjet }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->realisationProjet, 30) }}
-                    </span>
+                        {{ $realisationTache->realisationProjet }}
                     </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}"  >
                     <x-field :data="$realisationTache" field="etatRealisationTache">
-                     <span @if(strlen($realisationTache->etatRealisationTache) > 30) 
-                            data-toggle="tooltip" 
-                            title="{{ $realisationTache->etatRealisationTache }}" 
-                        @endif>
-                        {{ Str::limit($realisationTache->etatRealisationTache, 30) }}
+                        {{ $realisationTache->etatRealisationTache }}
                     </span>
                     </x-field>
                     </td>
-                    <td class="text-right">
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}"  >
+                    <x-field :data="$realisationTache" field="nombre_livrables">
+                        {{ $realisationTache->nombre_livrables }}
+                    </span>
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 20%;">
                         @can('index-livrablesRealisation')
                             <a
                                 data-toggle="tooltip"

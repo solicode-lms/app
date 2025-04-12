@@ -9967,7 +9967,7 @@
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
-        "calculable_sql": "SELECT COUNT(*)\r\nFROM livrable_tache lt\r\nWHERE lt.realisation_tache_id = realisation_taches.id",
+        "calculable_sql": "SELECT COUNT(*) \r\nFROM livrables_realisations lr\r\nJOIN livrables l ON l.id = lr.livrable_id\r\nJOIN livrable_tache lt ON lt.livrable_id = l.id\r\nWHERE lt.tache_id = realisation_taches.tache_id\r\nAND lr.realisation_projet_id = realisation_taches.realisation_projet_id",
         "description": ""
     }
 ]

@@ -30,9 +30,12 @@ class BaseRealisationTache extends BaseModel
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "RealisationProjet.AffectationProjet.Projet.Formateur.user,RealisationProjet.Apprenant.user";
         // Colonne dynamique : nombre_livrables
-        $sql = "SELECT COUNT(*)
-        FROM livrable_tache lt
-        WHERE lt.realisation_tache_id = realisation_taches.id";
+        $sql = "SELECT COUNT(*) 
+        FROM livrables_realisations lr
+        JOIN livrables l ON l.id = lr.livrable_id
+        JOIN livrable_tache lt ON lt.livrable_id = l.id
+        WHERE lt.tache_id = realisation_taches.tache_id
+        AND lr.realisation_projet_id = realisation_taches.realisation_projet_id";
         static::addDynamicAttribute('nombre_livrables', $sql);
     }
 

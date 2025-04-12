@@ -36,6 +36,7 @@ export class TableUI {
         this.entityAction.init();
         this.handleSorting();
         TableUI.initTooltip();
+        this.initTruncatText();
         this.initWidgets();
 
     }
@@ -87,6 +88,37 @@ export class TableUI {
             this.entityLoader.loadEntities(1, filters); // Recharger la table
         });
     }
+
+ initTruncatText() {
+        // Supprime les tooltips UNIQUEMENT sur les éléments text-truncate
+        $('.text-truncate[data-toggle="tooltip"]').tooltip('dispose');
+    
+        // Parcourt tous les éléments text-truncate
+        $('.text-truncate').each(function () {
+            const $el = $(this);
+            const isTruncated = this.offsetWidth < this.scrollWidth;
+    
+            if (isTruncated) {
+                // Si texte tronqué → on ajoute le tooltip Bootstrap
+                $el.attr('title', $el.text().trim());
+                $el.attr('data-toggle', 'tooltip');
+            } else {
+                // Sinon, on supprime les attributs liés au tooltip
+                $el.removeAttr('title').removeAttr('data-toggle');
+            }
+        });
+    
+        // Réactiver seulement les tooltips sur les éléments text-truncate tronqués
+        $('.text-truncate[data-toggle="tooltip"]').tooltip({
+            placement: 'auto'
+        }).on('shown.bs.tooltip', function () {
+            const $this = $(this);
+            setTimeout(() => {
+                $this.tooltip('hide');
+            }, 3000);
+        });
+    }
+    
 
     static initTooltip(){
 

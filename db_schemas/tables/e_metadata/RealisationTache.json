@@ -361,14 +361,7 @@
         "reference": "realisation_taches_computableFields",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": [
-            {
-                "name": "Livrables",
-                "label": "Livrables",
-                "method": "livrables",
-                "dispalyOrder": 50
-            }
-        ],
+        "value_json": [],
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "computableFields"
     },
@@ -497,5 +490,20 @@
         "value_integer": 20,
         "e_data_field_reference": "RealisationTache-nombre_livrables",
         "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationTache_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 40,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

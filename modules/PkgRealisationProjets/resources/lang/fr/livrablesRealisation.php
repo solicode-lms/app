@@ -7,5 +7,5 @@ return [
     'titre' => 'Titre',
     'description' => 'Description',
     'lien' => 'Lien',
-    'livrable_id' => 'ID du livrable',
+    'livrable_id' => 'ID du livrable'
 ];

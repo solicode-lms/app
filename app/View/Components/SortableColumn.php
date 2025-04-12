@@ -7,6 +7,9 @@ use Modules\Core\Services\ViewStateService;
 class SortableColumn extends Component
 {
     public $field;
+
+    public $width;
+
     public $label;
 
     public $modelname;
@@ -18,8 +21,9 @@ class SortableColumn extends Component
      * @param string $field - Le champ à trier
      * @param string $label - Le label à afficher dans la colonne
      */
-    public function __construct($field, $modelname  , $label)
+    public function __construct($field, $modelname  , $label, $width = null)
     {
+        $this->width = $width;
         $this->field = $field;
         $this->label = $label;
         $this->modelname = $modelname;
