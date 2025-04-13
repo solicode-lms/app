@@ -16,6 +16,10 @@ use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
+use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
+
 /**
  * 
  * Classe RealisationProjetService pour gérer la persistance de l'entité RealisationProjet.
@@ -25,8 +29,29 @@ class RealisationProjetService extends BaseRealisationProjetService
 
     public function initFieldsFilterable(){
 
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('realisationProjet');
+        $this->fieldsFilterable = [];
 
-        // affectationProjet data
+        // Groupe 
+        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationProjet.AffectationProjet.Groupe_id") ) ) {
+            // Affichage de l'état de solicode
+            $groupeService = new GroupeService();
+            $groupes = $groupeService->all();
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgApprenants::Groupe.plural"), 
+                'AffectationProjet.Groupe_id', 
+                Groupe::class, 
+                "code",
+                "id",
+                $groupes,
+                "[name='affectation_projet_id']",
+                route('affectationProjets.getData'),
+                "groupe_id"
+            );
+        }
+
+        // AffectationProjet
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
             $affectationProjets = (new AffectationProjetService())->getAffectationProjetsByFormateurId($this->sessionState->get("formateur_id"));
         } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
@@ -34,9 +59,14 @@ class RealisationProjetService extends BaseRealisationProjetService
         } else{
             $affectationProjets = AffectationProjet::all();
         }
+        $this->fieldsFilterable[] =  $this->generateManyToOneFilter(
+            __("PkgRealisationProjets::affectationProjet.plural"), 
+            'affectation_projet_id', 
+            \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 
+            'id',
+            $affectationProjets);
 
-
-        // Apprenant data
+        // Apprenant
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
             $apprenants = (new FormateurService())->getApprenants($this->sessionState->get("formateur_id"));
         } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
@@ -44,26 +74,45 @@ class RealisationProjetService extends BaseRealisationProjetService
         } else{
             $apprenants = Apprenant::all();
         }
+        $this->fieldsFilterable[] =  $this->generateManyToOneFilter(
+            __("PkgApprenants::apprenant.plural"), 
+            'apprenant_id', 
+            \Modules\PkgApprenants\Models\Apprenant::class, 
+            'nom',
+            $apprenants);
 
-        // etatsRealisationProjet
-        if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
-            $etatsRealisationProjets = (new EtatsRealisationProjetService())->getByFormateur($this->sessionState->get("formateur_id"));
-        } elseif (Auth::user()->hasRole(Role::APPRENANT_ROLE)){
-            $etatsRealisationProjets = (new EtatsRealisationProjetService())->getEtatsByFormateurPrincipalForApprenant($this->sessionState->get("apprenant_id"));
-        } else{
-            $etatsRealisationProjets = EtatsRealisationProjet::all();
+
+        // If formateur ou apprenant
+        if(Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE)){
+            // Affichage des état de formateur
+            $etatsRealisationProjetService = new EtatsRealisationProjetService();
+            $etatsRealisationProjets = match (true) {
+                Auth::user()->hasRole(Role::FORMATEUR_ROLE) => $etatsRealisationProjetService->getByFormateur($this->sessionState->get("formateur_id")),
+                Auth::user()->hasRole(Role::APPRENANT_ROLE) => $etatsRealisationProjetService->getEtatsByFormateurPrincipalForApprenant($this->sessionState->get("apprenant_id")),
+                default => $etatsRealisationProjetService->all(),
+            };
+            $this->fieldsFilterable[] =   $this->generateManyToOneFilter(
+                __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
+                'etats_realisation_projet_id', 
+                \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class,
+                'titre',$etatsRealisationProjets);
+        }
+        // Etat - Solicode
+        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.EtatRealisationTache.WorkflowTache.Code") ) ) {
+            // Affichage de l'état de solicode
+            $workflowProjetService = new WorkflowProjetService();
+            $workflowProjets = $workflowProjetService->all();
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgRealisationProjets::workflowProjet.plural"), 
+                'EtatsRealisationProjet.WorkflowProjet.Code', 
+                WorkflowProjet::class, 
+                "code",
+                "code",
+                $workflowProjets
+            );
         }
 
-     
-        
-        $this->fieldsFilterable = [
-            $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id',$affectationProjets),
-            $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom',$apprenants),
-            $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre',$etatsRealisationProjets),
-        ];
 
-       
-       
      }
 
     public function dataCalcul($realisationProjet)

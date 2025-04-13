@@ -5,7 +5,7 @@
 
 namespace Modules\PkgRealisationProjets\App\Exports\Base;
 
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -28,21 +28,19 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
     {
      if($this->format == 'csv'){
         return [
-            'formateur_id' => 'formateur_id',
+            'code' => 'code',
             'titre' => 'titre',
             'description' => 'description',
             'reference' => 'reference',
-            'workflow_projet_id' => 'workflow_projet_id',
-            'is_editable_by_formateur' => 'is_editable_by_formateur',
+            'sys_color_id' => 'sys_color_id',
         ];
         }else{
         return [
-            'formateur_id' => __('PkgRealisationProjets::etatsRealisationProjet.formateur_id'),
-            'titre' => __('PkgRealisationProjets::etatsRealisationProjet.titre'),
-            'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
+            'code' => __('PkgRealisationProjets::workflowProjet.code'),
+            'titre' => __('PkgRealisationProjets::workflowProjet.titre'),
+            'description' => __('PkgRealisationProjets::workflowProjet.description'),
             'reference' => __('Core::msg.reference'),
-            'workflow_projet_id' => __('PkgRealisationProjets::etatsRealisationProjet.workflow_projet_id'),
-            'is_editable_by_formateur' => __('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur'),
+            'sys_color_id' => __('PkgRealisationProjets::workflowProjet.sys_color_id'),
         ];
 
         }
@@ -51,14 +49,13 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
 
     public function collection()
     {
-        return $this->data->map(function ($etatsRealisationProjet) {
+        return $this->data->map(function ($workflowProjet) {
             return [
-                'formateur_id' => $etatsRealisationProjet->formateur_id,
-                'titre' => $etatsRealisationProjet->titre,
-                'description' => $etatsRealisationProjet->description,
-                'reference' => $etatsRealisationProjet->reference,
-                'workflow_projet_id' => $etatsRealisationProjet->workflow_projet_id,
-                'is_editable_by_formateur' => $etatsRealisationProjet->is_editable_by_formateur,
+                'code' => $workflowProjet->code,
+                'titre' => $workflowProjet->titre,
+                'description' => $workflowProjet->description,
+                'reference' => $workflowProjet->reference,
+                'sys_color_id' => $workflowProjet->sys_color_id,
             ];
         });
     }

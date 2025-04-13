@@ -37,6 +37,10 @@
                                 <p>{{ $itemEtatsRealisationProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="workflow_projet_id">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.workflow_projet_id')) }}:</label>
+                                <p>{{ $itemEtatsRealisationProjet->workflow_projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="is_editable_by_formateur">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}:</label>
                                 <p>{{ $itemEtatsRealisationProjet->is_editable_by_formateur }}</p>
                             </div>

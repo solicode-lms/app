@@ -65,6 +65,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-workflowFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowFormation" role="tab" aria-controls="sysColor-hasmany-tabs-workflowFormation" aria-selected="false">{{__('PkgAutoformation::workflowFormation.plural')}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowProjet" role="tab" aria-controls="sysColor-hasmany-tabs-workflowProjet" aria-selected="false">{{__('PkgRealisationProjets::workflowProjet.plural')}}</a>
+                        </li>
 
                        
                         </ul>
@@ -104,6 +107,9 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowFormation" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowFormation-tab">
                                 @include('PkgAutoformation::workflowFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowProjet-tab">
+                                @include('PkgRealisationProjets::workflowProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
 
                            

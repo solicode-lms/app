@@ -5,8 +5,9 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5" field="formateur_id" modelname="etatsRealisationProjet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column width="42.5"  field="titre" modelname="etatsRealisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="etatsRealisationProjet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="titre" modelname="etatsRealisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="workflow_projet_id" modelname="etatsRealisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,15 +15,25 @@
             @section('etatsRealisationProjet-table-tbody')
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->formateur }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->formateur }}" >
                     <x-field :entity="$etatsRealisationProjet" field="formateur">
                        
                          {{  $etatsRealisationProjet->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->titre }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->titre }}" >
                     <x-field :entity="$etatsRealisationProjet" field="titre">
                         {{ $etatsRealisationProjet->titre }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->workflowProjet }}" >
+                    <x-field :entity="$etatsRealisationProjet" field="workflowProjet">
+                        @if(!empty($etatsRealisationProjet->workflowProjet))
+                        <x-badge 
+                        :text="$etatsRealisationProjet->workflowProjet" 
+                        :background="$etatsRealisationProjet->workflowProjet->sysColor->hex ?? '#6c757d'" 
+                        />
+                        @endif
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

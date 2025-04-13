@@ -41,10 +41,12 @@
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
                     <x-field :entity="$realisationFormation" field="etatFormation">
+                        @if(!empty($realisationFormation->etatFormation))
                         <x-badge 
-                        :text="$realisationFormation->etatFormation->name" 
-                        :background="$realisationFormation->etatFormation->hex ?? '#6c757d'" 
+                        :text="$realisationFormation->etatFormation" 
+                        :background="$realisationFormation->etatFormation->sysColor->hex ?? '#6c757d'" 
                         />
+                        @endif
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

@@ -83,6 +83,9 @@
 
 <!--   WorkflowFormation HasMany --> 
 
+
+<!--   WorkflowProjet HasMany --> 
+
     </div>
 
     <div class="card-footer">

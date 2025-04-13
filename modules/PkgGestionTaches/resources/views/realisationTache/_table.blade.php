@@ -35,10 +35,12 @@
                     </td>
                     <td style="max-width: 12%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                     <x-field :entity="$realisationTache" field="etatRealisationTache">
+                        @if(!empty($realisationTache->etatRealisationTache))
                         <x-badge 
-                        :text="$realisationTache->etatRealisationTache->name" 
-                        :background="$realisationTache->etatRealisationTache->hex ?? '#6c757d'" 
+                        :text="$realisationTache->etatRealisationTache" 
+                        :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />
+                        @endif
                     </x-field>
                     </td>
                     <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >

@@ -12,6 +12,7 @@
 ````bash
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\SectionWidgetSeeder
+sudo php artisan db:seed --class=Modules\\PkgRealisationProjets\\Database\\Seeders\\WorkflowProjetSeeder
 ````
 
 ### Sur Windows 
@@ -19,4 +20,9 @@ sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\Section
 ````bash
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\SectionWidgetSeeder
+php artisan db:seed --class=Modules\PkgRealisationProjets\Database\Seeders\WorkflowProjetSeeder
 ````
+
+
+## Mettre à jour les états de WorkFlow projet par les formateurs
+

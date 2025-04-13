@@ -294,5 +294,15 @@
         "value_integer": 6,
         "e_data_field_reference": "EtatsRealisationProjet_workflow_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_workflow_projet_id_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "EtatsRealisationProjet_workflow_projet_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

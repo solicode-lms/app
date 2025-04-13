@@ -30,13 +30,8 @@ class RealisationTacheService extends BaseRealisationTacheService
     
 
 
-
-    // TODO : Gapp : ajouter un metaData filterDataSource : indique la méthode à utiliser pour trouver data
-    // il faut indiquer aussi, plusieurs méthode si les données sont par rôle : 
-    // Exemple : formateur, apprenant, all
     public function initFieldsFilterable()
     {
-
 
         $scopeVariables = $this->viewState->getScopeVariables('realisationTache');
         $this->fieldsFilterable = [];
@@ -60,8 +55,6 @@ class RealisationTacheService extends BaseRealisationTacheService
             );
         }
 
-
-        // TODO Gapp :  ajouter les params de DynamicDromdonw depuis metaData DynamicDropdonw
         // AffectationProjet
         $affectationProjetService = new AffectationProjetService();
         $affectationProjets = match (true) {
@@ -106,7 +99,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             $workflowTaches = $workflowTacheService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
                 __("PkgGestionTaches::workflowTache.plural"), 
-                'EtatRealisationTache.WorkflowTache.Code', 
+                'etatsRealisationProjet.WorkflowTache.Code', 
                 WorkflowTache::class, 
                 "code",
                 "code",

@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
+use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
 
 
-class BaseEtatsRealisationProjetSeeder extends Seeder
+class BaseWorkflowProjetSeeder extends Seeder
 {
-    public static int $order = 50;
+    public static int $order = 83;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -49,7 +49,7 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgRealisationProjets/Database/data/etatsRealisationProjets.csv");
+        $filePath = base_path("modules/PkgRealisationProjets/Database/data/workflowProjets.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -67,24 +67,23 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
             return;
         }
 
-        $etatsRealisationProjetService = new EtatsRealisationProjetService();
+        $workflowProjetService = new WorkflowProjetService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
-                $etatsRealisationProjetData =[
-                    "formateur_id" => $row["formateur_id"] ?? null,
+                $workflowProjetData =[
+                    "code" => $row["code"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "description" => $row["description"] ?? null,
-                    "workflow_projet_id" => $row["workflow_projet_id"] ?? null,
-                    "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $etatsRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatsRealisationProjetData);
+                    $workflowProjetService->updateOrCreate(["reference" => $row["reference"]], $workflowProjetData);
                 } else {
-                    $etatsRealisationProjetService->create($etatsRealisationProjetData);
+                    $workflowProjetService->create($workflowProjetData);
                 }
             }
         }
@@ -107,9 +106,9 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'EtatsRealisationProjetController';
-        $controllerBaseName = 'etatsRealisationProjet';
-        $domainName = 'EtatsRealisationProjet';
+        $controllerName = 'WorkflowProjetController';
+        $controllerBaseName = 'workflowProjet';
+        $domainName = 'WorkflowProjet';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(

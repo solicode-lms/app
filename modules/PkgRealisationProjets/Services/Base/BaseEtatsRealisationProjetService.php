@@ -22,6 +22,7 @@ class BaseEtatsRealisationProjetService extends BaseService
         'formateur_id',
         'titre',
         'description',
+        'workflow_projet_id',
         'is_editable_by_formateur'
     ];
 
@@ -55,6 +56,10 @@ class BaseEtatsRealisationProjetService extends BaseService
 
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
+        }
+
+        if (!array_key_exists('workflow_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::workflowProjet.plural"), 'workflow_projet_id', \Modules\PkgRealisationProjets\Models\WorkflowProjet::class, 'code');
         }
 
     }

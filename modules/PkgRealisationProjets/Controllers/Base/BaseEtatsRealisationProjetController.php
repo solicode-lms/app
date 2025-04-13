@@ -5,6 +5,7 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -20,12 +21,14 @@ class BaseEtatsRealisationProjetController extends AdminController
 {
     protected $etatsRealisationProjetService;
     protected $formateurService;
+    protected $workflowProjetService;
 
-    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService) {
+    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService, WorkflowProjetService $workflowProjetService) {
         parent::__construct();
         $this->service  =  $etatsRealisationProjetService;
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
         $this->formateurService = $formateurService;
+        $this->workflowProjetService = $workflowProjetService;
     }
 
     public function index(Request $request) {
@@ -75,11 +78,12 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         $formateurs = $this->formateurService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'workflowProjets'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs', 'workflowProjets'));
     }
     public function store(EtatsRealisationProjetRequest $request) {
         $validatedData = $request->validated();
@@ -114,13 +118,14 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'workflowProjets'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'workflowProjets'),));
 
     }
     public function edit(string $id) {
@@ -133,13 +138,14 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'workflowProjets'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'workflowProjets'),));
 
 
     }

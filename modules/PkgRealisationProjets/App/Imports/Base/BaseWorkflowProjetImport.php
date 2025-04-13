@@ -5,30 +5,30 @@
 
 namespace Modules\PkgRealisationProjets\App\Imports\Base;
 
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseEtatsRealisationProjetImport implements ToModel, WithHeadingRow
+class BaseWorkflowProjetImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return EtatsRealisationProjet|null
+     * @return WorkflowProjet|null
      */
-    private function findExistingRecord($reference): ?EtatsRealisationProjet
+    private function findExistingRecord($reference): ?WorkflowProjet
     {
         if($reference == null) return null;
-        return EtatsRealisationProjet::where('reference', $reference)->first();
+        return WorkflowProjet::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return EtatsRealisationProjet|null
+     * @return WorkflowProjet|null
      */
     public function model(array $row)
     {
@@ -55,13 +55,12 @@ class BaseEtatsRealisationProjetImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new EtatsRealisationProjet([
-             'formateur_id' => $values[0] ?? null,
+        return new WorkflowProjet([
+             'code' => $values[0] ?? null,
              'titre' => $values[1] ?? null,
              'description' => $values[2] ?? null,
              'reference' => $reference,
-             'workflow_projet_id' => $values[4] ?? null,
-             'is_editable_by_formateur' => $values[5] ?? null,
+             'sys_color_id' => $values[4] ?? null,
         ]);
 
 

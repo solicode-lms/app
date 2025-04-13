@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -35,7 +36,7 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'formateur_id', 'titre', 'description', 'is_editable_by_formateur'
+        'formateur_id', 'titre', 'description', 'workflow_projet_id', 'is_editable_by_formateur'
     ];
 
 
@@ -47,6 +48,15 @@ class BaseEtatsRealisationProjet extends BaseModel
     public function formateur(): BelongsTo
     {
         return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour WorkflowProjet.
+     *
+     * @return BelongsTo
+     */
+    public function workflowProjet(): BelongsTo
+    {
+        return $this->belongsTo(WorkflowProjet::class, 'workflow_projet_id', 'id');
     }
 
 

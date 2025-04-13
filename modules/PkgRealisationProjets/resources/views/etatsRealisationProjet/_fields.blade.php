@@ -80,6 +80,33 @@
 
 
       <div class="form-group col-12 col-md-6">
+          <label for="workflow_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::workflowProjet.singular')) }}
+            
+          </label>
+                      <select 
+            id="workflow_projet_id" 
+            
+            
+            
+            name="workflow_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($workflowProjets as $workflowProjet)
+                    <option value="{{ $workflowProjet->id }}"
+                        {{ (isset($itemEtatsRealisationProjet) && $itemEtatsRealisationProjet->workflow_projet_id == $workflowProjet->id) || (old('workflow_projet_id>') == $workflowProjet->id) ? 'selected' : '' }}>
+                        {{ $workflowProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('workflow_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="is_editable_by_formateur">
             {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}
             
