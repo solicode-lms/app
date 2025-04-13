@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "EModel-icone",
+        "name": "icone",
+        "column_name": "icone",
+        "data_type": "String",
+        "field_order": 1,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT em.value_string\r\nFROM e_metadata em\r\nJOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id\r\nWHERE em.e_model_id = e_models.id AND emd.reference = 'iconModel'",
+        "description": "",
+        "e_model_reference": "e_models"
+    }
+]

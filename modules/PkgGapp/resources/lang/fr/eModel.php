@@ -11,4 +11,5 @@ return [
     'is_pivot_table' => 'est une table de pivot',
     'description' => 'description',
     'e_package_id' => 'id du paquet',
+    'icone' => 'icône'
 ];

@@ -531,5 +531,29 @@
         "value_float": 0,
         "e_data_field_reference": "Widget_ordre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Widget_type_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 7,
+        "value_float": 0,
+        "e_data_field_reference": "Widget_type_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "widgets_roles_role_widget_m2m_m2m_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "widgets_roles_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Widget_ordre_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 8,
+        "value_float": 0,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

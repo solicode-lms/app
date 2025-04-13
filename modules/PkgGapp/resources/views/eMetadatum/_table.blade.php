@@ -5,12 +5,9 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                 <th>
-                    Value
-                </th>
-                <x-sortable-column width="21.25" field="e_model_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
-                <x-sortable-column width="21.25" field="e_data_field_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eDataField.singular')) }}" />
-                <x-sortable-column width="21.25" field="e_metadata_definition_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="e_model_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eDataField.singular')) }}" />
+                <x-sortable-column width="28.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,24 +15,19 @@
             @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->Value }}" >
-                    <x-field :entity="$eMetadatum" field="Value">
-                     ComputableFields :  getValue() 
-                    </x-field>
-                    </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
                     <x-field :entity="$eMetadatum" field="eModel">
                        
                          {{  $eMetadatum->eModel }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
                     <x-field :entity="$eMetadatum" field="eDataField">
                        
                          {{  $eMetadatum->eDataField }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
                     <x-field :entity="$eMetadatum" field="eMetadataDefinition">
                        
                          {{  $eMetadatum->eMetadataDefinition }}

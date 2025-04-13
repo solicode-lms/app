@@ -5,9 +5,7 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                 <th>
-                    IcôNe
-                </th>
+                <x-sortable-column width="28.333333333333332"  field="icone" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.icone')) }}" />
                 <x-sortable-column width="28.333333333333332"  field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
                 <x-sortable-column width="28.333333333333332" field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +15,9 @@
             @section('eModel-table-tbody')
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icon }}" >
-                    <x-field :entity="$eModel" field="icon">
-                     ComputableFields :  getIcone() 
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
+                    <x-field :entity="$eModel" field="icone">
+                        {{ $eModel->icone }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >

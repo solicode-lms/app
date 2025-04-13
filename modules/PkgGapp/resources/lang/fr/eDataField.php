@@ -8,7 +8,7 @@ return [
     'name' => 'nom',
     'column_name' => 'nom colonne / relation',
     'data_type' => 'type de données',
-    'field_order ' => 'Ordre',
+    'field_order' => 'Ordre',
     'db_nullable' => 'nullable',
     'db_primaryKey' => 'clé primaire',
     'db_unique' => 'unique',
