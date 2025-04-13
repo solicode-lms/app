@@ -434,5 +434,19 @@
         },
         "e_model_reference": "widget_utilisateurs",
         "e_metadata_definition_reference": "viewType"
+    },
+    {
+        "reference": "WidgetUtilisateur_widget_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "Widget.Section_widget_id",
+                "iModelName": "SectionWidget",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "WidgetUtilisateur_widget_id",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]
