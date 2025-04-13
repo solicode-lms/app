@@ -1,0 +1,30 @@
+{
+    "roles": {
+      "apprenant": {
+        "Apprenant.User_id": "#user_id"
+      },
+      "formateur": {
+        "AffectationProjet.Projet.Formateur.User_id": "#user_id"
+      }
+    },
+    "limit": 5,
+    "tableUI": [
+      {
+        "key": "affectationProjet.projet.titre",
+        "label": "titre",
+        "order": 1
+      }
+    ],
+    "order_by": {
+      "column": "updated_at",
+      "direction": "desc"
+    } , 
+    "link": {
+        "route_name": "realisationProjets.index",
+        "route_params": {
+            "showIndex": "true",
+            "contextKey": "realisationProjet.index",
+            "filter.realisationProjet.apprenant_id":"1"
+          }
+    }
+  }

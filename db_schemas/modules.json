@@ -102,6 +102,7 @@
     "name": "PkgRealisationProjets",
     "tables": [
         "etats_realisation_projets",
+        "workflow_projets",
         "affectation_projets",
         "realisation_projets",
         "livrables_realisations",
