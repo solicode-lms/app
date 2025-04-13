@@ -59,15 +59,24 @@ class BaseWidgetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widget');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('type_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
         }
+
+
+
         if (!array_key_exists('roles', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgAutorisation::role.plural"), 'role_id', \Modules\PkgAutorisation\Models\Role::class, 'name');
         }
+
+
+
         if (!array_key_exists('section_widget_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::sectionWidget.plural"), 'section_widget_id', \Modules\PkgWidgets\Models\SectionWidget::class, 'titre');
         }
+
+
     }
 
     /**

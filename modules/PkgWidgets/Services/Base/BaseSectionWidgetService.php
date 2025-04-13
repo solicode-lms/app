@@ -53,9 +53,12 @@ class BaseSectionWidgetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('sectionWidget');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
+
     }
 
     /**

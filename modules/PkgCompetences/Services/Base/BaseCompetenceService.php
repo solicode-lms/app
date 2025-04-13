@@ -53,9 +53,12 @@ class BaseCompetenceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('competence');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('module_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code');
         }
+
+
     }
 
     /**

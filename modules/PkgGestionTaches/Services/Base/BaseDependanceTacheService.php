@@ -51,15 +51,24 @@ class BaseDependanceTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('dependanceTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
+
+
         if (!array_key_exists('type_dependance_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::typeDependanceTache.plural"), 'type_dependance_tache_id', \Modules\PkgGestionTaches\Models\TypeDependanceTache::class, 'titre');
         }
+
+
+
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_cible_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
+
     }
 
     /**

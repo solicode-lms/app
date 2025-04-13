@@ -50,9 +50,12 @@ class BaseSpecialiteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('specialite');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateurs', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
     }
 
     /**

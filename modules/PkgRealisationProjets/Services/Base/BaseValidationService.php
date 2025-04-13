@@ -53,12 +53,18 @@ class BaseValidationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('validation');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('transfert_competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::transfertCompetence.plural"), 'transfert_competence_id', \Modules\PkgCreationProjet\Models\TransfertCompetence::class, 'id');
         }
+
+
+
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
+
+
     }
 
     /**

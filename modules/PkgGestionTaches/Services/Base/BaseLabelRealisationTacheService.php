@@ -52,12 +52,18 @@ class BaseLabelRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('labelRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
+
     }
 
     /**

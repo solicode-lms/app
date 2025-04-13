@@ -51,9 +51,12 @@ class BaseNiveauCompetenceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauCompetence');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
+
+
     }
 
     /**

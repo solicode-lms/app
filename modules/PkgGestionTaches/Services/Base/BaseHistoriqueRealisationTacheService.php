@@ -51,9 +51,12 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('historiqueRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
         }
+
+
     }
 
     /**

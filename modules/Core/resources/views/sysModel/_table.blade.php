@@ -29,13 +29,15 @@
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
                     <x-field :entity="$sysModel" field="sysColor">
-                       
-                         {{  $sysModel->sysColor }}
+                        <x-badge 
+                        :text="$sysModel->sysColor->name" 
+                        :background="$sysModel->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->icone }}" >
                     <x-field :entity="$sysModel" field="icone">
-                        {{ $sysModel->icone }}
+                        <i class="{{ $sysModel->icone }}" ></i>
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

@@ -58,18 +58,30 @@ class BaseChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('chapitre');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::formation.plural"), 'formation_id', \Modules\PkgAutoformation\Models\Formation::class, 'nom');
         }
+
+
+
         if (!array_key_exists('niveau_competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::niveauCompetence.plural"), 'niveau_competence_id', \Modules\PkgCompetences\Models\NiveauCompetence::class, 'nom');
         }
+
+
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
+
         if (!array_key_exists('chapitre_officiel_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::chapitre.plural"), 'chapitre_officiel_id', \Modules\PkgAutoformation\Models\Chapitre::class, 'nom');
         }
+
+
     }
 
     /**

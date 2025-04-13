@@ -17,7 +17,7 @@
                 <tr id="eModel-row-{{$eModel->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
                     <x-field :entity="$eModel" field="icone">
-                        {{ $eModel->icone }}
+                        <i class="{{ $eModel->icone }}" ></i>
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >

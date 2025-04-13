@@ -53,15 +53,24 @@ class BaseTransfertCompetenceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('transfertCompetence');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
+
+
+
         if (!array_key_exists('niveau_difficulte_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::niveauDifficulte.plural"), 'niveau_difficulte_id', \Modules\PkgCompetences\Models\NiveauDifficulte::class, 'nom');
         }
+
+
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
+
     }
 
     /**

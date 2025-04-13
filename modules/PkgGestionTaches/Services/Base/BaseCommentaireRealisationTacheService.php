@@ -53,15 +53,24 @@ class BaseCommentaireRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('commentaireRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
         }
+
+
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
+
         if (!array_key_exists('apprenant_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
         }
+
+
     }
 
     /**

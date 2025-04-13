@@ -53,9 +53,12 @@ class BaseProfileService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('profile');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('user_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
+
+
     }
 
     /**

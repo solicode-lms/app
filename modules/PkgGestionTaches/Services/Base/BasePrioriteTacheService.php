@@ -52,9 +52,12 @@ class BasePrioriteTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('prioriteTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
     }
 
     /**

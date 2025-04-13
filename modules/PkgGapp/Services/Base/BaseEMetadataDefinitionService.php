@@ -54,9 +54,12 @@ class BaseEMetadataDefinitionService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eMetadataDefinition');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('groupe', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'groupe', 'type' => 'String', 'label' => 'groupe'];
         }
+
+
     }
 
     /**

@@ -28,8 +28,10 @@
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
                     <x-field :entity="$labelRealisationTache" field="sysColor">
-                       
-                         {{  $labelRealisationTache->sysColor }}
+                        <x-badge 
+                        :text="$labelRealisationTache->sysColor->name" 
+                        :background="$labelRealisationTache->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

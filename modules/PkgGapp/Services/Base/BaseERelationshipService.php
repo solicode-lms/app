@@ -61,15 +61,24 @@ class BaseERelationshipService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eRelationship');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('type', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'type', 'type' => 'String', 'label' => 'type'];
         }
+
+
+
         if (!array_key_exists('source_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
+
+
         if (!array_key_exists('target_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
+
     }
 
     /**

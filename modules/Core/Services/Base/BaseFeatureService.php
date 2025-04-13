@@ -51,9 +51,12 @@ class BaseFeatureService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('feature');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('feature_domain_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name');
         }
+
+
     }
 
     /**

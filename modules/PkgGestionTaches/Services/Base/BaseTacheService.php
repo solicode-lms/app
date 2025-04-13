@@ -54,12 +54,18 @@ class BaseTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('tache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
+
+
         if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgGestionTaches\Models\PrioriteTache::class, 'nom');
         }
+
+
     }
 
     /**

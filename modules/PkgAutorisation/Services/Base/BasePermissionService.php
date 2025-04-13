@@ -51,9 +51,12 @@ class BasePermissionService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('permission');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('controller_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysController.plural"), 'controller_id', \Modules\Core\Models\SysController::class, 'name');
         }
+
+
     }
 
     /**

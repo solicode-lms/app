@@ -55,15 +55,24 @@ class BaseRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('realisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
+
+
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
+
+
+
         if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::etatRealisationTache.plural"), 'etat_realisation_tache_id', \Modules\PkgGestionTaches\Models\EtatRealisationTache::class, 'nom');
         }
+
+
     }
 
     /**

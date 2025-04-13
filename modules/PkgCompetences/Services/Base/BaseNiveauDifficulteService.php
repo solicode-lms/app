@@ -53,9 +53,12 @@ class BaseNiveauDifficulteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauDifficulte');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+
     }
 
     /**

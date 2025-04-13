@@ -61,12 +61,18 @@ class BaseFormateurService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('formateur');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('specialites', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::specialite.plural"), 'specialite_id', \Modules\PkgFormation\Models\Specialite::class, 'nom');
         }
+
+
+
         if (!array_key_exists('groupes', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
+
+
     }
 
     /**

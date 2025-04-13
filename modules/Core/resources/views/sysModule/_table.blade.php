@@ -27,8 +27,10 @@
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
                     <x-field :entity="$sysModule" field="sysColor">
-                       
-                         {{  $sysModule->sysColor }}
+                        <x-badge 
+                        :text="$sysModule->sysColor->name" 
+                        :background="$sysModule->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

@@ -22,8 +22,10 @@
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
                     <x-field :entity="$etatFormation" field="sysColor">
-                       
-                         {{  $etatFormation->sysColor }}
+                        <x-badge 
+                        :text="$etatFormation->sysColor->name" 
+                        :background="$etatFormation->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
