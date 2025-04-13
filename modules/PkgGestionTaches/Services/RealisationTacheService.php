@@ -93,13 +93,13 @@ class RealisationTacheService extends BaseRealisationTacheService
         }
         
       
-        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.EtatRealisationTache.WorkflowTache.Code") ) ) {
+        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.etatRealisationTache.WorkflowTache.Code") ) ) {
             // Affichage de l'état de solicode
             $workflowTacheService = new WorkflowTacheService();
             $workflowTaches = $workflowTacheService->all();
             $this->fieldsFilterable[] = $this->generateRelationFilter(
                 __("PkgGestionTaches::workflowTache.plural"), 
-                'etatsRealisationProjet.WorkflowTache.Code', 
+                'etatRealisationTache.WorkflowTache.Code', 
                 WorkflowTache::class, 
                 "code",
                 "code",

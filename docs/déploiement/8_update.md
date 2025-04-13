@@ -10,8 +10,8 @@
 ### Sur Linux
 
 ````bash
-sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\SectionWidgetSeeder
+sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
 sudo php artisan db:seed --class=Modules\\PkgRealisationProjets\\Database\\Seeders\\WorkflowProjetSeeder
 sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\WorkflowTacheSeeder
 ````
@@ -19,8 +19,8 @@ sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\W
 ### Sur Windows 
 
 ````bash
-php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\SectionWidgetSeeder
+php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 php artisan db:seed --class=Modules\PkgRealisationProjets\Database\Seeders\WorkflowProjetSeeder
 php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\WorkflowTacheSeeder
 ````
