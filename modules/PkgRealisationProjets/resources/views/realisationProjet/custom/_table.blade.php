@@ -1,7 +1,7 @@
 @extends('PkgRealisationProjets::realisationProjet._table')
 
 
-@section('realisationProjet-table-tbody')
+@section('realisationProjet-table-tbody1')
 
 @foreach ($realisationProjets_data as $realisationProjet)
 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
