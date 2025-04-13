@@ -7,7 +7,6 @@ namespace Modules\PkgWidgets\Services\Base;
 
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 use Modules\Core\Services\BaseService;
-use Modules\PkgWidgets\Services\SectionWidgetService;
 
 /**
  * Classe WidgetUtilisateurService pour gérer la persistance de l'entité WidgetUtilisateur.
@@ -55,16 +54,16 @@ class BaseWidgetUtilisateurService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widgetUtilisateur');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('user_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
+
+
+
         if (!array_key_exists('widget_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widget.plural"), 'widget_id', \Modules\PkgWidgets\Models\Widget::class, 'name');
         }
-        if (!array_key_exists('visible', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
-        }
-
 
         $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
         $sectionWidgets = $sectionWidgetService->all();
@@ -73,9 +72,15 @@ class BaseWidgetUtilisateurService extends BaseService
             'Widget.Section_widget_id', 
             \Modules\PkgWidgets\Models\SectionWidget::class,
             "id", 
-            "id", // ou "nom" si "titre" n'existe pas dans la table section_widgets
+            "id",
             $sectionWidgets
         );
+
+
+        if (!array_key_exists('visible', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
+        }
+
 
     }
 

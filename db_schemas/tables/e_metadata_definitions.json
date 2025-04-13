@@ -713,7 +713,7 @@
         "name": "relationFilter",
         "type": "Json",
         "scope": "field",
-        "default_value": "{\r\n  \"relationType\": \"ManyToOne\",\r\n  \"targetModelName\": \"SectionWidget\",\r\n  \"path\": \"Widget.Section_widget_id\"\r\n}",
+        "default_value": "[\r\n  {\r\n    \"path\": \"Widget.Section_widget_id\",\r\n    \"iModelName\": \"SectionWidget\",\r\n    \"relationType\": \"ManyToOne\"\r\n  }\r\n]",
         "groupe": "filter",
         "description": "<p>Il permet de créer un fichier dynamique en se basant sur une relation(path)</p>",
         "created_at": null,
