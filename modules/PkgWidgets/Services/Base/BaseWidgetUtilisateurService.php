@@ -68,7 +68,6 @@ class BaseWidgetUtilisateurService extends BaseService
 
         $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
         $sectionWidgets = $sectionWidgetService->all();
-        
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgWidgets::sectionWidget.plural"),
             'Widget.Section_widget_id', 
