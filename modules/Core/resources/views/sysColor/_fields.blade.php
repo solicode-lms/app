@@ -89,6 +89,9 @@
 
 <!--   WorkflowProjet HasMany --> 
 
+
+<!--   WorkflowTache HasMany --> 
+
     </div>
 
     <div class="card-footer">

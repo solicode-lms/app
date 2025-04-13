@@ -30,7 +30,7 @@
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
                     <x-field :entity="$etatRealisationTache" field="sysColor">
                         <x-badge 
-                        :text="$etatRealisationTache->sysColor->name" 
+                        :text="$etatRealisationTache->sysColor->name ?? ''" 
                         :background="$etatRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />
                     </x-field>

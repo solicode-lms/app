@@ -32,6 +32,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
             'titre' => 'titre',
             'description' => 'description',
             'reference' => 'reference',
+            'sys_color_id' => 'sys_color_id',
         ];
         }else{
         return [
@@ -39,6 +40,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
             'titre' => __('PkgGestionTaches::workflowTache.titre'),
             'description' => __('PkgGestionTaches::workflowTache.description'),
             'reference' => __('Core::msg.reference'),
+            'sys_color_id' => __('PkgGestionTaches::workflowTache.sys_color_id'),
         ];
 
         }
@@ -53,6 +55,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'titre' => $workflowTache->titre,
                 'description' => $workflowTache->description,
                 'reference' => $workflowTache->reference,
+                'sys_color_id' => $workflowTache->sys_color_id,
             ];
         });
     }

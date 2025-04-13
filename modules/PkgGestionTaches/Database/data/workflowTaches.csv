@@ -1,6 +1,6 @@
-code,titre,description,reference
-A_FAIRE,À faire,La tâche est prévue mais pas encore commencée,WF_A_FAIRE
-EN_COURS,En cours,La tâche est en cours de réalisation,WF_EN_COURS
-EN_VALIDATION,En validation,La tâche est terminée mais en attente de validation,WF_EN_VALIDATION
-TERMINEE,Terminée,La tâche a été validée et complétée,WF_TERMINEE
-EN_PAUSE,En pause,La tâche est temporairement suspendue,WF_EN_PAUSE
+"code","titre","description","reference","sys_color_id"
+"A_FAIRE","À faire","La tâche est prévue mais pas encore commencée","WF_A_FAIRE","2"
+"EN_COURS","En cours","La tâche est en cours de réalisation","WF_EN_COURS","3"
+"EN_VALIDATION","En validation","La tâche est terminée mais en attente de validation","WF_EN_VALIDATION","5"
+"TERMINEE","Terminée","La tâche a été validée et complétée","WF_TERMINEE","21"
+"EN_PAUSE","En pause","La tâche est temporairement suspendue","WF_EN_PAUSE","6"

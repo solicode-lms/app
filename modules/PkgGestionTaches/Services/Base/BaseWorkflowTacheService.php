@@ -21,7 +21,8 @@ class BaseWorkflowTacheService extends BaseService
     protected $fieldsSearchable = [
         'code',
         'titre',
-        'description'
+        'description',
+        'sys_color_id'
     ];
 
     /**
@@ -51,6 +52,10 @@ class BaseWorkflowTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('workflowTache');
         $this->fieldsFilterable = [];
     
+
+        if (!array_key_exists('sys_color_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
+        }
 
     }
 

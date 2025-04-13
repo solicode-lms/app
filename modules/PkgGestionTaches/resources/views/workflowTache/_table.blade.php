@@ -5,8 +5,9 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="code" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}" />
-                <x-sortable-column width="42.5"  field="titre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="code" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="titre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="workflowTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,14 +15,22 @@
             @section('workflowTache-table-tbody')
             @foreach ($workflowTaches_data as $workflowTache)
                 <tr id="workflowTache-row-{{$workflowTache->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >
                     <x-field :entity="$workflowTache" field="code">
                         {{ $workflowTache->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
                     <x-field :entity="$workflowTache" field="titre">
                         {{ $workflowTache->titre }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->sysColor }}" >
+                    <x-field :entity="$workflowTache" field="sysColor">
+                        <x-badge 
+                        :text="$workflowTache->sysColor->name ?? ''" 
+                        :background="$workflowTache->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

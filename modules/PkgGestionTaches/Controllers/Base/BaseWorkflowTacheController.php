@@ -4,6 +4,7 @@
 
 namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+use Modules\Core\Services\SysColorService;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +20,13 @@ use Modules\Core\Services\ContextState;
 class BaseWorkflowTacheController extends AdminController
 {
     protected $workflowTacheService;
+    protected $sysColorService;
 
-    public function __construct(WorkflowTacheService $workflowTacheService) {
+    public function __construct(WorkflowTacheService $workflowTacheService, SysColorService $sysColorService) {
         parent::__construct();
         $this->service  =  $workflowTacheService;
         $this->workflowTacheService = $workflowTacheService;
+        $this->sysColorService = $sysColorService;
     }
 
     public function index(Request $request) {
@@ -64,11 +67,12 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->createInstance();
         
 
+        $sysColors = $this->sysColorService->all();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._fields', compact('itemWorkflowTache'));
+            return view('PkgGestionTaches::workflowTache._fields', compact('itemWorkflowTache', 'sysColors'));
         }
-        return view('PkgGestionTaches::workflowTache.create', compact('itemWorkflowTache'));
+        return view('PkgGestionTaches::workflowTache.create', compact('itemWorkflowTache', 'sysColors'));
     }
     public function store(WorkflowTacheRequest $request) {
         $validatedData = $request->validated();
@@ -101,6 +105,7 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);
@@ -111,10 +116,10 @@ class BaseWorkflowTacheController extends AdminController
         extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
+        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
 
     }
     public function edit(string $id) {
@@ -125,6 +130,7 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
+        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);
@@ -135,10 +141,10 @@ class BaseWorkflowTacheController extends AdminController
         extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache',),$etatRealisationTache_compact_value));
+        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
 
 
     }

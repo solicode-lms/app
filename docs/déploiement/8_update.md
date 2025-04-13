@@ -13,6 +13,7 @@
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\SectionWidgetSeeder
 sudo php artisan db:seed --class=Modules\\PkgRealisationProjets\\Database\\Seeders\\WorkflowProjetSeeder
+sudo php artisan db:seed --class=Modules\\PkgGestionTaches\\Database\\Seeders\\WorkflowTacheSeeder
 ````
 
 ### Sur Windows 
@@ -21,6 +22,7 @@ sudo php artisan db:seed --class=Modules\\PkgRealisationProjets\\Database\\Seede
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\SectionWidgetSeeder
 php artisan db:seed --class=Modules\PkgRealisationProjets\Database\Seeders\WorkflowProjetSeeder
+php artisan db:seed --class=Modules\PkgGestionTaches\Database\Seeders\WorkflowTacheSeeder
 ````
 
 

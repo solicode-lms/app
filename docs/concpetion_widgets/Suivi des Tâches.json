@@ -4,7 +4,8 @@
     "route_params": {
       "showIndex": "true",
       "contextKey": "realisationTache.index",
-      "filter.realisationTache.RealisationProjet.Apprenant_id": "#apprenant_id"
+      "filter.realisationTache.RealisationProjet.Apprenant_id": "#apprenant_id",
+      "filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id": "#formateur_id"
     }
   },
   "limit": 5,

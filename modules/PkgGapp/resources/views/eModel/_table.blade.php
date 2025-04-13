@@ -20,6 +20,7 @@
                         <i class="{{ $eModel->icone }}" ></i>
                     </x-field>
                     </td>
+
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >
                     <x-field :entity="$eModel" field="name">
                         {{ $eModel->name }}

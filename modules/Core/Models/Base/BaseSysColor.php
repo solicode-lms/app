@@ -23,6 +23,7 @@ use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgAutoformation\Models\WorkflowChapitre;
 use Modules\PkgAutoformation\Models\WorkflowFormation;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 
 /**
  * Classe BaseSysColor
@@ -157,6 +158,15 @@ class BaseSysColor extends BaseModel
     public function workflowProjets(): HasMany
     {
         return $this->hasMany(WorkflowProjet::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function workflowTaches(): HasMany
+    {
+        return $this->hasMany(WorkflowTache::class, 'sys_color_id', 'id');
     }
 
 

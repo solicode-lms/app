@@ -20,6 +20,7 @@
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
+                       
                          {{  $realisationProjet->affectationProjet }}
                     </x-field>
                     </td>

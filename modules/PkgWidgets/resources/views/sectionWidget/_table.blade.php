@@ -26,6 +26,7 @@
                         <i class="{{ $sectionWidget->icone }}" ></i>
                     </x-field>
                     </td>
+
                     <td style="max-width: 57%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
                     <x-field :entity="$sectionWidget" field="titre">
                         {{ $sectionWidget->titre }}
@@ -34,7 +35,7 @@
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
                     <x-field :entity="$sectionWidget" field="sysColor">
                         <x-badge 
-                        :text="$sectionWidget->sysColor->name" 
+                        :text="$sectionWidget->sysColor->name ?? ''" 
                         :background="$sectionWidget->sysColor->hex ?? '#6c757d'" 
                         />
                     </x-field>
