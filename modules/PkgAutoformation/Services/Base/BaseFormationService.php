@@ -78,20 +78,6 @@ class BaseFormationService extends BaseService
     }
 
     /**
-     * Trie par date de mise à jour si il n'existe aucune trie
-     * @param mixed $query
-     * @param mixed $sort
-     */
-    public function applySort($query, $sort)
-    {
-        if ($sort) {
-            return parent::applySort($query, $sort);
-        }else{
-            return $query->orderBy("updated_at","desc");
-        }
-    }
-
-    /**
     * Obtenir les statistiques par Relation
     *
     * @return array

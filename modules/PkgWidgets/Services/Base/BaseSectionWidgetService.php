@@ -5,7 +5,6 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
-use Illuminate\Support\Facades\Schema;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\Core\Services\BaseService;
 
@@ -69,8 +68,6 @@ class BaseSectionWidgetService extends BaseService
     {
         return parent::create($data);
     }
-
-     
 
     /**
     * Obtenir les statistiques par Relation

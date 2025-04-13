@@ -72,6 +72,9 @@
 <!--   SysModule HasMany --> 
 
 
+<!--   SectionWidget HasMany --> 
+
+
 <!--   Widget HasMany --> 
 
 
