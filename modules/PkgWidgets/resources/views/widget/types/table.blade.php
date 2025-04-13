@@ -38,8 +38,24 @@
                 <tbody>
                     @foreach ($widget->data ?? [] as $row)
                         <tr>
-                            @foreach ((array)$row as $value)
-                            <td>{{ is_array($value) ? json_encode($value) : $value }}</td>
+                            @foreach ((array)$row as $cell)
+                                <td>
+                                    @if(is_array($cell))
+                                        @switch($cell['nature'] ?? 'String')
+                                            @case('badge')
+                                                <span class="badge" style="background-color: {{ $cell['couleur'] ?? '#999' }}; color:{{ $cell['textCouleur'] ?? '#000' }}">
+                                                    {{ $cell['value'] }}
+                                                </span>
+                                                @break
+                
+                                            @case('String')
+                                            @default
+                                                {{ $cell['value'] }}
+                                        @endswitch
+                                    @else
+                                        {{ $cell }}
+                                    @endif
+                                </td>
                             @endforeach
                         </tr>
                     @endforeach

@@ -294,19 +294,47 @@ class WidgetService extends BaseWidgetService
     {
         // Trier selon l'ordre défini
         usort($tableUI, fn($a, $b) => ($a['order'] ?? 0) <=> ($b['order'] ?? 0));
+        $sysColorService = new SysColorService();
     
-        return $result->map(function ($item) use ($tableUI) {
+        return $result->map(function ($item) use ($tableUI,$sysColorService) {
             $formattedRow = [];
     
             foreach ($tableUI as $columnConfig) {
                 $label = $columnConfig['label'];
                 $path = $columnConfig['key'];
+                $nature = $columnConfig['nature'] ?? "String";
     
                 $value = method_exists($item, 'getNestedValue')
                     ? $item->getNestedValue($path)
                     : data_get($item, $path, '');
     
                 $formattedRow[$label] = $value;
+
+                switch ($nature) {
+                    case "String":{
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature
+                        ];
+                        break;
+                    }
+                    case "badge": {
+                        $couleur_path = $columnConfig['couleur'];
+                        $couleur = method_exists($item, 'getNestedValue')
+                        ? $item->getNestedValue($couleur_path)
+                        : data_get($item, $path, '');
+
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature,
+                            'couleur' => $couleur,
+                            'textCouleur' => $sysColorService->getTextColorForBackground($couleur)
+                        ];
+                        break;
+                    }
+                       
+                }
+
             }
     
             return $formattedRow;

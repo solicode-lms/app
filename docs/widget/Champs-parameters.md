@@ -151,3 +151,52 @@ return $widget;
 - Les valeurs dynamiques comme `#user_id` rendent les widgets **adaptatifs**.
 
 ✅ **Grâce à cette configuration, les widgets sont entièrement dynamiques et adaptés aux utilisateurs !** 🚀
+
+
+## Nature de champs : 
+
+on peut déterminer la nature de champs : 
+
+par exemple "badge" 
+
+il faut détermine aussi la path de : couleur
+le couleur de texte est calculer automatique
+````json
+  {
+    "link": {
+      "route_name": "realisationProjets.index",
+      "route_params": {
+        "showIndex": "true",
+        "contextKey": "realisationProjet.index",
+        "filter.realisationProjet.apprenant_id": "#apprenant_id"
+      }
+    },
+    "limit": 5,
+    "roles": {
+      "apprenant": {
+        "Apprenant.User_id": "#user_id"
+      },
+      "formateur": {
+        "AffectationProjet.Projet.Formateur.User_id": "#user_id"
+      }
+    },
+    "tableUI": [
+      {
+        "key": "affectationProjet.projet.titre",
+        "label": "Projet",
+        "order": 1
+      }, 
+      {
+        "key": "etatsRealisationProjet.workflowProjet.titre",
+        "label": "État",
+        "nature":"badge",
+        "couleur" : "etatsRealisationProjet.workflowProjet.sysColor.hex",
+        "order": 2
+      }
+    ],
+    "order_by": {
+      "column": "updated_at",
+      "direction": "desc"
+    }
+  }
+````
