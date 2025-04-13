@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\Core\Models\SysColor;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
@@ -36,7 +37,7 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'formateur_id', 'titre', 'description', 'workflow_projet_id', 'is_editable_by_formateur'
+        'formateur_id', 'titre', 'description', 'sys_color_id', 'workflow_projet_id', 'is_editable_by_formateur'
     ];
 
 
@@ -48,6 +49,15 @@ class BaseEtatsRealisationProjet extends BaseModel
     public function formateur(): BelongsTo
     {
         return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SysColor.
+     *
+     * @return BelongsTo
+     */
+    public function sysColor(): BelongsTo
+    {
+        return $this->belongsTo(SysColor::class, 'sys_color_id', 'id');
     }
     /**
      * Relation BelongsTo pour WorkflowProjet.

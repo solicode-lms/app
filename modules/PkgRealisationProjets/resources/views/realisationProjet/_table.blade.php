@@ -44,8 +44,20 @@
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
                     <x-field :entity="$realisationProjet" field="avancement_projet">
-                        {{ $realisationProjet->avancement_projet }}
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->avancement_projet }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{ $realisationProjet->avancement_projet }}% Terminé
+                        </small>
                     </x-field>
+
+
+                       
+                   
+
+
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                     <x-field :entity="$realisationProjet" field="livrablesRealisations">
