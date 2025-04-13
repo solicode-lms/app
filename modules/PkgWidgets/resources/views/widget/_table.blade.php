@@ -6,10 +6,11 @@
         <thead style="width: 100%">
             <tr>
                 <x-sortable-column width="8"  field="ordre" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.ordre')) }}" />
-                <x-sortable-column width="30"  field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column width="30"  field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column width="20"  field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
+                <x-sortable-column width="20"  field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
                 <x-sortable-column width="7" field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
                 <x-sortable-column width="10"  field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <x-sortable-column width="20" field="section_widget_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,12 +23,12 @@
                         {{ $widget->ordre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 30%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
                     <x-field :entity="$widget" field="name">
                         {{ $widget->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 30%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
                     <x-field :entity="$widget" field="label">
                         {{ $widget->label }}
                     </x-field>
@@ -45,6 +46,12 @@
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
+                    </td>
+                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
+                    <x-field :entity="$widget" field="sectionWidget">
+                       
+                         {{  $widget->sectionWidget }}
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

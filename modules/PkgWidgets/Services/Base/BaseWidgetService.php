@@ -28,6 +28,7 @@ class BaseWidgetService extends BaseService
         'color',
         'icon',
         'sys_color_id',
+        'section_widget_id',
         'parameters'
     ];
 
@@ -63,6 +64,9 @@ class BaseWidgetService extends BaseService
         }
         if (!array_key_exists('roles', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgAutorisation::role.plural"), 'role_id', \Modules\PkgAutorisation\Models\Role::class, 'name');
+        }
+        if (!array_key_exists('section_widget_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::sectionWidget.plural"), 'section_widget_id', \Modules\PkgWidgets\Models\SectionWidget::class, 'titre');
         }
     }
 

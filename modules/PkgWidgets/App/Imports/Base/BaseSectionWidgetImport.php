@@ -5,30 +5,30 @@
 
 namespace Modules\PkgWidgets\App\Imports\Base;
 
-use Modules\PkgWidgets\Models\Widget;
+use Modules\PkgWidgets\Models\SectionWidget;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseWidgetImport implements ToModel, WithHeadingRow
+class BaseSectionWidgetImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return Widget|null
+     * @return SectionWidget|null
      */
-    private function findExistingRecord($reference): ?Widget
+    private function findExistingRecord($reference): ?SectionWidget
     {
         if($reference == null) return null;
-        return Widget::where('reference', $reference)->first();
+        return SectionWidget::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return Widget|null
+     * @return SectionWidget|null
      */
     public function model(array $row)
     {
@@ -55,19 +55,13 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new Widget([
-             'ordre' => $values[0] ?? null,
-             'name' => $values[1] ?? null,
-             'label' => $values[2] ?? null,
-             'type_id' => $values[3] ?? null,
-             'model_id' => $values[4] ?? null,
-             'operation_id' => $values[5] ?? null,
-             'color' => $values[6] ?? null,
-             'icon' => $values[7] ?? null,
-             'sys_color_id' => $values[8] ?? null,
+        return new SectionWidget([
+             'titre' => $values[0] ?? null,
+             'sous_titre' => $values[1] ?? null,
+             'icone' => $values[2] ?? null,
+             'ordre' => $values[3] ?? null,
              'reference' => $reference,
-             'section_widget_id' => $values[10] ?? null,
-             'parameters' => $values[11] ?? null,
+             'sys_color_id' => $values[5] ?? null,
         ]);
 
 

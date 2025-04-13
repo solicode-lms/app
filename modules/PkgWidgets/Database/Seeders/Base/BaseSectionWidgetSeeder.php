@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgWidgets\Models\Widget;
-use Modules\PkgWidgets\Services\WidgetService;
+use Modules\PkgWidgets\Models\SectionWidget;
+use Modules\PkgWidgets\Services\SectionWidgetService;
 
 
-class BaseWidgetSeeder extends Seeder
+class BaseSectionWidgetSeeder extends Seeder
 {
-    public static int $order = 35;
+    public static int $order = 82;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -49,7 +49,7 @@ class BaseWidgetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgWidgets/Database/data/widgets.csv");
+        $filePath = base_path("modules/PkgWidgets/Database/data/sectionWidgets.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -67,30 +67,24 @@ class BaseWidgetSeeder extends Seeder
             return;
         }
 
-        $widgetService = new WidgetService();
+        $sectionWidgetService = new SectionWidgetService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
-                $widgetData =[
+                $sectionWidgetData =[
+                    "titre" => $row["titre"] ?? null,
+                    "sous_titre" => $row["sous_titre"] ?? null,
+                    "icone" => $row["icone"] ?? null,
                     "ordre" => $row["ordre"] ?? null,
-                    "name" => $row["name"] ?? null,
-                    "label" => $row["label"] ?? null,
-                    "type_id" => $row["type_id"] ?? null,
-                    "model_id" => $row["model_id"] ?? null,
-                    "operation_id" => $row["operation_id"] ?? null,
-                    "color" => $row["color"] ?? null,
-                    "icon" => $row["icon"] ?? null,
                     "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "section_widget_id" => $row["section_widget_id"] ?? null,
-                    "parameters" => $row["parameters"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $widgetService->updateOrCreate(["reference" => $row["reference"]], $widgetData);
+                    $sectionWidgetService->updateOrCreate(["reference" => $row["reference"]], $sectionWidgetData);
                 } else {
-                    $widgetService->create($widgetData);
+                    $sectionWidgetService->create($sectionWidgetData);
                 }
             }
         }
@@ -113,9 +107,9 @@ class BaseWidgetSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'WidgetController';
-        $controllerBaseName = 'widget';
-        $domainName = 'Widget';
+        $controllerName = 'SectionWidgetController';
+        $controllerBaseName = 'sectionWidget';
+        $domainName = 'SectionWidget';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(

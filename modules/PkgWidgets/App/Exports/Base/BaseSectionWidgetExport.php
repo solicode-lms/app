@@ -5,7 +5,7 @@
 
 namespace Modules\PkgWidgets\App\Exports\Base;
 
-use Modules\PkgWidgets\Models\Widget;
+use Modules\PkgWidgets\Models\SectionWidget;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseSectionWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -28,33 +28,21 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
      if($this->format == 'csv'){
         return [
+            'titre' => 'titre',
+            'sous_titre' => 'sous_titre',
+            'icone' => 'icone',
             'ordre' => 'ordre',
-            'name' => 'name',
-            'label' => 'label',
-            'type_id' => 'type_id',
-            'model_id' => 'model_id',
-            'operation_id' => 'operation_id',
-            'color' => 'color',
-            'icon' => 'icon',
-            'sys_color_id' => 'sys_color_id',
             'reference' => 'reference',
-            'section_widget_id' => 'section_widget_id',
-            'parameters' => 'parameters',
+            'sys_color_id' => 'sys_color_id',
         ];
         }else{
         return [
-            'ordre' => __('PkgWidgets::widget.ordre'),
-            'name' => __('PkgWidgets::widget.name'),
-            'label' => __('PkgWidgets::widget.label'),
-            'type_id' => __('PkgWidgets::widget.type_id'),
-            'model_id' => __('PkgWidgets::widget.model_id'),
-            'operation_id' => __('PkgWidgets::widget.operation_id'),
-            'color' => __('PkgWidgets::widget.color'),
-            'icon' => __('PkgWidgets::widget.icon'),
-            'sys_color_id' => __('PkgWidgets::widget.sys_color_id'),
+            'titre' => __('PkgWidgets::sectionWidget.titre'),
+            'sous_titre' => __('PkgWidgets::sectionWidget.sous_titre'),
+            'icone' => __('PkgWidgets::sectionWidget.icone'),
+            'ordre' => __('PkgWidgets::sectionWidget.ordre'),
             'reference' => __('Core::msg.reference'),
-            'section_widget_id' => __('PkgWidgets::widget.section_widget_id'),
-            'parameters' => __('PkgWidgets::widget.parameters'),
+            'sys_color_id' => __('PkgWidgets::sectionWidget.sys_color_id'),
         ];
 
         }
@@ -63,20 +51,14 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
 
     public function collection()
     {
-        return $this->data->map(function ($widget) {
+        return $this->data->map(function ($sectionWidget) {
             return [
-                'ordre' => $widget->ordre,
-                'name' => $widget->name,
-                'label' => $widget->label,
-                'type_id' => $widget->type_id,
-                'model_id' => $widget->model_id,
-                'operation_id' => $widget->operation_id,
-                'color' => $widget->color,
-                'icon' => $widget->icon,
-                'sys_color_id' => $widget->sys_color_id,
-                'reference' => $widget->reference,
-                'section_widget_id' => $widget->section_widget_id,
-                'parameters' => $widget->parameters,
+                'titre' => $sectionWidget->titre,
+                'sous_titre' => $sectionWidget->sous_titre,
+                'icone' => $sectionWidget->icone,
+                'ordre' => $sectionWidget->ordre,
+                'reference' => $sectionWidget->reference,
+                'sys_color_id' => $sectionWidget->sys_color_id,
             ];
         });
     }

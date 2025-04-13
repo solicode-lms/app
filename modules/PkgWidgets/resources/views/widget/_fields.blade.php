@@ -233,6 +233,33 @@
   
 
 
+      <div class="form-group col-12 col-md-6">
+          <label for="section_widget_id">
+            {{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}
+            
+          </label>
+                      <select 
+            id="section_widget_id" 
+            
+            
+            
+            name="section_widget_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sectionWidgets as $sectionWidget)
+                    <option value="{{ $sectionWidget->id }}"
+                        {{ (isset($itemWidget) && $itemWidget->section_widget_id == $sectionWidget->id) || (old('section_widget_id>') == $sectionWidget->id) ? 'selected' : '' }}>
+                        {{ $sectionWidget }}
+                    </option>
+                @endforeach
+            </select>
+          @error('section_widget_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
 <!--   WidgetUtilisateur HasMany --> 
 
 

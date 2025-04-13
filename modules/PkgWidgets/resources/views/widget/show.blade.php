@@ -61,6 +61,10 @@
                                 <p>{{ $itemWidget->sys_color_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="section_widget_id">{{ ucfirst(__('PkgWidgets::widget.section_widget_id')) }}:</label>
+                                <p>{{ $itemWidget->section_widget_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="parameters">{{ ucfirst(__('PkgWidgets::widget.parameters')) }}:</label>
                                 <p>{{ $itemWidget->parameters }}</p>
                             </div>
