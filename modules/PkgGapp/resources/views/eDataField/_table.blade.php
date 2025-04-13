@@ -5,11 +5,9 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                 <th>
-                    Ordre
-                </th>
-                <x-sortable-column width="28.333333333333332"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
+                <x-sortable-column width="10"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
+                <x-sortable-column width="37.5"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
+                <x-sortable-column width="37.5"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,17 +15,17 @@
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->order }}" >
-                    <x-field :data="$eDataField" field="order">
-                     ComputableFields :  getOrder() 
+                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
+                    <x-field :data="$eDataField" field="displayOrder">
+                        {{ $eDataField->displayOrder }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
+                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
                     <x-field :data="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
+                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
                     <x-field :data="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
                     </x-field>

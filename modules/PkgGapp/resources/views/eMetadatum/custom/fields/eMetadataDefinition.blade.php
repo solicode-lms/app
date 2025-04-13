@@ -1,0 +1,2 @@
+
+{{  $entity->eMetadataDefinition }} : {{$entity->getValue()}}

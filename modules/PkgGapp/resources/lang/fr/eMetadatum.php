@@ -8,7 +8,7 @@ return [
     'value_json' => 'value_json',
     'value_boolean' => 'valeur booléenne',
     'value_string' => 'valeur chaîne',
-    'value_int' => 'valeur nombre',
+    'value_integer' => 'valeur nombre',
     'value_object' => 'valeur objet',
     'object_id' => 'id objet',
     'object_type' => 'type objet',

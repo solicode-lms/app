@@ -1,16 +1,10 @@
 [
     {
         "reference": "e_data_fields_computableFields",
+        "value_boolean": 0,
         "value_integer": 48,
         "value_float": 0,
-        "value_json": [
-            {
-                "name": "order",
-                "label": "Ordre",
-                "method": "getOrder",
-                "dispalyOrder": 1
-            }
-        ],
+        "value_json": [],
         "e_model_reference": "e_data_fields",
         "e_metadata_definition_reference": "computableFields"
     },
@@ -541,5 +535,32 @@
         "value_boolean": 1,
         "e_data_field_reference": "EDataField_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EDataField-displayOrder_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField-displayOrder_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField-displayOrder_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EDataField-displayOrder_columnWidth",
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

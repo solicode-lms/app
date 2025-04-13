@@ -9997,5 +9997,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT p.titre\r\nFROM realisation_projets rp\r\nJOIN affectation_projets ap ON ap.id = rp.affectation_projet_id\r\nJOIN projets p ON p.id = ap.projet_id\r\nWHERE rp.id = realisation_taches.realisation_projet_id",
         "description": ""
+    },
+    {
+        "id": 768,
+        "reference": "EDataField-displayOrder",
+        "name": "displayOrder",
+        "column_name": "displayOrder",
+        "data_type": "Integer",
+        "field_order": 1,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT em.value_integer\r\nFROM e_metadata em\r\nJOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id\r\nWHERE em.e_data_field_id = e_data_fields.id\r\nAND emd.reference = 'displayOrder'",
+        "description": "<p><br></p>"
     }
 ]
