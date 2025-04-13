@@ -56,7 +56,6 @@ class BasePermissionService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysController.plural"), 'controller_id', \Modules\Core\Models\SysController::class, 'name');
         }
 
-
     }
 
     /**
@@ -124,7 +123,9 @@ class BasePermissionService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('permission_view_type') === 'widgets') {
-            $this->viewState->set("filter.permission.visible", 1);
+            $this->viewState->set("scope.permission.visible", 1);
+        }else{
+            $this->viewState->remove("scope.permission.visible");
         }
         
         // Récupération des données

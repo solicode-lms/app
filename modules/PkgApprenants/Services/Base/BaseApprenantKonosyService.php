@@ -67,6 +67,7 @@ class BaseApprenantKonosyService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('apprenantKonosy');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -134,7 +135,9 @@ class BaseApprenantKonosyService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('apprenantKonosy_view_type') === 'widgets') {
-            $this->viewState->set("filter.apprenantKonosy.visible", 1);
+            $this->viewState->set("scope.apprenantKonosy.visible", 1);
+        }else{
+            $this->viewState->remove("scope.apprenantKonosy.visible");
         }
         
         // Récupération des données

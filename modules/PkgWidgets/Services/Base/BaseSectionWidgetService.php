@@ -58,7 +58,6 @@ class BaseSectionWidgetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
 
-
     }
 
     /**
@@ -126,7 +125,9 @@ class BaseSectionWidgetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sectionWidget_view_type') === 'widgets') {
-            $this->viewState->set("filter.sectionWidget.visible", 1);
+            $this->viewState->set("scope.sectionWidget.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sectionWidget.visible");
         }
         
         // Récupération des données

@@ -59,12 +59,9 @@ class BaseTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
 
-
-
         if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgGestionTaches\Models\PrioriteTache::class, 'nom');
         }
-
 
     }
 
@@ -133,7 +130,9 @@ class BaseTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('tache_view_type') === 'widgets') {
-            $this->viewState->set("filter.tache.visible", 1);
+            $this->viewState->set("scope.tache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.tache.visible");
         }
         
         // Récupération des données

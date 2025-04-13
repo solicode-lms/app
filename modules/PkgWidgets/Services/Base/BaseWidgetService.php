@@ -64,18 +64,13 @@ class BaseWidgetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
         }
 
-
-
         if (!array_key_exists('roles', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgAutorisation::role.plural"), 'role_id', \Modules\PkgAutorisation\Models\Role::class, 'name');
         }
 
-
-
         if (!array_key_exists('section_widget_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::sectionWidget.plural"), 'section_widget_id', \Modules\PkgWidgets\Models\SectionWidget::class, 'titre');
         }
-
 
     }
 
@@ -144,7 +139,9 @@ class BaseWidgetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widget_view_type') === 'widgets') {
-            $this->viewState->set("filter.widget.visible", 1);
+            $this->viewState->set("scope.widget.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widget.visible");
         }
         
         // Récupération des données

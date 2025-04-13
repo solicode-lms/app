@@ -58,7 +58,6 @@ class BaseNiveauDifficulteService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
     }
 
     /**
@@ -140,7 +139,9 @@ class BaseNiveauDifficulteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('niveauDifficulte_view_type') === 'widgets') {
-            $this->viewState->set("filter.niveauDifficulte.visible", 1);
+            $this->viewState->set("scope.niveauDifficulte.visible", 1);
+        }else{
+            $this->viewState->remove("scope.niveauDifficulte.visible");
         }
         
         // Récupération des données

@@ -56,7 +56,6 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
         }
 
-
     }
 
     /**
@@ -124,7 +123,9 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('historiqueRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.historiqueRealisationTache.visible", 1);
+            $this->viewState->set("scope.historiqueRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.historiqueRealisationTache.visible");
         }
         
         // Récupération des données

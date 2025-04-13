@@ -58,7 +58,6 @@ class BaseCompetenceService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code');
         }
 
-
     }
 
     /**
@@ -132,7 +131,9 @@ class BaseCompetenceService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('competence_view_type') === 'widgets') {
-            $this->viewState->set("filter.competence.visible", 1);
+            $this->viewState->set("scope.competence.visible", 1);
+        }else{
+            $this->viewState->remove("scope.competence.visible");
         }
         
         // Récupération des données

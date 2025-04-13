@@ -59,18 +59,13 @@ class BaseRealisationProjetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id');
         }
 
-
-
         if (!array_key_exists('apprenant_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
         }
 
-
-
         if (!array_key_exists('etats_realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre');
         }
-
 
     }
 
@@ -153,7 +148,9 @@ class BaseRealisationProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('realisationProjet_view_type') === 'widgets') {
-            $this->viewState->set("filter.realisationProjet.visible", 1);
+            $this->viewState->set("scope.realisationProjet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationProjet.visible");
         }
         
         // Récupération des données

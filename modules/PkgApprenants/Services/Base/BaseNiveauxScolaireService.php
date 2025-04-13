@@ -51,6 +51,7 @@ class BaseNiveauxScolaireService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauxScolaire');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -118,7 +119,9 @@ class BaseNiveauxScolaireService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('niveauxScolaire_view_type') === 'widgets') {
-            $this->viewState->set("filter.niveauxScolaire.visible", 1);
+            $this->viewState->set("scope.niveauxScolaire.visible", 1);
+        }else{
+            $this->viewState->remove("scope.niveauxScolaire.visible");
         }
         
         // Récupération des données

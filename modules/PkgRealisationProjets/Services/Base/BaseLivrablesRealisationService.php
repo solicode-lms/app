@@ -58,12 +58,9 @@ class BaseLivrablesRealisationService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::livrable.plural"), 'livrable_id', \Modules\PkgCreationProjet\Models\Livrable::class, 'titre');
         }
 
-
-
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
-
 
     }
 
@@ -146,7 +143,9 @@ class BaseLivrablesRealisationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('livrablesRealisation_view_type') === 'widgets') {
-            $this->viewState->set("filter.livrablesRealisation.visible", 1);
+            $this->viewState->set("scope.livrablesRealisation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.livrablesRealisation.visible");
         }
         
         // Récupération des données

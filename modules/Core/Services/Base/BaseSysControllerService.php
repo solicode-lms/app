@@ -58,7 +58,6 @@ class BaseSysControllerService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name');
         }
 
-
     }
 
     /**
@@ -126,7 +125,9 @@ class BaseSysControllerService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sysController_view_type') === 'widgets') {
-            $this->viewState->set("filter.sysController.visible", 1);
+            $this->viewState->set("scope.sysController.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sysController.visible");
         }
         
         // Récupération des données

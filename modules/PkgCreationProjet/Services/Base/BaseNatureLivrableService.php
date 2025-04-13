@@ -50,6 +50,7 @@ class BaseNatureLivrableService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('natureLivrable');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseNatureLivrableService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('natureLivrable_view_type') === 'widgets') {
-            $this->viewState->set("filter.natureLivrable.visible", 1);
+            $this->viewState->set("scope.natureLivrable.visible", 1);
+        }else{
+            $this->viewState->remove("scope.natureLivrable.visible");
         }
         
         // Récupération des données

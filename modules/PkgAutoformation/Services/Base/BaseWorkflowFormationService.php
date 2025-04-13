@@ -57,7 +57,6 @@ class BaseWorkflowFormationService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
 
-
     }
 
     /**
@@ -125,7 +124,9 @@ class BaseWorkflowFormationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('workflowFormation_view_type') === 'widgets') {
-            $this->viewState->set("filter.workflowFormation.visible", 1);
+            $this->viewState->set("scope.workflowFormation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.workflowFormation.visible");
         }
         
         // Récupération des données

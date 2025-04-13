@@ -57,7 +57,6 @@ class BaseWorkflowChapitreService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
 
-
     }
 
     /**
@@ -125,7 +124,9 @@ class BaseWorkflowChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('workflowChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.workflowChapitre.visible", 1);
+            $this->viewState->set("scope.workflowChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.workflowChapitre.visible");
         }
         
         // Récupération des données

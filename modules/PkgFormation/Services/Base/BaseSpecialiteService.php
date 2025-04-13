@@ -55,7 +55,6 @@ class BaseSpecialiteService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
     }
 
     /**
@@ -123,7 +122,9 @@ class BaseSpecialiteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('specialite_view_type') === 'widgets') {
-            $this->viewState->set("filter.specialite.visible", 1);
+            $this->viewState->set("scope.specialite.visible", 1);
+        }else{
+            $this->viewState->remove("scope.specialite.visible");
         }
         
         // Récupération des données

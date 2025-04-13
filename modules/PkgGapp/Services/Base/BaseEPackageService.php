@@ -50,6 +50,7 @@ class BaseEPackageService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('ePackage');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseEPackageService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('ePackage_view_type') === 'widgets') {
-            $this->viewState->set("filter.ePackage.visible", 1);
+            $this->viewState->set("scope.ePackage.visible", 1);
+        }else{
+            $this->viewState->remove("scope.ePackage.visible");
         }
         
         // Récupération des données

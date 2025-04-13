@@ -57,7 +57,6 @@ class BasePrioriteTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
     }
 
     /**
@@ -139,7 +138,9 @@ class BasePrioriteTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('prioriteTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.prioriteTache.visible", 1);
+            $this->viewState->set("scope.prioriteTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.prioriteTache.visible");
         }
         
         // Récupération des données

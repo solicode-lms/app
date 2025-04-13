@@ -60,18 +60,13 @@ class BaseFormationService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
 
-
-
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
-
         if (!array_key_exists('formation_officiel_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::formation.plural"), 'formation_officiel_id', \Modules\PkgAutoformation\Models\Formation::class, 'nom');
         }
-
 
     }
 
@@ -154,7 +149,9 @@ class BaseFormationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('formation_view_type') === 'widgets') {
-            $this->viewState->set("filter.formation.visible", 1);
+            $this->viewState->set("scope.formation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.formation.visible");
         }
         
         // Récupération des données

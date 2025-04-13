@@ -51,6 +51,7 @@ class BaseFiliereService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('filiere');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -118,7 +119,9 @@ class BaseFiliereService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('filiere_view_type') === 'widgets') {
-            $this->viewState->set("filter.filiere.visible", 1);
+            $this->viewState->set("scope.filiere.visible", 1);
+        }else{
+            $this->viewState->remove("scope.filiere.visible");
         }
         
         // Récupération des données

@@ -60,12 +60,9 @@ class BaseProjetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
-
         if (!array_key_exists('filiere_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
         }
-
 
     }
 
@@ -148,7 +145,9 @@ class BaseProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('projet_view_type') === 'widgets') {
-            $this->viewState->set("filter.projet.visible", 1);
+            $this->viewState->set("scope.projet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.projet.visible");
         }
         
         // Récupération des données

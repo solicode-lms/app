@@ -56,7 +56,6 @@ class BaseTechnologyService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::categoryTechnology.plural"), 'category_technology_id', \Modules\PkgCompetences\Models\CategoryTechnology::class, 'nom');
         }
 
-
     }
 
     /**
@@ -124,7 +123,9 @@ class BaseTechnologyService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('technology_view_type') === 'widgets') {
-            $this->viewState->set("filter.technology.visible", 1);
+            $this->viewState->set("scope.technology.visible", 1);
+        }else{
+            $this->viewState->remove("scope.technology.visible");
         }
         
         // Récupération des données

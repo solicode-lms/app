@@ -57,7 +57,6 @@ class BaseFeatureDomainService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name');
         }
 
-
     }
 
     /**
@@ -125,7 +124,9 @@ class BaseFeatureDomainService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('featureDomain_view_type') === 'widgets') {
-            $this->viewState->set("filter.featureDomain.visible", 1);
+            $this->viewState->set("scope.featureDomain.visible", 1);
+        }else{
+            $this->viewState->remove("scope.featureDomain.visible");
         }
         
         // Récupération des données

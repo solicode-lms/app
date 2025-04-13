@@ -58,12 +58,9 @@ class BaseLivrableService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::natureLivrable.plural"), 'nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom');
         }
 
-
-
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
-
 
     }
 
@@ -146,7 +143,9 @@ class BaseLivrableService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('livrable_view_type') === 'widgets') {
-            $this->viewState->set("filter.livrable.visible", 1);
+            $this->viewState->set("scope.livrable.visible", 1);
+        }else{
+            $this->viewState->remove("scope.livrable.visible");
         }
         
         // Récupération des données

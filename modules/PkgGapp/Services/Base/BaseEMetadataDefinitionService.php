@@ -59,7 +59,6 @@ class BaseEMetadataDefinitionService extends BaseService
         $this->fieldsFilterable[] = ['field' => 'groupe', 'type' => 'String', 'label' => 'groupe'];
         }
 
-
     }
 
     /**
@@ -127,7 +126,9 @@ class BaseEMetadataDefinitionService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eMetadataDefinition_view_type') === 'widgets') {
-            $this->viewState->set("filter.eMetadataDefinition.visible", 1);
+            $this->viewState->set("scope.eMetadataDefinition.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eMetadataDefinition.visible");
         }
         
         // Récupération des données

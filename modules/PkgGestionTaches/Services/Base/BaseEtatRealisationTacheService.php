@@ -59,18 +59,13 @@ class BaseEtatRealisationTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::workflowTache.plural"), 'workflow_tache_id', \Modules\PkgGestionTaches\Models\WorkflowTache::class, 'code');
         }
 
-
-
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
 
-
-
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
-
 
     }
 
@@ -153,7 +148,9 @@ class BaseEtatRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('etatRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.etatRealisationTache.visible", 1);
+            $this->viewState->set("scope.etatRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.etatRealisationTache.visible");
         }
         
         // Récupération des données

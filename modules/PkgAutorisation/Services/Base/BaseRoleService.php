@@ -50,6 +50,7 @@ class BaseRoleService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('role');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseRoleService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('role_view_type') === 'widgets') {
-            $this->viewState->set("filter.role.visible", 1);
+            $this->viewState->set("scope.role.visible", 1);
+        }else{
+            $this->viewState->remove("scope.role.visible");
         }
         
         // Récupération des données

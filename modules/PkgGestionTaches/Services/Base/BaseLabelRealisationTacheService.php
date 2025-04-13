@@ -57,12 +57,9 @@ class BaseLabelRealisationTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
-
-
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
-
 
     }
 
@@ -145,7 +142,9 @@ class BaseLabelRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('labelRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.labelRealisationTache.visible", 1);
+            $this->viewState->set("scope.labelRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.labelRealisationTache.visible");
         }
         
         // Récupération des données

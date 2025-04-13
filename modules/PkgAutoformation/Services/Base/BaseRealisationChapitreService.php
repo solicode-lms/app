@@ -58,18 +58,13 @@ class BaseRealisationChapitreService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::chapitre.plural"), 'chapitre_id', \Modules\PkgAutoformation\Models\Chapitre::class, 'nom');
         }
 
-
-
         if (!array_key_exists('realisation_formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::realisationFormation.plural"), 'realisation_formation_id', \Modules\PkgAutoformation\Models\RealisationFormation::class, 'id');
         }
 
-
-
         if (!array_key_exists('etat_chapitre_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatChapitre.plural"), 'etat_chapitre_id', \Modules\PkgAutoformation\Models\EtatChapitre::class, 'nom');
         }
-
 
     }
 
@@ -138,7 +133,9 @@ class BaseRealisationChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('realisationChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.realisationChapitre.visible", 1);
+            $this->viewState->set("scope.realisationChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationChapitre.visible");
         }
         
         // Récupération des données

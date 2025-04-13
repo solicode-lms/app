@@ -50,6 +50,7 @@ class BaseTypeDependanceTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('typeDependanceTache');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseTypeDependanceTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('typeDependanceTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.typeDependanceTache.visible", 1);
+            $this->viewState->set("scope.typeDependanceTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.typeDependanceTache.visible");
         }
         
         // Récupération des données

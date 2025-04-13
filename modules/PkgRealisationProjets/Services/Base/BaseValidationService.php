@@ -58,12 +58,9 @@ class BaseValidationService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::transfertCompetence.plural"), 'transfert_competence_id', \Modules\PkgCreationProjet\Models\TransfertCompetence::class, 'id');
         }
 
-
-
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
-
 
     }
 
@@ -146,7 +143,9 @@ class BaseValidationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('validation_view_type') === 'widgets') {
-            $this->viewState->set("filter.validation.visible", 1);
+            $this->viewState->set("scope.validation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.validation.visible");
         }
         
         // Récupération des données

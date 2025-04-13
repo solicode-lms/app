@@ -58,7 +58,6 @@ class BaseModuleService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
         }
 
-
     }
 
     /**
@@ -132,7 +131,9 @@ class BaseModuleService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('module_view_type') === 'widgets') {
-            $this->viewState->set("filter.module.visible", 1);
+            $this->viewState->set("scope.module.visible", 1);
+        }else{
+            $this->viewState->remove("scope.module.visible");
         }
         
         // Récupération des données

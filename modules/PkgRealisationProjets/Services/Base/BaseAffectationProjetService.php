@@ -59,12 +59,9 @@ class BaseAffectationProjetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
 
-
-
         if (!array_key_exists('groupe_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
-
 
     }
 
@@ -147,7 +144,9 @@ class BaseAffectationProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('affectationProjet_view_type') === 'widgets') {
-            $this->viewState->set("filter.affectationProjet.visible", 1);
+            $this->viewState->set("scope.affectationProjet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.affectationProjet.visible");
         }
         
         // Récupération des données

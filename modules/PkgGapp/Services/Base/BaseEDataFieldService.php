@@ -66,12 +66,9 @@ class BaseEDataFieldService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
 
-
-
         if (!array_key_exists('data_type', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
         }
-
 
     }
 
@@ -140,7 +137,9 @@ class BaseEDataFieldService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eDataField_view_type') === 'widgets') {
-            $this->viewState->set("filter.eDataField.visible", 1);
+            $this->viewState->set("scope.eDataField.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eDataField.visible");
         }
         
         // Récupération des données

@@ -58,7 +58,6 @@ class BaseProfileService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
 
-
     }
 
     /**
@@ -140,7 +139,9 @@ class BaseProfileService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('profile_view_type') === 'widgets') {
-            $this->viewState->set("filter.profile.visible", 1);
+            $this->viewState->set("scope.profile.visible", 1);
+        }else{
+            $this->viewState->remove("scope.profile.visible");
         }
         
         // Récupération des données

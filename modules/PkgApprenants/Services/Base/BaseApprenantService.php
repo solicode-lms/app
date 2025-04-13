@@ -71,12 +71,9 @@ class BaseApprenantService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
 
-
-
         if (!array_key_exists('actif', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'actif', 'type' => 'Boolean', 'label' => 'actif'];
         }
-
 
     }
 
@@ -155,7 +152,9 @@ class BaseApprenantService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('apprenant_view_type') === 'widgets') {
-            $this->viewState->set("filter.apprenant.visible", 1);
+            $this->viewState->set("scope.apprenant.visible", 1);
+        }else{
+            $this->viewState->remove("scope.apprenant.visible");
         }
         
         // Récupération des données

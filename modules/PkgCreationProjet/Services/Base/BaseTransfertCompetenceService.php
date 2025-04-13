@@ -58,18 +58,13 @@ class BaseTransfertCompetenceService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
 
-
-
         if (!array_key_exists('niveau_difficulte_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::niveauDifficulte.plural"), 'niveau_difficulte_id', \Modules\PkgCompetences\Models\NiveauDifficulte::class, 'nom');
         }
 
-
-
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
-
 
     }
 
@@ -152,7 +147,9 @@ class BaseTransfertCompetenceService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('transfertCompetence_view_type') === 'widgets') {
-            $this->viewState->set("filter.transfertCompetence.visible", 1);
+            $this->viewState->set("scope.transfertCompetence.visible", 1);
+        }else{
+            $this->viewState->remove("scope.transfertCompetence.visible");
         }
         
         // Récupération des données

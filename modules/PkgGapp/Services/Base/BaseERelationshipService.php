@@ -66,18 +66,13 @@ class BaseERelationshipService extends BaseService
         $this->fieldsFilterable[] = ['field' => 'type', 'type' => 'String', 'label' => 'type'];
         }
 
-
-
         if (!array_key_exists('source_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
 
-
-
         if (!array_key_exists('target_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
-
 
     }
 
@@ -146,7 +141,9 @@ class BaseERelationshipService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eRelationship_view_type') === 'widgets') {
-            $this->viewState->set("filter.eRelationship.visible", 1);
+            $this->viewState->set("scope.eRelationship.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eRelationship.visible");
         }
         
         // Récupération des données

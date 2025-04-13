@@ -59,18 +59,13 @@ class BaseEtatChapitreService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::workflowChapitre.plural"), 'workflow_chapitre_id', \Modules\PkgAutoformation\Models\WorkflowChapitre::class, 'code');
         }
 
-
-
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
 
-
-
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
-
 
     }
 
@@ -153,7 +148,9 @@ class BaseEtatChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('etatChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.etatChapitre.visible", 1);
+            $this->viewState->set("scope.etatChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.etatChapitre.visible");
         }
         
         // Récupération des données

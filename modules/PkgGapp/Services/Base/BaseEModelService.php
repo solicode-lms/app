@@ -59,7 +59,6 @@ class BaseEModelService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::ePackage.plural"), 'e_package_id', \Modules\PkgGapp\Models\EPackage::class, 'name');
         }
 
-
     }
 
     /**
@@ -127,7 +126,9 @@ class BaseEModelService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eModel_view_type') === 'widgets') {
-            $this->viewState->set("filter.eModel.visible", 1);
+            $this->viewState->set("scope.eModel.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eModel.visible");
         }
         
         // Récupération des données

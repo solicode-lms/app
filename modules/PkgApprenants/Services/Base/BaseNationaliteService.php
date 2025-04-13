@@ -51,6 +51,7 @@ class BaseNationaliteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('nationalite');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -118,7 +119,9 @@ class BaseNationaliteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('nationalite_view_type') === 'widgets') {
-            $this->viewState->set("filter.nationalite.visible", 1);
+            $this->viewState->set("scope.nationalite.visible", 1);
+        }else{
+            $this->viewState->remove("scope.nationalite.visible");
         }
         
         // Récupération des données

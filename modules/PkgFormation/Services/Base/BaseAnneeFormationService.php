@@ -51,6 +51,7 @@ class BaseAnneeFormationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('anneeFormation');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -118,7 +119,9 @@ class BaseAnneeFormationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('anneeFormation_view_type') === 'widgets') {
-            $this->viewState->set("filter.anneeFormation.visible", 1);
+            $this->viewState->set("scope.anneeFormation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.anneeFormation.visible");
         }
         
         // Récupération des données

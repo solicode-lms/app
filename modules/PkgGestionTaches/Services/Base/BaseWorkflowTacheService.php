@@ -51,6 +51,7 @@ class BaseWorkflowTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('workflowTache');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -118,7 +119,9 @@ class BaseWorkflowTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('workflowTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.workflowTache.visible", 1);
+            $this->viewState->set("scope.workflowTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.workflowTache.visible");
         }
         
         // Récupération des données

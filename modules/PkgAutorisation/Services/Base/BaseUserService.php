@@ -54,6 +54,7 @@ class BaseUserService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('user');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -131,7 +132,9 @@ class BaseUserService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('user_view_type') === 'widgets') {
-            $this->viewState->set("filter.user.visible", 1);
+            $this->viewState->set("scope.user.visible", 1);
+        }else{
+            $this->viewState->remove("scope.user.visible");
         }
         
         // Récupération des données

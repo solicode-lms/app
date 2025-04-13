@@ -56,18 +56,13 @@ class BaseDependanceTacheService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
 
-
-
         if (!array_key_exists('type_dependance_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::typeDependanceTache.plural"), 'type_dependance_tache_id', \Modules\PkgGestionTaches\Models\TypeDependanceTache::class, 'titre');
         }
 
-
-
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_cible_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
-
 
     }
 
@@ -136,7 +131,9 @@ class BaseDependanceTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('dependanceTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.dependanceTache.visible", 1);
+            $this->viewState->set("scope.dependanceTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.dependanceTache.visible");
         }
         
         // Récupération des données

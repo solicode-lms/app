@@ -50,6 +50,7 @@ class BaseSysColorService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('sysColor');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseSysColorService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sysColor_view_type') === 'widgets') {
-            $this->viewState->set("filter.sysColor.visible", 1);
+            $this->viewState->set("scope.sysColor.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sysColor.visible");
         }
         
         // Récupération des données

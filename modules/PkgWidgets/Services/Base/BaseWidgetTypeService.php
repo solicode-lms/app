@@ -50,6 +50,7 @@ class BaseWidgetTypeService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widgetType');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseWidgetTypeService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetType_view_type') === 'widgets') {
-            $this->viewState->set("filter.widgetType.visible", 1);
+            $this->viewState->set("scope.widgetType.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widgetType.visible");
         }
         
         // Récupération des données

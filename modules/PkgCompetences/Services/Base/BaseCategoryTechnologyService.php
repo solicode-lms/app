@@ -50,6 +50,7 @@ class BaseCategoryTechnologyService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('categoryTechnology');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +118,9 @@ class BaseCategoryTechnologyService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('categoryTechnology_view_type') === 'widgets') {
-            $this->viewState->set("filter.categoryTechnology.visible", 1);
+            $this->viewState->set("scope.categoryTechnology.visible", 1);
+        }else{
+            $this->viewState->remove("scope.categoryTechnology.visible");
         }
         
         // Récupération des données

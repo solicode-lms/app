@@ -58,12 +58,9 @@ class BaseGroupeService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
         }
 
-
-
         if (!array_key_exists('annee_formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::anneeFormation.plural"), 'annee_formation_id', \Modules\PkgFormation\Models\AnneeFormation::class, 'titre');
         }
-
 
     }
 
@@ -138,7 +135,9 @@ class BaseGroupeService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('groupe_view_type') === 'widgets') {
-            $this->viewState->set("filter.groupe.visible", 1);
+            $this->viewState->set("scope.groupe.visible", 1);
+        }else{
+            $this->viewState->remove("scope.groupe.visible");
         }
         
         // Récupération des données
