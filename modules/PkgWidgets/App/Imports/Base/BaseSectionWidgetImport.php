@@ -56,12 +56,12 @@ class BaseSectionWidgetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new SectionWidget([
-             'titre' => $values[0] ?? null,
-             'sous_titre' => $values[1] ?? null,
-             'icone' => $values[2] ?? null,
-             'ordre' => $values[3] ?? null,
+             'ordre' => $values[0] ?? null,
+             'icone' => $values[1] ?? null,
+             'titre' => $values[2] ?? null,
+             'sous_titre' => $values[3] ?? null,
+             'sys_color_id' => $values[4] ?? null,
              'reference' => $reference,
-             'sys_color_id' => $values[5] ?? null,
         ]);
 
 

@@ -5,6 +5,7 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Schema;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\Core\Services\BaseService;
 
@@ -19,10 +20,10 @@ class BaseSectionWidgetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
+        'icone',
         'titre',
         'sous_titre',
-        'icone',
-        'ordre',
         'sys_color_id'
     ];
 
@@ -69,19 +70,7 @@ class BaseSectionWidgetService extends BaseService
         return parent::create($data);
     }
 
-    /**
-     * Trie par date de mise à jour si il n'existe aucune trie
-     * @param mixed $query
-     * @param mixed $sort
-     */
-    public function applySort($query, $sort)
-    {
-        if ($sort) {
-            return parent::applySort($query, $sort);
-        }else{
-            return $query->orderBy("updated_at","desc");
-        }
-    }
+     
 
     /**
     * Obtenir les statistiques par Relation

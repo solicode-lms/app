@@ -34,7 +34,7 @@ class BaseSectionWidget extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'sous_titre', 'icone', 'ordre', 'sys_color_id'
+        'ordre', 'icone', 'titre', 'sous_titre', 'sys_color_id'
     ];
 
 

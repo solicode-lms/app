@@ -25,20 +25,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="titre">{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}:</label>
-                                <p>{{ $itemSectionWidget->titre }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="sous_titre">{{ ucfirst(__('PkgWidgets::sectionWidget.sous_titre')) }}:</label>
-                                <p>{{ $itemSectionWidget->sous_titre }}</p>
+                                <label for="ordre">{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}:</label>
+                                <p>{{ $itemSectionWidget->ordre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="icone">{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}:</label>
                                 <p>{{ $itemSectionWidget->icone }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="ordre">{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}:</label>
-                                <p>{{ $itemSectionWidget->ordre }}</p>
+                                <label for="titre">{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}:</label>
+                                <p>{{ $itemSectionWidget->titre }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="sous_titre">{{ ucfirst(__('PkgWidgets::sectionWidget.sous_titre')) }}:</label>
+                                <p>{{ $itemSectionWidget->sous_titre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('PkgWidgets::sectionWidget.sys_color_id')) }}:</label>

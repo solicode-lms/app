@@ -11,6 +11,50 @@
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          <label for="ordre">
+            {{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgWidgets::sectionWidget.ordre') }}"
+                value="{{ $itemSectionWidget ? $itemSectionWidget->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          <label for="icone">
+            {{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}
+            
+          </label>
+           <input
+                name="icone"
+                type="input"
+                class="form-control"
+                
+                
+                
+                id="icone"
+                placeholder="{{ __('PkgWidgets::sectionWidget.icone') }}"
+                value="{{ $itemSectionWidget ? $itemSectionWidget->icone : old('icone') }}">
+          @error('icone')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="titre">
             {{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}
             <span class="text-danger">*</span>
@@ -48,50 +92,6 @@
                 placeholder="{{ __('PkgWidgets::sectionWidget.sous_titre') }}"
                 value="{{ $itemSectionWidget ? $itemSectionWidget->sous_titre : old('sous_titre') }}">
           @error('sous_titre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          <label for="icone">
-            {{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}
-            
-          </label>
-           <input
-                name="icone"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="icone"
-                placeholder="{{ __('PkgWidgets::sectionWidget.icone') }}"
-                value="{{ $itemSectionWidget ? $itemSectionWidget->icone : old('icone') }}">
-          @error('icone')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          <label for="ordre">
-            {{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                required
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgWidgets::sectionWidget.ordre') }}"
-                value="{{ $itemSectionWidget ? $itemSectionWidget->ordre : old('ordre') }}">
-          @error('ordre')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

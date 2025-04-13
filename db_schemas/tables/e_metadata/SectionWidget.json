@@ -61,7 +61,9 @@
     },
     {
         "reference": "SectionWidget_titre_displayOrder",
-        "value_integer": 2,
+        "value_boolean": 0,
+        "value_integer": 3,
+        "value_float": 0,
         "e_data_field_reference": "SectionWidget_titre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -103,7 +105,9 @@
     },
     {
         "reference": "SectionWidget_icone_displayOrder",
-        "value_integer": 4,
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "SectionWidget_icone",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -135,7 +139,9 @@
     },
     {
         "reference": "SectionWidget_ordre_displayOrder",
-        "value_integer": 5,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "SectionWidget_ordre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -189,7 +195,9 @@
     },
     {
         "reference": "SectionWidget_sys_color_id_displayOrder",
-        "value_integer": 7,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "SectionWidget_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -272,5 +280,36 @@
         "value_integer": 6,
         "e_data_field_reference": "section_widgets_hasMany_widgets_section_widget_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SectionWidget_ordre_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SectionWidget_ordre_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 8,
+        "value_float": 0,
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "SectionWidget_icone_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "SectionWidget_icone",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "SectionWidget_sys_color_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "SectionWidget_sys_color_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

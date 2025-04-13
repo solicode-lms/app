@@ -3,6 +3,7 @@
 namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 trait QueryBuilderTrait
@@ -103,9 +104,21 @@ trait QueryBuilderTrait
                     $query->orderBy($field, $direction);
                 }
             }
+
+            return $query;
         }
     
-        return $query;
+        // Trie par date de mise à jour si il n'existe aucune trie
+        // Vérifie si le champ 'ordre' existe dans la table
+        $model = $query->getModel();
+        if (Schema::hasColumn($model->getTable(), 'ordre')) {
+            return $query->orderBy('ordre', 'asc');
+        }
+
+        return $query->orderBy('updated_at', 'desc');
+   
+
+        
     }
 
         /**

@@ -74,10 +74,10 @@ class BaseSectionWidgetSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $sectionWidgetData =[
+                    "ordre" => $row["ordre"] ?? null,
+                    "icone" => $row["icone"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "sous_titre" => $row["sous_titre"] ?? null,
-                    "icone" => $row["icone"] ?? null,
-                    "ordre" => $row["ordre"] ?? null,
                     "sys_color_id" => $row["sys_color_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

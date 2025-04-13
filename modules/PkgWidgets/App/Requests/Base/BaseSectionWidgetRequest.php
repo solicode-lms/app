@@ -29,10 +29,10 @@ class BaseSectionWidgetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'required|integer',
+            'icone' => 'nullable|string|max:255',
             'titre' => 'required|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
-            'icone' => 'nullable|string|max:255',
-            'ordre' => 'required|integer',
             'sys_color_id' => 'nullable'
         ];
     }
@@ -45,13 +45,13 @@ class BaseSectionWidgetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.ordre')]),
+            'icone.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.icone')]),
+            'icone.max' => __('validation.iconeMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.titre')]),
             'titre.max' => __('validation.titreMax'),
             'sous_titre.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.sous_titre')]),
             'sous_titre.max' => __('validation.sous_titreMax'),
-            'icone.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.icone')]),
-            'icone.max' => __('validation.iconeMax'),
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.ordre')]),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::SectionWidget.sys_color_id')])
         ];
     }

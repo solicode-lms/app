@@ -5,9 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
-                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
+                <x-sortable-column width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
+                <x-sortable-column width="57"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
+                <x-sortable-column width="10" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +16,22 @@
             @section('sectionWidget-table-tbody')
             @foreach ($sectionWidgets_data as $sectionWidget)
                 <tr id="sectionWidget-row-{{$sectionWidget->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
-                    <x-field :entity="$sectionWidget" field="titre">
-                        {{ $sectionWidget->titre }}
+                    <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
+                    <x-field :entity="$sectionWidget" field="ordre">
+                        {{ $sectionWidget->ordre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
+                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
                     <x-field :entity="$sectionWidget" field="icone">
                         {{ $sectionWidget->icone }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
+                    <td style="max-width: 57%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
+                    <x-field :entity="$sectionWidget" field="titre">
+                        {{ $sectionWidget->titre }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
                     <x-field :entity="$sectionWidget" field="sysColor">
                        
                          {{  $sectionWidget->sysColor }}

@@ -28,21 +28,21 @@ class BaseSectionWidgetExport implements FromCollection, WithHeadings, ShouldAut
     {
      if($this->format == 'csv'){
         return [
+            'ordre' => 'ordre',
+            'icone' => 'icone',
             'titre' => 'titre',
             'sous_titre' => 'sous_titre',
-            'icone' => 'icone',
-            'ordre' => 'ordre',
-            'reference' => 'reference',
             'sys_color_id' => 'sys_color_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
+            'ordre' => __('PkgWidgets::sectionWidget.ordre'),
+            'icone' => __('PkgWidgets::sectionWidget.icone'),
             'titre' => __('PkgWidgets::sectionWidget.titre'),
             'sous_titre' => __('PkgWidgets::sectionWidget.sous_titre'),
-            'icone' => __('PkgWidgets::sectionWidget.icone'),
-            'ordre' => __('PkgWidgets::sectionWidget.ordre'),
-            'reference' => __('Core::msg.reference'),
             'sys_color_id' => __('PkgWidgets::sectionWidget.sys_color_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -53,12 +53,12 @@ class BaseSectionWidgetExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($sectionWidget) {
             return [
+                'ordre' => $sectionWidget->ordre,
+                'icone' => $sectionWidget->icone,
                 'titre' => $sectionWidget->titre,
                 'sous_titre' => $sectionWidget->sous_titre,
-                'icone' => $sectionWidget->icone,
-                'ordre' => $sectionWidget->ordre,
-                'reference' => $sectionWidget->reference,
                 'sys_color_id' => $sectionWidget->sys_color_id,
+                'reference' => $sectionWidget->reference,
             ];
         });
     }
