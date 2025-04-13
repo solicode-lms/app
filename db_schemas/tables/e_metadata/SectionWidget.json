@@ -125,6 +125,8 @@
     },
     {
         "reference": "SectionWidget_icone_nature",
+        "value_boolean": 0,
+        "value_float": 0,
         "value_json": {
             "nature": "icone"
         },
@@ -215,6 +217,8 @@
     },
     {
         "reference": "SectionWidget_sys_color_id_nature",
+        "value_boolean": 0,
+        "value_float": 0,
         "value_json": {
             "nature": "couleur"
         },

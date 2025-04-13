@@ -11,10 +11,12 @@
 
 ````bash
 sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\WidgetSeeder
+sudo php artisan db:seed --class=Modules\\PkgWidgets\\Database\\Seeders\\SectionWidgetSeeder
 ````
 
 ### Sur Windows 
 
 ````bash
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
+php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\SectionWidgetSeeder
 ````

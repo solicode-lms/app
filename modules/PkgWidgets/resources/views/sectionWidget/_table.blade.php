@@ -23,7 +23,7 @@
                     </td>
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
                     <x-field :entity="$sectionWidget" field="icone">
-                        {{ $sectionWidget->icone }}
+                        <i class="{{ $sectionWidget->icone }}" ></i>
                     </x-field>
                     </td>
                     <td style="max-width: 57%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
@@ -33,8 +33,10 @@
                     </td>
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
                     <x-field :entity="$sectionWidget" field="sysColor">
-                       
-                         {{  $sectionWidget->sysColor }}
+                        <x-badge 
+                        :text="$sectionWidget->sysColor->name" 
+                        :background="$sectionWidget->sysColor->hex ?? '#6c757d'" 
+                        />
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

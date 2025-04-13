@@ -63,6 +63,18 @@ class BaseWidgetUtilisateurService extends BaseService
         if (!array_key_exists('visible', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
         }
+
+
+        $affectationProjetService = new AffectationProjetService();
+        $affectationProjets = $affectationProjetService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgRealisationProjets::affectationProjet.plural"), 
+            'RealisationProjet.Affectation_projet_id', 
+            AffectationProjet::class, 
+            "id", "id", // valeur et libellé
+            $affectationProjets
+        );
+
     }
 
     /**
