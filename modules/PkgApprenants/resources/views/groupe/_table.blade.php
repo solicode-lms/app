@@ -16,18 +16,18 @@
             @foreach ($groupes_data as $groupe)
                 <tr id="groupe-row-{{$groupe->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->code }}" >
-                    <x-field :data="$groupe" field="code">
+                    <x-field :entity="$groupe" field="code">
                         {{ $groupe->code }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->filiere }}" >
-                    <x-field :data="$groupe" field="filiere">
+                    <x-field :entity="$groupe" field="filiere">
                        
                          {{  $groupe->filiere }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->formateurs }}" >
-                    <x-field :data="$groupe" field="formateurs">
+                    <x-field :entity="$groupe" field="formateurs">
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)
                                 <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>

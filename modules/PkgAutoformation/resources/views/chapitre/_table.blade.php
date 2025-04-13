@@ -19,35 +19,35 @@
             @foreach ($chapitres_data as $chapitre)
                 <tr id="chapitre-row-{{$chapitre->id}}">
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
-                    <x-field :data="$chapitre" field="nom">
+                    <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->lien }}" >
-                    <x-field :data="$chapitre" field="lien">
+                    <x-field :entity="$chapitre" field="lien">
                         {{ $chapitre->lien }}
                     </x-field>
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formation }}" >
-                    <x-field :data="$chapitre" field="formation">
+                    <x-field :entity="$chapitre" field="formation">
                        
                          {{  $chapitre->formation }}
                     </x-field>
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
-                    <x-field :data="$chapitre" field="niveauCompetence">
+                    <x-field :entity="$chapitre" field="niveauCompetence">
                        
                          {{  $chapitre->niveauCompetence }}
                     </x-field>
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
-                    <x-field :data="$chapitre" field="formateur">
+                    <x-field :entity="$chapitre" field="formateur">
                        
                          {{  $chapitre->formateur }}
                     </x-field>
                     </td>
                     <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
-                    <x-field :data="$chapitre" field="chapitreOfficiel">
+                    <x-field :entity="$chapitre" field="chapitreOfficiel">
                        
                          {{  $chapitre->chapitreOfficiel }}
                     </x-field>

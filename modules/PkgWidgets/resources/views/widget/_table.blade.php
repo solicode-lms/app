@@ -18,28 +18,28 @@
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->ordre }}" >
-                    <x-field :data="$widget" field="ordre">
+                    <x-field :entity="$widget" field="ordre">
                         {{ $widget->ordre }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
-                    <x-field :data="$widget" field="name">
+                    <x-field :entity="$widget" field="name">
                         {{ $widget->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
-                    <x-field :data="$widget" field="label">
+                    <x-field :entity="$widget" field="label">
                         {{ $widget->label }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->type }}" >
-                    <x-field :data="$widget" field="type">
+                    <x-field :entity="$widget" field="type">
                        
                          {{  $widget->type }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->roles }}" >
-                    <x-field :data="$widget" field="roles">
+                    <x-field :entity="$widget" field="roles">
                         <ul>
                             @foreach ($widget->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>

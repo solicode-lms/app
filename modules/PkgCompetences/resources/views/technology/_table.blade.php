@@ -15,12 +15,12 @@
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
-                    <x-field :data="$technology" field="nom">
+                    <x-field :entity="$technology" field="nom">
                         {{ $technology->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->categoryTechnology }}" >
-                    <x-field :data="$technology" field="categoryTechnology">
+                    <x-field :entity="$technology" field="categoryTechnology">
                        
                          {{  $technology->categoryTechnology }}
                     </x-field>

@@ -16,17 +16,17 @@
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
-                    <x-field :data="$eMetadataDefinition" field="name">
+                    <x-field :entity="$eMetadataDefinition" field="name">
                         {{ $eMetadataDefinition->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
-                    <x-field :data="$eMetadataDefinition" field="groupe">
+                    <x-field :entity="$eMetadataDefinition" field="groupe">
                         {{ $eMetadataDefinition->groupe }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
-                    <x-field :data="$eMetadataDefinition" field="description">
+                    <x-field :entity="$eMetadataDefinition" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
                     </x-field>
                     </td>

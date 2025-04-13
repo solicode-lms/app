@@ -16,17 +16,17 @@
             @foreach ($workflowFormations_data as $workflowFormation)
                 <tr id="workflowFormation-row-{{$workflowFormation->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->code }}" >
-                    <x-field :data="$workflowFormation" field="code">
+                    <x-field :entity="$workflowFormation" field="code">
                         {{ $workflowFormation->code }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->titre }}" >
-                    <x-field :data="$workflowFormation" field="titre">
+                    <x-field :entity="$workflowFormation" field="titre">
                         {{ $workflowFormation->titre }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->sysColor }}" >
-                    <x-field :data="$workflowFormation" field="sysColor">
+                    <x-field :entity="$workflowFormation" field="sysColor">
                        
                          {{  $workflowFormation->sysColor }}
                     </x-field>

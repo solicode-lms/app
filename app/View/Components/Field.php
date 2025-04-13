@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Field extends Component
 {
-    public Model $data;
+    public Model $entity;
     public string $field;
     public ?string $partial;
 
-    public function __construct(Model $data, string $field, string $partial = null)
+    public function __construct(Model $entity, string $field, string $partial = null)
     {
-        $this->data = $data;
+        $this->entity = $entity;
         $this->field = $field;
         $this->partial = $partial;
     }
@@ -32,7 +32,7 @@ class Field extends Component
         $partial = $this->partial;
 
         if (!$partial) {
-            $modelClass = get_class($this->data); // Ex: Modules\PkgGestionTaches\Models\RealisationTache
+            $modelClass = get_class($this->entity); // Ex: Modules\PkgGestionTaches\Models\RealisationTache
             $parts = explode('\\', $modelClass);
 
             $package = $parts[1] ?? 'PkgCore'; // PkgGestionTaches
@@ -44,7 +44,7 @@ class Field extends Component
         return function (array $viewData) use ($partial) {
             $default = trim($viewData['slot']);
             $context = [
-                'entity' => $this->data,
+                'entity' => $this->entity,
                 'default' => $default
             ];
 

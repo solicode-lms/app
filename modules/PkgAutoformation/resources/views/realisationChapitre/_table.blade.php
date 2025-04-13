@@ -18,29 +18,29 @@
             @foreach ($realisationChapitres_data as $realisationChapitre)
                 <tr id="realisationChapitre-row-{{$realisationChapitre->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->date_debut }}" >
-                    <x-field :data="$realisationChapitre" field="date_debut">
+                    <x-field :entity="$realisationChapitre" field="date_debut">
                         {{ $realisationChapitre->date_debut }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->date_fin }}" >
-                    <x-field :data="$realisationChapitre" field="date_fin">
+                    <x-field :entity="$realisationChapitre" field="date_fin">
                         {{ $realisationChapitre->date_fin }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
-                    <x-field :data="$realisationChapitre" field="chapitre">
+                    <x-field :entity="$realisationChapitre" field="chapitre">
                        
                          {{  $realisationChapitre->chapitre }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->realisationFormation }}" >
-                    <x-field :data="$realisationChapitre" field="realisationFormation">
+                    <x-field :entity="$realisationChapitre" field="realisationFormation">
                        
                          {{  $realisationChapitre->realisationFormation }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->etatChapitre }}" >
-                    <x-field :data="$realisationChapitre" field="etatChapitre">
+                    <x-field :entity="$realisationChapitre" field="etatChapitre">
                        
                          {{  $realisationChapitre->etatChapitre }}
                     </x-field>

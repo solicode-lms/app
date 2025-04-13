@@ -18,17 +18,17 @@
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icon }}" >
-                    <x-field :data="$eModel" field="icon">
+                    <x-field :entity="$eModel" field="icon">
                      ComputableFields :  getIcone() 
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >
-                    <x-field :data="$eModel" field="name">
+                    <x-field :entity="$eModel" field="name">
                         {{ $eModel->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->ePackage }}" >
-                    <x-field :data="$eModel" field="ePackage">
+                    <x-field :entity="$eModel" field="ePackage">
                        
                          {{  $eModel->ePackage }}
                     </x-field>

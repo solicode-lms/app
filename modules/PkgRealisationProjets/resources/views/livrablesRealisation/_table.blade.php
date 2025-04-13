@@ -16,18 +16,18 @@
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
-                    <x-field :data="$livrablesRealisation" field="livrable">
+                    <x-field :entity="$livrablesRealisation" field="livrable">
                        
                          {{  $livrablesRealisation->livrable }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
-                    <x-field :data="$livrablesRealisation" field="lien">
+                    <x-field :entity="$livrablesRealisation" field="lien">
                         {{ $livrablesRealisation->lien }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
-                    <x-field :data="$livrablesRealisation" field="titre">
+                    <x-field :entity="$livrablesRealisation" field="titre">
                         {{ $livrablesRealisation->titre }}
                     </x-field>
                     </td>

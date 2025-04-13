@@ -14,7 +14,7 @@
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $role->name }}" >
-                    <x-field :data="$role" field="name">
+                    <x-field :entity="$role" field="name">
                         {{ $role->name }}
                     </x-field>
                     </td>

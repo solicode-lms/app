@@ -15,12 +15,12 @@
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
-                    <x-field :data="$resource" field="nom">
+                    <x-field :entity="$resource" field="nom">
                         {{ $resource->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->lien }}" >
-                    <x-field :data="$resource" field="lien">
+                    <x-field :entity="$resource" field="lien">
                         {{ $resource->lien }}
                     </x-field>
                     </td>

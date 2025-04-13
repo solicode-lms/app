@@ -16,19 +16,19 @@
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
-                    <x-field :data="$dependanceTache" field="tache">
+                    <x-field :entity="$dependanceTache" field="tache">
                        
                          {{  $dependanceTache->tache }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->typeDependanceTache }}" >
-                    <x-field :data="$dependanceTache" field="typeDependanceTache">
+                    <x-field :entity="$dependanceTache" field="typeDependanceTache">
                        
                          {{  $dependanceTache->typeDependanceTache }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tacheCible }}" >
-                    <x-field :data="$dependanceTache" field="tacheCible">
+                    <x-field :entity="$dependanceTache" field="tacheCible">
                        
                          {{  $dependanceTache->tacheCible }}
                     </x-field>

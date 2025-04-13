@@ -16,18 +16,18 @@
             @foreach ($taches_data as $tache)
                 <tr id="tache-row-{{$tache->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->titre }}" >
-                    <x-field :data="$tache" field="titre">
+                    <x-field :entity="$tache" field="titre">
                         {{ $tache->titre }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->projet }}" >
-                    <x-field :data="$tache" field="projet">
+                    <x-field :entity="$tache" field="projet">
                        
                          {{  $tache->projet }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
-                    <x-field :data="$tache" field="prioriteTache">
+                    <x-field :entity="$tache" field="prioriteTache">
                        
                          {{  $tache->prioriteTache }}
                     </x-field>

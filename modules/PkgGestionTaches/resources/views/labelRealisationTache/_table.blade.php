@@ -16,18 +16,18 @@
             @foreach ($labelRealisationTaches_data as $labelRealisationTache)
                 <tr id="labelRealisationTache-row-{{$labelRealisationTache->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->nom }}" >
-                    <x-field :data="$labelRealisationTache" field="nom">
+                    <x-field :entity="$labelRealisationTache" field="nom">
                         {{ $labelRealisationTache->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->formateur }}" >
-                    <x-field :data="$labelRealisationTache" field="formateur">
+                    <x-field :entity="$labelRealisationTache" field="formateur">
                        
                          {{  $labelRealisationTache->formateur }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
-                    <x-field :data="$labelRealisationTache" field="sysColor">
+                    <x-field :entity="$labelRealisationTache" field="sysColor">
                        
                          {{  $labelRealisationTache->sysColor }}
                     </x-field>

@@ -15,12 +15,12 @@
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
-                    <x-field :data="$widgetOperation" field="operation">
+                    <x-field :entity="$widgetOperation" field="operation">
                         {{ $widgetOperation->operation }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
-                    <x-field :data="$widgetOperation" field="description">
+                    <x-field :entity="$widgetOperation" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 30) !!}
                     </x-field>
                     </td>

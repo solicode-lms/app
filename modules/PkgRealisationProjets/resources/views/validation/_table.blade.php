@@ -16,18 +16,18 @@
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
-                    <x-field :data="$validation" field="transfertCompetence">
+                    <x-field :entity="$validation" field="transfertCompetence">
                        
                          {{  $validation->transfertCompetence }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->note }}" >
-                    <x-field :data="$validation" field="note">
+                    <x-field :entity="$validation" field="note">
                         {{ $validation->note }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->message }}" >
-                    <x-field :data="$validation" field="message">
+                    <x-field :entity="$validation" field="message">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 30) !!}
                     </x-field>
                     </td>

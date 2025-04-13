@@ -16,17 +16,17 @@
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
-                    <x-field :data="$anneeFormation" field="titre">
+                    <x-field :entity="$anneeFormation" field="titre">
                         {{ $anneeFormation->titre }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
-                    <x-field :data="$anneeFormation" field="date_debut">
+                    <x-field :entity="$anneeFormation" field="date_debut">
                         {{ $anneeFormation->date_debut }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
-                    <x-field :data="$anneeFormation" field="date_fin">
+                    <x-field :entity="$anneeFormation" field="date_fin">
                         {{ $anneeFormation->date_fin }}
                     </x-field>
                     </td>

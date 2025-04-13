@@ -18,28 +18,28 @@
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
-                    <x-field :data="$widgetUtilisateur" field="ordre">
+                    <x-field :entity="$widgetUtilisateur" field="ordre">
                         {{ $widgetUtilisateur->ordre }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
-                    <x-field :data="$widgetUtilisateur" field="widget">
+                    <x-field :entity="$widgetUtilisateur" field="widget">
                        
                          {{  $widgetUtilisateur->widget }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->package }}" >
-                    <x-field :data="$widgetUtilisateur" field="package">
+                    <x-field :entity="$widgetUtilisateur" field="package">
                         {{ $widgetUtilisateur->package }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->type }}" >
-                    <x-field :data="$widgetUtilisateur" field="type">
+                    <x-field :entity="$widgetUtilisateur" field="type">
                         {{ $widgetUtilisateur->type }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
-                    <x-field :data="$widgetUtilisateur" field="visible">
+                    <x-field :entity="$widgetUtilisateur" field="visible">
                         <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
                             {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
                         </span>

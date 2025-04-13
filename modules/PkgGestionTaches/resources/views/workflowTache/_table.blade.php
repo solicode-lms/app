@@ -15,12 +15,12 @@
             @foreach ($workflowTaches_data as $workflowTache)
                 <tr id="workflowTache-row-{{$workflowTache->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >
-                    <x-field :data="$workflowTache" field="code">
+                    <x-field :entity="$workflowTache" field="code">
                         {{ $workflowTache->code }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
-                    <x-field :data="$workflowTache" field="titre">
+                    <x-field :entity="$workflowTache" field="titre">
                         {{ $workflowTache->titre }}
                     </x-field>
                     </td>

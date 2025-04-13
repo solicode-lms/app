@@ -16,18 +16,18 @@
             @foreach ($etatChapitres_data as $etatChapitre)
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
-                    <x-field :data="$etatChapitre" field="nom">
+                    <x-field :entity="$etatChapitre" field="nom">
                         {{ $etatChapitre->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->sysColor }}" >
-                    <x-field :data="$etatChapitre" field="sysColor">
+                    <x-field :entity="$etatChapitre" field="sysColor">
                        
                          {{  $etatChapitre->sysColor }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->formateur }}" >
-                    <x-field :data="$etatChapitre" field="formateur">
+                    <x-field :entity="$etatChapitre" field="formateur">
                        
                          {{  $etatChapitre->formateur }}
                     </x-field>

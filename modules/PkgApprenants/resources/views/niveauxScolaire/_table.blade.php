@@ -14,7 +14,7 @@
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
-                    <x-field :data="$niveauxScolaire" field="code">
+                    <x-field :entity="$niveauxScolaire" field="code">
                         {{ $niveauxScolaire->code }}
                     </x-field>
                     </td>

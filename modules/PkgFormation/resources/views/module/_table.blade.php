@@ -19,28 +19,28 @@
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
-                    <x-field :data="$module" field="code">
+                    <x-field :entity="$module" field="code">
                         {{ $module->code }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->nom }}" >
-                    <x-field :data="$module" field="nom">
+                    <x-field :entity="$module" field="nom">
                         {{ $module->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
-                    <x-field :data="$module" field="masse_horaire">
+                    <x-field :entity="$module" field="masse_horaire">
                         {{ $module->masse_horaire }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->filiere }}" >
-                    <x-field :data="$module" field="filiere">
+                    <x-field :entity="$module" field="filiere">
                        
                          {{  $module->filiere }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->competences }}" >
-                    <x-field :data="$module" field="competences">
+                    <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)
                                 <li>{{$competence}} </li>

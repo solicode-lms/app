@@ -15,12 +15,12 @@
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
-                    <x-field :data="$featureDomain" field="name">
+                    <x-field :entity="$featureDomain" field="name">
                         {{ $featureDomain->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
-                    <x-field :data="$featureDomain" field="sysModule">
+                    <x-field :entity="$featureDomain" field="sysModule">
                        
                          {{  $featureDomain->sysModule }}
                     </x-field>

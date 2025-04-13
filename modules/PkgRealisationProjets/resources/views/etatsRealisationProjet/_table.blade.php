@@ -15,13 +15,13 @@
             @foreach ($etatsRealisationProjets_data as $etatsRealisationProjet)
                 <tr id="etatsRealisationProjet-row-{{$etatsRealisationProjet->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->formateur }}" >
-                    <x-field :data="$etatsRealisationProjet" field="formateur">
+                    <x-field :entity="$etatsRealisationProjet" field="formateur">
                        
                          {{  $etatsRealisationProjet->formateur }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatsRealisationProjet->titre }}" >
-                    <x-field :data="$etatsRealisationProjet" field="titre">
+                    <x-field :entity="$etatsRealisationProjet" field="titre">
                         {{ $etatsRealisationProjet->titre }}
                     </x-field>
                     </td>

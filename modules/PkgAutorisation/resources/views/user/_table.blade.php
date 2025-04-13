@@ -16,17 +16,17 @@
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->name }}" >
-                    <x-field :data="$user" field="name">
+                    <x-field :entity="$user" field="name">
                         {{ $user->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->email }}" >
-                    <x-field :data="$user" field="email">
+                    <x-field :entity="$user" field="email">
                         {{ $user->email }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->roles }}" >
-                    <x-field :data="$user" field="roles">
+                    <x-field :entity="$user" field="roles">
                         <ul>
                             @foreach ($user->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>

@@ -14,7 +14,7 @@
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
-                    <x-field :data="$ePackage" field="name">
+                    <x-field :entity="$ePackage" field="name">
                         {{ $ePackage->name }}
                     </x-field>
                     </td>

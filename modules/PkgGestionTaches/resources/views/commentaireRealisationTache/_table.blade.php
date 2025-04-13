@@ -17,24 +17,24 @@
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
-                    <x-field :data="$commentaireRealisationTache" field="commentaire">
+                    <x-field :entity="$commentaireRealisationTache" field="commentaire">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
-                    <x-field :data="$commentaireRealisationTache" field="realisationTache">
+                    <x-field :entity="$commentaireRealisationTache" field="realisationTache">
                        
                          {{  $commentaireRealisationTache->realisationTache }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->formateur }}" >
-                    <x-field :data="$commentaireRealisationTache" field="formateur">
+                    <x-field :entity="$commentaireRealisationTache" field="formateur">
                        
                          {{  $commentaireRealisationTache->formateur }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->apprenant }}" >
-                    <x-field :data="$commentaireRealisationTache" field="apprenant">
+                    <x-field :entity="$commentaireRealisationTache" field="apprenant">
                        
                          {{  $commentaireRealisationTache->apprenant }}
                     </x-field>

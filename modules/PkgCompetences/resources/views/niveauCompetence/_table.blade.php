@@ -15,12 +15,12 @@
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
-                    <x-field :data="$niveauCompetence" field="nom">
+                    <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
-                    <x-field :data="$niveauCompetence" field="competence">
+                    <x-field :entity="$niveauCompetence" field="competence">
                        
                          {{  $niveauCompetence->competence }}
                     </x-field>

@@ -16,18 +16,18 @@
             @foreach ($etatFormations_data as $etatFormation)
                 <tr id="etatFormation-row-{{$etatFormation->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
-                    <x-field :data="$etatFormation" field="nom">
+                    <x-field :entity="$etatFormation" field="nom">
                         {{ $etatFormation->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
-                    <x-field :data="$etatFormation" field="sysColor">
+                    <x-field :entity="$etatFormation" field="sysColor">
                        
                          {{  $etatFormation->sysColor }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
-                    <x-field :data="$etatFormation" field="formateur">
+                    <x-field :entity="$etatFormation" field="formateur">
                        
                          {{  $etatFormation->formateur }}
                     </x-field>

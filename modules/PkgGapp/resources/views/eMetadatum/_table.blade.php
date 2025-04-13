@@ -19,24 +19,24 @@
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->Value }}" >
-                    <x-field :data="$eMetadatum" field="Value">
+                    <x-field :entity="$eMetadatum" field="Value">
                      ComputableFields :  getValue() 
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
-                    <x-field :data="$eMetadatum" field="eModel">
+                    <x-field :entity="$eMetadatum" field="eModel">
                        
                          {{  $eMetadatum->eModel }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
-                    <x-field :data="$eMetadatum" field="eDataField">
+                    <x-field :entity="$eMetadatum" field="eDataField">
                        
                          {{  $eMetadatum->eDataField }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
-                    <x-field :data="$eMetadatum" field="eMetadataDefinition">
+                    <x-field :entity="$eMetadatum" field="eMetadataDefinition">
                        
                          {{  $eMetadatum->eMetadataDefinition }}
                     </x-field>

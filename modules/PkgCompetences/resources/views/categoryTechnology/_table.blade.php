@@ -14,7 +14,7 @@
             @foreach ($categoryTechnologies_data as $categoryTechnology)
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $categoryTechnology->nom }}" >
-                    <x-field :data="$categoryTechnology" field="nom">
+                    <x-field :entity="$categoryTechnology" field="nom">
                         {{ $categoryTechnology->nom }}
                     </x-field>
                     </td>

@@ -19,12 +19,12 @@
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
-                    <x-field :data="$projet" field="titre">
+                    <x-field :entity="$projet" field="titre">
                         {{ $projet->titre }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->transfertCompetences }}" >
-                    <x-field :data="$projet" field="transfertCompetences">
+                    <x-field :entity="$projet" field="transfertCompetences">
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
                                 <li>{{$transfertCompetence}} </li>
@@ -33,7 +33,7 @@
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
-                    <x-field :data="$projet" field="affectationProjets">
+                    <x-field :entity="$projet" field="affectationProjets">
                         <ul>
                             @foreach ($projet->affectationProjets as $affectationProjet)
                                 <li>{{$affectationProjet}} </li>
@@ -42,7 +42,7 @@
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
-                    <x-field :data="$projet" field="formateur">
+                    <x-field :entity="$projet" field="formateur">
                        
                          {{  $projet->formateur }}
                     </x-field>

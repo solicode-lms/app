@@ -15,12 +15,12 @@
             @foreach ($niveauDifficultes_data as $niveauDifficulte)
                 <tr id="niveauDifficulte-row-{{$niveauDifficulte->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauDifficulte->nom }}" >
-                    <x-field :data="$niveauDifficulte" field="nom">
+                    <x-field :entity="$niveauDifficulte" field="nom">
                         {{ $niveauDifficulte->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauDifficulte->formateur }}" >
-                    <x-field :data="$niveauDifficulte" field="formateur">
+                    <x-field :entity="$niveauDifficulte" field="formateur">
                        
                          {{  $niveauDifficulte->formateur }}
                     </x-field>

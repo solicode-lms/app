@@ -16,18 +16,18 @@
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->name }}" >
-                    <x-field :data="$feature" field="name">
+                    <x-field :entity="$feature" field="name">
                         {{ $feature->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
-                    <x-field :data="$feature" field="featureDomain">
+                    <x-field :entity="$feature" field="featureDomain">
                        
                          {{  $feature->featureDomain }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->permissions }}" >
-                    <x-field :data="$feature" field="permissions">
+                    <x-field :entity="$feature" field="permissions">
                         <ul>
                             @foreach ($feature->permissions as $permission)
                                 <li @if(strlen($permission) > 30) data-toggle="tooltip" title="{{$permission}}"  @endif>@limit($permission, 30)</li>

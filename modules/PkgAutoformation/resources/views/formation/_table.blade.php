@@ -17,25 +17,25 @@
             @foreach ($formations_data as $formation)
                 <tr id="formation-row-{{$formation->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->nom }}" >
-                    <x-field :data="$formation" field="nom">
+                    <x-field :entity="$formation" field="nom">
                         {{ $formation->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->competence }}" >
-                    <x-field :data="$formation" field="competence">
+                    <x-field :entity="$formation" field="competence">
                        
                          {{  $formation->competence }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
-                    <x-field :data="$formation" field="is_officiel">
+                    <x-field :entity="$formation" field="is_officiel">
                         <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
                             {{ $formation->is_officiel ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->formateur }}" >
-                    <x-field :data="$formation" field="formateur">
+                    <x-field :entity="$formation" field="formateur">
                        
                          {{  $formation->formateur }}
                     </x-field>

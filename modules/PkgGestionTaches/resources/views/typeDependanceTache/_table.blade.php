@@ -14,7 +14,7 @@
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
-                    <x-field :data="$typeDependanceTache" field="titre">
+                    <x-field :entity="$typeDependanceTache" field="titre">
                         {{ $typeDependanceTache->titre }}
                     </x-field>
                     </td>

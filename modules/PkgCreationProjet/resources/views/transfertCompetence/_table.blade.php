@@ -16,19 +16,19 @@
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
-                    <x-field :data="$transfertCompetence" field="competence">
+                    <x-field :entity="$transfertCompetence" field="competence">
                        
                          {{  $transfertCompetence->competence }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
-                    <x-field :data="$transfertCompetence" field="niveauDifficulte">
+                    <x-field :entity="$transfertCompetence" field="niveauDifficulte">
                        
                          {{  $transfertCompetence->niveauDifficulte }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $transfertCompetence->note }}" >
-                    <x-field :data="$transfertCompetence" field="note">
+                    <x-field :entity="$transfertCompetence" field="note">
                         {{ $transfertCompetence->note }}
                     </x-field>
                     </td>

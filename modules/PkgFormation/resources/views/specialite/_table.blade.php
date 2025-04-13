@@ -15,12 +15,12 @@
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $specialite->nom }}" >
-                    <x-field :data="$specialite" field="nom">
+                    <x-field :entity="$specialite" field="nom">
                         {{ $specialite->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
-                    <x-field :data="$specialite" field="formateurs">
+                    <x-field :entity="$specialite" field="formateurs">
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)
                                 <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>

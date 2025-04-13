@@ -17,22 +17,22 @@
             @foreach ($apprenants_data as $apprenant)
                 <tr id="apprenant-row-{{$apprenant->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenant->nom }}" >
-                    <x-field :data="$apprenant" field="nom">
+                    <x-field :entity="$apprenant" field="nom">
                         {{ $apprenant->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenant->prenom }}" >
-                    <x-field :data="$apprenant" field="prenom">
+                    <x-field :entity="$apprenant" field="prenom">
                         {{ $apprenant->prenom }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenant->duree_sans_terminer_tache }}" >
-                    <x-field :data="$apprenant" field="duree_sans_terminer_tache">
+                    <x-field :entity="$apprenant" field="duree_sans_terminer_tache">
                         <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenant->groupes }}" >
-                    <x-field :data="$apprenant" field="groupes">
+                    <x-field :entity="$apprenant" field="groupes">
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>

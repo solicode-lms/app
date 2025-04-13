@@ -17,24 +17,24 @@
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
-                    <x-field :data="$affectationProjet" field="projet">
+                    <x-field :entity="$affectationProjet" field="projet">
                        
                          {{  $affectationProjet->projet }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
-                    <x-field :data="$affectationProjet" field="groupe">
+                    <x-field :entity="$affectationProjet" field="groupe">
                        
                          {{  $affectationProjet->groupe }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
-                    <x-field :data="$affectationProjet" field="date_debut">
+                    <x-field :entity="$affectationProjet" field="date_debut">
                         {{ $affectationProjet->date_debut }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
-                    <x-field :data="$affectationProjet" field="date_fin">
+                    <x-field :entity="$affectationProjet" field="date_fin">
                         {{ $affectationProjet->date_fin }}
                     </x-field>
                     </td>

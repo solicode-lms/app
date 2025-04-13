@@ -14,7 +14,7 @@
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $profile->user }}" >
-                    <x-field :data="$profile" field="user">
+                    <x-field :entity="$profile" field="user">
                        
                          {{  $profile->user }}
                     </x-field>

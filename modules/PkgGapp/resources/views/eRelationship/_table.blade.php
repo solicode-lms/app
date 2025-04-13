@@ -17,23 +17,23 @@
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->name }}" >
-                    <x-field :data="$eRelationship" field="name">
+                    <x-field :entity="$eRelationship" field="name">
                         {{ $eRelationship->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->type }}" >
-                    <x-field :data="$eRelationship" field="type">
+                    <x-field :entity="$eRelationship" field="type">
                         {{ $eRelationship->type }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->sourceEModel }}" >
-                    <x-field :data="$eRelationship" field="sourceEModel">
+                    <x-field :entity="$eRelationship" field="sourceEModel">
                        
                          {{  $eRelationship->sourceEModel }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->targetEModel }}" >
-                    <x-field :data="$eRelationship" field="targetEModel">
+                    <x-field :entity="$eRelationship" field="targetEModel">
                        
                          {{  $eRelationship->targetEModel }}
                     </x-field>

@@ -18,29 +18,29 @@
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
                     <td style="max-width: 25%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
-                    <x-field :data="$realisationTache" field="tache">
+                    <x-field :entity="$realisationTache" field="tache">
                        
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
                     <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
-                    <x-field :data="$realisationTache" field="projet_title">
+                    <x-field :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
                     </x-field>
                     </td>
                     <td style="max-width: 12%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
-                    <x-field :data="$realisationTache" field="nom_prenom_apprenant">
+                    <x-field :entity="$realisationTache" field="nom_prenom_apprenant">
                         {{ $realisationTache->nom_prenom_apprenant }}
                     </x-field>
                     </td>
                     <td style="max-width: 12%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
-                    <x-field :data="$realisationTache" field="etatRealisationTache">
+                    <x-field :entity="$realisationTache" field="etatRealisationTache">
                        
                          {{  $realisationTache->etatRealisationTache }}
                     </x-field>
                     </td>
                     <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
-                    <x-field :data="$realisationTache" field="nombre_livrables">
+                    <x-field :entity="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>
                     </td>

@@ -16,17 +16,17 @@
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
-                    <x-field :data="$eDataField" field="displayOrder">
+                    <x-field :entity="$eDataField" field="displayOrder">
                         {{ $eDataField->displayOrder }}
                     </x-field>
                     </td>
                     <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
-                    <x-field :data="$eDataField" field="name">
+                    <x-field :entity="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
-                    <x-field :data="$eDataField" field="data_type">
+                    <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
                     </x-field>
                     </td>

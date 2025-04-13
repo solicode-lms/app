@@ -14,7 +14,7 @@
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $ville->nom }}" >
-                    <x-field :data="$ville" field="nom">
+                    <x-field :entity="$ville" field="nom">
                         {{ $ville->nom }}
                     </x-field>
                     </td>

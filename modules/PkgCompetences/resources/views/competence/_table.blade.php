@@ -17,22 +17,22 @@
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
-                    <x-field :data="$competence" field="code">
+                    <x-field :entity="$competence" field="code">
                         {{ $competence->code }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->mini_code }}" >
-                    <x-field :data="$competence" field="mini_code">
+                    <x-field :entity="$competence" field="mini_code">
                         {{ $competence->mini_code }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->nom }}" >
-                    <x-field :data="$competence" field="nom">
+                    <x-field :entity="$competence" field="nom">
                         {{ $competence->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->module }}" >
-                    <x-field :data="$competence" field="module">
+                    <x-field :entity="$competence" field="module">
                        
                          {{  $competence->module }}
                     </x-field>

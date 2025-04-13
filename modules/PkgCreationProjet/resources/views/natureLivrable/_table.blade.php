@@ -14,7 +14,7 @@
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
-                    <x-field :data="$natureLivrable" field="nom">
+                    <x-field :entity="$natureLivrable" field="nom">
                         {{ $natureLivrable->nom }}
                     </x-field>
                     </td>

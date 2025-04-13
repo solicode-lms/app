@@ -14,7 +14,7 @@
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
-                    <x-field :data="$sysColor" field="name">
+                    <x-field :entity="$sysColor" field="name">
                         {{ $sysColor->name }}
                     </x-field>
                     </td>

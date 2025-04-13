@@ -18,25 +18,25 @@
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
-                    <x-field :data="$sysController" field="sysModule">
+                    <x-field :entity="$sysController" field="sysModule">
                        
                          {{  $sysController->sysModule }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->name }}" >
-                    <x-field :data="$sysController" field="name">
+                    <x-field :entity="$sysController" field="name">
                         {{ $sysController->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->is_active }}" >
-                    <x-field :data="$sysController" field="is_active">
+                    <x-field :entity="$sysController" field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
-                    <x-field :data="$sysController" field="controllerIdPermissions">
+                    <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)
                                 <li>{{$permission}} </li>

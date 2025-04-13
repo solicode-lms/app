@@ -14,7 +14,7 @@
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
-                    <x-field :data="$nationalite" field="code">
+                    <x-field :entity="$nationalite" field="code">
                         {{ $nationalite->code }}
                     </x-field>
                     </td>

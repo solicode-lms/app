@@ -16,18 +16,18 @@
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
-                    <x-field :data="$permission" field="name">
+                    <x-field :entity="$permission" field="name">
                         {{ $permission->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->controller }}" >
-                    <x-field :data="$permission" field="controller">
+                    <x-field :entity="$permission" field="controller">
                        
                          {{  $permission->controller }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->roles }}" >
-                    <x-field :data="$permission" field="roles">
+                    <x-field :entity="$permission" field="roles">
                         <ul>
                             @foreach ($permission->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>

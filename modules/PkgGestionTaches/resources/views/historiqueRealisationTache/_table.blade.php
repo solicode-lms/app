@@ -14,7 +14,7 @@
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
                     <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
-                    <x-field :data="$historiqueRealisationTache" field="realisationTache">
+                    <x-field :entity="$historiqueRealisationTache" field="realisationTache">
                        
                          {{  $historiqueRealisationTache->realisationTache }}
                     </x-field>

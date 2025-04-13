@@ -18,29 +18,29 @@
             @foreach ($realisationFormations_data as $realisationFormation)
                 <tr id="realisationFormation-row-{{$realisationFormation->id}}">
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
-                    <x-field :data="$realisationFormation" field="date_debut">
+                    <x-field :entity="$realisationFormation" field="date_debut">
                         {{ $realisationFormation->date_debut }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
-                    <x-field :data="$realisationFormation" field="date_fin">
+                    <x-field :entity="$realisationFormation" field="date_fin">
                         {{ $realisationFormation->date_fin }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
-                    <x-field :data="$realisationFormation" field="formation">
+                    <x-field :entity="$realisationFormation" field="formation">
                        
                          {{  $realisationFormation->formation }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
-                    <x-field :data="$realisationFormation" field="apprenant">
+                    <x-field :entity="$realisationFormation" field="apprenant">
                        
                          {{  $realisationFormation->apprenant }}
                     </x-field>
                     </td>
                     <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
-                    <x-field :data="$realisationFormation" field="etatFormation">
+                    <x-field :entity="$realisationFormation" field="etatFormation">
                        
                          {{  $realisationFormation->etatFormation }}
                     </x-field>

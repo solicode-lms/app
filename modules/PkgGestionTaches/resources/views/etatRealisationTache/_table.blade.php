@@ -17,24 +17,24 @@
             @foreach ($etatRealisationTaches_data as $etatRealisationTache)
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
-                    <x-field :data="$etatRealisationTache" field="nom">
+                    <x-field :entity="$etatRealisationTache" field="nom">
                         {{ $etatRealisationTache->nom }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
-                    <x-field :data="$etatRealisationTache" field="workflowTache">
+                    <x-field :entity="$etatRealisationTache" field="workflowTache">
                        
                          {{  $etatRealisationTache->workflowTache }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
-                    <x-field :data="$etatRealisationTache" field="sysColor">
+                    <x-field :entity="$etatRealisationTache" field="sysColor">
                        
                          {{  $etatRealisationTache->sysColor }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
-                    <x-field :data="$etatRealisationTache" field="formateur">
+                    <x-field :entity="$etatRealisationTache" field="formateur">
                        
                          {{  $etatRealisationTache->formateur }}
                     </x-field>

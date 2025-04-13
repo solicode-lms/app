@@ -17,24 +17,24 @@
             @foreach ($sysModels_data as $sysModel)
                 <tr id="sysModel-row-{{$sysModel->id}}">
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->name }}" >
-                    <x-field :data="$sysModel" field="name">
+                    <x-field :entity="$sysModel" field="name">
                         {{ $sysModel->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
-                    <x-field :data="$sysModel" field="sysModule">
+                    <x-field :entity="$sysModel" field="sysModule">
                        
                          {{  $sysModel->sysModule }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
-                    <x-field :data="$sysModel" field="sysColor">
+                    <x-field :entity="$sysModel" field="sysColor">
                        
                          {{  $sysModel->sysColor }}
                     </x-field>
                     </td>
                     <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->icone }}" >
-                    <x-field :data="$sysModel" field="icone">
+                    <x-field :entity="$sysModel" field="icone">
                         {{ $sysModel->icone }}
                     </x-field>
                     </td>

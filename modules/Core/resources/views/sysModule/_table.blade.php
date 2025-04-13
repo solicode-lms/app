@@ -16,17 +16,17 @@
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}">
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->name }}" >
-                    <x-field :data="$sysModule" field="name">
+                    <x-field :entity="$sysModule" field="name">
                         {{ $sysModule->name }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
-                    <x-field :data="$sysModule" field="is_active">
+                    <x-field :entity="$sysModule" field="is_active">
                         {{ $sysModule->is_active }}
                     </x-field>
                     </td>
                     <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
-                    <x-field :data="$sysModule" field="sysColor">
+                    <x-field :entity="$sysModule" field="sysColor">
                        
                          {{  $sysModule->sysColor }}
                     </x-field>

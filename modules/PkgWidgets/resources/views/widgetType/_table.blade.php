@@ -15,12 +15,12 @@
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->type }}" >
-                    <x-field :data="$widgetType" field="type">
+                    <x-field :entity="$widgetType" field="type">
                         {{ $widgetType->type }}
                     </x-field>
                     </td>
                     <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->description }}" >
-                    <x-field :data="$widgetType" field="description">
+                    <x-field :entity="$widgetType" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 30) !!}
                     </x-field>
                     </td>
