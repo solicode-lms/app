@@ -59,10 +59,8 @@ class BaseWidgetUtilisateurService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
 
-
-
-        if (!array_key_exists('widget_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widget.plural"), 'widget_id', \Modules\PkgWidgets\Models\Widget::class, 'name');
+        if (!array_key_exists('visible', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
         }
 
         $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
@@ -75,13 +73,6 @@ class BaseWidgetUtilisateurService extends BaseService
             "id",
             $sectionWidgets
         );
-
-
-        if (!array_key_exists('visible', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
-        }
-
-
     }
 
     /**
@@ -169,7 +160,9 @@ class BaseWidgetUtilisateurService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetUtilisateur_view_type') === 'widgets') {
-            $this->viewState->set("filter.widgetUtilisateur.visible", 1);
+            $this->viewState->set("scope.widgetUtilisateur.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widgetUtilisateur.visible");
         }
         
         // Récupération des données

@@ -772,14 +772,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "Apprenant-nom_filiere_relationFilter",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {},
-        "e_data_field_reference": "Apprenant-nom_filiere",
-        "e_metadata_definition_reference": "relationFilter"
-    },
-    {
         "reference": "Apprenant_profile_image_nature",
         "value_json": {
             "nature": "image"
