@@ -7,6 +7,7 @@ namespace Modules\PkgWidgets\Services\Base;
 
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 use Modules\Core\Services\BaseService;
+use Modules\PkgWidgets\Services\SectionWidgetService;
 
 /**
  * Classe WidgetUtilisateurService pour gérer la persistance de l'entité WidgetUtilisateur.
@@ -65,14 +66,16 @@ class BaseWidgetUtilisateurService extends BaseService
         }
 
 
-        $affectationProjetService = new AffectationProjetService();
-        $affectationProjets = $affectationProjetService->all();
+        $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
+        $sectionWidgets = $sectionWidgetService->all();
+        
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgRealisationProjets::affectationProjet.plural"), 
-            'RealisationProjet.Affectation_projet_id', 
-            AffectationProjet::class, 
-            "id", "id", // valeur et libellé
-            $affectationProjets
+            __("PkgWidgets::sectionWidget.plural"),
+            'Widget.Section_widget_id', 
+            \Modules\PkgWidgets\Models\SectionWidget::class,
+            "id", 
+            "id", // ou "nom" si "titre" n'existe pas dans la table section_widgets
+            $sectionWidgets
         );
 
     }
