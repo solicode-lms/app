@@ -47,7 +47,15 @@
                                                     {{ $cell['value'] }}
                                                 </span>
                                                 @break
-                
+                                            @case('progression')
+                                                <div class="progress progress-sm">
+                                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $cell['value'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $cell['value'] }}%">
+                                                    </div>
+                                                </div>
+                                                <small>
+                                                    {{ $cell['value'] }}% Terminé
+                                                </small>
+                                                @break
                                             @case('String')
                                             @default
                                                 {{ $cell['value'] }}

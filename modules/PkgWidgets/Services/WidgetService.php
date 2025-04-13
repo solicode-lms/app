@@ -332,7 +332,12 @@ class WidgetService extends BaseWidgetService
                         ];
                         break;
                     }
-                       
+                    default : {
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature
+                        ];
+                    }  
                 }
 
             }

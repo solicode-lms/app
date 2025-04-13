@@ -585,5 +585,15 @@
         "value_integer": 6,
         "e_data_field_reference": "Widget_section_widget_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Widget_name_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "Widget_name",
+        "e_metadata_definition_reference": "nature"
     }
 ]

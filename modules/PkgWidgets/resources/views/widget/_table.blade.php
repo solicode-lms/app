@@ -25,9 +25,13 @@
                     </td>
                     <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
                     <x-field :entity="$widget" field="name">
-                        {{ $widget->name }}
+                         <x-badge 
+                        :text="$widget->name ?? ''" 
+                        :background="$widget->sysColor->hex ?? '#6c757d'" 
+                        />
+
                     </x-field>
-                    </td>
+                    </td>    
                     <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
                     <x-field :entity="$widget" field="label">
                         {{ $widget->label }}

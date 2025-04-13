@@ -5,13 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="14.166666666666666" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
-                <x-sortable-column width="14.166666666666666" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column width="14.166666666666666" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
-                <x-sortable-column width="14.166666666666666"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
-                <x-sortable-column width="14.166666666666666"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
-
-                <x-sortable-column width="14.166666666666666"  field="Validation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::validation.plural')) }}" />
+                <x-sortable-column width="17" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
+                <x-sortable-column width="17" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column width="17" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
+                <x-sortable-column width="17"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
+                <x-sortable-column width="17"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -20,19 +18,18 @@
             @section('realisationProjet-table-tbody')
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
-                       
                          {{  $realisationProjet->affectationProjet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
                     <x-field :entity="$realisationProjet" field="apprenant">
                        
                          {{  $realisationProjet->apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
                     <x-field :entity="$realisationProjet" field="etatsRealisationProjet">
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
@@ -42,7 +39,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
                     <x-field :entity="$realisationProjet" field="avancement_projet">
                         <div class="progress progress-sm">
                             <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->avancement_projet }}%">
@@ -52,27 +49,12 @@
                             {{ $realisationProjet->avancement_projet }}% Terminé
                         </small>
                     </x-field>
-
-
-                       
-                   
-
-
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                     <x-field :entity="$realisationProjet" field="livrablesRealisations">
                         <ul>
                             @foreach ($realisationProjet->livrablesRealisations as $livrablesRealisation)
                                 <li>{{$livrablesRealisation}} </li>
-                            @endforeach
-                        </ul>
-                    </x-field>
-                    </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->validations }}" >
-                    <x-field :entity="$realisationProjet" field="validations">
-                        <ul>
-                            @foreach ($realisationProjet->validations as $validation)
-                                <li>{{$validation}} </li>
                             @endforeach
                         </ul>
                     </x-field>
