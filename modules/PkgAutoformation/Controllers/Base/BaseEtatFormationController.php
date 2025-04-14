@@ -61,7 +61,11 @@ class BaseEtatFormationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($etatFormation_partialViewName, $etatFormation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutoformation::etatFormation._index', $etatFormation_compact_value)->render();
+            }else{
+                return view($etatFormation_partialViewName, $etatFormation_compact_value)->render();
+            }
         }
 
         return view('PkgAutoformation::etatFormation.index', $etatFormation_compact_value);

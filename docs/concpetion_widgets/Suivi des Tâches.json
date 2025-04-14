@@ -1,0 +1,73 @@
+{
+  "link": {
+    "route_name": "realisationTaches.index",
+    "route_params": {
+      "showIndex": "true",
+      "contextKey": "realisationTache.index",
+      "filter.realisationTache.RealisationProjet.Apprenant_id": "#apprenant_id",
+      "filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id": "#formateur_id"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "apprenant": {
+      "RealisationProjet.Apprenant.User_id": "#user_id",
+      "tableUI": [
+        {
+          "key": "realisationProjet.affectationProjet.projet.titre",
+          "label": "Projet",
+          "order": 1
+        },
+        {
+          "key": "tache.titre",
+          "label": "Tâche",
+          "order": 2
+        },
+        {
+          "key": "etatRealisationTache.workflowTache.titre",
+          "label": "État",
+          "order": 3,
+          "nature": "badge",
+          "couleur": "etatRealisationTache.workflowTache.sysColor.hex"
+        }
+      ]
+
+    },
+    "formateur": {
+      "RealisationProjet.AffectationProjet.Projet.Formateur.User_id": "#user_id"
+    }
+  },
+  "tableUI": [
+    {
+      "key": "realisationProjet.affectationProjet.groupe.code",
+      "label": "Groupe",
+      "order": 1
+    },
+    {
+      "key": "realisationProjet.apprenant",
+      "label": "Apprenant",
+      "order": 2
+    },
+    {
+      "key": "realisationProjet.affectationProjet.projet.titre",
+      "label": "Projet",
+      "order": 3
+    },
+    {
+      "key": "tache.titre",
+      "label": "Tâche",
+      "order": 4
+    },
+    {
+      "key": "etatRealisationTache.workflowTache.titre",
+      "label": "État",
+      "order": 5,
+      "nature": "badge",
+      "couleur": "etatRealisationTache.workflowTache.sysColor.hex"
+    }
+  ],
+  "order_by": {
+    "column": "updated_at",
+    "direction": "desc"
+  }
+}

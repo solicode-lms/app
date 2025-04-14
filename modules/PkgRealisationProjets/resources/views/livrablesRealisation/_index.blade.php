@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::livrablesRealisation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $livrablesRealisation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="livrablesRealisation-crud" class="crud">
     @section('livrablesRealisation-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="livrablesRealisation-crud-header" icon="fas fa-file-code"  
         iconColor="text-info"
-        title="{{ __('PkgRealisationProjets::livrablesRealisation.plural') }}"
+        title="{{ $livrablesRealisation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

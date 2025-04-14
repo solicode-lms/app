@@ -40,6 +40,7 @@ class BaseRoleService extends BaseService
     {
         parent::__construct(new Role());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::role.plural');
     }
 
 
@@ -49,6 +50,7 @@ class BaseRoleService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('role');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -116,7 +118,9 @@ class BaseRoleService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('role_view_type') === 'widgets') {
-            $this->viewState->set("filter.role.visible", 1);
+            $this->viewState->set("scope.role.visible", 1);
+        }else{
+            $this->viewState->remove("scope.role.visible");
         }
         
         // Récupération des données
@@ -126,7 +130,8 @@ class BaseRoleService extends BaseService
         $role_instance = $this->createInstance();
         $role_viewTypes = $this->getViewTypes();
         $role_partialViewName = $this->getPartialViewName($role_viewType);
-    
+        $role_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.role.stats', $roles_stats);
     
@@ -137,7 +142,9 @@ class BaseRoleService extends BaseService
             'roles_data',
             'roles_stats',
             'roles_filters',
-            'role_instance'
+            'role_instance',
+            'role_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +155,7 @@ class BaseRoleService extends BaseService
             'role_viewType' => $role_viewType,
             'role_viewTypes' => $role_viewTypes,
             'role_partialViewName' => $role_partialViewName,
+            'contextKey' => $contextKey,
             'role_compact_value' => $compact_value
         ];
     }

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $natureLivrable_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="natureLivrable-crud" class="crud">
     @section('natureLivrable-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="natureLivrable-crud-header" icon="fas fa-file-archive"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::natureLivrable.plural') }}"
+        title="{{ $natureLivrable_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

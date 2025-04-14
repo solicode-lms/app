@@ -41,6 +41,7 @@ class BasePermissionService extends BaseService
     {
         parent::__construct(new Permission());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::permission.plural');
     }
 
 
@@ -50,9 +51,11 @@ class BasePermissionService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('permission');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('controller_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysController.plural"), 'controller_id', \Modules\Core\Models\SysController::class, 'name');
         }
+
     }
 
     /**
@@ -120,7 +123,9 @@ class BasePermissionService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('permission_view_type') === 'widgets') {
-            $this->viewState->set("filter.permission.visible", 1);
+            $this->viewState->set("scope.permission.visible", 1);
+        }else{
+            $this->viewState->remove("scope.permission.visible");
         }
         
         // Récupération des données
@@ -130,7 +135,8 @@ class BasePermissionService extends BaseService
         $permission_instance = $this->createInstance();
         $permission_viewTypes = $this->getViewTypes();
         $permission_partialViewName = $this->getPartialViewName($permission_viewType);
-    
+        $permission_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.permission.stats', $permissions_stats);
     
@@ -141,7 +147,9 @@ class BasePermissionService extends BaseService
             'permissions_data',
             'permissions_stats',
             'permissions_filters',
-            'permission_instance'
+            'permission_instance',
+            'permission_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +160,7 @@ class BasePermissionService extends BaseService
             'permission_viewType' => $permission_viewType,
             'permission_viewTypes' => $permission_viewTypes,
             'permission_partialViewName' => $permission_partialViewName,
+            'contextKey' => $contextKey,
             'permission_compact_value' => $compact_value
         ];
     }

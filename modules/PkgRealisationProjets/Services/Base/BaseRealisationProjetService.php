@@ -44,6 +44,7 @@ class BaseRealisationProjetService extends BaseService
     {
         parent::__construct(new RealisationProjet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::realisationProjet.plural');
     }
 
 
@@ -53,15 +54,19 @@ class BaseRealisationProjetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('realisationProjet');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('affectation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::affectationProjet.plural"), 'affectation_projet_id', \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 'id');
         }
+
         if (!array_key_exists('apprenant_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
         }
+
         if (!array_key_exists('etats_realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::etatsRealisationProjet.plural"), 'etats_realisation_projet_id', \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 'titre');
         }
+
     }
 
     /**
@@ -143,7 +148,9 @@ class BaseRealisationProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('realisationProjet_view_type') === 'widgets') {
-            $this->viewState->set("filter.realisationProjet.visible", 1);
+            $this->viewState->set("scope.realisationProjet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationProjet.visible");
         }
         
         // Récupération des données
@@ -153,7 +160,8 @@ class BaseRealisationProjetService extends BaseService
         $realisationProjet_instance = $this->createInstance();
         $realisationProjet_viewTypes = $this->getViewTypes();
         $realisationProjet_partialViewName = $this->getPartialViewName($realisationProjet_viewType);
-    
+        $realisationProjet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationProjet.stats', $realisationProjets_stats);
     
@@ -164,7 +172,9 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjets_data',
             'realisationProjets_stats',
             'realisationProjets_filters',
-            'realisationProjet_instance'
+            'realisationProjet_instance',
+            'realisationProjet_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +185,7 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjet_viewType' => $realisationProjet_viewType,
             'realisationProjet_viewTypes' => $realisationProjet_viewTypes,
             'realisationProjet_partialViewName' => $realisationProjet_partialViewName,
+            'contextKey' => $contextKey,
             'realisationProjet_compact_value' => $compact_value
         ];
     }

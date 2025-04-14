@@ -42,6 +42,7 @@ class BaseLabelRealisationTacheService extends BaseService
     {
         parent::__construct(new LabelRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::labelRealisationTache.plural');
     }
 
 
@@ -51,12 +52,15 @@ class BaseLabelRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('labelRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
     }
 
     /**
@@ -138,7 +142,9 @@ class BaseLabelRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('labelRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.labelRealisationTache.visible", 1);
+            $this->viewState->set("scope.labelRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.labelRealisationTache.visible");
         }
         
         // Récupération des données
@@ -148,7 +154,8 @@ class BaseLabelRealisationTacheService extends BaseService
         $labelRealisationTache_instance = $this->createInstance();
         $labelRealisationTache_viewTypes = $this->getViewTypes();
         $labelRealisationTache_partialViewName = $this->getPartialViewName($labelRealisationTache_viewType);
-    
+        $labelRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.labelRealisationTache.stats', $labelRealisationTaches_stats);
     
@@ -159,7 +166,9 @@ class BaseLabelRealisationTacheService extends BaseService
             'labelRealisationTaches_data',
             'labelRealisationTaches_stats',
             'labelRealisationTaches_filters',
-            'labelRealisationTache_instance'
+            'labelRealisationTache_instance',
+            'labelRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -170,6 +179,7 @@ class BaseLabelRealisationTacheService extends BaseService
             'labelRealisationTache_viewType' => $labelRealisationTache_viewType,
             'labelRealisationTache_viewTypes' => $labelRealisationTache_viewTypes,
             'labelRealisationTache_partialViewName' => $labelRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'labelRealisationTache_compact_value' => $compact_value
         ];
     }

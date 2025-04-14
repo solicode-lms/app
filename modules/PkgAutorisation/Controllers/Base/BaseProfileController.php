@@ -65,7 +65,11 @@ class BaseProfileController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($profile_partialViewName, $profile_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutorisation::profile._index', $profile_compact_value)->render();
+            }else{
+                return view($profile_partialViewName, $profile_compact_value)->render();
+            }
         }
 
         return view('PkgAutorisation::profile.index', $profile_compact_value);

@@ -40,6 +40,7 @@ class BaseCategoryTechnologyService extends BaseService
     {
         parent::__construct(new CategoryTechnology());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCompetences::categoryTechnology.plural');
     }
 
 
@@ -49,6 +50,7 @@ class BaseCategoryTechnologyService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('categoryTechnology');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -116,7 +118,9 @@ class BaseCategoryTechnologyService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('categoryTechnology_view_type') === 'widgets') {
-            $this->viewState->set("filter.categoryTechnology.visible", 1);
+            $this->viewState->set("scope.categoryTechnology.visible", 1);
+        }else{
+            $this->viewState->remove("scope.categoryTechnology.visible");
         }
         
         // Récupération des données
@@ -126,7 +130,8 @@ class BaseCategoryTechnologyService extends BaseService
         $categoryTechnology_instance = $this->createInstance();
         $categoryTechnology_viewTypes = $this->getViewTypes();
         $categoryTechnology_partialViewName = $this->getPartialViewName($categoryTechnology_viewType);
-    
+        $categoryTechnology_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.categoryTechnology.stats', $categoryTechnologies_stats);
     
@@ -137,7 +142,9 @@ class BaseCategoryTechnologyService extends BaseService
             'categoryTechnologies_data',
             'categoryTechnologies_stats',
             'categoryTechnologies_filters',
-            'categoryTechnology_instance'
+            'categoryTechnology_instance',
+            'categoryTechnology_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +155,7 @@ class BaseCategoryTechnologyService extends BaseService
             'categoryTechnology_viewType' => $categoryTechnology_viewType,
             'categoryTechnology_viewTypes' => $categoryTechnology_viewTypes,
             'categoryTechnology_partialViewName' => $categoryTechnology_partialViewName,
+            'contextKey' => $contextKey,
             'categoryTechnology_compact_value' => $compact_value
         ];
     }

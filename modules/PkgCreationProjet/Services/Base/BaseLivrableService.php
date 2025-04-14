@@ -43,6 +43,7 @@ class BaseLivrableService extends BaseService
     {
         parent::__construct(new Livrable());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::livrable.plural');
     }
 
 
@@ -52,12 +53,15 @@ class BaseLivrableService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('livrable');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('nature_livrable_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::natureLivrable.plural"), 'nature_livrable_id', \Modules\PkgCreationProjet\Models\NatureLivrable::class, 'nom');
         }
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
     }
 
     /**
@@ -139,7 +143,9 @@ class BaseLivrableService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('livrable_view_type') === 'widgets') {
-            $this->viewState->set("filter.livrable.visible", 1);
+            $this->viewState->set("scope.livrable.visible", 1);
+        }else{
+            $this->viewState->remove("scope.livrable.visible");
         }
         
         // Récupération des données
@@ -149,7 +155,8 @@ class BaseLivrableService extends BaseService
         $livrable_instance = $this->createInstance();
         $livrable_viewTypes = $this->getViewTypes();
         $livrable_partialViewName = $this->getPartialViewName($livrable_viewType);
-    
+        $livrable_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.livrable.stats', $livrables_stats);
     
@@ -160,7 +167,9 @@ class BaseLivrableService extends BaseService
             'livrables_data',
             'livrables_stats',
             'livrables_filters',
-            'livrable_instance'
+            'livrable_instance',
+            'livrable_title',
+            'contextKey'
         );
     
         return [
@@ -171,6 +180,7 @@ class BaseLivrableService extends BaseService
             'livrable_viewType' => $livrable_viewType,
             'livrable_viewTypes' => $livrable_viewTypes,
             'livrable_partialViewName' => $livrable_partialViewName,
+            'contextKey' => $contextKey,
             'livrable_compact_value' => $compact_value
         ];
     }

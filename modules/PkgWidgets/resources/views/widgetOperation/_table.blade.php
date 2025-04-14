@@ -2,11 +2,11 @@
 
 @section('widgetOperation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="widgetOperations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
-                <x-sortable-column field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
+                <x-sortable-column width="42.5"  field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
+                <x-sortable-column width="42.5"  field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,28 +14,31 @@
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
-                    <td>
-                     <span @if(strlen($widgetOperation->operation) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetOperation->operation }}" 
-                        @endif>
-                        {{ Str::limit($widgetOperation->operation, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
+                    <x-field :entity="$widgetOperation" field="operation">
+                        {{ $widgetOperation->operation }}
+                    </x-field>
                     </td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 50) !!}</td>
-                    <td class="text-right">
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
+                    <x-field :entity="$widgetOperation" field="description">
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 30) !!}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-widgetOperation')
-                        @can('view', $widgetOperation)
-                            <a href="{{ route('widgetOperations.show', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-widgetOperation')
                         @can('update', $widgetOperation)
                             <a href="{{ route('widgetOperations.edit', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-widgetOperation')
+                        @can('view', $widgetOperation)
+                            <a href="{{ route('widgetOperations.show', ['widgetOperation' => $widgetOperation->id]) }}" data-id="{{$widgetOperation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

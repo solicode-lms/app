@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::prioriteTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $prioriteTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="prioriteTache-crud" class="crud">
     @section('prioriteTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="prioriteTache-crud-header" icon="fas fa-list-ol"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::prioriteTache.plural') }}"
+        title="{{ $prioriteTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

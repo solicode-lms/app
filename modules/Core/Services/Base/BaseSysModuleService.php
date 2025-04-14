@@ -45,6 +45,7 @@ class BaseSysModuleService extends BaseService
     {
         parent::__construct(new SysModule());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysModule.plural');
     }
 
 
@@ -54,9 +55,11 @@ class BaseSysModuleService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('sysModule');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
     }
 
     /**
@@ -124,7 +127,9 @@ class BaseSysModuleService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sysModule_view_type') === 'widgets') {
-            $this->viewState->set("filter.sysModule.visible", 1);
+            $this->viewState->set("scope.sysModule.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sysModule.visible");
         }
         
         // Récupération des données
@@ -134,7 +139,8 @@ class BaseSysModuleService extends BaseService
         $sysModule_instance = $this->createInstance();
         $sysModule_viewTypes = $this->getViewTypes();
         $sysModule_partialViewName = $this->getPartialViewName($sysModule_viewType);
-    
+        $sysModule_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysModule.stats', $sysModules_stats);
     
@@ -145,7 +151,9 @@ class BaseSysModuleService extends BaseService
             'sysModules_data',
             'sysModules_stats',
             'sysModules_filters',
-            'sysModule_instance'
+            'sysModule_instance',
+            'sysModule_title',
+            'contextKey'
         );
     
         return [
@@ -156,6 +164,7 @@ class BaseSysModuleService extends BaseService
             'sysModule_viewType' => $sysModule_viewType,
             'sysModule_viewTypes' => $sysModule_viewTypes,
             'sysModule_partialViewName' => $sysModule_partialViewName,
+            'contextKey' => $contextKey,
             'sysModule_compact_value' => $compact_value
         ];
     }

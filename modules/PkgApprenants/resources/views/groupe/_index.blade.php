@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $groupe_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="groupe-crud" class="crud">
     @section('groupe-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="groupe-crud-header" icon="fas fa-users"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::groupe.plural') }}"
+        title="{{ $groupe_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

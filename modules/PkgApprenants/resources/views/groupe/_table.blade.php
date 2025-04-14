@@ -2,12 +2,12 @@
 
 @section('groupe-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="groupes-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="groupe" label="{{ ucfirst(__('PkgApprenants::groupe.code')) }}" />
-                <x-sortable-column field="filiere_id" modelname="groupe" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
-                <x-sortable-column field="formateurs" modelname="groupe" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="code" modelname="groupe" label="{{ ucfirst(__('PkgApprenants::groupe.code')) }}" />
+                <x-sortable-column width="28.333333333333332" field="filiere_id" modelname="groupe" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="formateurs" modelname="groupe" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,42 +15,41 @@
             @section('groupe-table-tbody')
             @foreach ($groupes_data as $groupe)
                 <tr id="groupe-row-{{$groupe->id}}">
-                    <td>
-                     <span @if(strlen($groupe->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $groupe->code }}" 
-                        @endif>
-                        {{ Str::limit($groupe->code, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->code }}" >
+                    <x-field :entity="$groupe" field="code">
+                        {{ $groupe->code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($groupe->filiere) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $groupe->filiere }}" 
-                        @endif>
-                        {{ Str::limit($groupe->filiere, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->filiere }}" >
+                    <x-field :entity="$groupe" field="filiere">
+                       
+                         {{  $groupe->filiere }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->formateurs }}" >
+                    <x-field :entity="$groupe" field="formateurs">
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)
-                                <li @if(strlen($formateur) > 40) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 40)</li>
+                                <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-groupe')
-                        @can('view', $groupe)
-                            <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-groupe')
                         @can('update', $groupe)
                             <a href="{{ route('groupes.edit', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-groupe')
+                        @can('view', $groupe)
+                            <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

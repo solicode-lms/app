@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::realisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $realisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="realisationTache-crud" class="crud">
     @section('realisationTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="realisationTache-crud-header" icon="fas fa-laptop-code"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::realisationTache.plural') }}"
+        title="{{ $realisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

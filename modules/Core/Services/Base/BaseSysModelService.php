@@ -44,6 +44,7 @@ class BaseSysModelService extends BaseService
     {
         parent::__construct(new SysModel());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysModel.plural');
     }
 
 
@@ -53,12 +54,15 @@ class BaseSysModelService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('sysModel');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('sys_module_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name');
         }
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
     }
 
     /**
@@ -126,7 +130,9 @@ class BaseSysModelService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sysModel_view_type') === 'widgets') {
-            $this->viewState->set("filter.sysModel.visible", 1);
+            $this->viewState->set("scope.sysModel.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sysModel.visible");
         }
         
         // Récupération des données
@@ -136,7 +142,8 @@ class BaseSysModelService extends BaseService
         $sysModel_instance = $this->createInstance();
         $sysModel_viewTypes = $this->getViewTypes();
         $sysModel_partialViewName = $this->getPartialViewName($sysModel_viewType);
-    
+        $sysModel_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysModel.stats', $sysModels_stats);
     
@@ -147,7 +154,9 @@ class BaseSysModelService extends BaseService
             'sysModels_data',
             'sysModels_stats',
             'sysModels_filters',
-            'sysModel_instance'
+            'sysModel_instance',
+            'sysModel_title',
+            'contextKey'
         );
     
         return [
@@ -158,6 +167,7 @@ class BaseSysModelService extends BaseService
             'sysModel_viewType' => $sysModel_viewType,
             'sysModel_viewTypes' => $sysModel_viewTypes,
             'sysModel_partialViewName' => $sysModel_partialViewName,
+            'contextKey' => $contextKey,
             'sysModel_compact_value' => $compact_value
         ];
     }

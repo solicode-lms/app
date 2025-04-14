@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::etatRealisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $etatRealisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="etatRealisationTache-crud" class="crud">
     @section('etatRealisationTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="etatRealisationTache-crud-header" icon="fas fa-check"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::etatRealisationTache.plural') }}"
+        title="{{ $etatRealisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

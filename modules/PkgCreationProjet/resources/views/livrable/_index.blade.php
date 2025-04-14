@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::livrable.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $livrable_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="livrable-crud" class="crud">
     @section('livrable-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="livrable-crud-header" icon="fas fa-file-alt"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::livrable.plural') }}"
+        title="{{ $livrable_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

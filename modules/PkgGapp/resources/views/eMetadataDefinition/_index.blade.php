@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eMetadataDefinition_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eMetadataDefinition-crud" class="crud">
     @section('eMetadataDefinition-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="eMetadataDefinition-crud-header" icon="fas fa-database"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eMetadataDefinition.plural') }}"
+        title="{{ $eMetadataDefinition_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

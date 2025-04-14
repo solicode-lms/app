@@ -2,12 +2,12 @@
 
 @section('livrablesRealisation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="livrablesRealisations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
-                <x-sortable-column field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
-                <x-sortable-column field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,37 @@
             @section('livrablesRealisation-table-tbody')
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
-                    <td>
-                     <span @if(strlen($livrablesRealisation->livrable) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $livrablesRealisation->livrable }}" 
-                        @endif>
-                        {{ Str::limit($livrablesRealisation->livrable, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
+                    <x-field :entity="$livrablesRealisation" field="livrable">
+                       
+                         {{  $livrablesRealisation->livrable }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($livrablesRealisation->lien) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $livrablesRealisation->lien }}" 
-                        @endif>
-                        {{ Str::limit($livrablesRealisation->lien, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
+                    <x-field :entity="$livrablesRealisation" field="lien">
+                        {{ $livrablesRealisation->lien }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($livrablesRealisation->titre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $livrablesRealisation->titre }}" 
-                        @endif>
-                        {{ Str::limit($livrablesRealisation->titre, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
+                    <x-field :entity="$livrablesRealisation" field="titre">
+                        {{ $livrablesRealisation->titre }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-livrablesRealisation')
-                        @can('view', $livrablesRealisation)
-                            <a href="{{ route('livrablesRealisations.show', ['livrablesRealisation' => $livrablesRealisation->id]) }}" data-id="{{$livrablesRealisation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-livrablesRealisation')
                         @can('update', $livrablesRealisation)
                             <a href="{{ route('livrablesRealisations.edit', ['livrablesRealisation' => $livrablesRealisation->id]) }}" data-id="{{$livrablesRealisation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-livrablesRealisation')
+                        @can('view', $livrablesRealisation)
+                            <a href="{{ route('livrablesRealisations.show', ['livrablesRealisation' => $livrablesRealisation->id]) }}" data-id="{{$livrablesRealisation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

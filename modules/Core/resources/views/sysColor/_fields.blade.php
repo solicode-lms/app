@@ -72,6 +72,12 @@
 <!--   SysModule HasMany --> 
 
 
+<!--   EtatsRealisationProjet HasMany --> 
+
+
+<!--   SectionWidget HasMany --> 
+
+
 <!--   Widget HasMany --> 
 
 
@@ -79,6 +85,12 @@
 
 
 <!--   WorkflowFormation HasMany --> 
+
+
+<!--   WorkflowProjet HasMany --> 
+
+
+<!--   WorkflowTache HasMany --> 
 
     </div>
 

@@ -51,6 +51,7 @@ class BaseEDataFieldService extends BaseService
     {
         parent::__construct(new EDataField());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eDataField.plural');
     }
 
 
@@ -60,12 +61,15 @@ class BaseEDataFieldService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eDataField');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
         if (!array_key_exists('data_type', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
         }
+
     }
 
     /**
@@ -133,7 +137,9 @@ class BaseEDataFieldService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eDataField_view_type') === 'widgets') {
-            $this->viewState->set("filter.eDataField.visible", 1);
+            $this->viewState->set("scope.eDataField.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eDataField.visible");
         }
         
         // Récupération des données
@@ -143,7 +149,8 @@ class BaseEDataFieldService extends BaseService
         $eDataField_instance = $this->createInstance();
         $eDataField_viewTypes = $this->getViewTypes();
         $eDataField_partialViewName = $this->getPartialViewName($eDataField_viewType);
-    
+        $eDataField_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eDataField.stats', $eDataFields_stats);
     
@@ -154,7 +161,9 @@ class BaseEDataFieldService extends BaseService
             'eDataFields_data',
             'eDataFields_stats',
             'eDataFields_filters',
-            'eDataField_instance'
+            'eDataField_instance',
+            'eDataField_title',
+            'contextKey'
         );
     
         return [
@@ -165,6 +174,7 @@ class BaseEDataFieldService extends BaseService
             'eDataField_viewType' => $eDataField_viewType,
             'eDataField_viewTypes' => $eDataField_viewTypes,
             'eDataField_partialViewName' => $eDataField_partialViewName,
+            'contextKey' => $contextKey,
             'eDataField_compact_value' => $compact_value
         ];
     }

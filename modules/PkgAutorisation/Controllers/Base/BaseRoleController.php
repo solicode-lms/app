@@ -57,7 +57,11 @@ class BaseRoleController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($role_partialViewName, $role_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutorisation::role._index', $role_compact_value)->render();
+            }else{
+                return view($role_partialViewName, $role_compact_value)->render();
+            }
         }
 
         return view('PkgAutorisation::role.index', $role_compact_value);

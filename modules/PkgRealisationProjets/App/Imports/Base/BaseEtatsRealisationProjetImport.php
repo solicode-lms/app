@@ -60,7 +60,9 @@ class BaseEtatsRealisationProjetImport implements ToModel, WithHeadingRow
              'titre' => $values[1] ?? null,
              'description' => $values[2] ?? null,
              'reference' => $reference,
-             'is_editable_by_formateur' => $values[4] ?? null,
+             'sys_color_id' => $values[4] ?? null,
+             'workflow_projet_id' => $values[5] ?? null,
+             'is_editable_by_formateur' => $values[6] ?? null,
         ]);
 
 

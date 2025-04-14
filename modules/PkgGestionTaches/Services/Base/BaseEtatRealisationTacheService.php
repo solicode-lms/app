@@ -44,6 +44,7 @@ class BaseEtatRealisationTacheService extends BaseService
     {
         parent::__construct(new EtatRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::etatRealisationTache.plural');
     }
 
 
@@ -53,15 +54,19 @@ class BaseEtatRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('etatRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('workflow_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::workflowTache.plural"), 'workflow_tache_id', \Modules\PkgGestionTaches\Models\WorkflowTache::class, 'code');
         }
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
     }
 
     /**
@@ -143,7 +148,9 @@ class BaseEtatRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('etatRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.etatRealisationTache.visible", 1);
+            $this->viewState->set("scope.etatRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.etatRealisationTache.visible");
         }
         
         // Récupération des données
@@ -153,7 +160,8 @@ class BaseEtatRealisationTacheService extends BaseService
         $etatRealisationTache_instance = $this->createInstance();
         $etatRealisationTache_viewTypes = $this->getViewTypes();
         $etatRealisationTache_partialViewName = $this->getPartialViewName($etatRealisationTache_viewType);
-    
+        $etatRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatRealisationTache.stats', $etatRealisationTaches_stats);
     
@@ -164,7 +172,9 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTaches_data',
             'etatRealisationTaches_stats',
             'etatRealisationTaches_filters',
-            'etatRealisationTache_instance'
+            'etatRealisationTache_instance',
+            'etatRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +185,7 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTache_viewType' => $etatRealisationTache_viewType,
             'etatRealisationTache_viewTypes' => $etatRealisationTache_viewTypes,
             'etatRealisationTache_partialViewName' => $etatRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'etatRealisationTache_compact_value' => $compact_value
         ];
     }

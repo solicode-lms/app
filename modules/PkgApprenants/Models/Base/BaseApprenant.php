@@ -38,6 +38,15 @@ class BaseApprenant extends BaseModel
         JOIN filieres f ON g.filiere_id = f.id
         WHERE a.id = apprenants.id";
         static::addDynamicAttribute('nom_filiere', $sql);
+        // Colonne dynamique : duree_sans_terminer_tache
+        $sql = "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())
+        FROM realisation_taches rt
+        JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id
+        JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
+        JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
+        WHERE rp.apprenant_id = apprenants.id 
+          AND wt.code IN ('TERMINEE', 'EN_VALIDATION')";
+        static::addDynamicAttribute('duree_sans_terminer_tache', $sql);
         // Colonne dynamique : nombre_realisation_taches_en_cours
         $sql = "SELECT count(*) FROM realisation_taches rt 
         JOIN realisation_projets rp ON rt.realisation_projet_id = rp.id 

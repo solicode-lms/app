@@ -41,6 +41,7 @@ class BaseNiveauCompetenceService extends BaseService
     {
         parent::__construct(new NiveauCompetence());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCompetences::niveauCompetence.plural');
     }
 
 
@@ -50,9 +51,11 @@ class BaseNiveauCompetenceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauCompetence');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
+
     }
 
     /**
@@ -120,7 +123,9 @@ class BaseNiveauCompetenceService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('niveauCompetence_view_type') === 'widgets') {
-            $this->viewState->set("filter.niveauCompetence.visible", 1);
+            $this->viewState->set("scope.niveauCompetence.visible", 1);
+        }else{
+            $this->viewState->remove("scope.niveauCompetence.visible");
         }
         
         // Récupération des données
@@ -130,7 +135,8 @@ class BaseNiveauCompetenceService extends BaseService
         $niveauCompetence_instance = $this->createInstance();
         $niveauCompetence_viewTypes = $this->getViewTypes();
         $niveauCompetence_partialViewName = $this->getPartialViewName($niveauCompetence_viewType);
-    
+        $niveauCompetence_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauCompetence.stats', $niveauCompetences_stats);
     
@@ -141,7 +147,9 @@ class BaseNiveauCompetenceService extends BaseService
             'niveauCompetences_data',
             'niveauCompetences_stats',
             'niveauCompetences_filters',
-            'niveauCompetence_instance'
+            'niveauCompetence_instance',
+            'niveauCompetence_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +160,7 @@ class BaseNiveauCompetenceService extends BaseService
             'niveauCompetence_viewType' => $niveauCompetence_viewType,
             'niveauCompetence_viewTypes' => $niveauCompetence_viewTypes,
             'niveauCompetence_partialViewName' => $niveauCompetence_partialViewName,
+            'contextKey' => $contextKey,
             'niveauCompetence_compact_value' => $compact_value
         ];
     }

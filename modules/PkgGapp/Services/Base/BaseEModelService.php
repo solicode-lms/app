@@ -44,6 +44,7 @@ class BaseEModelService extends BaseService
     {
         parent::__construct(new EModel());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eModel.plural');
     }
 
 
@@ -53,9 +54,11 @@ class BaseEModelService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eModel');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('e_package_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::ePackage.plural"), 'e_package_id', \Modules\PkgGapp\Models\EPackage::class, 'name');
         }
+
     }
 
     /**
@@ -123,7 +126,9 @@ class BaseEModelService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eModel_view_type') === 'widgets') {
-            $this->viewState->set("filter.eModel.visible", 1);
+            $this->viewState->set("scope.eModel.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eModel.visible");
         }
         
         // Récupération des données
@@ -133,7 +138,8 @@ class BaseEModelService extends BaseService
         $eModel_instance = $this->createInstance();
         $eModel_viewTypes = $this->getViewTypes();
         $eModel_partialViewName = $this->getPartialViewName($eModel_viewType);
-    
+        $eModel_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eModel.stats', $eModels_stats);
     
@@ -144,7 +150,9 @@ class BaseEModelService extends BaseService
             'eModels_data',
             'eModels_stats',
             'eModels_filters',
-            'eModel_instance'
+            'eModel_instance',
+            'eModel_title',
+            'contextKey'
         );
     
         return [
@@ -155,6 +163,7 @@ class BaseEModelService extends BaseService
             'eModel_viewType' => $eModel_viewType,
             'eModel_viewTypes' => $eModel_viewTypes,
             'eModel_partialViewName' => $eModel_partialViewName,
+            'contextKey' => $contextKey,
             'eModel_compact_value' => $compact_value
         ];
     }

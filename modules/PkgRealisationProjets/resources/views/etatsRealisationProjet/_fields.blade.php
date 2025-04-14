@@ -80,6 +80,60 @@
 
 
       <div class="form-group col-12 col-md-6">
+          <label for="sys_color_id">
+            {{ ucfirst(__('Core::sysColor.singular')) }}
+            
+          </label>
+                      <select 
+            id="sys_color_id" 
+            
+            
+            
+            name="sys_color_id" 
+            class="form-control select2Color">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sysColors as $sysColor)
+                    <option value="{{ $sysColor->id }}" data-color="{{ $sysColor->hex }}" 
+                        {{ (isset($itemEtatsRealisationProjet) && $itemEtatsRealisationProjet->sys_color_id == $sysColor->id) || (old('sys_color_id>') == $sysColor->id) ? 'selected' : '' }}>
+                        {{ $sysColor }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sys_color_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          <label for="workflow_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::workflowProjet.singular')) }}
+            
+          </label>
+                      <select 
+            id="workflow_projet_id" 
+            
+            
+            
+            name="workflow_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($workflowProjets as $workflowProjet)
+                    <option value="{{ $workflowProjet->id }}"
+                        {{ (isset($itemEtatsRealisationProjet) && $itemEtatsRealisationProjet->workflow_projet_id == $workflowProjet->id) || (old('workflow_projet_id>') == $workflowProjet->id) ? 'selected' : '' }}>
+                        {{ $workflowProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('workflow_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
           <label for="is_editable_by_formateur">
             {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}
             

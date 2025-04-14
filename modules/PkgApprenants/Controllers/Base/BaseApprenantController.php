@@ -64,7 +64,11 @@ class BaseApprenantController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($apprenant_partialViewName, $apprenant_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::apprenant._index', $apprenant_compact_value)->render();
+            }else{
+                return view($apprenant_partialViewName, $apprenant_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::apprenant.index', $apprenant_compact_value);

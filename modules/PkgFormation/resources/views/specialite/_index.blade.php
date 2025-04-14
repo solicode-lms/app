@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::specialite.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $specialite_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="specialite-crud" class="crud">
     @section('specialite-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="specialite-crud-header" icon="fas fa-award"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::specialite.plural') }}"
+        title="{{ $specialite_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

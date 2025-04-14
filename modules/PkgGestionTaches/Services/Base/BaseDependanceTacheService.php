@@ -41,6 +41,7 @@ class BaseDependanceTacheService extends BaseService
     {
         parent::__construct(new DependanceTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::dependanceTache.plural');
     }
 
 
@@ -50,15 +51,19 @@ class BaseDependanceTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('dependanceTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
         if (!array_key_exists('type_dependance_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::typeDependanceTache.plural"), 'type_dependance_tache_id', \Modules\PkgGestionTaches\Models\TypeDependanceTache::class, 'titre');
         }
+
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_cible_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
     }
 
     /**
@@ -126,7 +131,9 @@ class BaseDependanceTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('dependanceTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.dependanceTache.visible", 1);
+            $this->viewState->set("scope.dependanceTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.dependanceTache.visible");
         }
         
         // Récupération des données
@@ -136,7 +143,8 @@ class BaseDependanceTacheService extends BaseService
         $dependanceTache_instance = $this->createInstance();
         $dependanceTache_viewTypes = $this->getViewTypes();
         $dependanceTache_partialViewName = $this->getPartialViewName($dependanceTache_viewType);
-    
+        $dependanceTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.dependanceTache.stats', $dependanceTaches_stats);
     
@@ -147,7 +155,9 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTaches_data',
             'dependanceTaches_stats',
             'dependanceTaches_filters',
-            'dependanceTache_instance'
+            'dependanceTache_instance',
+            'dependanceTache_title',
+            'contextKey'
         );
     
         return [
@@ -158,6 +168,7 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTache_viewType' => $dependanceTache_viewType,
             'dependanceTache_viewTypes' => $dependanceTache_viewTypes,
             'dependanceTache_partialViewName' => $dependanceTache_partialViewName,
+            'contextKey' => $contextKey,
             'dependanceTache_compact_value' => $compact_value
         ];
     }

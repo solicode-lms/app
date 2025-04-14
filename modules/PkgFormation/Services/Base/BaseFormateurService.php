@@ -51,6 +51,7 @@ class BaseFormateurService extends BaseService
     {
         parent::__construct(new Formateur());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::formateur.plural');
     }
 
 
@@ -60,12 +61,15 @@ class BaseFormateurService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('formateur');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('specialites', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::specialite.plural"), 'specialite_id', \Modules\PkgFormation\Models\Specialite::class, 'nom');
         }
+
         if (!array_key_exists('groupes', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
+
     }
 
     /**
@@ -149,7 +153,9 @@ class BaseFormateurService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('formateur_view_type') === 'widgets') {
-            $this->viewState->set("filter.formateur.visible", 1);
+            $this->viewState->set("scope.formateur.visible", 1);
+        }else{
+            $this->viewState->remove("scope.formateur.visible");
         }
         
         // Récupération des données
@@ -159,7 +165,8 @@ class BaseFormateurService extends BaseService
         $formateur_instance = $this->createInstance();
         $formateur_viewTypes = $this->getViewTypes();
         $formateur_partialViewName = $this->getPartialViewName($formateur_viewType);
-    
+        $formateur_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formateur.stats', $formateurs_stats);
     
@@ -170,7 +177,9 @@ class BaseFormateurService extends BaseService
             'formateurs_data',
             'formateurs_stats',
             'formateurs_filters',
-            'formateur_instance'
+            'formateur_instance',
+            'formateur_title',
+            'contextKey'
         );
     
         return [
@@ -181,6 +190,7 @@ class BaseFormateurService extends BaseService
             'formateur_viewType' => $formateur_viewType,
             'formateur_viewTypes' => $formateur_viewTypes,
             'formateur_partialViewName' => $formateur_partialViewName,
+            'contextKey' => $contextKey,
             'formateur_compact_value' => $compact_value
         ];
     }

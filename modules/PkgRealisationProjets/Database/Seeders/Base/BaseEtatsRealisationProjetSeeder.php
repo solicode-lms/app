@@ -77,6 +77,8 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
                     "formateur_id" => $row["formateur_id"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "description" => $row["description"] ?? null,
+                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "workflow_projet_id" => $row["workflow_projet_id"] ?? null,
                     "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

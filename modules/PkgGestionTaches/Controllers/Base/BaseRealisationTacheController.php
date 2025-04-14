@@ -40,11 +40,11 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id') == null){
-           $this->viewState->init('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
+           $this->viewState->init('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.realisationProjet.apprenant_id') == null){
-           $this->viewState->init('filter.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
+           $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
@@ -65,7 +65,11 @@ class BaseRealisationTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($realisationTache_partialViewName, $realisationTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::realisationTache._index', $realisationTache_compact_value)->render();
+            }else{
+                return view($realisationTache_partialViewName, $realisationTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::realisationTache.index', $realisationTache_compact_value);
@@ -73,10 +77,10 @@ class BaseRealisationTacheController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

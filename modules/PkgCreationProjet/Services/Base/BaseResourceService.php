@@ -42,6 +42,7 @@ class BaseResourceService extends BaseService
     {
         parent::__construct(new Resource());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::resource.plural');
     }
 
 
@@ -51,9 +52,11 @@ class BaseResourceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('resource');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
     }
 
     /**
@@ -135,7 +138,9 @@ class BaseResourceService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('resource_view_type') === 'widgets') {
-            $this->viewState->set("filter.resource.visible", 1);
+            $this->viewState->set("scope.resource.visible", 1);
+        }else{
+            $this->viewState->remove("scope.resource.visible");
         }
         
         // Récupération des données
@@ -145,7 +150,8 @@ class BaseResourceService extends BaseService
         $resource_instance = $this->createInstance();
         $resource_viewTypes = $this->getViewTypes();
         $resource_partialViewName = $this->getPartialViewName($resource_viewType);
-    
+        $resource_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.resource.stats', $resources_stats);
     
@@ -156,7 +162,9 @@ class BaseResourceService extends BaseService
             'resources_data',
             'resources_stats',
             'resources_filters',
-            'resource_instance'
+            'resource_instance',
+            'resource_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +175,7 @@ class BaseResourceService extends BaseService
             'resource_viewType' => $resource_viewType,
             'resource_viewTypes' => $resource_viewTypes,
             'resource_partialViewName' => $resource_partialViewName,
+            'contextKey' => $contextKey,
             'resource_compact_value' => $compact_value
         ];
     }

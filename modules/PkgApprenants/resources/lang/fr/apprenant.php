@@ -22,5 +22,6 @@ return [
     'lieu_naissance' => 'lieu de naissance',
     'cin' => 'cin',
     'nombre_realisation_taches_en_cours' => 'Tâches en cours',
-    'nom_filiere' => 'filière'
+    'nom_filiere' => 'filière',
+    'duree_sans_terminer_tache' => 'Durée sans tâche terminée',
 ];

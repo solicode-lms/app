@@ -2,11 +2,11 @@
 
 @section('resource-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="resources-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
-                <x-sortable-column field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
+                <x-sortable-column width="42.5"  field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
+                <x-sortable-column width="42.5"  field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,35 +14,31 @@
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
-                    <td>
-                     <span @if(strlen($resource->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $resource->nom }}" 
-                        @endif>
-                        {{ Str::limit($resource->nom, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
+                    <x-field :entity="$resource" field="nom">
+                        {{ $resource->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($resource->lien) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $resource->lien }}" 
-                        @endif>
-                        {{ Str::limit($resource->lien, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->lien }}" >
+                    <x-field :entity="$resource" field="lien">
+                        {{ $resource->lien }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-resource')
-                        @can('view', $resource)
-                            <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-resource')
                         @can('update', $resource)
                             <a href="{{ route('resources.edit', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-resource')
+                        @can('view', $resource)
+                            <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

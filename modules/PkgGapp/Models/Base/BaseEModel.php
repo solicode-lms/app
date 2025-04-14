@@ -27,6 +27,12 @@ class BaseEModel extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : icone
+        $sql = "SELECT em.value_string
+        FROM e_metadata em
+        JOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id
+        WHERE em.e_model_id = e_models.id AND emd.reference = 'iconModel'";
+        static::addDynamicAttribute('icone', $sql);
     }
 
     

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::workflowFormation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $workflowFormation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="workflowFormation-crud" class="crud">
     @section('workflowFormation-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="workflowFormation-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::workflowFormation.plural') }}"
+        title="{{ $workflowFormation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

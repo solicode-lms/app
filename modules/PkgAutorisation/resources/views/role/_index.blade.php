@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::role.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $role_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="role-crud" class="crud">
     @section('role-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="role-crud-header" icon="fas fa-id-badge"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::role.plural') }}"
+        title="{{ $role_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

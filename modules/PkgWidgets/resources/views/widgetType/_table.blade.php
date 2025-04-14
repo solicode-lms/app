@@ -2,11 +2,11 @@
 
 @section('widgetType-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="widgetTypes-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="type" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.type')) }}" />
-                <x-sortable-column field="description" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
+                <x-sortable-column width="42.5"  field="type" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.type')) }}" />
+                <x-sortable-column width="42.5"  field="description" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,28 +14,31 @@
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
-                    <td>
-                     <span @if(strlen($widgetType->type) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetType->type }}" 
-                        @endif>
-                        {{ Str::limit($widgetType->type, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->type }}" >
+                    <x-field :entity="$widgetType" field="type">
+                        {{ $widgetType->type }}
+                    </x-field>
                     </td>
-                    <td>{!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 50) !!}</td>
-                    <td class="text-right">
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->description }}" >
+                    <x-field :entity="$widgetType" field="description">
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 30) !!}
+                    </x-field>
+                    </td>
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-widgetType')
-                        @can('view', $widgetType)
-                            <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-widgetType')
                         @can('update', $widgetType)
                             <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-widgetType')
+                        @can('view', $widgetType)
+                            <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

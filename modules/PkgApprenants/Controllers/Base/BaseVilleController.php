@@ -48,7 +48,11 @@ class BaseVilleController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($ville_partialViewName, $ville_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::ville._index', $ville_compact_value)->render();
+            }else{
+                return view($ville_partialViewName, $ville_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::ville.index', $ville_compact_value);

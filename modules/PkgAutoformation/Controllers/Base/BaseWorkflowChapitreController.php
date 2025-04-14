@@ -52,7 +52,11 @@ class BaseWorkflowChapitreController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($workflowChapitre_partialViewName, $workflowChapitre_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutoformation::workflowChapitre._index', $workflowChapitre_compact_value)->render();
+            }else{
+                return view($workflowChapitre_partialViewName, $workflowChapitre_compact_value)->render();
+            }
         }
 
         return view('PkgAutoformation::workflowChapitre.index', $workflowChapitre_compact_value);

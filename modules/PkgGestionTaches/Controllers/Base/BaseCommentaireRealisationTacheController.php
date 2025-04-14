@@ -57,7 +57,11 @@ class BaseCommentaireRealisationTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($commentaireRealisationTache_partialViewName, $commentaireRealisationTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::commentaireRealisationTache._index', $commentaireRealisationTache_compact_value)->render();
+            }else{
+                return view($commentaireRealisationTache_partialViewName, $commentaireRealisationTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::commentaireRealisationTache.index', $commentaireRealisationTache_compact_value);

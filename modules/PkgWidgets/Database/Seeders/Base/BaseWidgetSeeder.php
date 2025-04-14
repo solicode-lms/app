@@ -83,6 +83,7 @@ class BaseWidgetSeeder extends Seeder
                     "color" => $row["color"] ?? null,
                     "icon" => $row["icon"] ?? null,
                     "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "section_widget_id" => $row["section_widget_id"] ?? null,
                     "parameters" => $row["parameters"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

@@ -43,6 +43,7 @@ class BaseValidationService extends BaseService
     {
         parent::__construct(new Validation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::validation.plural');
     }
 
 
@@ -52,12 +53,15 @@ class BaseValidationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('validation');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('transfert_competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::transfertCompetence.plural"), 'transfert_competence_id', \Modules\PkgCreationProjet\Models\TransfertCompetence::class, 'id');
         }
+
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
+
     }
 
     /**
@@ -139,7 +143,9 @@ class BaseValidationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('validation_view_type') === 'widgets') {
-            $this->viewState->set("filter.validation.visible", 1);
+            $this->viewState->set("scope.validation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.validation.visible");
         }
         
         // Récupération des données
@@ -149,7 +155,8 @@ class BaseValidationService extends BaseService
         $validation_instance = $this->createInstance();
         $validation_viewTypes = $this->getViewTypes();
         $validation_partialViewName = $this->getPartialViewName($validation_viewType);
-    
+        $validation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.validation.stats', $validations_stats);
     
@@ -160,7 +167,9 @@ class BaseValidationService extends BaseService
             'validations_data',
             'validations_stats',
             'validations_filters',
-            'validation_instance'
+            'validation_instance',
+            'validation_title',
+            'contextKey'
         );
     
         return [
@@ -171,6 +180,7 @@ class BaseValidationService extends BaseService
             'validation_viewType' => $validation_viewType,
             'validation_viewTypes' => $validation_viewTypes,
             'validation_partialViewName' => $validation_partialViewName,
+            'contextKey' => $contextKey,
             'validation_compact_value' => $compact_value
         ];
     }

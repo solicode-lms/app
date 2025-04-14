@@ -1,0 +1,98 @@
+{
+  "link": {
+    "route_name": "realisationProjets.index",
+    "route_params": {
+      "showIndex": "true",
+      "contextKey": "realisationProjet.index",
+      "filter.realisationProjet.apprenant_id": "#apprenant_id"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "apprenant": {
+      "Apprenant.User_id": "#user_id",
+      "tableUI": [
+        {
+          "key": "affectationProjet.projet.titre",
+          "label": "Projet",
+          "order": 1
+        },
+        {
+          "key": "etatsRealisationProjet.workflowProjet.titre",
+          "label": "État",
+          "order": 2,
+          "nature": "badge",
+          "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+        },
+        {
+          "key": "avancement_projet",
+          "label": "Avancement",
+          "order": 3,
+          "nature": "progression"
+        }
+      ]
+    },
+    "formateur": {
+      "tableUI": [
+        {
+          "key": "affectationProjet.projet.titre",
+          "label": "Projet",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        },
+        {
+          "key": "etatsRealisationProjet.workflowProjet.titre",
+          "label": "État",
+          "order": 3,
+          "nature": "badge",
+          "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+        },
+        {
+          "key": "avancement_projet",
+          "label": "Avancement",
+          "order": 4,
+          "nature": "progression"
+        }
+      ],
+      "AffectationProjet.Projet.Formateur.User_id": "#user_id"
+    }
+  },
+  "tableUI": [
+    {
+      "key": "affectationProjet.projet.titre",
+      "label": "Projet",
+      "order": 3
+    },
+    {
+      "key": "affectationProjet.groupe.code",
+      "label": "Groupe",
+      "order": 1
+    },
+    {
+      "key": "apprenant",
+      "label": "Apprenant",
+      "order": 2
+    },
+    {
+      "key": "etatsRealisationProjet.workflowProjet.titre",
+      "label": "État",
+      "order": 4,
+      "nature": "badge",
+      "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+    },
+    {
+      "key": "avancement_projet",
+      "label": "Avancement",
+      "order": 5,
+      "nature": "progression"
+    }
+  ],
+  "order_by": {
+    "column": "updated_at",
+    "direction": "desc"
+  }
+}

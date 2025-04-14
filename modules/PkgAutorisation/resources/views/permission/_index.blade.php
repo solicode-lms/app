@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::permission.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $permission_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="permission-crud" class="crud">
     @section('permission-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="permission-crud-header" icon="fas fa-lock-open"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::permission.plural') }}"
+        title="{{ $permission_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

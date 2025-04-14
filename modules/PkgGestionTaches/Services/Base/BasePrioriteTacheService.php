@@ -42,6 +42,7 @@ class BasePrioriteTacheService extends BaseService
     {
         parent::__construct(new PrioriteTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::prioriteTache.plural');
     }
 
 
@@ -51,9 +52,11 @@ class BasePrioriteTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('prioriteTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
     }
 
     /**
@@ -135,7 +138,9 @@ class BasePrioriteTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('prioriteTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.prioriteTache.visible", 1);
+            $this->viewState->set("scope.prioriteTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.prioriteTache.visible");
         }
         
         // Récupération des données
@@ -145,7 +150,8 @@ class BasePrioriteTacheService extends BaseService
         $prioriteTache_instance = $this->createInstance();
         $prioriteTache_viewTypes = $this->getViewTypes();
         $prioriteTache_partialViewName = $this->getPartialViewName($prioriteTache_viewType);
-    
+        $prioriteTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.prioriteTache.stats', $prioriteTaches_stats);
     
@@ -156,7 +162,9 @@ class BasePrioriteTacheService extends BaseService
             'prioriteTaches_data',
             'prioriteTaches_stats',
             'prioriteTaches_filters',
-            'prioriteTache_instance'
+            'prioriteTache_instance',
+            'prioriteTache_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +175,7 @@ class BasePrioriteTacheService extends BaseService
             'prioriteTache_viewType' => $prioriteTache_viewType,
             'prioriteTache_viewTypes' => $prioriteTache_viewTypes,
             'prioriteTache_partialViewName' => $prioriteTache_partialViewName,
+            'contextKey' => $contextKey,
             'prioriteTache_compact_value' => $compact_value
         ];
     }

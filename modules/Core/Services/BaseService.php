@@ -47,6 +47,18 @@ abstract class BaseService implements ServiceInterface
     protected $totalFilteredCount;
 
     /**
+     * Le titre à afficher dnas la page Index
+     *
+     * @var [type]
+     */
+    protected $title;
+
+    /** Configuration pour afficher CRUD sur une source donnée Query à partie d'une méthode 
+     * qui retourne un objet de type builder
+     */
+    protected $dataSources = [];
+
+    /**
      * Méthode abstraite pour obtenir les champs recherchables.
      *
      * @return array
@@ -82,7 +94,7 @@ abstract class BaseService implements ServiceInterface
 
     public function getData(string $filter, $value)
     {
-        $query = $this->model->newQuery(); // Créer une nouvelle requête
+        $query = $this->allQuery(); // Créer une nouvelle requête
 
         // Construire le tableau de filtres pour la méthode `filter()`
         $filters = [$filter => $value];

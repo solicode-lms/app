@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $widgetOperation_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="widgetOperation-crud" class="crud">
     @section('widgetOperation-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="widgetOperation-crud-header" icon="fas fa-calculator"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widgetOperation.plural') }}"
+        title="{{ $widgetOperation_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

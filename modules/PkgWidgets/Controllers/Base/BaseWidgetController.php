@@ -7,6 +7,7 @@ use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgWidgets\Services\WidgetOperationService;
+use Modules\PkgWidgets\Services\SectionWidgetService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
 use Illuminate\Http\Request;
@@ -26,16 +27,18 @@ class BaseWidgetController extends AdminController
     protected $roleService;
     protected $sysModelService;
     protected $widgetOperationService;
+    protected $sectionWidgetService;
     protected $sysColorService;
     protected $widgetTypeService;
 
-    public function __construct(WidgetService $widgetService, RoleService $roleService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, SysColorService $sysColorService, WidgetTypeService $widgetTypeService) {
+    public function __construct(WidgetService $widgetService, RoleService $roleService, SysModelService $sysModelService, WidgetOperationService $widgetOperationService, SectionWidgetService $sectionWidgetService, SysColorService $sysColorService, WidgetTypeService $widgetTypeService) {
         parent::__construct();
         $this->service  =  $widgetService;
         $this->widgetService = $widgetService;
         $this->roleService = $roleService;
         $this->sysModelService = $sysModelService;
         $this->widgetOperationService = $widgetOperationService;
+        $this->sectionWidgetService = $sectionWidgetService;
         $this->sysColorService = $sysColorService;
         $this->widgetTypeService = $widgetTypeService;
     }
@@ -63,7 +66,11 @@ class BaseWidgetController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($widget_partialViewName, $widget_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgWidgets::widget._index', $widget_compact_value)->render();
+            }else{
+                return view($widget_partialViewName, $widget_compact_value)->render();
+            }
         }
 
         return view('PkgWidgets::widget.index', $widget_compact_value);
@@ -79,11 +86,12 @@ class BaseWidgetController extends AdminController
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
+        $sectionWidgets = $this->sectionWidgetService->all();
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
         }
-        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
     }
     public function store(WidgetRequest $request) {
         $validatedData = $request->validated();
@@ -121,13 +129,14 @@ class BaseWidgetController extends AdminController
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
+        $sectionWidgets = $this->sectionWidgetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
+            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
+        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
 
     }
     public function edit(string $id) {
@@ -143,13 +152,14 @@ class BaseWidgetController extends AdminController
         $widgetOperations = $this->widgetOperationService->all();
         $sysColors = $this->sysColorService->all();
         $roles = $this->roleService->all();
+        $sectionWidgets = $this->sectionWidgetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
+            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sysColors', 'widgetTypes'),));
+        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
 
 
     }

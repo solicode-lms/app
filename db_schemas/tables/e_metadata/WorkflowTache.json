@@ -224,5 +224,43 @@
         },
         "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_nature",
+        "value_json": {
+            "nature": "couleur"
+        },
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "nature"
     }
 ]

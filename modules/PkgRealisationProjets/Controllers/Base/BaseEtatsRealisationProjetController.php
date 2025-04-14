@@ -5,6 +5,8 @@
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\Core\Services\SysColorService;
+use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -20,12 +22,16 @@ class BaseEtatsRealisationProjetController extends AdminController
 {
     protected $etatsRealisationProjetService;
     protected $formateurService;
+    protected $sysColorService;
+    protected $workflowProjetService;
 
-    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService) {
+    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService, SysColorService $sysColorService, WorkflowProjetService $workflowProjetService) {
         parent::__construct();
         $this->service  =  $etatsRealisationProjetService;
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
         $this->formateurService = $formateurService;
+        $this->sysColorService = $sysColorService;
+        $this->workflowProjetService = $workflowProjetService;
     }
 
     public function index(Request $request) {
@@ -55,7 +61,11 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($etatsRealisationProjet_partialViewName, $etatsRealisationProjet_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgRealisationProjets::etatsRealisationProjet._index', $etatsRealisationProjet_compact_value)->render();
+            }else{
+                return view($etatsRealisationProjet_partialViewName, $etatsRealisationProjet_compact_value)->render();
+            }
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.index', $etatsRealisationProjet_compact_value);
@@ -71,11 +81,13 @@ class BaseEtatsRealisationProjetController extends AdminController
         
 
         $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
     }
     public function store(EtatsRealisationProjetRequest $request) {
         $validatedData = $request->validated();
@@ -110,13 +122,15 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
 
     }
     public function edit(string $id) {
@@ -129,13 +143,15 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
+        $workflowProjets = $this->workflowProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
 
 
     }

@@ -55,7 +55,11 @@ class BaseNiveauDifficulteController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($niveauDifficulte_partialViewName, $niveauDifficulte_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCompetences::niveauDifficulte._index', $niveauDifficulte_compact_value)->render();
+            }else{
+                return view($niveauDifficulte_partialViewName, $niveauDifficulte_compact_value)->render();
+            }
         }
 
         return view('PkgCompetences::niveauDifficulte.index', $niveauDifficulte_compact_value);

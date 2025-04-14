@@ -43,6 +43,7 @@ class BaseRealisationChapitreService extends BaseService
     {
         parent::__construct(new RealisationChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::realisationChapitre.plural');
     }
 
 
@@ -52,15 +53,19 @@ class BaseRealisationChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('realisationChapitre');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('chapitre_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::chapitre.plural"), 'chapitre_id', \Modules\PkgAutoformation\Models\Chapitre::class, 'nom');
         }
+
         if (!array_key_exists('realisation_formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::realisationFormation.plural"), 'realisation_formation_id', \Modules\PkgAutoformation\Models\RealisationFormation::class, 'id');
         }
+
         if (!array_key_exists('etat_chapitre_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::etatChapitre.plural"), 'etat_chapitre_id', \Modules\PkgAutoformation\Models\EtatChapitre::class, 'nom');
         }
+
     }
 
     /**
@@ -128,7 +133,9 @@ class BaseRealisationChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('realisationChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.realisationChapitre.visible", 1);
+            $this->viewState->set("scope.realisationChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationChapitre.visible");
         }
         
         // Récupération des données
@@ -138,7 +145,8 @@ class BaseRealisationChapitreService extends BaseService
         $realisationChapitre_instance = $this->createInstance();
         $realisationChapitre_viewTypes = $this->getViewTypes();
         $realisationChapitre_partialViewName = $this->getPartialViewName($realisationChapitre_viewType);
-    
+        $realisationChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationChapitre.stats', $realisationChapitres_stats);
     
@@ -149,7 +157,9 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitres_data',
             'realisationChapitres_stats',
             'realisationChapitres_filters',
-            'realisationChapitre_instance'
+            'realisationChapitre_instance',
+            'realisationChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +170,7 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitre_viewType' => $realisationChapitre_viewType,
             'realisationChapitre_viewTypes' => $realisationChapitre_viewTypes,
             'realisationChapitre_partialViewName' => $realisationChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'realisationChapitre_compact_value' => $compact_value
         ];
     }

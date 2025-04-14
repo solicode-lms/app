@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::module.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $module_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="module-crud" class="crud">
     @section('module-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="module-crud-header" icon="fas fa-puzzle-piece"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::module.plural') }}"
+        title="{{ $module_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

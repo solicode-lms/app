@@ -43,6 +43,7 @@ class BaseModuleService extends BaseService
     {
         parent::__construct(new Module());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::module.plural');
     }
 
 
@@ -52,9 +53,11 @@ class BaseModuleService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('module');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('filiere_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
         }
+
     }
 
     /**
@@ -128,7 +131,9 @@ class BaseModuleService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('module_view_type') === 'widgets') {
-            $this->viewState->set("filter.module.visible", 1);
+            $this->viewState->set("scope.module.visible", 1);
+        }else{
+            $this->viewState->remove("scope.module.visible");
         }
         
         // Récupération des données
@@ -138,7 +143,8 @@ class BaseModuleService extends BaseService
         $module_instance = $this->createInstance();
         $module_viewTypes = $this->getViewTypes();
         $module_partialViewName = $this->getPartialViewName($module_viewType);
-    
+        $module_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.module.stats', $modules_stats);
     
@@ -149,7 +155,9 @@ class BaseModuleService extends BaseService
             'modules_data',
             'modules_stats',
             'modules_filters',
-            'module_instance'
+            'module_instance',
+            'module_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +168,7 @@ class BaseModuleService extends BaseService
             'module_viewType' => $module_viewType,
             'module_viewTypes' => $module_viewTypes,
             'module_partialViewName' => $module_partialViewName,
+            'contextKey' => $contextKey,
             'module_compact_value' => $compact_value
         ];
     }

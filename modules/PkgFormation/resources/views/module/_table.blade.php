@@ -2,14 +2,14 @@
 
 @section('module-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="modules-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
-                <x-sortable-column field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
-                <x-sortable-column field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
-                <x-sortable-column field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
-                <x-sortable-column field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
+                <x-sortable-column width="17"  field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
+                <x-sortable-column width="17"  field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
+                <x-sortable-column width="17"  field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
+                <x-sortable-column width="17" field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
+                <x-sortable-column width="17"  field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,58 +18,51 @@
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
-                    <td>
-                     <span @if(strlen($module->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $module->code }}" 
-                        @endif>
-                        {{ Str::limit($module->code, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
+                    <x-field :entity="$module" field="code">
+                        {{ $module->code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($module->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $module->nom }}" 
-                        @endif>
-                        {{ Str::limit($module->nom, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->nom }}" >
+                    <x-field :entity="$module" field="nom">
+                        {{ $module->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($module->masse_horaire) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $module->masse_horaire }}" 
-                        @endif>
-                        {{ Str::limit($module->masse_horaire, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
+                    <x-field :entity="$module" field="masse_horaire">
+                        {{ $module->masse_horaire }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($module->filiere) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $module->filiere }}" 
-                        @endif>
-                        {{ Str::limit($module->filiere, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->filiere }}" >
+                    <x-field :entity="$module" field="filiere">
+                       
+                         {{  $module->filiere }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->competences }}" >
+                    <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)
-                                <li @if(strlen($competence) > 40) data-toggle="tooltip" title="{{$competence}}" @endif>@limit($competence, 40)</li>
+                                <li>{{$competence}} </li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-module')
-                        @can('view', $module)
-                            <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-module')
                         @can('update', $module)
                             <a href="{{ route('modules.edit', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-module')
+                        @can('view', $module)
+                            <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

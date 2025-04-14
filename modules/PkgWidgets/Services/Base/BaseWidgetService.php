@@ -28,6 +28,7 @@ class BaseWidgetService extends BaseService
         'color',
         'icon',
         'sys_color_id',
+        'section_widget_id',
         'parameters'
     ];
 
@@ -48,6 +49,7 @@ class BaseWidgetService extends BaseService
     {
         parent::__construct(new Widget());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgWidgets::widget.plural');
     }
 
 
@@ -57,12 +59,19 @@ class BaseWidgetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widget');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('type_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widgetType.plural"), 'type_id', \Modules\PkgWidgets\Models\WidgetType::class, 'type');
         }
+
         if (!array_key_exists('roles', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgAutorisation::role.plural"), 'role_id', \Modules\PkgAutorisation\Models\Role::class, 'name');
         }
+
+        if (!array_key_exists('section_widget_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::sectionWidget.plural"), 'section_widget_id', \Modules\PkgWidgets\Models\SectionWidget::class, 'titre');
+        }
+
     }
 
     /**
@@ -130,7 +139,9 @@ class BaseWidgetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widget_view_type') === 'widgets') {
-            $this->viewState->set("filter.widget.visible", 1);
+            $this->viewState->set("scope.widget.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widget.visible");
         }
         
         // Récupération des données
@@ -140,7 +151,8 @@ class BaseWidgetService extends BaseService
         $widget_instance = $this->createInstance();
         $widget_viewTypes = $this->getViewTypes();
         $widget_partialViewName = $this->getPartialViewName($widget_viewType);
-    
+        $widget_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widget.stats', $widgets_stats);
     
@@ -151,7 +163,9 @@ class BaseWidgetService extends BaseService
             'widgets_data',
             'widgets_stats',
             'widgets_filters',
-            'widget_instance'
+            'widget_instance',
+            'widget_title',
+            'contextKey'
         );
     
         return [
@@ -162,6 +176,7 @@ class BaseWidgetService extends BaseService
             'widget_viewType' => $widget_viewType,
             'widget_viewTypes' => $widget_viewTypes,
             'widget_partialViewName' => $widget_partialViewName,
+            'contextKey' => $contextKey,
             'widget_compact_value' => $compact_value
         ];
     }

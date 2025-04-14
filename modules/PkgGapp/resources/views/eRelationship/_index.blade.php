@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eRelationship.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eRelationship_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eRelationship-crud" class="crud">
     @section('eRelationship-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="eRelationship-crud-header" icon="fas fa-directions"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eRelationship.plural') }}"
+        title="{{ $eRelationship_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -43,6 +43,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     {
         parent::__construct(new CommentaireRealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::commentaireRealisationTache.plural');
     }
 
 
@@ -52,15 +53,19 @@ class BaseCommentaireRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('commentaireRealisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
         }
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
         if (!array_key_exists('apprenant_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
         }
+
     }
 
     /**
@@ -128,7 +133,9 @@ class BaseCommentaireRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('commentaireRealisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.commentaireRealisationTache.visible", 1);
+            $this->viewState->set("scope.commentaireRealisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.commentaireRealisationTache.visible");
         }
         
         // Récupération des données
@@ -138,7 +145,8 @@ class BaseCommentaireRealisationTacheService extends BaseService
         $commentaireRealisationTache_instance = $this->createInstance();
         $commentaireRealisationTache_viewTypes = $this->getViewTypes();
         $commentaireRealisationTache_partialViewName = $this->getPartialViewName($commentaireRealisationTache_viewType);
-    
+        $commentaireRealisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.commentaireRealisationTache.stats', $commentaireRealisationTaches_stats);
     
@@ -149,7 +157,9 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTaches_data',
             'commentaireRealisationTaches_stats',
             'commentaireRealisationTaches_filters',
-            'commentaireRealisationTache_instance'
+            'commentaireRealisationTache_instance',
+            'commentaireRealisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -160,6 +170,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTache_viewType' => $commentaireRealisationTache_viewType,
             'commentaireRealisationTache_viewTypes' => $commentaireRealisationTache_viewTypes,
             'commentaireRealisationTache_partialViewName' => $commentaireRealisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'commentaireRealisationTache_compact_value' => $compact_value
         ];
     }

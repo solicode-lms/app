@@ -55,7 +55,11 @@ class BaseResourceController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($resource_partialViewName, $resource_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCreationProjet::resource._index', $resource_compact_value)->render();
+            }else{
+                return view($resource_partialViewName, $resource_compact_value)->render();
+            }
         }
 
         return view('PkgCreationProjet::resource.index', $resource_compact_value);

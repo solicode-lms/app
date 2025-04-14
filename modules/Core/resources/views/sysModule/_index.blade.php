@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysModule.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $sysModule_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="sysModule-crud" class="crud">
     @section('sysModule-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="sysModule-crud-header" icon="fas fa-box"  
         iconColor="text-info"
-        title="{{ __('Core::sysModule.plural') }}"
+        title="{{ $sysModule_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

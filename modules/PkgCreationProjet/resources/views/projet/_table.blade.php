@@ -2,15 +2,15 @@
 
 @section('projet-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="projets-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+                <x-sortable-column width="21.25"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column width="21.25"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
-                <x-sortable-column field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+                <x-sortable-column width="21.25"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="21.25" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,49 +18,50 @@
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
-                    <td>
-                     <span @if(strlen($projet->titre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $projet->titre }}" 
-                        @endif>
-                        {{ Str::limit($projet->titre, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
+                    <x-field :entity="$projet" field="titre">
+                        {{ $projet->titre }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->transfertCompetences }}" >
+                    <x-field :entity="$projet" field="transfertCompetences">
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
-                                <li @if(strlen($transfertCompetence) > 40) data-toggle="tooltip" title="{{$transfertCompetence}}" @endif>@limit($transfertCompetence, 40)</li>
+                                <li>{{$transfertCompetence}} </li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
+                    <x-field :entity="$projet" field="affectationProjets">
                         <ul>
                             @foreach ($projet->affectationProjets as $affectationProjet)
-                                <li @if(strlen($affectationProjet) > 40) data-toggle="tooltip" title="{{$affectationProjet}}" @endif>@limit($affectationProjet, 40)</li>
+                                <li>{{$affectationProjet}} </li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($projet->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $projet->formateur }}" 
-                        @endif>
-                        {{ Str::limit($projet->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
+                    <x-field :entity="$projet" field="formateur">
+                       
+                         {{  $projet->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-projet')
-                        @can('view', $projet)
-                            <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-projet')
                         @can('update', $projet)
                             <a href="{{ route('projets.edit', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-projet')
+                        @can('view', $projet)
+                            <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

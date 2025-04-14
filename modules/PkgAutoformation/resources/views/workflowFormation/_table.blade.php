@@ -2,12 +2,12 @@
 
 @section('workflowFormation-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="workflowFormations-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="code" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}" />
-                <x-sortable-column field="titre" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="workflowFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="code" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}" />
+                <x-sortable-column width="28.333333333333332"  field="titre" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}" />
+                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="workflowFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,43 +15,39 @@
             @section('workflowFormation-table-tbody')
             @foreach ($workflowFormations_data as $workflowFormation)
                 <tr id="workflowFormation-row-{{$workflowFormation->id}}">
-                    <td>
-                     <span @if(strlen($workflowFormation->code) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $workflowFormation->code }}" 
-                        @endif>
-                        {{ Str::limit($workflowFormation->code, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->code }}" >
+                    <x-field :entity="$workflowFormation" field="code">
+                        {{ $workflowFormation->code }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($workflowFormation->titre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $workflowFormation->titre }}" 
-                        @endif>
-                        {{ Str::limit($workflowFormation->titre, 40) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->titre }}" >
+                    <x-field :entity="$workflowFormation" field="titre">
+                        {{ $workflowFormation->titre }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($workflowFormation->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $workflowFormation->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($workflowFormation->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->sysColor }}" >
+                    <x-field :entity="$workflowFormation" field="sysColor">
+                        <x-badge 
+                        :text="$workflowFormation->sysColor->name ?? ''" 
+                        :background="$workflowFormation->sysColor->hex ?? '#6c757d'" 
+                        />
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-workflowFormation')
-                        @can('view', $workflowFormation)
-                            <a href="{{ route('workflowFormations.show', ['workflowFormation' => $workflowFormation->id]) }}" data-id="{{$workflowFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-workflowFormation')
                         @can('update', $workflowFormation)
                             <a href="{{ route('workflowFormations.edit', ['workflowFormation' => $workflowFormation->id]) }}" data-id="{{$workflowFormation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-workflowFormation')
+                        @can('view', $workflowFormation)
+                            <a href="{{ route('workflowFormations.show', ['workflowFormation' => $workflowFormation->id]) }}" data-id="{{$workflowFormation->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

@@ -208,15 +208,9 @@
     },
     {
         "reference": "e_metadata_computableFields",
+        "value_boolean": 0,
         "value_float": 0,
-        "value_json": [
-            {
-                "name": "Value",
-                "label": "Value",
-                "method": "getValue",
-                "dispalyOrder": 10
-            }
-        ],
+        "value_json": [],
         "e_model_reference": "e_metadata",
         "e_metadata_definition_reference": "computableFields"
     },

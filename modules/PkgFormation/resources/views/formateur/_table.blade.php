@@ -2,13 +2,13 @@
 
 @section('formateur-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="formateurs-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
-                <x-sortable-column field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
-                <x-sortable-column field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
-                <x-sortable-column field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+                <x-sortable-column width="21.25"  field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
+                <x-sortable-column width="21.25"  field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
+                <x-sortable-column width="21.25"  field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
+                <x-sortable-column width="21.25"  field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,37 +16,35 @@
             @section('formateur-table-tbody')
             @foreach ($formateurs_data as $formateur)
                 <tr id="formateur-row-{{$formateur->id}}">
-                    <td>
-                     <span @if(strlen($formateur->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $formateur->nom }}" 
-                        @endif>
-                        {{ Str::limit($formateur->nom, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->nom }}" >
+                    <x-field :entity="$formateur" field="nom">
+                        {{ $formateur->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($formateur->prenom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $formateur->prenom }}" 
-                        @endif>
-                        {{ Str::limit($formateur->prenom, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->prenom }}" >
+                    <x-field :entity="$formateur" field="prenom">
+                        {{ $formateur->prenom }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->specialites }}" >
+                    <x-field :entity="$formateur" field="specialites">
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
-                                <li @if(strlen($specialite) > 40) data-toggle="tooltip" title="{{$specialite}}"  @endif>@limit($specialite, 40)</li>
+                                <li @if(strlen($specialite) > 30) data-toggle="tooltip" title="{{$specialite}}"  @endif>@limit($specialite, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->groupes }}" >
+                    <x-field :entity="$formateur" field="groupes">
                         <ul>
                             @foreach ($formateur->groupes as $groupe)
-                                <li @if(strlen($groupe) > 40) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 40)</li>
+                                <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
                        @can('initPassword-formateur')
                         <a 
                         data-toggle="tooltip" 
@@ -60,17 +58,19 @@
                         </a>
                         @endcan
                         
-                        @can('show-formateur')
-                        @can('view', $formateur)
-                            <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-formateur')
                         @can('update', $formateur)
                             <a href="{{ route('formateurs.edit', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-formateur')
+                        @can('view', $formateur)
+                            <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

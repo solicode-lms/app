@@ -17,9 +17,13 @@ use Modules\Core\Models\SysModel;
 use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
+use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgAutoformation\Models\WorkflowChapitre;
 use Modules\PkgAutoformation\Models\WorkflowFormation;
+use Modules\PkgRealisationProjets\Models\WorkflowProjet;
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 
 /**
  * Classe BaseSysColor
@@ -106,6 +110,24 @@ class BaseSysColor extends BaseModel
      *
      * @return HasMany
      */
+    public function etatsRealisationProjets(): HasMany
+    {
+        return $this->hasMany(EtatsRealisationProjet::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function sectionWidgets(): HasMany
+    {
+        return $this->hasMany(SectionWidget::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
     public function widgets(): HasMany
     {
         return $this->hasMany(Widget::class, 'sys_color_id', 'id');
@@ -127,6 +149,24 @@ class BaseSysColor extends BaseModel
     public function workflowFormations(): HasMany
     {
         return $this->hasMany(WorkflowFormation::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function workflowProjets(): HasMany
+    {
+        return $this->hasMany(WorkflowProjet::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function workflowTaches(): HasMany
+    {
+        return $this->hasMany(WorkflowTache::class, 'sys_color_id', 'id');
     }
 
 

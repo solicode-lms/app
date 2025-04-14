@@ -1,0 +1,25 @@
+{
+    "link": {
+      "route_name": "realisationTaches.index",
+      "route_params": {
+        "filter.realisationTache.EtatRealisationTache.WorkflowTache.Code": "EN_COURS"
+      }
+    },
+    "roles": {
+      "admin": {
+        "etatRealisationTache.workflowTache.code": "EN_COURS"
+      },
+      "apprenant": {
+        "realisationProjet.apprenant.user_id": "#user_id",
+        "etatRealisationTache.workflowTache.code": "EN_COURS"
+      },
+      "formateur": {
+        "etatRealisationTache.workflowTache.code": "EN_COURS",
+        "realisationProjet.affectationProjet.projet.formateur.user_id": "#user_id"
+      }
+    },
+    "tableUI": {
+      "Id": "id",
+      "titre": "tache.titre"
+    }
+  }

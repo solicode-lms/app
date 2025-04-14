@@ -41,6 +41,7 @@ class BaseNationaliteService extends BaseService
     {
         parent::__construct(new Nationalite());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::nationalite.plural');
     }
 
 
@@ -50,6 +51,7 @@ class BaseNationaliteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('nationalite');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +119,9 @@ class BaseNationaliteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('nationalite_view_type') === 'widgets') {
-            $this->viewState->set("filter.nationalite.visible", 1);
+            $this->viewState->set("scope.nationalite.visible", 1);
+        }else{
+            $this->viewState->remove("scope.nationalite.visible");
         }
         
         // Récupération des données
@@ -127,7 +131,8 @@ class BaseNationaliteService extends BaseService
         $nationalite_instance = $this->createInstance();
         $nationalite_viewTypes = $this->getViewTypes();
         $nationalite_partialViewName = $this->getPartialViewName($nationalite_viewType);
-    
+        $nationalite_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.nationalite.stats', $nationalites_stats);
     
@@ -138,7 +143,9 @@ class BaseNationaliteService extends BaseService
             'nationalites_data',
             'nationalites_stats',
             'nationalites_filters',
-            'nationalite_instance'
+            'nationalite_instance',
+            'nationalite_title',
+            'contextKey'
         );
     
         return [
@@ -149,6 +156,7 @@ class BaseNationaliteService extends BaseService
             'nationalite_viewType' => $nationalite_viewType,
             'nationalite_viewTypes' => $nationalite_viewTypes,
             'nationalite_partialViewName' => $nationalite_partialViewName,
+            'contextKey' => $contextKey,
             'nationalite_compact_value' => $compact_value
         ];
     }

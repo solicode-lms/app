@@ -2,10 +2,10 @@
 
 @section('sysColor-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="sysColors-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="sysColor" label="{{ ucfirst(__('Core::sysColor.name')) }}" />
+                <x-sortable-column width="85"  field="name" modelname="sysColor" label="{{ ucfirst(__('Core::sysColor.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
-                    <td>
-                     <span @if(strlen($sysColor->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysColor->name }}" 
-                        @endif>
-                        {{ Str::limit($sysColor->name, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
+                    <x-field :entity="$sysColor" field="name">
+                        {{ $sysColor->name }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-sysColor')
-                        @can('view', $sysColor)
-                            <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-sysColor')
                         @can('update', $sysColor)
                             <a href="{{ route('sysColors.edit', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-sysColor')
+                        @can('view', $sysColor)
+                            <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

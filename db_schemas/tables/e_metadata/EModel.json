@@ -282,15 +282,9 @@
     },
     {
         "reference": "e_models_computableFields",
+        "value_boolean": 0,
         "value_float": 0,
-        "value_json": [
-            {
-                "name": "icon",
-                "label": "Icône",
-                "method": "getIcone",
-                "dispalyOrder": 2
-            }
-        ],
+        "value_json": [],
         "e_model_reference": "e_models",
         "e_metadata_definition_reference": "computableFields"
     },
@@ -390,6 +384,32 @@
             "nature": "icone"
         },
         "e_data_field_reference": "EModel_icon",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EModel-icone_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel-icone",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EModel-icone_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel-icone",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EModel-icone_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EModel-icone",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EModel-icone_nature",
+        "value_json": {
+            "nature": "icone"
+        },
+        "e_data_field_reference": "EModel-icone",
         "e_metadata_definition_reference": "nature"
     }
 ]

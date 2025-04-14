@@ -22,6 +22,8 @@ class BaseEtatsRealisationProjetService extends BaseService
         'formateur_id',
         'titre',
         'description',
+        'sys_color_id',
+        'workflow_projet_id',
         'is_editable_by_formateur'
     ];
 
@@ -42,6 +44,7 @@ class BaseEtatsRealisationProjetService extends BaseService
     {
         parent::__construct(new EtatsRealisationProjet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::etatsRealisationProjet.plural');
     }
 
 
@@ -51,9 +54,19 @@ class BaseEtatsRealisationProjetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('etatsRealisationProjet');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
+        if (!array_key_exists('sys_color_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
+        }
+
+        if (!array_key_exists('workflow_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::workflowProjet.plural"), 'workflow_projet_id', \Modules\PkgRealisationProjets\Models\WorkflowProjet::class, 'code');
+        }
+
     }
 
     /**
@@ -135,7 +148,9 @@ class BaseEtatsRealisationProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('etatsRealisationProjet_view_type') === 'widgets') {
-            $this->viewState->set("filter.etatsRealisationProjet.visible", 1);
+            $this->viewState->set("scope.etatsRealisationProjet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.etatsRealisationProjet.visible");
         }
         
         // Récupération des données
@@ -145,7 +160,8 @@ class BaseEtatsRealisationProjetService extends BaseService
         $etatsRealisationProjet_instance = $this->createInstance();
         $etatsRealisationProjet_viewTypes = $this->getViewTypes();
         $etatsRealisationProjet_partialViewName = $this->getPartialViewName($etatsRealisationProjet_viewType);
-    
+        $etatsRealisationProjet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatsRealisationProjet.stats', $etatsRealisationProjets_stats);
     
@@ -156,7 +172,9 @@ class BaseEtatsRealisationProjetService extends BaseService
             'etatsRealisationProjets_data',
             'etatsRealisationProjets_stats',
             'etatsRealisationProjets_filters',
-            'etatsRealisationProjet_instance'
+            'etatsRealisationProjet_instance',
+            'etatsRealisationProjet_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +185,7 @@ class BaseEtatsRealisationProjetService extends BaseService
             'etatsRealisationProjet_viewType' => $etatsRealisationProjet_viewType,
             'etatsRealisationProjet_viewTypes' => $etatsRealisationProjet_viewTypes,
             'etatsRealisationProjet_partialViewName' => $etatsRealisationProjet_partialViewName,
+            'contextKey' => $contextKey,
             'etatsRealisationProjet_compact_value' => $compact_value
         ];
     }

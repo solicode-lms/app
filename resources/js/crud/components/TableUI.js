@@ -7,6 +7,7 @@ import { DeleteAction } from '../actions/DeleteAction';
 import EventUtil from './../utils/EventUtil';
 import { EntityAction } from './../actions/EntityAction';
 import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
+import { ShowIndexAction } from "../actions/ShowIndexAction";
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -17,6 +18,7 @@ export class TableUI {
         // Initialisation des actions CRUD
         this.entityCreator = new CreateAction(config,this);
         this.entityViewer = new ShowAction(config,this);
+        this.showIndex = new ShowIndexAction(config,this);
         this.entityEditor = new EditAction(config,this);
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
@@ -30,9 +32,11 @@ export class TableUI {
         this.entityCreator.init(); 
         this.entityDeleter.init();
         this.entityViewer.init();
+        this.showIndex.init();
         this.entityAction.init();
         this.handleSorting();
         TableUI.initTooltip();
+        this.initTruncatText();
         this.initWidgets();
 
     }
@@ -84,6 +88,37 @@ export class TableUI {
             this.entityLoader.loadEntities(1, filters); // Recharger la table
         });
     }
+
+ initTruncatText() {
+        // Supprime les tooltips UNIQUEMENT sur les éléments text-truncate
+        $('.text-truncate[data-toggle="tooltip"]').tooltip('dispose');
+    
+        // Parcourt tous les éléments text-truncate
+        $('.text-truncate').each(function () {
+            const $el = $(this);
+            const isTruncated = this.offsetWidth < this.scrollWidth;
+    
+            if (isTruncated) {
+                // Si texte tronqué → on ajoute le tooltip Bootstrap
+                $el.attr('title', $el.text().trim());
+                $el.attr('data-toggle', 'tooltip');
+            } else {
+                // Sinon, on supprime les attributs liés au tooltip
+                $el.removeAttr('title').removeAttr('data-toggle');
+            }
+        });
+    
+        // Réactiver seulement les tooltips sur les éléments text-truncate tronqués
+        $('.text-truncate[data-toggle="tooltip"]').tooltip({
+            placement: 'auto'
+        }).on('shown.bs.tooltip', function () {
+            const $this = $(this);
+            setTimeout(() => {
+                $this.tooltip('hide');
+            }, 3000);
+        });
+    }
+    
 
     static initTooltip(){
 
@@ -147,6 +182,39 @@ export class TableUI {
                 }
             );
         });
+
+        this.widgetStateLocalStorage();
     }
+
+    widgetStateLocalStorage() {
+        document.querySelectorAll('[data-card-widget="collapse"]').forEach(button => {
+            const card = button.closest('.card');
+            const key = button.dataset.storeKey;
+    
+            if (!card || !key) return;
+    
+            // 🟢 Appliquer l'état initial
+            const savedState = localStorage.getItem(key);
+            if (savedState === 'collapsed' && !card.classList.contains('collapsed-card')) {
+                button.click();
+            }
+    
+            // 👁️ Observer le changement de classe collapsed-card
+            const observer = new MutationObserver((mutationsList) => {
+                for (const mutation of mutationsList) {
+                    if (mutation.attributeName === 'class') {
+                        if (card.classList.contains('collapsed-card')) {
+                            localStorage.setItem(key, 'collapsed');
+                        } else {
+                            localStorage.setItem(key, 'expanded');
+                        }
+                    }
+                }
+            });
+    
+            observer.observe(card, { attributes: true });
+        });
+    }
+    
 
 }

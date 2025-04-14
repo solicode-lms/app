@@ -51,6 +51,7 @@ class BaseERelationshipService extends BaseService
     {
         parent::__construct(new ERelationship());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eRelationship.plural');
     }
 
 
@@ -60,15 +61,19 @@ class BaseERelationshipService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eRelationship');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('type', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'type', 'type' => 'String', 'label' => 'type'];
         }
+
         if (!array_key_exists('source_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'source_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
         if (!array_key_exists('target_e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'target_e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
     }
 
     /**
@@ -136,7 +141,9 @@ class BaseERelationshipService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eRelationship_view_type') === 'widgets') {
-            $this->viewState->set("filter.eRelationship.visible", 1);
+            $this->viewState->set("scope.eRelationship.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eRelationship.visible");
         }
         
         // Récupération des données
@@ -146,7 +153,8 @@ class BaseERelationshipService extends BaseService
         $eRelationship_instance = $this->createInstance();
         $eRelationship_viewTypes = $this->getViewTypes();
         $eRelationship_partialViewName = $this->getPartialViewName($eRelationship_viewType);
-    
+        $eRelationship_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eRelationship.stats', $eRelationships_stats);
     
@@ -157,7 +165,9 @@ class BaseERelationshipService extends BaseService
             'eRelationships_data',
             'eRelationships_stats',
             'eRelationships_filters',
-            'eRelationship_instance'
+            'eRelationship_instance',
+            'eRelationship_title',
+            'contextKey'
         );
     
         return [
@@ -168,6 +178,7 @@ class BaseERelationshipService extends BaseService
             'eRelationship_viewType' => $eRelationship_viewType,
             'eRelationship_viewTypes' => $eRelationship_viewTypes,
             'eRelationship_partialViewName' => $eRelationship_partialViewName,
+            'contextKey' => $contextKey,
             'eRelationship_compact_value' => $compact_value
         ];
     }

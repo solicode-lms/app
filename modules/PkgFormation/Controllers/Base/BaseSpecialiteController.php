@@ -51,7 +51,11 @@ class BaseSpecialiteController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($specialite_partialViewName, $specialite_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgFormation::specialite._index', $specialite_compact_value)->render();
+            }else{
+                return view($specialite_partialViewName, $specialite_compact_value)->render();
+            }
         }
 
         return view('PkgFormation::specialite.index', $specialite_compact_value);

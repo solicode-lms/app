@@ -40,7 +40,8 @@
         "widget_operations",
         "widget_types",
         "widget_utilisateurs",
-        "role_widget"
+        "role_widget",
+        "section_widgets"
 ]
 },
 
@@ -101,6 +102,7 @@
     "name": "PkgRealisationProjets",
     "tables": [
         "etats_realisation_projets",
+        "workflow_projets",
         "affectation_projets",
         "realisation_projets",
         "livrables_realisations",

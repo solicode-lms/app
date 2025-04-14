@@ -41,6 +41,7 @@ class BaseAnneeFormationService extends BaseService
     {
         parent::__construct(new AnneeFormation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::anneeFormation.plural');
     }
 
 
@@ -50,6 +51,7 @@ class BaseAnneeFormationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('anneeFormation');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +119,9 @@ class BaseAnneeFormationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('anneeFormation_view_type') === 'widgets') {
-            $this->viewState->set("filter.anneeFormation.visible", 1);
+            $this->viewState->set("scope.anneeFormation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.anneeFormation.visible");
         }
         
         // Récupération des données
@@ -127,7 +131,8 @@ class BaseAnneeFormationService extends BaseService
         $anneeFormation_instance = $this->createInstance();
         $anneeFormation_viewTypes = $this->getViewTypes();
         $anneeFormation_partialViewName = $this->getPartialViewName($anneeFormation_viewType);
-    
+        $anneeFormation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.anneeFormation.stats', $anneeFormations_stats);
     
@@ -138,7 +143,9 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormations_data',
             'anneeFormations_stats',
             'anneeFormations_filters',
-            'anneeFormation_instance'
+            'anneeFormation_instance',
+            'anneeFormation_title',
+            'contextKey'
         );
     
         return [
@@ -149,6 +156,7 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormation_viewType' => $anneeFormation_viewType,
             'anneeFormation_viewTypes' => $anneeFormation_viewTypes,
             'anneeFormation_partialViewName' => $anneeFormation_partialViewName,
+            'contextKey' => $contextKey,
             'anneeFormation_compact_value' => $compact_value
         ];
     }

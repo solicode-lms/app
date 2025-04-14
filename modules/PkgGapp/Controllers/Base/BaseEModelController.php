@@ -53,7 +53,11 @@ class BaseEModelController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($eModel_partialViewName, $eModel_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGapp::eModel._index', $eModel_compact_value)->render();
+            }else{
+                return view($eModel_partialViewName, $eModel_compact_value)->render();
+            }
         }
 
         return view('PkgGapp::eModel.index', $eModel_compact_value);

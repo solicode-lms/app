@@ -44,6 +44,7 @@ class BaseAffectationProjetService extends BaseService
     {
         parent::__construct(new AffectationProjet());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgRealisationProjets::affectationProjet.plural');
     }
 
 
@@ -53,12 +54,15 @@ class BaseAffectationProjetService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('affectationProjet');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
         if (!array_key_exists('groupe_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
         }
+
     }
 
     /**
@@ -140,7 +144,9 @@ class BaseAffectationProjetService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('affectationProjet_view_type') === 'widgets') {
-            $this->viewState->set("filter.affectationProjet.visible", 1);
+            $this->viewState->set("scope.affectationProjet.visible", 1);
+        }else{
+            $this->viewState->remove("scope.affectationProjet.visible");
         }
         
         // Récupération des données
@@ -150,7 +156,8 @@ class BaseAffectationProjetService extends BaseService
         $affectationProjet_instance = $this->createInstance();
         $affectationProjet_viewTypes = $this->getViewTypes();
         $affectationProjet_partialViewName = $this->getPartialViewName($affectationProjet_viewType);
-    
+        $affectationProjet_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.affectationProjet.stats', $affectationProjets_stats);
     
@@ -161,7 +168,9 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjets_data',
             'affectationProjets_stats',
             'affectationProjets_filters',
-            'affectationProjet_instance'
+            'affectationProjet_instance',
+            'affectationProjet_title',
+            'contextKey'
         );
     
         return [
@@ -172,6 +181,7 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjet_viewType' => $affectationProjet_viewType,
             'affectationProjet_viewTypes' => $affectationProjet_viewTypes,
             'affectationProjet_partialViewName' => $affectationProjet_partialViewName,
+            'contextKey' => $contextKey,
             'affectationProjet_compact_value' => $compact_value
         ];
     }

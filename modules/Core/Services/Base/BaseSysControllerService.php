@@ -43,6 +43,7 @@ class BaseSysControllerService extends BaseService
     {
         parent::__construct(new SysController());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::sysController.plural');
     }
 
 
@@ -52,9 +53,11 @@ class BaseSysControllerService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('sysController');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('sys_module_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysModule.plural"), 'sys_module_id', \Modules\Core\Models\SysModule::class, 'name');
         }
+
     }
 
     /**
@@ -122,7 +125,9 @@ class BaseSysControllerService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('sysController_view_type') === 'widgets') {
-            $this->viewState->set("filter.sysController.visible", 1);
+            $this->viewState->set("scope.sysController.visible", 1);
+        }else{
+            $this->viewState->remove("scope.sysController.visible");
         }
         
         // Récupération des données
@@ -132,7 +137,8 @@ class BaseSysControllerService extends BaseService
         $sysController_instance = $this->createInstance();
         $sysController_viewTypes = $this->getViewTypes();
         $sysController_partialViewName = $this->getPartialViewName($sysController_viewType);
-    
+        $sysController_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysController.stats', $sysControllers_stats);
     
@@ -143,7 +149,9 @@ class BaseSysControllerService extends BaseService
             'sysControllers_data',
             'sysControllers_stats',
             'sysControllers_filters',
-            'sysController_instance'
+            'sysController_instance',
+            'sysController_title',
+            'contextKey'
         );
     
         return [
@@ -154,6 +162,7 @@ class BaseSysControllerService extends BaseService
             'sysController_viewType' => $sysController_viewType,
             'sysController_viewTypes' => $sysController_viewTypes,
             'sysController_partialViewName' => $sysController_partialViewName,
+            'contextKey' => $contextKey,
             'sysController_compact_value' => $compact_value
         ];
     }

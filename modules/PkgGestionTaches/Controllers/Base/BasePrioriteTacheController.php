@@ -55,7 +55,11 @@ class BasePrioriteTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($prioriteTache_partialViewName, $prioriteTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::prioriteTache._index', $prioriteTache_compact_value)->render();
+            }else{
+                return view($prioriteTache_partialViewName, $prioriteTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::prioriteTache.index', $prioriteTache_compact_value);

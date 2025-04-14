@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::commentaireRealisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $commentaireRealisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="commentaireRealisationTache-crud" class="crud">
     @section('commentaireRealisationTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="commentaireRealisationTache-crud-header" icon="fas fa-comments"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::commentaireRealisationTache.plural') }}"
+        title="{{ $commentaireRealisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

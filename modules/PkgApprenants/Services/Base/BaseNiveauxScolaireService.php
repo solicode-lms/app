@@ -41,6 +41,7 @@ class BaseNiveauxScolaireService extends BaseService
     {
         parent::__construct(new NiveauxScolaire());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::niveauxScolaire.plural');
     }
 
 
@@ -50,6 +51,7 @@ class BaseNiveauxScolaireService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauxScolaire');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -117,7 +119,9 @@ class BaseNiveauxScolaireService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('niveauxScolaire_view_type') === 'widgets') {
-            $this->viewState->set("filter.niveauxScolaire.visible", 1);
+            $this->viewState->set("scope.niveauxScolaire.visible", 1);
+        }else{
+            $this->viewState->remove("scope.niveauxScolaire.visible");
         }
         
         // Récupération des données
@@ -127,7 +131,8 @@ class BaseNiveauxScolaireService extends BaseService
         $niveauxScolaire_instance = $this->createInstance();
         $niveauxScolaire_viewTypes = $this->getViewTypes();
         $niveauxScolaire_partialViewName = $this->getPartialViewName($niveauxScolaire_viewType);
-    
+        $niveauxScolaire_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauxScolaire.stats', $niveauxScolaires_stats);
     
@@ -138,7 +143,9 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaires_data',
             'niveauxScolaires_stats',
             'niveauxScolaires_filters',
-            'niveauxScolaire_instance'
+            'niveauxScolaire_instance',
+            'niveauxScolaire_title',
+            'contextKey'
         );
     
         return [
@@ -149,6 +156,7 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaire_viewType' => $niveauxScolaire_viewType,
             'niveauxScolaire_viewTypes' => $niveauxScolaire_viewTypes,
             'niveauxScolaire_partialViewName' => $niveauxScolaire_partialViewName,
+            'contextKey' => $contextKey,
             'niveauxScolaire_compact_value' => $compact_value
         ];
     }

@@ -52,7 +52,11 @@ class BaseFeatureDomainController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($featureDomain_partialViewName, $featureDomain_compact_value)->render();
+            if($request['showIndex']){
+                return view('Core::featureDomain._index', $featureDomain_compact_value)->render();
+            }else{
+                return view($featureDomain_partialViewName, $featureDomain_compact_value)->render();
+            }
         }
 
         return view('Core::featureDomain.index', $featureDomain_compact_value);

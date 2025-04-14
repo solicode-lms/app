@@ -58,7 +58,11 @@ class BaseRealisationFormationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($realisationFormation_partialViewName, $realisationFormation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgAutoformation::realisationFormation._index', $realisationFormation_compact_value)->render();
+            }else{
+                return view($realisationFormation_partialViewName, $realisationFormation_compact_value)->render();
+            }
         }
 
         return view('PkgAutoformation::realisationFormation.index', $realisationFormation_compact_value);

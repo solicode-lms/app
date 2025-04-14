@@ -13,6 +13,8 @@ use Illuminate\Validation\ValidationException;
 use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
+use Illuminate\Database\Eloquent\Builder;
+
 trait RealisationTacheServiceCrud
 {
 
@@ -27,6 +29,11 @@ trait RealisationTacheServiceCrud
     }
 
     
+
+ 
+
+
+
     public function edit(int $id)
     {
         $entity = $this->model->find($id);

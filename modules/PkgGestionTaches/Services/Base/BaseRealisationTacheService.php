@@ -45,6 +45,7 @@ class BaseRealisationTacheService extends BaseService
     {
         parent::__construct(new RealisationTache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::realisationTache.plural');
     }
 
 
@@ -54,15 +55,19 @@ class BaseRealisationTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('realisationTache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
         }
+
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
+
         if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::etatRealisationTache.plural"), 'etat_realisation_tache_id', \Modules\PkgGestionTaches\Models\EtatRealisationTache::class, 'nom');
         }
+
     }
 
     /**
@@ -144,7 +149,9 @@ class BaseRealisationTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('realisationTache_view_type') === 'widgets') {
-            $this->viewState->set("filter.realisationTache.visible", 1);
+            $this->viewState->set("scope.realisationTache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationTache.visible");
         }
         
         // Récupération des données
@@ -154,7 +161,8 @@ class BaseRealisationTacheService extends BaseService
         $realisationTache_instance = $this->createInstance();
         $realisationTache_viewTypes = $this->getViewTypes();
         $realisationTache_partialViewName = $this->getPartialViewName($realisationTache_viewType);
-    
+        $realisationTache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationTache.stats', $realisationTaches_stats);
     
@@ -165,7 +173,9 @@ class BaseRealisationTacheService extends BaseService
             'realisationTaches_data',
             'realisationTaches_stats',
             'realisationTaches_filters',
-            'realisationTache_instance'
+            'realisationTache_instance',
+            'realisationTache_title',
+            'contextKey'
         );
     
         return [
@@ -176,6 +186,7 @@ class BaseRealisationTacheService extends BaseService
             'realisationTache_viewType' => $realisationTache_viewType,
             'realisationTache_viewTypes' => $realisationTache_viewTypes,
             'realisationTache_partialViewName' => $realisationTache_partialViewName,
+            'contextKey' => $contextKey,
             'realisationTache_compact_value' => $compact_value
         ];
     }

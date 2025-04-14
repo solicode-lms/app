@@ -40,6 +40,7 @@ class BaseWidgetTypeService extends BaseService
     {
         parent::__construct(new WidgetType());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgWidgets::widgetType.plural');
     }
 
 
@@ -49,6 +50,7 @@ class BaseWidgetTypeService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widgetType');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -116,7 +118,9 @@ class BaseWidgetTypeService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetType_view_type') === 'widgets') {
-            $this->viewState->set("filter.widgetType.visible", 1);
+            $this->viewState->set("scope.widgetType.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widgetType.visible");
         }
         
         // Récupération des données
@@ -126,7 +130,8 @@ class BaseWidgetTypeService extends BaseService
         $widgetType_instance = $this->createInstance();
         $widgetType_viewTypes = $this->getViewTypes();
         $widgetType_partialViewName = $this->getPartialViewName($widgetType_viewType);
-    
+        $widgetType_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetType.stats', $widgetTypes_stats);
     
@@ -137,7 +142,9 @@ class BaseWidgetTypeService extends BaseService
             'widgetTypes_data',
             'widgetTypes_stats',
             'widgetTypes_filters',
-            'widgetType_instance'
+            'widgetType_instance',
+            'widgetType_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +155,7 @@ class BaseWidgetTypeService extends BaseService
             'widgetType_viewType' => $widgetType_viewType,
             'widgetType_viewTypes' => $widgetType_viewTypes,
             'widgetType_partialViewName' => $widgetType_partialViewName,
+            'contextKey' => $contextKey,
             'widgetType_compact_value' => $compact_value
         ];
     }

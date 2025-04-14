@@ -61,7 +61,11 @@ class BaseValidationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($validation_partialViewName, $validation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgRealisationProjets::validation._index', $validation_compact_value)->render();
+            }else{
+                return view($validation_partialViewName, $validation_compact_value)->render();
+            }
         }
 
         return view('PkgRealisationProjets::validation.index', $validation_compact_value);

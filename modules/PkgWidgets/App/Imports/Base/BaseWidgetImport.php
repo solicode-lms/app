@@ -66,7 +66,8 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
              'icon' => $values[7] ?? null,
              'sys_color_id' => $values[8] ?? null,
              'reference' => $reference,
-             'parameters' => $values[10] ?? null,
+             'section_widget_id' => $values[10] ?? null,
+             'parameters' => $values[11] ?? null,
         ]);
 
 

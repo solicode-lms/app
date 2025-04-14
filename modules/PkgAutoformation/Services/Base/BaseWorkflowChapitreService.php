@@ -42,6 +42,7 @@ class BaseWorkflowChapitreService extends BaseService
     {
         parent::__construct(new WorkflowChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::workflowChapitre.plural');
     }
 
 
@@ -51,9 +52,11 @@ class BaseWorkflowChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('workflowChapitre');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
     }
 
     /**
@@ -121,7 +124,9 @@ class BaseWorkflowChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('workflowChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.workflowChapitre.visible", 1);
+            $this->viewState->set("scope.workflowChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.workflowChapitre.visible");
         }
         
         // Récupération des données
@@ -131,7 +136,8 @@ class BaseWorkflowChapitreService extends BaseService
         $workflowChapitre_instance = $this->createInstance();
         $workflowChapitre_viewTypes = $this->getViewTypes();
         $workflowChapitre_partialViewName = $this->getPartialViewName($workflowChapitre_viewType);
-    
+        $workflowChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowChapitre.stats', $workflowChapitres_stats);
     
@@ -142,7 +148,9 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitres_data',
             'workflowChapitres_stats',
             'workflowChapitres_filters',
-            'workflowChapitre_instance'
+            'workflowChapitre_instance',
+            'workflowChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -153,6 +161,7 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitre_viewType' => $workflowChapitre_viewType,
             'workflowChapitre_viewTypes' => $workflowChapitre_viewTypes,
             'workflowChapitre_partialViewName' => $workflowChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'workflowChapitre_compact_value' => $compact_value
         ];
     }

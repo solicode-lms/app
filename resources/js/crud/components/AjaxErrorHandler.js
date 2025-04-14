@@ -10,12 +10,25 @@ export class AjaxErrorHandler {
 
         try {
             if (xhr.responseJSON) {
-                if (xhr.responseJSON.errors) {
-                    // Gestion des erreurs de validation (ex: Laravel)
-                    message = Object.values(xhr.responseJSON.errors).flat().join('<br>');
-                } else if (xhr.responseJSON.message) {
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    const errors = xhr.responseJSON.errors;
+                
+                    if (typeof errors === 'object' && errors !== null) {
+                        // Laravel retourne un objet avec des tableaux d'erreurs
+                        message = Object.values(errors).flat().join('<br>');
+                    } else if (Array.isArray(errors)) {
+                        // Cas plus rare : directement un tableau d'erreurs
+                        message = errors.join('<br>');
+                    } else {
+                        // Fallback : erreur inconnue
+                        console.warn("Format inattendu pour xhr.responseJSON.errors", errors);
+                        message = String(errors);
+                    }
+                }  else if (xhr.responseJSON.message) {
                     // Autre erreur renvoyée par l’API
                     message = xhr.responseJSON.message;
+                } else {
+                    message = 'Une erreur est survenue.';
                 }
             } else if (xhr.responseText) {
                 // Vérifier si responseText est un JSON valide

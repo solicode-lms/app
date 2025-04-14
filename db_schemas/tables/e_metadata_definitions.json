@@ -521,7 +521,7 @@
         "name": "ownedByUser",
         "type": "Json",
         "scope": "model",
-        "default_value": "[   {     \"role\": \"formateur\",     \"dataScope\": \"filter\",     \"userModelName\": \"Formateur\",     \"ownerRelationPath\": \"formateur.user\"   } ]",
+        "default_value": "[\r\n  {\r\n    \"role\": \"formateur\",\r\n    \"dataScope\": \"filter\",\r\n    \"userModelName\": \"Formateur\",\r\n    \"ownerRelationPath\": \"RealisationProjet.AffectationProjet.Projet.Formateur.user\"\r\n  },\r\n  {\r\n    \"role\": \"apprenant\",\r\n    \"dataScope\": \"filter\",\r\n    \"userModelName\": \"Apprenant\",\r\n    \"ownerRelationPath\": \"RealisationProjet.Apprenant.user\"\r\n  }\r\n]",
         "groupe": "general",
         "description": "Cette solution permet de gérer dynamiquement les permissions dans Laravel pour que seuls les utilisateurs propriétaires de certains objets puissent effectuer des actions spécifiques (par exemple, modifier, supprimer, ou afficher)",
         "created_at": null,
@@ -713,7 +713,7 @@
         "name": "relationFilter",
         "type": "Json",
         "scope": "field",
-        "default_value": "{}",
+        "default_value": "[\r\n  {\r\n    \"path\": \"Widget.Section_widget_id\",\r\n    \"iModelName\": \"SectionWidget\",\r\n    \"relationType\": \"ManyToOne\"\r\n  }\r\n]",
         "groupe": "filter",
         "description": "<p>Il permet de créer un fichier dynamique en se basant sur une relation(path)</p>",
         "created_at": null,
@@ -764,6 +764,18 @@
         "default_value": null,
         "groupe": "form",
         "description": "",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 65,
+        "reference": "linksAction",
+        "name": "linksAction",
+        "type": "Json",
+        "scope": "model",
+        "default_value": "[\r\n  {\r\n    \"icon\": \"fas fa-file-alt\",\r\n    \"class\": \"btn btn-default btn-sm context-state actionEntity showIndex\",\r\n    \"ordre\": 1,\r\n    \"route\": \"livrablesRealisations.index\",\r\n    \"params\": {\r\n      \"showIndex\": true,\r\n      \"contextKey\":\"livrablesRealisation-index\",\r\n      \"scope.livrablesRealisation.realisation_projet_id\": \"$realisationTache->realisation_projet_id\",\r\n      \"scope.livrable.projet_id\": \"$realisationTache->realisationProjet->affectationProjet->projet_id\"\r\n    },\r\n    \"tooltip\": \"Livrables\",\r\n    \"permission\": \"index-livrablesRealisation\"\r\n  }\r\n]",
+        "groupe": "table",
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Permet d’ajouter un bouton ou une icône dans chaque ligne de la <span style=\"color: #800000;\">`TableUI`</span>, afin de rediriger </div><div>l'utilisateur vers une autre page (souvent un index ou un détail) avec des paramètres dynamiques </div><div>liés à l'entité de la ligne. Cela facilite la navigation vers des vues filtrées ou contextuelles </div><div>(ex. : tâches d’un apprenant, livrables d’un projet).</div><br></div>",
         "created_at": null,
         "updated_at": null
     }

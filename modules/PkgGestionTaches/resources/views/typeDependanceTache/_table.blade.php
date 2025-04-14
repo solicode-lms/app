@@ -2,10 +2,10 @@
 
 @section('typeDependanceTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="typeDependanceTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
+                <x-sortable-column width="85"  field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('typeDependanceTache-table-tbody')
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}">
-                    <td>
-                     <span @if(strlen($typeDependanceTache->titre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $typeDependanceTache->titre }}" 
-                        @endif>
-                        {{ Str::limit($typeDependanceTache->titre, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
+                    <x-field :entity="$typeDependanceTache" field="titre">
+                        {{ $typeDependanceTache->titre }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-typeDependanceTache')
-                        @can('view', $typeDependanceTache)
-                            <a href="{{ route('typeDependanceTaches.show', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-typeDependanceTache')
                         @can('update', $typeDependanceTache)
                             <a href="{{ route('typeDependanceTaches.edit', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-typeDependanceTache')
+                        @can('view', $typeDependanceTache)
+                            <a href="{{ route('typeDependanceTaches.show', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

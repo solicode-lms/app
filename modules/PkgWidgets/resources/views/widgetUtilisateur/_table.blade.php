@@ -2,14 +2,14 @@
 
 @section('widgetUtilisateur-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="widgetUtilisateurs-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
-                <x-sortable-column field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
-                <x-sortable-column field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
-                <x-sortable-column field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
-                <x-sortable-column field="visible" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}" />
+                <x-sortable-column width="17"  field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
+                <x-sortable-column width="17" field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
+                <x-sortable-column width="17"  field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
+                <x-sortable-column width="17"  field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
+                <x-sortable-column width="17"  field="visible" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,56 +17,49 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-                    <td>
-                     <span @if(strlen($widgetUtilisateur->ordre) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->ordre }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->ordre, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
+                    <x-field :entity="$widgetUtilisateur" field="ordre">
+                        {{ $widgetUtilisateur->ordre }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widgetUtilisateur->widget) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->widget }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->widget, 50) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
+                    <x-field :entity="$widgetUtilisateur" field="widget">
+                       
+                         {{  $widgetUtilisateur->widget }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widgetUtilisateur->package) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->package }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->package, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->package }}" >
+                    <x-field :entity="$widgetUtilisateur" field="package">
+                        {{ $widgetUtilisateur->package }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($widgetUtilisateur->type) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $widgetUtilisateur->type }}" 
-                        @endif>
-                        {{ Str::limit($widgetUtilisateur->type, 40) }}
-                    </span>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->type }}" >
+                    <x-field :entity="$widgetUtilisateur" field="type">
+                        {{ $widgetUtilisateur->type }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
+                    <x-field :entity="$widgetUtilisateur" field="visible">
                         <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
                             {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
                         </span>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-widgetUtilisateur')
-                        @can('view', $widgetUtilisateur)
-                            <a href="{{ route('widgetUtilisateurs.show', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-widgetUtilisateur')
                         @can('update', $widgetUtilisateur)
                             <a href="{{ route('widgetUtilisateurs.edit', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-widgetUtilisateur')
+                        @can('view', $widgetUtilisateur)
+                            <a href="{{ route('widgetUtilisateurs.show', ['widgetUtilisateur' => $widgetUtilisateur->id]) }}" data-id="{{$widgetUtilisateur->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

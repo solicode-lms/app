@@ -44,6 +44,7 @@ class BaseTacheService extends BaseService
     {
         parent::__construct(new Tache());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGestionTaches::tache.plural');
     }
 
 
@@ -53,12 +54,15 @@ class BaseTacheService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('tache');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
         if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgGestionTaches\Models\PrioriteTache::class, 'nom');
         }
+
     }
 
     /**
@@ -126,7 +130,9 @@ class BaseTacheService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('tache_view_type') === 'widgets') {
-            $this->viewState->set("filter.tache.visible", 1);
+            $this->viewState->set("scope.tache.visible", 1);
+        }else{
+            $this->viewState->remove("scope.tache.visible");
         }
         
         // Récupération des données
@@ -136,7 +142,8 @@ class BaseTacheService extends BaseService
         $tache_instance = $this->createInstance();
         $tache_viewTypes = $this->getViewTypes();
         $tache_partialViewName = $this->getPartialViewName($tache_viewType);
-    
+        $tache_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.tache.stats', $taches_stats);
     
@@ -147,7 +154,9 @@ class BaseTacheService extends BaseService
             'taches_data',
             'taches_stats',
             'taches_filters',
-            'tache_instance'
+            'tache_instance',
+            'tache_title',
+            'contextKey'
         );
     
         return [
@@ -158,6 +167,7 @@ class BaseTacheService extends BaseService
             'tache_viewType' => $tache_viewType,
             'tache_viewTypes' => $tache_viewTypes,
             'tache_partialViewName' => $tache_partialViewName,
+            'contextKey' => $contextKey,
             'tache_compact_value' => $compact_value
         ];
     }

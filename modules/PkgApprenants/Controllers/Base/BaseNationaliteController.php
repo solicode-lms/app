@@ -49,7 +49,11 @@ class BaseNationaliteController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($nationalite_partialViewName, $nationalite_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::nationalite._index', $nationalite_compact_value)->render();
+            }else{
+                return view($nationalite_partialViewName, $nationalite_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::nationalite.index', $nationalite_compact_value);

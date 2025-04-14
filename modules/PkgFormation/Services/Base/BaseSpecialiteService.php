@@ -40,6 +40,7 @@ class BaseSpecialiteService extends BaseService
     {
         parent::__construct(new Specialite());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgFormation::specialite.plural');
     }
 
 
@@ -49,9 +50,11 @@ class BaseSpecialiteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('specialite');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateurs', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
     }
 
     /**
@@ -119,7 +122,9 @@ class BaseSpecialiteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('specialite_view_type') === 'widgets') {
-            $this->viewState->set("filter.specialite.visible", 1);
+            $this->viewState->set("scope.specialite.visible", 1);
+        }else{
+            $this->viewState->remove("scope.specialite.visible");
         }
         
         // Récupération des données
@@ -129,7 +134,8 @@ class BaseSpecialiteService extends BaseService
         $specialite_instance = $this->createInstance();
         $specialite_viewTypes = $this->getViewTypes();
         $specialite_partialViewName = $this->getPartialViewName($specialite_viewType);
-    
+        $specialite_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.specialite.stats', $specialites_stats);
     
@@ -140,7 +146,9 @@ class BaseSpecialiteService extends BaseService
             'specialites_data',
             'specialites_stats',
             'specialites_filters',
-            'specialite_instance'
+            'specialite_instance',
+            'specialite_title',
+            'contextKey'
         );
     
         return [
@@ -151,6 +159,7 @@ class BaseSpecialiteService extends BaseService
             'specialite_viewType' => $specialite_viewType,
             'specialite_viewTypes' => $specialite_viewTypes,
             'specialite_partialViewName' => $specialite_partialViewName,
+            'contextKey' => $contextKey,
             'specialite_compact_value' => $compact_value
         ];
     }

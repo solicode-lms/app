@@ -27,22 +27,23 @@ class RealisationProjetController extends BaseRealisationProjetController
         } 
 
         // Fix le filtre au projet en cours : pour le formateur et l'apprenant
-        if ($this->viewState->get('filter.realisationProjet.affectation_projet_id') === null) {
-            $userRole = Auth::user()->getRoleNames()->first(); // Récupérer le rôle principal
+        // il faut faire ça dans la gestion de RealisationTache
+        // if ($this->viewState->get('filter.realisationProjet.affectation_projet_id') === null) {
+        //     $userRole = Auth::user()->getRoleNames()->first(); // Récupérer le rôle principal
         
-            $affectationService = new AffectationProjetService();
-            $currentAffectationProjet = null;
+        //     $affectationService = new AffectationProjetService();
+        //     $currentAffectationProjet = null;
         
-            if ($userRole === 'formateur') {
-                $currentAffectationProjet = $affectationService->getCurrentFormateurAffectation($this->sessionState->get('formateur_id'));
-            } elseif ($userRole === 'apprenant') {
-                $currentAffectationProjet = $affectationService->getCurrentApprenantAffectation($this->sessionState->get('apprenant_id'));
-            }
+        //     if ($userRole === 'formateur') {
+        //         $currentAffectationProjet = $affectationService->getCurrentFormateurAffectation($this->sessionState->get('formateur_id'));
+        //     } elseif ($userRole === 'apprenant') {
+        //         $currentAffectationProjet = $affectationService->getCurrentApprenantAffectation($this->sessionState->get('apprenant_id'));
+        //     }
         
-            if ($currentAffectationProjet && $this->viewState->get('filter.realisationProjet.affectation_projet_id') == null ) {
-                $this->viewState->init('filter.realisationProjet.affectation_projet_id', $currentAffectationProjet->id);
-            }
-        }
+        //     if ($currentAffectationProjet && $this->viewState->get('filter.realisationProjet.affectation_projet_id') == null ) {
+        //         $this->viewState->init('filter.realisationProjet.affectation_projet_id', $currentAffectationProjet->id);
+        //     }
+        // }
         
 
          

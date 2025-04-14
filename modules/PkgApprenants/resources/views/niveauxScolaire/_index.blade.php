@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $niveauxScolaire_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="niveauxScolaire-crud" class="crud">
     @section('niveauxScolaire-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="niveauxScolaire-crud-header" icon="fas fa-award"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::niveauxScolaire.plural') }}"
+        title="{{ $niveauxScolaire_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

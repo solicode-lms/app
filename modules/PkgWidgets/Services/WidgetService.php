@@ -97,11 +97,32 @@ class WidgetService extends BaseWidgetService
         }
         $widget->sysColor->textColor = (new SysColorService())->getTextColorForBackground($widget->sysColor->hex);
         $widget->data = $result;
+
+        // Calcule de lien
         if (!empty($query['link']) && !empty($query['link']['route_name'])) {
+
+            
+
             $routeName = $query['link']['route_name'];
             $params = $query['link']['route_params'] ?? [];
+            // fix user id params
+            foreach ($params as $key => $value) {
+                if ($value === '#apprenant_id') {
+                    $params[$key] = $this->sessionState->get("apprenant_id");
+                }
+                if ($value === '#user_id') {
+                    $params[$key] = $this->sessionState->get("user_id");
+                }
+                if ($value === '#formateur_id') {
+                    $params[$key] = $this->sessionState->get("formateur_id");
+                }
+            }
             $widget->link = route($routeName, $params);
         }
+
+        
+
+
        
         return $widget;
     }
@@ -273,19 +294,52 @@ class WidgetService extends BaseWidgetService
     {
         // Trier selon l'ordre défini
         usort($tableUI, fn($a, $b) => ($a['order'] ?? 0) <=> ($b['order'] ?? 0));
+        $sysColorService = new SysColorService();
     
-        return $result->map(function ($item) use ($tableUI) {
+        return $result->map(function ($item) use ($tableUI,$sysColorService) {
             $formattedRow = [];
     
             foreach ($tableUI as $columnConfig) {
                 $label = $columnConfig['label'];
                 $path = $columnConfig['key'];
+                $nature = $columnConfig['nature'] ?? "String";
     
                 $value = method_exists($item, 'getNestedValue')
                     ? $item->getNestedValue($path)
                     : data_get($item, $path, '');
     
                 $formattedRow[$label] = $value;
+
+                switch ($nature) {
+                    case "String":{
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature
+                        ];
+                        break;
+                    }
+                    case "badge": {
+                        $couleur_path = $columnConfig['couleur'];
+                        $couleur = method_exists($item, 'getNestedValue')
+                        ? $item->getNestedValue($couleur_path)
+                        : data_get($item, $path, '');
+
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature,
+                            'couleur' => $couleur,
+                            'textCouleur' => $sysColorService->getTextColorForBackground($couleur)
+                        ];
+                        break;
+                    }
+                    default : {
+                        $formattedRow[$label] = [
+                            'value' => $value,
+                            'nature' => $nature
+                        ];
+                    }  
+                }
+
             }
     
             return $formattedRow;

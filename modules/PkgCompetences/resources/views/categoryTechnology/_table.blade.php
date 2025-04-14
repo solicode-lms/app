@@ -2,10 +2,10 @@
 
 @section('categoryTechnology-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="categoryTechnologies-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="categoryTechnology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}" />
+                <x-sortable-column width="85"  field="nom" modelname="categoryTechnology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,26 @@
             @section('categoryTechnology-table-tbody')
             @foreach ($categoryTechnologies_data as $categoryTechnology)
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
-                    <td>
-                     <span @if(strlen($categoryTechnology->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $categoryTechnology->nom }}" 
-                        @endif>
-                        {{ Str::limit($categoryTechnology->nom, 40) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $categoryTechnology->nom }}" >
+                    <x-field :entity="$categoryTechnology" field="nom">
+                        {{ $categoryTechnology->nom }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-categoryTechnology')
-                        @can('view', $categoryTechnology)
-                            <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-categoryTechnology')
                         @can('update', $categoryTechnology)
                             <a href="{{ route('categoryTechnologies.edit', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-categoryTechnology')
+                        @can('view', $categoryTechnology)
+                            <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

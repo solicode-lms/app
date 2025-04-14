@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::ePackage.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $ePackage_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="ePackage-crud" class="crud">
     @section('ePackage-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="ePackage-crud-header" icon="fas fa-box"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::ePackage.plural') }}"
+        title="{{ $ePackage_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

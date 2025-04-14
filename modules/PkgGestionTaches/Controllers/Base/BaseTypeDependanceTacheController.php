@@ -49,7 +49,11 @@ class BaseTypeDependanceTacheController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($typeDependanceTache_partialViewName, $typeDependanceTache_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGestionTaches::typeDependanceTache._index', $typeDependanceTache_compact_value)->render();
+            }else{
+                return view($typeDependanceTache_partialViewName, $typeDependanceTache_compact_value)->render();
+            }
         }
 
         return view('PkgGestionTaches::typeDependanceTache.index', $typeDependanceTache_compact_value);

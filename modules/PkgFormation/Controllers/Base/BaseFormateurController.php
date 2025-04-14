@@ -65,7 +65,11 @@ class BaseFormateurController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($formateur_partialViewName, $formateur_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgFormation::formateur._index', $formateur_compact_value)->render();
+            }else{
+                return view($formateur_partialViewName, $formateur_compact_value)->render();
+            }
         }
 
         return view('PkgFormation::formateur.index', $formateur_compact_value);

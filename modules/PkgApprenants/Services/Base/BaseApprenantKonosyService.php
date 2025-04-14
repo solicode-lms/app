@@ -57,6 +57,7 @@ class BaseApprenantKonosyService extends BaseService
     {
         parent::__construct(new ApprenantKonosy());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgApprenants::apprenantKonosy.plural');
     }
 
 
@@ -66,6 +67,7 @@ class BaseApprenantKonosyService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('apprenantKonosy');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -133,7 +135,9 @@ class BaseApprenantKonosyService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('apprenantKonosy_view_type') === 'widgets') {
-            $this->viewState->set("filter.apprenantKonosy.visible", 1);
+            $this->viewState->set("scope.apprenantKonosy.visible", 1);
+        }else{
+            $this->viewState->remove("scope.apprenantKonosy.visible");
         }
         
         // Récupération des données
@@ -143,7 +147,8 @@ class BaseApprenantKonosyService extends BaseService
         $apprenantKonosy_instance = $this->createInstance();
         $apprenantKonosy_viewTypes = $this->getViewTypes();
         $apprenantKonosy_partialViewName = $this->getPartialViewName($apprenantKonosy_viewType);
-    
+        $apprenantKonosy_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.apprenantKonosy.stats', $apprenantKonosies_stats);
     
@@ -154,7 +159,9 @@ class BaseApprenantKonosyService extends BaseService
             'apprenantKonosies_data',
             'apprenantKonosies_stats',
             'apprenantKonosies_filters',
-            'apprenantKonosy_instance'
+            'apprenantKonosy_instance',
+            'apprenantKonosy_title',
+            'contextKey'
         );
     
         return [
@@ -165,6 +172,7 @@ class BaseApprenantKonosyService extends BaseService
             'apprenantKonosy_viewType' => $apprenantKonosy_viewType,
             'apprenantKonosy_viewTypes' => $apprenantKonosy_viewTypes,
             'apprenantKonosy_partialViewName' => $apprenantKonosy_partialViewName,
+            'contextKey' => $contextKey,
             'apprenantKonosy_compact_value' => $compact_value
         ];
     }

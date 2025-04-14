@@ -49,7 +49,11 @@ class BaseEMetadataDefinitionController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($eMetadataDefinition_partialViewName, $eMetadataDefinition_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgGapp::eMetadataDefinition._index', $eMetadataDefinition_compact_value)->render();
+            }else{
+                return view($eMetadataDefinition_partialViewName, $eMetadataDefinition_compact_value)->render();
+            }
         }
 
         return view('PkgGapp::eMetadataDefinition.index', $eMetadataDefinition_compact_value);

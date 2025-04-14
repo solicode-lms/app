@@ -2,13 +2,13 @@
 
 @section('eRelationship-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="eRelationships-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
-                <x-sortable-column field="type" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.type')) }}" />
-                <x-sortable-column field="source_e_model_id" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
-                <x-sortable-column field="target_e_model_id" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column width="21.25"  field="name" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
+                <x-sortable-column width="21.25"  field="type" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.type')) }}" />
+                <x-sortable-column width="21.25" field="source_e_model_id" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
+                <x-sortable-column width="21.25" field="target_e_model_id" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,51 +16,43 @@
             @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
-                    <td>
-                     <span @if(strlen($eRelationship->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $eRelationship->name }}" 
-                        @endif>
-                        {{ Str::limit($eRelationship->name, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->name }}" >
+                    <x-field :entity="$eRelationship" field="name">
+                        {{ $eRelationship->name }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($eRelationship->type) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $eRelationship->type }}" 
-                        @endif>
-                        {{ Str::limit($eRelationship->type, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->type }}" >
+                    <x-field :entity="$eRelationship" field="type">
+                        {{ $eRelationship->type }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($eRelationship->sourceEModel) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $eRelationship->sourceEModel }}" 
-                        @endif>
-                        {{ Str::limit($eRelationship->sourceEModel, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->sourceEModel }}" >
+                    <x-field :entity="$eRelationship" field="sourceEModel">
+                       
+                         {{  $eRelationship->sourceEModel }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($eRelationship->targetEModel) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $eRelationship->targetEModel }}" 
-                        @endif>
-                        {{ Str::limit($eRelationship->targetEModel, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->targetEModel }}" >
+                    <x-field :entity="$eRelationship" field="targetEModel">
+                       
+                         {{  $eRelationship->targetEModel }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-eRelationship')
-                        @can('view', $eRelationship)
-                            <a href="{{ route('eRelationships.show', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-eRelationship')
                         @can('update', $eRelationship)
                             <a href="{{ route('eRelationships.edit', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-eRelationship')
+                        @can('view', $eRelationship)
+                            <a href="{{ route('eRelationships.show', ['eRelationship' => $eRelationship->id]) }}" data-id="{{$eRelationship->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

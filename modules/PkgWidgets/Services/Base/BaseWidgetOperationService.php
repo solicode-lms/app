@@ -40,6 +40,7 @@ class BaseWidgetOperationService extends BaseService
     {
         parent::__construct(new WidgetOperation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgWidgets::widgetOperation.plural');
     }
 
 
@@ -49,6 +50,7 @@ class BaseWidgetOperationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widgetOperation');
         $this->fieldsFilterable = [];
     
+
     }
 
     /**
@@ -116,7 +118,9 @@ class BaseWidgetOperationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetOperation_view_type') === 'widgets') {
-            $this->viewState->set("filter.widgetOperation.visible", 1);
+            $this->viewState->set("scope.widgetOperation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widgetOperation.visible");
         }
         
         // Récupération des données
@@ -126,7 +130,8 @@ class BaseWidgetOperationService extends BaseService
         $widgetOperation_instance = $this->createInstance();
         $widgetOperation_viewTypes = $this->getViewTypes();
         $widgetOperation_partialViewName = $this->getPartialViewName($widgetOperation_viewType);
-    
+        $widgetOperation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetOperation.stats', $widgetOperations_stats);
     
@@ -137,7 +142,9 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperations_data',
             'widgetOperations_stats',
             'widgetOperations_filters',
-            'widgetOperation_instance'
+            'widgetOperation_instance',
+            'widgetOperation_title',
+            'contextKey'
         );
     
         return [
@@ -148,6 +155,7 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperation_viewType' => $widgetOperation_viewType,
             'widgetOperation_viewTypes' => $widgetOperation_viewTypes,
             'widgetOperation_partialViewName' => $widgetOperation_partialViewName,
+            'contextKey' => $contextKey,
             'widgetOperation_compact_value' => $compact_value
         ];
     }

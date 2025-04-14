@@ -2,13 +2,13 @@
 
 @section('etatRealisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="etatRealisationTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
-                <x-sortable-column field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
-                <x-sortable-column field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="21.25"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
+                <x-sortable-column width="21.25" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
+                <x-sortable-column width="21.25" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="21.25" field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,51 +16,46 @@
             @section('etatRealisationTache-table-tbody')
             @foreach ($etatRealisationTaches_data as $etatRealisationTache)
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}">
-                    <td>
-                     <span @if(strlen($etatRealisationTache->nom) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->nom }}" 
-                        @endif>
-                        {{ Str::limit($etatRealisationTache->nom, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
+                    <x-field :entity="$etatRealisationTache" field="nom">
+                        {{ $etatRealisationTache->nom }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatRealisationTache->workflowTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->workflowTache }}" 
-                        @endif>
-                        {{ Str::limit($etatRealisationTache->workflowTache, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
+                    <x-field :entity="$etatRealisationTache" field="workflowTache">
+                       
+                         {{  $etatRealisationTache->workflowTache }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatRealisationTache->sysColor) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->sysColor }}" 
-                        @endif>
-                        {{ Str::limit($etatRealisationTache->sysColor, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
+                    <x-field :entity="$etatRealisationTache" field="sysColor">
+                        <x-badge 
+                        :text="$etatRealisationTache->sysColor->name ?? ''" 
+                        :background="$etatRealisationTache->sysColor->hex ?? '#6c757d'" 
+                        />
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($etatRealisationTache->formateur) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $etatRealisationTache->formateur }}" 
-                        @endif>
-                        {{ Str::limit($etatRealisationTache->formateur, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
+                    <x-field :entity="$etatRealisationTache" field="formateur">
+                       
+                         {{  $etatRealisationTache->formateur }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-etatRealisationTache')
-                        @can('view', $etatRealisationTache)
-                            <a href="{{ route('etatRealisationTaches.show', ['etatRealisationTache' => $etatRealisationTache->id]) }}" data-id="{{$etatRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-etatRealisationTache')
                         @can('update', $etatRealisationTache)
                             <a href="{{ route('etatRealisationTaches.edit', ['etatRealisationTache' => $etatRealisationTache->id]) }}" data-id="{{$etatRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-etatRealisationTache')
+                        @can('view', $etatRealisationTache)
+                            <a href="{{ route('etatRealisationTaches.show', ['etatRealisationTache' => $etatRealisationTache->id]) }}" data-id="{{$etatRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

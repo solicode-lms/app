@@ -48,6 +48,7 @@ class BaseChapitreService extends BaseService
     {
         parent::__construct(new Chapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::chapitre.plural');
     }
 
 
@@ -57,18 +58,23 @@ class BaseChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('chapitre');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::formation.plural"), 'formation_id', \Modules\PkgAutoformation\Models\Formation::class, 'nom');
         }
+
         if (!array_key_exists('niveau_competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::niveauCompetence.plural"), 'niveau_competence_id', \Modules\PkgCompetences\Models\NiveauCompetence::class, 'nom');
         }
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
         if (!array_key_exists('chapitre_officiel_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::chapitre.plural"), 'chapitre_officiel_id', \Modules\PkgAutoformation\Models\Chapitre::class, 'nom');
         }
+
     }
 
     /**
@@ -136,7 +142,9 @@ class BaseChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('chapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.chapitre.visible", 1);
+            $this->viewState->set("scope.chapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.chapitre.visible");
         }
         
         // Récupération des données
@@ -146,7 +154,8 @@ class BaseChapitreService extends BaseService
         $chapitre_instance = $this->createInstance();
         $chapitre_viewTypes = $this->getViewTypes();
         $chapitre_partialViewName = $this->getPartialViewName($chapitre_viewType);
-    
+        $chapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.chapitre.stats', $chapitres_stats);
     
@@ -157,7 +166,9 @@ class BaseChapitreService extends BaseService
             'chapitres_data',
             'chapitres_stats',
             'chapitres_filters',
-            'chapitre_instance'
+            'chapitre_instance',
+            'chapitre_title',
+            'contextKey'
         );
     
         return [
@@ -168,6 +179,7 @@ class BaseChapitreService extends BaseService
             'chapitre_viewType' => $chapitre_viewType,
             'chapitre_viewTypes' => $chapitre_viewTypes,
             'chapitre_partialViewName' => $chapitre_partialViewName,
+            'contextKey' => $contextKey,
             'chapitre_compact_value' => $compact_value
         ];
     }

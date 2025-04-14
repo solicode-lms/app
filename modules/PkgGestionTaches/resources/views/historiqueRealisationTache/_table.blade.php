@@ -2,10 +2,10 @@
 
 @section('historiqueRealisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="historiqueRealisationTaches-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
+                <x-sortable-column width="85" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,27 +13,27 @@
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
-                    <td>
-                     <span @if(strlen($historiqueRealisationTache->realisationTache) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $historiqueRealisationTache->realisationTache }}" 
-                        @endif>
-                        {{ Str::limit($historiqueRealisationTache->realisationTache, 50) }}
-                    </span>
+                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
+                    <x-field :entity="$historiqueRealisationTache" field="realisationTache">
+                       
+                         {{  $historiqueRealisationTache->realisationTache }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-historiqueRealisationTache')
-                        @can('view', $historiqueRealisationTache)
-                            <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-historiqueRealisationTache')
                         @can('update', $historiqueRealisationTache)
                             <a href="{{ route('historiqueRealisationTaches.edit', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-historiqueRealisationTache')
+                        @can('view', $historiqueRealisationTache)
+                            <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

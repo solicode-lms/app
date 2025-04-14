@@ -49,7 +49,11 @@ class BaseCategoryTechnologyController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($categoryTechnology_partialViewName, $categoryTechnology_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgCompetences::categoryTechnology._index', $categoryTechnology_compact_value)->render();
+            }else{
+                return view($categoryTechnology_partialViewName, $categoryTechnology_compact_value)->render();
+            }
         }
 
         return view('PkgCompetences::categoryTechnology.index', $categoryTechnology_compact_value);

@@ -43,6 +43,7 @@ class BaseTransfertCompetenceService extends BaseService
     {
         parent::__construct(new TransfertCompetence());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCreationProjet::transfertCompetence.plural');
     }
 
 
@@ -52,15 +53,19 @@ class BaseTransfertCompetenceService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('transfertCompetence');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
+
         if (!array_key_exists('niveau_difficulte_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::niveauDifficulte.plural"), 'niveau_difficulte_id', \Modules\PkgCompetences\Models\NiveauDifficulte::class, 'nom');
         }
+
         if (!array_key_exists('projet_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
+
     }
 
     /**
@@ -142,7 +147,9 @@ class BaseTransfertCompetenceService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('transfertCompetence_view_type') === 'widgets') {
-            $this->viewState->set("filter.transfertCompetence.visible", 1);
+            $this->viewState->set("scope.transfertCompetence.visible", 1);
+        }else{
+            $this->viewState->remove("scope.transfertCompetence.visible");
         }
         
         // Récupération des données
@@ -152,7 +159,8 @@ class BaseTransfertCompetenceService extends BaseService
         $transfertCompetence_instance = $this->createInstance();
         $transfertCompetence_viewTypes = $this->getViewTypes();
         $transfertCompetence_partialViewName = $this->getPartialViewName($transfertCompetence_viewType);
-    
+        $transfertCompetence_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.transfertCompetence.stats', $transfertCompetences_stats);
     
@@ -163,7 +171,9 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetences_data',
             'transfertCompetences_stats',
             'transfertCompetences_filters',
-            'transfertCompetence_instance'
+            'transfertCompetence_instance',
+            'transfertCompetence_title',
+            'contextKey'
         );
     
         return [
@@ -174,6 +184,7 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetence_viewType' => $transfertCompetence_viewType,
             'transfertCompetence_viewTypes' => $transfertCompetence_viewTypes,
             'transfertCompetence_partialViewName' => $transfertCompetence_partialViewName,
+            'contextKey' => $contextKey,
             'transfertCompetence_compact_value' => $compact_value
         ];
     }

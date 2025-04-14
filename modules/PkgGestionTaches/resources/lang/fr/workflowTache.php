@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'valeur dans workflow tache',
-    'plural' => 'valeurs dans Workflow taches',
+    'singular' => 'État de Tâche | Solicode',
+    'plural' => 'État des Tâches | Solicode',
     'code' => 'code',
     'titre' => 'titre',
     'description' => 'description',

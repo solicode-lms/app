@@ -43,6 +43,7 @@ class BaseProfileService extends BaseService
     {
         parent::__construct(new Profile());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutorisation::profile.plural');
     }
 
 
@@ -52,9 +53,11 @@ class BaseProfileService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('profile');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('user_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
+
     }
 
     /**
@@ -136,7 +139,9 @@ class BaseProfileService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('profile_view_type') === 'widgets') {
-            $this->viewState->set("filter.profile.visible", 1);
+            $this->viewState->set("scope.profile.visible", 1);
+        }else{
+            $this->viewState->remove("scope.profile.visible");
         }
         
         // Récupération des données
@@ -146,7 +151,8 @@ class BaseProfileService extends BaseService
         $profile_instance = $this->createInstance();
         $profile_viewTypes = $this->getViewTypes();
         $profile_partialViewName = $this->getPartialViewName($profile_viewType);
-    
+        $profile_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.profile.stats', $profiles_stats);
     
@@ -157,7 +163,9 @@ class BaseProfileService extends BaseService
             'profiles_data',
             'profiles_stats',
             'profiles_filters',
-            'profile_instance'
+            'profile_instance',
+            'profile_title',
+            'contextKey'
         );
     
         return [
@@ -168,6 +176,7 @@ class BaseProfileService extends BaseService
             'profile_viewType' => $profile_viewType,
             'profile_viewTypes' => $profile_viewTypes,
             'profile_partialViewName' => $profile_partialViewName,
+            'contextKey' => $contextKey,
             'profile_compact_value' => $compact_value
         ];
     }

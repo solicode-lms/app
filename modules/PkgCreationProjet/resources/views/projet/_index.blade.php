@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::projet.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $projet_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="projet-crud" class="crud">
     @section('projet-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="projet-crud-header" icon="fas fa-calendar-alt"  
         iconColor="text-info"
-        title="{{ __('PkgCreationProjet::projet.plural') }}"
+        title="{{ $projet_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

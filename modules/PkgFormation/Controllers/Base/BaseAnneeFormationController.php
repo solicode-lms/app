@@ -50,7 +50,11 @@ class BaseAnneeFormationController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($anneeFormation_partialViewName, $anneeFormation_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgFormation::anneeFormation._index', $anneeFormation_compact_value)->render();
+            }else{
+                return view($anneeFormation_partialViewName, $anneeFormation_compact_value)->render();
+            }
         }
 
         return view('PkgFormation::anneeFormation.index', $anneeFormation_compact_value);

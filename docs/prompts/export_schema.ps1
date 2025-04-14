@@ -1,0 +1,1 @@
+mysqldump -u root -p --no-data solicode_lms > 1.soli-lms-tables.sql

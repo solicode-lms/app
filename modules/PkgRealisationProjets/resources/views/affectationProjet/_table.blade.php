@@ -2,13 +2,13 @@
 
 @section('affectationProjet-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="affectationProjets-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="projet_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column field="groupe_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
-                <x-sortable-column field="date_debut" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
-                <x-sortable-column field="date_fin" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
+                <x-sortable-column width="21.25" field="projet_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column width="21.25" field="groupe_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
+                <x-sortable-column width="21.25"  field="date_debut" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
+                <x-sortable-column width="21.25"  field="date_fin" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,51 +16,43 @@
             @section('affectationProjet-table-tbody')
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}">
-                    <td>
-                     <span @if(strlen($affectationProjet->projet) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $affectationProjet->projet }}" 
-                        @endif>
-                        {{ Str::limit($affectationProjet->projet, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
+                    <x-field :entity="$affectationProjet" field="projet">
+                       
+                         {{  $affectationProjet->projet }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($affectationProjet->groupe) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $affectationProjet->groupe }}" 
-                        @endif>
-                        {{ Str::limit($affectationProjet->groupe, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
+                    <x-field :entity="$affectationProjet" field="groupe">
+                       
+                         {{  $affectationProjet->groupe }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($affectationProjet->date_debut) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $affectationProjet->date_debut }}" 
-                        @endif>
-                        {{ Str::limit($affectationProjet->date_debut, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
+                    <x-field :entity="$affectationProjet" field="date_debut">
+                        {{ $affectationProjet->date_debut }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($affectationProjet->date_fin) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $affectationProjet->date_fin }}" 
-                        @endif>
-                        {{ Str::limit($affectationProjet->date_fin, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
+                    <x-field :entity="$affectationProjet" field="date_fin">
+                        {{ $affectationProjet->date_fin }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-affectationProjet')
-                        @can('view', $affectationProjet)
-                            <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-affectationProjet')
                         @can('update', $affectationProjet)
                             <a href="{{ route('affectationProjets.edit', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-affectationProjet')
+                        @can('view', $affectationProjet)
+                            <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

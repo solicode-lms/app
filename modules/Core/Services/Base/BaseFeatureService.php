@@ -41,6 +41,7 @@ class BaseFeatureService extends BaseService
     {
         parent::__construct(new Feature());
         $this->fieldsFilterable = [];
+        $this->title = __('Core::feature.plural');
     }
 
 
@@ -50,9 +51,11 @@ class BaseFeatureService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('feature');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('feature_domain_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name');
         }
+
     }
 
     /**
@@ -120,7 +123,9 @@ class BaseFeatureService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('feature_view_type') === 'widgets') {
-            $this->viewState->set("filter.feature.visible", 1);
+            $this->viewState->set("scope.feature.visible", 1);
+        }else{
+            $this->viewState->remove("scope.feature.visible");
         }
         
         // Récupération des données
@@ -130,7 +135,8 @@ class BaseFeatureService extends BaseService
         $feature_instance = $this->createInstance();
         $feature_viewTypes = $this->getViewTypes();
         $feature_partialViewName = $this->getPartialViewName($feature_viewType);
-    
+        $feature_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.feature.stats', $features_stats);
     
@@ -141,7 +147,9 @@ class BaseFeatureService extends BaseService
             'features_data',
             'features_stats',
             'features_filters',
-            'feature_instance'
+            'feature_instance',
+            'feature_title',
+            'contextKey'
         );
     
         return [
@@ -152,6 +160,7 @@ class BaseFeatureService extends BaseService
             'feature_viewType' => $feature_viewType,
             'feature_viewTypes' => $feature_viewTypes,
             'feature_partialViewName' => $feature_partialViewName,
+            'contextKey' => $contextKey,
             'feature_compact_value' => $compact_value
         ];
     }

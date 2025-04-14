@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::formateur.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $formateur_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="formateur-crud" class="crud">
     @section('formateur-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="formateur-crud-header" icon="fas fa-user-tie"  
         iconColor="text-info"
-        title="{{ __('PkgFormation::formateur.plural') }}"
+        title="{{ $formateur_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

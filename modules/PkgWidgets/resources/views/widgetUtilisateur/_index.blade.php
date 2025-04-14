@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetUtilisateur.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $widgetUtilisateur_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="widgetUtilisateur-crud" class="crud">
     @section('widgetUtilisateur-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="widgetUtilisateur-crud-header" icon="fas fa-chart-pie"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widgetUtilisateur.plural') }}"
+        title="{{ $widgetUtilisateur_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

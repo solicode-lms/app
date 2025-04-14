@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $niveauCompetence_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="niveauCompetence-crud" class="crud">
     @section('niveauCompetence-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="niveauCompetence-crud-header" icon="fas fa-battery-three-quarters"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::niveauCompetence.plural') }}"
+        title="{{ $niveauCompetence_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

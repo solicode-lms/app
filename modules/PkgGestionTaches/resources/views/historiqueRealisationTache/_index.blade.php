@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::historiqueRealisationTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $historiqueRealisationTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="historiqueRealisationTache-crud" class="crud">
     @section('historiqueRealisationTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="historiqueRealisationTache-crud-header" icon="fas fa-history"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::historiqueRealisationTache.plural') }}"
+        title="{{ $historiqueRealisationTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

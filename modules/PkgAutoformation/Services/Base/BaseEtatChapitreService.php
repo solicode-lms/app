@@ -44,6 +44,7 @@ class BaseEtatChapitreService extends BaseService
     {
         parent::__construct(new EtatChapitre());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::etatChapitre.plural');
     }
 
 
@@ -53,15 +54,19 @@ class BaseEtatChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('etatChapitre');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('workflow_chapitre_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::workflowChapitre.plural"), 'workflow_chapitre_id', \Modules\PkgAutoformation\Models\WorkflowChapitre::class, 'code');
         }
+
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
         }
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
     }
 
     /**
@@ -143,7 +148,9 @@ class BaseEtatChapitreService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('etatChapitre_view_type') === 'widgets') {
-            $this->viewState->set("filter.etatChapitre.visible", 1);
+            $this->viewState->set("scope.etatChapitre.visible", 1);
+        }else{
+            $this->viewState->remove("scope.etatChapitre.visible");
         }
         
         // Récupération des données
@@ -153,7 +160,8 @@ class BaseEtatChapitreService extends BaseService
         $etatChapitre_instance = $this->createInstance();
         $etatChapitre_viewTypes = $this->getViewTypes();
         $etatChapitre_partialViewName = $this->getPartialViewName($etatChapitre_viewType);
-    
+        $etatChapitre_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatChapitre.stats', $etatChapitres_stats);
     
@@ -164,7 +172,9 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitres_data',
             'etatChapitres_stats',
             'etatChapitres_filters',
-            'etatChapitre_instance'
+            'etatChapitre_instance',
+            'etatChapitre_title',
+            'contextKey'
         );
     
         return [
@@ -175,6 +185,7 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitre_viewType' => $etatChapitre_viewType,
             'etatChapitre_viewTypes' => $etatChapitre_viewTypes,
             'etatChapitre_partialViewName' => $etatChapitre_partialViewName,
+            'contextKey' => $contextKey,
             'etatChapitre_compact_value' => $compact_value
         ];
     }

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::featureDomain.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $featureDomain_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="featureDomain-crud" class="crud">
     @section('featureDomain-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="featureDomain-crud-header" icon="fas fa-th-large"  
         iconColor="text-info"
-        title="{{ __('Core::featureDomain.plural') }}"
+        title="{{ $featureDomain_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::chapitre.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $chapitre_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="chapitre-crud" class="crud">
     @section('chapitre-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="chapitre-crud-header" icon="fas fa-chalkboard"  
         iconColor="text-info"
-        title="{{ __('PkgAutoformation::chapitre.plural') }}"
+        title="{{ $chapitre_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

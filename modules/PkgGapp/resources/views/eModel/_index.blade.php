@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $eModel_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="eModel-crud" class="crud">
     @section('eModel-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="eModel-crud-header" icon="fas fa-table"  
         iconColor="text-info"
-        title="{{ __('PkgGapp::eModel.plural') }}"
+        title="{{ $eModel_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

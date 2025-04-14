@@ -3,10 +3,37 @@
 namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 trait QueryBuilderTrait
 {
+    public function newQuery(){
+
+        // $this->dataSources
+        // Exemple de configuration : DataSouce
+        // protected $dataSources = [
+        //     "apprenantSansTacheEnCours" => [
+        //         "title" => "Apprenants qui n'ont pas de tâches en cours",
+        //         "method" => "apprenantSansTacheEnCoursQuery"
+        //     ],
+        // ];
+        $dataSource = $this->viewState->getDataSourceVariables($this->modelName);
+    
+        if ($dataSource && isset($this->dataSources[$dataSource["code"]])) {
+            $sourceConfig = $this->dataSources[$dataSource["code"]];
+    
+            // On récupère dynamiquement la méthode de requête à appeler
+            $method = $sourceConfig['method'] ?? null;
+    
+            if ($method && method_exists($this, $method)) {
+                $this->title = $sourceConfig['title'] ?? $this->title;
+                return $this->$method();
+            }
+        }
+        
+        return $this->model->newQuery();
+    }
 
     // TODO : ajouter une recherche sur les relation ManyToOne,
     // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
@@ -19,7 +46,7 @@ trait QueryBuilderTrait
     public function allQuery(array $params = [],$query = null): Builder
     {
         if($query == null) {
-            $query = $this->model->newQuery();
+            $query = $this->newQuery();
         }
      
         $table = $this->model->getTable();
@@ -41,7 +68,10 @@ trait QueryBuilderTrait
         $sortVariables = $this->viewState->getSortVariables($this->modelName);
         if (!empty($sortVariables)) {
             $this->applySort($query,$sortVariables);
-         }
+        }else{
+            // appliquer les tris par défaut
+            $this->applySort($query,null);
+        }
 
         return $query;
     }
@@ -74,9 +104,21 @@ trait QueryBuilderTrait
                     $query->orderBy($field, $direction);
                 }
             }
+
+            return $query;
         }
     
-        return $query;
+        // Trie par date de mise à jour si il n'existe aucune trie
+        // Vérifie si le champ 'ordre' existe dans la table
+        $model = $query->getModel();
+        if (Schema::hasColumn($model->getTable(), 'ordre')) {
+            return $query->orderBy('ordre', 'asc');
+        }
+
+        return $query->orderBy('updated_at', 'desc');
+   
+
+        
     }
 
         /**
@@ -101,7 +143,14 @@ trait QueryBuilderTrait
 
             // Vérifier si la clé contient une relation imbriquée (ex: competence.module.ecole.filiere_id)
             if (Str::contains($key, '.')) {
-                $relations = explode('.', $key);
+
+
+                // Parfois le début de segment commence par une Lettre Majuscule dure à 
+                // une solution appliquer pour passer le key en params de laravel 
+                $relations = array_map(function ($segment) {
+                    return lcfirst($segment);
+                }, explode('.', $key));
+
                 $attribute = array_pop($relations); // Récupère le dernier élément (filiere_id)
 
                 // Vérifier si la première relation existe sur le modèle

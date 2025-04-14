@@ -50,6 +50,7 @@ class BaseEMetadatumService extends BaseService
     {
         parent::__construct(new EMetadatum());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eMetadatum.plural');
     }
 
 
@@ -59,15 +60,19 @@ class BaseEMetadatumService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eMetadatum');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('e_model_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
         }
+
         if (!array_key_exists('e_data_field_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eDataField.plural"), 'e_data_field_id', \Modules\PkgGapp\Models\EDataField::class, 'name');
         }
+
         if (!array_key_exists('e_metadata_definition_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eMetadataDefinition.plural"), 'e_metadata_definition_id', \Modules\PkgGapp\Models\EMetadataDefinition::class, 'name');
         }
+
     }
 
     /**
@@ -135,7 +140,9 @@ class BaseEMetadatumService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eMetadatum_view_type') === 'widgets') {
-            $this->viewState->set("filter.eMetadatum.visible", 1);
+            $this->viewState->set("scope.eMetadatum.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eMetadatum.visible");
         }
         
         // Récupération des données
@@ -145,7 +152,8 @@ class BaseEMetadatumService extends BaseService
         $eMetadatum_instance = $this->createInstance();
         $eMetadatum_viewTypes = $this->getViewTypes();
         $eMetadatum_partialViewName = $this->getPartialViewName($eMetadatum_viewType);
-    
+        $eMetadatum_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eMetadatum.stats', $eMetadata_stats);
     
@@ -156,7 +164,9 @@ class BaseEMetadatumService extends BaseService
             'eMetadata_data',
             'eMetadata_stats',
             'eMetadata_filters',
-            'eMetadatum_instance'
+            'eMetadatum_instance',
+            'eMetadatum_title',
+            'contextKey'
         );
     
         return [
@@ -167,6 +177,7 @@ class BaseEMetadatumService extends BaseService
             'eMetadatum_viewType' => $eMetadatum_viewType,
             'eMetadatum_viewTypes' => $eMetadatum_viewTypes,
             'eMetadatum_partialViewName' => $eMetadatum_partialViewName,
+            'contextKey' => $contextKey,
             'eMetadatum_compact_value' => $compact_value
         ];
     }

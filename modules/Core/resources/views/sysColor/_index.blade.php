@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysColor.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $sysColor_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="sysColor-crud" class="crud">
     @section('sysColor-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="sysColor-crud-header" icon="fas fa-palette"  
         iconColor="text-info"
-        title="{{ __('Core::sysColor.plural') }}"
+        title="{{ $sysColor_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

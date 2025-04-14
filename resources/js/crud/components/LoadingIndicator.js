@@ -5,7 +5,7 @@ export class LoadingIndicator {
      */
     constructor(containerSelector = '#card_crud') {
       
-        this.loadingElementId = 'gapp-loading';
+        this.loadingElementId = containerSelector +  '-gapp-loading';
         this.containerSelector = containerSelector;
     }
    

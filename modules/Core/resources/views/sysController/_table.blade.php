@@ -2,13 +2,13 @@
 
 @section('sysController-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="sysControllers-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
-                <x-sortable-column field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
-                <x-sortable-column field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+                <x-sortable-column width="21.25" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column width="21.25"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
+                <x-sortable-column width="21.25"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
+                <x-sortable-column width="21.25"  field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -17,47 +17,48 @@
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
-                    <td>
-                     <span @if(strlen($sysController->sysModule) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysController->sysModule }}" 
-                        @endif>
-                        {{ Str::limit($sysController->sysModule, 50) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
+                    <x-field :entity="$sysController" field="sysModule">
+                       
+                         {{  $sysController->sysModule }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($sysController->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $sysController->name }}" 
-                        @endif>
-                        {{ Str::limit($sysController->name, 40) }}
-                    </span>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->name }}" >
+                    <x-field :entity="$sysController" field="name">
+                        {{ $sysController->name }}
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->is_active }}" >
+                    <x-field :entity="$sysController" field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
+                    </x-field>
                     </td>
-                    <td>
+                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
+                    <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)
-                                <li @if(strlen($permission) > 40) data-toggle="tooltip" title="{{$permission}}" @endif>@limit($permission, 40)</li>
+                                <li>{{$permission}} </li>
                             @endforeach
                         </ul>
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-sysController')
-                        @can('view', $sysController)
-                            <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-sysController')
                         @can('update', $sysController)
                             <a href="{{ route('sysControllers.edit', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-sysController')
+                        @can('view', $sysController)
+                            <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

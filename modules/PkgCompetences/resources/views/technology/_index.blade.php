@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::technology.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $technology_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="technology-crud" class="crud">
     @section('technology-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="technology-crud-header" icon="fas fa-tag"  
         iconColor="text-info"
-        title="{{ __('PkgCompetences::technology.plural') }}"
+        title="{{ $technology_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

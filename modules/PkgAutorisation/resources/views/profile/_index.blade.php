@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::profile.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $profile_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="profile-crud" class="crud">
     @section('profile-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="profile-crud-header" icon="fas fa-table"  
         iconColor="text-info"
-        title="{{ __('PkgAutorisation::profile.plural') }}"
+        title="{{ $profile_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

@@ -10,9 +10,13 @@ use Modules\Core\Services\SysModelService;
 use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
 use Modules\Core\Services\SysModuleService;
+use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgWidgets\Services\SectionWidgetService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgAutoformation\Services\WorkflowChapitreService;
 use Modules\PkgAutoformation\Services\WorkflowFormationService;
+use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
+use Modules\PkgGestionTaches\Services\WorkflowTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -57,7 +61,11 @@ class BaseSysColorController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($sysColor_partialViewName, $sysColor_compact_value)->render();
+            if($request['showIndex']){
+                return view('Core::sysColor._index', $sysColor_compact_value)->render();
+            }else{
+                return view($sysColor_partialViewName, $sysColor_compact_value)->render();
+            }
         }
 
         return view('Core::sysColor.index', $sysColor_compact_value);
@@ -149,6 +157,20 @@ class BaseSysColorController extends AdminController
         $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
         extract($sysModules_view_data);
 
+        $this->viewState->set('scope.etatsRealisationProjet.sys_color_id', $id);
+        
+
+        $etatsRealisationProjetService =  new EtatsRealisationProjetService();
+        $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
+        extract($etatsRealisationProjets_view_data);
+
+        $this->viewState->set('scope.sectionWidget.sys_color_id', $id);
+        
+
+        $sectionWidgetService =  new SectionWidgetService();
+        $sectionWidgets_view_data = $sectionWidgetService->prepareDataForIndexView();
+        extract($sectionWidgets_view_data);
+
         $this->viewState->set('scope.widget.sys_color_id', $id);
         
 
@@ -170,11 +192,25 @@ class BaseSysColorController extends AdminController
         $workflowFormations_view_data = $workflowFormationService->prepareDataForIndexView();
         extract($workflowFormations_view_data);
 
+        $this->viewState->set('scope.workflowProjet.sys_color_id', $id);
+        
+
+        $workflowProjetService =  new WorkflowProjetService();
+        $workflowProjets_view_data = $workflowProjetService->prepareDataForIndexView();
+        extract($workflowProjets_view_data);
+
+        $this->viewState->set('scope.workflowTache.sys_color_id', $id);
+        
+
+        $workflowTacheService =  new WorkflowTacheService();
+        $workflowTaches_view_data = $workflowTacheService->prepareDataForIndexView();
+        extract($workflowTaches_view_data);
+
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
+            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value, $workflowProjet_compact_value, $workflowTache_compact_value));
         }
 
-        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
+        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value, $workflowProjet_compact_value, $workflowTache_compact_value));
 
     }
     public function edit(string $id) {
@@ -229,6 +265,20 @@ class BaseSysColorController extends AdminController
         $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
         extract($sysModules_view_data);
 
+        $this->viewState->set('scope.etatsRealisationProjet.sys_color_id', $id);
+        
+
+        $etatsRealisationProjetService =  new EtatsRealisationProjetService();
+        $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
+        extract($etatsRealisationProjets_view_data);
+
+        $this->viewState->set('scope.sectionWidget.sys_color_id', $id);
+        
+
+        $sectionWidgetService =  new SectionWidgetService();
+        $sectionWidgets_view_data = $sectionWidgetService->prepareDataForIndexView();
+        extract($sectionWidgets_view_data);
+
         $this->viewState->set('scope.widget.sys_color_id', $id);
         
 
@@ -250,11 +300,25 @@ class BaseSysColorController extends AdminController
         $workflowFormations_view_data = $workflowFormationService->prepareDataForIndexView();
         extract($workflowFormations_view_data);
 
+        $this->viewState->set('scope.workflowProjet.sys_color_id', $id);
+        
+
+        $workflowProjetService =  new WorkflowProjetService();
+        $workflowProjets_view_data = $workflowProjetService->prepareDataForIndexView();
+        extract($workflowProjets_view_data);
+
+        $this->viewState->set('scope.workflowTache.sys_color_id', $id);
+        
+
+        $workflowTacheService =  new WorkflowTacheService();
+        $workflowTaches_view_data = $workflowTacheService->prepareDataForIndexView();
+        extract($workflowTaches_view_data);
+
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
+            return view('Core::sysColor._edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value, $workflowProjet_compact_value, $workflowTache_compact_value));
         }
 
-        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value));
+        return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value, $workflowProjet_compact_value, $workflowTache_compact_value));
 
 
     }

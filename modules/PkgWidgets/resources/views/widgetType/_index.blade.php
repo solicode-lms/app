@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetType.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $widgetType_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="widgetType-crud" class="crud">
     @section('widgetType-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="widgetType-crud-header" icon="fas fa-cube"  
         iconColor="text-info"
-        title="{{ __('PkgWidgets::widgetType.plural') }}"
+        title="{{ $widgetType_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

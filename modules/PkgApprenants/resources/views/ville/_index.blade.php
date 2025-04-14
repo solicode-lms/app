@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::ville.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $ville_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="ville-crud" class="crud">
     @section('ville-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="ville-crud-header" icon="fas fa-city"  
         iconColor="text-info"
-        title="{{ __('PkgApprenants::ville.plural') }}"
+        title="{{ $ville_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

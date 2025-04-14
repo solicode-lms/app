@@ -43,6 +43,7 @@ class BaseNiveauDifficulteService extends BaseService
     {
         parent::__construct(new NiveauDifficulte());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgCompetences::niveauDifficulte.plural');
     }
 
 
@@ -52,9 +53,11 @@ class BaseNiveauDifficulteService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('niveauDifficulte');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
     }
 
     /**
@@ -136,7 +139,9 @@ class BaseNiveauDifficulteService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('niveauDifficulte_view_type') === 'widgets') {
-            $this->viewState->set("filter.niveauDifficulte.visible", 1);
+            $this->viewState->set("scope.niveauDifficulte.visible", 1);
+        }else{
+            $this->viewState->remove("scope.niveauDifficulte.visible");
         }
         
         // Récupération des données
@@ -146,7 +151,8 @@ class BaseNiveauDifficulteService extends BaseService
         $niveauDifficulte_instance = $this->createInstance();
         $niveauDifficulte_viewTypes = $this->getViewTypes();
         $niveauDifficulte_partialViewName = $this->getPartialViewName($niveauDifficulte_viewType);
-    
+        $niveauDifficulte_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauDifficulte.stats', $niveauDifficultes_stats);
     
@@ -157,7 +163,9 @@ class BaseNiveauDifficulteService extends BaseService
             'niveauDifficultes_data',
             'niveauDifficultes_stats',
             'niveauDifficultes_filters',
-            'niveauDifficulte_instance'
+            'niveauDifficulte_instance',
+            'niveauDifficulte_title',
+            'contextKey'
         );
     
         return [
@@ -168,6 +176,7 @@ class BaseNiveauDifficulteService extends BaseService
             'niveauDifficulte_viewType' => $niveauDifficulte_viewType,
             'niveauDifficulte_viewTypes' => $niveauDifficulte_viewTypes,
             'niveauDifficulte_partialViewName' => $niveauDifficulte_partialViewName,
+            'contextKey' => $contextKey,
             'niveauDifficulte_compact_value' => $compact_value
         ];
     }

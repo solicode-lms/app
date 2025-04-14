@@ -26,7 +26,12 @@
         edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::dependanceTache.singular") }}',
     });
 </script>
-
+<script>
+    window.modalTitle = '{{ $dependanceTache_title }}'
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
 <div id="dependanceTache-crud" class="crud">
     @section('dependanceTache-crud-header')
     @php
@@ -36,7 +41,7 @@
     <x-crud-header 
         id="dependanceTache-crud-header" icon="fas fa-link"  
         iconColor="text-info"
-        title="{{ __('PkgGestionTaches::dependanceTache.plural') }}"
+        title="{{ $dependanceTache_title }}"
         :breadcrumbs="[
             ['label' => $package, 'url' => '#'],
             ['label' => $titre]

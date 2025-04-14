@@ -61,7 +61,11 @@ class BaseGroupeController extends AdminController
         
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
-            return view($groupe_partialViewName, $groupe_compact_value)->render();
+            if($request['showIndex']){
+                return view('PkgApprenants::groupe._index', $groupe_compact_value)->render();
+            }else{
+                return view($groupe_partialViewName, $groupe_compact_value)->render();
+            }
         }
 
         return view('PkgApprenants::groupe.index', $groupe_compact_value);

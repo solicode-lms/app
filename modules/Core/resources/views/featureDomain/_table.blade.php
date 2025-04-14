@@ -2,11 +2,11 @@
 
 @section('featureDomain-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="featureDomains-crud-card-body">
-    <table class="table table-striped text-nowrap">
-        <thead>
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
             <tr>
-                <x-sortable-column field="name" modelname="featureDomain" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
-                <x-sortable-column field="sys_module_id" modelname="featureDomain" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column width="42.5"  field="name" modelname="featureDomain" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
+                <x-sortable-column width="42.5" field="sys_module_id" modelname="featureDomain" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,35 +14,32 @@
             @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
-                    <td>
-                     <span @if(strlen($featureDomain->name) > 40) 
-                            data-toggle="tooltip" 
-                            title="{{ $featureDomain->name }}" 
-                        @endif>
-                        {{ Str::limit($featureDomain->name, 40) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
+                    <x-field :entity="$featureDomain" field="name">
+                        {{ $featureDomain->name }}
+                    </x-field>
                     </td>
-                    <td>
-                     <span @if(strlen($featureDomain->sysModule) > 50) 
-                            data-toggle="tooltip" 
-                            title="{{ $featureDomain->sysModule }}" 
-                        @endif>
-                        {{ Str::limit($featureDomain->sysModule, 50) }}
-                    </span>
+                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
+                    <x-field :entity="$featureDomain" field="sysModule">
+                       
+                         {{  $featureDomain->sysModule }}
+                    </x-field>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right text-truncate" style="max-width: 15%;">
 
-                        @can('show-featureDomain')
-                        @can('view', $featureDomain)
-                            <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
-                                <i class="far fa-eye"></i>
-                            </a>
-                        @endcan
-                        @endcan
+
+                       
+
                         @can('edit-featureDomain')
                         @can('update', $featureDomain)
                             <a href="{{ route('featureDomains.edit', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endcan
+                        @elsecan('show-featureDomain')
+                        @can('view', $featureDomain)
+                            <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
                             </a>
                         @endcan
                         @endcan

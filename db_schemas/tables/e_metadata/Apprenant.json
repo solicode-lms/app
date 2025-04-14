@@ -766,18 +766,10 @@
     },
     {
         "reference": "Apprenant-nom_filiere_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "Apprenant-nom_filiere",
         "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "Apprenant-nom_filiere_relationFilter",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {},
-        "e_data_field_reference": "Apprenant-nom_filiere",
-        "e_metadata_definition_reference": "relationFilter"
     },
     {
         "reference": "Apprenant_profile_image_nature",
@@ -811,5 +803,34 @@
         "value_integer": 6,
         "e_data_field_reference": "apprenants_hasMany_realisation_formations_apprenant_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Apprenant-duree_sans_terminer_tache_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Apprenant-duree_sans_terminer_tache_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Apprenant-duree_sans_terminer_tache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Apprenant-duree_sans_terminer_tache_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "duree"
+        },
+        "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
+        "e_metadata_definition_reference": "nature"
     }
 ]

@@ -44,6 +44,7 @@ class BaseEMetadataDefinitionService extends BaseService
     {
         parent::__construct(new EMetadataDefinition());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgGapp::eMetadataDefinition.plural');
     }
 
 
@@ -53,9 +54,11 @@ class BaseEMetadataDefinitionService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('eMetadataDefinition');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('groupe', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'groupe', 'type' => 'String', 'label' => 'groupe'];
         }
+
     }
 
     /**
@@ -123,7 +126,9 @@ class BaseEMetadataDefinitionService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('eMetadataDefinition_view_type') === 'widgets') {
-            $this->viewState->set("filter.eMetadataDefinition.visible", 1);
+            $this->viewState->set("scope.eMetadataDefinition.visible", 1);
+        }else{
+            $this->viewState->remove("scope.eMetadataDefinition.visible");
         }
         
         // Récupération des données
@@ -133,7 +138,8 @@ class BaseEMetadataDefinitionService extends BaseService
         $eMetadataDefinition_instance = $this->createInstance();
         $eMetadataDefinition_viewTypes = $this->getViewTypes();
         $eMetadataDefinition_partialViewName = $this->getPartialViewName($eMetadataDefinition_viewType);
-    
+        $eMetadataDefinition_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eMetadataDefinition.stats', $eMetadataDefinitions_stats);
     
@@ -144,7 +150,9 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinitions_data',
             'eMetadataDefinitions_stats',
             'eMetadataDefinitions_filters',
-            'eMetadataDefinition_instance'
+            'eMetadataDefinition_instance',
+            'eMetadataDefinition_title',
+            'contextKey'
         );
     
         return [
@@ -155,6 +163,7 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinition_viewType' => $eMetadataDefinition_viewType,
             'eMetadataDefinition_viewTypes' => $eMetadataDefinition_viewTypes,
             'eMetadataDefinition_partialViewName' => $eMetadataDefinition_partialViewName,
+            'contextKey' => $contextKey,
             'eMetadataDefinition_compact_value' => $compact_value
         ];
     }

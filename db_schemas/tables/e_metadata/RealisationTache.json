@@ -151,7 +151,8 @@
     },
     {
         "reference": "RealisationTache_realisation_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -311,13 +312,13 @@
                 "role": "formateur",
                 "dataScope": "filter",
                 "userModelName": "Formateur",
-                "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.Projet.Formateur.user"
             },
             {
                 "role": "apprenant",
                 "dataScope": "filter",
                 "userModelName": "Apprenant",
-                "ownerRelationPath": "realisationProjet.apprenant.user"
+                "ownerRelationPath": "RealisationProjet.Apprenant.user"
             }
         ],
         "e_model_reference": "realisation_taches",
@@ -361,14 +362,7 @@
         "reference": "realisation_taches_computableFields",
         "value_boolean": 1,
         "value_float": 0,
-        "value_json": [
-            {
-                "name": "Livrables",
-                "label": "Livrables",
-                "method": "livrables",
-                "dispalyOrder": 50
-            }
-        ],
+        "value_json": [],
         "e_model_reference": "realisation_taches",
         "e_metadata_definition_reference": "computableFields"
     },
@@ -462,5 +456,124 @@
         },
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "realisation_taches_linkAction",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-file-alt",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 1,
+                "route": "livrablesRealisations.index",
+                "params": {
+                    "showIndex": true,
+                    "contextKey": "'livrablesRealisation.index'",
+                    "scope.livrable.projet_id": "$realisationTache->realisationProjet->affectationProjet->projet_id",
+                    "scope.livrablesRealisation.realisation_projet_id": "$realisationTache->realisation_projet_id"
+                },
+                "tooltip": "Livrables",
+                "permission": "index-livrablesRealisation"
+            },
+            {
+                "icon": "fas fa-laptop",
+                "class": "btn btn-default btn-sm context-state actionEntity showIndex",
+                "ordre": 2,
+                "route": "projets.show",
+                "params": {
+                    "projet": "$realisationTache->realisationProjet->affectationProjet->projet_id",
+                    "showIndex": true,
+                    "contextKey": "'projets.show'"
+                },
+                "tooltip": "Projets",
+                "permission": "show-projet"
+            }
+        ],
+        "e_model_reference": "realisation_taches",
+        "e_metadata_definition_reference": "linksAction"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_displayOrder",
+        "value_integer": 20,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationTache_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 25,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationTache-projet_title_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationTache-projet_title_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache-projet_title_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

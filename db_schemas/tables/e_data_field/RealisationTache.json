@@ -1,0 +1,44 @@
+[
+    {
+        "reference": "RealisationTache-nombre_livrables",
+        "name": "nombre_livrables",
+        "column_name": "nombre_livrables",
+        "data_type": "Integer",
+        "field_order": 20,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT COUNT(*) \r\nFROM livrables_realisations lr\r\nJOIN livrables l ON l.id = lr.livrable_id\r\nJOIN livrable_tache lt ON lt.livrable_id = l.id\r\nWHERE lt.tache_id = realisation_taches.tache_id\r\nAND lr.realisation_projet_id = realisation_taches.realisation_projet_id",
+        "description": "",
+        "e_model_reference": "realisation_taches"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant",
+        "name": "nom_prenom_apprenant",
+        "column_name": "nom_prenom_apprenant",
+        "data_type": "String",
+        "field_order": 5,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT CONCAT(a.nom, ' ', a.prenom)\r\nFROM realisation_projets rp\r\nJOIN apprenants a ON a.id = rp.apprenant_id\r\nWHERE rp.id = realisation_taches.realisation_projet_id",
+        "description": "",
+        "e_model_reference": "realisation_taches"
+    },
+    {
+        "reference": "RealisationTache-projet_title",
+        "name": "projet_title",
+        "column_name": "projet_title",
+        "data_type": "String",
+        "field_order": 5,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT p.titre\r\nFROM realisation_projets rp\r\nJOIN affectation_projets ap ON ap.id = rp.affectation_projet_id\r\nJOIN projets p ON p.id = ap.projet_id\r\nWHERE rp.id = realisation_taches.realisation_projet_id",
+        "description": "",
+        "e_model_reference": "realisation_taches"
+    }
+]

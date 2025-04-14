@@ -44,6 +44,7 @@ class BaseWidgetUtilisateurService extends BaseService
     {
         parent::__construct(new WidgetUtilisateur());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgWidgets::widgetUtilisateur.plural');
     }
 
 
@@ -53,15 +54,25 @@ class BaseWidgetUtilisateurService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('widgetUtilisateur');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('user_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
-        if (!array_key_exists('widget_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgWidgets::widget.plural"), 'widget_id', \Modules\PkgWidgets\Models\Widget::class, 'name');
-        }
+
         if (!array_key_exists('visible', $scopeVariables)) {
         $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
         }
+
+        $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
+        $sectionWidgets = $sectionWidgetService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgWidgets::sectionWidget.plural"),
+            'Widget.Section_widget_id', 
+            \Modules\PkgWidgets\Models\SectionWidget::class,
+            "id", 
+            "id",
+            $sectionWidgets
+        );
     }
 
     /**
@@ -149,7 +160,9 @@ class BaseWidgetUtilisateurService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('widgetUtilisateur_view_type') === 'widgets') {
-            $this->viewState->set("filter.widgetUtilisateur.visible", 1);
+            $this->viewState->set("scope.widgetUtilisateur.visible", 1);
+        }else{
+            $this->viewState->remove("scope.widgetUtilisateur.visible");
         }
         
         // Récupération des données
@@ -159,7 +172,8 @@ class BaseWidgetUtilisateurService extends BaseService
         $widgetUtilisateur_instance = $this->createInstance();
         $widgetUtilisateur_viewTypes = $this->getViewTypes();
         $widgetUtilisateur_partialViewName = $this->getPartialViewName($widgetUtilisateur_viewType);
-    
+        $widgetUtilisateur_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetUtilisateur.stats', $widgetUtilisateurs_stats);
     
@@ -170,7 +184,9 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateurs_data',
             'widgetUtilisateurs_stats',
             'widgetUtilisateurs_filters',
-            'widgetUtilisateur_instance'
+            'widgetUtilisateur_instance',
+            'widgetUtilisateur_title',
+            'contextKey'
         );
     
         return [
@@ -181,6 +197,7 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateur_viewType' => $widgetUtilisateur_viewType,
             'widgetUtilisateur_viewTypes' => $widgetUtilisateur_viewTypes,
             'widgetUtilisateur_partialViewName' => $widgetUtilisateur_partialViewName,
+            'contextKey' => $contextKey,
             'widgetUtilisateur_compact_value' => $compact_value
         ];
     }

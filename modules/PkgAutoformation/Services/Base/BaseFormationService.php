@@ -45,6 +45,7 @@ class BaseFormationService extends BaseService
     {
         parent::__construct(new Formation());
         $this->fieldsFilterable = [];
+        $this->title = __('PkgAutoformation::formation.plural');
     }
 
 
@@ -54,15 +55,19 @@ class BaseFormationService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('formation');
         $this->fieldsFilterable = [];
     
+
         if (!array_key_exists('competence_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
         }
+
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
+
         if (!array_key_exists('formation_officiel_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutoformation::formation.plural"), 'formation_officiel_id', \Modules\PkgAutoformation\Models\Formation::class, 'nom');
         }
+
     }
 
     /**
@@ -144,7 +149,9 @@ class BaseFormationService extends BaseService
     
         // Si viewType = widgets, appliquer filtre visible = 1
         if ($this->viewState->get('formation_view_type') === 'widgets') {
-            $this->viewState->set("filter.formation.visible", 1);
+            $this->viewState->set("scope.formation.visible", 1);
+        }else{
+            $this->viewState->remove("scope.formation.visible");
         }
         
         // Récupération des données
@@ -154,7 +161,8 @@ class BaseFormationService extends BaseService
         $formation_instance = $this->createInstance();
         $formation_viewTypes = $this->getViewTypes();
         $formation_partialViewName = $this->getPartialViewName($formation_viewType);
-    
+        $formation_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formation.stats', $formations_stats);
     
@@ -165,7 +173,9 @@ class BaseFormationService extends BaseService
             'formations_data',
             'formations_stats',
             'formations_filters',
-            'formation_instance'
+            'formation_instance',
+            'formation_title',
+            'contextKey'
         );
     
         return [
@@ -176,6 +186,7 @@ class BaseFormationService extends BaseService
             'formation_viewType' => $formation_viewType,
             'formation_viewTypes' => $formation_viewTypes,
             'formation_partialViewName' => $formation_partialViewName,
+            'contextKey' => $contextKey,
             'formation_compact_value' => $compact_value
         ];
     }

@@ -39,6 +39,7 @@ class BaseWidgetRequest extends FormRequest
             'icon' => 'nullable|string|max:255',
             'sys_color_id' => 'nullable',
             'roles' => 'nullable|array',
+            'section_widget_id' => 'nullable',
             'parameters' => 'nullable'
         ];
     }
@@ -66,6 +67,7 @@ class BaseWidgetRequest extends FormRequest
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.sys_color_id')]),
             'roles.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.roles')]),
             'roles.array' => __('validation.array', ['attribute' => __('PkgWidgets::Widget.roles')]),
+            'section_widget_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.section_widget_id')]),
             'parameters.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.parameters')])
         ];
     }
