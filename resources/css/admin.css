@@ -274,3 +274,20 @@ input[type="checkbox"] {
     font-size: 14px;
     margin-bottom: 0;
 }
+
+/* Bulk Form */
+.bulk-check input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin: 0px;
+    cursor: pointer;
+    vertical-align: middle;
+    display: inline-block;
+}
+.bulk-check label {
+    color: #aaa !important;
+    margin-right: 0px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    display: inline-block;
+}

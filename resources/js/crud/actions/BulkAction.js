@@ -54,6 +54,22 @@ export class BulkAction extends BaseAction {
                             if (this.tableUI.indexUI.formUI?.disableRequiredAttributes) {
                                 this.tableUI.indexUI.formUI.disableRequiredAttributes();
                             }
+
+                           
+                            // Active la checkbox correspondante à tout champ modifié
+                            EventUtil.bindEvent('change', `${this.config.formSelector} input, ${this.config.formSelector} select, ${this.config.formSelector} textarea`, (event) => {
+                                const input = event.currentTarget;
+                                const fieldName = input.name?.replace('[]', '');
+
+                                // Si le champ a un nom et une case à cocher correspondante
+                                if (fieldName) {
+                                    const checkbox = document.getElementById(`bulk_field_${fieldName}`);
+                                    if (checkbox) {
+                                        checkbox.checked = true;
+                                    }
+                                }
+                            });
+
                         })
                         .fail((xhr) => {
                             this.tableUI.indexUI.modalUI.close();
