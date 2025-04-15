@@ -38,8 +38,6 @@ class BaseRealisationTacheService extends BaseService
         return $this->fieldsSearchable;
     }
 
-   
-
     /**
      * Constructeur de la classe RealisationTacheService.
      */
