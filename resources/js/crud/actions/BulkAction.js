@@ -29,14 +29,15 @@ export class BulkAction extends BaseAction {
             const confirmText = button.dataset.confirm || null;
 
             const selectedIds = this.getSelectedIds();
+            const selectedCount = selectedIds.length;
 
-            if (selectedIds.length === 0) {
+            if (selectedCount === 0) {
                 NotificationHandler.showError('Veuillez sélectionner au moins une ligne.');
                 return;
             }
 
             const doAction = () => {
-                NotificationHandler.showToast('info', 'Traitement en cours...');
+                NotificationHandler.showToast('info', `Traitement de ${selectedCount} élément(s) en cours...`);
 
                 $.ajax({
                     url: this.appendParamsToUrl(url, this.viewStateService.getContextParams()),
@@ -47,7 +48,7 @@ export class BulkAction extends BaseAction {
                     }
                 })
                 .done((data) => {
-                    NotificationHandler.show(data.type, data.title, data.message);
+                    NotificationHandler.show(data.type, data.title, data.message || `${selectedCount} élément(s) traité(s).`);
                     this.tableUI.entityLoader.loadEntities();
                 })
                 .fail((xhr) => {
@@ -71,4 +72,4 @@ export class BulkAction extends BaseAction {
         const checkboxes = document.querySelectorAll(`${this.config.crudSelector} .check-row:checked`);
         return Array.from(checkboxes).map(cb => cb.dataset.id);
     }
-}
+} 

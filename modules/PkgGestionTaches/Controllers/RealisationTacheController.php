@@ -51,9 +51,35 @@ class RealisationTacheController extends BaseRealisationTacheController
             return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
         }
 
-        $etatRealisationTaches = $this->etatRealisationTacheService->all();
+        // Même traitement de create 
 
-        return view('PkgGestionTaches::realisationTache._bulk-edit', compact('ids', 'etatRealisationTaches'))->render();
+         // ownedByUser
+         if(Auth::user()->hasRole('formateur')){
+            $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+         }
+         if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+         }
+ 
+ 
+         $itemRealisationTache = $this->realisationTacheService->createInstance();
+         
+         // scopeDataInEditContext
+         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+         $key = 'scope.etatRealisationTache.formateur_id';
+         $this->viewState->set($key, $value);
+ 
+         $taches = $this->tacheService->all();
+         $realisationProjets = $this->realisationProjetService->all();
+         $etatRealisationTaches = $this->etatRealisationTacheService->all();
+ 
+         if (request()->ajax()) {
+             return view('PkgGestionTaches::realisationTache._fields', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+         }
+        
+        // return view('PkgGestionTaches::realisationTache.create', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+ 
+        return view('PkgGestionTaches::realisationTache._edit', compact('ids', 'etatRealisationTaches'))->render();
     }
 
     /**
