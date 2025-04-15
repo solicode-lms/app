@@ -53,32 +53,34 @@
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('realisationProjet-crud-stats-bar')
-                <div class="card-header row">
-                    <!-- Statistiques et Actions -->
-                    <div class="col-sm-8">
-                        <x-crud-stats-summary
-                            icon="fas fa-chart-bar text-info"
-                            :stats="$realisationProjets_stats"
-                        />
-                    </div>
-                    <div class="col-sm-4">
-                      
-                        <x-crud-actions
-                            :instanceItem="$realisationProjet_instance"
-                            :createPermission="'create-realisationProjet'"
-                            :createRoute="route('realisationProjets.create')"
-                            :createText="__('Ajouter')"
-                            :importPermission="'import-realisationProjet'"
-                            :importRoute="route('realisationProjets.import')"
-                            :importText="__('Importer')"
-                            :exportPermission="'export-realisationProjet'"
-                            :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
-                            :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
-                            :exportText="__('Exporter')"
-                            :viewTypes="$realisationProjet_viewTypes"
-                            :viewType="$realisationProjet_viewType"
-                        />
-                    
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$realisationProjets_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                        
+                            <x-crud-actions
+                                :instanceItem="$realisationProjet_instance"
+                                :createPermission="'create-realisationProjet'"
+                                :createRoute="route('realisationProjets.create')"
+                                :createText="__('Ajouter')"
+                                :importPermission="'import-realisationProjet'"
+                                :importRoute="route('realisationProjets.import')"
+                                :importText="__('Importer')"
+                                :exportPermission="'export-realisationProjet'"
+                                :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
+                                :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
+                                :exportText="__('Exporter')"
+                                :viewTypes="$realisationProjet_viewTypes"
+                                :viewType="$realisationProjet_viewType"
+                            />
+                        
+                        </div>
                     </div>
                 </div>
                 @show
@@ -118,6 +120,30 @@
                     @include("PkgRealisationProjets::realisationProjet._$realisationProjet_viewType")
                     @endif
                 </div>
+                @section('realisationTache-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('realisationTaches.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('realisationTaches.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    </span>
+                </div>
+                @show
             </div>
         </div>
     </section>

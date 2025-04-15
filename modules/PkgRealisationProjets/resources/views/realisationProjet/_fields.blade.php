@@ -1,4 +1,4 @@
-{{-- desable etat en cas d'une état modifier par le formateur --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationProjet-form')
 <form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>

@@ -9,10 +9,10 @@
                     <input type="checkbox" class="check-all-rows" />
                 </th>
                 <x-sortable-column width="25" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column width="18"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
+                <x-sortable-column width="16.5"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
                 <x-sortable-column width="12"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
                 <x-sortable-column width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
-                <x-sortable-column width="18"  field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
+                <x-sortable-column width="16.5"  field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <td style="max-width: 16.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
                     <x-field :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
                     </x-field>
@@ -49,7 +49,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 18%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 16.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                     <x-field :entity="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>

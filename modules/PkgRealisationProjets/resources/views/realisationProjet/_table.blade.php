@@ -5,11 +5,14 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="17" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
-                <x-sortable-column width="17" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column width="17" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
-                <x-sortable-column width="17"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
-                <x-sortable-column width="17"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="16.4" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
+                <x-sortable-column width="16.4" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column width="16.4" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
+                <x-sortable-column width="16.4"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
+                <x-sortable-column width="16.4"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,19 +21,22 @@
             @section('realisationProjet-table-tbody')
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $realisationProjet->id }}" data-id="{{ $realisationProjet->id }}">
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
                        
                          {{  $realisationProjet->affectationProjet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
                     <x-field :entity="$realisationProjet" field="apprenant">
                        
                          {{  $realisationProjet->apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
                     <x-field :entity="$realisationProjet" field="etatsRealisationProjet">
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
@@ -40,7 +46,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
                     <x-field :entity="$realisationProjet" field="avancement_projet">
                         <div class="progress progress-sm">
                             <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->avancement_projet }}%">
@@ -51,7 +57,7 @@
                         </small>
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                     <x-field :entity="$realisationProjet" field="livrablesRealisations">
                         <ul>
                             @foreach ($realisationProjet->livrablesRealisations as $livrablesRealisation)
@@ -83,7 +89,7 @@
                             <form class="context-state" action="{{ route('realisationProjets.destroy',['realisationProjet' => $realisationProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$realisationProjet->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$realisationProjet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
