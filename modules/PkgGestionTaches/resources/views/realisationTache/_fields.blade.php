@@ -248,11 +248,12 @@
 
 </script>
 <script>
-@if (!empty($bulkEdit))
-    window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
-@else
-    window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{$itemRealisationTache}}'
-@endif
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{$itemRealisationTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);
