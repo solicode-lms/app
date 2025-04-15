@@ -23,18 +23,15 @@
       @php $canEdittache_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="tache_id">
             {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id">
-              <label class="small text-muted" for="bulk_field_tache_id">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <select 
             id="tache_id" 
             {{ $canEdittache_id ? '' : 'disabled' }}
@@ -60,18 +57,15 @@
       @php $canEditrealisation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="realisation_projet_id">
             {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
             <span class="text-danger">*</span>
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id">
-              <label class="small text-muted" for="bulk_field_realisation_projet_id">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <select 
             id="realisation_projet_id" 
             {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
@@ -96,18 +90,15 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="dateDebut">
             {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
             <span class="text-danger">*</span>
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut">
-              <label class="small text-muted" for="bulk_field_dateDebut">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <input
                 name="dateDebut"
                 type="date"
@@ -127,18 +118,15 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="dateFin">
             {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
             
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin">
-              <label class="small text-muted" for="bulk_field_dateFin">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <input
                 name="dateFin"
                 type="date"
@@ -158,18 +146,15 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="etat_realisation_tache_id">
             {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}
             
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id">
-              <label class="small text-muted" for="bulk_field_etat_realisation_tache_id">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <select 
             id="etat_realisation_tache_id" 
             
@@ -194,18 +179,15 @@
       @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="remarques_formateur">
             {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
             
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur">
-              <label class="small text-muted" for="bulk_field_remarques_formateur">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <textarea rows="" cols=""
                 name="remarques_formateur"
                 class="form-control richText"
@@ -223,18 +205,15 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="remarques_apprenant">
             {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
             
           </label>
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant">
-              <label class="small text-muted" for="bulk_field_remarques_apprenant">
-                  Appliquer ce champ à tous les éléments sélectionnés
-              </label>
-          </div>
-          @endif
                       <textarea rows="" cols=""
                 name="remarques_apprenant"
                 class="form-control richText"
@@ -269,7 +248,11 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{$itemRealisationTache}}'
+@if (!empty($bulkEdit))
+    window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+@else
+    window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{$itemRealisationTache}}'
+@endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

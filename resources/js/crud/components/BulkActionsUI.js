@@ -20,6 +20,7 @@ export class BulkActionsUI {
         this.config.init();
         this.bindCheckAllHandler();
         this.bindCheckRowHandler();
+        this.updateCheckAllState();
     }
 
     /**
@@ -39,9 +40,21 @@ export class BulkActionsUI {
         if (bulkActionBar && countDisplay) {
             if (checkedCount > 0) {
                 bulkActionBar.classList.remove('d-none');
+
+                // Afficher la bar de filtre car, peut être hide()
+                const $contentToToggle= $(`${this.config.crudSelector} .card-header:not(:first)`);
+                $contentToToggle.show();
+
+                      
                 countDisplay.textContent = checkedCount;
             } else {
+
+          
                 bulkActionBar.classList.add('d-none');
+
+                // Revenire à l'état initial de bar filtre
+                this.indexUI.filterUI.initFilterToogle();
+
                 countDisplay.textContent = 0;
             }
         }

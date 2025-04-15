@@ -26,5 +26,6 @@ return [
     'checkAll' => 'Tout cocher',
     'date' => 'Date',
     'select' => 'Sélectionner',
-    'reference' => 'Référence'
+    'reference' => 'Référence',
+    'edition_en_masse' => 'Modification en masse'
 ];

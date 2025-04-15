@@ -1,4 +1,4 @@
-<div class="filter-field col-md-3 mb-3">
+<div class="filter-field col-md-3 mb-1 mt-1">
     @switch($type)
         @case('String')
             <input type="text" 

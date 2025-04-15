@@ -62,6 +62,7 @@ export class LoadListAction extends BaseAction {
                 this.executeScripts(html);
                 this.tableUI.init();
                 this.tableUI.indexUI.filterUI.init();
+                this.tableUI.indexUI.bulkActionsUI.init();
                 // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
             })

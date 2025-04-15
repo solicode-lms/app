@@ -62,6 +62,16 @@
 
 /* CRUD */
 
+
+.crud-header{
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+
+.crud .card-header {
+    padding: 0.30rem 1.25rem;
+}
+
 .filter-icon {
     cursor: pointer;
     font-size: 1.2rem;
@@ -276,9 +286,13 @@ input[type="checkbox"] {
 }
 
 /* Bulk Form */
+.bulk-check{
+    display: inline;
+    margin-right: 4px;
+}
 .bulk-check input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
     margin: 0px;
     cursor: pointer;
     vertical-align: middle;
@@ -290,4 +304,18 @@ input[type="checkbox"] {
     margin-bottom: 2px;
     vertical-align: middle;
     display: inline-block;
+}
+
+.crud-bulk-action {
+    position: sticky;
+    bottom: 0;
+    z-index: 1050;
+    background: white;
+    padding: 10px 15px;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.crud-bulk-action .bulk-selected-count-container{
+    float: left;
 }

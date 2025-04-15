@@ -47,10 +47,9 @@ export class BulkAction extends BaseAction {
                     $.get(finalUrl, { ids: selectedIds })
                         .done((html) => {
                             this.tableUI.indexUI.modalUI.showContent(html);
-
                             this.tableUI.indexUI.formUI.init(() => this.submitEntity(), false);
-
                             this.executeScripts(html);
+                            this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
                             if (this.tableUI.indexUI.formUI?.disableRequiredAttributes) {
                                 this.tableUI.indexUI.formUI.disableRequiredAttributes();
                             }

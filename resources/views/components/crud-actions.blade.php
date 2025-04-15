@@ -1,9 +1,8 @@
 <div class="actions d-flex align-items-center justify-content-end crud-action">
     @can($createPermission ?? '')
     @can('create', $instanceItem)
-        <a href="{{ $createRoute ?? '#' }}" data-target="#entityModal" class="btn btn-success btn-sm mr-2 context-state addEntityButton">
+        <a href="{{ $createRoute ?? '#' }}" data-target="#entityModal" data-toggle="tooltip" title=" {{ $createText ?? __('Core::msg.add') }}" class="btn btn-sm btn-outline-info mr-2 context-state addEntityButton">
             <i class="fas fa-plus"></i>
-            {{ $createText ?? __('Core::msg.add') }}
         </a>
     @endcan
     @endcan
@@ -76,7 +75,7 @@
 @endif
 
     
-    <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" data-visible="1">
+    <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" title="filtrer" data-toggle="tooltip" data-visible="1">
         <i class="fas fa-filter"></i> 
     </button>
 

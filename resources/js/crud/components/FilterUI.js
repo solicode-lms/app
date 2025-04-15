@@ -1,6 +1,7 @@
 import { TableUI } from './TableUI';
 import EventUtil from './../utils/EventUtil';
 import DynamicDropdownTreatment from '../treatments/global/DynamicDropdownTreatment';
+import { BulkActionsUI } from './BulkActionsUI';
 
 export class FilterUI {
 
@@ -21,6 +22,7 @@ export class FilterUI {
         this.adapterPourContext(); // Masquer les filtres dynamiquement selon le contexte
         this.initializeFilterResetHandler();
         this.initStats();
+     
 
         // DynamicDropdownTreatment
         document.querySelectorAll(this.config.filterFormSelector + " [data-target-dynamic-dropdown]").forEach((element) => {

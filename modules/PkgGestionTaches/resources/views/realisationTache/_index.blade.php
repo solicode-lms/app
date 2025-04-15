@@ -53,32 +53,35 @@
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('realisationTache-crud-stats-bar')
-                <div class="card-header row">
-                    <!-- Statistiques et Actions -->
-                    <div class="col-sm-8">
-                        <x-crud-stats-summary
-                            icon="fas fa-chart-bar text-info"
-                            :stats="$realisationTaches_stats"
-                        />
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$realisationTaches_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                            <x-crud-actions
+                                :instanceItem="$realisationTache_instance"
+                                :createPermission="'create-realisationTache'"
+                                :createRoute="route('realisationTaches.create')"
+                                :createText="__('Ajouter')"
+                                :importPermission="'import-realisationTache'"
+                                :importRoute="route('realisationTaches.import')"
+                                :importText="__('Importer')"
+                                :exportPermission="'export-realisationTache'"
+                                :exportXlsxRoute="route('realisationTaches.export', ['format' => 'xlsx'])"
+                                :exportCsvRoute="route('realisationTaches.export', ['format' => 'csv']) "
+                                :exportText="__('Exporter')"
+                                :viewTypes="$realisationTache_viewTypes"
+                                :viewType="$realisationTache_viewType"
+                            />
+
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        <x-crud-actions
-                            :instanceItem="$realisationTache_instance"
-                            :createPermission="'create-realisationTache'"
-                            :createRoute="route('realisationTaches.create')"
-                            :createText="__('Ajouter')"
-                            :importPermission="'import-realisationTache'"
-                            :importRoute="route('realisationTaches.import')"
-                            :importText="__('Importer')"
-                            :exportPermission="'export-realisationTache'"
-                            :exportXlsxRoute="route('realisationTaches.export', ['format' => 'xlsx'])"
-                            :exportCsvRoute="route('realisationTaches.export', ['format' => 'csv']) "
-                            :exportText="__('Exporter')"
-                            :viewTypes="$realisationTache_viewTypes"
-                            :viewType="$realisationTache_viewType"
-                        />
                     
-                    </div>
                 </div>
                 @show
                 @section('realisationTache-crud-filters')
@@ -112,37 +115,38 @@
                     </form>
                 </div>
                 @show
-                @section('realisationTache-crud-bulk-actions')
-                <div class="card-header crud-bulk-action d-none align-items-center justify-content-between">
-                    <div>
-                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
-                    </div>
-                    <div>
-                        <button 
-                        class="btn btn-sm btn-danger bulkActionButton" 
-                        data-url="{{ route('realisationTaches.bulkDelete') }}" 
-                        data-method="POST" 
-                        data-action-type="ajax"
-                        data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
-                        <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
-                    </button>
-                    
-                    <button 
-                        class="btn btn-sm btn-primary bulkActionButton" 
-                        data-action-type="modal"
-                        data-url="{{ route('realisationTaches.bulkEdit') }}" 
-                        data-method="GET">
-                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
-                    </button>
-                    
-                    </div>
-                </div>
-                @show
                 <div id="realisationTache-data-container" class="data-container">
                     @if($realisationTache_viewType == "table")
                     @include("PkgGestionTaches::realisationTache._$realisationTache_viewType")
                     @endif
                 </div>
+                @section('realisationTache-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                      
+                    
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('realisationTaches.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('realisationTaches.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    </span>
+                </div>
+                @show
             </div>
         </div>
     </section>
