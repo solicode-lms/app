@@ -379,7 +379,7 @@ class BaseRealisationTacheController extends AdminController
     
            
     
-            $allFields = ['etat_realisation_tache_id', 'dateDebut', 'dateFin', 'remarques_formateur', 'remarques_apprenant'];
+            $allFields = $this->realisationTacheService->getFieldsEditable();
             $data = collect($allFields)
                 ->filter(fn($field) => in_array($field, $champsCoches))
                 ->mapWithKeys(fn($field) => [$field => $request->input($field)])

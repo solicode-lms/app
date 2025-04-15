@@ -66,6 +66,11 @@ abstract class BaseService implements ServiceInterface
     abstract public function getFieldsSearchable(): array;
 
 
+    public function getFieldsEditable(): array
+    {
+        return $this->fieldsSearchable;
+    }
+    
     /**
      * Méthode pour obtenir les champs sortable.
      * Les champs dynamique sont sortable mais ne sont pas searchable
