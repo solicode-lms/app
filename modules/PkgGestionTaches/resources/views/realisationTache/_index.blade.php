@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ bulk --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
 <script>
@@ -122,13 +122,10 @@
                 </div>
                 @section('realisationTache-crud-bulk-actions')
                 <div class="crud-bulk-action d-none align-items-center justify-content-between">
-                    
                     <span class="bulk-selected-count-container">
                         <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
                     </span>
                     <span>
-                      
-                    
                     <button 
                         class="btn btn-sm btn-info bulkActionButton" 
                         data-action-type="modal"
