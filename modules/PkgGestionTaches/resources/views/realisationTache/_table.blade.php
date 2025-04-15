@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ : bulk actions --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">

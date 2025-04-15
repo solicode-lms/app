@@ -63,6 +63,7 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                        
                             <x-crud-actions
                                 :instanceItem="$realisationTache_instance"
                                 :createPermission="'create-realisationTache'"
@@ -78,10 +79,9 @@
                                 :viewTypes="$realisationTache_viewTypes"
                                 :viewType="$realisationTache_viewType"
                             />
-
+                        
                         </div>
                     </div>
-                    
                 </div>
                 @show
                 @section('realisationTache-crud-filters')
