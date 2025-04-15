@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332" field="transfert_competence_id" modelname="validation" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="note" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="message" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332" field="transfert_competence_id" modelname="validation" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="note" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.note')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="message" modelname="validation" label="{{ ucfirst(__('PkgRealisationProjets::validation.message')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,18 +18,21 @@
             @section('validation-table-tbody')
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $validation->id }}" data-id="{{ $validation->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
                     <x-field :entity="$validation" field="transfertCompetence">
                        
                          {{  $validation->transfertCompetence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->note }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->note }}" >
                     <x-field :entity="$validation" field="note">
                         {{ $validation->note }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->message }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->message }}" >
                     <x-field :entity="$validation" field="message">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 30) !!}
                     </x-field>
@@ -54,7 +60,7 @@
                             <form class="context-state" action="{{ route('validations.destroy',['validation' => $validation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$validation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$validation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

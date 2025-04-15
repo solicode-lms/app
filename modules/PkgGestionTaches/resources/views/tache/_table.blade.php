@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
-                <x-sortable-column width="28.333333333333332" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column width="28.333333333333332" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
+                <x-sortable-column width="27.333333333333332" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column width="27.333333333333332" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,18 +18,21 @@
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
                 <tr id="tache-row-{{$tache->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->titre }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $tache->id }}" data-id="{{ $tache->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->titre }}" >
                     <x-field :entity="$tache" field="titre">
                         {{ $tache->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->projet }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->projet }}" >
                     <x-field :entity="$tache" field="projet">
                        
                          {{  $tache->projet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
                     <x-field :entity="$tache" field="prioriteTache">
                        
                          {{  $tache->prioriteTache }}
@@ -55,7 +61,7 @@
                             <form class="context-state" action="{{ route('taches.destroy',['tache' => $tache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$tache->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$tache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

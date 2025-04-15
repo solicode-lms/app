@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
-                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
+                <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="27.333333333333332" field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,12 +18,15 @@
             @section('etatFormation-table-tbody')
             @foreach ($etatFormations_data as $etatFormation)
                 <tr id="etatFormation-row-{{$etatFormation->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $etatFormation->id }}" data-id="{{ $etatFormation->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
                     <x-field :entity="$etatFormation" field="nom">
                         {{ $etatFormation->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
                     <x-field :entity="$etatFormation" field="sysColor">
                         <x-badge 
                         :text="$etatFormation->sysColor->name ?? ''" 
@@ -28,7 +34,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
                     <x-field :entity="$etatFormation" field="formateur">
                        
                          {{  $etatFormation->formateur }}
@@ -57,7 +63,7 @@
                             <form class="context-state" action="{{ route('etatFormations.destroy',['etatFormation' => $etatFormation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$etatFormation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$etatFormation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('widgetType-form')
-<form class="crud-form custom-form context-state container" id="widgetTypeForm" action="{{ $itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="widgetTypeForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('widgetTypes.bulkUpdate') : ($itemWidgetType->id ? route('widgetTypes.update', $itemWidgetType->id) : route('widgetTypes.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemWidgetType->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($widgetType_ids))
+        @foreach ($widgetType_ids as $id)
+            <input type="hidden" name="widgetType_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type" id="bulk_field_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="type">
             {{ ucfirst(__('PkgWidgets::widgetType.type')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgWidgets::widgetType.description')) }}
             
@@ -68,7 +89,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgWidgets::widgetType.singular") }} : {{$itemWidgetType}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgWidgets::widgetType.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgWidgets::widgetType.singular") }} : {{$itemWidgetType}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

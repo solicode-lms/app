@@ -34,6 +34,8 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->workflowTacheService = $workflowTacheService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
@@ -70,6 +72,8 @@ class BaseEtatRealisationTacheController extends AdminController
 
         return view('PkgGestionTaches::etatRealisationTache.index', $etatRealisationTache_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -89,6 +93,44 @@ class BaseEtatRealisationTacheController extends AdminController
         }
         return view('PkgGestionTaches::etatRealisationTache.create', compact('itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $etatRealisationTache_ids = $request->input('ids', []);
+
+        if (!is_array($etatRealisationTache_ids) || count($etatRealisationTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemEtatRealisationTache = $this->etatRealisationTacheService->find($etatRealisationTache_ids[0]);
+         
+ 
+        $workflowTaches = $this->workflowTacheService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::etatRealisationTache._fields', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        }
+        return view('PkgGestionTaches::etatRealisationTache.bulk-edit', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+    }
+    /**
+     */
     public function store(EtatRealisationTacheRequest $request) {
         $validatedData = $request->validated();
         $etatRealisationTache = $this->etatRealisationTacheService->create($validatedData);
@@ -112,6 +154,8 @@ class BaseEtatRealisationTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('etatRealisationTache.edit_' . $id);
@@ -133,6 +177,8 @@ class BaseEtatRealisationTacheController extends AdminController
         return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('etatRealisationTache.edit_' . $id);
@@ -155,6 +201,8 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(EtatRealisationTacheRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatRealisationTache = $this->etatRealisationTacheService->find($id);
@@ -183,6 +231,42 @@ class BaseEtatRealisationTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $etatRealisationTache_ids = $request->input('etatRealisationTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($etatRealisationTache_ids) || count($etatRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($etatRealisationTache_ids as $id) {
+            $entity = $this->etatRealisationTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->etatRealisationTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->etatRealisationTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatRealisationTache = $this->etatRealisationTacheService->find($id);
@@ -209,6 +293,27 @@ class BaseEtatRealisationTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $etatRealisationTache_ids = $request->input('ids', []);
+        if (!is_array($etatRealisationTache_ids) || count($etatRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($etatRealisationTache_ids as $id) {
+            $entity = $this->etatRealisationTacheService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $etatRealisationTache = $this->etatRealisationTacheService->find($id);
+            $this->authorize('delete', $etatRealisationTache);
+            $this->etatRealisationTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($etatRealisationTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::etatRealisationTache.plural')
+        ]));
     }
 
     public function export($format)

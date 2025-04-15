@@ -28,6 +28,8 @@ class BaseNiveauDifficulteController extends AdminController
         $this->formateurService = $formateurService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
@@ -64,6 +66,8 @@ class BaseNiveauDifficulteController extends AdminController
 
         return view('PkgCompetences::niveauDifficulte.index', $niveauDifficulte_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -81,6 +85,42 @@ class BaseNiveauDifficulteController extends AdminController
         }
         return view('PkgCompetences::niveauDifficulte.create', compact('itemNiveauDifficulte', 'formateurs'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $niveauDifficulte_ids = $request->input('ids', []);
+
+        if (!is_array($niveauDifficulte_ids) || count($niveauDifficulte_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.niveauDifficulte.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemNiveauDifficulte = $this->niveauDifficulteService->find($niveauDifficulte_ids[0]);
+         
+ 
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNiveauDifficulte = $this->niveauDifficulteService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauDifficulte._fields', compact('bulkEdit', 'niveauDifficulte_ids', 'itemNiveauDifficulte', 'formateurs'));
+        }
+        return view('PkgCompetences::niveauDifficulte.bulk-edit', compact('bulkEdit', 'niveauDifficulte_ids', 'itemNiveauDifficulte', 'formateurs'));
+    }
+    /**
+     */
     public function store(NiveauDifficulteRequest $request) {
         $validatedData = $request->validated();
         $niveauDifficulte = $this->niveauDifficulteService->create($validatedData);
@@ -104,6 +144,8 @@ class BaseNiveauDifficulteController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
@@ -123,6 +165,8 @@ class BaseNiveauDifficulteController extends AdminController
         return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
@@ -143,6 +187,8 @@ class BaseNiveauDifficulteController extends AdminController
 
 
     }
+    /**
+     */
     public function update(NiveauDifficulteRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $niveauDifficulte = $this->niveauDifficulteService->find($id);
@@ -171,6 +217,42 @@ class BaseNiveauDifficulteController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $niveauDifficulte_ids = $request->input('niveauDifficulte_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($niveauDifficulte_ids) || count($niveauDifficulte_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($niveauDifficulte_ids as $id) {
+            $entity = $this->niveauDifficulteService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->niveauDifficulteService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->niveauDifficulteService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $niveauDifficulte = $this->niveauDifficulteService->find($id);
@@ -197,6 +279,27 @@ class BaseNiveauDifficulteController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $niveauDifficulte_ids = $request->input('ids', []);
+        if (!is_array($niveauDifficulte_ids) || count($niveauDifficulte_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($niveauDifficulte_ids as $id) {
+            $entity = $this->niveauDifficulteService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $niveauDifficulte = $this->niveauDifficulteService->find($id);
+            $this->authorize('delete', $niveauDifficulte);
+            $this->niveauDifficulteService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($niveauDifficulte_ids) . ' éléments',
+            'modelName' => __('PkgCompetences::niveauDifficulte.plural')
+        ]));
     }
 
     public function export($format)

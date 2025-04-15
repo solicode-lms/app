@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
         Route::get('natureLivrables/getData', [NatureLivrableController::class, 'getData'])->name('natureLivrables.getData');
+        // bulk - edit and delete
+        Route::post('natureLivrables/bulk-delete', [NatureLivrableController::class, 'bulkDelete'])
+        ->name('natureLivrables.bulkDelete');
+        Route::get('natureLivrables/bulk-edit', [NatureLivrableController::class, 'bulkEditForm'])
+        ->name('natureLivrables.bulkEdit');
+        Route::post('natureLivrables/bulk-update', [NatureLivrableController::class, 'bulkUpdate'])
+        ->name('natureLivrables.bulkUpdate');
+
         Route::resource('natureLivrables', NatureLivrableController::class)
             ->parameters(['natureLivrables' => 'natureLivrable']);
         // Routes supplémentaires avec préfixe

@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="Nom" modelname="apprenantKonosy" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="Nom" modelname="apprenantKonosy" label="{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('apprenantKonosy-table-tbody')
             @foreach ($apprenantKonosies_data as $apprenantKonosy)
                 <tr id="apprenantKonosy-row-{{$apprenantKonosy->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenantKonosy->Nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $apprenantKonosy->id }}" data-id="{{ $apprenantKonosy->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenantKonosy->Nom }}" >
                     <x-field :entity="$apprenantKonosy" field="Nom">
                         {{ $apprenantKonosy->Nom }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('apprenantKonosies.destroy',['apprenantKonosy' => $apprenantKonosy->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$apprenantKonosy->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$apprenantKonosy->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

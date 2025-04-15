@@ -28,6 +28,8 @@ class BaseResourceController extends AdminController
         $this->projetService = $projetService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('resource.index');
@@ -64,6 +66,8 @@ class BaseResourceController extends AdminController
 
         return view('PkgCreationProjet::resource.index', $resource_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -81,6 +85,42 @@ class BaseResourceController extends AdminController
         }
         return view('PkgCreationProjet::resource.create', compact('itemResource', 'projets'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $resource_ids = $request->input('ids', []);
+
+        if (!is_array($resource_ids) || count($resource_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.resource.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemResource = $this->resourceService->find($resource_ids[0]);
+         
+ 
+        $projets = $this->projetService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemResource = $this->resourceService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::resource._fields', compact('bulkEdit', 'resource_ids', 'itemResource', 'projets'));
+        }
+        return view('PkgCreationProjet::resource.bulk-edit', compact('bulkEdit', 'resource_ids', 'itemResource', 'projets'));
+    }
+    /**
+     */
     public function store(ResourceRequest $request) {
         $validatedData = $request->validated();
         $resource = $this->resourceService->create($validatedData);
@@ -104,6 +144,8 @@ class BaseResourceController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('resource.edit_' . $id);
@@ -123,6 +165,8 @@ class BaseResourceController extends AdminController
         return view('PkgCreationProjet::resource.edit', array_merge(compact('itemResource','projets'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('resource.edit_' . $id);
@@ -143,6 +187,8 @@ class BaseResourceController extends AdminController
 
 
     }
+    /**
+     */
     public function update(ResourceRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $resource = $this->resourceService->find($id);
@@ -171,6 +217,42 @@ class BaseResourceController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $resource_ids = $request->input('resource_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($resource_ids) || count($resource_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($resource_ids as $id) {
+            $entity = $this->resourceService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->resourceService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->resourceService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $resource = $this->resourceService->find($id);
@@ -197,6 +279,27 @@ class BaseResourceController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $resource_ids = $request->input('ids', []);
+        if (!is_array($resource_ids) || count($resource_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($resource_ids as $id) {
+            $entity = $this->resourceService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $resource = $this->resourceService->find($id);
+            $this->authorize('delete', $resource);
+            $this->resourceService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($resource_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::resource.plural')
+        ]));
     }
 
     public function export($format)

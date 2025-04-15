@@ -31,6 +31,8 @@ class BaseLabelRealisationTacheController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
@@ -67,6 +69,8 @@ class BaseLabelRealisationTacheController extends AdminController
 
         return view('PkgGestionTaches::labelRealisationTache.index', $labelRealisationTache_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -85,6 +89,43 @@ class BaseLabelRealisationTacheController extends AdminController
         }
         return view('PkgGestionTaches::labelRealisationTache.create', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $labelRealisationTache_ids = $request->input('ids', []);
+
+        if (!is_array($labelRealisationTache_ids) || count($labelRealisationTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemLabelRealisationTache = $this->labelRealisationTacheService->find($labelRealisationTache_ids[0]);
+         
+ 
+        $formateurs = $this->formateurService->all();
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemLabelRealisationTache = $this->labelRealisationTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::labelRealisationTache._fields', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        }
+        return view('PkgGestionTaches::labelRealisationTache.bulk-edit', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+    }
+    /**
+     */
     public function store(LabelRealisationTacheRequest $request) {
         $validatedData = $request->validated();
         $labelRealisationTache = $this->labelRealisationTacheService->create($validatedData);
@@ -108,6 +149,8 @@ class BaseLabelRealisationTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('labelRealisationTache.edit_' . $id);
@@ -128,6 +171,8 @@ class BaseLabelRealisationTacheController extends AdminController
         return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('labelRealisationTache.edit_' . $id);
@@ -149,6 +194,8 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(LabelRealisationTacheRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $labelRealisationTache = $this->labelRealisationTacheService->find($id);
@@ -177,6 +224,42 @@ class BaseLabelRealisationTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $labelRealisationTache_ids = $request->input('labelRealisationTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($labelRealisationTache_ids) || count($labelRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($labelRealisationTache_ids as $id) {
+            $entity = $this->labelRealisationTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->labelRealisationTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->labelRealisationTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $labelRealisationTache = $this->labelRealisationTacheService->find($id);
@@ -203,6 +286,27 @@ class BaseLabelRealisationTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $labelRealisationTache_ids = $request->input('ids', []);
+        if (!is_array($labelRealisationTache_ids) || count($labelRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($labelRealisationTache_ids as $id) {
+            $entity = $this->labelRealisationTacheService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $labelRealisationTache = $this->labelRealisationTacheService->find($id);
+            $this->authorize('delete', $labelRealisationTache);
+            $this->labelRealisationTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($labelRealisationTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::labelRealisationTache.plural')
+        ]));
     }
 
     public function export($format)

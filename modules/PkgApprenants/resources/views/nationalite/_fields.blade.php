@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('nationalite-form')
-<form class="crud-form custom-form context-state container" id="nationaliteForm" action="{{ $itemNationalite->id ? route('nationalites.update', $itemNationalite->id) : route('nationalites.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="nationaliteForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('nationalites.bulkUpdate') : ($itemNationalite->id ? route('nationalites.update', $itemNationalite->id) : route('nationalites.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemNationalite->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($nationalite_ids))
+        @foreach ($nationalite_ids as $id)
+            <input type="hidden" name="nationalite_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="code">
             {{ ucfirst(__('PkgApprenants::nationalite.code')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgApprenants::nationalite.nom')) }}
             
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgApprenants::nationalite.description')) }}
             
@@ -90,7 +116,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgApprenants::nationalite.singular") }} : {{$itemNationalite}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgApprenants::nationalite.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgApprenants::nationalite.singular") }} : {{$itemNationalite}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

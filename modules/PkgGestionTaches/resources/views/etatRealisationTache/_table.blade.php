@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
-                <x-sortable-column width="21.25" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
-                <x-sortable-column width="21.25" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column width="21.25" field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
+                <x-sortable-column width="20.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
+                <x-sortable-column width="20.5" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="20.5" field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,18 +19,21 @@
             @section('etatRealisationTache-table-tbody')
             @foreach ($etatRealisationTaches_data as $etatRealisationTache)
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $etatRealisationTache->id }}" data-id="{{ $etatRealisationTache->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
                     <x-field :entity="$etatRealisationTache" field="nom">
                         {{ $etatRealisationTache->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
                     <x-field :entity="$etatRealisationTache" field="workflowTache">
                        
                          {{  $etatRealisationTache->workflowTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
                     <x-field :entity="$etatRealisationTache" field="sysColor">
                         <x-badge 
                         :text="$etatRealisationTache->sysColor->name ?? ''" 
@@ -35,7 +41,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
                     <x-field :entity="$etatRealisationTache" field="formateur">
                        
                          {{  $etatRealisationTache->formateur }}
@@ -64,7 +70,7 @@
                             <form class="context-state" action="{{ route('etatRealisationTaches.destroy',['etatRealisationTache' => $etatRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$etatRealisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$etatRealisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

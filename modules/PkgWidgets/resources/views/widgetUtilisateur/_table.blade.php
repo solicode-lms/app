@@ -5,11 +5,14 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="17"  field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
-                <x-sortable-column width="17" field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
-                <x-sortable-column width="17"  field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
-                <x-sortable-column width="17"  field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
-                <x-sortable-column width="17"  field="visible" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="16.4"  field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
+                <x-sortable-column width="16.4" field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
+                <x-sortable-column width="16.4"  field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
+                <x-sortable-column width="16.4"  field="type" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.type')) }}" />
+                <x-sortable-column width="16.4"  field="visible" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,28 +20,31 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $widgetUtilisateur->id }}" data-id="{{ $widgetUtilisateur->id }}">
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
                     <x-field :entity="$widgetUtilisateur" field="ordre">
                         {{ $widgetUtilisateur->ordre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
                     <x-field :entity="$widgetUtilisateur" field="widget">
                        
                          {{  $widgetUtilisateur->widget }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->package }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->package }}" >
                     <x-field :entity="$widgetUtilisateur" field="package">
                         {{ $widgetUtilisateur->package }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->type }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->type }}" >
                     <x-field :entity="$widgetUtilisateur" field="type">
                         {{ $widgetUtilisateur->type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
                     <x-field :entity="$widgetUtilisateur" field="visible">
                         <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
                             {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}
@@ -68,7 +74,7 @@
                             <form class="context-state" action="{{ route('widgetUtilisateurs.destroy',['widgetUtilisateur' => $widgetUtilisateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widgetUtilisateur->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$widgetUtilisateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
 
         Route::get('realisationFormations/getData', [RealisationFormationController::class, 'getData'])->name('realisationFormations.getData');
+        // bulk - edit and delete
+        Route::post('realisationFormations/bulk-delete', [RealisationFormationController::class, 'bulkDelete'])
+        ->name('realisationFormations.bulkDelete');
+        Route::get('realisationFormations/bulk-edit', [RealisationFormationController::class, 'bulkEditForm'])
+        ->name('realisationFormations.bulkEdit');
+        Route::post('realisationFormations/bulk-update', [RealisationFormationController::class, 'bulkUpdate'])
+        ->name('realisationFormations.bulkUpdate');
+
         Route::resource('realisationFormations', RealisationFormationController::class)
             ->parameters(['realisationFormations' => 'realisationFormation']);
         // Routes supplémentaires avec préfixe

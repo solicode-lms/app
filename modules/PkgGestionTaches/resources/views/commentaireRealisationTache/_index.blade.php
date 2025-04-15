@@ -53,32 +53,34 @@
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('commentaireRealisationTache-crud-stats-bar')
-                <div class="card-header row">
-                    <!-- Statistiques et Actions -->
-                    <div class="col-sm-8">
-                        <x-crud-stats-summary
-                            icon="fas fa-chart-bar text-info"
-                            :stats="$commentaireRealisationTaches_stats"
-                        />
-                    </div>
-                    <div class="col-sm-4">
-                      
-                        <x-crud-actions
-                            :instanceItem="$commentaireRealisationTache_instance"
-                            :createPermission="'create-commentaireRealisationTache'"
-                            :createRoute="route('commentaireRealisationTaches.create')"
-                            :createText="__('Ajouter')"
-                            :importPermission="'import-commentaireRealisationTache'"
-                            :importRoute="route('commentaireRealisationTaches.import')"
-                            :importText="__('Importer')"
-                            :exportPermission="'export-commentaireRealisationTache'"
-                            :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
-                            :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
-                            :exportText="__('Exporter')"
-                            :viewTypes="$commentaireRealisationTache_viewTypes"
-                            :viewType="$commentaireRealisationTache_viewType"
-                        />
-                    
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$commentaireRealisationTaches_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                        
+                            <x-crud-actions
+                                :instanceItem="$commentaireRealisationTache_instance"
+                                :createPermission="'create-commentaireRealisationTache'"
+                                :createRoute="route('commentaireRealisationTaches.create')"
+                                :createText="__('Ajouter')"
+                                :importPermission="'import-commentaireRealisationTache'"
+                                :importRoute="route('commentaireRealisationTaches.import')"
+                                :importText="__('Importer')"
+                                :exportPermission="'export-commentaireRealisationTache'"
+                                :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
+                                :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
+                                :exportText="__('Exporter')"
+                                :viewTypes="$commentaireRealisationTache_viewTypes"
+                                :viewType="$commentaireRealisationTache_viewType"
+                            />
+                        
+                        </div>
                     </div>
                 </div>
                 @show
@@ -118,6 +120,30 @@
                     @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
                     @endif
                 </div>
+                @section('realisationTache-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('commentaireRealisationTaches.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('commentaireRealisationTaches.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    </span>
+                </div>
+                @show
             </div>
         </div>
     </section>

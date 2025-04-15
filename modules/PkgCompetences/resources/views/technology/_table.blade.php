@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="nom" modelname="technology" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
-                <x-sortable-column width="42.5" field="category_technology_id" modelname="technology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="nom" modelname="technology" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
+                <x-sortable-column width="41" field="category_technology_id" modelname="technology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('technology-table-tbody')
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $technology->id }}" data-id="{{ $technology->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
                     <x-field :entity="$technology" field="nom">
                         {{ $technology->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->categoryTechnology }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->categoryTechnology }}" >
                     <x-field :entity="$technology" field="categoryTechnology">
                        
                          {{  $technology->categoryTechnology }}
@@ -48,7 +54,7 @@
                             <form class="context-state" action="{{ route('technologies.destroy',['technology' => $technology->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$technology->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$technology->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('commentaireRealisationTaches/getData', [CommentaireRealisationTacheController::class, 'getData'])->name('commentaireRealisationTaches.getData');
+        // bulk - edit and delete
+        Route::post('commentaireRealisationTaches/bulk-delete', [CommentaireRealisationTacheController::class, 'bulkDelete'])
+        ->name('commentaireRealisationTaches.bulkDelete');
+        Route::get('commentaireRealisationTaches/bulk-edit', [CommentaireRealisationTacheController::class, 'bulkEditForm'])
+        ->name('commentaireRealisationTaches.bulkEdit');
+        Route::post('commentaireRealisationTaches/bulk-update', [CommentaireRealisationTacheController::class, 'bulkUpdate'])
+        ->name('commentaireRealisationTaches.bulkUpdate');
+
         Route::resource('commentaireRealisationTaches', CommentaireRealisationTacheController::class)
             ->parameters(['commentaireRealisationTaches' => 'commentaireRealisationTache']);
         // Routes supplémentaires avec préfixe

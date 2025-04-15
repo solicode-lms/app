@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
-                <x-sortable-column width="21.25" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column width="21.25"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
-                <x-sortable-column width="21.25" field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
+                <x-sortable-column width="20.5" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column width="20.5"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
+                <x-sortable-column width="20.5" field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,25 +19,28 @@
             @section('formation-table-tbody')
             @foreach ($formations_data as $formation)
                 <tr id="formation-row-{{$formation->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $formation->id }}" data-id="{{ $formation->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->nom }}" >
                     <x-field :entity="$formation" field="nom">
                         {{ $formation->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->competence }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->competence }}" >
                     <x-field :entity="$formation" field="competence">
                        
                          {{  $formation->competence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
                     <x-field :entity="$formation" field="is_officiel">
                         <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
                             {{ $formation->is_officiel ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->formateur }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->formateur }}" >
                     <x-field :entity="$formation" field="formateur">
                        
                          {{  $formation->formateur }}
@@ -63,7 +69,7 @@
                             <form class="context-state" action="{{ route('formations.destroy',['formation' => $formation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$formation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$formation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

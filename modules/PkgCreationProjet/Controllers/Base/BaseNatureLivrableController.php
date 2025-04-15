@@ -26,6 +26,8 @@ class BaseNatureLivrableController extends AdminController
         $this->natureLivrableService = $natureLivrableService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
@@ -58,6 +60,8 @@ class BaseNatureLivrableController extends AdminController
 
         return view('PkgCreationProjet::natureLivrable.index', $natureLivrable_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -70,6 +74,37 @@ class BaseNatureLivrableController extends AdminController
         }
         return view('PkgCreationProjet::natureLivrable.create', compact('itemNatureLivrable'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $natureLivrable_ids = $request->input('ids', []);
+
+        if (!is_array($natureLivrable_ids) || count($natureLivrable_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemNatureLivrable = $this->natureLivrableService->find($natureLivrable_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNatureLivrable = $this->natureLivrableService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::natureLivrable._fields', compact('bulkEdit', 'natureLivrable_ids', 'itemNatureLivrable'));
+        }
+        return view('PkgCreationProjet::natureLivrable.bulk-edit', compact('bulkEdit', 'natureLivrable_ids', 'itemNatureLivrable'));
+    }
+    /**
+     */
     public function store(NatureLivrableRequest $request) {
         $validatedData = $request->validated();
         $natureLivrable = $this->natureLivrableService->create($validatedData);
@@ -93,6 +128,8 @@ class BaseNatureLivrableController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
@@ -117,6 +154,8 @@ class BaseNatureLivrableController extends AdminController
         return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('natureLivrable.edit_' . $id);
@@ -142,6 +181,8 @@ class BaseNatureLivrableController extends AdminController
 
 
     }
+    /**
+     */
     public function update(NatureLivrableRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -167,6 +208,42 @@ class BaseNatureLivrableController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $natureLivrable_ids = $request->input('natureLivrable_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($natureLivrable_ids) || count($natureLivrable_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($natureLivrable_ids as $id) {
+            $entity = $this->natureLivrableService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->natureLivrableService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->natureLivrableService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $natureLivrable = $this->natureLivrableService->destroy($id);
@@ -190,6 +267,24 @@ class BaseNatureLivrableController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $natureLivrable_ids = $request->input('ids', []);
+        if (!is_array($natureLivrable_ids) || count($natureLivrable_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($natureLivrable_ids as $id) {
+            $entity = $this->natureLivrableService->find($id);
+            $this->natureLivrableService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($natureLivrable_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::natureLivrable.plural')
+        ]));
     }
 
     public function export($format)

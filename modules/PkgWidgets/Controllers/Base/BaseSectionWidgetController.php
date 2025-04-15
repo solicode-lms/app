@@ -29,6 +29,8 @@ class BaseSectionWidgetController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sectionWidget.index');
@@ -61,6 +63,8 @@ class BaseSectionWidgetController extends AdminController
 
         return view('PkgWidgets::sectionWidget.index', $sectionWidget_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseSectionWidgetController extends AdminController
         }
         return view('PkgWidgets::sectionWidget.create', compact('itemSectionWidget', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $sectionWidget_ids = $request->input('ids', []);
+
+        if (!is_array($sectionWidget_ids) || count($sectionWidget_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemSectionWidget = $this->sectionWidgetService->find($sectionWidget_ids[0]);
+         
+ 
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemSectionWidget = $this->sectionWidgetService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgWidgets::sectionWidget._fields', compact('bulkEdit', 'sectionWidget_ids', 'itemSectionWidget', 'sysColors'));
+        }
+        return view('PkgWidgets::sectionWidget.bulk-edit', compact('bulkEdit', 'sectionWidget_ids', 'itemSectionWidget', 'sysColors'));
+    }
+    /**
+     */
     public function store(SectionWidgetRequest $request) {
         $validatedData = $request->validated();
         $sectionWidget = $this->sectionWidgetService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseSectionWidgetController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('sectionWidget.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseSectionWidgetController extends AdminController
         return view('PkgWidgets::sectionWidget.edit', array_merge(compact('itemSectionWidget','sysColors'),$widget_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('sectionWidget.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseSectionWidgetController extends AdminController
 
 
     }
+    /**
+     */
     public function update(SectionWidgetRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseSectionWidgetController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $sectionWidget_ids = $request->input('sectionWidget_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($sectionWidget_ids) || count($sectionWidget_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($sectionWidget_ids as $id) {
+            $entity = $this->sectionWidgetService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->sectionWidgetService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->sectionWidgetService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $sectionWidget = $this->sectionWidgetService->destroy($id);
@@ -196,6 +274,24 @@ class BaseSectionWidgetController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $sectionWidget_ids = $request->input('ids', []);
+        if (!is_array($sectionWidget_ids) || count($sectionWidget_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($sectionWidget_ids as $id) {
+            $entity = $this->sectionWidgetService->find($id);
+            $this->sectionWidgetService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($sectionWidget_ids) . ' éléments',
+            'modelName' => __('PkgWidgets::sectionWidget.plural')
+        ]));
     }
 
     public function export($format)

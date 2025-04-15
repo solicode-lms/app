@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eMetadatum-form')
-<form class="crud-form custom-form context-state container" id="eMetadatumForm" action="{{ $itemEMetadatum->id ? route('eMetadata.update', $itemEMetadatum->id) : route('eMetadata.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="eMetadatumForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('eMetadatums.bulkUpdate') : ($itemEMetadatum->id ? route('eMetadatums.update', $itemEMetadatum->id) : route('eMetadatums.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemEMetadatum->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($eMetadatum_ids))
+        @foreach ($eMetadatum_ids as $id)
+            <input type="hidden" name="eMetadatum_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_boolean" id="bulk_field_value_boolean" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_boolean">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}
             
@@ -34,6 +50,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_string" id="bulk_field_value_string" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_string">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}
             
@@ -56,6 +77,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_integer" id="bulk_field_value_integer" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_integer">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}
             
@@ -78,6 +104,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_float" id="bulk_field_value_float" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_float">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}
             
@@ -101,6 +132,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_date" id="bulk_field_value_date" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_date">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}
             
@@ -124,6 +160,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_datetime" id="bulk_field_value_datetime" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_datetime">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}
             
@@ -147,6 +188,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_enum" id="bulk_field_value_enum" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_enum">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}
             
@@ -169,6 +215,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_json" id="bulk_field_value_json" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_json">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}
             
@@ -193,6 +244,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="value_text" id="bulk_field_value_text" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="value_text">
             {{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}
             
@@ -213,6 +269,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_model_id" id="bulk_field_e_model_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="e_model_id">
             {{ ucfirst(__('PkgGapp::eModel.singular')) }}
             
@@ -240,6 +301,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_data_field_id" id="bulk_field_e_data_field_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="e_data_field_id">
             {{ ucfirst(__('PkgGapp::eDataField.singular')) }}
             
@@ -267,6 +333,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_metadata_definition_id" id="bulk_field_e_metadata_definition_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="e_metadata_definition_id">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}
             <span class="text-danger">*</span>
@@ -361,7 +432,12 @@
     }
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGapp::eMetadatum.singular") }} : {{$itemEMetadatum}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGapp::eMetadatum.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGapp::eMetadatum.singular") }} : {{$itemEMetadatum}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

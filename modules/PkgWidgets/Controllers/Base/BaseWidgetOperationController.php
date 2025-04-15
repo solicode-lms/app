@@ -26,6 +26,8 @@ class BaseWidgetOperationController extends AdminController
         $this->widgetOperationService = $widgetOperationService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
@@ -58,6 +60,8 @@ class BaseWidgetOperationController extends AdminController
 
         return view('PkgWidgets::widgetOperation.index', $widgetOperation_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -70,6 +74,37 @@ class BaseWidgetOperationController extends AdminController
         }
         return view('PkgWidgets::widgetOperation.create', compact('itemWidgetOperation'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $widgetOperation_ids = $request->input('ids', []);
+
+        if (!is_array($widgetOperation_ids) || count($widgetOperation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemWidgetOperation = $this->widgetOperationService->find($widgetOperation_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWidgetOperation = $this->widgetOperationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetOperation._fields', compact('bulkEdit', 'widgetOperation_ids', 'itemWidgetOperation'));
+        }
+        return view('PkgWidgets::widgetOperation.bulk-edit', compact('bulkEdit', 'widgetOperation_ids', 'itemWidgetOperation'));
+    }
+    /**
+     */
     public function store(WidgetOperationRequest $request) {
         $validatedData = $request->validated();
         $widgetOperation = $this->widgetOperationService->create($validatedData);
@@ -93,6 +128,8 @@ class BaseWidgetOperationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
@@ -117,6 +154,8 @@ class BaseWidgetOperationController extends AdminController
         return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('widgetOperation.edit_' . $id);
@@ -142,6 +181,8 @@ class BaseWidgetOperationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WidgetOperationRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -167,6 +208,42 @@ class BaseWidgetOperationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $widgetOperation_ids = $request->input('widgetOperation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($widgetOperation_ids) || count($widgetOperation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($widgetOperation_ids as $id) {
+            $entity = $this->widgetOperationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->widgetOperationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->widgetOperationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $widgetOperation = $this->widgetOperationService->destroy($id);
@@ -190,6 +267,24 @@ class BaseWidgetOperationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $widgetOperation_ids = $request->input('ids', []);
+        if (!is_array($widgetOperation_ids) || count($widgetOperation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($widgetOperation_ids as $id) {
+            $entity = $this->widgetOperationService->find($id);
+            $this->widgetOperationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($widgetOperation_ids) . ' éléments',
+            'modelName' => __('PkgWidgets::widgetOperation.plural')
+        ]));
     }
 
     public function export($format)

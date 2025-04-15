@@ -28,6 +28,8 @@ class BaseSpecialiteController extends AdminController
         $this->formateurService = $formateurService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
@@ -60,6 +62,8 @@ class BaseSpecialiteController extends AdminController
 
         return view('PkgFormation::specialite.index', $specialite_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -73,6 +77,38 @@ class BaseSpecialiteController extends AdminController
         }
         return view('PkgFormation::specialite.create', compact('itemSpecialite', 'formateurs'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $specialite_ids = $request->input('ids', []);
+
+        if (!is_array($specialite_ids) || count($specialite_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemSpecialite = $this->specialiteService->find($specialite_ids[0]);
+         
+ 
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemSpecialite = $this->specialiteService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgFormation::specialite._fields', compact('bulkEdit', 'specialite_ids', 'itemSpecialite', 'formateurs'));
+        }
+        return view('PkgFormation::specialite.bulk-edit', compact('bulkEdit', 'specialite_ids', 'itemSpecialite', 'formateurs'));
+    }
+    /**
+     */
     public function store(SpecialiteRequest $request) {
         $validatedData = $request->validated();
         $specialite = $this->specialiteService->create($validatedData);
@@ -96,6 +132,8 @@ class BaseSpecialiteController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
@@ -114,6 +152,8 @@ class BaseSpecialiteController extends AdminController
         return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite','formateurs'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('specialite.edit_' . $id);
@@ -133,6 +173,8 @@ class BaseSpecialiteController extends AdminController
 
 
     }
+    /**
+     */
     public function update(SpecialiteRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -158,6 +200,42 @@ class BaseSpecialiteController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $specialite_ids = $request->input('specialite_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($specialite_ids) || count($specialite_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($specialite_ids as $id) {
+            $entity = $this->specialiteService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->specialiteService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->specialiteService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $specialite = $this->specialiteService->destroy($id);
@@ -181,6 +259,24 @@ class BaseSpecialiteController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $specialite_ids = $request->input('ids', []);
+        if (!is_array($specialite_ids) || count($specialite_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($specialite_ids as $id) {
+            $entity = $this->specialiteService->find($id);
+            $this->specialiteService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($specialite_ids) . ' éléments',
+            'modelName' => __('PkgFormation::specialite.plural')
+        ]));
     }
 
     public function export($format)

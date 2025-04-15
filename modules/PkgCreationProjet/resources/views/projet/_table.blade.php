@@ -5,12 +5,15 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column width="21.25"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column width="20.5"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
-                <x-sortable-column width="21.25"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+                <x-sortable-column width="20.5"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column width="21.25" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="20.5" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,12 +21,15 @@
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $projet->id }}" data-id="{{ $projet->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
                     <x-field :entity="$projet" field="titre">
                         {{ $projet->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->transfertCompetences }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->transfertCompetences }}" >
                     <x-field :entity="$projet" field="transfertCompetences">
                         <ul>
                             @foreach ($projet->transfertCompetences as $transfertCompetence)
@@ -32,7 +38,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
                     <x-field :entity="$projet" field="affectationProjets">
                         <ul>
                             @foreach ($projet->affectationProjets as $affectationProjet)
@@ -41,7 +47,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
                     <x-field :entity="$projet" field="formateur">
                        
                          {{  $projet->formateur }}
@@ -70,7 +76,7 @@
                             <form class="context-state" action="{{ route('projets.destroy',['projet' => $projet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$projet->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$projet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

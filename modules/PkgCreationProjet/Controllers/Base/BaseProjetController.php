@@ -36,6 +36,8 @@ class BaseProjetController extends AdminController
         $this->formateurService = $formateurService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('projet.index');
@@ -75,6 +77,8 @@ class BaseProjetController extends AdminController
 
         return view('PkgCreationProjet::projet.index', $projet_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -96,6 +100,46 @@ class BaseProjetController extends AdminController
         }
         return view('PkgCreationProjet::projet.create', compact('itemProjet', 'filieres', 'formateurs'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $projet_ids = $request->input('ids', []);
+
+        if (!is_array($projet_ids) || count($projet_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
+ 
+         $itemProjet = $this->projetService->find($projet_ids[0]);
+         
+ 
+        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemProjet = $this->projetService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs'));
+        }
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs'));
+    }
+    /**
+     */
     public function store(ProjetRequest $request) {
         $validatedData = $request->validated();
         $projet = $this->projetService->create($validatedData);
@@ -119,6 +163,8 @@ class BaseProjetController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('projet.edit_' . $id);
@@ -186,6 +232,8 @@ class BaseProjetController extends AdminController
         return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $livrable_compact_value, $tache_compact_value, $resource_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('projet.edit_' . $id);
@@ -254,6 +302,8 @@ class BaseProjetController extends AdminController
 
 
     }
+    /**
+     */
     public function update(ProjetRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $projet = $this->projetService->find($id);
@@ -282,6 +332,42 @@ class BaseProjetController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $projet_ids = $request->input('projet_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($projet_ids) || count($projet_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($projet_ids as $id) {
+            $entity = $this->projetService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->projetService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->projetService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $projet = $this->projetService->find($id);
@@ -308,6 +394,27 @@ class BaseProjetController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $projet_ids = $request->input('ids', []);
+        if (!is_array($projet_ids) || count($projet_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($projet_ids as $id) {
+            $entity = $this->projetService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $projet = $this->projetService->find($id);
+            $this->authorize('delete', $projet);
+            $this->projetService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($projet_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::projet.plural')
+        ]));
     }
 
     public function export($format)

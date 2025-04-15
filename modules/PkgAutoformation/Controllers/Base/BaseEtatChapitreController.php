@@ -34,6 +34,8 @@ class BaseEtatChapitreController extends AdminController
         $this->workflowChapitreService = $workflowChapitreService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatChapitre.index');
@@ -70,6 +72,8 @@ class BaseEtatChapitreController extends AdminController
 
         return view('PkgAutoformation::etatChapitre.index', $etatChapitre_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -89,6 +93,44 @@ class BaseEtatChapitreController extends AdminController
         }
         return view('PkgAutoformation::etatChapitre.create', compact('itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $etatChapitre_ids = $request->input('ids', []);
+
+        if (!is_array($etatChapitre_ids) || count($etatChapitre_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatChapitre.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemEtatChapitre = $this->etatChapitreService->find($etatChapitre_ids[0]);
+         
+ 
+        $workflowChapitres = $this->workflowChapitreService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemEtatChapitre = $this->etatChapitreService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::etatChapitre._fields', compact('bulkEdit', 'etatChapitre_ids', 'itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+        }
+        return view('PkgAutoformation::etatChapitre.bulk-edit', compact('bulkEdit', 'etatChapitre_ids', 'itemEtatChapitre', 'formateurs', 'sysColors', 'workflowChapitres'));
+    }
+    /**
+     */
     public function store(EtatChapitreRequest $request) {
         $validatedData = $request->validated();
         $etatChapitre = $this->etatChapitreService->create($validatedData);
@@ -112,6 +154,8 @@ class BaseEtatChapitreController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('etatChapitre.edit_' . $id);
@@ -133,6 +177,8 @@ class BaseEtatChapitreController extends AdminController
         return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('etatChapitre.edit_' . $id);
@@ -155,6 +201,8 @@ class BaseEtatChapitreController extends AdminController
 
 
     }
+    /**
+     */
     public function update(EtatChapitreRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatChapitre = $this->etatChapitreService->find($id);
@@ -183,6 +231,42 @@ class BaseEtatChapitreController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $etatChapitre_ids = $request->input('etatChapitre_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($etatChapitre_ids) || count($etatChapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($etatChapitre_ids as $id) {
+            $entity = $this->etatChapitreService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->etatChapitreService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->etatChapitreService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatChapitre = $this->etatChapitreService->find($id);
@@ -209,6 +293,27 @@ class BaseEtatChapitreController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $etatChapitre_ids = $request->input('ids', []);
+        if (!is_array($etatChapitre_ids) || count($etatChapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($etatChapitre_ids as $id) {
+            $entity = $this->etatChapitreService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $etatChapitre = $this->etatChapitreService->find($id);
+            $this->authorize('delete', $etatChapitre);
+            $this->etatChapitreService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($etatChapitre_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::etatChapitre.plural')
+        ]));
     }
 
     public function export($format)

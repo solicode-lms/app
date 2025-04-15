@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
-                <x-sortable-column width="42.5"  field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
+                <x-sortable-column width="41"  field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $widgetOperation->id }}" data-id="{{ $widgetOperation->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
                     <x-field :entity="$widgetOperation" field="operation">
                         {{ $widgetOperation->operation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
                     <x-field :entity="$widgetOperation" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 30) !!}
                     </x-field>
@@ -47,7 +53,7 @@
                             <form class="context-state" action="{{ route('widgetOperations.destroy',['widgetOperation' => $widgetOperation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widgetOperation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$widgetOperation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

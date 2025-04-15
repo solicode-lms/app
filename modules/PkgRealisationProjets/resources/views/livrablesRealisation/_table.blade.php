@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,18 +18,21 @@
             @section('livrablesRealisation-table-tbody')
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $livrablesRealisation->id }}" data-id="{{ $livrablesRealisation->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
                     <x-field :entity="$livrablesRealisation" field="livrable">
                        
                          {{  $livrablesRealisation->livrable }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
                     <x-field :entity="$livrablesRealisation" field="lien">
                         {{ $livrablesRealisation->lien }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
                     <x-field :entity="$livrablesRealisation" field="titre">
                         {{ $livrablesRealisation->titre }}
                     </x-field>
@@ -54,7 +60,7 @@
                             <form class="context-state" action="{{ route('livrablesRealisations.destroy',['livrablesRealisation' => $livrablesRealisation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrablesRealisation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$livrablesRealisation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

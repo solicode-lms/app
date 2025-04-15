@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
-                <x-sortable-column width="21.25"  field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
-                <x-sortable-column width="21.25"  field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
-                <x-sortable-column width="21.25"  field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
+                <x-sortable-column width="20.5"  field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
+                <x-sortable-column width="20.5"  field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
+                <x-sortable-column width="20.5"  field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,17 +19,20 @@
             @section('formateur-table-tbody')
             @foreach ($formateurs_data as $formateur)
                 <tr id="formateur-row-{{$formateur->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $formateur->id }}" data-id="{{ $formateur->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->nom }}" >
                     <x-field :entity="$formateur" field="nom">
                         {{ $formateur->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->prenom }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->prenom }}" >
                     <x-field :entity="$formateur" field="prenom">
                         {{ $formateur->prenom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->specialites }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->specialites }}" >
                     <x-field :entity="$formateur" field="specialites">
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
@@ -35,7 +41,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->groupes }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formateur->groupes }}" >
                     <x-field :entity="$formateur" field="groupes">
                         <ul>
                             @foreach ($formateur->groupes as $groupe)
@@ -79,7 +85,7 @@
                             <form class="context-state" action="{{ route('formateurs.destroy',['formateur' => $formateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$formateur->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$formateur->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

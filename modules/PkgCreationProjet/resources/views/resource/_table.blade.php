@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
-                <x-sortable-column width="42.5"  field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
+                <x-sortable-column width="41"  field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $resource->id }}" data-id="{{ $resource->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
                     <x-field :entity="$resource" field="nom">
                         {{ $resource->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->lien }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->lien }}" >
                     <x-field :entity="$resource" field="lien">
                         {{ $resource->lien }}
                     </x-field>
@@ -47,7 +53,7 @@
                             <form class="context-state" action="{{ route('resources.destroy',['resource' => $resource->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$resource->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$resource->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

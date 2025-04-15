@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sysModule-form')
-<form class="crud-form custom-form context-state container" id="sysModuleForm" action="{{ $itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="sysModuleForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('sysModules.bulkUpdate') : ($itemSysModule->id ? route('sysModules.update', $itemSysModule->id) : route('sysModules.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemSysModule->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($sysModule_ids))
+        @foreach ($sysModule_ids as $id)
+            <input type="hidden" name="sysModule_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('Core::sysModule.name')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="slug" id="bulk_field_slug" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="slug">
             {{ ucfirst(__('Core::sysModule.slug')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('Core::sysModule.description')) }}
             
@@ -75,6 +101,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_active" id="bulk_field_is_active" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_active">
             {{ ucfirst(__('Core::sysModule.is_active')) }}
             <span class="text-danger">*</span>
@@ -97,6 +128,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="order" id="bulk_field_order" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="order">
             {{ ucfirst(__('Core::sysModule.order')) }}
             <span class="text-danger">*</span>
@@ -119,6 +155,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="version" id="bulk_field_version" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="version">
             {{ ucfirst(__('Core::sysModule.version')) }}
             <span class="text-danger">*</span>
@@ -141,6 +182,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_color_id">
             {{ ucfirst(__('Core::sysColor.singular')) }}
             <span class="text-danger">*</span>
@@ -189,7 +235,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("Core::sysModule.singular") }} : {{$itemSysModule}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("Core::sysModule.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("Core::sysModule.singular") }} : {{$itemSysModule}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

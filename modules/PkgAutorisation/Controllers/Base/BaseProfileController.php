@@ -28,6 +28,8 @@ class BaseProfileController extends AdminController
         $this->userService = $userService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
@@ -74,6 +76,8 @@ class BaseProfileController extends AdminController
 
         return view('PkgAutorisation::profile.index', $profile_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -100,6 +104,51 @@ class BaseProfileController extends AdminController
         }
         return view('PkgAutorisation::profile.create', compact('itemProfile', 'users'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $profile_ids = $request->input('ids', []);
+
+        if (!is_array($profile_ids) || count($profile_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.profile.user_id'  , $this->sessionState->get('user_id'));
+        }
+ 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+            $this->viewState->init('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
+        }
+         $itemProfile = $this->profileService->find($profile_ids[0]);
+         
+ 
+        $users = $this->userService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemProfile = $this->profileService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutorisation::profile._fields', compact('bulkEdit', 'profile_ids', 'itemProfile', 'users'));
+        }
+        return view('PkgAutorisation::profile.bulk-edit', compact('bulkEdit', 'profile_ids', 'itemProfile', 'users'));
+    }
+    /**
+     */
     public function store(ProfileRequest $request) {
         $validatedData = $request->validated();
         $profile = $this->profileService->create($validatedData);
@@ -123,6 +172,8 @@ class BaseProfileController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('profile.edit_' . $id);
@@ -148,6 +199,8 @@ class BaseProfileController extends AdminController
         return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('profile.edit_' . $id);
@@ -174,6 +227,8 @@ class BaseProfileController extends AdminController
 
 
     }
+    /**
+     */
     public function update(ProfileRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $profile = $this->profileService->find($id);
@@ -202,6 +257,42 @@ class BaseProfileController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $profile_ids = $request->input('profile_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($profile_ids) || count($profile_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($profile_ids as $id) {
+            $entity = $this->profileService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->profileService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->profileService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $profile = $this->profileService->find($id);
@@ -228,6 +319,27 @@ class BaseProfileController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $profile_ids = $request->input('ids', []);
+        if (!is_array($profile_ids) || count($profile_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($profile_ids as $id) {
+            $entity = $this->profileService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $profile = $this->profileService->find($id);
+            $this->authorize('delete', $profile);
+            $this->profileService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($profile_ids) . ' éléments',
+            'modelName' => __('PkgAutorisation::profile.plural')
+        ]));
     }
 
     public function export($format)

@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('formateur-form')
-<form class="crud-form custom-form context-state container" id="formateurForm" action="{{ $itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="formateurForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('formateurs.bulkUpdate') : ($itemFormateur->id ? route('formateurs.update', $itemFormateur->id) : route('formateurs.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemFormateur->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($formateur_ids))
+        @foreach ($formateur_ids as $id)
+            <input type="hidden" name="formateur_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="matricule" id="bulk_field_matricule" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="matricule">
             {{ ucfirst(__('PkgFormation::formateur.matricule')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgFormation::formateur.nom')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="prenom" id="bulk_field_prenom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="prenom">
             {{ ucfirst(__('PkgFormation::formateur.prenom')) }}
             <span class="text-danger">*</span>
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="specialites" id="bulk_field_specialites" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="specialites">
             {{ ucfirst(__('PkgFormation::Specialite.plural')) }}
             
@@ -104,6 +135,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="groupes" id="bulk_field_groupes" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="groupes">
             {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
             
@@ -131,6 +167,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="email" id="bulk_field_email" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="email">
             {{ ucfirst(__('PkgFormation::formateur.email')) }}
             
@@ -153,6 +194,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tele_num" id="bulk_field_tele_num" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="tele_num">
             {{ ucfirst(__('PkgFormation::formateur.tele_num')) }}
             
@@ -175,6 +221,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="user_id">
             {{ ucfirst(__('PkgAutorisation::user.singular')) }}
             
@@ -247,7 +298,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgFormation::formateur.singular") }} : {{$itemFormateur}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgFormation::formateur.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgFormation::formateur.singular") }} : {{$itemFormateur}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

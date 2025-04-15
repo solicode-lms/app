@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $historiqueRealisationTache->id }}" data-id="{{ $historiqueRealisationTache->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
                     <x-field :entity="$historiqueRealisationTache" field="realisationTache">
                        
                          {{  $historiqueRealisationTache->realisationTache }}
@@ -42,7 +48,7 @@
                             <form class="context-state" action="{{ route('historiqueRealisationTaches.destroy',['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$historiqueRealisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$historiqueRealisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

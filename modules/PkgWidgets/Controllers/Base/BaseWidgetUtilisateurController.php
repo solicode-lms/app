@@ -34,6 +34,8 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->sysModuleService = $sysModuleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
@@ -76,6 +78,8 @@ class BaseWidgetUtilisateurController extends AdminController
 
         return view('PkgWidgets::widgetUtilisateur.index', $widgetUtilisateur_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -101,6 +105,50 @@ class BaseWidgetUtilisateurController extends AdminController
         }
         return view('PkgWidgets::widgetUtilisateur.create', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $widgetUtilisateur_ids = $request->input('ids', []);
+
+        if (!is_array($widgetUtilisateur_ids) || count($widgetUtilisateur_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('admin')){
+           $this->viewState->set('scope_form.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));
+        }
+ 
+         $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($widgetUtilisateur_ids[0]);
+         
+ 
+        $users = $this->userService->all();
+        $widgets = $this->widgetService->all();
+        $sysModules = $this->sysModuleService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWidgetUtilisateur = $this->widgetUtilisateurService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgWidgets::widgetUtilisateur._fields', compact('bulkEdit', 'widgetUtilisateur_ids', 'itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
+        }
+        return view('PkgWidgets::widgetUtilisateur.bulk-edit', compact('bulkEdit', 'widgetUtilisateur_ids', 'itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
+    }
+    /**
+     */
     public function store(WidgetUtilisateurRequest $request) {
         $validatedData = $request->validated();
         $widgetUtilisateur = $this->widgetUtilisateurService->create($validatedData);
@@ -124,6 +172,8 @@ class BaseWidgetUtilisateurController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('widgetUtilisateur.edit_' . $id);
@@ -145,6 +195,8 @@ class BaseWidgetUtilisateurController extends AdminController
         return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('widgetUtilisateur.edit_' . $id);
@@ -167,6 +219,8 @@ class BaseWidgetUtilisateurController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WidgetUtilisateurRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
@@ -195,6 +249,42 @@ class BaseWidgetUtilisateurController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $widgetUtilisateur_ids = $request->input('widgetUtilisateur_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($widgetUtilisateur_ids) || count($widgetUtilisateur_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($widgetUtilisateur_ids as $id) {
+            $entity = $this->widgetUtilisateurService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->widgetUtilisateurService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->widgetUtilisateurService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
@@ -221,6 +311,27 @@ class BaseWidgetUtilisateurController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $widgetUtilisateur_ids = $request->input('ids', []);
+        if (!is_array($widgetUtilisateur_ids) || count($widgetUtilisateur_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($widgetUtilisateur_ids as $id) {
+            $entity = $this->widgetUtilisateurService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
+            $this->authorize('delete', $widgetUtilisateur);
+            $this->widgetUtilisateurService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($widgetUtilisateur_ids) . ' éléments',
+            'modelName' => __('PkgWidgets::widgetUtilisateur.plural')
+        ]));
     }
 
     public function export($format)

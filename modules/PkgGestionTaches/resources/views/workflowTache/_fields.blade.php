@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('workflowTache-form')
-<form class="crud-form custom-form context-state container" id="workflowTacheForm" action="{{ $itemWorkflowTache->id ? route('workflowTaches.update', $itemWorkflowTache->id) : route('workflowTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="workflowTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('workflowTaches.bulkUpdate') : ($itemWorkflowTache->id ? route('workflowTaches.update', $itemWorkflowTache->id) : route('workflowTaches.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemWorkflowTache->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($workflowTache_ids))
+        @foreach ($workflowTache_ids as $id)
+            <input type="hidden" name="workflowTache_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="code">
             {{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="titre">
             {{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgGestionTaches::workflowTache.description')) }}
             
@@ -75,6 +101,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_color_id">
             {{ ucfirst(__('Core::sysColor.singular')) }}
             
@@ -117,7 +148,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::workflowTache.singular") }} : {{$itemWorkflowTache}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::workflowTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::workflowTache.singular") }} : {{$itemWorkflowTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

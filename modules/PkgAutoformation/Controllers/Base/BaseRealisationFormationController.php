@@ -35,6 +35,8 @@ class BaseRealisationFormationController extends AdminController
         $this->formationService = $formationService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('realisationFormation.index');
@@ -67,6 +69,8 @@ class BaseRealisationFormationController extends AdminController
 
         return view('PkgAutoformation::realisationFormation.index', $realisationFormation_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -82,6 +86,40 @@ class BaseRealisationFormationController extends AdminController
         }
         return view('PkgAutoformation::realisationFormation.create', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $realisationFormation_ids = $request->input('ids', []);
+
+        if (!is_array($realisationFormation_ids) || count($realisationFormation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemRealisationFormation = $this->realisationFormationService->find($realisationFormation_ids[0]);
+         
+ 
+        $formations = $this->formationService->all();
+        $apprenants = $this->apprenantService->all();
+        $etatFormations = $this->etatFormationService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemRealisationFormation = $this->realisationFormationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::realisationFormation._fields', compact('bulkEdit', 'realisationFormation_ids', 'itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
+        }
+        return view('PkgAutoformation::realisationFormation.bulk-edit', compact('bulkEdit', 'realisationFormation_ids', 'itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
+    }
+    /**
+     */
     public function store(RealisationFormationRequest $request) {
         $validatedData = $request->validated();
         $realisationFormation = $this->realisationFormationService->create($validatedData);
@@ -105,6 +143,8 @@ class BaseRealisationFormationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('realisationFormation.edit_' . $id);
@@ -132,6 +172,8 @@ class BaseRealisationFormationController extends AdminController
         return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('realisationFormation.edit_' . $id);
@@ -160,6 +202,8 @@ class BaseRealisationFormationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(RealisationFormationRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -185,6 +229,42 @@ class BaseRealisationFormationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $realisationFormation_ids = $request->input('realisationFormation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($realisationFormation_ids) || count($realisationFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($realisationFormation_ids as $id) {
+            $entity = $this->realisationFormationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->realisationFormationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->realisationFormationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $realisationFormation = $this->realisationFormationService->destroy($id);
@@ -208,6 +288,24 @@ class BaseRealisationFormationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $realisationFormation_ids = $request->input('ids', []);
+        if (!is_array($realisationFormation_ids) || count($realisationFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($realisationFormation_ids as $id) {
+            $entity = $this->realisationFormationService->find($id);
+            $this->realisationFormationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($realisationFormation_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::realisationFormation.plural')
+        ]));
     }
 
     public function export($format)

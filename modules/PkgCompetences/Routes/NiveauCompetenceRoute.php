@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
         Route::get('niveauCompetences/getData', [NiveauCompetenceController::class, 'getData'])->name('niveauCompetences.getData');
+        // bulk - edit and delete
+        Route::post('niveauCompetences/bulk-delete', [NiveauCompetenceController::class, 'bulkDelete'])
+        ->name('niveauCompetences.bulkDelete');
+        Route::get('niveauCompetences/bulk-edit', [NiveauCompetenceController::class, 'bulkEditForm'])
+        ->name('niveauCompetences.bulkEdit');
+        Route::post('niveauCompetences/bulk-update', [NiveauCompetenceController::class, 'bulkUpdate'])
+        ->name('niveauCompetences.bulkUpdate');
+
         Route::resource('niveauCompetences', NiveauCompetenceController::class)
             ->parameters(['niveauCompetences' => 'niveauCompetence']);
         // Routes supplémentaires avec préfixe

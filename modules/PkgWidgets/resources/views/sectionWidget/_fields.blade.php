@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sectionWidget-form')
-<form class="crud-form custom-form context-state container" id="sectionWidgetForm" action="{{ $itemSectionWidget->id ? route('sectionWidgets.update', $itemSectionWidget->id) : route('sectionWidgets.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="sectionWidgetForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('sectionWidgets.bulkUpdate') : ($itemSectionWidget->id ? route('sectionWidgets.update', $itemSectionWidget->id) : route('sectionWidgets.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemSectionWidget->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($sectionWidget_ids))
+        @foreach ($sectionWidget_ids as $id)
+            <input type="hidden" name="sectionWidget_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="ordre">
             {{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="icone" id="bulk_field_icone" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="icone">
             {{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}
             
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="titre">
             {{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}
             <span class="text-danger">*</span>
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sous_titre" id="bulk_field_sous_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sous_titre">
             {{ ucfirst(__('PkgWidgets::sectionWidget.sous_titre')) }}
             
@@ -99,6 +130,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_color_id">
             {{ ucfirst(__('Core::sysColor.singular')) }}
             
@@ -141,7 +177,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgWidgets::sectionWidget.singular") }} : {{$itemSectionWidget}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgWidgets::sectionWidget.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgWidgets::sectionWidget.singular") }} : {{$itemSectionWidget}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

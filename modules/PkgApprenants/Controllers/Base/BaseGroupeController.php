@@ -38,6 +38,8 @@ class BaseGroupeController extends AdminController
         $this->filiereService = $filiereService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
@@ -70,6 +72,8 @@ class BaseGroupeController extends AdminController
 
         return view('PkgApprenants::groupe.index', $groupe_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -86,6 +90,41 @@ class BaseGroupeController extends AdminController
         }
         return view('PkgApprenants::groupe.create', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $groupe_ids = $request->input('ids', []);
+
+        if (!is_array($groupe_ids) || count($groupe_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemGroupe = $this->groupeService->find($groupe_ids[0]);
+         
+ 
+        $filieres = $this->filiereService->all();
+        $anneeFormations = $this->anneeFormationService->all();
+        $apprenants = $this->apprenantService->all();
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemGroupe = $this->groupeService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgApprenants::groupe._fields', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+        }
+        return view('PkgApprenants::groupe.bulk-edit', compact('bulkEdit', 'groupe_ids', 'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+    }
+    /**
+     */
     public function store(GroupeRequest $request) {
         $validatedData = $request->validated();
         $groupe = $this->groupeService->create($validatedData);
@@ -109,6 +148,8 @@ class BaseGroupeController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
@@ -137,6 +178,8 @@ class BaseGroupeController extends AdminController
         return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('groupe.edit_' . $id);
@@ -166,6 +209,8 @@ class BaseGroupeController extends AdminController
 
 
     }
+    /**
+     */
     public function update(GroupeRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -191,6 +236,42 @@ class BaseGroupeController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $groupe_ids = $request->input('groupe_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($groupe_ids) || count($groupe_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($groupe_ids as $id) {
+            $entity = $this->groupeService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->groupeService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->groupeService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $groupe = $this->groupeService->destroy($id);
@@ -214,6 +295,24 @@ class BaseGroupeController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $groupe_ids = $request->input('ids', []);
+        if (!is_array($groupe_ids) || count($groupe_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($groupe_ids as $id) {
+            $entity = $this->groupeService->find($id);
+            $this->groupeService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($groupe_ids) . ' éléments',
+            'modelName' => __('PkgApprenants::groupe.plural')
+        ]));
     }
 
     public function export($format)

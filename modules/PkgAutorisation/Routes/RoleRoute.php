@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
 
         Route::get('roles/getData', [RoleController::class, 'getData'])->name('roles.getData');
+        // bulk - edit and delete
+        Route::post('roles/bulk-delete', [RoleController::class, 'bulkDelete'])
+        ->name('roles.bulkDelete');
+        Route::get('roles/bulk-edit', [RoleController::class, 'bulkEditForm'])
+        ->name('roles.bulkEdit');
+        Route::post('roles/bulk-update', [RoleController::class, 'bulkUpdate'])
+        ->name('roles.bulkUpdate');
+
         Route::resource('roles', RoleController::class)
             ->parameters(['roles' => 'role']);
         // Routes supplémentaires avec préfixe

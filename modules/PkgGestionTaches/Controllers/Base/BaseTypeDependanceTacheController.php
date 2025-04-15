@@ -26,6 +26,8 @@ class BaseTypeDependanceTacheController extends AdminController
         $this->typeDependanceTacheService = $typeDependanceTacheService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('typeDependanceTache.index');
@@ -58,6 +60,8 @@ class BaseTypeDependanceTacheController extends AdminController
 
         return view('PkgGestionTaches::typeDependanceTache.index', $typeDependanceTache_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -70,6 +74,37 @@ class BaseTypeDependanceTacheController extends AdminController
         }
         return view('PkgGestionTaches::typeDependanceTache.create', compact('itemTypeDependanceTache'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $typeDependanceTache_ids = $request->input('ids', []);
+
+        if (!is_array($typeDependanceTache_ids) || count($typeDependanceTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemTypeDependanceTache = $this->typeDependanceTacheService->find($typeDependanceTache_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemTypeDependanceTache = $this->typeDependanceTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::typeDependanceTache._fields', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
+        }
+        return view('PkgGestionTaches::typeDependanceTache.bulk-edit', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
+    }
+    /**
+     */
     public function store(TypeDependanceTacheRequest $request) {
         $validatedData = $request->validated();
         $typeDependanceTache = $this->typeDependanceTacheService->create($validatedData);
@@ -93,6 +128,8 @@ class BaseTypeDependanceTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('typeDependanceTache.edit_' . $id);
@@ -117,6 +154,8 @@ class BaseTypeDependanceTacheController extends AdminController
         return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('typeDependanceTache.edit_' . $id);
@@ -142,6 +181,8 @@ class BaseTypeDependanceTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(TypeDependanceTacheRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -167,6 +208,42 @@ class BaseTypeDependanceTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $typeDependanceTache_ids = $request->input('typeDependanceTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($typeDependanceTache_ids) || count($typeDependanceTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($typeDependanceTache_ids as $id) {
+            $entity = $this->typeDependanceTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->typeDependanceTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->typeDependanceTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $typeDependanceTache = $this->typeDependanceTacheService->destroy($id);
@@ -190,6 +267,24 @@ class BaseTypeDependanceTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $typeDependanceTache_ids = $request->input('ids', []);
+        if (!is_array($typeDependanceTache_ids) || count($typeDependanceTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($typeDependanceTache_ids as $id) {
+            $entity = $this->typeDependanceTacheService->find($id);
+            $this->typeDependanceTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($typeDependanceTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::typeDependanceTache.plural')
+        ]));
     }
 
     public function export($format)

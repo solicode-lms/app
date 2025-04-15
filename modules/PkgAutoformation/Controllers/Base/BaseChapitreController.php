@@ -35,6 +35,8 @@ class BaseChapitreController extends AdminController
         $this->niveauCompetenceService = $niveauCompetenceService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('chapitre.index');
@@ -67,6 +69,8 @@ class BaseChapitreController extends AdminController
 
         return view('PkgAutoformation::chapitre.index', $chapitre_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -83,6 +87,41 @@ class BaseChapitreController extends AdminController
         }
         return view('PkgAutoformation::chapitre.create', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $chapitre_ids = $request->input('ids', []);
+
+        if (!is_array($chapitre_ids) || count($chapitre_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemChapitre = $this->chapitreService->find($chapitre_ids[0]);
+         
+ 
+        $formations = $this->formationService->all();
+        $niveauCompetences = $this->niveauCompetenceService->all();
+        $formateurs = $this->formateurService->all();
+        $chapitres = $this->chapitreService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemChapitre = $this->chapitreService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::chapitre._fields', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
+        }
+        return view('PkgAutoformation::chapitre.bulk-edit', compact('bulkEdit', 'chapitre_ids', 'itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
+    }
+    /**
+     */
     public function store(ChapitreRequest $request) {
         $validatedData = $request->validated();
         $chapitre = $this->chapitreService->create($validatedData);
@@ -106,6 +145,8 @@ class BaseChapitreController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('chapitre.edit_' . $id);
@@ -141,6 +182,8 @@ class BaseChapitreController extends AdminController
         return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('chapitre.edit_' . $id);
@@ -177,6 +220,8 @@ class BaseChapitreController extends AdminController
 
 
     }
+    /**
+     */
     public function update(ChapitreRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -202,6 +247,42 @@ class BaseChapitreController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $chapitre_ids = $request->input('chapitre_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($chapitre_ids) || count($chapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($chapitre_ids as $id) {
+            $entity = $this->chapitreService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->chapitreService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->chapitreService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $chapitre = $this->chapitreService->destroy($id);
@@ -225,6 +306,24 @@ class BaseChapitreController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $chapitre_ids = $request->input('ids', []);
+        if (!is_array($chapitre_ids) || count($chapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($chapitre_ids as $id) {
+            $entity = $this->chapitreService->find($id);
+            $this->chapitreService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($chapitre_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::chapitre.plural')
+        ]));
     }
 
     public function export($format)

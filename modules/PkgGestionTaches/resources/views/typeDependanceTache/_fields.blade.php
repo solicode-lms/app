@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('typeDependanceTache-form')
-<form class="crud-form custom-form context-state container" id="typeDependanceTacheForm" action="{{ $itemTypeDependanceTache->id ? route('typeDependanceTaches.update', $itemTypeDependanceTache->id) : route('typeDependanceTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="typeDependanceTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('typeDependanceTaches.bulkUpdate') : ($itemTypeDependanceTache->id ? route('typeDependanceTaches.update', $itemTypeDependanceTache->id) : route('typeDependanceTaches.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemTypeDependanceTache->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($typeDependanceTache_ids))
+        @foreach ($typeDependanceTache_ids as $id)
+            <input type="hidden" name="typeDependanceTache_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="titre">
             {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.description')) }}
             
@@ -68,7 +89,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::typeDependanceTache.singular") }} : {{$itemTypeDependanceTache}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::typeDependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::typeDependanceTache.singular") }} : {{$itemTypeDependanceTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

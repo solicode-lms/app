@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column width="21.25"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
-                <x-sortable-column width="21.25"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
-                <x-sortable-column width="21.25"  field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column width="20.5"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
+                <x-sortable-column width="20.5"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
+                <x-sortable-column width="20.5"  field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -17,25 +20,28 @@
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $sysController->id }}" data-id="{{ $sysController->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
                     <x-field :entity="$sysController" field="sysModule">
                        
                          {{  $sysController->sysModule }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->name }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->name }}" >
                     <x-field :entity="$sysController" field="name">
                         {{ $sysController->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->is_active }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->is_active }}" >
                     <x-field :entity="$sysController" field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
                     <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)
@@ -67,7 +73,7 @@
                             <form class="context-state" action="{{ route('sysControllers.destroy',['sysController' => $sysController->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysController->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$sysController->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

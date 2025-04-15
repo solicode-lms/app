@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
         Route::get('niveauDifficultes/getData', [NiveauDifficulteController::class, 'getData'])->name('niveauDifficultes.getData');
+        // bulk - edit and delete
+        Route::post('niveauDifficultes/bulk-delete', [NiveauDifficulteController::class, 'bulkDelete'])
+        ->name('niveauDifficultes.bulkDelete');
+        Route::get('niveauDifficultes/bulk-edit', [NiveauDifficulteController::class, 'bulkEditForm'])
+        ->name('niveauDifficultes.bulkEdit');
+        Route::post('niveauDifficultes/bulk-update', [NiveauDifficulteController::class, 'bulkUpdate'])
+        ->name('niveauDifficultes.bulkUpdate');
+
         Route::resource('niveauDifficultes', NiveauDifficulteController::class)
             ->parameters(['niveauDifficultes' => 'niveauDifficulte']);
         // Routes supplémentaires avec préfixe

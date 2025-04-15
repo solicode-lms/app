@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
 
         Route::get('livrablesRealisations/getData', [LivrablesRealisationController::class, 'getData'])->name('livrablesRealisations.getData');
+        // bulk - edit and delete
+        Route::post('livrablesRealisations/bulk-delete', [LivrablesRealisationController::class, 'bulkDelete'])
+        ->name('livrablesRealisations.bulkDelete');
+        Route::get('livrablesRealisations/bulk-edit', [LivrablesRealisationController::class, 'bulkEditForm'])
+        ->name('livrablesRealisations.bulkEdit');
+        Route::post('livrablesRealisations/bulk-update', [LivrablesRealisationController::class, 'bulkUpdate'])
+        ->name('livrablesRealisations.bulkUpdate');
+
         Route::resource('livrablesRealisations', LivrablesRealisationController::class)
             ->parameters(['livrablesRealisations' => 'livrablesRealisation']);
         // Routes supplémentaires avec préfixe

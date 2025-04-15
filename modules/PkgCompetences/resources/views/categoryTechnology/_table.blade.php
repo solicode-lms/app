@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="nom" modelname="categoryTechnology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="nom" modelname="categoryTechnology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('categoryTechnology-table-tbody')
             @foreach ($categoryTechnologies_data as $categoryTechnology)
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $categoryTechnology->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $categoryTechnology->id }}" data-id="{{ $categoryTechnology->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $categoryTechnology->nom }}" >
                     <x-field :entity="$categoryTechnology" field="nom">
                         {{ $categoryTechnology->nom }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('categoryTechnologies.destroy',['categoryTechnology' => $categoryTechnology->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$categoryTechnology->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$categoryTechnology->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

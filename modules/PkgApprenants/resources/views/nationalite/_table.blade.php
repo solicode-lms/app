@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="code" modelname="nationalite" label="{{ ucfirst(__('PkgApprenants::nationalite.code')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="code" modelname="nationalite" label="{{ ucfirst(__('PkgApprenants::nationalite.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $nationalite->id }}" data-id="{{ $nationalite->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
                     <x-field :entity="$nationalite" field="code">
                         {{ $nationalite->code }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('nationalites.destroy',['nationalite' => $nationalite->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$nationalite->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$nationalite->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

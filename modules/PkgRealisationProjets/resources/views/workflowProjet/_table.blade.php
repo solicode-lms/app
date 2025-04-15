@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
-                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
+                <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +18,20 @@
             @section('workflowProjet-table-tbody')
             @foreach ($workflowProjets_data as $workflowProjet)
                 <tr id="workflowProjet-row-{{$workflowProjet->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $workflowProjet->id }}" data-id="{{ $workflowProjet->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
                     <x-field :entity="$workflowProjet" field="code">
                         {{ $workflowProjet->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->titre }}" >
                     <x-field :entity="$workflowProjet" field="titre">
                         {{ $workflowProjet->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >
                     <x-field :entity="$workflowProjet" field="sysColor">
                         <x-badge 
                         :text="$workflowProjet->sysColor->name ?? ''" 
@@ -56,7 +62,7 @@
                             <form class="context-state" action="{{ route('workflowProjets.destroy',['workflowProjet' => $workflowProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$workflowProjet->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$workflowProjet->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

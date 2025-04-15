@@ -29,6 +29,8 @@ class BaseWorkflowFormationController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowFormation.index');
@@ -61,6 +63,8 @@ class BaseWorkflowFormationController extends AdminController
 
         return view('PkgAutoformation::workflowFormation.index', $workflowFormation_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseWorkflowFormationController extends AdminController
         }
         return view('PkgAutoformation::workflowFormation.create', compact('itemWorkflowFormation', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $workflowFormation_ids = $request->input('ids', []);
+
+        if (!is_array($workflowFormation_ids) || count($workflowFormation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemWorkflowFormation = $this->workflowFormationService->find($workflowFormation_ids[0]);
+         
+ 
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWorkflowFormation = $this->workflowFormationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::workflowFormation._fields', compact('bulkEdit', 'workflowFormation_ids', 'itemWorkflowFormation', 'sysColors'));
+        }
+        return view('PkgAutoformation::workflowFormation.bulk-edit', compact('bulkEdit', 'workflowFormation_ids', 'itemWorkflowFormation', 'sysColors'));
+    }
+    /**
+     */
     public function store(WorkflowFormationRequest $request) {
         $validatedData = $request->validated();
         $workflowFormation = $this->workflowFormationService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseWorkflowFormationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('workflowFormation.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseWorkflowFormationController extends AdminController
         return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('workflowFormation.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseWorkflowFormationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WorkflowFormationRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseWorkflowFormationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $workflowFormation_ids = $request->input('workflowFormation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($workflowFormation_ids) || count($workflowFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($workflowFormation_ids as $id) {
+            $entity = $this->workflowFormationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->workflowFormationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->workflowFormationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $workflowFormation = $this->workflowFormationService->destroy($id);
@@ -196,6 +274,24 @@ class BaseWorkflowFormationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $workflowFormation_ids = $request->input('ids', []);
+        if (!is_array($workflowFormation_ids) || count($workflowFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($workflowFormation_ids as $id) {
+            $entity = $this->workflowFormationService->find($id);
+            $this->workflowFormationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($workflowFormation_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::workflowFormation.plural')
+        ]));
     }
 
     public function export($format)

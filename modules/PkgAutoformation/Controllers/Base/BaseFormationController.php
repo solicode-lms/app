@@ -39,6 +39,8 @@ class BaseFormationController extends AdminController
         $this->filiereService = $filiereService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('formation.index');
@@ -75,6 +77,8 @@ class BaseFormationController extends AdminController
 
         return view('PkgAutoformation::formation.index', $formation_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -100,6 +104,50 @@ class BaseFormationController extends AdminController
         }
         return view('PkgAutoformation::formation.create', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $formation_ids = $request->input('ids', []);
+
+        if (!is_array($formation_ids) || count($formation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.formation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemFormation = $this->formationService->find($formation_ids[0]);
+         
+        // scopeDataInEditContext
+        $value = $itemFormation->getNestedValue('1');
+        $key = 'scope.formationOfficiel.is_officiel';
+        $this->viewState->set($key, $value);
+ 
+        $competences = $this->competenceService->all();
+        $technologies = $this->technologyService->all();
+        $formateurs = $this->formateurService->all();
+        $formations = $this->formationService->all();
+        $filieres = $this->filiereService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemFormation = $this->formationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::formation._fields', compact('bulkEdit', 'formation_ids', 'itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
+        }
+        return view('PkgAutoformation::formation.bulk-edit', compact('bulkEdit', 'formation_ids', 'itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
+    }
+    /**
+     */
     public function store(FormationRequest $request) {
         $validatedData = $request->validated();
         $formation = $this->formationService->create($validatedData);
@@ -123,6 +171,8 @@ class BaseFormationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('formation.edit_' . $id);
@@ -175,6 +225,8 @@ class BaseFormationController extends AdminController
         return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('formation.edit_' . $id);
@@ -228,6 +280,8 @@ class BaseFormationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(FormationRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $formation = $this->formationService->find($id);
@@ -256,6 +310,42 @@ class BaseFormationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $formation_ids = $request->input('formation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($formation_ids) || count($formation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($formation_ids as $id) {
+            $entity = $this->formationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->formationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->formationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $formation = $this->formationService->find($id);
@@ -282,6 +372,27 @@ class BaseFormationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $formation_ids = $request->input('ids', []);
+        if (!is_array($formation_ids) || count($formation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($formation_ids as $id) {
+            $entity = $this->formationService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $formation = $this->formationService->find($id);
+            $this->authorize('delete', $formation);
+            $this->formationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($formation_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::formation.plural')
+        ]));
     }
 
     public function export($format)

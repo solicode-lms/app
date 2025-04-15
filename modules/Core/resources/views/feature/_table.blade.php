@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="name" modelname="feature" label="{{ ucfirst(__('Core::feature.name')) }}" />
-                <x-sortable-column width="28.333333333333332" field="feature_domain_id" modelname="feature" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="permissions" modelname="feature" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="name" modelname="feature" label="{{ ucfirst(__('Core::feature.name')) }}" />
+                <x-sortable-column width="27.333333333333332" field="feature_domain_id" modelname="feature" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="permissions" modelname="feature" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,18 +18,21 @@
             @section('feature-table-tbody')
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $feature->id }}" data-id="{{ $feature->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->name }}" >
                     <x-field :entity="$feature" field="name">
                         {{ $feature->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
                     <x-field :entity="$feature" field="featureDomain">
                        
                          {{  $feature->featureDomain }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->permissions }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->permissions }}" >
                     <x-field :entity="$feature" field="permissions">
                         <ul>
                             @foreach ($feature->permissions as $permission)
@@ -58,7 +64,7 @@
                             <form class="context-state" action="{{ route('features.destroy',['feature' => $feature->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$feature->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$feature->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

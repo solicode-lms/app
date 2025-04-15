@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="name" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="email" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="roles" modelname="user" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="name" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="email" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="roles" modelname="user" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +18,20 @@
             @section('user-table-tbody')
             @foreach ($users_data as $user)
                 <tr id="user-row-{{$user->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $user->id }}" data-id="{{ $user->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->name }}" >
                     <x-field :entity="$user" field="name">
                         {{ $user->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->email }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->email }}" >
                     <x-field :entity="$user" field="email">
                         {{ $user->email }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->roles }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->roles }}" >
                     <x-field :entity="$user" field="roles">
                         <ul>
                             @foreach ($user->roles as $role)
@@ -69,7 +75,7 @@
                             <form class="context-state" action="{{ route('users.destroy',['user' => $user->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$user->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$user->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
 
         Route::get('dependanceTaches/getData', [DependanceTacheController::class, 'getData'])->name('dependanceTaches.getData');
+        // bulk - edit and delete
+        Route::post('dependanceTaches/bulk-delete', [DependanceTacheController::class, 'bulkDelete'])
+        ->name('dependanceTaches.bulkDelete');
+        Route::get('dependanceTaches/bulk-edit', [DependanceTacheController::class, 'bulkEditForm'])
+        ->name('dependanceTaches.bulkEdit');
+        Route::post('dependanceTaches/bulk-update', [DependanceTacheController::class, 'bulkUpdate'])
+        ->name('dependanceTaches.bulkUpdate');
+
         Route::resource('dependanceTaches', DependanceTacheController::class)
             ->parameters(['dependanceTaches' => 'dependanceTache']);
         // Routes supplémentaires avec préfixe

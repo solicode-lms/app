@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('resource-form')
-<form class="crud-form custom-form context-state container" id="resourceForm" action="{{ $itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="resourceForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('resources.bulkUpdate') : ($itemResource->id ? route('resources.update', $itemResource->id) : route('resources.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemResource->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($resource_ids))
+        @foreach ($resource_ids as $id)
+            <input type="hidden" name="resource_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgCreationProjet::resource.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="lien">
             {{ ucfirst(__('PkgCreationProjet::resource.lien')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgCreationProjet::resource.description')) }}
             
@@ -75,6 +101,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="projet_id">
             {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
             <span class="text-danger">*</span>
@@ -114,7 +145,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgCreationProjet::resource.singular") }} : {{$itemResource}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgCreationProjet::resource.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgCreationProjet::resource.singular") }} : {{$itemResource}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

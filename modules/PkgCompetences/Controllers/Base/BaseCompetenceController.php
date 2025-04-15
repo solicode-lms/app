@@ -33,6 +33,8 @@ class BaseCompetenceController extends AdminController
         $this->moduleService = $moduleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
@@ -65,6 +67,8 @@ class BaseCompetenceController extends AdminController
 
         return view('PkgCompetences::competence.index', $competence_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -79,6 +83,39 @@ class BaseCompetenceController extends AdminController
         }
         return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies', 'modules'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $competence_ids = $request->input('ids', []);
+
+        if (!is_array($competence_ids) || count($competence_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemCompetence = $this->competenceService->find($competence_ids[0]);
+         
+ 
+        $modules = $this->moduleService->all();
+        $technologies = $this->technologyService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemCompetence = $this->competenceService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCompetences::competence._fields', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'technologies', 'modules'));
+        }
+        return view('PkgCompetences::competence.bulk-edit', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'technologies', 'modules'));
+    }
+    /**
+     */
     public function store(CompetenceRequest $request) {
         $validatedData = $request->validated();
         $competence = $this->competenceService->create($validatedData);
@@ -102,6 +139,8 @@ class BaseCompetenceController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('competence.edit_' . $id);
@@ -135,6 +174,8 @@ class BaseCompetenceController extends AdminController
         return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('competence.edit_' . $id);
@@ -169,6 +210,8 @@ class BaseCompetenceController extends AdminController
 
 
     }
+    /**
+     */
     public function update(CompetenceRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -194,6 +237,42 @@ class BaseCompetenceController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $competence_ids = $request->input('competence_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($competence_ids) || count($competence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($competence_ids as $id) {
+            $entity = $this->competenceService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->competenceService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->competenceService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $competence = $this->competenceService->destroy($id);
@@ -217,6 +296,24 @@ class BaseCompetenceController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $competence_ids = $request->input('ids', []);
+        if (!is_array($competence_ids) || count($competence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($competence_ids as $id) {
+            $entity = $this->competenceService->find($id);
+            $this->competenceService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($competence_ids) . ' éléments',
+            'modelName' => __('PkgCompetences::competence.plural')
+        ]));
     }
 
     public function export($format)

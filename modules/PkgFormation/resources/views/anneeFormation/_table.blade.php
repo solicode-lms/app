@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +18,20 @@
             @section('anneeFormation-table-tbody')
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $anneeFormation->id }}" data-id="{{ $anneeFormation->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
                     <x-field :entity="$anneeFormation" field="titre">
                         {{ $anneeFormation->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
                     <x-field :entity="$anneeFormation" field="date_debut">
                         {{ $anneeFormation->date_debut }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
                     <x-field :entity="$anneeFormation" field="date_fin">
                         {{ $anneeFormation->date_fin }}
                     </x-field>
@@ -53,7 +59,7 @@
                             <form class="context-state" action="{{ route('anneeFormations.destroy',['anneeFormation' => $anneeFormation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$anneeFormation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$anneeFormation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

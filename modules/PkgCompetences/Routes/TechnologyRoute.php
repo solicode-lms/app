@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
 
         Route::get('technologies/getData', [TechnologyController::class, 'getData'])->name('technologies.getData');
+        // bulk - edit and delete
+        Route::post('technologies/bulk-delete', [TechnologyController::class, 'bulkDelete'])
+        ->name('technologies.bulkDelete');
+        Route::get('technologies/bulk-edit', [TechnologyController::class, 'bulkEditForm'])
+        ->name('technologies.bulkEdit');
+        Route::post('technologies/bulk-update', [TechnologyController::class, 'bulkUpdate'])
+        ->name('technologies.bulkUpdate');
+
         Route::resource('technologies', TechnologyController::class)
             ->parameters(['technologies' => 'technology']);
         // Routes supplémentaires avec préfixe

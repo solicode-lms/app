@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('apprenantKonosies/getData', [ApprenantKonosyController::class, 'getData'])->name('apprenantKonosies.getData');
+        // bulk - edit and delete
+        Route::post('apprenantKonosies/bulk-delete', [ApprenantKonosyController::class, 'bulkDelete'])
+        ->name('apprenantKonosies.bulkDelete');
+        Route::get('apprenantKonosies/bulk-edit', [ApprenantKonosyController::class, 'bulkEditForm'])
+        ->name('apprenantKonosies.bulkEdit');
+        Route::post('apprenantKonosies/bulk-update', [ApprenantKonosyController::class, 'bulkUpdate'])
+        ->name('apprenantKonosies.bulkUpdate');
+
         Route::resource('apprenantKonosies', ApprenantKonosyController::class)
             ->parameters(['apprenantKonosies' => 'apprenantKonosy']);
         // Routes supplémentaires avec préfixe

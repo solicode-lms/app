@@ -29,6 +29,8 @@ class BaseWorkflowTacheController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowTache.index');
@@ -61,6 +63,8 @@ class BaseWorkflowTacheController extends AdminController
 
         return view('PkgGestionTaches::workflowTache.index', $workflowTache_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseWorkflowTacheController extends AdminController
         }
         return view('PkgGestionTaches::workflowTache.create', compact('itemWorkflowTache', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $workflowTache_ids = $request->input('ids', []);
+
+        if (!is_array($workflowTache_ids) || count($workflowTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemWorkflowTache = $this->workflowTacheService->find($workflowTache_ids[0]);
+         
+ 
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWorkflowTache = $this->workflowTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::workflowTache._fields', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
+        }
+        return view('PkgGestionTaches::workflowTache.bulk-edit', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
+    }
+    /**
+     */
     public function store(WorkflowTacheRequest $request) {
         $validatedData = $request->validated();
         $workflowTache = $this->workflowTacheService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseWorkflowTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('workflowTache.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseWorkflowTacheController extends AdminController
         return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('workflowTache.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseWorkflowTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WorkflowTacheRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseWorkflowTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $workflowTache_ids = $request->input('workflowTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($workflowTache_ids) || count($workflowTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($workflowTache_ids as $id) {
+            $entity = $this->workflowTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->workflowTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->workflowTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $workflowTache = $this->workflowTacheService->destroy($id);
@@ -196,6 +274,24 @@ class BaseWorkflowTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $workflowTache_ids = $request->input('ids', []);
+        if (!is_array($workflowTache_ids) || count($workflowTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($workflowTache_ids as $id) {
+            $entity = $this->workflowTacheService->find($id);
+            $this->workflowTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($workflowTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::workflowTache.plural')
+        ]));
     }
 
     public function export($format)

@@ -37,6 +37,8 @@ class BaseTechnologyController extends AdminController
         $this->transfertCompetenceService = $transfertCompetenceService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('technology.index');
@@ -69,6 +71,8 @@ class BaseTechnologyController extends AdminController
 
         return view('PkgCompetences::technology.index', $technology_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -85,6 +89,41 @@ class BaseTechnologyController extends AdminController
         }
         return view('PkgCompetences::technology.create', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $technology_ids = $request->input('ids', []);
+
+        if (!is_array($technology_ids) || count($technology_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemTechnology = $this->technologyService->find($technology_ids[0]);
+         
+ 
+        $categoryTechnologies = $this->categoryTechnologyService->all();
+        $competences = $this->competenceService->all();
+        $formations = $this->formationService->all();
+        $transfertCompetences = $this->transfertCompetenceService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemTechnology = $this->technologyService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCompetences::technology._fields', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        }
+        return view('PkgCompetences::technology.bulk-edit', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+    }
+    /**
+     */
     public function store(TechnologyRequest $request) {
         $validatedData = $request->validated();
         $technology = $this->technologyService->create($validatedData);
@@ -108,6 +147,8 @@ class BaseTechnologyController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('technology.edit_' . $id);
@@ -129,6 +170,8 @@ class BaseTechnologyController extends AdminController
         return view('PkgCompetences::technology.edit', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('technology.edit_' . $id);
@@ -151,6 +194,8 @@ class BaseTechnologyController extends AdminController
 
 
     }
+    /**
+     */
     public function update(TechnologyRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -176,6 +221,42 @@ class BaseTechnologyController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $technology_ids = $request->input('technology_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($technology_ids) || count($technology_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($technology_ids as $id) {
+            $entity = $this->technologyService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->technologyService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->technologyService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $technology = $this->technologyService->destroy($id);
@@ -199,6 +280,24 @@ class BaseTechnologyController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $technology_ids = $request->input('ids', []);
+        if (!is_array($technology_ids) || count($technology_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($technology_ids as $id) {
+            $entity = $this->technologyService->find($id);
+            $this->technologyService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($technology_ids) . ' éléments',
+            'modelName' => __('PkgCompetences::technology.plural')
+        ]));
     }
 
     public function export($format)

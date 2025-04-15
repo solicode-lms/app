@@ -38,6 +38,8 @@ class BaseSysColorController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
@@ -70,6 +72,8 @@ class BaseSysColorController extends AdminController
 
         return view('Core::sysColor.index', $sysColor_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -82,6 +86,37 @@ class BaseSysColorController extends AdminController
         }
         return view('Core::sysColor.create', compact('itemSysColor'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $sysColor_ids = $request->input('ids', []);
+
+        if (!is_array($sysColor_ids) || count($sysColor_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemSysColor = $this->sysColorService->find($sysColor_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemSysColor = $this->sysColorService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('Core::sysColor._fields', compact('bulkEdit', 'sysColor_ids', 'itemSysColor'));
+        }
+        return view('Core::sysColor.bulk-edit', compact('bulkEdit', 'sysColor_ids', 'itemSysColor'));
+    }
+    /**
+     */
     public function store(SysColorRequest $request) {
         $validatedData = $request->validated();
         $sysColor = $this->sysColorService->create($validatedData);
@@ -105,6 +140,8 @@ class BaseSysColorController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysColor.edit_' . $id);
@@ -213,6 +250,8 @@ class BaseSysColorController extends AdminController
         return view('Core::sysColor.edit', array_merge(compact('itemSysColor',),$etatChapitre_compact_value, $etatRealisationTache_compact_value, $sysModel_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowChapitre_compact_value, $workflowFormation_compact_value, $workflowProjet_compact_value, $workflowTache_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('sysColor.edit_' . $id);
@@ -322,6 +361,8 @@ class BaseSysColorController extends AdminController
 
 
     }
+    /**
+     */
     public function update(SysColorRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -347,6 +388,42 @@ class BaseSysColorController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $sysColor_ids = $request->input('sysColor_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($sysColor_ids) || count($sysColor_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($sysColor_ids as $id) {
+            $entity = $this->sysColorService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->sysColorService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->sysColorService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $sysColor = $this->sysColorService->destroy($id);
@@ -370,6 +447,24 @@ class BaseSysColorController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $sysColor_ids = $request->input('ids', []);
+        if (!is_array($sysColor_ids) || count($sysColor_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($sysColor_ids as $id) {
+            $entity = $this->sysColorService->find($id);
+            $this->sysColorService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($sysColor_ids) . ' éléments',
+            'modelName' => __('Core::sysColor.plural')
+        ]));
     }
 
     public function export($format)

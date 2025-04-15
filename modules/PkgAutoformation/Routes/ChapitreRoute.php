@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
 
         Route::get('chapitres/getData', [ChapitreController::class, 'getData'])->name('chapitres.getData');
+        // bulk - edit and delete
+        Route::post('chapitres/bulk-delete', [ChapitreController::class, 'bulkDelete'])
+        ->name('chapitres.bulkDelete');
+        Route::get('chapitres/bulk-edit', [ChapitreController::class, 'bulkEditForm'])
+        ->name('chapitres.bulkEdit');
+        Route::post('chapitres/bulk-update', [ChapitreController::class, 'bulkUpdate'])
+        ->name('chapitres.bulkUpdate');
+
         Route::resource('chapitres', ChapitreController::class)
             ->parameters(['chapitres' => 'chapitre']);
         // Routes supplémentaires avec préfixe

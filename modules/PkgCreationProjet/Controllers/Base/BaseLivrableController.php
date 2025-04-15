@@ -34,6 +34,8 @@ class BaseLivrableController extends AdminController
         $this->projetService = $projetService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
@@ -70,6 +72,8 @@ class BaseLivrableController extends AdminController
 
         return view('PkgCreationProjet::livrable.index', $livrable_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -93,6 +97,48 @@ class BaseLivrableController extends AdminController
         }
         return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $livrable_ids = $request->input('ids', []);
+
+        if (!is_array($livrable_ids) || count($livrable_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemLivrable = $this->livrableService->find($livrable_ids[0]);
+         
+        // scopeDataInEditContext
+        $value = $itemLivrable->getNestedValue('projet_id');
+        $key = 'scope.tache.projet_id';
+        $this->viewState->set($key, $value);
+ 
+        $natureLivrables = $this->natureLivrableService->all();
+        $projets = $this->projetService->all();
+        $taches = $this->tacheService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemLivrable = $this->livrableService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        }
+        return view('PkgCreationProjet::livrable.bulk-edit', compact('bulkEdit', 'livrable_ids', 'itemLivrable', 'taches', 'natureLivrables', 'projets'));
+    }
+    /**
+     */
     public function store(LivrableRequest $request) {
         $validatedData = $request->validated();
         $livrable = $this->livrableService->create($validatedData);
@@ -116,6 +162,8 @@ class BaseLivrableController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
@@ -141,6 +189,8 @@ class BaseLivrableController extends AdminController
         return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('livrable.edit_' . $id);
@@ -167,6 +217,8 @@ class BaseLivrableController extends AdminController
 
 
     }
+    /**
+     */
     public function update(LivrableRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $livrable = $this->livrableService->find($id);
@@ -195,6 +247,42 @@ class BaseLivrableController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $livrable_ids = $request->input('livrable_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($livrable_ids) || count($livrable_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($livrable_ids as $id) {
+            $entity = $this->livrableService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->livrableService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->livrableService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $livrable = $this->livrableService->find($id);
@@ -221,6 +309,27 @@ class BaseLivrableController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $livrable_ids = $request->input('ids', []);
+        if (!is_array($livrable_ids) || count($livrable_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($livrable_ids as $id) {
+            $entity = $this->livrableService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $livrable = $this->livrableService->find($id);
+            $this->authorize('delete', $livrable);
+            $this->livrableService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($livrable_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::livrable.plural')
+        ]));
     }
 
     public function export($format)

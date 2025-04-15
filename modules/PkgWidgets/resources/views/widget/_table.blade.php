@@ -5,12 +5,15 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
                 <x-sortable-column width="8"  field="ordre" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.ordre')) }}" />
-                <x-sortable-column width="20"  field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
-                <x-sortable-column width="20"  field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
+                <x-sortable-column width="19"  field="name" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.name')) }}" />
+                <x-sortable-column width="19"  field="label" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widget.label')) }}" />
                 <x-sortable-column width="7" field="type_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::widgetType.singular')) }}" />
                 <x-sortable-column width="10"  field="roles" modelname="widget" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
-                <x-sortable-column width="20" field="section_widget_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}" />
+                <x-sortable-column width="19" field="section_widget_id" modelname="widget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,12 +21,15 @@
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
                 <tr id="widget-row-{{$widget->id}}">
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $widget->id }}" data-id="{{ $widget->id }}">
+                    </td>
                     <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->ordre }}" >
                     <x-field :entity="$widget" field="ordre">
                         {{ $widget->ordre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
+                    <td style="max-width: 19%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >
                     <x-field :entity="$widget" field="name">
                          <x-badge 
                         :text="$widget->name ?? ''" 
@@ -32,7 +38,7 @@
 
                     </x-field>
                     </td>    
-                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
+                    <td style="max-width: 19%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->label }}" >
                     <x-field :entity="$widget" field="label">
                         {{ $widget->label }}
                     </x-field>
@@ -52,7 +58,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
+                    <td style="max-width: 19%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
                     <x-field :entity="$widget" field="sectionWidget">
                        
                          {{  $widget->sectionWidget }}
@@ -81,7 +87,7 @@
                             <form class="context-state" action="{{ route('widgets.destroy',['widget' => $widget->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$widget->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$widget->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

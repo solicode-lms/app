@@ -28,6 +28,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $this->realisationTacheService = $realisationTacheService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('historiqueRealisationTache.index');
@@ -60,6 +62,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
         return view('PkgGestionTaches::historiqueRealisationTache.index', $historiqueRealisationTache_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -73,6 +77,38 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         }
         return view('PkgGestionTaches::historiqueRealisationTache.create', compact('itemHistoriqueRealisationTache', 'realisationTaches'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $historiqueRealisationTache_ids = $request->input('ids', []);
+
+        if (!is_array($historiqueRealisationTache_ids) || count($historiqueRealisationTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->find($historiqueRealisationTache_ids[0]);
+         
+ 
+        $realisationTaches = $this->realisationTacheService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches'));
+        }
+        return view('PkgGestionTaches::historiqueRealisationTache.bulk-edit', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches'));
+    }
+    /**
+     */
     public function store(HistoriqueRealisationTacheRequest $request) {
         $validatedData = $request->validated();
         $historiqueRealisationTache = $this->historiqueRealisationTacheService->create($validatedData);
@@ -96,6 +132,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
@@ -114,6 +152,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
@@ -133,6 +173,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(HistoriqueRealisationTacheRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -158,6 +200,42 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $historiqueRealisationTache_ids = $request->input('historiqueRealisationTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($historiqueRealisationTache_ids) || count($historiqueRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($historiqueRealisationTache_ids as $id) {
+            $entity = $this->historiqueRealisationTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->historiqueRealisationTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->historiqueRealisationTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $historiqueRealisationTache = $this->historiqueRealisationTacheService->destroy($id);
@@ -181,6 +259,24 @@ class BaseHistoriqueRealisationTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $historiqueRealisationTache_ids = $request->input('ids', []);
+        if (!is_array($historiqueRealisationTache_ids) || count($historiqueRealisationTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($historiqueRealisationTache_ids as $id) {
+            $entity = $this->historiqueRealisationTacheService->find($id);
+            $this->historiqueRealisationTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($historiqueRealisationTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::historiqueRealisationTache.plural')
+        ]));
     }
 
     public function export($format)

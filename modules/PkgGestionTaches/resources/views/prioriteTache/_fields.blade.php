@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('prioriteTache-form')
-<form class="crud-form custom-form context-state container" id="prioriteTacheForm" action="{{ $itemPrioriteTache->id ? route('prioriteTaches.update', $itemPrioriteTache->id) : route('prioriteTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="prioriteTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('prioriteTaches.bulkUpdate') : ($itemPrioriteTache->id ? route('prioriteTaches.update', $itemPrioriteTache->id) : route('prioriteTaches.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemPrioriteTache->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($prioriteTache_ids))
+        @foreach ($prioriteTache_ids as $id)
+            <input type="hidden" name="prioriteTache_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="ordre">
             {{ ucfirst(__('PkgGestionTaches::prioriteTache.ordre')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgGestionTaches::prioriteTache.description')) }}
             
@@ -75,6 +101,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formateur_id">
             {{ ucfirst(__('PkgFormation::formateur.singular')) }}
             <span class="text-danger">*</span>
@@ -117,7 +148,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::prioriteTache.singular") }} : {{$itemPrioriteTache}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::prioriteTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::prioriteTache.singular") }} : {{$itemPrioriteTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

@@ -25,6 +25,8 @@ class BaseVilleController extends AdminController
         $this->villeService = $villeService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
@@ -57,6 +59,8 @@ class BaseVilleController extends AdminController
 
         return view('PkgApprenants::ville.index', $ville_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -69,6 +73,37 @@ class BaseVilleController extends AdminController
         }
         return view('PkgApprenants::ville.create', compact('itemVille'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $ville_ids = $request->input('ids', []);
+
+        if (!is_array($ville_ids) || count($ville_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemVille = $this->villeService->find($ville_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemVille = $this->villeService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgApprenants::ville._fields', compact('bulkEdit', 'ville_ids', 'itemVille'));
+        }
+        return view('PkgApprenants::ville.bulk-edit', compact('bulkEdit', 'ville_ids', 'itemVille'));
+    }
+    /**
+     */
     public function store(VilleRequest $request) {
         $validatedData = $request->validated();
         $ville = $this->villeService->create($validatedData);
@@ -92,6 +127,8 @@ class BaseVilleController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('ville.edit_' . $id);
@@ -109,6 +146,8 @@ class BaseVilleController extends AdminController
         return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('ville.edit_' . $id);
@@ -127,6 +166,8 @@ class BaseVilleController extends AdminController
 
 
     }
+    /**
+     */
     public function update(VilleRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -152,6 +193,42 @@ class BaseVilleController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $ville_ids = $request->input('ville_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($ville_ids) || count($ville_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($ville_ids as $id) {
+            $entity = $this->villeService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->villeService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->villeService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $ville = $this->villeService->destroy($id);
@@ -175,6 +252,24 @@ class BaseVilleController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $ville_ids = $request->input('ids', []);
+        if (!is_array($ville_ids) || count($ville_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($ville_ids as $id) {
+            $entity = $this->villeService->find($id);
+            $this->villeService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($ville_ids) . ' éléments',
+            'modelName' => __('PkgApprenants::ville.plural')
+        ]));
     }
 
     public function export($format)

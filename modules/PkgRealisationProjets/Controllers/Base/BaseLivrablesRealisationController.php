@@ -31,6 +31,8 @@ class BaseLivrablesRealisationController extends AdminController
         $this->realisationProjetService = $realisationProjetService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
@@ -67,6 +69,8 @@ class BaseLivrablesRealisationController extends AdminController
 
         return view('PkgRealisationProjets::livrablesRealisation.index', $livrablesRealisation_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('apprenant')){
@@ -85,6 +89,43 @@ class BaseLivrablesRealisationController extends AdminController
         }
         return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $livrablesRealisation_ids = $request->input('ids', []);
+
+        if (!is_array($livrablesRealisation_ids) || count($livrablesRealisation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
+ 
+         $itemLivrablesRealisation = $this->livrablesRealisationService->find($livrablesRealisation_ids[0]);
+         
+ 
+        $livrables = $this->livrableService->all();
+        $realisationProjets = $this->realisationProjetService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemLivrablesRealisation = $this->livrablesRealisationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('bulkEdit', 'livrablesRealisation_ids', 'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+        }
+        return view('PkgRealisationProjets::livrablesRealisation.bulk-edit', compact('bulkEdit', 'livrablesRealisation_ids', 'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+    }
+    /**
+     */
     public function store(LivrablesRealisationRequest $request) {
         $validatedData = $request->validated();
         $livrablesRealisation = $this->livrablesRealisationService->create($validatedData);
@@ -108,6 +149,8 @@ class BaseLivrablesRealisationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
@@ -128,6 +171,8 @@ class BaseLivrablesRealisationController extends AdminController
         return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('itemLivrablesRealisation','livrables', 'realisationProjets'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
@@ -149,6 +194,8 @@ class BaseLivrablesRealisationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(LivrablesRealisationRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $livrablesRealisation = $this->livrablesRealisationService->find($id);
@@ -177,6 +224,42 @@ class BaseLivrablesRealisationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $livrablesRealisation_ids = $request->input('livrablesRealisation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($livrablesRealisation_ids) || count($livrablesRealisation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($livrablesRealisation_ids as $id) {
+            $entity = $this->livrablesRealisationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->livrablesRealisationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->livrablesRealisationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $livrablesRealisation = $this->livrablesRealisationService->find($id);
@@ -203,6 +286,27 @@ class BaseLivrablesRealisationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $livrablesRealisation_ids = $request->input('ids', []);
+        if (!is_array($livrablesRealisation_ids) || count($livrablesRealisation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($livrablesRealisation_ids as $id) {
+            $entity = $this->livrablesRealisationService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $livrablesRealisation = $this->livrablesRealisationService->find($id);
+            $this->authorize('delete', $livrablesRealisation);
+            $this->livrablesRealisationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($livrablesRealisation_ids) . ' éléments',
+            'modelName' => __('PkgRealisationProjets::livrablesRealisation.plural')
+        ]));
     }
 
     public function export($format)

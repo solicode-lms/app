@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationChapitre-form')
-<form class="crud-form custom-form context-state container" id="realisationChapitreForm" action="{{ $itemRealisationChapitre->id ? route('realisationChapitres.update', $itemRealisationChapitre->id) : route('realisationChapitres.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="realisationChapitreForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('realisationChapitres.bulkUpdate') : ($itemRealisationChapitre->id ? route('realisationChapitres.update', $itemRealisationChapitre->id) : route('realisationChapitres.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemRealisationChapitre->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($realisationChapitre_ids))
+        @foreach ($realisationChapitre_ids as $id)
+            <input type="hidden" name="realisationChapitre_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="date_debut">
             {{ ucfirst(__('PkgAutoformation::realisationChapitre.date_debut')) }}
             <span class="text-danger">*</span>
@@ -34,6 +50,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="date_fin">
             {{ ucfirst(__('PkgAutoformation::realisationChapitre.date_fin')) }}
             
@@ -57,6 +78,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="chapitre_id">
             {{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}
             <span class="text-danger">*</span>
@@ -84,6 +110,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_formation_id" id="bulk_field_realisation_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="realisation_formation_id">
             {{ ucfirst(__('PkgAutoformation::realisationFormation.singular')) }}
             <span class="text-danger">*</span>
@@ -111,6 +142,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_chapitre_id" id="bulk_field_etat_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="etat_chapitre_id">
             {{ ucfirst(__('PkgAutoformation::etatChapitre.singular')) }}
             
@@ -150,7 +186,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgAutoformation::realisationChapitre.singular") }} : {{$itemRealisationChapitre}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgAutoformation::realisationChapitre.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgAutoformation::realisationChapitre.singular") }} : {{$itemRealisationChapitre}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

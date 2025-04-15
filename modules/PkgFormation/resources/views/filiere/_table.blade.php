@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="code" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
-                <x-sortable-column width="42.5"  field="nom" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.nom')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="code" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.code')) }}" />
+                <x-sortable-column width="41"  field="nom" modelname="filiere" label="{{ ucfirst(__('PkgFormation::filiere.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('filiere-table-tbody')
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->code }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $filiere->id }}" data-id="{{ $filiere->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->code }}" >
                     <x-field :entity="$filiere" field="code">
                         {{ $filiere->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->nom }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->nom }}" >
                     <x-field :entity="$filiere" field="nom">
                         {{ $filiere->nom }}
                     </x-field>
@@ -47,7 +53,7 @@
                             <form class="context-state" action="{{ route('filieres.destroy',['filiere' => $filiere->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$filiere->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$filiere->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

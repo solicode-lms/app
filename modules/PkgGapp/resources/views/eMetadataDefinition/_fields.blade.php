@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eMetadataDefinition-form')
-<form class="crud-form custom-form context-state container" id="eMetadataDefinitionForm" action="{{ $itemEMetadataDefinition->id ? route('eMetadataDefinitions.update', $itemEMetadataDefinition->id) : route('eMetadataDefinitions.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="eMetadataDefinitionForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('eMetadataDefinitions.bulkUpdate') : ($itemEMetadataDefinition->id ? route('eMetadataDefinitions.update', $itemEMetadataDefinition->id) : route('eMetadataDefinitions.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemEMetadataDefinition->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($eMetadataDefinition_ids))
+        @foreach ($eMetadataDefinition_ids as $id)
+            <input type="hidden" name="eMetadataDefinition_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="groupe" id="bulk_field_groupe" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="groupe">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type" id="bulk_field_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="type">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.type')) }}
             <span class="text-danger">*</span>
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="scope" id="bulk_field_scope" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="scope">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.scope')) }}
             <span class="text-danger">*</span>
@@ -99,6 +130,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}
             
@@ -119,6 +155,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="default_value" id="bulk_field_default_value" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="default_value">
             {{ ucfirst(__('PkgGapp::eMetadataDefinition.default_value')) }}
             
@@ -154,7 +195,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGapp::eMetadataDefinition.singular") }} : {{$itemEMetadataDefinition}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGapp::eMetadataDefinition.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGapp::eMetadataDefinition.singular") }} : {{$itemEMetadataDefinition}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('permission-form')
-<form class="crud-form custom-form context-state container" id="permissionForm" action="{{ $itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="permissionForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('permissions.bulkUpdate') : ($itemPermission->id ? route('permissions.update', $itemPermission->id) : route('permissions.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemPermission->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($permission_ids))
+        @foreach ($permission_ids as $id)
+            <input type="hidden" name="permission_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('PkgAutorisation::permission.name')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="guard_name" id="bulk_field_guard_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="guard_name">
             {{ ucfirst(__('PkgAutorisation::permission.guard_name')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="controller_id" id="bulk_field_controller_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="controller_id">
             {{ ucfirst(__('Core::sysController.singular')) }}
             
@@ -82,6 +108,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="features" id="bulk_field_features" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="features">
             {{ ucfirst(__('Core::Feature.plural')) }}
             
@@ -109,6 +140,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="roles" id="bulk_field_roles" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="roles">
             {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             
@@ -148,7 +184,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{$itemPermission}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgAutorisation::permission.singular") }} : {{$itemPermission}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

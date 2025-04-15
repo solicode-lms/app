@@ -34,6 +34,8 @@ class BaseEtatFormationController extends AdminController
         $this->workflowFormationService = $workflowFormationService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('etatFormation.index');
@@ -70,6 +72,8 @@ class BaseEtatFormationController extends AdminController
 
         return view('PkgAutoformation::etatFormation.index', $etatFormation_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -89,6 +93,44 @@ class BaseEtatFormationController extends AdminController
         }
         return view('PkgAutoformation::etatFormation.create', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $etatFormation_ids = $request->input('ids', []);
+
+        if (!is_array($etatFormation_ids) || count($etatFormation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.etatFormation.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemEtatFormation = $this->etatFormationService->find($etatFormation_ids[0]);
+         
+ 
+        $workflowFormations = $this->workflowFormationService->all();
+        $sysColors = $this->sysColorService->all();
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemEtatFormation = $this->etatFormationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::etatFormation._fields', compact('bulkEdit', 'etatFormation_ids', 'itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+        }
+        return view('PkgAutoformation::etatFormation.bulk-edit', compact('bulkEdit', 'etatFormation_ids', 'itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+    }
+    /**
+     */
     public function store(EtatFormationRequest $request) {
         $validatedData = $request->validated();
         $etatFormation = $this->etatFormationService->create($validatedData);
@@ -112,6 +154,8 @@ class BaseEtatFormationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('etatFormation.edit_' . $id);
@@ -133,6 +177,8 @@ class BaseEtatFormationController extends AdminController
         return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('etatFormation.edit_' . $id);
@@ -155,6 +201,8 @@ class BaseEtatFormationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(EtatFormationRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatFormation = $this->etatFormationService->find($id);
@@ -183,6 +231,42 @@ class BaseEtatFormationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $etatFormation_ids = $request->input('etatFormation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($etatFormation_ids) || count($etatFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($etatFormation_ids as $id) {
+            $entity = $this->etatFormationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->etatFormationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->etatFormationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $etatFormation = $this->etatFormationService->find($id);
@@ -209,6 +293,27 @@ class BaseEtatFormationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $etatFormation_ids = $request->input('ids', []);
+        if (!is_array($etatFormation_ids) || count($etatFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($etatFormation_ids as $id) {
+            $entity = $this->etatFormationService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $etatFormation = $this->etatFormationService->find($id);
+            $this->authorize('delete', $etatFormation);
+            $this->etatFormationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($etatFormation_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::etatFormation.plural')
+        ]));
     }
 
     public function export($format)

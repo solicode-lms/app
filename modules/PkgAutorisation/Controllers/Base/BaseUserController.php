@@ -32,6 +32,8 @@ class BaseUserController extends AdminController
         $this->roleService = $roleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('user.index');
@@ -64,6 +66,8 @@ class BaseUserController extends AdminController
 
         return view('PkgAutorisation::user.index', $user_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -77,6 +81,38 @@ class BaseUserController extends AdminController
         }
         return view('PkgAutorisation::user.create', compact('itemUser', 'roles'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $user_ids = $request->input('ids', []);
+
+        if (!is_array($user_ids) || count($user_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemUser = $this->userService->find($user_ids[0]);
+         
+ 
+        $roles = $this->roleService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemUser = $this->userService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutorisation::user._fields', compact('bulkEdit', 'user_ids', 'itemUser', 'roles'));
+        }
+        return view('PkgAutorisation::user.bulk-edit', compact('bulkEdit', 'user_ids', 'itemUser', 'roles'));
+    }
+    /**
+     */
     public function store(UserRequest $request) {
         $validatedData = $request->validated();
         $user = $this->userService->create($validatedData);
@@ -100,6 +136,8 @@ class BaseUserController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('user.edit_' . $id);
@@ -146,6 +184,8 @@ class BaseUserController extends AdminController
         return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('user.edit_' . $id);
@@ -193,6 +233,8 @@ class BaseUserController extends AdminController
 
 
     }
+    /**
+     */
     public function update(UserRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -218,6 +260,42 @@ class BaseUserController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $user_ids = $request->input('user_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($user_ids) || count($user_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($user_ids as $id) {
+            $entity = $this->userService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->userService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->userService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $user = $this->userService->destroy($id);
@@ -241,6 +319,24 @@ class BaseUserController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $user_ids = $request->input('ids', []);
+        if (!is_array($user_ids) || count($user_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($user_ids as $id) {
+            $entity = $this->userService->find($id);
+            $this->userService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($user_ids) . ' éléments',
+            'modelName' => __('PkgAutorisation::user.plural')
+        ]));
     }
 
     public function export($format)

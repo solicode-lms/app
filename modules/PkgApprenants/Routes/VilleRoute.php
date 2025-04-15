@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('villes/getData', [VilleController::class, 'getData'])->name('villes.getData');
+        // bulk - edit and delete
+        Route::post('villes/bulk-delete', [VilleController::class, 'bulkDelete'])
+        ->name('villes.bulkDelete');
+        Route::get('villes/bulk-edit', [VilleController::class, 'bulkEditForm'])
+        ->name('villes.bulkEdit');
+        Route::post('villes/bulk-update', [VilleController::class, 'bulkUpdate'])
+        ->name('villes.bulkUpdate');
+
         Route::resource('villes', VilleController::class)
             ->parameters(['villes' => 'ville']);
         // Routes supplémentaires avec préfixe

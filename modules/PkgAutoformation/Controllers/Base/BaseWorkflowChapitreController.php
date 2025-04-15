@@ -29,6 +29,8 @@ class BaseWorkflowChapitreController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowChapitre.index');
@@ -61,6 +63,8 @@ class BaseWorkflowChapitreController extends AdminController
 
         return view('PkgAutoformation::workflowChapitre.index', $workflowChapitre_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseWorkflowChapitreController extends AdminController
         }
         return view('PkgAutoformation::workflowChapitre.create', compact('itemWorkflowChapitre', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $workflowChapitre_ids = $request->input('ids', []);
+
+        if (!is_array($workflowChapitre_ids) || count($workflowChapitre_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemWorkflowChapitre = $this->workflowChapitreService->find($workflowChapitre_ids[0]);
+         
+ 
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWorkflowChapitre = $this->workflowChapitreService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutoformation::workflowChapitre._fields', compact('bulkEdit', 'workflowChapitre_ids', 'itemWorkflowChapitre', 'sysColors'));
+        }
+        return view('PkgAutoformation::workflowChapitre.bulk-edit', compact('bulkEdit', 'workflowChapitre_ids', 'itemWorkflowChapitre', 'sysColors'));
+    }
+    /**
+     */
     public function store(WorkflowChapitreRequest $request) {
         $validatedData = $request->validated();
         $workflowChapitre = $this->workflowChapitreService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseWorkflowChapitreController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('workflowChapitre.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseWorkflowChapitreController extends AdminController
         return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('workflowChapitre.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseWorkflowChapitreController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WorkflowChapitreRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseWorkflowChapitreController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $workflowChapitre_ids = $request->input('workflowChapitre_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($workflowChapitre_ids) || count($workflowChapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($workflowChapitre_ids as $id) {
+            $entity = $this->workflowChapitreService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->workflowChapitreService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->workflowChapitreService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $workflowChapitre = $this->workflowChapitreService->destroy($id);
@@ -196,6 +274,24 @@ class BaseWorkflowChapitreController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $workflowChapitre_ids = $request->input('ids', []);
+        if (!is_array($workflowChapitre_ids) || count($workflowChapitre_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($workflowChapitre_ids as $id) {
+            $entity = $this->workflowChapitreService->find($id);
+            $this->workflowChapitreService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($workflowChapitre_ids) . ' éléments',
+            'modelName' => __('PkgAutoformation::workflowChapitre.plural')
+        ]));
     }
 
     public function export($format)

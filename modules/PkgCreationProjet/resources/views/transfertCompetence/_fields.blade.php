@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('transfertCompetence-form')
-<form class="crud-form custom-form context-state container" id="transfertCompetenceForm" action="{{ $itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="transfertCompetenceForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('transfertCompetences.bulkUpdate') : ($itemTransfertCompetence->id ? route('transfertCompetences.update', $itemTransfertCompetence->id) : route('transfertCompetences.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemTransfertCompetence->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($transfertCompetence_ids))
+        @foreach ($transfertCompetence_ids as $id)
+            <input type="hidden" name="transfertCompetence_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="competence_id">
             {{ ucfirst(__('PkgCompetences::competence.singular')) }}
             <span class="text-danger">*</span>
@@ -38,6 +54,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="niveau_difficulte_id" id="bulk_field_niveau_difficulte_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="niveau_difficulte_id">
             {{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}
             <span class="text-danger">*</span>
@@ -65,6 +86,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="technologies" id="bulk_field_technologies" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="technologies">
             {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             
@@ -92,6 +118,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="note">
             {{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}
             
@@ -118,6 +149,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="projet_id">
             {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
             <span class="text-danger">*</span>
@@ -145,6 +181,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="question" id="bulk_field_question" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="question">
             {{ ucfirst(__('PkgCreationProjet::transfertCompetence.question')) }}
             
@@ -177,7 +218,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="name" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="is_active" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
-                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="sysModule" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="name" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="is_active" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
+                <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="sysModule" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +18,20 @@
             @section('sysModule-table-tbody')
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $sysModule->id }}" data-id="{{ $sysModule->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->name }}" >
                     <x-field :entity="$sysModule" field="name">
                         {{ $sysModule->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
                     <x-field :entity="$sysModule" field="is_active">
                         {{ $sysModule->is_active }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
                     <x-field :entity="$sysModule" field="sysColor">
                         <x-badge 
                         :text="$sysModule->sysColor->name ?? ''" 
@@ -56,7 +62,7 @@
                             <form class="context-state" action="{{ route('sysModules.destroy',['sysModule' => $sysModule->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysModule->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$sysModule->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

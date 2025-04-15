@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="name" modelname="sysColor" label="{{ ucfirst(__('Core::sysColor.name')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="name" modelname="sysColor" label="{{ ucfirst(__('Core::sysColor.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $sysColor->id }}" data-id="{{ $sysColor->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
                     <x-field :entity="$sysColor" field="name">
                         {{ $sysColor->name }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('sysColors.destroy',['sysColor' => $sysColor->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysColor->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$sysColor->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

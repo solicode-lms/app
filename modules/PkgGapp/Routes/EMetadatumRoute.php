@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
 
         Route::get('eMetadata/getData', [EMetadatumController::class, 'getData'])->name('eMetadata.getData');
+        // bulk - edit and delete
+        Route::post('eMetadata/bulk-delete', [EMetadatumController::class, 'bulkDelete'])
+        ->name('eMetadata.bulkDelete');
+        Route::get('eMetadata/bulk-edit', [EMetadatumController::class, 'bulkEditForm'])
+        ->name('eMetadata.bulkEdit');
+        Route::post('eMetadata/bulk-update', [EMetadatumController::class, 'bulkUpdate'])
+        ->name('eMetadata.bulkUpdate');
+
         Route::resource('eMetadata', EMetadatumController::class)
             ->parameters(['eMetadata' => 'eMetadatum']);
         // Routes supplémentaires avec préfixe

@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="name" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::permission.name')) }}" />
-                <x-sortable-column width="28.333333333333332" field="controller_id" modelname="permission" label="{{ ucfirst(__('Core::sysController.singular')) }}" />
-                <x-sortable-column width="28.333333333333332"  field="roles" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="name" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::permission.name')) }}" />
+                <x-sortable-column width="27.333333333333332" field="controller_id" modelname="permission" label="{{ ucfirst(__('Core::sysController.singular')) }}" />
+                <x-sortable-column width="27.333333333333332"  field="roles" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,18 +18,21 @@
             @section('permission-table-tbody')
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $permission->id }}" data-id="{{ $permission->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
                     <x-field :entity="$permission" field="name">
                         {{ $permission->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->controller }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->controller }}" >
                     <x-field :entity="$permission" field="controller">
                        
                          {{  $permission->controller }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->roles }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->roles }}" >
                     <x-field :entity="$permission" field="roles">
                         <ul>
                             @foreach ($permission->roles as $role)
@@ -58,7 +64,7 @@
                             <form class="context-state" action="{{ route('permissions.destroy',['permission' => $permission->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$permission->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$permission->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

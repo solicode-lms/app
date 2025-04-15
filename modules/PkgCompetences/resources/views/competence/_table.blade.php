@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
-                <x-sortable-column width="21.25"  field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
-                <x-sortable-column width="21.25"  field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
-                <x-sortable-column width="21.25" field="module_id" modelname="competence" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
+                <x-sortable-column width="20.5"  field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
+                <x-sortable-column width="20.5"  field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
+                <x-sortable-column width="20.5" field="module_id" modelname="competence" label="{{ ucfirst(__('PkgFormation::module.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,22 +19,25 @@
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $competence->id }}" data-id="{{ $competence->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
                     <x-field :entity="$competence" field="code">
                         {{ $competence->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->mini_code }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->mini_code }}" >
                     <x-field :entity="$competence" field="mini_code">
                         {{ $competence->mini_code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->nom }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->nom }}" >
                     <x-field :entity="$competence" field="nom">
                         {{ $competence->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->module }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->module }}" >
                     <x-field :entity="$competence" field="module">
                        
                          {{  $competence->module }}
@@ -60,7 +66,7 @@
                             <form class="context-state" action="{{ route('competences.destroy',['competence' => $competence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$competence->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$competence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

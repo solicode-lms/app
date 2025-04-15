@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('niveauCompetence-form')
-<form class="crud-form custom-form context-state container" id="niveauCompetenceForm" action="{{ $itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="niveauCompetenceForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('niveauCompetences.bulkUpdate') : ($itemNiveauCompetence->id ? route('niveauCompetences.update', $itemNiveauCompetence->id) : route('niveauCompetences.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemNiveauCompetence->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($niveauCompetence_ids))
+        @foreach ($niveauCompetence_ids as $id)
+            <input type="hidden" name="niveauCompetence_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgCompetences::niveauCompetence.description')) }}
             
@@ -53,6 +74,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="competence_id">
             {{ ucfirst(__('PkgCompetences::competence.singular')) }}
             <span class="text-danger">*</span>
@@ -95,7 +121,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgCompetences::niveauCompetence.singular") }} : {{$itemNiveauCompetence}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgCompetences::niveauCompetence.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgCompetences::niveauCompetence.singular") }} : {{$itemNiveauCompetence}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

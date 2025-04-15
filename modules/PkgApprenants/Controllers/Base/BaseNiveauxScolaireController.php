@@ -26,6 +26,8 @@ class BaseNiveauxScolaireController extends AdminController
         $this->niveauxScolaireService = $niveauxScolaireService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
@@ -58,6 +60,8 @@ class BaseNiveauxScolaireController extends AdminController
 
         return view('PkgApprenants::niveauxScolaire.index', $niveauxScolaire_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -70,6 +74,37 @@ class BaseNiveauxScolaireController extends AdminController
         }
         return view('PkgApprenants::niveauxScolaire.create', compact('itemNiveauxScolaire'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $niveauxScolaire_ids = $request->input('ids', []);
+
+        if (!is_array($niveauxScolaire_ids) || count($niveauxScolaire_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemNiveauxScolaire = $this->niveauxScolaireService->find($niveauxScolaire_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNiveauxScolaire = $this->niveauxScolaireService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgApprenants::niveauxScolaire._fields', compact('bulkEdit', 'niveauxScolaire_ids', 'itemNiveauxScolaire'));
+        }
+        return view('PkgApprenants::niveauxScolaire.bulk-edit', compact('bulkEdit', 'niveauxScolaire_ids', 'itemNiveauxScolaire'));
+    }
+    /**
+     */
     public function store(NiveauxScolaireRequest $request) {
         $validatedData = $request->validated();
         $niveauxScolaire = $this->niveauxScolaireService->create($validatedData);
@@ -93,6 +128,8 @@ class BaseNiveauxScolaireController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
@@ -117,6 +154,8 @@ class BaseNiveauxScolaireController extends AdminController
         return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauxScolaire.edit_' . $id);
@@ -142,6 +181,8 @@ class BaseNiveauxScolaireController extends AdminController
 
 
     }
+    /**
+     */
     public function update(NiveauxScolaireRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -167,6 +208,42 @@ class BaseNiveauxScolaireController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $niveauxScolaire_ids = $request->input('niveauxScolaire_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($niveauxScolaire_ids) || count($niveauxScolaire_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($niveauxScolaire_ids as $id) {
+            $entity = $this->niveauxScolaireService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->niveauxScolaireService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->niveauxScolaireService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $niveauxScolaire = $this->niveauxScolaireService->destroy($id);
@@ -190,6 +267,24 @@ class BaseNiveauxScolaireController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $niveauxScolaire_ids = $request->input('ids', []);
+        if (!is_array($niveauxScolaire_ids) || count($niveauxScolaire_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($niveauxScolaire_ids as $id) {
+            $entity = $this->niveauxScolaireService->find($id);
+            $this->niveauxScolaireService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($niveauxScolaire_ids) . ' éléments',
+            'modelName' => __('PkgApprenants::niveauxScolaire.plural')
+        ]));
     }
 
     public function export($format)

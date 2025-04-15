@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('natureLivrable-form')
-<form class="crud-form custom-form context-state container" id="natureLivrableForm" action="{{ $itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="natureLivrableForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('natureLivrables.bulkUpdate') : ($itemNatureLivrable->id ? route('natureLivrables.update', $itemNatureLivrable->id) : route('natureLivrables.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemNatureLivrable->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($natureLivrable_ids))
+        @foreach ($natureLivrable_ids as $id)
+            <input type="hidden" name="natureLivrable_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgCreationProjet::natureLivrable.description')) }}
             
@@ -68,7 +89,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgCreationProjet::natureLivrable.singular") }} : {{$itemNatureLivrable}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgCreationProjet::natureLivrable.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgCreationProjet::natureLivrable.singular") }} : {{$itemNatureLivrable}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

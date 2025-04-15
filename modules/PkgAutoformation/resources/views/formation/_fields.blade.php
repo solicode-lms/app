@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('formation-form')
-<form class="crud-form custom-form context-state container" id="formationForm" action="{{ $itemFormation->id ? route('formations.update', $itemFormation->id) : route('formations.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="formationForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('formations.bulkUpdate') : ($itemFormation->id ? route('formations.update', $itemFormation->id) : route('formations.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemFormation->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($formation_ids))
+        @foreach ($formation_ids as $id)
+            <input type="hidden" name="formation_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgAutoformation::formation.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="lien">
             {{ ucfirst(__('PkgAutoformation::formation.lien')) }}
             
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="filiere_id">
             {{ ucfirst(__('PkgAutoformation::formation.filiere_id')) }}
             
@@ -85,6 +111,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="competence_id">
             {{ ucfirst(__('PkgCompetences::competence.singular')) }}
             <span class="text-danger">*</span>
@@ -112,6 +143,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="technologies" id="bulk_field_technologies" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="technologies">
             {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
             
@@ -140,6 +176,11 @@
       @php $canEditis_officiel = Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_officiel" id="bulk_field_is_officiel" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_officiel">
             {{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}
             
@@ -164,6 +205,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formateur_id">
             {{ ucfirst(__('PkgFormation::formateur.singular')) }}
             
@@ -194,6 +240,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formation_officiel_id" id="bulk_field_formation_officiel_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formation_officiel_id">
             {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
             
@@ -227,6 +278,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgAutoformation::formation.description')) }}
             
@@ -259,7 +315,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgAutoformation::formation.singular") }} : {{$itemFormation}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgAutoformation::formation.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgAutoformation::formation.singular") }} : {{$itemFormation}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

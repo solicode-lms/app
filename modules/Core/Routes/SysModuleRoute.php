@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('sysModules/getData', [SysModuleController::class, 'getData'])->name('sysModules.getData');
+        // bulk - edit and delete
+        Route::post('sysModules/bulk-delete', [SysModuleController::class, 'bulkDelete'])
+        ->name('sysModules.bulkDelete');
+        Route::get('sysModules/bulk-edit', [SysModuleController::class, 'bulkEditForm'])
+        ->name('sysModules.bulkEdit');
+        Route::post('sysModules/bulk-update', [SysModuleController::class, 'bulkUpdate'])
+        ->name('sysModules.bulkUpdate');
+
         Route::resource('sysModules', SysModuleController::class)
             ->parameters(['sysModules' => 'sysModule']);
         // Routes supplémentaires avec préfixe

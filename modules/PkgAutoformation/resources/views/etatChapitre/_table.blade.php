@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="28.333333333333332"  field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
-                <x-sortable-column width="28.333333333333332" field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column width="28.333333333333332" field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="27.333333333333332"  field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
+                <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="27.333333333333332" field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,12 +18,15 @@
             @section('etatChapitre-table-tbody')
             @foreach ($etatChapitres_data as $etatChapitre)
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}">
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $etatChapitre->id }}" data-id="{{ $etatChapitre->id }}">
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
                     <x-field :entity="$etatChapitre" field="nom">
                         {{ $etatChapitre->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->sysColor }}" >
                     <x-field :entity="$etatChapitre" field="sysColor">
                         <x-badge 
                         :text="$etatChapitre->sysColor->name ?? ''" 
@@ -28,7 +34,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 28.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->formateur }}" >
+                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->formateur }}" >
                     <x-field :entity="$etatChapitre" field="formateur">
                        
                          {{  $etatChapitre->formateur }}
@@ -57,7 +63,7 @@
                             <form class="context-state" action="{{ route('etatChapitres.destroy',['etatChapitre' => $etatChapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$etatChapitre->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$etatChapitre->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

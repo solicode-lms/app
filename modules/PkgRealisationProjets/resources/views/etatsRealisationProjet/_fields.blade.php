@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('etatsRealisationProjet-form')
-<form class="crud-form custom-form context-state container" id="etatsRealisationProjetForm" action="{{ $itemEtatsRealisationProjet->id ? route('etatsRealisationProjets.update', $itemEtatsRealisationProjet->id) : route('etatsRealisationProjets.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="etatsRealisationProjetForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('etatsRealisationProjets.bulkUpdate') : ($itemEtatsRealisationProjet->id ? route('etatsRealisationProjets.update', $itemEtatsRealisationProjet->id) : route('etatsRealisationProjets.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemEtatsRealisationProjet->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($etatsRealisationProjet_ids))
+        @foreach ($etatsRealisationProjet_ids as $id)
+            <input type="hidden" name="etatsRealisationProjet_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formateur_id">
             {{ ucfirst(__('PkgFormation::formateur.singular')) }}
             <span class="text-danger">*</span>
@@ -38,6 +54,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="titre">
             {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre')) }}
             <span class="text-danger">*</span>
@@ -60,6 +81,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.description')) }}
             
@@ -80,6 +106,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_color_id">
             {{ ucfirst(__('Core::sysColor.singular')) }}
             
@@ -107,6 +138,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="workflow_projet_id" id="bulk_field_workflow_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="workflow_projet_id">
             {{ ucfirst(__('PkgRealisationProjets::workflowProjet.singular')) }}
             
@@ -134,6 +170,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_editable_by_formateur" id="bulk_field_is_editable_by_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_editable_by_formateur">
             {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur')) }}
             
@@ -172,7 +213,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgRealisationProjets::etatsRealisationProjet.singular") }} : {{$itemEtatsRealisationProjet}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgRealisationProjets::etatsRealisationProjet.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgRealisationProjets::etatsRealisationProjet.singular") }} : {{$itemEtatsRealisationProjet}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

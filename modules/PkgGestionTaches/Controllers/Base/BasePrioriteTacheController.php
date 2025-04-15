@@ -28,6 +28,8 @@ class BasePrioriteTacheController extends AdminController
         $this->formateurService = $formateurService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
@@ -64,6 +66,8 @@ class BasePrioriteTacheController extends AdminController
 
         return view('PkgGestionTaches::prioriteTache.index', $prioriteTache_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -81,6 +85,42 @@ class BasePrioriteTacheController extends AdminController
         }
         return view('PkgGestionTaches::prioriteTache.create', compact('itemPrioriteTache', 'formateurs'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $prioriteTache_ids = $request->input('ids', []);
+
+        if (!is_array($prioriteTache_ids) || count($prioriteTache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemPrioriteTache = $this->prioriteTacheService->find($prioriteTache_ids[0]);
+         
+ 
+        $formateurs = $this->formateurService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemPrioriteTache = $this->prioriteTacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::prioriteTache._fields', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
+        }
+        return view('PkgGestionTaches::prioriteTache.bulk-edit', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
+    }
+    /**
+     */
     public function store(PrioriteTacheRequest $request) {
         $validatedData = $request->validated();
         $prioriteTache = $this->prioriteTacheService->create($validatedData);
@@ -104,6 +144,8 @@ class BasePrioriteTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('prioriteTache.edit_' . $id);
@@ -123,6 +165,8 @@ class BasePrioriteTacheController extends AdminController
         return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache','formateurs'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('prioriteTache.edit_' . $id);
@@ -143,6 +187,8 @@ class BasePrioriteTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(PrioriteTacheRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $prioriteTache = $this->prioriteTacheService->find($id);
@@ -171,6 +217,42 @@ class BasePrioriteTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $prioriteTache_ids = $request->input('prioriteTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($prioriteTache_ids) || count($prioriteTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($prioriteTache_ids as $id) {
+            $entity = $this->prioriteTacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->prioriteTacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->prioriteTacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $prioriteTache = $this->prioriteTacheService->find($id);
@@ -197,6 +279,27 @@ class BasePrioriteTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $prioriteTache_ids = $request->input('ids', []);
+        if (!is_array($prioriteTache_ids) || count($prioriteTache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($prioriteTache_ids as $id) {
+            $entity = $this->prioriteTacheService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $prioriteTache = $this->prioriteTacheService->find($id);
+            $this->authorize('delete', $prioriteTache);
+            $this->prioriteTacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($prioriteTache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::prioriteTache.plural')
+        ]));
     }
 
     public function export($format)

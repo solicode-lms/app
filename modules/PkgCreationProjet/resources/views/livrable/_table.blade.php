@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5" field="nature_livrable_id" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}" />
-                <x-sortable-column width="42.5"  field="titre" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41" field="nature_livrable_id" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}" />
+                <x-sortable-column width="41"  field="titre" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,13 +17,16 @@
             @section('livrable-table-tbody')
             @foreach ($livrables_data as $livrable)
                 <tr id="livrable-row-{{$livrable->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrable->natureLivrable }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $livrable->id }}" data-id="{{ $livrable->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrable->natureLivrable }}" >
                     <x-field :entity="$livrable" field="natureLivrable">
                        
                          {{  $livrable->natureLivrable }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrable->titre }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrable->titre }}" >
                     <x-field :entity="$livrable" field="titre">
                         {{ $livrable->titre }}
                     </x-field>
@@ -48,7 +54,7 @@
                             <form class="context-state" action="{{ route('livrables.destroy',['livrable' => $livrable->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$livrable->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$livrable->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

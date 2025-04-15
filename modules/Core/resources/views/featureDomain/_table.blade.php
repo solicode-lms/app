@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="name" modelname="featureDomain" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
-                <x-sortable-column width="42.5" field="sys_module_id" modelname="featureDomain" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="name" modelname="featureDomain" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
+                <x-sortable-column width="41" field="sys_module_id" modelname="featureDomain" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $featureDomain->id }}" data-id="{{ $featureDomain->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
                     <x-field :entity="$featureDomain" field="name">
                         {{ $featureDomain->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
                     <x-field :entity="$featureDomain" field="sysModule">
                        
                          {{  $featureDomain->sysModule }}
@@ -48,7 +54,7 @@
                             <form class="context-state" action="{{ route('featureDomains.destroy',['featureDomain' => $featureDomain->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$featureDomain->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$featureDomain->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

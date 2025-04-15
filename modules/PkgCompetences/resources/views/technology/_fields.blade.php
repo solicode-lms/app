@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('technology-form')
-<form class="crud-form custom-form context-state container" id="technologyForm" action="{{ $itemTechnology->id ? route('technologies.update', $itemTechnology->id) : route('technologies.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="technologyForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('technologys.bulkUpdate') : ($itemTechnology->id ? route('technologys.update', $itemTechnology->id) : route('technologys.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemTechnology->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($technology_ids))
+        @foreach ($technology_ids as $id)
+            <input type="hidden" name="technology_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgCompetences::technology.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="category_technology_id" id="bulk_field_category_technology_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="category_technology_id">
             {{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}
             <span class="text-danger">*</span>
@@ -60,6 +81,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competences" id="bulk_field_competences" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="competences">
             {{ ucfirst(__('PkgCompetences::Competence.plural')) }}
             
@@ -87,6 +113,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgCompetences::technology.description')) }}
             
@@ -119,7 +150,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgCompetences::technology.singular") }} : {{$itemTechnology}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgCompetences::technology.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgCompetences::technology.singular") }} : {{$itemTechnology}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

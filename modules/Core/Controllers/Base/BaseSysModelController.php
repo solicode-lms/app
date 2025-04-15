@@ -32,6 +32,8 @@ class BaseSysModelController extends AdminController
         $this->sysModuleService = $sysModuleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
@@ -64,6 +66,8 @@ class BaseSysModelController extends AdminController
 
         return view('Core::sysModel.index', $sysModel_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -78,6 +82,39 @@ class BaseSysModelController extends AdminController
         }
         return view('Core::sysModel.create', compact('itemSysModel', 'sysColors', 'sysModules'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $sysModel_ids = $request->input('ids', []);
+
+        if (!is_array($sysModel_ids) || count($sysModel_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemSysModel = $this->sysModelService->find($sysModel_ids[0]);
+         
+ 
+        $sysModules = $this->sysModuleService->all();
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemSysModel = $this->sysModelService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('Core::sysModel._fields', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysColors', 'sysModules'));
+        }
+        return view('Core::sysModel.bulk-edit', compact('bulkEdit', 'sysModel_ids', 'itemSysModel', 'sysColors', 'sysModules'));
+    }
+    /**
+     */
     public function store(SysModelRequest $request) {
         $validatedData = $request->validated();
         $sysModel = $this->sysModelService->create($validatedData);
@@ -101,6 +138,8 @@ class BaseSysModelController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
@@ -127,6 +166,8 @@ class BaseSysModelController extends AdminController
         return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('sysModel.edit_' . $id);
@@ -154,6 +195,8 @@ class BaseSysModelController extends AdminController
 
 
     }
+    /**
+     */
     public function update(SysModelRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -179,6 +222,42 @@ class BaseSysModelController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $sysModel_ids = $request->input('sysModel_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($sysModel_ids) || count($sysModel_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($sysModel_ids as $id) {
+            $entity = $this->sysModelService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->sysModelService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->sysModelService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $sysModel = $this->sysModelService->destroy($id);
@@ -202,6 +281,24 @@ class BaseSysModelController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $sysModel_ids = $request->input('ids', []);
+        if (!is_array($sysModel_ids) || count($sysModel_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($sysModel_ids as $id) {
+            $entity = $this->sysModelService->find($id);
+            $this->sysModelService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($sysModel_ids) . ' éléments',
+            'modelName' => __('Core::sysModel.plural')
+        ]));
     }
 
     public function export($format)

@@ -5,12 +5,15 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="14.166666666666666"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
-                <x-sortable-column width="14.166666666666666"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
-                <x-sortable-column width="14.166666666666666" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column width="14.166666666666666" field="niveau_competence_id" modelname="chapitre" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}" />
-                <x-sortable-column width="14.166666666666666" field="formateur_id" modelname="chapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column width="14.166666666666666" field="chapitre_officiel_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="13.666666666666666"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
+                <x-sortable-column width="13.666666666666666"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
+                <x-sortable-column width="13.666666666666666" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
+                <x-sortable-column width="13.666666666666666" field="niveau_competence_id" modelname="chapitre" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}" />
+                <x-sortable-column width="13.666666666666666" field="formateur_id" modelname="chapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column width="13.666666666666666" field="chapitre_officiel_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -18,35 +21,38 @@
             @section('chapitre-table-tbody')
             @foreach ($chapitres_data as $chapitre)
                 <tr id="chapitre-row-{{$chapitre->id}}">
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $chapitre->id }}" data-id="{{ $chapitre->id }}">
+                    </td>
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
                     <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->lien }}" >
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->lien }}" >
                     <x-field :entity="$chapitre" field="lien">
                         {{ $chapitre->lien }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formation }}" >
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formation }}" >
                     <x-field :entity="$chapitre" field="formation">
                        
                          {{  $chapitre->formation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
                     <x-field :entity="$chapitre" field="niveauCompetence">
                        
                          {{  $chapitre->niveauCompetence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
                     <x-field :entity="$chapitre" field="formateur">
                        
                          {{  $chapitre->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 14.166666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
+                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
                     <x-field :entity="$chapitre" field="chapitreOfficiel">
                        
                          {{  $chapitre->chapitreOfficiel }}
@@ -75,7 +81,7 @@
                             <form class="context-state" action="{{ route('chapitres.destroy',['chapitre' => $chapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$chapitre->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$chapitre->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

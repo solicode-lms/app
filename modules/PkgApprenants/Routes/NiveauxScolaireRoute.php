@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
 
         Route::get('niveauxScolaires/getData', [NiveauxScolaireController::class, 'getData'])->name('niveauxScolaires.getData');
+        // bulk - edit and delete
+        Route::post('niveauxScolaires/bulk-delete', [NiveauxScolaireController::class, 'bulkDelete'])
+        ->name('niveauxScolaires.bulkDelete');
+        Route::get('niveauxScolaires/bulk-edit', [NiveauxScolaireController::class, 'bulkEditForm'])
+        ->name('niveauxScolaires.bulkEdit');
+        Route::post('niveauxScolaires/bulk-update', [NiveauxScolaireController::class, 'bulkUpdate'])
+        ->name('niveauxScolaires.bulkUpdate');
+
         Route::resource('niveauxScolaires', NiveauxScolaireController::class)
             ->parameters(['niveauxScolaires' => 'niveauxScolaire']);
         // Routes supplémentaires avec préfixe

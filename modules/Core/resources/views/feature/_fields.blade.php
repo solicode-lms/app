@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('feature-form')
-<form class="crud-form custom-form context-state container" id="featureForm" action="{{ $itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="featureForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('features.bulkUpdate') : ($itemFeature->id ? route('features.update', $itemFeature->id) : route('features.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemFeature->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($feature_ids))
+        @foreach ($feature_ids as $id)
+            <input type="hidden" name="feature_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('Core::feature.name')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('Core::feature.description')) }}
             
@@ -53,6 +74,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="feature_domain_id" id="bulk_field_feature_domain_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="feature_domain_id">
             {{ ucfirst(__('Core::featureDomain.singular')) }}
             <span class="text-danger">*</span>
@@ -80,6 +106,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="permissions" id="bulk_field_permissions" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="permissions">
             {{ ucfirst(__('PkgAutorisation::Permission.plural')) }}
             
@@ -119,7 +150,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("Core::feature.singular") }} : {{$itemFeature}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("Core::feature.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("Core::feature.singular") }} : {{$itemFeature}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

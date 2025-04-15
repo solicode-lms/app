@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
 
         Route::get('widgetUtilisateurs/getData', [WidgetUtilisateurController::class, 'getData'])->name('widgetUtilisateurs.getData');
+        // bulk - edit and delete
+        Route::post('widgetUtilisateurs/bulk-delete', [WidgetUtilisateurController::class, 'bulkDelete'])
+        ->name('widgetUtilisateurs.bulkDelete');
+        Route::get('widgetUtilisateurs/bulk-edit', [WidgetUtilisateurController::class, 'bulkEditForm'])
+        ->name('widgetUtilisateurs.bulkEdit');
+        Route::post('widgetUtilisateurs/bulk-update', [WidgetUtilisateurController::class, 'bulkUpdate'])
+        ->name('widgetUtilisateurs.bulkUpdate');
+
         Route::resource('widgetUtilisateurs', WidgetUtilisateurController::class)
             ->parameters(['widgetUtilisateurs' => 'widgetUtilisateur']);
         // Routes supplémentaires avec préfixe

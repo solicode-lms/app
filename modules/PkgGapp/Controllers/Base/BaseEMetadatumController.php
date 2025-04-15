@@ -34,6 +34,8 @@ class BaseEMetadatumController extends AdminController
         $this->eModelService = $eModelService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
@@ -66,6 +68,8 @@ class BaseEMetadatumController extends AdminController
 
         return view('PkgGapp::eMetadatum.index', $eMetadatum_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -81,6 +85,40 @@ class BaseEMetadatumController extends AdminController
         }
         return view('PkgGapp::eMetadatum.create', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $eMetadatum_ids = $request->input('ids', []);
+
+        if (!is_array($eMetadatum_ids) || count($eMetadatum_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemEMetadatum = $this->eMetadatumService->find($eMetadatum_ids[0]);
+         
+ 
+        $eModels = $this->eModelService->all();
+        $eDataFields = $this->eDataFieldService->all();
+        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemEMetadatum = $this->eMetadatumService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        }
+        return view('PkgGapp::eMetadatum.bulk-edit', compact('bulkEdit', 'eMetadatum_ids', 'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+    }
+    /**
+     */
     public function store(EMetadatumRequest $request) {
         $validatedData = $request->validated();
         $eMetadatum = $this->eMetadatumService->create($validatedData);
@@ -104,6 +142,8 @@ class BaseEMetadatumController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
@@ -124,6 +164,8 @@ class BaseEMetadatumController extends AdminController
         return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eMetadatum.edit_' . $id);
@@ -145,6 +187,8 @@ class BaseEMetadatumController extends AdminController
 
 
     }
+    /**
+     */
     public function update(EMetadatumRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -170,6 +214,42 @@ class BaseEMetadatumController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $eMetadatum_ids = $request->input('eMetadatum_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($eMetadatum_ids) || count($eMetadatum_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($eMetadatum_ids as $id) {
+            $entity = $this->eMetadatumService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->eMetadatumService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->eMetadatumService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $eMetadatum = $this->eMetadatumService->destroy($id);
@@ -193,6 +273,24 @@ class BaseEMetadatumController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $eMetadatum_ids = $request->input('ids', []);
+        if (!is_array($eMetadatum_ids) || count($eMetadatum_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($eMetadatum_ids as $id) {
+            $entity = $this->eMetadatumService->find($id);
+            $this->eMetadatumService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($eMetadatum_ids) . ' éléments',
+            'modelName' => __('PkgGapp::eMetadatum.plural')
+        ]));
     }
 
     public function export($format)

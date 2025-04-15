@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('validation-form')
-<form class="crud-form custom-form context-state container" id="validationForm" action="{{ $itemValidation->id ? route('validations.update', $itemValidation->id) : route('validations.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="validationForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('validations.bulkUpdate') : ($itemValidation->id ? route('validations.update', $itemValidation->id) : route('validations.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemValidation->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($validation_ids))
+        @foreach ($validation_ids as $id)
+            <input type="hidden" name="validation_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="transfert_competence_id" id="bulk_field_transfert_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="transfert_competence_id">
             {{ ucfirst(__('PkgCreationProjet::transfertCompetence.singular')) }}
             <span class="text-danger">*</span>
@@ -38,6 +54,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="note">
             {{ ucfirst(__('PkgRealisationProjets::validation.note')) }}
             
@@ -61,6 +82,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="message" id="bulk_field_message" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="message">
             {{ ucfirst(__('PkgRealisationProjets::validation.message')) }}
             
@@ -81,6 +107,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_valide" id="bulk_field_is_valide" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_valide">
             {{ ucfirst(__('PkgRealisationProjets::validation.is_valide')) }}
             <span class="text-danger">*</span>
@@ -104,6 +135,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="realisation_projet_id">
             {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
             <span class="text-danger">*</span>
@@ -143,7 +179,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgRealisationProjets::validation.singular") }} : {{$itemValidation}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgRealisationProjets::validation.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgRealisationProjets::validation.singular") }} : {{$itemValidation}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

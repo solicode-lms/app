@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('features/getData', [FeatureController::class, 'getData'])->name('features.getData');
+        // bulk - edit and delete
+        Route::post('features/bulk-delete', [FeatureController::class, 'bulkDelete'])
+        ->name('features.bulkDelete');
+        Route::get('features/bulk-edit', [FeatureController::class, 'bulkEditForm'])
+        ->name('features.bulkEdit');
+        Route::post('features/bulk-update', [FeatureController::class, 'bulkUpdate'])
+        ->name('features.bulkUpdate');
+
         Route::resource('features', FeatureController::class)
             ->parameters(['features' => 'feature']);
         // Routes supplémentaires avec préfixe

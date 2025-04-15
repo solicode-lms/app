@@ -30,6 +30,8 @@ class BaseEModelController extends AdminController
         $this->ePackageService = $ePackageService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('eModel.index');
@@ -62,6 +64,8 @@ class BaseEModelController extends AdminController
 
         return view('PkgGapp::eModel.index', $eModel_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -75,6 +79,38 @@ class BaseEModelController extends AdminController
         }
         return view('PkgGapp::eModel.create', compact('itemEModel', 'ePackages'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $eModel_ids = $request->input('ids', []);
+
+        if (!is_array($eModel_ids) || count($eModel_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemEModel = $this->eModelService->find($eModel_ids[0]);
+         
+ 
+        $ePackages = $this->ePackageService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemEModel = $this->eModelService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGapp::eModel._fields', compact('bulkEdit', 'eModel_ids', 'itemEModel', 'ePackages'));
+        }
+        return view('PkgGapp::eModel.bulk-edit', compact('bulkEdit', 'eModel_ids', 'itemEModel', 'ePackages'));
+    }
+    /**
+     */
     public function store(EModelRequest $request) {
         $validatedData = $request->validated();
         $eModel = $this->eModelService->create($validatedData);
@@ -98,6 +134,8 @@ class BaseEModelController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
@@ -130,6 +168,8 @@ class BaseEModelController extends AdminController
         return view('PkgGapp::eModel.edit', array_merge(compact('itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('eModel.edit_' . $id);
@@ -163,6 +203,8 @@ class BaseEModelController extends AdminController
 
 
     }
+    /**
+     */
     public function update(EModelRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -188,6 +230,42 @@ class BaseEModelController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $eModel_ids = $request->input('eModel_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($eModel_ids) || count($eModel_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($eModel_ids as $id) {
+            $entity = $this->eModelService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->eModelService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->eModelService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $eModel = $this->eModelService->destroy($id);
@@ -211,6 +289,24 @@ class BaseEModelController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $eModel_ids = $request->input('ids', []);
+        if (!is_array($eModel_ids) || count($eModel_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($eModel_ids as $id) {
+            $entity = $this->eModelService->find($id);
+            $this->eModelService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($eModel_ids) . ' éléments',
+            'modelName' => __('PkgGapp::eModel.plural')
+        ]));
     }
 
     public function export($format)

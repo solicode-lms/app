@@ -28,6 +28,8 @@ class BaseNiveauCompetenceController extends AdminController
         $this->competenceService = $competenceService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
@@ -60,6 +62,8 @@ class BaseNiveauCompetenceController extends AdminController
 
         return view('PkgCompetences::niveauCompetence.index', $niveauCompetence_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -73,6 +77,38 @@ class BaseNiveauCompetenceController extends AdminController
         }
         return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence', 'competences'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $niveauCompetence_ids = $request->input('ids', []);
+
+        if (!is_array($niveauCompetence_ids) || count($niveauCompetence_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemNiveauCompetence = $this->niveauCompetenceService->find($niveauCompetence_ids[0]);
+         
+ 
+        $competences = $this->competenceService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNiveauCompetence = $this->niveauCompetenceService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCompetences::niveauCompetence._fields', compact('bulkEdit', 'niveauCompetence_ids', 'itemNiveauCompetence', 'competences'));
+        }
+        return view('PkgCompetences::niveauCompetence.bulk-edit', compact('bulkEdit', 'niveauCompetence_ids', 'itemNiveauCompetence', 'competences'));
+    }
+    /**
+     */
     public function store(NiveauCompetenceRequest $request) {
         $validatedData = $request->validated();
         $niveauCompetence = $this->niveauCompetenceService->create($validatedData);
@@ -96,6 +132,8 @@ class BaseNiveauCompetenceController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
@@ -114,6 +152,8 @@ class BaseNiveauCompetenceController extends AdminController
         return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence','competences'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
@@ -133,6 +173,8 @@ class BaseNiveauCompetenceController extends AdminController
 
 
     }
+    /**
+     */
     public function update(NiveauCompetenceRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -158,6 +200,42 @@ class BaseNiveauCompetenceController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $niveauCompetence_ids = $request->input('niveauCompetence_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($niveauCompetence_ids) || count($niveauCompetence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($niveauCompetence_ids as $id) {
+            $entity = $this->niveauCompetenceService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->niveauCompetenceService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->niveauCompetenceService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $niveauCompetence = $this->niveauCompetenceService->destroy($id);
@@ -181,6 +259,24 @@ class BaseNiveauCompetenceController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $niveauCompetence_ids = $request->input('ids', []);
+        if (!is_array($niveauCompetence_ids) || count($niveauCompetence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($niveauCompetence_ids as $id) {
+            $entity = $this->niveauCompetenceService->find($id);
+            $this->niveauCompetenceService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($niveauCompetence_ids) . ' éléments',
+            'modelName' => __('PkgCompetences::niveauCompetence.plural')
+        ]));
     }
 
     public function export($format)

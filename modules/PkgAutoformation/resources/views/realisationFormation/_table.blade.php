@@ -5,11 +5,14 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="17"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
-                <x-sortable-column width="17"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
-                <x-sortable-column width="17" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column width="17" field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column width="17" field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="16.4"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
+                <x-sortable-column width="16.4"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
+                <x-sortable-column width="16.4" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
+                <x-sortable-column width="16.4" field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column width="16.4" field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -17,29 +20,32 @@
             @section('realisationFormation-table-tbody')
             @foreach ($realisationFormations_data as $realisationFormation)
                 <tr id="realisationFormation-row-{{$realisationFormation->id}}">
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $realisationFormation->id }}" data-id="{{ $realisationFormation->id }}">
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
                     <x-field :entity="$realisationFormation" field="date_debut">
                         {{ $realisationFormation->date_debut }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
                     <x-field :entity="$realisationFormation" field="date_fin">
                         {{ $realisationFormation->date_fin }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
                     <x-field :entity="$realisationFormation" field="formation">
                        
                          {{  $realisationFormation->formation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
                     <x-field :entity="$realisationFormation" field="apprenant">
                        
                          {{  $realisationFormation->apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
                     <x-field :entity="$realisationFormation" field="etatFormation">
                         @if(!empty($realisationFormation->etatFormation))
                         <x-badge 
@@ -72,7 +78,7 @@
                             <form class="context-state" action="{{ route('realisationFormations.destroy',['realisationFormation' => $realisationFormation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$realisationFormation->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$realisationFormation->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

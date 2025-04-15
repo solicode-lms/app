@@ -29,6 +29,8 @@ class BaseFeatureDomainController extends AdminController
         $this->sysModuleService = $sysModuleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
@@ -61,6 +63,8 @@ class BaseFeatureDomainController extends AdminController
 
         return view('Core::featureDomain.index', $featureDomain_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseFeatureDomainController extends AdminController
         }
         return view('Core::featureDomain.create', compact('itemFeatureDomain', 'sysModules'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $featureDomain_ids = $request->input('ids', []);
+
+        if (!is_array($featureDomain_ids) || count($featureDomain_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemFeatureDomain = $this->featureDomainService->find($featureDomain_ids[0]);
+         
+ 
+        $sysModules = $this->sysModuleService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemFeatureDomain = $this->featureDomainService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('Core::featureDomain._fields', compact('bulkEdit', 'featureDomain_ids', 'itemFeatureDomain', 'sysModules'));
+        }
+        return view('Core::featureDomain.bulk-edit', compact('bulkEdit', 'featureDomain_ids', 'itemFeatureDomain', 'sysModules'));
+    }
+    /**
+     */
     public function store(FeatureDomainRequest $request) {
         $validatedData = $request->validated();
         $featureDomain = $this->featureDomainService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseFeatureDomainController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseFeatureDomainController extends AdminController
         return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('featureDomain.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseFeatureDomainController extends AdminController
 
 
     }
+    /**
+     */
     public function update(FeatureDomainRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseFeatureDomainController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $featureDomain_ids = $request->input('featureDomain_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($featureDomain_ids) || count($featureDomain_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($featureDomain_ids as $id) {
+            $entity = $this->featureDomainService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->featureDomainService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->featureDomainService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $featureDomain = $this->featureDomainService->destroy($id);
@@ -196,6 +274,24 @@ class BaseFeatureDomainController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $featureDomain_ids = $request->input('ids', []);
+        if (!is_array($featureDomain_ids) || count($featureDomain_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($featureDomain_ids as $id) {
+            $entity = $this->featureDomainService->find($id);
+            $this->featureDomainService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($featureDomain_ids) . ' éléments',
+            'modelName' => __('Core::featureDomain.plural')
+        ]));
     }
 
     public function export($format)

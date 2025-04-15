@@ -25,6 +25,8 @@ class BaseApprenantKonosyController extends AdminController
         $this->apprenantKonosyService = $apprenantKonosyService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
@@ -57,6 +59,8 @@ class BaseApprenantKonosyController extends AdminController
 
         return view('PkgApprenants::apprenantKonosy.index', $apprenantKonosy_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -69,6 +73,37 @@ class BaseApprenantKonosyController extends AdminController
         }
         return view('PkgApprenants::apprenantKonosy.create', compact('itemApprenantKonosy'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $apprenantKonosy_ids = $request->input('ids', []);
+
+        if (!is_array($apprenantKonosy_ids) || count($apprenantKonosy_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemApprenantKonosy = $this->apprenantKonosyService->find($apprenantKonosy_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemApprenantKonosy = $this->apprenantKonosyService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgApprenants::apprenantKonosy._fields', compact('bulkEdit', 'apprenantKonosy_ids', 'itemApprenantKonosy'));
+        }
+        return view('PkgApprenants::apprenantKonosy.bulk-edit', compact('bulkEdit', 'apprenantKonosy_ids', 'itemApprenantKonosy'));
+    }
+    /**
+     */
     public function store(ApprenantKonosyRequest $request) {
         $validatedData = $request->validated();
         $apprenantKonosy = $this->apprenantKonosyService->create($validatedData);
@@ -92,6 +127,8 @@ class BaseApprenantKonosyController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
@@ -109,6 +146,8 @@ class BaseApprenantKonosyController extends AdminController
         return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('itemApprenantKonosy',),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
@@ -127,6 +166,8 @@ class BaseApprenantKonosyController extends AdminController
 
 
     }
+    /**
+     */
     public function update(ApprenantKonosyRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -152,6 +193,42 @@ class BaseApprenantKonosyController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $apprenantKonosy_ids = $request->input('apprenantKonosy_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($apprenantKonosy_ids) || count($apprenantKonosy_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($apprenantKonosy_ids as $id) {
+            $entity = $this->apprenantKonosyService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->apprenantKonosyService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->apprenantKonosyService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $apprenantKonosy = $this->apprenantKonosyService->destroy($id);
@@ -175,6 +252,24 @@ class BaseApprenantKonosyController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $apprenantKonosy_ids = $request->input('ids', []);
+        if (!is_array($apprenantKonosy_ids) || count($apprenantKonosy_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($apprenantKonosy_ids as $id) {
+            $entity = $this->apprenantKonosyService->find($id);
+            $this->apprenantKonosyService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($apprenantKonosy_ids) . ' éléments',
+            'modelName' => __('PkgApprenants::apprenantKonosy.plural')
+        ]));
     }
 
     public function export($format)

@@ -28,6 +28,8 @@ class BaseFiliereController extends AdminController
         $this->filiereService = $filiereService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('filiere.index');
@@ -60,6 +62,8 @@ class BaseFiliereController extends AdminController
 
         return view('PkgFormation::filiere.index', $filiere_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -72,6 +76,37 @@ class BaseFiliereController extends AdminController
         }
         return view('PkgFormation::filiere.create', compact('itemFiliere'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $filiere_ids = $request->input('ids', []);
+
+        if (!is_array($filiere_ids) || count($filiere_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemFiliere = $this->filiereService->find($filiere_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemFiliere = $this->filiereService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgFormation::filiere._fields', compact('bulkEdit', 'filiere_ids', 'itemFiliere'));
+        }
+        return view('PkgFormation::filiere.bulk-edit', compact('bulkEdit', 'filiere_ids', 'itemFiliere'));
+    }
+    /**
+     */
     public function store(FiliereRequest $request) {
         $validatedData = $request->validated();
         $filiere = $this->filiereService->create($validatedData);
@@ -95,6 +130,8 @@ class BaseFiliereController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
@@ -133,6 +170,8 @@ class BaseFiliereController extends AdminController
         return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('filiere.edit_' . $id);
@@ -172,6 +211,8 @@ class BaseFiliereController extends AdminController
 
 
     }
+    /**
+     */
     public function update(FiliereRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -197,6 +238,42 @@ class BaseFiliereController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $filiere_ids = $request->input('filiere_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($filiere_ids) || count($filiere_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($filiere_ids as $id) {
+            $entity = $this->filiereService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->filiereService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->filiereService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $filiere = $this->filiereService->destroy($id);
@@ -220,6 +297,24 @@ class BaseFiliereController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $filiere_ids = $request->input('ids', []);
+        if (!is_array($filiere_ids) || count($filiere_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($filiere_ids as $id) {
+            $entity = $this->filiereService->find($id);
+            $this->filiereService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($filiere_ids) . ' éléments',
+            'modelName' => __('PkgFormation::filiere.plural')
+        ]));
     }
 
     public function export($format)

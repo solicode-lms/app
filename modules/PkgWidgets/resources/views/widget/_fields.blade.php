@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('widget-form')
-<form class="crud-form custom-form context-state container" id="widgetForm" action="{{ $itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="widgetForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('widgets.bulkUpdate') : ($itemWidget->id ? route('widgets.update', $itemWidget->id) : route('widgets.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemWidget->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($widget_ids))
+        @foreach ($widget_ids as $id)
+            <input type="hidden" name="widget_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="ordre">
             {{ ucfirst(__('PkgWidgets::widget.ordre')) }}
             
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-4">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('PkgWidgets::widget.name')) }}
             <span class="text-danger">*</span>
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="label" id="bulk_field_label" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="label">
             {{ ucfirst(__('PkgWidgets::widget.label')) }}
             
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type_id" id="bulk_field_type_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="type_id">
             {{ ucfirst(__('PkgWidgets::widgetType.singular')) }}
             <span class="text-danger">*</span>
@@ -104,6 +135,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="model_id" id="bulk_field_model_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="model_id">
             {{ ucfirst(__('Core::sysModel.singular')) }}
             <span class="text-danger">*</span>
@@ -131,6 +167,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="operation_id" id="bulk_field_operation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="operation_id">
             {{ ucfirst(__('PkgWidgets::widgetOperation.singular')) }}
             <span class="text-danger">*</span>
@@ -158,6 +199,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="icon" id="bulk_field_icon" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="icon">
             {{ ucfirst(__('PkgWidgets::widget.icon')) }}
             
@@ -180,6 +226,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_color_id">
             {{ ucfirst(__('Core::sysColor.singular')) }}
             
@@ -207,6 +258,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="roles" id="bulk_field_roles" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="roles">
             {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
             
@@ -234,6 +290,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="section_widget_id" id="bulk_field_section_widget_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="section_widget_id">
             {{ ucfirst(__('PkgWidgets::sectionWidget.singular')) }}
             
@@ -264,6 +325,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="parameters" id="bulk_field_parameters" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="parameters">
             {{ ucfirst(__('PkgWidgets::widget.parameters')) }}
             
@@ -300,7 +366,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgWidgets::widget.singular") }} : {{$itemWidget}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgWidgets::widget.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgWidgets::widget.singular") }} : {{$itemWidget}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

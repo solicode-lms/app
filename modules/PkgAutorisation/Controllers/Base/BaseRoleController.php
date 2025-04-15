@@ -34,6 +34,8 @@ class BaseRoleController extends AdminController
         $this->userService = $userService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('role.index');
@@ -66,6 +68,8 @@ class BaseRoleController extends AdminController
 
         return view('PkgAutorisation::role.index', $role_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -81,6 +85,40 @@ class BaseRoleController extends AdminController
         }
         return view('PkgAutorisation::role.create', compact('itemRole', 'permissions', 'widgets', 'users'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $role_ids = $request->input('ids', []);
+
+        if (!is_array($role_ids) || count($role_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemRole = $this->roleService->find($role_ids[0]);
+         
+ 
+        $permissions = $this->permissionService->all();
+        $widgets = $this->widgetService->all();
+        $users = $this->userService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemRole = $this->roleService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutorisation::role._fields', compact('bulkEdit', 'role_ids', 'itemRole', 'permissions', 'widgets', 'users'));
+        }
+        return view('PkgAutorisation::role.bulk-edit', compact('bulkEdit', 'role_ids', 'itemRole', 'permissions', 'widgets', 'users'));
+    }
+    /**
+     */
     public function store(RoleRequest $request) {
         $validatedData = $request->validated();
         $role = $this->roleService->create($validatedData);
@@ -104,6 +142,8 @@ class BaseRoleController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
@@ -124,6 +164,8 @@ class BaseRoleController extends AdminController
         return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('role.edit_' . $id);
@@ -145,6 +187,8 @@ class BaseRoleController extends AdminController
 
 
     }
+    /**
+     */
     public function update(RoleRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -170,6 +214,42 @@ class BaseRoleController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $role_ids = $request->input('role_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($role_ids) || count($role_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($role_ids as $id) {
+            $entity = $this->roleService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->roleService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->roleService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $role = $this->roleService->destroy($id);
@@ -193,6 +273,24 @@ class BaseRoleController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $role_ids = $request->input('ids', []);
+        if (!is_array($role_ids) || count($role_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($role_ids as $id) {
+            $entity = $this->roleService->find($id);
+            $this->roleService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($role_ids) . ' éléments',
+            'modelName' => __('PkgAutorisation::role.plural')
+        ]));
     }
 
     public function export($format)

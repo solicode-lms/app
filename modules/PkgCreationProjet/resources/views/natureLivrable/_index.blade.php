@@ -53,32 +53,34 @@
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('natureLivrable-crud-stats-bar')
-                <div class="card-header row">
-                    <!-- Statistiques et Actions -->
-                    <div class="col-sm-8">
-                        <x-crud-stats-summary
-                            icon="fas fa-chart-bar text-info"
-                            :stats="$natureLivrables_stats"
-                        />
-                    </div>
-                    <div class="col-sm-4">
-                      
-                        <x-crud-actions
-                            :instanceItem="$natureLivrable_instance"
-                            :createPermission="'create-natureLivrable'"
-                            :createRoute="route('natureLivrables.create')"
-                            :createText="__('Ajouter')"
-                            :importPermission="'import-natureLivrable'"
-                            :importRoute="route('natureLivrables.import')"
-                            :importText="__('Importer')"
-                            :exportPermission="'export-natureLivrable'"
-                            :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
-                            :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
-                            :exportText="__('Exporter')"
-                            :viewTypes="$natureLivrable_viewTypes"
-                            :viewType="$natureLivrable_viewType"
-                        />
-                    
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$natureLivrables_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                        
+                            <x-crud-actions
+                                :instanceItem="$natureLivrable_instance"
+                                :createPermission="'create-natureLivrable'"
+                                :createRoute="route('natureLivrables.create')"
+                                :createText="__('Ajouter')"
+                                :importPermission="'import-natureLivrable'"
+                                :importRoute="route('natureLivrables.import')"
+                                :importText="__('Importer')"
+                                :exportPermission="'export-natureLivrable'"
+                                :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
+                                :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
+                                :exportText="__('Exporter')"
+                                :viewTypes="$natureLivrable_viewTypes"
+                                :viewType="$natureLivrable_viewType"
+                            />
+                        
+                        </div>
                     </div>
                 </div>
                 @show
@@ -118,6 +120,30 @@
                     @include("PkgCreationProjet::natureLivrable._$natureLivrable_viewType")
                     @endif
                 </div>
+                @section('realisationTache-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('natureLivrables.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('natureLivrables.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    </span>
+                </div>
+                @show
             </div>
         </div>
     </section>

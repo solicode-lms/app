@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('historiqueRealisationTache-form')
-<form class="crud-form custom-form context-state container" id="historiqueRealisationTacheForm" action="{{ $itemHistoriqueRealisationTache->id ? route('historiqueRealisationTaches.update', $itemHistoriqueRealisationTache->id) : route('historiqueRealisationTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="historiqueRealisationTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('historiqueRealisationTaches.bulkUpdate') : ($itemHistoriqueRealisationTache->id ? route('historiqueRealisationTaches.update', $itemHistoriqueRealisationTache->id) : route('historiqueRealisationTaches.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemHistoriqueRealisationTache->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($historiqueRealisationTache_ids))
+        @foreach ($historiqueRealisationTache_ids as $id)
+            <input type="hidden" name="historiqueRealisationTache_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateModification" id="bulk_field_dateModification" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="dateModification">
             {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification')) }}
             <span class="text-danger">*</span>
@@ -34,6 +50,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="changement" id="bulk_field_changement" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="changement">
             {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement')) }}
             <span class="text-danger">*</span>
@@ -54,6 +75,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_tache_id" id="bulk_field_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="realisation_tache_id">
             {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
             <span class="text-danger">*</span>
@@ -93,7 +119,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{$itemHistoriqueRealisationTache}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{$itemHistoriqueRealisationTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

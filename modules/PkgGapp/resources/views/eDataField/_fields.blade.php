@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('eDataField-form')
-<form class="crud-form custom-form context-state container" id="eDataFieldForm" action="{{ $itemEDataField->id ? route('eDataFields.update', $itemEDataField->id) : route('eDataFields.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="eDataFieldForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('eDataFields.bulkUpdate') : ($itemEDataField->id ? route('eDataFields.update', $itemEDataField->id) : route('eDataFields.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemEDataField->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($eDataField_ids))
+        @foreach ($eDataField_ids as $id)
+            <input type="hidden" name="eDataField_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('PkgGapp::eDataField.name')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="default_value" id="bulk_field_default_value" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="default_value">
             {{ ucfirst(__('PkgGapp::eDataField.default_value')) }}
             
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="column_name" id="bulk_field_column_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="column_name">
             {{ ucfirst(__('PkgGapp::eDataField.column_name')) }}
             <span class="text-danger">*</span>
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_model_id" id="bulk_field_e_model_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="e_model_id">
             {{ ucfirst(__('PkgGapp::eModel.singular')) }}
             <span class="text-danger">*</span>
@@ -104,6 +135,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_relationship_id" id="bulk_field_e_relationship_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="e_relationship_id">
             {{ ucfirst(__('PkgGapp::eRelationship.singular')) }}
             
@@ -131,6 +167,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="field_order" id="bulk_field_field_order" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="field_order">
             {{ ucfirst(__('PkgGapp::eDataField.field_order')) }}
             <span class="text-danger">*</span>
@@ -153,6 +194,11 @@
 
 
       <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="data_type" id="bulk_field_data_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="data_type">
             {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
             <span class="text-danger">*</span>
@@ -175,6 +221,11 @@
 
 
       <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="db_primaryKey" id="bulk_field_db_primaryKey" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="db_primaryKey">
             {{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}
             
@@ -198,6 +249,11 @@
 
 
       <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="db_nullable" id="bulk_field_db_nullable" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="db_nullable">
             {{ ucfirst(__('PkgGapp::eDataField.db_nullable')) }}
             
@@ -221,6 +277,11 @@
 
 
       <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="db_unique" id="bulk_field_db_unique" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="db_unique">
             {{ ucfirst(__('PkgGapp::eDataField.db_unique')) }}
             
@@ -244,6 +305,11 @@
 
 
       <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="calculable" id="bulk_field_calculable" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="calculable">
             {{ ucfirst(__('PkgGapp::eDataField.calculable')) }}
             
@@ -270,6 +336,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="calculable_sql" id="bulk_field_calculable_sql" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="calculable_sql">
             {{ ucfirst(__('PkgGapp::eDataField.calculable_sql')) }}
             
@@ -290,6 +361,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgGapp::eDataField.description')) }}
             
@@ -322,7 +398,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{$itemEDataField}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGapp::eDataField.singular") }} : {{$itemEDataField}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

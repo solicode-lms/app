@@ -26,6 +26,8 @@ class BaseNationaliteController extends AdminController
         $this->nationaliteService = $nationaliteService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
@@ -58,6 +60,8 @@ class BaseNationaliteController extends AdminController
 
         return view('PkgApprenants::nationalite.index', $nationalite_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -70,6 +74,37 @@ class BaseNationaliteController extends AdminController
         }
         return view('PkgApprenants::nationalite.create', compact('itemNationalite'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $nationalite_ids = $request->input('ids', []);
+
+        if (!is_array($nationalite_ids) || count($nationalite_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemNationalite = $this->nationaliteService->find($nationalite_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNationalite = $this->nationaliteService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgApprenants::nationalite._fields', compact('bulkEdit', 'nationalite_ids', 'itemNationalite'));
+        }
+        return view('PkgApprenants::nationalite.bulk-edit', compact('bulkEdit', 'nationalite_ids', 'itemNationalite'));
+    }
+    /**
+     */
     public function store(NationaliteRequest $request) {
         $validatedData = $request->validated();
         $nationalite = $this->nationaliteService->create($validatedData);
@@ -93,6 +128,8 @@ class BaseNationaliteController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('nationalite.edit_' . $id);
@@ -117,6 +154,8 @@ class BaseNationaliteController extends AdminController
         return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('nationalite.edit_' . $id);
@@ -142,6 +181,8 @@ class BaseNationaliteController extends AdminController
 
 
     }
+    /**
+     */
     public function update(NationaliteRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -167,6 +208,42 @@ class BaseNationaliteController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $nationalite_ids = $request->input('nationalite_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($nationalite_ids) || count($nationalite_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($nationalite_ids as $id) {
+            $entity = $this->nationaliteService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->nationaliteService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->nationaliteService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $nationalite = $this->nationaliteService->destroy($id);
@@ -190,6 +267,24 @@ class BaseNationaliteController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $nationalite_ids = $request->input('ids', []);
+        if (!is_array($nationalite_ids) || count($nationalite_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($nationalite_ids as $id) {
+            $entity = $this->nationaliteService->find($id);
+            $this->nationaliteService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($nationalite_ids) . ' éléments',
+            'modelName' => __('PkgApprenants::nationalite.plural')
+        ]));
     }
 
     public function export($format)

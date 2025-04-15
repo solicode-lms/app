@@ -34,6 +34,8 @@ class BasePermissionController extends AdminController
         $this->roleService = $roleService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
@@ -66,6 +68,8 @@ class BasePermissionController extends AdminController
 
         return view('PkgAutorisation::permission.index', $permission_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -81,6 +85,40 @@ class BasePermissionController extends AdminController
         }
         return view('PkgAutorisation::permission.create', compact('itemPermission', 'features', 'roles', 'sysControllers'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $permission_ids = $request->input('ids', []);
+
+        if (!is_array($permission_ids) || count($permission_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemPermission = $this->permissionService->find($permission_ids[0]);
+         
+ 
+        $sysControllers = $this->sysControllerService->all();
+        $features = $this->featureService->all();
+        $roles = $this->roleService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemPermission = $this->permissionService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgAutorisation::permission._fields', compact('bulkEdit', 'permission_ids', 'itemPermission', 'features', 'roles', 'sysControllers'));
+        }
+        return view('PkgAutorisation::permission.bulk-edit', compact('bulkEdit', 'permission_ids', 'itemPermission', 'features', 'roles', 'sysControllers'));
+    }
+    /**
+     */
     public function store(PermissionRequest $request) {
         $validatedData = $request->validated();
         $permission = $this->permissionService->create($validatedData);
@@ -104,6 +142,8 @@ class BasePermissionController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('permission.edit_' . $id);
@@ -124,6 +164,8 @@ class BasePermissionController extends AdminController
         return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('permission.edit_' . $id);
@@ -145,6 +187,8 @@ class BasePermissionController extends AdminController
 
 
     }
+    /**
+     */
     public function update(PermissionRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -170,6 +214,42 @@ class BasePermissionController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $permission_ids = $request->input('permission_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($permission_ids) || count($permission_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($permission_ids as $id) {
+            $entity = $this->permissionService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->permissionService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->permissionService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $permission = $this->permissionService->destroy($id);
@@ -193,6 +273,24 @@ class BasePermissionController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $permission_ids = $request->input('ids', []);
+        if (!is_array($permission_ids) || count($permission_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($permission_ids as $id) {
+            $entity = $this->permissionService->find($id);
+            $this->permissionService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($permission_ids) . ' éléments',
+            'modelName' => __('PkgAutorisation::permission.plural')
+        ]));
     }
 
     public function export($format)

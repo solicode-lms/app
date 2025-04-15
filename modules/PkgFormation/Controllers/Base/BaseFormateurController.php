@@ -42,6 +42,8 @@ class BaseFormateurController extends AdminController
         $this->userService = $userService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
@@ -74,6 +76,8 @@ class BaseFormateurController extends AdminController
 
         return view('PkgFormation::formateur.index', $formateur_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -89,6 +93,40 @@ class BaseFormateurController extends AdminController
         }
         return view('PkgFormation::formateur.create', compact('itemFormateur', 'groupes', 'specialites', 'users'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $formateur_ids = $request->input('ids', []);
+
+        if (!is_array($formateur_ids) || count($formateur_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemFormateur = $this->formateurService->find($formateur_ids[0]);
+         
+ 
+        $specialites = $this->specialiteService->all();
+        $groupes = $this->groupeService->all();
+        $users = $this->userService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemFormateur = $this->formateurService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgFormation::formateur._fields', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'groupes', 'specialites', 'users'));
+        }
+        return view('PkgFormation::formateur.bulk-edit', compact('bulkEdit', 'formateur_ids', 'itemFormateur', 'groupes', 'specialites', 'users'));
+    }
+    /**
+     */
     public function store(FormateurRequest $request) {
         $validatedData = $request->validated();
         $formateur = $this->formateurService->create($validatedData);
@@ -112,6 +150,8 @@ class BaseFormateurController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
@@ -188,6 +228,8 @@ class BaseFormateurController extends AdminController
         return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('formateur.edit_' . $id);
@@ -265,6 +307,8 @@ class BaseFormateurController extends AdminController
 
 
     }
+    /**
+     */
     public function update(FormateurRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -290,6 +334,42 @@ class BaseFormateurController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $formateur_ids = $request->input('formateur_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($formateur_ids) || count($formateur_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($formateur_ids as $id) {
+            $entity = $this->formateurService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->formateurService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->formateurService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $formateur = $this->formateurService->destroy($id);
@@ -313,6 +393,24 @@ class BaseFormateurController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $formateur_ids = $request->input('ids', []);
+        if (!is_array($formateur_ids) || count($formateur_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($formateur_ids as $id) {
+            $entity = $this->formateurService->find($id);
+            $this->formateurService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($formateur_ids) . ' éléments',
+            'modelName' => __('PkgFormation::formateur.plural')
+        ]));
     }
 
     public function export($format)

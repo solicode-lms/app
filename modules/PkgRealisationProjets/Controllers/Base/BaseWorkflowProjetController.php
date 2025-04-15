@@ -29,6 +29,8 @@ class BaseWorkflowProjetController extends AdminController
         $this->sysColorService = $sysColorService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('workflowProjet.index');
@@ -61,6 +63,8 @@ class BaseWorkflowProjetController extends AdminController
 
         return view('PkgRealisationProjets::workflowProjet.index', $workflowProjet_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -74,6 +78,38 @@ class BaseWorkflowProjetController extends AdminController
         }
         return view('PkgRealisationProjets::workflowProjet.create', compact('itemWorkflowProjet', 'sysColors'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $workflowProjet_ids = $request->input('ids', []);
+
+        if (!is_array($workflowProjet_ids) || count($workflowProjet_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemWorkflowProjet = $this->workflowProjetService->find($workflowProjet_ids[0]);
+         
+ 
+        $sysColors = $this->sysColorService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemWorkflowProjet = $this->workflowProjetService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgRealisationProjets::workflowProjet._fields', compact('bulkEdit', 'workflowProjet_ids', 'itemWorkflowProjet', 'sysColors'));
+        }
+        return view('PkgRealisationProjets::workflowProjet.bulk-edit', compact('bulkEdit', 'workflowProjet_ids', 'itemWorkflowProjet', 'sysColors'));
+    }
+    /**
+     */
     public function store(WorkflowProjetRequest $request) {
         $validatedData = $request->validated();
         $workflowProjet = $this->workflowProjetService->create($validatedData);
@@ -97,6 +133,8 @@ class BaseWorkflowProjetController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('workflowProjet.edit_' . $id);
@@ -122,6 +160,8 @@ class BaseWorkflowProjetController extends AdminController
         return view('PkgRealisationProjets::workflowProjet.edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('workflowProjet.edit_' . $id);
@@ -148,6 +188,8 @@ class BaseWorkflowProjetController extends AdminController
 
 
     }
+    /**
+     */
     public function update(WorkflowProjetRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -173,6 +215,42 @@ class BaseWorkflowProjetController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $workflowProjet_ids = $request->input('workflowProjet_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($workflowProjet_ids) || count($workflowProjet_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($workflowProjet_ids as $id) {
+            $entity = $this->workflowProjetService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->workflowProjetService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->workflowProjetService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $workflowProjet = $this->workflowProjetService->destroy($id);
@@ -196,6 +274,24 @@ class BaseWorkflowProjetController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $workflowProjet_ids = $request->input('ids', []);
+        if (!is_array($workflowProjet_ids) || count($workflowProjet_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($workflowProjet_ids as $id) {
+            $entity = $this->workflowProjetService->find($id);
+            $this->workflowProjetService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($workflowProjet_ids) . ' éléments',
+            'modelName' => __('PkgRealisationProjets::workflowProjet.plural')
+        ]));
     }
 
     public function export($format)

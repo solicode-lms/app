@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('chapitre-form')
-<form class="crud-form custom-form context-state container" id="chapitreForm" action="{{ $itemChapitre->id ? route('chapitres.update', $itemChapitre->id) : route('chapitres.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="chapitreForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('chapitres.bulkUpdate') : ($itemChapitre->id ? route('chapitres.update', $itemChapitre->id) : route('chapitres.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemChapitre->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($chapitre_ids))
+        @foreach ($chapitre_ids as $id)
+            <input type="hidden" name="chapitre_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="nom">
             {{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}
             <span class="text-danger">*</span>
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="lien">
             {{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}
             
@@ -55,6 +76,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="coefficient" id="bulk_field_coefficient" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="coefficient">
             {{ ucfirst(__('PkgAutoformation::chapitre.coefficient')) }}
             <span class="text-danger">*</span>
@@ -77,6 +103,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('PkgAutoformation::chapitre.description')) }}
             
@@ -97,6 +128,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="ordre">
             {{ ucfirst(__('PkgAutoformation::chapitre.ordre')) }}
             <span class="text-danger">*</span>
@@ -119,6 +155,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_officiel" id="bulk_field_is_officiel" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_officiel">
             {{ ucfirst(__('PkgAutoformation::chapitre.is_officiel')) }}
             <span class="text-danger">*</span>
@@ -142,6 +183,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formation_id" id="bulk_field_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formation_id">
             {{ ucfirst(__('PkgAutoformation::formation.singular')) }}
             <span class="text-danger">*</span>
@@ -169,6 +215,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="niveau_competence_id" id="bulk_field_niveau_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="niveau_competence_id">
             {{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}
             
@@ -196,6 +247,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="formateur_id">
             {{ ucfirst(__('PkgFormation::formateur.singular')) }}
             
@@ -223,6 +279,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_officiel_id" id="bulk_field_chapitre_officiel_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="chapitre_officiel_id">
             {{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}
             
@@ -268,7 +329,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgAutoformation::chapitre.singular") }} : {{$itemChapitre}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgAutoformation::chapitre.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgAutoformation::chapitre.singular") }} : {{$itemChapitre}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

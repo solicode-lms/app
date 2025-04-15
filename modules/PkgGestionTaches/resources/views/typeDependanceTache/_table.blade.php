@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('typeDependanceTache-table-tbody')
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $typeDependanceTache->id }}" data-id="{{ $typeDependanceTache->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
                     <x-field :entity="$typeDependanceTache" field="titre">
                         {{ $typeDependanceTache->titre }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('typeDependanceTaches.destroy',['typeDependanceTache' => $typeDependanceTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$typeDependanceTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$typeDependanceTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

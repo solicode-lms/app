@@ -37,6 +37,8 @@ class BaseTransfertCompetenceController extends AdminController
         $this->projetService = $projetService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
@@ -73,6 +75,8 @@ class BaseTransfertCompetenceController extends AdminController
 
         return view('PkgCreationProjet::transfertCompetence.index', $transfertCompetence_compact_value);
     }
+    /**
+     */
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
@@ -93,6 +97,45 @@ class BaseTransfertCompetenceController extends AdminController
         }
         return view('PkgCreationProjet::transfertCompetence.create', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $transfertCompetence_ids = $request->input('ids', []);
+
+        if (!is_array($transfertCompetence_ids) || count($transfertCompetence_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+ 
+         $itemTransfertCompetence = $this->transfertCompetenceService->find($transfertCompetence_ids[0]);
+         
+ 
+        $competences = $this->competenceService->all();
+        $niveauDifficultes = $this->niveauDifficulteService->all();
+        $technologies = $this->technologyService->all();
+        $projets = $this->projetService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemTransfertCompetence = $this->transfertCompetenceService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('bulkEdit', 'transfertCompetence_ids', 'itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+        }
+        return view('PkgCreationProjet::transfertCompetence.bulk-edit', compact('bulkEdit', 'transfertCompetence_ids', 'itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+    }
+    /**
+     */
     public function store(TransfertCompetenceRequest $request) {
         $validatedData = $request->validated();
         $transfertCompetence = $this->transfertCompetenceService->create($validatedData);
@@ -116,6 +159,8 @@ class BaseTransfertCompetenceController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
@@ -138,6 +183,8 @@ class BaseTransfertCompetenceController extends AdminController
         return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
@@ -161,6 +208,8 @@ class BaseTransfertCompetenceController extends AdminController
 
 
     }
+    /**
+     */
     public function update(TransfertCompetenceRequest $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $transfertCompetence = $this->transfertCompetenceService->find($id);
@@ -189,6 +238,42 @@ class BaseTransfertCompetenceController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $transfertCompetence_ids = $request->input('transfertCompetence_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($transfertCompetence_ids) || count($transfertCompetence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($transfertCompetence_ids as $id) {
+            $entity = $this->transfertCompetenceService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->transfertCompetenceService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->transfertCompetenceService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
         // Vérifie si l'utilisateur peut mettre à jour l'objet 
         $transfertCompetence = $this->transfertCompetenceService->find($id);
@@ -215,6 +300,27 @@ class BaseTransfertCompetenceController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $transfertCompetence_ids = $request->input('ids', []);
+        if (!is_array($transfertCompetence_ids) || count($transfertCompetence_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($transfertCompetence_ids as $id) {
+            $entity = $this->transfertCompetenceService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $transfertCompetence = $this->transfertCompetenceService->find($id);
+            $this->authorize('delete', $transfertCompetence);
+            $this->transfertCompetenceService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($transfertCompetence_ids) . ' éléments',
+            'modelName' => __('PkgCreationProjet::transfertCompetence.plural')
+        ]));
     }
 
     public function export($format)

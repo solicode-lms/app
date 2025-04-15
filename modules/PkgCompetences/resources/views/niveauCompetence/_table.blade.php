@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="nom" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
-                <x-sortable-column width="42.5" field="competence_id" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="nom" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
+                <x-sortable-column width="41" field="competence_id" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('niveauCompetence-table-tbody')
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $niveauCompetence->id }}" data-id="{{ $niveauCompetence->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
                     <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
                     <x-field :entity="$niveauCompetence" field="competence">
                        
                          {{  $niveauCompetence->competence }}
@@ -48,7 +54,7 @@
                             <form class="context-state" action="{{ route('niveauCompetences.destroy',['niveauCompetence' => $niveauCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$niveauCompetence->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$niveauCompetence->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

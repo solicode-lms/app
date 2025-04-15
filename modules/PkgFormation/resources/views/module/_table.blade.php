@@ -5,11 +5,14 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="17"  field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
-                <x-sortable-column width="17"  field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
-                <x-sortable-column width="17"  field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
-                <x-sortable-column width="17" field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
-                <x-sortable-column width="17"  field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="16.4"  field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
+                <x-sortable-column width="16.4"  field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
+                <x-sortable-column width="16.4"  field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
+                <x-sortable-column width="16.4" field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
+                <x-sortable-column width="16.4"  field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,28 +21,31 @@
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $module->id }}" data-id="{{ $module->id }}">
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
                     <x-field :entity="$module" field="code">
                         {{ $module->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->nom }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->nom }}" >
                     <x-field :entity="$module" field="nom">
                         {{ $module->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
                     <x-field :entity="$module" field="masse_horaire">
                         {{ $module->masse_horaire }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->filiere }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->filiere }}" >
                     <x-field :entity="$module" field="filiere">
                        
                          {{  $module->filiere }}
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->competences }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->competences }}" >
                     <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)
@@ -71,7 +77,7 @@
                             <form class="context-state" action="{{ route('modules.destroy',['module' => $module->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$module->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$module->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

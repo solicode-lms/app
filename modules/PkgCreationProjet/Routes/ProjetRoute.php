@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
 
         Route::get('projets/getData', [ProjetController::class, 'getData'])->name('projets.getData');
+        // bulk - edit and delete
+        Route::post('projets/bulk-delete', [ProjetController::class, 'bulkDelete'])
+        ->name('projets.bulkDelete');
+        Route::get('projets/bulk-edit', [ProjetController::class, 'bulkEditForm'])
+        ->name('projets.bulkEdit');
+        Route::post('projets/bulk-update', [ProjetController::class, 'bulkUpdate'])
+        ->name('projets.bulkUpdate');
+
         Route::resource('projets', ProjetController::class)
             ->parameters(['projets' => 'projet']);
         // Routes supplémentaires avec préfixe

@@ -36,6 +36,8 @@ class BaseTacheController extends AdminController
         $this->projetService = $projetService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('tache.index');
@@ -68,6 +70,8 @@ class BaseTacheController extends AdminController
 
         return view('PkgGestionTaches::tache.index', $tache_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -91,6 +95,48 @@ class BaseTacheController extends AdminController
         }
         return view('PkgGestionTaches::tache.create', compact('itemTache', 'livrables', 'prioriteTaches', 'projets'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $tache_ids = $request->input('ids', []);
+
+        if (!is_array($tache_ids) || count($tache_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemTache = $this->tacheService->find($tache_ids[0]);
+         
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet.formateur_id');
+        $key = 'scope.prioriteTache.formateur_id';
+        $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet_id');
+        $key = 'scope.livrable.projet_id';
+        $this->viewState->set($key, $value);
+ 
+        $projets = $this->projetService->all();
+        $prioriteTaches = $this->prioriteTacheService->all();
+        $livrables = $this->livrableService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemTache = $this->tacheService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgGestionTaches::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'prioriteTaches', 'projets'));
+        }
+        return view('PkgGestionTaches::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'prioriteTaches', 'projets'));
+    }
+    /**
+     */
     public function store(TacheRequest $request) {
         $validatedData = $request->validated();
         $tache = $this->tacheService->create($validatedData);
@@ -114,6 +160,8 @@ class BaseTacheController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('tache.edit_' . $id);
@@ -156,6 +204,8 @@ class BaseTacheController extends AdminController
         return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('tache.edit_' . $id);
@@ -199,6 +249,8 @@ class BaseTacheController extends AdminController
 
 
     }
+    /**
+     */
     public function update(TacheRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -224,6 +276,42 @@ class BaseTacheController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $tache_ids = $request->input('tache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($tache_ids) || count($tache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($tache_ids as $id) {
+            $entity = $this->tacheService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->tacheService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->tacheService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $tache = $this->tacheService->destroy($id);
@@ -247,6 +335,24 @@ class BaseTacheController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $tache_ids = $request->input('ids', []);
+        if (!is_array($tache_ids) || count($tache_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($tache_ids as $id) {
+            $entity = $this->tacheService->find($id);
+            $this->tacheService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($tache_ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::tache.plural')
+        ]));
     }
 
     public function export($format)

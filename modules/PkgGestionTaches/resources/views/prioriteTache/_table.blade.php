@@ -5,8 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="42.5"  field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
-                <x-sortable-column width="42.5" field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="41"  field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
+                <x-sortable-column width="41" field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -14,12 +17,15 @@
             @section('prioriteTache-table-tbody')
             @foreach ($prioriteTaches_data as $prioriteTache)
                 <tr id="prioriteTache-row-{{$prioriteTache->id}}">
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $prioriteTache->id }}" data-id="{{ $prioriteTache->id }}">
+                    </td>
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
                     <x-field :entity="$prioriteTache" field="nom">
                         {{ $prioriteTache->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 42.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->formateur }}" >
+                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->formateur }}" >
                     <x-field :entity="$prioriteTache" field="formateur">
                        
                          {{  $prioriteTache->formateur }}
@@ -48,7 +54,7 @@
                             <form class="context-state" action="{{ route('prioriteTaches.destroy',['prioriteTache' => $prioriteTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$prioriteTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$prioriteTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

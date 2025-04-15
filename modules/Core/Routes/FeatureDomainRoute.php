@@ -11,6 +11,14 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
 
         Route::get('featureDomains/getData', [FeatureDomainController::class, 'getData'])->name('featureDomains.getData');
+        // bulk - edit and delete
+        Route::post('featureDomains/bulk-delete', [FeatureDomainController::class, 'bulkDelete'])
+        ->name('featureDomains.bulkDelete');
+        Route::get('featureDomains/bulk-edit', [FeatureDomainController::class, 'bulkEditForm'])
+        ->name('featureDomains.bulkEdit');
+        Route::post('featureDomains/bulk-update', [FeatureDomainController::class, 'bulkUpdate'])
+        ->name('featureDomains.bulkUpdate');
+
         Route::resource('featureDomains', FeatureDomainController::class)
             ->parameters(['featureDomains' => 'featureDomain']);
         // Routes supplémentaires avec préfixe

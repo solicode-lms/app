@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('sysController-form')
-<form class="crud-form custom-form context-state container" id="sysControllerForm" action="{{ $itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="sysControllerForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('sysControllers.bulkUpdate') : ($itemSysController->id ? route('sysControllers.update', $itemSysController->id) : route('sysControllers.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemSysController->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($sysController_ids))
+        @foreach ($sysController_ids as $id)
+            <input type="hidden" name="sysController_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_module_id" id="bulk_field_sys_module_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_module_id">
             {{ ucfirst(__('Core::sysModule.singular')) }}
             <span class="text-danger">*</span>
@@ -38,6 +54,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="name">
             {{ ucfirst(__('Core::sysController.name')) }}
             <span class="text-danger">*</span>
@@ -60,6 +81,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="slug" id="bulk_field_slug" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="slug">
             {{ ucfirst(__('Core::sysController.slug')) }}
             <span class="text-danger">*</span>
@@ -82,6 +108,11 @@
 
 
       <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="description">
             {{ ucfirst(__('Core::sysController.description')) }}
             
@@ -102,6 +133,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_active" id="bulk_field_is_active" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="is_active">
             {{ ucfirst(__('Core::sysController.is_active')) }}
             <span class="text-danger">*</span>
@@ -140,7 +176,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("Core::sysController.singular") }} : {{$itemSysController}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("Core::sysController.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("Core::sysController.singular") }} : {{$itemSysController}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

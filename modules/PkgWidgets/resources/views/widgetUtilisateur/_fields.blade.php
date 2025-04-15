@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('widgetUtilisateur-form')
-<form class="crud-form custom-form context-state container" id="widgetUtilisateurForm" action="{{ $itemWidgetUtilisateur->id ? route('widgetUtilisateurs.update', $itemWidgetUtilisateur->id) : route('widgetUtilisateurs.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="widgetUtilisateurForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('widgetUtilisateurs.bulkUpdate') : ($itemWidgetUtilisateur->id ? route('widgetUtilisateurs.update', $itemWidgetUtilisateur->id) : route('widgetUtilisateurs.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemWidgetUtilisateur->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($widgetUtilisateur_ids))
+        @foreach ($widgetUtilisateur_ids as $id)
+            <input type="hidden" name="widgetUtilisateur_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="ordre">
             {{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}
             
@@ -33,6 +49,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_module_id" id="bulk_field_sys_module_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="sys_module_id">
             {{ ucfirst(__('PkgWidgets::widgetUtilisateur.sys_module_id')) }}
             <span class="text-danger">*</span>
@@ -56,6 +77,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="user_id">
             {{ ucfirst(__('PkgAutorisation::user.singular')) }}
             <span class="text-danger">*</span>
@@ -83,6 +109,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="widget_id" id="bulk_field_widget_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="widget_id">
             {{ ucfirst(__('PkgWidgets::widget.singular')) }}
             <span class="text-danger">*</span>
@@ -110,6 +141,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="visible" id="bulk_field_visible" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="visible">
             {{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}
             
@@ -145,7 +181,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgWidgets::widgetUtilisateur.singular") }} : {{$itemWidgetUtilisateur}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgWidgets::widgetUtilisateur.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgWidgets::widgetUtilisateur.singular") }} : {{$itemWidgetUtilisateur}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

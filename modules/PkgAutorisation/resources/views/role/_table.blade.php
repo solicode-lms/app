@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="name" modelname="role" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="name" modelname="role" label="{{ ucfirst(__('PkgAutorisation::role.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('role-table-tbody')
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $role->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $role->id }}" data-id="{{ $role->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $role->name }}" >
                     <x-field :entity="$role" field="name">
                         {{ $role->name }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('roles.destroy',['role' => $role->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$role->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$role->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

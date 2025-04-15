@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
                 <x-sortable-column width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
                 <x-sortable-column width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
-                <x-sortable-column width="57"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
+                <x-sortable-column width="54"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
                 <x-sortable-column width="10" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,6 +19,9 @@
             @section('sectionWidget-table-tbody')
             @foreach ($sectionWidgets_data as $sectionWidget)
                 <tr id="sectionWidget-row-{{$sectionWidget->id}}">
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $sectionWidget->id }}" data-id="{{ $sectionWidget->id }}">
+                    </td>
                     <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
                     <x-field :entity="$sectionWidget" field="ordre">
                         {{ $sectionWidget->ordre }}
@@ -27,7 +33,7 @@
                     </x-field>
                     </td>
 
-                    <td style="max-width: 57%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
+                    <td style="max-width: 54%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
                     <x-field :entity="$sectionWidget" field="titre">
                         {{ $sectionWidget->titre }}
                     </x-field>
@@ -63,7 +69,7 @@
                             <form class="context-state" action="{{ route('sectionWidgets.destroy',['sectionWidget' => $sectionWidget->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sectionWidget->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$sectionWidget->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

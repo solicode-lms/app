@@ -5,9 +5,12 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
                 <x-sortable-column width="10"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
-                <x-sortable-column width="37.5"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
-                <x-sortable-column width="37.5"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
+                <x-sortable-column width="36"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
+                <x-sortable-column width="36"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -15,17 +18,20 @@
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $eDataField->id }}" data-id="{{ $eDataField->id }}">
+                    </td>
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">
                         {{ $eDataField->displayOrder }}
                     </x-field>
                     </td>
-                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
+                    <td style="max-width: 36%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
                     <x-field :entity="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
+                    <td style="max-width: 36%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
                     <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
                     </x-field>
@@ -53,7 +59,7 @@
                             <form class="context-state" action="{{ route('eDataFields.destroy',['eDataField' => $eDataField->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$eDataField->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$eDataField->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

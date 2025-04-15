@@ -53,32 +53,34 @@
         <div class="container-fluid">
             <div class="card card-outline card-info " id="card_crud">
                 @section('sysColor-crud-stats-bar')
-                <div class="card-header row">
-                    <!-- Statistiques et Actions -->
-                    <div class="col-sm-8">
-                        <x-crud-stats-summary
-                            icon="fas fa-chart-bar text-info"
-                            :stats="$sysColors_stats"
-                        />
-                    </div>
-                    <div class="col-sm-4">
-                      
-                        <x-crud-actions
-                            :instanceItem="$sysColor_instance"
-                            :createPermission="'create-sysColor'"
-                            :createRoute="route('sysColors.create')"
-                            :createText="__('Ajouter')"
-                            :importPermission="'import-sysColor'"
-                            :importRoute="route('sysColors.import')"
-                            :importText="__('Importer')"
-                            :exportPermission="'export-sysColor'"
-                            :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
-                            :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
-                            :exportText="__('Exporter')"
-                            :viewTypes="$sysColor_viewTypes"
-                            :viewType="$sysColor_viewType"
-                        />
-                    
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$sysColors_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                        
+                            <x-crud-actions
+                                :instanceItem="$sysColor_instance"
+                                :createPermission="'create-sysColor'"
+                                :createRoute="route('sysColors.create')"
+                                :createText="__('Ajouter')"
+                                :importPermission="'import-sysColor'"
+                                :importRoute="route('sysColors.import')"
+                                :importText="__('Importer')"
+                                :exportPermission="'export-sysColor'"
+                                :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
+                                :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
+                                :exportText="__('Exporter')"
+                                :viewTypes="$sysColor_viewTypes"
+                                :viewType="$sysColor_viewType"
+                            />
+                        
+                        </div>
                     </div>
                 </div>
                 @show
@@ -118,6 +120,30 @@
                     @include("Core::sysColor._$sysColor_viewType")
                     @endif
                 </div>
+                @section('realisationTache-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('sysColors.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('sysColors.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    </span>
+                </div>
+                @show
             </div>
         </div>
     </section>

@@ -1,16 +1,32 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('dependanceTache-form')
-<form class="crud-form custom-form context-state container" id="dependanceTacheForm" action="{{ $itemDependanceTache->id ? route('dependanceTaches.update', $itemDependanceTache->id) : route('dependanceTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="dependanceTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('dependanceTaches.bulkUpdate') : ($itemDependanceTache->id ? route('dependanceTaches.update', $itemDependanceTache->id) : route('dependanceTaches.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemDependanceTache->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($dependanceTache_ids))
+        @foreach ($dependanceTache_ids as $id)
+            <input type="hidden" name="dependanceTache_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="tache_id">
             {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
             <span class="text-danger">*</span>
@@ -38,6 +54,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type_dependance_tache_id" id="bulk_field_type_dependance_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="type_dependance_tache_id">
             {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
             
@@ -65,6 +86,11 @@
 
 
       <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_cible_id" id="bulk_field_tache_cible_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
           <label for="tache_cible_id">
             {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
             <span class="text-danger">*</span>
@@ -104,7 +130,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{$itemDependanceTache}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{$itemDependanceTache}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);

@@ -5,10 +5,13 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="21.25"  field="name" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
-                <x-sortable-column width="21.25" field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column width="21.25" field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column width="21.25"  field="icone" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.icone')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="20.5"  field="name" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
+                <x-sortable-column width="20.5" field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column width="20.5" field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column width="20.5"  field="icone" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.icone')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -16,18 +19,21 @@
             @section('sysModel-table-tbody')
             @foreach ($sysModels_data as $sysModel)
                 <tr id="sysModel-row-{{$sysModel->id}}">
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $sysModel->id }}" data-id="{{ $sysModel->id }}">
+                    </td>
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->name }}" >
                     <x-field :entity="$sysModel" field="name">
                         {{ $sysModel->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
                     <x-field :entity="$sysModel" field="sysModule">
                        
                          {{  $sysModel->sysModule }}
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
                     <x-field :entity="$sysModel" field="sysColor">
                         <x-badge 
                         :text="$sysModel->sysColor->name ?? ''" 
@@ -35,7 +41,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 21.25%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->icone }}" >
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->icone }}" >
                     <x-field :entity="$sysModel" field="icone">
                         <i class="{{ $sysModel->icone }}" ></i>
                     </x-field>
@@ -64,7 +70,7 @@
                             <form class="context-state" action="{{ route('sysModels.destroy',['sysModel' => $sysModel->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$sysModel->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$sysModel->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

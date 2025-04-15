@@ -27,6 +27,8 @@ class BaseAnneeFormationController extends AdminController
         $this->anneeFormationService = $anneeFormationService;
     }
 
+    /**
+     */
     public function index(Request $request) {
         
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
@@ -59,6 +61,8 @@ class BaseAnneeFormationController extends AdminController
 
         return view('PkgFormation::anneeFormation.index', $anneeFormation_compact_value);
     }
+    /**
+     */
     public function create() {
 
 
@@ -71,6 +75,37 @@ class BaseAnneeFormationController extends AdminController
         }
         return view('PkgFormation::anneeFormation.create', compact('itemAnneeFormation'));
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $anneeFormation_ids = $request->input('ids', []);
+
+        if (!is_array($anneeFormation_ids) || count($anneeFormation_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemAnneeFormation = $this->anneeFormationService->find($anneeFormation_ids[0]);
+         
+ 
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemAnneeFormation = $this->anneeFormationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgFormation::anneeFormation._fields', compact('bulkEdit', 'anneeFormation_ids', 'itemAnneeFormation'));
+        }
+        return view('PkgFormation::anneeFormation.bulk-edit', compact('bulkEdit', 'anneeFormation_ids', 'itemAnneeFormation'));
+    }
+    /**
+     */
     public function store(AnneeFormationRequest $request) {
         $validatedData = $request->validated();
         $anneeFormation = $this->anneeFormationService->create($validatedData);
@@ -94,6 +129,8 @@ class BaseAnneeFormationController extends AdminController
             ])
         );
     }
+    /**
+     */
     public function show(string $id) {
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
@@ -125,6 +162,8 @@ class BaseAnneeFormationController extends AdminController
         return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
 
     }
+    /**
+     */
     public function edit(string $id) {
 
         $this->viewState->setContextKey('anneeFormation.edit_' . $id);
@@ -157,6 +196,8 @@ class BaseAnneeFormationController extends AdminController
 
 
     }
+    /**
+     */
     public function update(AnneeFormationRequest $request, string $id) {
 
         $validatedData = $request->validated();
@@ -182,6 +223,42 @@ class BaseAnneeFormationController extends AdminController
         );
 
     }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $anneeFormation_ids = $request->input('anneeFormation_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($anneeFormation_ids) || count($anneeFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($anneeFormation_ids as $id) {
+            $entity = $this->anneeFormationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->anneeFormationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->anneeFormationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
     public function destroy(Request $request, string $id) {
 
         $anneeFormation = $this->anneeFormationService->destroy($id);
@@ -205,6 +282,24 @@ class BaseAnneeFormationController extends AdminController
                 ])
         );
 
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $anneeFormation_ids = $request->input('ids', []);
+        if (!is_array($anneeFormation_ids) || count($anneeFormation_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($anneeFormation_ids as $id) {
+            $entity = $this->anneeFormationService->find($id);
+            $this->anneeFormationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($anneeFormation_ids) . ' éléments',
+            'modelName' => __('PkgFormation::anneeFormation.plural')
+        ]));
     }
 
     public function export($format)

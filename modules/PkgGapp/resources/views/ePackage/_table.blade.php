@@ -5,7 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <x-sortable-column width="85"  field="name" modelname="ePackage" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
+                <x-sortable-column width="82"  field="name" modelname="ePackage" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -13,7 +16,10 @@
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
-                    <td style="max-width: 85%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $ePackage->id }}" data-id="{{ $ePackage->id }}">
+                    </td>
+                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
                     <x-field :entity="$ePackage" field="name">
                         {{ $ePackage->name }}
                     </x-field>
@@ -41,7 +47,7 @@
                             <form class="context-state" action="{{ route('ePackages.destroy',['ePackage' => $ePackage->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger deleteEntity" data-id="{{$ePackage->id}}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$ePackage->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
