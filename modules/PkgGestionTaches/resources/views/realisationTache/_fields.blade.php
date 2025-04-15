@@ -7,13 +7,12 @@
     action="{{ isset($bulkEdit) && $bulkEdit ? route('realisationTaches.bulkUpdate') : ($itemRealisationTache->id ? route('realisationTaches.update', $itemRealisationTache->id) : route('realisationTaches.store')) }}"
     method="POST"
     novalidate > 
-
+    
     @csrf
 
     @if ($itemRealisationTache->id)
         @method('PUT')
     @endif
-
     @if (!empty($bulkEdit) && !empty($realisationTache_ids))
         @foreach ($realisationTache_ids as $id)
             <input type="hidden" name="realisationTache_ids[]" value="{{ $id }}">
@@ -28,6 +27,14 @@
             {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id">
+              <label class="small text-muted" for="bulk_field_tache_id">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <select 
             id="tache_id" 
             {{ $canEdittache_id ? '' : 'disabled' }}
@@ -47,7 +54,6 @@
           @error('tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
-         
       </div>
   
 
@@ -58,6 +64,14 @@
             {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
             <span class="text-danger">*</span>
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" checked>
+              <label class="small text-muted" for="bulk_field_realisation_projet_id">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <select 
             id="realisation_projet_id" 
             {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
@@ -86,6 +100,14 @@
             {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
             <span class="text-danger">*</span>
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" checked>
+              <label class="small text-muted" for="bulk_field_dateDebut">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <input
                 name="dateDebut"
                 type="date"
@@ -109,6 +131,14 @@
             {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
             
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" checked>
+              <label class="small text-muted" for="bulk_field_dateFin">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <input
                 name="dateFin"
                 type="date"
@@ -158,7 +188,6 @@
           @error('etat_realisation_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
-         
       </div>
   
 
@@ -169,6 +198,14 @@
             {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
             
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur" checked>
+              <label class="small text-muted" for="bulk_field_remarques_formateur">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <textarea rows="" cols=""
                 name="remarques_formateur"
                 class="form-control richText"
@@ -190,6 +227,14 @@
             {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
             
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant" checked>
+              <label class="small text-muted" for="bulk_field_remarques_apprenant">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <textarea rows="" cols=""
                 name="remarques_apprenant"
                 class="form-control richText"

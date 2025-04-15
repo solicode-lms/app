@@ -8,7 +8,7 @@
                 <th style="width: 10px;">
                     <input type="checkbox" class="check-all-rows" />
                 </th>
-                <x-sortable-column width="25" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column width="15" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column width="18"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
                 <x-sortable-column width="12"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
                 <x-sortable-column width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
@@ -54,7 +54,7 @@
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>
                     </td>
-                    <td class="text-right text-truncate" style="max-width: 15%;">
+                    <td class="text-right text-truncate" style="max-width: 8%;">
                         @can('index-livrablesRealisation')
                             <a
                                 data-toggle="tooltip"
