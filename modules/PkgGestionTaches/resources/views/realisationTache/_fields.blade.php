@@ -66,7 +66,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id">
               <label class="small text-muted" for="bulk_field_realisation_projet_id">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
@@ -102,7 +102,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut">
               <label class="small text-muted" for="bulk_field_dateDebut">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
@@ -133,7 +133,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin">
               <label class="small text-muted" for="bulk_field_dateFin">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
@@ -164,7 +164,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id">
               <label class="small text-muted" for="bulk_field_etat_realisation_tache_id">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
@@ -200,7 +200,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur">
               <label class="small text-muted" for="bulk_field_remarques_formateur">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
@@ -229,7 +229,7 @@
           </label>
           @if (!empty($bulkEdit))
           <div class="form-check mt-1">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant" checked>
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant">
               <label class="small text-muted" for="bulk_field_remarques_apprenant">
                   Appliquer ce champ à tous les éléments sélectionnés
               </label>
