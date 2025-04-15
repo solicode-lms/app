@@ -63,7 +63,7 @@ class RealisationTacheController extends BaseRealisationTacheController
          }
  
  
-         $itemRealisationTache = $this->realisationTacheService->createInstance();
+         $itemRealisationTache = $this->realisationTacheService->find($realisationTache_ids[0]);
          
          // scopeDataInEditContext
          $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
@@ -74,6 +74,10 @@ class RealisationTacheController extends BaseRealisationTacheController
          $realisationProjets = $this->realisationProjetService->all();
          $etatRealisationTaches = $this->etatRealisationTacheService->all();
          $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemRealisationTache = $this->realisationTacheService->createInstance();
+        
          if (request()->ajax()) {
              return view('PkgGestionTaches::realisationTache._fields', compact('bulkEdit','realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
          }

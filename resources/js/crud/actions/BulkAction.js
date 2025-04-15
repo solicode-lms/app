@@ -48,10 +48,9 @@ export class BulkAction extends BaseAction {
                         .done((html) => {
                             this.tableUI.indexUI.modalUI.showContent(html);
 
-                            this.tableUI.indexUI.formUI.init(() => this.submitEntity(),false);
-                            
+                            this.tableUI.indexUI.formUI.init(() => this.submitEntity(), false);
+
                             this.executeScripts(html);
-                            // Désactiver les required en mode bulk
                             if (this.tableUI.indexUI.formUI?.disableRequiredAttributes) {
                                 this.tableUI.indexUI.formUI.disableRequiredAttributes();
                             }
@@ -88,6 +87,48 @@ export class BulkAction extends BaseAction {
                 doAction();
             }
         });
+    }
+
+    /**
+     * Envoie le formulaire en AJAX depuis le formulaire en masse.
+     */
+    submitEntity(onSuccess) {
+        const form = $(this.config.formSelector);
+        const actionUrl = form.attr('action');
+        const method = form.find('input[name="_method"]').val() || 'POST';
+        const formData = form.serialize();
+
+        this.tableUI.indexUI.formUI.loader.show();
+
+        if (!this.tableUI.indexUI.formUI.validateForm()) {
+            NotificationHandler.showError('Validation échouée. Veuillez corriger les erreurs.');
+            this.tableUI.indexUI.formUI.loader.hide();
+            return;
+        }
+
+        $.ajax({
+            url: actionUrl,
+            method: method,
+            data: formData
+        })
+            .done((data) => {
+                this.tableUI.indexUI.formUI.loader.hide();
+                NotificationHandler.show(data.type, data.title, data.message);
+                this.tableUI.indexUI.modalUI.close();
+                if (typeof onSuccess === 'function') {
+                    onSuccess();
+                }
+                this.tableUI.entityLoader.loadEntities();
+            })
+            .fail((xhr) => {
+                this.tableUI.indexUI.formUI.loader.hide();
+
+                if (xhr.responseJSON?.errors) {
+                    this.tableUI.indexUI.formUI.showFieldErrors(xhr.responseJSON.errors);
+                }
+
+                AjaxErrorHandler.handleError(xhr, "Erreur lors du traitement du formulaire.");
+            });
     }
 
     /**
