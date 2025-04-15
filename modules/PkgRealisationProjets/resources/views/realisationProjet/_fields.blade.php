@@ -1,27 +1,42 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationProjet-form')
-<form class="crud-form custom-form context-state container" id="realisationProjetForm" action="{{ $itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="realisationProjetForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('realisationProjets.bulkUpdate') : ($itemRealisationProjet->id ? route('realisationProjets.update', $itemRealisationProjet->id) : route('realisationProjets.store')) }}"
+    method="POST"
+    novalidate > 
+    
     @csrf
 
     @if ($itemRealisationProjet->id)
         @method('PUT')
     @endif
+    @if (!empty($bulkEdit) && !empty($realisationProjet_ids))
+        @foreach ($realisationProjet_ids as $id)
+            <input type="hidden" name="realisationProjet_ids[]" value="{{ $id }}">
+        @endforeach
+    @endif
 
     <div class="card-body row">
-        
-        @php $canEditaffectation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
-<div class="form-group col-12 col-md-6">
-            <label for="affectation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      @php $canEditaffectation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="affectation_projet_id" id="bulk_field_affectation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="affectation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="affectation_projet_id" 
             {{ $canEditaffectation_projet_id ? '' : 'disabled' }}
             required
+            
             
             name="affectation_projet_id" 
             class="form-control select2">
@@ -33,25 +48,29 @@
                     </option>
                 @endforeach
             </select>
-            @error('affectation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('affectation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
+      @php $canEditapprenant_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
-        
-        @php $canEditapprenant_id = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
-<div class="form-group col-12 col-md-6">
-            <label for="apprenant_id">
-                {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_id" id="bulk_field_apprenant_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="apprenant_id">
+            {{ ucfirst(__('PkgApprenants::apprenant.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="apprenant_id" 
             {{ $canEditapprenant_id ? '' : 'disabled' }}
             required
+            
             
             name="apprenant_id" 
             class="form-control select2">
@@ -63,23 +82,28 @@
                     </option>
                 @endforeach
             </select>
-            @error('apprenant_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('apprenant_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="etats_realisation_projet_id">
-                {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <select 
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etats_realisation_projet_id" id="bulk_field_etats_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etats_realisation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
             id="etats_realisation_projet_id" 
             required
+            
+            
             name="etats_realisation_projet_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
@@ -90,89 +114,101 @@
                     </option>
                 @endforeach
             </select>
-            @error('etats_realisation_projet_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-    </div>
+          @error('etats_realisation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_debut">
-                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
-                
-                    <span class="text-danger">*</span>
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_debut">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
                 name="date_debut"
                 type="date"
                 class="form-control datetimepicker"
                 required
                 
+                
                 id="date_debut"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_debut') }}"
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_debut : old('date_debut') }}">
-            @error('date_debut')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-
-
-
-        
-        <div class="form-group col-12 col-md-6">
-            <label for="date_fin">
-                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}
-                
-            </label>
-            <input
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_fin">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}
+            
+          </label>
+                      <input
                 name="date_fin"
                 type="date"
                 class="form-control datetimepicker"
                 
                 
+                
                 id="date_fin"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_fin') }}"
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
-            @error('date_fin')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+
+          @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
+<!--   LivrablesRealisation HasMany --> 
 
 
+<!--   Validation HasMany --> 
 
-        
 
-        <!--   LivrablesRealisation HasMany --> 
+<!--   RealisationTache HasMany --> 
 
-        
 
-        <!--   Validation HasMany --> 
-
-        
-        <div class="form-group col-12 col-md-12">
-            <label for="rapport">
-                {{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}
-                
-            </label>
-            <textarea rows="" cols=""
+      <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="rapport" id="bulk_field_rapport" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="rapport">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
                 name="rapport"
                 class="form-control richText"
                 
                 
+                
                 id="rapport"
-                placeholder="{{ __('PkgRealisationProjets::realisationProjet.rapport') }}">
-                {{ $itemRealisationProjet ? $itemRealisationProjet->rapport : old('rapport') }}
-            </textarea>
-            @error('rapport')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-</div>
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.rapport') }}">{{ $itemRealisationProjet ? $itemRealisationProjet->rapport : old('rapport') }}</textarea>
+          @error('rapport')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
     </div>
 
@@ -188,7 +224,12 @@
 
 </script>
 <script>
-     window.modalTitle = '{{__("PkgRealisationProjets::realisationProjet.singular") }} : {{$itemRealisationProjet}}'
+    
+    @if (!empty($bulkEdit))
+        window.modalTitle = '{{__("PkgRealisationProjets::realisationProjet.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+    @else
+        window.modalTitle = '{{__("PkgRealisationProjets::realisationProjet.singular") }} : {{$itemRealisationProjet}}'
+    @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);
      window.viewState = @json($viewState);
