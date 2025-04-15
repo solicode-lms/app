@@ -47,14 +47,12 @@ export class BulkAction extends BaseAction {
                     $.get(finalUrl, { ids: selectedIds })
                         .done((html) => {
                             this.tableUI.indexUI.modalUI.showContent(html);
-                            this.tableUI.indexUI.formUI.init(() => this.submitEntity(), false);
                             this.executeScripts(html);
+                         
                             this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
-                            if (this.tableUI.indexUI.formUI?.disableRequiredAttributes) {
-                                this.tableUI.indexUI.formUI.disableRequiredAttributes();
-                            }
+                            this.tableUI.indexUI.formUI.init(() => this.submitEntity(), false);
+                            this.tableUI.indexUI.formUI.disableRequiredAttributes();
 
-                           
                             // Active la checkbox correspondante à tout champ modifié
                             EventUtil.bindEvent('change', `${this.config.formSelector} input, ${this.config.formSelector} select, ${this.config.formSelector} textarea`, (event) => {
                                 const input = event.currentTarget;
