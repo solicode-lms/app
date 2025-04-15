@@ -122,12 +122,14 @@
                         class="btn btn-sm btn-danger bulkActionButton" 
                         data-url="{{ route('realisationTaches.bulkDelete') }}" 
                         data-method="POST" 
+                        data-action-type="ajax"
                         data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
                         <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
                     </button>
                     
                     <button 
                         class="btn btn-sm btn-primary bulkActionButton" 
+                        data-action-type="modal"
                         data-url="{{ route('realisationTaches.bulkEdit') }}" 
                         data-method="GET">
                         <i class="fas fa-edit"></i> {{ __('Modifier') }}

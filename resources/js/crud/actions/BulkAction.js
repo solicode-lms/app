@@ -27,6 +27,7 @@ export class BulkAction extends BaseAction {
             const url = button.dataset.url;
             const method = button.dataset.method || 'POST';
             const confirmText = button.dataset.confirm || null;
+            const actionType = button.dataset.actionType || 'ajax';
 
             const selectedIds = this.getSelectedIds();
             const selectedCount = selectedIds.length;
@@ -37,23 +38,41 @@ export class BulkAction extends BaseAction {
             }
 
             const doAction = () => {
-                NotificationHandler.showToast('info', `Traitement de ${selectedCount} élément(s) en cours...`);
+                if (actionType === 'modal') {
+                    // Affichage d'un formulaire d'édition en masse dans une modale
+                    const finalUrl = this.appendParamsToUrl(url, this.viewStateService.getContextParams());
 
-                $.ajax({
-                    url: this.appendParamsToUrl(url, this.viewStateService.getContextParams()),
-                    method: method,
-                    data: {
-                        ids: selectedIds,
-                        _token: this.config.csrfToken
-                    }
-                })
-                .done((data) => {
-                    NotificationHandler.show(data.type, data.title, data.message || `${selectedCount} élément(s) traité(s).`);
-                    this.tableUI.entityLoader.loadEntities();
-                })
-                .fail((xhr) => {
-                    AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'action en masse.');
-                });
+                    this.tableUI.indexUI.modalUI.showLoading('Modification en masse...');
+
+                    $.get(finalUrl, { ids: selectedIds })
+                        .done((html) => {
+                            this.tableUI.indexUI.modalUI.showContent(html);
+                            this.executeScripts(html);
+                        })
+                        .fail((xhr) => {
+                            this.tableUI.indexUI.modalUI.close();
+                            AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement du formulaire.');
+                        });
+                } else {
+                    // Traitement AJAX classique
+                    NotificationHandler.showToast('info', `Traitement de ${selectedCount} élément(s) en cours...`);
+
+                    $.ajax({
+                        url: this.appendParamsToUrl(url, this.viewStateService.getContextParams()),
+                        method: method,
+                        data: {
+                            ids: selectedIds,
+                            _token: this.config.csrfToken
+                        }
+                    })
+                        .done((data) => {
+                            NotificationHandler.show(data.type, data.title, data.message || `${selectedCount} élément(s) traité(s).`);
+                            this.tableUI.entityLoader.loadEntities();
+                        })
+                        .fail((xhr) => {
+                            AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'action en masse.');
+                        });
+                }
             };
 
             if (confirmText) {
@@ -72,4 +91,4 @@ export class BulkAction extends BaseAction {
         const checkboxes = document.querySelectorAll(`${this.config.crudSelector} .check-row:checked`);
         return Array.from(checkboxes).map(cb => cb.dataset.id);
     }
-} 
+}
