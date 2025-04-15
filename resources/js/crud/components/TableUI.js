@@ -8,6 +8,7 @@ import EventUtil from './../utils/EventUtil';
 import { EntityAction } from './../actions/EntityAction';
 import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
 import { ShowIndexAction } from "../actions/ShowIndexAction";
+import { BulkAction } from "../actions/BulkAction";
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -23,6 +24,7 @@ export class TableUI {
         this.entityDeleter = new DeleteAction(config,this);
         this.entityLoader = new LoadListAction(config,this);
         this.entityAction = new EntityAction(config,this);
+        this.bulkAction = new BulkAction(config,this);
         this.viewSwitcherAction = new IndexViewSwitcherAction(config, this);
     }
 
@@ -34,11 +36,11 @@ export class TableUI {
         this.entityViewer.init();
         this.showIndex.init();
         this.entityAction.init();
+        this.bulkAction.init();
         this.handleSorting();
         TableUI.initTooltip();
         this.initTruncatText();
         this.initWidgets();
-
     }
 
     
@@ -215,6 +217,6 @@ export class TableUI {
             observer.observe(card, { attributes: true });
         });
     }
-    
-
 }
+
+

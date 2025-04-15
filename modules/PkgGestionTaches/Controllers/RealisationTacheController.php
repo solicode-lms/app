@@ -5,40 +5,81 @@ namespace Modules\PkgGestionTaches\Controllers;
 
 
 use Modules\PkgGestionTaches\Controllers\Base\BaseRealisationTacheController;
+use Illuminate\Http\Request;
+use Modules\Core\App\Helpers\JsonResponseHelper;
+use Modules\PkgGestionTaches\Models\RealisationTache;
 
 class RealisationTacheController extends BaseRealisationTacheController
 {
-    // public function edit(string $id) {
+    /**
+     *  @DynamicPermissionIgnore
+     * Supprimer plusieurs tâches sélectionnées.
+     */
+    public function bulkDelete(Request $request)
+    {
+        $this->authorizeAction('destroy');
 
-    //     $this->viewState->setContextKey('realisationTache.edit_' . $id);
+        $ids = $request->input('ids', []);
 
+        if (!is_array($ids) || count($ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
 
-    //     $itemRealisationTache = $this->realisationTacheService->find($id);
-    //     $this->authorize('edit', $itemRealisationTache);
+        foreach ($ids as $id) {
+            $entity = $this->realisationTacheService->find($id);
+            $this->authorize('delete', $entity);
+            $this->realisationTacheService->destroy($id);
+        }
 
-    //     // scopeDataInEditContext
-    //     $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
-    //     $key = 'scope.etatRealisationTache.formateur_id';
-    //     $this->viewState->set($key, $value);
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($ids) . ' éléments',
+            'modelName' => __('PkgGestionTaches::realisationTache.plural')
+        ]));
+    }
 
-    //     $taches = $this->tacheService->all();
-    //     $realisationProjets = $this->realisationProjetService->all();
-    //     $etatRealisationTaches = $this->etatRealisationTacheService->all();
+    /**
+     * @DynamicPermissionIgnore
+     * Affiche le formulaire d'édition en masse.
+     */
+    public function bulkEditForm(Request $request)
+    {
+        $this->authorizeAction('update');
 
+        $ids = $request->input('ids', []);
 
-    //     $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
+        if (!is_array($ids) || count($ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        $etatRealisationTaches = $this->etatRealisationTacheService->all();
+
+        return view('PkgGestionTaches::realisationTache._bulk-edit', compact('ids', 'etatRealisationTaches'))->render();
+    }
+
+    /**
+     * @DynamicPermissionIgnore
+     * Enregistre les modifications pour plusieurs tâches.
+     */
+    public function bulkUpdate(Request $request)
+    {
+        $this->authorizeAction('update');
         
+        $ids = $request->input('ids', []);
+        $etat_id = $request->input('etat_realisation_tache_id');
 
-    //     $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
-    //     $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
-    //     extract($historiqueRealisationTaches_view_data);
+        if (!is_array($ids) || count($ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
 
-    //     if (request()->ajax()) {
-    //         return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
-    //     }
+        foreach ($ids as $id) {
+            $entity = $this->realisationTacheService->find($id);
+            $this->authorize('update', $entity);
 
-    //     return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+            $this->realisationTacheService->update($id, [
+                'etat_realisation_tache_id' => $etat_id
+            ]);
+        }
 
-    // }
-
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+    }
 }

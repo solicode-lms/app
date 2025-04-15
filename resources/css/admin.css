@@ -22,6 +22,8 @@
 :root {
     --gapp-info: #17a2b8;
 }
+
+/* Texte */
 .text-info {
     color: var(--gapp-info) !important;
 }
@@ -113,6 +115,16 @@
 
 
 /* Formulaire */
+
+
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    cursor: pointer;
+    vertical-align: middle;
+    display: inline-block;
+}
 
 .custom-form .form-group {
     margin-bottom: 0.5rem !important; 

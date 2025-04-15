@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ bulk-edit
 
 
 
@@ -25,7 +25,14 @@ Route::middleware('auth')->group(function () {
         Route::post('realisationTaches/data-calcul', [RealisationTacheController::class, 'dataCalcul'])->name('realisationTaches.dataCalcul');
         Route::post('realisationTaches/update-attributes', [RealisationTacheController::class, 'updateAttributes'])->name('realisationTaches.updateAttributes');
 
-    
+        // bulk - edit and delete
+        Route::post('realisationTaches/bulk-delete', [RealisationTacheController::class, 'bulkDelete'])
+        ->name('realisationTaches.bulkDelete');
+        Route::get('realisationTaches/bulk-edit', [RealisationTacheController::class, 'bulkEditForm'])
+        ->name('realisationTaches.bulkEdit');
+        // ✅ Route pour soumission des modifications en masse
+        Route::post('realisationTaches/bulk-update', [RealisationTacheController::class, 'bulkUpdate'])
+        ->name('realisationTaches.bulkUpdate');
 
     });
 });

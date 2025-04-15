@@ -62,7 +62,6 @@
                         />
                     </div>
                     <div class="col-sm-4">
-                      
                         <x-crud-actions
                             :instanceItem="$realisationTache_instance"
                             :createPermission="'create-realisationTache'"
@@ -111,6 +110,30 @@
                         </div>
                         @show
                     </form>
+                </div>
+                @show
+                @section('realisationTache-crud-bulk-actions')
+                <div class="card-header crud-bulk-action d-none align-items-center justify-content-between">
+                    <div>
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </div>
+                    <div>
+                        <button 
+                        class="btn btn-sm btn-danger bulkActionButton" 
+                        data-url="{{ route('realisationTaches.bulkDelete') }}" 
+                        data-method="POST" 
+                        data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                        <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    
+                    <button 
+                        class="btn btn-sm btn-primary bulkActionButton" 
+                        data-url="{{ route('realisationTaches.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    
+                    </div>
                 </div>
                 @show
                 <div id="realisationTache-data-container" class="data-container">

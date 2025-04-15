@@ -1,10 +1,13 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ : bulk actions --}}
 
 @section('realisationTache-table')
 <div class="card-body table-responsive p-0 crud-card-body" id="realisationTaches-crud-card-body">
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
+                <th style="width: 10px;">
+                    <input type="checkbox" class="check-all-rows" />
+                </th>
                 <x-sortable-column width="25" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column width="18"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
                 <x-sortable-column width="12"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
@@ -17,6 +20,9 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
+                    <td>
+                        <input type="checkbox" class="check-row" value="{{ $realisationTache->id }}" data-id="{{ $realisationTache->id }}">
+                    </td>
                     <td style="max-width: 25%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                     <x-field :entity="$realisationTache" field="tache">
                        
@@ -124,4 +130,7 @@
 </div>
 <script>
     window.viewState = @json($viewState);
+</script>
+<script>
+    
 </script>

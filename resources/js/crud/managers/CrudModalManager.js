@@ -7,6 +7,7 @@ import { PaginationUI } from '../components/PaginationUI';
 import { FormUI } from '../components/FormUI';
 import { ModalUI } from '../components/ModalUI';
 import { ShowAction } from './../actions/ShowAction';
+import { BulkActionsUI } from '../components/BulkActionsUI';
 
 
 export class CrudModalManager {
@@ -20,6 +21,7 @@ export class CrudModalManager {
         // Initialisation des composants UI
         this.filterUI = new FilterUI(config, this);
         this.tableUI = new TableUI(config, this);
+        this.bulkActionsUI = new BulkActionsUI(config, this);
         this.paginationUI = new PaginationUI(config, this);
         this.formUI = new FormUI(config,this);
         this.modalUI = new ModalUI(config,this);
@@ -33,6 +35,7 @@ export class CrudModalManager {
         // Init Components 
         this.filterUI.init();
         this.tableUI.init();
+        this.bulkActionsUI.init();
         this.paginationUI.init();
 
         if(this.config.isMany){
