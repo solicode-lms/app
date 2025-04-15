@@ -76,6 +76,15 @@ export class FormUI  {
 
     }
 
+    disableRequiredAttributes() {
+        const form = document.querySelector(this.formSelector);
+        if (!form) return;
+    
+        form.querySelectorAll('[required]').forEach((el) => {
+            el.removeAttribute('required');
+        });
+    }
+    
     /**
          * Masque les éléments <select> dont l'id correspond à une clé dans le contextState.
          */

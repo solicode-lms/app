@@ -1,11 +1,23 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ : bulk-edit --}}
 
 @section('realisationTache-form')
-<form class="crud-form custom-form context-state container" id="realisationTacheForm" action="{{ $itemRealisationTache->id ? route('realisationTaches.update', $itemRealisationTache->id) : route('realisationTaches.store') }}" method="POST" novalidate>
+<form 
+    class="crud-form custom-form context-state container" 
+    id="realisationTacheForm"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('realisationTaches.bulkUpdate') : ($itemRealisationTache->id ? route('realisationTaches.update', $itemRealisationTache->id) : route('realisationTaches.store')) }}"
+    method="POST"
+    novalidate > 
+
     @csrf
 
     @if ($itemRealisationTache->id)
         @method('PUT')
+    @endif
+
+    @if (!empty($bulkEdit) && !empty($realisationTache_ids))
+        @foreach ($realisationTache_ids as $id)
+            <input type="hidden" name="realisationTache_ids[]" value="{{ $id }}">
+        @endforeach
     @endif
 
     <div class="card-body row">
@@ -35,6 +47,7 @@
           @error('tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
+         
       </div>
   
 
@@ -119,6 +132,14 @@
             {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}
             
           </label>
+          @if (!empty($bulkEdit))
+          <div class="form-check mt-1">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id" checked>
+              <label class="small text-muted" for="bulk_field_etat_realisation_tache_id">
+                  Appliquer ce champ à tous les éléments sélectionnés
+              </label>
+          </div>
+          @endif
                       <select 
             id="etat_realisation_tache_id" 
             
@@ -137,6 +158,7 @@
           @error('etat_realisation_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
+         
       </div>
   
 

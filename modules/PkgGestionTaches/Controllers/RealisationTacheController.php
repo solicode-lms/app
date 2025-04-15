@@ -20,20 +20,20 @@ class RealisationTacheController extends BaseRealisationTacheController
     {
         $this->authorizeAction('destroy');
 
-        $ids = $request->input('ids', []);
+        $realisationTache_ids = $request->input('ids', []);
 
-        if (!is_array($ids) || count($ids) === 0) {
+        if (!is_array($realisationTache_ids) || count($realisationTache_ids) === 0) {
             return JsonResponseHelper::error("Aucun élément sélectionné.");
         }
 
-        foreach ($ids as $id) {
+        foreach ($realisationTache_ids as $id) {
             $entity = $this->realisationTacheService->find($id);
             $this->authorize('delete', $entity);
             $this->realisationTacheService->destroy($id);
         }
 
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
-            'entityToString' => count($ids) . ' éléments',
+            'entityToString' => count($realisationTache_ids) . ' éléments',
             'modelName' => __('PkgGestionTaches::realisationTache.plural')
         ]));
     }
@@ -46,9 +46,9 @@ class RealisationTacheController extends BaseRealisationTacheController
     {
         $this->authorizeAction('update');
 
-        $ids = $request->input('ids', []);
+        $realisationTache_ids = $request->input('ids', []);
 
-        if (!is_array($ids) || count($ids) === 0) {
+        if (!is_array($realisationTache_ids) || count($realisationTache_ids) === 0) {
             return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
         }
 
@@ -73,14 +73,14 @@ class RealisationTacheController extends BaseRealisationTacheController
          $taches = $this->tacheService->all();
          $realisationProjets = $this->realisationProjetService->all();
          $etatRealisationTaches = $this->etatRealisationTacheService->all();
- 
+         $bulkEdit = true;
          if (request()->ajax()) {
-             return view('PkgGestionTaches::realisationTache._fields', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+             return view('PkgGestionTaches::realisationTache._fields', compact('bulkEdit','realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
          }
         
         // return view('PkgGestionTaches::realisationTache.create', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
  
-        return view('PkgGestionTaches::realisationTache._edit', compact('ids', 'etatRealisationTaches'))->render();
+        return view('PkgGestionTaches::realisationTache._edit', compact('realisationTache_ids', 'etatRealisationTaches'))->render();
     }
 
     /**
@@ -90,23 +90,36 @@ class RealisationTacheController extends BaseRealisationTacheController
     public function bulkUpdate(Request $request)
     {
         $this->authorizeAction('update');
-        
-        $ids = $request->input('ids', []);
-        $etat_id = $request->input('etat_realisation_tache_id');
-
-        if (!is_array($ids) || count($ids) === 0) {
+    
+        $realisationTache_ids = $request->input('realisationTache_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($realisationTache_ids) || count($realisationTache_ids) === 0) {
             return JsonResponseHelper::error("Aucun élément sélectionné.");
         }
-
-        foreach ($ids as $id) {
+    
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($realisationTache_ids as $id) {
             $entity = $this->realisationTacheService->find($id);
             $this->authorize('update', $entity);
-
-            $this->realisationTacheService->update($id, [
-                'etat_realisation_tache_id' => $etat_id
-            ]);
+    
+           
+    
+            $allFields = ['etat_realisation_tache_id', 'dateDebut', 'dateFin', 'remarques_formateur', 'remarques_apprenant'];
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->realisationTacheService->update($id, $data);
+            }
         }
-
+    
         return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
     }
+    
 }
