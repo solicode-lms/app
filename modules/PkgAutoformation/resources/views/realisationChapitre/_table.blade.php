@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-realisationChapitre') || Auth::user()->can('destroy-realisationChapitre');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="16.4"  field="date_debut" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_debut')) }}" />
                 <x-sortable-column width="16.4"  field="date_fin" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_fin')) }}" />
                 <x-sortable-column width="16.4" field="chapitre_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
@@ -20,9 +22,7 @@
             @section('realisationChapitre-table-tbody')
             @foreach ($realisationChapitres_data as $realisationChapitre)
                 <tr id="realisationChapitre-row-{{$realisationChapitre->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $realisationChapitre->id }}" data-id="{{ $realisationChapitre->id }}">
-                    </td>
+                    <x-checkbox-row :item="$realisationChapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationChapitre->date_debut }}" >
                     <x-field :entity="$realisationChapitre" field="date_debut">
                         {{ $realisationChapitre->date_debut }}

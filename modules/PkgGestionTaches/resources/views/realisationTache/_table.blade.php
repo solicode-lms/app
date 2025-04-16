@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-realisationTache') || Auth::user()->can('destroy-realisationTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="25" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column width="16.5"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
                 <x-sortable-column width="12"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
@@ -20,9 +22,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $realisationTache->id }}" data-id="{{ $realisationTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 25%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                     <x-field :entity="$realisationTache" field="tache">
                        

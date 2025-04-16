@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-workflowTache') || Auth::user()->can('destroy-workflowTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="code" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="titre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}" />
                 <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="workflowTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('workflowTache-table-tbody')
             @foreach ($workflowTaches_data as $workflowTache)
                 <tr id="workflowTache-row-{{$workflowTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $workflowTache->id }}" data-id="{{ $workflowTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >
                     <x-field :entity="$workflowTache" field="code">
                         {{ $workflowTache->code }}

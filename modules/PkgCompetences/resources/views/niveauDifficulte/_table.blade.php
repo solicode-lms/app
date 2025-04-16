@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-niveauDifficulte') || Auth::user()->can('destroy-niveauDifficulte');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="niveauDifficulte" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.nom')) }}" />
                 <x-sortable-column width="41" field="formateur_id" modelname="niveauDifficulte" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('niveauDifficulte-table-tbody')
             @foreach ($niveauDifficultes_data as $niveauDifficulte)
                 <tr id="niveauDifficulte-row-{{$niveauDifficulte->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $niveauDifficulte->id }}" data-id="{{ $niveauDifficulte->id }}">
-                    </td>
+                    <x-checkbox-row :item="$niveauDifficulte" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauDifficulte->nom }}" >
                     <x-field :entity="$niveauDifficulte" field="nom">
                         {{ $niveauDifficulte->nom }}

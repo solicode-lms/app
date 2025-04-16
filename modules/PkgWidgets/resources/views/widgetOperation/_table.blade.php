@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-widgetOperation') || Auth::user()->can('destroy-widgetOperation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="operation" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}" />
                 <x-sortable-column width="41"  field="description" modelname="widgetOperation" label="{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $widgetOperation->id }}" data-id="{{ $widgetOperation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$widgetOperation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
                     <x-field :entity="$widgetOperation" field="operation">
                         {{ $widgetOperation->operation }}

@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-technology') || Auth::user()->can('destroy-technology');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="technology" label="{{ ucfirst(__('PkgCompetences::technology.nom')) }}" />
                 <x-sortable-column width="41" field="category_technology_id" modelname="technology" label="{{ ucfirst(__('PkgCompetences::categoryTechnology.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('technology-table-tbody')
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $technology->id }}" data-id="{{ $technology->id }}">
-                    </td>
+                    <x-checkbox-row :item="$technology" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
                     <x-field :entity="$technology" field="nom">
                         {{ $technology->nom }}

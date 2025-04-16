@@ -5,11 +5,10 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                        <th style="width: 10px;">
-                            @canany(['edit-realisationProjet', 'destroy-realisationProjet'])
-                            <input type="checkbox" class="check-all-rows" />
-                            @endcanany
-                        </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-realisationProjet') || Auth::user()->can('destroy-realisationProjet');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
                
                 <x-sortable-column width="16.4" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
                 <x-sortable-column width="16.4" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
@@ -24,13 +23,7 @@
             @section('realisationProjet-table-tbody')
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td>
-                        @canany(['edit-realisationProjet', 'destroy-realisationProjet'])
-                        @can('update', $realisationProjet)
-                            <input type="checkbox" class="check-row" value="{{ $realisationProjet->id }}" data-id="{{ $realisationProjet->id }}">
-                        @endcan
-                        @endcanany
-                    </td>
+                    <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
                        

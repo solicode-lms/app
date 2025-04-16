@@ -5,12 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                        
                 @php
                 $bulkEdit = Auth::user()->can('edit-projet') || Auth::user()->can('destroy-projet');
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-
+               
                 <x-sortable-column width="20.5"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
                 <x-sortable-column width="20.5"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
@@ -24,9 +23,7 @@
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}">
-                    
                     <x-checkbox-row :item="$projet" :bulkEdit="$bulkEdit" />
-                
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
                     <x-field :entity="$projet" field="titre">
                         {{ $projet->titre }}

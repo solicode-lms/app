@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-resource') || Auth::user()->can('destroy-resource');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.nom')) }}" />
                 <x-sortable-column width="41"  field="lien" modelname="resource" label="{{ ucfirst(__('PkgCreationProjet::resource.lien')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 <tr id="resource-row-{{$resource->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $resource->id }}" data-id="{{ $resource->id }}">
-                    </td>
+                    <x-checkbox-row :item="$resource" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
                     <x-field :entity="$resource" field="nom">
                         {{ $resource->nom }}

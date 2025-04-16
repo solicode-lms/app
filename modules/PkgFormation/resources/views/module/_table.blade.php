@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-module') || Auth::user()->can('destroy-module');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="16.4"  field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
                 <x-sortable-column width="16.4"  field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
                 <x-sortable-column width="16.4"  field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
@@ -21,9 +23,7 @@
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $module->id }}" data-id="{{ $module->id }}">
-                    </td>
+                    <x-checkbox-row :item="$module" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
                     <x-field :entity="$module" field="code">
                         {{ $module->code }}

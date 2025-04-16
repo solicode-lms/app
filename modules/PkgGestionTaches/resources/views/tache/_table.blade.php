@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-tache') || Auth::user()->can('destroy-tache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
                 <x-sortable-column width="27.333333333333332" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
                 <tr id="tache-row-{{$tache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $tache->id }}" data-id="{{ $tache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$tache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $tache->titre }}" >
                     <x-field :entity="$tache" field="titre">
                         {{ $tache->titre }}

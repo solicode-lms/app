@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-etatChapitre') || Auth::user()->can('destroy-etatChapitre');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="nom" modelname="etatChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.nom')) }}" />
                 <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="etatChapitre" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="formateur_id" modelname="etatChapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('etatChapitre-table-tbody')
             @foreach ($etatChapitres_data as $etatChapitre)
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $etatChapitre->id }}" data-id="{{ $etatChapitre->id }}">
-                    </td>
+                    <x-checkbox-row :item="$etatChapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
                     <x-field :entity="$etatChapitre" field="nom">
                         {{ $etatChapitre->nom }}

@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-commentaireRealisationTache') || Auth::user()->can('destroy-commentaireRealisationTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="commentaire" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}" />
                 <x-sortable-column width="20.5" field="realisation_tache_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <x-sortable-column width="20.5" field="formateur_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
@@ -19,9 +21,7 @@
             @section('commentaireRealisationTache-table-tbody')
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $commentaireRealisationTache->id }}" data-id="{{ $commentaireRealisationTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$commentaireRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
                     <x-field :entity="$commentaireRealisationTache" field="commentaire">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}

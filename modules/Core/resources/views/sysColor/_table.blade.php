@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-sysColor') || Auth::user()->can('destroy-sysColor');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="name" modelname="sysColor" label="{{ ucfirst(__('Core::sysColor.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $sysColor->id }}" data-id="{{ $sysColor->id }}">
-                    </td>
+                    <x-checkbox-row :item="$sysColor" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
                     <x-field :entity="$sysColor" field="name">
                         {{ $sysColor->name }}

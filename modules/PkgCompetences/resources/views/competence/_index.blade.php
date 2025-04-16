@@ -120,12 +120,13 @@
                     @include("PkgCompetences::competence._$competence_viewType")
                     @endif
                 </div>
-                @section('realisationTache-crud-bulk-actions')
+                @section('competence-crud-bulk-actions')
                 <div class="crud-bulk-action d-none align-items-center justify-content-between">
                     <span class="bulk-selected-count-container">
                         <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
                     </span>
                     <span>
+                    @can("edit-competence")
                     <button 
                         class="btn btn-sm btn-info bulkActionButton" 
                         data-action-type="modal"
@@ -133,6 +134,8 @@
                         data-method="GET">
                         <i class="fas fa-edit"></i> {{ __('Modifier') }}
                     </button>
+                    @endcan
+                    @can('destroy-competence')
                     <button 
                     class="btn btn-sm btn-outline-danger bulkActionButton" 
                     data-url="{{ route('competences.bulkDelete') }}" 
@@ -141,6 +144,7 @@
                     data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
                     <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
                     </button>
+                    @endcan
                     </span>
                 </div>
                 @show

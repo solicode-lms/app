@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-chapitre') || Auth::user()->can('destroy-chapitre');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="13.666666666666666"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
                 <x-sortable-column width="13.666666666666666"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
                 <x-sortable-column width="13.666666666666666" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
@@ -21,9 +23,7 @@
             @section('chapitre-table-tbody')
             @foreach ($chapitres_data as $chapitre)
                 <tr id="chapitre-row-{{$chapitre->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $chapitre->id }}" data-id="{{ $chapitre->id }}">
-                    </td>
+                    <x-checkbox-row :item="$chapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
                     <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}

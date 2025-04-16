@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-widgetType') || Auth::user()->can('destroy-widgetType');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="type" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.type')) }}" />
                 <x-sortable-column width="41"  field="description" modelname="widgetType" label="{{ ucfirst(__('PkgWidgets::widgetType.description')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 <tr id="widgetType-row-{{$widgetType->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $widgetType->id }}" data-id="{{ $widgetType->id }}">
-                    </td>
+                    <x-checkbox-row :item="$widgetType" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->type }}" >
                     <x-field :entity="$widgetType" field="type">
                         {{ $widgetType->type }}

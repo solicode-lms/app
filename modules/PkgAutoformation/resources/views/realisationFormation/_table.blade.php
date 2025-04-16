@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-realisationFormation') || Auth::user()->can('destroy-realisationFormation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="16.4"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
                 <x-sortable-column width="16.4"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
                 <x-sortable-column width="16.4" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
@@ -20,9 +22,7 @@
             @section('realisationFormation-table-tbody')
             @foreach ($realisationFormations_data as $realisationFormation)
                 <tr id="realisationFormation-row-{{$realisationFormation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $realisationFormation->id }}" data-id="{{ $realisationFormation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$realisationFormation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
                     <x-field :entity="$realisationFormation" field="date_debut">
                         {{ $realisationFormation->date_debut }}

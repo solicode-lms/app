@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-sysController') || Auth::user()->can('destroy-sysController');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <x-sortable-column width="20.5"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
                 <x-sortable-column width="20.5"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
@@ -20,9 +22,7 @@
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 <tr id="sysController-row-{{$sysController->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $sysController->id }}" data-id="{{ $sysController->id }}">
-                    </td>
+                    <x-checkbox-row :item="$sysController" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
                     <x-field :entity="$sysController" field="sysModule">
                        

@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-ePackage') || Auth::user()->can('destroy-ePackage');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="name" modelname="ePackage" label="{{ ucfirst(__('PkgGapp::ePackage.name')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 <tr id="ePackage-row-{{$ePackage->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $ePackage->id }}" data-id="{{ $ePackage->id }}">
-                    </td>
+                    <x-checkbox-row :item="$ePackage" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
                     <x-field :entity="$ePackage" field="name">
                         {{ $ePackage->name }}

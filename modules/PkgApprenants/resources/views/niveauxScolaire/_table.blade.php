@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-niveauxScolaire') || Auth::user()->can('destroy-niveauxScolaire');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="code" modelname="niveauxScolaire" label="{{ ucfirst(__('PkgApprenants::niveauxScolaire.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('niveauxScolaire-table-tbody')
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $niveauxScolaire->id }}" data-id="{{ $niveauxScolaire->id }}">
-                    </td>
+                    <x-checkbox-row :item="$niveauxScolaire" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
                     <x-field :entity="$niveauxScolaire" field="code">
                         {{ $niveauxScolaire->code }}

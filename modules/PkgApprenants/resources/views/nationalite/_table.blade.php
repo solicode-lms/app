@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-nationalite') || Auth::user()->can('destroy-nationalite');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="code" modelname="nationalite" label="{{ ucfirst(__('PkgApprenants::nationalite.code')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $nationalite->id }}" data-id="{{ $nationalite->id }}">
-                    </td>
+                    <x-checkbox-row :item="$nationalite" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
                     <x-field :entity="$nationalite" field="code">
                         {{ $nationalite->code }}

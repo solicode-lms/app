@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-specialite') || Auth::user()->can('destroy-specialite');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="specialite" label="{{ ucfirst(__('PkgFormation::specialite.nom')) }}" />
                 <x-sortable-column width="41"  field="formateurs" modelname="specialite" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
                 <tr id="specialite-row-{{$specialite->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $specialite->id }}" data-id="{{ $specialite->id }}">
-                    </td>
+                    <x-checkbox-row :item="$specialite" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $specialite->nom }}" >
                     <x-field :entity="$specialite" field="nom">
                         {{ $specialite->nom }}

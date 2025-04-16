@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-eMetadataDefinition') || Auth::user()->can('destroy-eMetadataDefinition');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="groupe" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="description" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}" />
@@ -18,9 +20,7 @@
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $eMetadataDefinition->id }}" data-id="{{ $eMetadataDefinition->id }}">
-                    </td>
+                    <x-checkbox-row :item="$eMetadataDefinition" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
                     <x-field :entity="$eMetadataDefinition" field="name">
                         {{ $eMetadataDefinition->name }}

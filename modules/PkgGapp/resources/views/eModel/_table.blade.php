@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-eModel') || Auth::user()->can('destroy-eModel');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="icone" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.icone')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
                 <x-sortable-column width="27.333333333333332" field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('eModel-table-tbody')
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $eModel->id }}" data-id="{{ $eModel->id }}">
-                    </td>
+                    <x-checkbox-row :item="$eModel" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
                     <x-field :entity="$eModel" field="icone">
                         <i class="{{ $eModel->icone }}" ></i>

@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-apprenant') || Auth::user()->can('destroy-apprenant');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="nom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}" />
                 <x-sortable-column width="20.5"  field="prenom" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}" />
                 <x-sortable-column width="20.5"  field="duree_sans_terminer_tache" modelname="apprenant" label="{{ ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache')) }}" />
@@ -19,9 +21,7 @@
             @section('apprenant-table-tbody')
             @foreach ($apprenants_data as $apprenant)
                 <tr id="apprenant-row-{{$apprenant->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $apprenant->id }}" data-id="{{ $apprenant->id }}">
-                    </td>
+                    <x-checkbox-row :item="$apprenant" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $apprenant->nom }}" >
                     <x-field :entity="$apprenant" field="nom">
                         {{ $apprenant->nom }}

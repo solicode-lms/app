@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-eRelationship') || Auth::user()->can('destroy-eRelationship');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="name" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.name')) }}" />
                 <x-sortable-column width="20.5"  field="type" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eRelationship.type')) }}" />
                 <x-sortable-column width="20.5" field="source_e_model_id" modelname="eRelationship" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
@@ -19,9 +21,7 @@
             @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
                 <tr id="eRelationship-row-{{$eRelationship->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $eRelationship->id }}" data-id="{{ $eRelationship->id }}">
-                    </td>
+                    <x-checkbox-row :item="$eRelationship" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->name }}" >
                     <x-field :entity="$eRelationship" field="name">
                         {{ $eRelationship->name }}

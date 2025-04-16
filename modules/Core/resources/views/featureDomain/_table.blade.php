@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-featureDomain') || Auth::user()->can('destroy-featureDomain');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="name" modelname="featureDomain" label="{{ ucfirst(__('Core::featureDomain.name')) }}" />
                 <x-sortable-column width="41" field="sys_module_id" modelname="featureDomain" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $featureDomain->id }}" data-id="{{ $featureDomain->id }}">
-                    </td>
+                    <x-checkbox-row :item="$featureDomain" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
                     <x-field :entity="$featureDomain" field="name">
                         {{ $featureDomain->name }}

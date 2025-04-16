@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-widgetUtilisateur') || Auth::user()->can('destroy-widgetUtilisateur');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="16.4"  field="ordre" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}" />
                 <x-sortable-column width="16.4" field="widget_id" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widget.singular')) }}" />
                 <x-sortable-column width="16.4"  field="package" modelname="widgetUtilisateur" label="{{ ucfirst(__('PkgWidgets::widgetUtilisateur.package')) }}" />
@@ -20,9 +22,7 @@
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $widgetUtilisateur->id }}" data-id="{{ $widgetUtilisateur->id }}">
-                    </td>
+                    <x-checkbox-row :item="$widgetUtilisateur" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
                     <x-field :entity="$widgetUtilisateur" field="ordre">
                         {{ $widgetUtilisateur->ordre }}

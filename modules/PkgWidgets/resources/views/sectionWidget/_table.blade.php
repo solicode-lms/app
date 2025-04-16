@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-sectionWidget') || Auth::user()->can('destroy-sectionWidget');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
                 <x-sortable-column width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
                 <x-sortable-column width="54"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
@@ -19,9 +21,7 @@
             @section('sectionWidget-table-tbody')
             @foreach ($sectionWidgets_data as $sectionWidget)
                 <tr id="sectionWidget-row-{{$sectionWidget->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $sectionWidget->id }}" data-id="{{ $sectionWidget->id }}">
-                    </td>
+                    <x-checkbox-row :item="$sectionWidget" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
                     <x-field :entity="$sectionWidget" field="ordre">
                         {{ $sectionWidget->ordre }}

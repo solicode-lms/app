@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-formation') || Auth::user()->can('destroy-formation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
                 <x-sortable-column width="20.5" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <x-sortable-column width="20.5"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
@@ -19,9 +21,7 @@
             @section('formation-table-tbody')
             @foreach ($formations_data as $formation)
                 <tr id="formation-row-{{$formation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $formation->id }}" data-id="{{ $formation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$formation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $formation->nom }}" >
                     <x-field :entity="$formation" field="nom">
                         {{ $formation->nom }}

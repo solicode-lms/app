@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-typeDependanceTache') || Auth::user()->can('destroy-typeDependanceTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('typeDependanceTache-table-tbody')
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $typeDependanceTache->id }}" data-id="{{ $typeDependanceTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$typeDependanceTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
                     <x-field :entity="$typeDependanceTache" field="titre">
                         {{ $typeDependanceTache->titre }}

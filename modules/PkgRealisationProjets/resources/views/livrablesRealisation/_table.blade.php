@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-livrablesRealisation') || Auth::user()->can('destroy-livrablesRealisation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgCreationProjet::livrable.singular')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="lien" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="titre" modelname="livrablesRealisation" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre')) }}" />
@@ -18,9 +20,7 @@
             @section('livrablesRealisation-table-tbody')
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $livrablesRealisation->id }}" data-id="{{ $livrablesRealisation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$livrablesRealisation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
                     <x-field :entity="$livrablesRealisation" field="livrable">
                        

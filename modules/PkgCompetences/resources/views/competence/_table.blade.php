@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-competence') || Auth::user()->can('destroy-competence');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.code')) }}" />
                 <x-sortable-column width="20.5"  field="mini_code" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}" />
                 <x-sortable-column width="20.5"  field="nom" modelname="competence" label="{{ ucfirst(__('PkgCompetences::competence.nom')) }}" />
@@ -19,9 +21,7 @@
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
                 <tr id="competence-row-{{$competence->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $competence->id }}" data-id="{{ $competence->id }}">
-                    </td>
+                    <x-checkbox-row :item="$competence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
                     <x-field :entity="$competence" field="code">
                         {{ $competence->code }}

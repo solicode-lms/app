@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-workflowFormation') || Auth::user()->can('destroy-workflowFormation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="code" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.code')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="titre" modelname="workflowFormation" label="{{ ucfirst(__('PkgAutoformation::workflowFormation.titre')) }}" />
                 <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="workflowFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('workflowFormation-table-tbody')
             @foreach ($workflowFormations_data as $workflowFormation)
                 <tr id="workflowFormation-row-{{$workflowFormation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $workflowFormation->id }}" data-id="{{ $workflowFormation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$workflowFormation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowFormation->code }}" >
                     <x-field :entity="$workflowFormation" field="code">
                         {{ $workflowFormation->code }}

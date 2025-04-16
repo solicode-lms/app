@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-permission') || Auth::user()->can('destroy-permission');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="name" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::permission.name')) }}" />
                 <x-sortable-column width="27.333333333333332" field="controller_id" modelname="permission" label="{{ ucfirst(__('Core::sysController.singular')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="roles" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
@@ -18,9 +20,7 @@
             @section('permission-table-tbody')
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $permission->id }}" data-id="{{ $permission->id }}">
-                    </td>
+                    <x-checkbox-row :item="$permission" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
                     <x-field :entity="$permission" field="name">
                         {{ $permission->name }}

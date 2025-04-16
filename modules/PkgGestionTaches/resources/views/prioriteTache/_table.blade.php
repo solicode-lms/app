@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-prioriteTache') || Auth::user()->can('destroy-prioriteTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="prioriteTache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}" />
                 <x-sortable-column width="41" field="formateur_id" modelname="prioriteTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('prioriteTache-table-tbody')
             @foreach ($prioriteTaches_data as $prioriteTache)
                 <tr id="prioriteTache-row-{{$prioriteTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $prioriteTache->id }}" data-id="{{ $prioriteTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$prioriteTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
                     <x-field :entity="$prioriteTache" field="nom">
                         {{ $prioriteTache->nom }}

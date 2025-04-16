@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-niveauCompetence') || Auth::user()->can('destroy-niveauCompetence');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="41"  field="nom" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.nom')) }}" />
                 <x-sortable-column width="41" field="competence_id" modelname="niveauCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -17,9 +19,7 @@
             @section('niveauCompetence-table-tbody')
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $niveauCompetence->id }}" data-id="{{ $niveauCompetence->id }}">
-                    </td>
+                    <x-checkbox-row :item="$niveauCompetence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
                     <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}

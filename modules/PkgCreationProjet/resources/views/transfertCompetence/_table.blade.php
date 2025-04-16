@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-transfertCompetence') || Auth::user()->can('destroy-transfertCompetence');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332" field="competence_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="note" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
@@ -18,9 +20,7 @@
             @section('transfertCompetence-table-tbody')
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $transfertCompetence->id }}" data-id="{{ $transfertCompetence->id }}">
-                    </td>
+                    <x-checkbox-row :item="$transfertCompetence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
                     <x-field :entity="$transfertCompetence" field="competence">
                        

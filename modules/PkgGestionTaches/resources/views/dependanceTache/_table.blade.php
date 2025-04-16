@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-dependanceTache') || Auth::user()->can('destroy-dependanceTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $dependanceTache->id }}" data-id="{{ $dependanceTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$dependanceTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
                     <x-field :entity="$dependanceTache" field="tache">
                        

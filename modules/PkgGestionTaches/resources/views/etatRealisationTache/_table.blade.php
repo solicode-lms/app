@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-etatRealisationTache') || Auth::user()->can('destroy-etatRealisationTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="20.5"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
                 <x-sortable-column width="20.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
                 <x-sortable-column width="20.5" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
@@ -19,9 +21,7 @@
             @section('etatRealisationTache-table-tbody')
             @foreach ($etatRealisationTaches_data as $etatRealisationTache)
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $etatRealisationTache->id }}" data-id="{{ $etatRealisationTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$etatRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
                     <x-field :entity="$etatRealisationTache" field="nom">
                         {{ $etatRealisationTache->nom }}

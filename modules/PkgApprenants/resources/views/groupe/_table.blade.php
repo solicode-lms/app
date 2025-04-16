@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-groupe') || Auth::user()->can('destroy-groupe');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="code" modelname="groupe" label="{{ ucfirst(__('PkgApprenants::groupe.code')) }}" />
                 <x-sortable-column width="27.333333333333332" field="filiere_id" modelname="groupe" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="formateurs" modelname="groupe" label="{{ ucfirst(__('PkgFormation::formateur.plural')) }}" />
@@ -18,9 +20,7 @@
             @section('groupe-table-tbody')
             @foreach ($groupes_data as $groupe)
                 <tr id="groupe-row-{{$groupe->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $groupe->id }}" data-id="{{ $groupe->id }}">
-                    </td>
+                    <x-checkbox-row :item="$groupe" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $groupe->code }}" >
                     <x-field :entity="$groupe" field="code">
                         {{ $groupe->code }}

@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-natureLivrable') || Auth::user()->can('destroy-natureLivrable');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82"  field="nom" modelname="natureLivrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.nom')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('natureLivrable-table-tbody')
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $natureLivrable->id }}" data-id="{{ $natureLivrable->id }}">
-                    </td>
+                    <x-checkbox-row :item="$natureLivrable" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
                     <x-field :entity="$natureLivrable" field="nom">
                         {{ $natureLivrable->nom }}

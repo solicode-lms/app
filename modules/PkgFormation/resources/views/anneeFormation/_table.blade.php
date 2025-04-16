@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-anneeFormation') || Auth::user()->can('destroy-anneeFormation');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
@@ -18,9 +20,7 @@
             @section('anneeFormation-table-tbody')
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $anneeFormation->id }}" data-id="{{ $anneeFormation->id }}">
-                    </td>
+                    <x-checkbox-row :item="$anneeFormation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
                     <x-field :entity="$anneeFormation" field="titre">
                         {{ $anneeFormation->titre }}

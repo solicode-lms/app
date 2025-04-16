@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-eDataField') || Auth::user()->can('destroy-eDataField');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="10"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
                 <x-sortable-column width="36"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
                 <x-sortable-column width="36"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
@@ -18,9 +20,7 @@
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $eDataField->id }}" data-id="{{ $eDataField->id }}">
-                    </td>
+                    <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">
                         {{ $eDataField->displayOrder }}

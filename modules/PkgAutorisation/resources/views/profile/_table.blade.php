@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-profile') || Auth::user()->can('destroy-profile');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82" field="user_id" modelname="profile" label="{{ ucfirst(__('PkgAutorisation::user.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('profile-table-tbody')
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $profile->id }}" data-id="{{ $profile->id }}">
-                    </td>
+                    <x-checkbox-row :item="$profile" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $profile->user }}" >
                     <x-field :entity="$profile" field="user">
                        

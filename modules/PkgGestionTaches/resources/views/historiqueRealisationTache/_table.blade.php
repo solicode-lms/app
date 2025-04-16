@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-historiqueRealisationTache') || Auth::user()->can('destroy-historiqueRealisationTache');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="82" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -16,9 +18,7 @@
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $historiqueRealisationTache->id }}" data-id="{{ $historiqueRealisationTache->id }}">
-                    </td>
+                    <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
                     <x-field :entity="$historiqueRealisationTache" field="realisationTache">
                        

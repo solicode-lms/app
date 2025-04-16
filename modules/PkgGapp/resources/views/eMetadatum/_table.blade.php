@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-eMetadatum') || Auth::user()->can('destroy-eMetadatum');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332" field="e_model_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eDataField.singular')) }}" />
                 <x-sortable-column width="27.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}" />
@@ -18,9 +20,7 @@
             @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $eMetadatum->id }}" data-id="{{ $eMetadatum->id }}">
-                    </td>
+                    <x-checkbox-row :item="$eMetadatum" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
                     <x-field :entity="$eMetadatum" field="eModel">
                        

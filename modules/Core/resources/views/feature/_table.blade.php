@@ -5,9 +5,11 @@
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
-                <th style="width: 10px;">
-                    <input type="checkbox" class="check-all-rows" />
-                </th>
+                @php
+                $bulkEdit = Auth::user()->can('edit-feature') || Auth::user()->can('destroy-feature');
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+               
                 <x-sortable-column width="27.333333333333332"  field="name" modelname="feature" label="{{ ucfirst(__('Core::feature.name')) }}" />
                 <x-sortable-column width="27.333333333333332" field="feature_domain_id" modelname="feature" label="{{ ucfirst(__('Core::featureDomain.singular')) }}" />
                 <x-sortable-column width="27.333333333333332"  field="permissions" modelname="feature" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
@@ -18,9 +20,7 @@
             @section('feature-table-tbody')
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $feature->id }}" data-id="{{ $feature->id }}">
-                    </td>
+                    <x-checkbox-row :item="$feature" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->name }}" >
                     <x-field :entity="$feature" field="name">
                         {{ $feature->name }}
