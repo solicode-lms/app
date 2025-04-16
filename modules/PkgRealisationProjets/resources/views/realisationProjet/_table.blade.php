@@ -21,9 +21,11 @@
             @section('realisationProjet-table-tbody')
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}">
-                    <td>
-                        <input type="checkbox" class="check-row" value="{{ $realisationProjet->id }}" data-id="{{ $realisationProjet->id }}">
-                    </td>
+                    @canany(['edit-realisationProjet', 'destroy-realisationProjet'])
+                        <th style="width: 10px;">
+                            <input type="checkbox" class="check-all-rows" />
+                        </th>
+                    @endcanany
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
                        
