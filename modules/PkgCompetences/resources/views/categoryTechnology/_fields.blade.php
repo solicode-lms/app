@@ -4,7 +4,7 @@
 <form 
     class="crud-form custom-form context-state container" 
     id="categoryTechnologyForm"
-    action="{{ isset($bulkEdit) && $bulkEdit ? route('categoryTechnologies.bulkUpdate') : ($itemCategoryTechnology->id ? route('categoryTechnologys.update', $itemCategoryTechnology->id) : route('categoryTechnologys.store')) }}"
+    action="{{ isset($bulkEdit) && $bulkEdit ? route('categoryTechnologies.bulkUpdate') : ($itemCategoryTechnology->id ? route('categoryTechnologies.update', $itemCategoryTechnology->id) : route('categoryTechnologies.store')) }}"
     method="POST"
     novalidate > 
     
