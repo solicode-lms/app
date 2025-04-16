@@ -19,7 +19,8 @@
         "sys_modules",
         "sys_models",
         "sys_colors",
-        "feature_permission"
+        "feature_permission",
+        "user_model_filters"
 ]
 },
 "PkgAutorisation": {

@@ -395,5 +395,29 @@
         "value_integer": 6,
         "e_data_field_reference": "users_hasMany_widget_utilisateurs_user_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "users_hasMany_user_model_filters_user_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "users_hasMany_user_model_filters_user_id_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "users_hasMany_user_model_filters_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "users_hasMany_user_model_filters_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]

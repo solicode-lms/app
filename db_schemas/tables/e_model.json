@@ -793,6 +793,18 @@
     },
     {
         "id": 67,
+        "reference": "user_model_filters",
+        "name": "UserModelFilter",
+        "table_name": "user_model_filters",
+        "icon": "fa-table",
+        "description": "Automatically generated model for user_model_filters",
+        "e_package_id": 2,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 68,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -804,7 +816,7 @@
         "updated_at": null
     },
     {
-        "id": 68,
+        "id": 69,
         "reference": "validations",
         "name": "Validation",
         "table_name": "validations",
@@ -816,7 +828,7 @@
         "updated_at": null
     },
     {
-        "id": 69,
+        "id": 70,
         "reference": "villes",
         "name": "Ville",
         "table_name": "villes",
@@ -828,7 +840,7 @@
         "updated_at": null
     },
     {
-        "id": 70,
+        "id": 71,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -840,7 +852,7 @@
         "updated_at": null
     },
     {
-        "id": 71,
+        "id": 72,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -852,7 +864,7 @@
         "updated_at": null
     },
     {
-        "id": 72,
+        "id": 73,
         "reference": "widget_utilisateurs",
         "name": "WidgetUtilisateur",
         "table_name": "widget_utilisateurs",
@@ -864,7 +876,7 @@
         "updated_at": null
     },
     {
-        "id": 73,
+        "id": 74,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
@@ -876,7 +888,7 @@
         "updated_at": null
     },
     {
-        "id": 74,
+        "id": 75,
         "reference": "workflow_chapitres",
         "name": "WorkflowChapitre",
         "table_name": "workflow_chapitres",
@@ -888,7 +900,7 @@
         "updated_at": null
     },
     {
-        "id": 75,
+        "id": 76,
         "reference": "workflow_formations",
         "name": "WorkflowFormation",
         "table_name": "workflow_formations",
@@ -900,7 +912,7 @@
         "updated_at": null
     },
     {
-        "id": 76,
+        "id": 77,
         "reference": "workflow_projets",
         "name": "WorkflowProjet",
         "table_name": "workflow_projets",
@@ -912,7 +924,7 @@
         "updated_at": null
     },
     {
-        "id": 77,
+        "id": 78,
         "reference": "workflow_taches",
         "name": "WorkflowTache",
         "table_name": "workflow_taches",

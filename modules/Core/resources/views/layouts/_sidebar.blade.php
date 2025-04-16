@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-sysColor', 'index-sysModule', 'index-sysController', 'index-featureDomain', 'index-feature', 'index-sysModel'])
+@accessiblePermissions(['index-sysColor', 'index-sysModule', 'index-sysController', 'index-featureDomain', 'index-feature', 'index-sysModel', 'index-userModelFilter'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-Core" class="nav-item has-treeview  {{ Request::is('admin/Core*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/Core*') ? 'active' : '' }}">
@@ -57,6 +57,14 @@
             <a href="{{ route('sysModels.index') }}" class="nav-link {{ Request::is('admin/Core/sysModels') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cubes"></i>
                 {{__('Core::sysModel.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-userModelFilter') 
+        <li class="nav-item" id="menu-userModelFilters">
+            <a href="{{ route('userModelFilters.index') }}" class="nav-link {{ Request::is('admin/Core/userModelFilters') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-table"></i>
+                {{__('Core::userModelFilter.plural')}}
             </a>
         </li>
         @endcan

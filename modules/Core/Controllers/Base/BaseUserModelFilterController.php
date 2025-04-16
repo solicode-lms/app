@@ -1,0 +1,343 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\Core\Controllers\Base;
+use Modules\Core\Services\UserModelFilterService;
+use Modules\PkgAutorisation\Services\UserService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
+use Modules\Core\App\Requests\UserModelFilterRequest;
+use Modules\Core\Models\UserModelFilter;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Exports\UserModelFilterExport;
+use Modules\Core\App\Imports\UserModelFilterImport;
+use Modules\Core\Services\ContextState;
+
+class BaseUserModelFilterController extends AdminController
+{
+    protected $userModelFilterService;
+    protected $userService;
+
+    public function __construct(UserModelFilterService $userModelFilterService, UserService $userService) {
+        parent::__construct();
+        $this->service  =  $userModelFilterService;
+        $this->userModelFilterService = $userModelFilterService;
+        $this->userService = $userService;
+    }
+
+    /**
+     */
+    public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('userModelFilter.index');
+        
+
+
+
+         // Extraire les paramètres de recherche, pagination, filtres
+        $userModelFilters_params = array_merge(
+            $request->only(['page', 'sort']),
+            ['search' => $request->get(
+                'userModelFilters_search',
+                $this->viewState->get("filter.userModelFilter.userModelFilters_search")
+            )],
+            $request->except(['userModelFilters_search', 'page', 'sort'])
+        );
+
+        // prepareDataForIndexView
+        $tcView = $this->userModelFilterService->prepareDataForIndexView($userModelFilters_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
+        
+        // Retourner la vue ou les données pour une requête AJAX
+        if ($request->ajax()) {
+            if($request['showIndex']){
+                return view('Core::userModelFilter._index', $userModelFilter_compact_value)->render();
+            }else{
+                return view($userModelFilter_partialViewName, $userModelFilter_compact_value)->render();
+            }
+        }
+
+        return view('Core::userModelFilter.index', $userModelFilter_compact_value);
+    }
+    /**
+     */
+    public function create() {
+
+
+        $itemUserModelFilter = $this->userModelFilterService->createInstance();
+        
+
+        $users = $this->userService->all();
+
+        if (request()->ajax()) {
+            return view('Core::userModelFilter._fields', compact('itemUserModelFilter', 'users'));
+        }
+        return view('Core::userModelFilter.create', compact('itemUserModelFilter', 'users'));
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $userModelFilter_ids = $request->input('ids', []);
+
+        if (!is_array($userModelFilter_ids) || count($userModelFilter_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemUserModelFilter = $this->userModelFilterService->find($userModelFilter_ids[0]);
+         
+ 
+        $users = $this->userService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemUserModelFilter = $this->userModelFilterService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('Core::userModelFilter._fields', compact('bulkEdit', 'userModelFilter_ids', 'itemUserModelFilter', 'users'));
+        }
+        return view('Core::userModelFilter.bulk-edit', compact('bulkEdit', 'userModelFilter_ids', 'itemUserModelFilter', 'users'));
+    }
+    /**
+     */
+    public function store(UserModelFilterRequest $request) {
+        $validatedData = $request->validated();
+        $userModelFilter = $this->userModelFilterService->create($validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.addSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' => __('Core::userModelFilter.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $userModelFilter->id]
+            );
+        }
+
+        return redirect()->route('userModelFilters.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' => __('Core::userModelFilter.singular')
+            ])
+        );
+    }
+    /**
+     */
+    public function show(string $id) {
+
+        $this->viewState->setContextKey('userModelFilter.edit_' . $id);
+
+
+        $itemUserModelFilter = $this->userModelFilterService->edit($id);
+
+
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::userModelFilter._fields', array_merge(compact('itemUserModelFilter','users'),));
+        }
+
+        return view('Core::userModelFilter.edit', array_merge(compact('itemUserModelFilter','users'),));
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('userModelFilter.edit_' . $id);
+
+
+        $itemUserModelFilter = $this->userModelFilterService->edit($id);
+
+
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('Core::userModelFilter._fields', array_merge(compact('itemUserModelFilter','users'),));
+        }
+
+        return view('Core::userModelFilter.edit', array_merge(compact('itemUserModelFilter','users'),));
+
+
+    }
+    /**
+     */
+    public function update(UserModelFilterRequest $request, string $id) {
+
+        $validatedData = $request->validated();
+        $userModelFilter = $this->userModelFilterService->update($id, $validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.updateSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' =>  __('Core::userModelFilter.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $userModelFilter->id]
+            );
+        }
+
+        return redirect()->route('userModelFilters.index')->with(
+            'success',
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' =>  __('Core::userModelFilter.singular')
+                ])
+        );
+
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $userModelFilter_ids = $request->input('userModelFilter_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($userModelFilter_ids) || count($userModelFilter_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($userModelFilter_ids as $id) {
+            $entity = $this->userModelFilterService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->userModelFilterService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->userModelFilterService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
+    public function destroy(Request $request, string $id) {
+
+        $userModelFilter = $this->userModelFilterService->destroy($id);
+
+        if ($request->ajax()) {
+            $message = __('Core::msg.deleteSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' =>  __('Core::userModelFilter.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+
+        return redirect()->route('userModelFilters.index')->with(
+            'success',
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $userModelFilter,
+                'modelName' =>  __('Core::userModelFilter.singular')
+                ])
+        );
+
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $userModelFilter_ids = $request->input('ids', []);
+        if (!is_array($userModelFilter_ids) || count($userModelFilter_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($userModelFilter_ids as $id) {
+            $entity = $this->userModelFilterService->find($id);
+            $this->userModelFilterService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($userModelFilter_ids) . ' éléments',
+            'modelName' => __('Core::userModelFilter.plural')
+        ]));
+    }
+
+    public function export($format)
+    {
+        $userModelFilters_data = $this->userModelFilterService->all();
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new UserModelFilterExport($userModelFilters_data,'csv'), 'userModelFilter_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new UserModelFilterExport($userModelFilters_data,'xlsx'), 'userModelFilter_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new UserModelFilterImport, $request->file('file'));
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('userModelFilters.index')->withError('Invalid format or missing data.');
+        }
+
+        return redirect()->route('userModelFilters.index')->with(
+            'success', __('Core::msg.importSuccess', [
+            'modelNames' =>  __('Core::userModelFilter.plural')
+            ]));
+
+
+
+    }
+
+    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
+    public function getUserModelFilters()
+    {
+        $userModelFilters = $this->userModelFilterService->all();
+        return response()->json($userModelFilters);
+    }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $userModelFilter = $this->userModelFilterService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedUserModelFilter = $this->userModelFilterService->dataCalcul($userModelFilter);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedUserModelFilter
+        ]);
+    }
+    
+
+}

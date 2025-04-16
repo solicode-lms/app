@@ -1,0 +1,158 @@
+[
+    {
+        "reference": "user_model_filters_creationOrder",
+        "value_integer": 84,
+        "e_model_reference": "user_model_filters",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "user_model_filters_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "user_model_filters",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "user_model_filters_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "user_model_filters",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "UserModelFilter_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "UserModelFilter_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "UserModelFilter_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_user_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "UserModelFilter_user_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "UserModelFilter_user_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "UserModelFilter_user_id_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_model_name_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_model_name",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "UserModelFilter_model_name_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "UserModelFilter_model_name",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_model_name_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_model_name",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_model_name_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_model_name",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_filters_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "UserModelFilter_filters",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_filters_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_filters",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_filters_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_filters",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_created_at_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "UserModelFilter_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_updated_at_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    }
+]
