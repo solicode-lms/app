@@ -515,7 +515,7 @@
     {
         "reference": "RealisationTache_tache_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 25,
+        "value_integer": 20,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -523,7 +523,7 @@
     {
         "reference": "RealisationTache_etat_realisation_tache_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 12,
+        "value_integer": 10,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -552,7 +552,7 @@
     {
         "reference": "RealisationTache-nom_prenom_apprenant_columnWidth",
         "value_boolean": 1,
-        "value_integer": 12,
+        "value_integer": 15,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
         "e_metadata_definition_reference": "columnWidth"
@@ -575,5 +575,13 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationTache-projet_title",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationTache_realisation_projet_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
