@@ -61,6 +61,7 @@ trait QueryBuilderTrait
         }
 
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
+        // TODO : Enregistrer l'état de filtre dans la base de données 
         $this->filter($query,$this->model,$filterVariables);
       
 
@@ -121,7 +122,7 @@ trait QueryBuilderTrait
         
     }
 
-        /**
+    /**
      * Cette fonction est utilisé aussi Dans DynamiqueContextScope
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param mixed $model
