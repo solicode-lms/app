@@ -165,6 +165,13 @@ export class ViewStateService {
                 ViewStateService.viewState[this.contextKey][filterKey] = value;
             }
         });
+
+        // Informer le viewState de resetFilter if formData isEmpty
+        const hasActiveFilters = Object.values(filterData).some(value => value !== '' && value !== null && value !== undefined);
+        // 🧠 Définir le flag reset pour le backend Laravel
+        this.setVariable(`param.${this.modelName}.reset_filter`,  hasActiveFilters ? 0 : 1);
+    
+
     }
 
     updatSortVariables(sortData) {

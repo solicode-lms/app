@@ -43,6 +43,10 @@ class BaseRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
         
+        // à lire au début avant d'insertion des filtre pardéfaut
+        $userHasSentFilter = $this->viewState->getFilterVariables();
+        $this->service->userHasSentFilter = (count($userHasSentFilter) == 0)
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));

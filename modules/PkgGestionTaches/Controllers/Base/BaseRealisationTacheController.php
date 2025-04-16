@@ -41,6 +41,10 @@ class BaseRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('realisationTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
            $this->viewState->init('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));

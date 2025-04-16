@@ -201,4 +201,22 @@ class ViewStateService
         }
         return $filteredVariables;
     }
+
+    // TODO : il faut lire depuis ViewState au début d'initialisation de viewState
+    // Par middellware
+    public function userHasSentFilters(string $modelName): bool
+    {
+        return collect(request()->all())
+            ->keys()
+            ->filter(fn($k) => str_starts_with($k, "filter.{$modelName}.") || str_starts_with($k, "filter.global."))
+            ->isNotEmpty();
+    }
+    public function isResetRequested(string $modelName): bool
+    {
+        return $this->get("param.{$modelName}.reset_filter", false);
+    }
+    public function removeIsResetRequested(string $modelName)
+    {
+        $this->remove("param.{$modelName}.reset_filter");
+    }
 }

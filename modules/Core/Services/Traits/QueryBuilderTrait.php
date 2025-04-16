@@ -5,6 +5,7 @@ namespace Modules\Core\Services\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Modules\Core\Services\UserModelFilterService;
 
 trait QueryBuilderTrait
 {
@@ -61,7 +62,29 @@ trait QueryBuilderTrait
         }
 
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
-        // TODO : Enregistrer l'état de filtre dans la base de données 
+     
+        // Si vide, essayer de récupérer le filtre enregistré
+        $userModelFilterService = new UserModelFilterService();
+        $isReset = $this->viewState->isResetRequested($this->modelName);
+        if ($isReset) {
+            // 🔄 Réinitialisation explicite demandée
+            $filterVariables = [];
+            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables); // optionnel : reset base
+            $this->viewState->removeIsResetRequested($this->modelName);
+
+        }
+        elseif (!$this->userHasSentFilter) {
+            // 📂 Pas de filtre envoyé = chargement auto
+            $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+            $filterVariables = array_merge($saved_filter,$filterVariables);
+            foreach ($filterVariables as $key => $value) {
+                $this->viewState->set("filter.{$this->modelName}.{$key}", $value);
+            }
+        } else {
+            // ✅ Filtre soumis → sauvegarder
+            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
+        }
+
         $this->filter($query,$this->model,$filterVariables);
       
 

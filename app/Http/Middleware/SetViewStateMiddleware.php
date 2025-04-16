@@ -65,7 +65,7 @@ use Illuminate\Support\Facades\Auth;
         // Charger les variables de contexte depuis la requête qui commence par filter ou scope
         $this->readFromRequest($request,$viewState);
 
- 
+      
          return $next($request);
      }
 

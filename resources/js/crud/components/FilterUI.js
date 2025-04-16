@@ -57,6 +57,8 @@ export class FilterUI {
             }
         });
 
+
+
         return formData;
     }
 
@@ -66,9 +68,13 @@ export class FilterUI {
      */
     getFormDataAsStateVariables(){
         const data = {};
-        Object.entries(this.getFormData(true)).forEach(([key, value]) => {
+        const formData  = this.getFormData(true)
+        Object.entries(formData).forEach(([key, value]) => {
             data[`filter.${this.config.entity_name}.${key}`] = value;
         });
+
+     
+         
         return data;
     }
 
@@ -86,9 +92,13 @@ export class FilterUI {
      */
     submitForm(page = 1) {
         const formData = this.getFormData(true); // Récupérer les données du formulaire
+
+       
         formData.page = page; // Ajouter le numéro de page aux données
     
-
+        // ✅ Ajouter le flag "reset_filter" si nécessaire
+       
+        
         // View State Filter 
         this.config.viewStateService.updatFilterVariables(this.getFormData(true));
         // Mettre à jour l'URL avec les paramètres non vides

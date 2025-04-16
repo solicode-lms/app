@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\Core\Services;
@@ -19,5 +18,31 @@ class UserModelFilterService extends BaseUserModelFilterService
       
         return $userModelFilter;
     }
+
+    public function storeLastFilter(string $modelName, array $filters): void
+    {
+
+        \Modules\Core\Models\UserModelFilter::updateOrCreate(
+            [
+                'user_id' => auth()->id(),
+                'model_name' => $modelName,
+            ],
+            [
+                'filters' => $filters,
+            ]
+        );
+    }
+
+    public function getLastSavedFilter(string $modelName): ?array
+    {
+        if (!auth()->check()) return null;
+
+        $record = \Modules\Core\Models\UserModelFilter::where('user_id', auth()->id())
+                    ->where('model_name', $modelName)
+                    ->first();
+
+        return $record ? $record->filters : null;
+    }
+
    
 }

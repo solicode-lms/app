@@ -46,6 +46,8 @@ abstract class BaseService implements ServiceInterface
 
     protected $totalFilteredCount;
 
+    public $userHasSentFilter = false;
+
     /**
      * Le titre à afficher dnas la page Index
      *
