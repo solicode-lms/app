@@ -7,6 +7,7 @@
             <tr>
                 @php
                 $bulkEdit = Auth::user()->can('edit-livrablesRealisation') || Auth::user()->can('destroy-livrablesRealisation');
+               
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
@@ -20,6 +21,7 @@
             @section('livrablesRealisation-table-tbody')
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}">
+                 
                     <x-checkbox-row :item="$livrablesRealisation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
                     <x-field :entity="$livrablesRealisation" field="livrable">
