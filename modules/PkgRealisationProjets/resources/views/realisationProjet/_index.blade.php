@@ -126,6 +126,7 @@
                         <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
                     </span>
                     <span>
+                    @can("edit-realisationProjet")
                     <button 
                         class="btn btn-sm btn-info bulkActionButton" 
                         data-action-type="modal"
@@ -133,6 +134,8 @@
                         data-method="GET">
                         <i class="fas fa-edit"></i> {{ __('Modifier') }}
                     </button>
+                    @endcan
+                    @can('destroy-realisationProjet')
                     <button 
                     class="btn btn-sm btn-outline-danger bulkActionButton" 
                     data-url="{{ route('realisationProjets.bulkDelete') }}" 
@@ -142,6 +145,7 @@
                     <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
                     </button>
                     </span>
+                    @endcan
                 </div>
                 @show
             </div>
