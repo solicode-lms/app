@@ -120,7 +120,7 @@
                     @include("PkgRealisationProjets::realisationProjet._$realisationProjet_viewType")
                     @endif
                 </div>
-                @section('realisationTache-crud-bulk-actions')
+                @section('realisationProjet-crud-bulk-actions')
                 <div class="crud-bulk-action d-none align-items-center justify-content-between">
                     <span class="bulk-selected-count-container">
                         <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
@@ -144,8 +144,8 @@
                     data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
                     <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
                     </button>
-                    </span>
                     @endcan
+                    </span>
                 </div>
                 @show
             </div>

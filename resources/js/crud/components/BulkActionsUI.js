@@ -31,6 +31,9 @@ export class BulkActionsUI {
         const checkAll = document.querySelector(`${this.config.crudSelector} .check-all-rows`);
         const checkedCount = document.querySelectorAll(`${this.config.crudSelector} .check-row:checked`).length;
 
+        // Si l'édition bulk n'est pas activé
+        if(!checkAll) return;
+
         checkAll.checked = (checkedCount === checkboxes.length);
         checkAll.indeterminate = (checkedCount > 0 && checkedCount < checkboxes.length);
 
