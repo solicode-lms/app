@@ -35,6 +35,10 @@ class BaseSectionWidgetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sectionWidget.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('sectionWidget');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

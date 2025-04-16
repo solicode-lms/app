@@ -43,6 +43,7 @@ class BaseWidgetUtilisateurController extends AdminController
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetUtilisateur');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.widgetUtilisateur.user_id') == null){
            $this->viewState->init('scope.widgetUtilisateur.user_id'  , $this->sessionState->get('user_id'));

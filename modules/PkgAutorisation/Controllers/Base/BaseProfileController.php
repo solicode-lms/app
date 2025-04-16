@@ -34,6 +34,10 @@ class BaseProfileController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('profile.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('profile');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.profile.user_id') == null){
            $this->viewState->init('scope.profile.user_id'  , $this->sessionState->get('user_id'));

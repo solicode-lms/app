@@ -40,6 +40,10 @@ class BaseEtatChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatChapitre.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('etatChapitre');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatChapitre.formateur_id') == null){
            $this->viewState->init('scope.etatChapitre.formateur_id'  , $this->sessionState->get('formateur_id'));

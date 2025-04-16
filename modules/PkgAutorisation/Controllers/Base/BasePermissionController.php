@@ -40,6 +40,10 @@ class BasePermissionController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('permission.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('permission');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

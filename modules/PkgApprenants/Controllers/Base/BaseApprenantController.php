@@ -43,6 +43,10 @@ class BaseApprenantController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('apprenant');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
         // scopeDataByRole pour Model
         if(Auth::user()->hasRole('formateur')){

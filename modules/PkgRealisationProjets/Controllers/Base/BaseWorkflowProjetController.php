@@ -35,6 +35,10 @@ class BaseWorkflowProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowProjet.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('workflowProjet');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

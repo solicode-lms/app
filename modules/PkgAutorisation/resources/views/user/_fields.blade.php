@@ -194,6 +194,9 @@
 <!--   Profile HasMany --> 
 
 
+<!--   UserModelFilter HasMany --> 
+
+
 <!--   WidgetUtilisateur HasMany --> 
 
 

@@ -44,6 +44,10 @@ class BaseGroupeController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('groupe.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('groupe');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

@@ -32,6 +32,10 @@ class BaseNatureLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('natureLivrable');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

@@ -37,6 +37,10 @@ class BaseLabelRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('labelRealisationTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.labelRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.labelRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));

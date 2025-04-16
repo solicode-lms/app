@@ -37,6 +37,10 @@ class BaseLivrablesRealisationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('livrablesRealisation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.livrablesRealisation.realisationProjet.apprenant_id') == null){
            $this->viewState->init('filter.livrablesRealisation.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));

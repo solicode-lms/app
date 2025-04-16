@@ -34,6 +34,10 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('historiqueRealisationTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('historiqueRealisationTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

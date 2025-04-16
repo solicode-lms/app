@@ -40,6 +40,10 @@ class BaseRoleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('role.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('role');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

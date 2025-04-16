@@ -40,6 +40,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('commentaireRealisationTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('commentaireRealisationTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

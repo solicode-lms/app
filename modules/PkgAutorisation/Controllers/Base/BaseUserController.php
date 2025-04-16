@@ -8,6 +8,7 @@ use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
+use Modules\Core\Services\UserModelFilterService;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,10 @@ class BaseUserController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('user.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('user');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 
@@ -170,6 +175,13 @@ class BaseUserController extends AdminController
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
+        $this->viewState->set('scope.userModelFilter.user_id', $id);
+        
+
+        $userModelFilterService =  new UserModelFilterService();
+        $userModelFilters_view_data = $userModelFilterService->prepareDataForIndexView();
+        extract($userModelFilters_view_data);
+
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
         
 
@@ -178,10 +190,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
     }
     /**
@@ -218,6 +230,13 @@ class BaseUserController extends AdminController
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
+        $this->viewState->set('scope.userModelFilter.user_id', $id);
+        
+
+        $userModelFilterService =  new UserModelFilterService();
+        $userModelFilters_view_data = $userModelFilterService->prepareDataForIndexView();
+        extract($userModelFilters_view_data);
+
         $this->viewState->set('scope.widgetUtilisateur.user_id', $id);
         
 
@@ -226,10 +245,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
 
     }

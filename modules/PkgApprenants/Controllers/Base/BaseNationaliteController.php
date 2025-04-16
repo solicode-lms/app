@@ -32,6 +32,10 @@ class BaseNationaliteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('nationalite');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

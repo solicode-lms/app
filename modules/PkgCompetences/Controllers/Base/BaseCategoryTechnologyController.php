@@ -32,6 +32,10 @@ class BaseCategoryTechnologyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('categoryTechnology');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

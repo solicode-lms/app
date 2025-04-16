@@ -45,6 +45,10 @@ class BaseFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('formation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('formation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.formation.formateur_id') == null){
            $this->viewState->init('filter.formation.formateur_id'  , $this->sessionState->get('formateur_id'));

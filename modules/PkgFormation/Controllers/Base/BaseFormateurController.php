@@ -48,6 +48,10 @@ class BaseFormateurController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('formateur.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('formateur');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

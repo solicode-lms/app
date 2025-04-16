@@ -35,6 +35,10 @@ class BaseWorkflowChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowChapitre.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('workflowChapitre');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

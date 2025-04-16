@@ -41,6 +41,10 @@ class BaseChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('chapitre.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('chapitre');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

@@ -34,6 +34,10 @@ class BaseUserModelFilterController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('userModelFilter.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('userModelFilter');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

@@ -42,6 +42,10 @@ class BaseProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('projet.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('projet');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.projet.formateur_id') == null){
            $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));

@@ -34,6 +34,10 @@ class BaseSpecialiteController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('specialite.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('specialite');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

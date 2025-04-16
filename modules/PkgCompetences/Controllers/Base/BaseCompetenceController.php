@@ -39,6 +39,10 @@ class BaseCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('competence.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('competence');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

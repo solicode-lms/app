@@ -41,6 +41,10 @@ class BaseRealisationFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationFormation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('realisationFormation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

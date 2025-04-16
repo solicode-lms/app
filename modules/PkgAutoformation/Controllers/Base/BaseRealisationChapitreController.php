@@ -40,6 +40,10 @@ class BaseRealisationChapitreController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationChapitre.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('realisationChapitre');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

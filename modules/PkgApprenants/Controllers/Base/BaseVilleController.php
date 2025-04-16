@@ -31,6 +31,10 @@ class BaseVilleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('ville.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('ville');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

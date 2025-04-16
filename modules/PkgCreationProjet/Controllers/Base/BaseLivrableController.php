@@ -40,6 +40,10 @@ class BaseLivrableController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('livrable.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('livrable');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.livrable.projet.formateur_id') == null){
            $this->viewState->init('filter.livrable.projet.formateur_id'  , $this->sessionState->get('formateur_id'));

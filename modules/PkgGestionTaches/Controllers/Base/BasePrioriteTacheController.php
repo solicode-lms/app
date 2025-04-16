@@ -34,6 +34,10 @@ class BasePrioriteTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('prioriteTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.prioriteTache.formateur_id') == null){
            $this->viewState->init('scope.prioriteTache.formateur_id'  , $this->sessionState->get('formateur_id'));

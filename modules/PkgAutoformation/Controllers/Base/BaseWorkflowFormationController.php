@@ -35,6 +35,10 @@ class BaseWorkflowFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowFormation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('workflowFormation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

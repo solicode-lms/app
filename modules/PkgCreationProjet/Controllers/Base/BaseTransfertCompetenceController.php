@@ -43,6 +43,10 @@ class BaseTransfertCompetenceController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('transfertCompetence.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('transfertCompetence');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.transfertCompetence.projet.formateur_id') == null){
            $this->viewState->init('scope.transfertCompetence.projet.formateur_id'  , $this->sessionState->get('formateur_id'));

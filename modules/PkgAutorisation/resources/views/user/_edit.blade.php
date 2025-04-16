@@ -45,6 +45,9 @@
                             <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{__('PkgAutorisation::profile.plural')}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="user-hasmany-tabs-userModelFilter-tab" data-toggle="pill" href="#user-hasmany-tabs-userModelFilter" role="tab" aria-controls="user-hasmany-tabs-userModelFilter" aria-selected="false">{{__('Core::userModelFilter.plural')}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-widgetUtilisateur-tab" data-toggle="pill" href="#user-hasmany-tabs-widgetUtilisateur" role="tab" aria-controls="user-hasmany-tabs-widgetUtilisateur" aria-selected="false">{{__('PkgWidgets::widgetUtilisateur.plural')}}</a>
                         </li>
 
@@ -65,6 +68,9 @@
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-profile" role="tabpanel" aria-labelledby="user-hasmany-tabs-profile-tab">
                                 @include('PkgAutorisation::profile._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
+                            </div>
+                            <div class="tab-pane fade" id="user-hasmany-tabs-userModelFilter" role="tabpanel" aria-labelledby="user-hasmany-tabs-userModelFilter-tab">
+                                @include('Core::userModelFilter._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-widgetUtilisateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-widgetUtilisateur-tab">
                                 @include('PkgWidgets::widgetUtilisateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])

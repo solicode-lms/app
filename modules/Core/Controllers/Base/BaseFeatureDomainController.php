@@ -35,6 +35,10 @@ class BaseFeatureDomainController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('featureDomain');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

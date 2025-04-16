@@ -31,6 +31,10 @@ class BaseApprenantKonosyController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('apprenantKonosy');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

@@ -40,6 +40,10 @@ class BaseEtatsRealisationProjetController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatsRealisationProjet.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('etatsRealisationProjet');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
            $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));

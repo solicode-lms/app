@@ -32,6 +32,10 @@ class BaseNiveauxScolaireController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('niveauxScolaire');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

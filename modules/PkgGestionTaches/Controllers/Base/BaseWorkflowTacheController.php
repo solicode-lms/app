@@ -35,6 +35,10 @@ class BaseWorkflowTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('workflowTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('workflowTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

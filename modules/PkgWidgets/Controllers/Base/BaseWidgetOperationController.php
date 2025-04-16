@@ -32,6 +32,10 @@ class BaseWidgetOperationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('widgetOperation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

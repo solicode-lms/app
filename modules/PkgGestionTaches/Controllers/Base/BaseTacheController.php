@@ -42,6 +42,10 @@ class BaseTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('tache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('tache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

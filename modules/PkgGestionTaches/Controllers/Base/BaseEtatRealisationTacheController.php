@@ -40,6 +40,10 @@ class BaseEtatRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('etatRealisationTache');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatRealisationTache.formateur_id') == null){
            $this->viewState->init('scope.etatRealisationTache.formateur_id'  , $this->sessionState->get('formateur_id'));

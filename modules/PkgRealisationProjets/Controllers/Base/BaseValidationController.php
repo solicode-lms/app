@@ -37,6 +37,10 @@ class BaseValidationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('validation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('validation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.validation.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.validation.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));

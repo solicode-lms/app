@@ -44,6 +44,10 @@ class BaseSysColorController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('sysColor');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

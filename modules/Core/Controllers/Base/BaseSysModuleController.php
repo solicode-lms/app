@@ -37,6 +37,10 @@ class BaseSysModuleController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('sysModule');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
 
 
 

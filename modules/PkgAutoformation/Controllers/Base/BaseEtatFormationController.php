@@ -40,6 +40,10 @@ class BaseEtatFormationController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('etatFormation.index');
         
+        $userHasSentFilter = $this->viewState->getFilterVariables('etatFormation');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatFormation.formateur_id') == null){
            $this->viewState->init('scope.etatFormation.formateur_id'  , $this->sessionState->get('formateur_id'));
