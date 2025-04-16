@@ -384,5 +384,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "Tache_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "taches_livrables_livrable_tache_m2m_m2m_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]
