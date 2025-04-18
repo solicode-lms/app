@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332"  field="icone" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.icone')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
-                <x-sortable-column width="27.333333333333332" field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
+                <x-sortable-column width="7"  field="icone" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.icone')) }}" />
+                <x-sortable-column width="37.5"  field="name" modelname="eModel" label="{{ ucfirst(__('PkgGapp::eModel.name')) }}" />
+                <x-sortable-column width="37.5" field="e_package_id" modelname="eModel" label="{{ ucfirst(__('PkgGapp::ePackage.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -21,18 +21,20 @@
             @foreach ($eModels_data as $eModel)
                 <tr id="eModel-row-{{$eModel->id}}">
                     <x-checkbox-row :item="$eModel" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
+                    <td style="max-width: 7%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
                     <x-field :entity="$eModel" field="icone">
-                        <i class="{{ $eModel->icone }}" ></i>
+                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="{{ $eModel->icone }}" ></i>
+                        </div>
                     </x-field>
                     </td>
 
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >
+                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->name }}" >
                     <x-field :entity="$eModel" field="name">
                         {{ $eModel->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->ePackage }}" >
+                    <td style="max-width: 37.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->ePackage }}" >
                     <x-field :entity="$eModel" field="ePackage">
                        
                          {{  $eModel->ePackage }}

@@ -389,6 +389,7 @@
     {
         "reference": "EModel-icone_displayInTable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "EModel-icone",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -411,5 +412,13 @@
         },
         "e_data_field_reference": "EModel-icone",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EModel-icone_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 7,
+        "value_float": 0,
+        "e_data_field_reference": "EModel-icone",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
