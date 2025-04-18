@@ -100,5 +100,29 @@
         "value_integer": 6,
         "e_data_field_reference": "FormateurGroupe_formateur_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

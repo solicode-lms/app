@@ -455,5 +455,65 @@
         "value_boolean": 1,
         "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_email_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_email_verified_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email_verified_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_password_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_password",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_must_change_password_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_remember_token_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_remember_token",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "User_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

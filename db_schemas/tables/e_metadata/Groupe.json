@@ -365,5 +365,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "groupes_formateurs_formateur_groupe_m2m_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

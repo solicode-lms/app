@@ -205,5 +205,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "HistoriqueRealisationTache_realisation_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

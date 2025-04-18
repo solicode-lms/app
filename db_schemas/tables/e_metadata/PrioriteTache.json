@@ -280,5 +280,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "priorite_taches_hasMany_taches_priorite_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

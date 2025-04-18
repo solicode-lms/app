@@ -263,5 +263,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "feature_domains_hasMany_features_feature_domain_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_slug_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_slug",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

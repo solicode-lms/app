@@ -308,5 +308,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "Validation_realisation_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_note_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_note",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_is_valide_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_is_valide",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

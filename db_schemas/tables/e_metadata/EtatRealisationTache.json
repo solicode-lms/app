@@ -370,5 +370,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_is_editable_only_by_formateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

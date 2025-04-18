@@ -498,5 +498,137 @@
         "value_boolean": 1,
         "e_data_field_reference": "ApprenantKonosy_Adresse",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_MatriculeEtudiant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_MatriculeEtudiant",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Prenom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Prenom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Sexe_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Sexe",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_EtudiantActif_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_EtudiantActif",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Diplome_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Diplome",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Principale_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Principale",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_LibelleLong_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_LibelleLong",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_CodeDiplome_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_CodeDiplome",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_DateNaissance_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_DateNaissance",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_DateInscription_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_DateInscription",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_LieuNaissance_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_LieuNaissance",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_CIN_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_CIN",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_NTelephone_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_NTelephone",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Nationalite_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Nationalite",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Nom_Arabe_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Nom_Arabe",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_Prenom_Arabe_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Prenom_Arabe",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_NiveauScolaire_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_NiveauScolaire",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantKonosy_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

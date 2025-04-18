@@ -166,5 +166,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "UserModelFilter_filters",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_model_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_model_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -402,5 +402,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "transfert_competences_hasMany_validations_transfert_competence_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TransfertCompetence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TransfertCompetence_note_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_note",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TransfertCompetence_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TransfertCompetence_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TransfertCompetence_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TransfertCompetence_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

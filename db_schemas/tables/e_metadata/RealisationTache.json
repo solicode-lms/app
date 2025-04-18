@@ -625,5 +625,59 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_dateDebut_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateDebut",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_dateFin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_dateFin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache-nom_prenom_apprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache-projet_title_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-projet_title",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

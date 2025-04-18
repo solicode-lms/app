@@ -329,5 +329,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_lien_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_lien",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

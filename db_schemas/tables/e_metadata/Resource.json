@@ -264,5 +264,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "Resource_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_lien_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_lien",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Resource_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Resource_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -282,5 +282,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "filieres_hasMany_projets_filiere_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

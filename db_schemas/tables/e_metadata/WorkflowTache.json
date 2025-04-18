@@ -280,5 +280,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

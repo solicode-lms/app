@@ -198,5 +198,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

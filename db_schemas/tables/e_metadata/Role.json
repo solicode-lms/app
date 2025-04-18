@@ -239,5 +239,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_guard_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_guard_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

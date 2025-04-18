@@ -58,5 +58,17 @@
         "value_integer": 6,
         "e_data_field_reference": "RoleHasPermission_role_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -527,5 +527,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_date_debut_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_debut",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_date_fin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_fin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet-avancement_projet_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet-avancement_projet",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

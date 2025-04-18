@@ -258,5 +258,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "annee_formations_hasMany_groupes_annee_formation_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_date_debut_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_date_debut",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_date_fin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_date_fin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AnneeFormation_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AnneeFormation_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

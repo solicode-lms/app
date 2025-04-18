@@ -433,5 +433,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_dateDebut_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateDebut",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_dateFin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -250,5 +250,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_guard_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_guard_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -482,5 +482,59 @@
         "value_boolean": 1,
         "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_lien_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_lien",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_coefficient_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_coefficient",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_is_officiel_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_officiel",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

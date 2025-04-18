@@ -371,5 +371,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_is_affichable_seulement_par_formateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

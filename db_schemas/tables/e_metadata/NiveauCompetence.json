@@ -241,5 +241,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "niveau_competences_hasMany_chapitres_niveau_competence_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauCompetence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauCompetence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauCompetence_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauCompetence_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauCompetence_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauCompetence_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauCompetence_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauCompetence_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauCompetence_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauCompetence_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

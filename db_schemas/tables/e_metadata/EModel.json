@@ -456,5 +456,59 @@
         "value_boolean": 1,
         "e_data_field_reference": "e_models_hasMany_e_relationships_target_e_model_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_table_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_table_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_icon_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_icon",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_is_pivot_table_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_is_pivot_table",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EModel-icone_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EModel-icone",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

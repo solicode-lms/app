@@ -291,5 +291,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "Profile_bio",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_phone_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_phone",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_address_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_address",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_profile_picture_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_profile_picture",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

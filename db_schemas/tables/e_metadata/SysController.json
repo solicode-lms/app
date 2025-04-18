@@ -299,5 +299,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "sys_controllers_hasMany_permissions_controller_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_slug_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_slug",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_is_active_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_is_active",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

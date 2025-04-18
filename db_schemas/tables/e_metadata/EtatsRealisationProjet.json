@@ -372,5 +372,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_is_editable_by_formateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_is_editable_by_formateur",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

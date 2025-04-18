@@ -461,5 +461,71 @@
         "value_boolean": 1,
         "e_data_field_reference": "EMetadatum_e_metadata_definition_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_boolean_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_boolean",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_string_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_string",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_integer_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_integer",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_float_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_float",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_date_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_date",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_datetime_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_datetime",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_value_enum_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_value_enum",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadatum_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadatum_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

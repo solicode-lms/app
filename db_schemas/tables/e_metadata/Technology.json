@@ -286,5 +286,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "technologies_transfert_competences_technology_transfert_competence_m2m_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

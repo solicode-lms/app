@@ -100,5 +100,29 @@
         "value_integer": 6,
         "e_data_field_reference": "CompetenceTechnology_competence_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "CompetenceTechnology_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CompetenceTechnology_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CompetenceTechnology_technology_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_technology_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CompetenceTechnology_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_competence_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

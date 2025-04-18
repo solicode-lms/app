@@ -100,5 +100,23 @@
         "value_integer": 6,
         "e_data_field_reference": "ModelHasRole_model_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "ModelHasRole_role_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_role_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ModelHasRole_model_type_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_type",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ModelHasRole_model_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ModelHasRole_model_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

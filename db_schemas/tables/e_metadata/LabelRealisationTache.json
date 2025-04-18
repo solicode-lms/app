@@ -275,5 +275,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "LabelRealisationTache_sys_color_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -880,5 +880,131 @@
         "value_boolean": 1,
         "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_prenom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_nom_arab_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_tele_num_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_profile_image_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_matricule_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_sexe_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_actif_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_diplome_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_date_naissance_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_date_inscription_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_cin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant-NombreTacheEnCours_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant-NombreTacheEnCours",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant-nom_filiere_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant-nom_filiere",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant-duree_sans_terminer_tache_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

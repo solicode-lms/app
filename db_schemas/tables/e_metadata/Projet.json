@@ -556,5 +556,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_nombre_jour_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_nombre_jour",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

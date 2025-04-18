@@ -306,5 +306,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMin_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMin",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMax_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMax",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

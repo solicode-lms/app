@@ -239,5 +239,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

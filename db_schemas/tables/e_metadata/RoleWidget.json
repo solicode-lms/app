@@ -100,5 +100,29 @@
         "value_integer": 6,
         "e_data_field_reference": "RoleWidget_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RoleWidget_role_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleWidget_role_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RoleWidget_widget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleWidget_widget_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RoleWidget_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleWidget_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RoleWidget_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleWidget_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

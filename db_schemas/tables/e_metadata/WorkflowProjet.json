@@ -284,5 +284,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

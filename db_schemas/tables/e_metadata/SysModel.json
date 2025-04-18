@@ -341,5 +341,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "sys_models_hasMany_widgets_model_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_model_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_model",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_icone_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

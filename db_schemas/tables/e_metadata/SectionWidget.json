@@ -327,5 +327,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "section_widgets_hasMany_widgets_section_widget_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_sous_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_sous_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_icone_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_icone",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

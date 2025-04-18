@@ -570,5 +570,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "formations_hasMany_realisation_formations_formation_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_lien_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_lien",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_is_officiel_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_is_officiel",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation-Filière_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation-Filière",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

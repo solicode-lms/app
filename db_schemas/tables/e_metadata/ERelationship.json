@@ -475,5 +475,89 @@
         "value_boolean": 1,
         "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_type_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_is_cascade_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_column_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_referenced_table_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_referenced_column_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_through_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_with_column_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_morph_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

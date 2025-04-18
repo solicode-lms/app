@@ -592,5 +592,89 @@
         "value_boolean": 1,
         "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_column_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_column_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_data_type_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_field_order_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_field_order",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_db_nullable_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_nullable",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_db_primaryKey_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_primaryKey",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_db_unique_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_db_unique",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_calculable_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_calculable",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_default_value_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_default_value",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField-displayOrder_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

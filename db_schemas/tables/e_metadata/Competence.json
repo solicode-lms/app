@@ -403,5 +403,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_mini_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_mini_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

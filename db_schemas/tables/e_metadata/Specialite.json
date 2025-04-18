@@ -204,5 +204,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

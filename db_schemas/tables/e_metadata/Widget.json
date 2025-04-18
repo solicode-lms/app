@@ -643,5 +643,65 @@
         "value_boolean": 1,
         "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_color_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_color",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_icon_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_icon",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_label_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_label",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget-package_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget-package",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

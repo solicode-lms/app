@@ -323,5 +323,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "e_metadata_definitions_hasMany_e_metadata_e_metadata_definition_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_groupe_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_groupe",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_type_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_type",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_scope_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_scope",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

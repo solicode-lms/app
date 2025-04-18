@@ -318,5 +318,47 @@
         "value_boolean": 1,
         "e_data_field_reference": "modules_hasMany_competences_module_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_nom_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_nom",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_masse_horaire_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_masse_horaire",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Module_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Module_reference",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

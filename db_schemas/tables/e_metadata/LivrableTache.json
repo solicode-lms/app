@@ -100,5 +100,29 @@
         "value_integer": 6,
         "e_data_field_reference": "LivrableTache_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableTache_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableTache_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_livrable_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

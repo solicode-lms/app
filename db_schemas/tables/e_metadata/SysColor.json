@@ -583,5 +583,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_name_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_hex_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

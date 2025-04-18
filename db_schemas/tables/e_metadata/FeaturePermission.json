@@ -124,5 +124,35 @@
         "value_integer": 6,
         "e_data_field_reference": "FeaturePermission_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "FeaturePermission_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeaturePermission_feature_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_feature_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeaturePermission_permission_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_permission_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeaturePermission_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeaturePermission_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

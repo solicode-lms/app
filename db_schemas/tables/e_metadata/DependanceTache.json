@@ -227,5 +227,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "DependanceTache_type_dependance_tache_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "DependanceTache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "DependanceTache_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "DependanceTache_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "DependanceTache_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_updated_at",
+        "e_metadata_definition_reference": "sortable"
     }
 ]
