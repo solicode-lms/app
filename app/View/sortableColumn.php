@@ -8,16 +8,19 @@ class SortableColumn extends Component
     public $field;
     public $label;
 
+    public $sortable;
+
     /**
      * Constructeur.
      *
      * @param string $field - Le champ à trier
      * @param string $label - Le label à afficher dans la colonne
      */
-    public function __construct($field, $label)
+    public function __construct($field, $label,$sortable)
     {
         $this->field = $field;
         $this->label = $label;
+        $this->sortable = $sortable;
     }
 
     /**
