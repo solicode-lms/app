@@ -150,7 +150,9 @@ export class ViewStateService {
     getStatsVariables() {
         return this.getVariablesByType(['stats']);
     }
-
+    getSortVariables() {
+        return this.getVariablesByType(['sort']);
+    }
     updatFilterVariables(filterData) {
         if (!ViewStateService.viewState[this.contextKey]) {
             ViewStateService.viewState[this.contextKey] = {};

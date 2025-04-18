@@ -74,21 +74,64 @@ export class TableUI {
     handleSorting() {
         EventUtil.bindEvent('click', this.config.sortableColumnSelector, (e) => {
             e.preventDefault();
-
+    
+            // 🔹 Récupérer le nom complet de la colonne à trier (ex: realisationTache.RealisationProjet.Apprenant_id)
             const column = $(e.currentTarget).data('sort');
-            const currentSort = new URLSearchParams(window.location.search).get('sort') || '';
-            const sortArray = currentSort.split(',').filter(Boolean);
-            const newSortArray = this.updateSortArray(sortArray, column);
+    
+            // 🔹 Lire le tri actuel depuis le ViewState
+            const currentSortVars = this.config.viewStateService.getSortVariables();
+    
+            // 🔹 Récupérer la direction actuelle de la colonne
+            const currentDirection = currentSortVars[column];
+    
+            // 🔹 Déterminer la nouvelle direction (asc → desc → none)
+            let newSortValue = null;
+            if (currentDirection === 'asc') {
+                newSortValue = 'desc';
+            } else if (currentDirection === 'desc') {
+                newSortValue = null;
+            } else {
+                newSortValue = 'asc';
+            }
+    
+            // 🔹 Supprimer toutes les variables de tri du ViewState
+            Object.keys(currentSortVars).forEach(col => {
+                this.config.viewStateService.removeVariable(`sort.${this.config.entity_name}.${col}`);
+            });
+    
+            // 🔹 Ajouter le nouveau tri dans le ViewState
+            if (newSortValue !== null) {
+                this.config.viewStateService.setVariable(`sort.${this.config.entity_name}.${column}`, newSortValue);
+            }
+    
+            // 🔹 Construire sort string à partir du ViewState
+            const updatedSortVars = this.config.viewStateService.getSortVariables();
 
-            const filters = this.indexUI.filterUI.getFormData(); // Inclure les données de recherche et filtres
-            const sort = newSortArray.join(',');
-            filters.sort = sort;
-            this.config.viewStateService.updatSortVariables({"sort" : sort});
 
-
-            this.indexUI.updateURLParameters(filters); // Mettre à jour l'URL
-            this.entityLoader.loadEntities(1, filters); // Recharger la table
+            this.updateSortInURL(updatedSortVars);
+    
+            // 🔹 Recharger les entités avec les nouveaux paramètres
+            this.entityLoader.loadEntities(1);
         });
+    }
+    
+    updateSortInURL(sortVars) {
+        const url = new URL(window.location.href);
+    
+        // 🔹 Supprimer tous les paramètres sort liés à l'entité (sort.entityName.xxx)
+        const entityPrefix = `sort.${this.config.entity_name}.`;
+        for (const [key] of url.searchParams.entries()) {
+            if (key.startsWith(entityPrefix)) {
+                url.searchParams.delete(key);
+            }
+        }
+    
+        // 🔹 Ajouter les nouveaux paramètres "sort.entityName.col" = direction
+        Object.entries(sortVars).forEach(([col, value]) => {
+            url.searchParams.set(`sort.${this.config.entity_name}.${col}`, value);
+        });
+    
+        window.history.replaceState({}, '', url);
     }
 
  initTruncatText() {

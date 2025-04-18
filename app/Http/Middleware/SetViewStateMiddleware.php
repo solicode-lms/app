@@ -126,12 +126,22 @@ use Illuminate\Support\Facades\Auth;
         );
     
         foreach ($allParams as $key => $value) {
+
+
+            // // Read Sort Vairable 
+            // if($key == "sort"){
+            //     $viewState->set($key, $value);
+            //     continue;
+            // }
+
+
+
             // Remplacer les underscores par des points pour simuler l’arborescence
             $normalizedKey = str_replace('_', '.', $key);
             $segments = explode('.', $normalizedKey);
     
             // On ne traite que les clés commençant par "filter" ou "scope"
-            if (!preg_match('/^(filter|scope|dataSource)(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
+            if (!preg_match('/^(filter|scope|dataSource|sort)(\.[a-zA-Z0-9_]+)+$/', $normalizedKey)) {
                 continue;
             }
     

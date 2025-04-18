@@ -101,15 +101,15 @@ trait QueryBuilderTrait
     }
 
     
-    public function applySort($query, $sort)
+    public function applySort($query, $sortFields)
     {
-        if ($sort) {
-            $sortFields = explode(',', $sort["sort"]);
-    
-            foreach ($sortFields as $sortField) {
-                $fieldParts = explode('_', $sortField);
-                $direction = end($fieldParts);
-                $field = implode('_', array_slice($fieldParts, 0, -1));
+        if ($sortFields) {
+          
+            foreach ($sortFields as  $field => $direction) {
+
+                // $fieldParts = explode('_', $sortField);
+                // $direction = end($fieldParts);
+                // $field = implode('_', array_slice($fieldParts, 0, -1));
     
                 // Vérifier si le champ est une relation sortable
                 $filterableField = collect($this->fieldsFilterable)
