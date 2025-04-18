@@ -192,5 +192,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "Specialite_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Specialite_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "specialites_formateurs_formateur_specialite_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

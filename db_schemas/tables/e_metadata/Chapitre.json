@@ -440,5 +440,47 @@
         "value_integer": 6,
         "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Chapitre_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_niveau_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_niveau_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_chapitre_officiel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_chapitre_officiel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "chapitres_hasMany_chapitres_chapitre_officiel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_chapitres_chapitre_officiel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "chapitres_hasMany_realisation_chapitres_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

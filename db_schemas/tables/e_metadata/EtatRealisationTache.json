@@ -340,5 +340,35 @@
         },
         "e_data_field_reference": "EtatRealisationTache_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EtatRealisationTache_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationTache_workflow_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_workflow_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -290,5 +290,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "Validation_message",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Validation_message_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_message",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_transfert_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_transfert_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Validation_realisation_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Validation_realisation_projet_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

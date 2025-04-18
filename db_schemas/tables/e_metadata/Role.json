@@ -221,5 +221,23 @@
         "value_integer": 6,
         "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "roles_permissions_role_has_permissions_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_permissions_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

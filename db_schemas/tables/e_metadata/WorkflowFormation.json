@@ -268,5 +268,23 @@
         },
         "e_data_field_reference": "WorkflowFormation_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowFormation_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowFormation_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowFormation_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowFormation_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

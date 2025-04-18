@@ -339,5 +339,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "EtatFormation_nom",
         "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "EtatFormation_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatFormation_workflow_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_workflow_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatFormation_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatFormation_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatFormation_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "etat_formations_hasMany_realisation_formations_etat_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_formations_hasMany_realisation_formations_etat_formation_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

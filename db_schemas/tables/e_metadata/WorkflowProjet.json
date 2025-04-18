@@ -266,5 +266,23 @@
         },
         "e_data_field_reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowProjet_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

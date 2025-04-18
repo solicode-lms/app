@@ -367,5 +367,41 @@
         "value_integer": 6,
         "e_data_field_reference": "competences_hasMany_formations_competence_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Competence_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Competence_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Competence_module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "competences_technologies_competence_technology_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "competences_hasMany_formations_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "competences_hasMany_formations_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "competences_hasMany_niveau_competences_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "competences_hasMany_transfert_competences_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

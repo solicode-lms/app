@@ -281,5 +281,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "SysController_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "SysController_sys_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_sys_module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysController_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysController_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_controllers_hasMany_permissions_controller_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_controllers_hasMany_permissions_controller_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

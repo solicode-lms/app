@@ -185,5 +185,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "EPackage_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EPackage_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EPackage_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "e_packages_hasMany_e_models_e_package_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_packages_hasMany_e_models_e_package_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

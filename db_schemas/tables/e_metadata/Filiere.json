@@ -258,5 +258,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "Filiere_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Filiere_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "filieres_hasMany_groupes_filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_groupes_filiere_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "filieres_hasMany_modules_filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_modules_filiere_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "filieres_hasMany_projets_filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_projets_filiere_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

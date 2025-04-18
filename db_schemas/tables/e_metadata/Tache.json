@@ -391,5 +391,47 @@
         "value_float": 0,
         "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Tache_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "taches_hasMany_dependance_taches_tache_cible_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "taches_hasMany_dependance_taches_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "taches_livrables_livrable_tache_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "taches_hasMany_realisation_taches_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -288,5 +288,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "NiveauDifficulte_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "NiveauDifficulte_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

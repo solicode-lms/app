@@ -305,5 +305,23 @@
         "value_float": 0,
         "e_data_field_reference": "EMetadataDefinition_default_value",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "EMetadataDefinition_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EMetadataDefinition_default_value_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EMetadataDefinition_default_value",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "e_metadata_definitions_hasMany_e_metadata_e_metadata_definition_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_metadata_definitions_hasMany_e_metadata_e_metadata_definition_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

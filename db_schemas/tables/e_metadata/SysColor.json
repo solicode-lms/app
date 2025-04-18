@@ -505,5 +505,83 @@
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_section_widgets_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_section_widgets_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_widgets_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_taches_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

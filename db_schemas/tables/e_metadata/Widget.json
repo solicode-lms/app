@@ -595,5 +595,53 @@
         },
         "e_data_field_reference": "Widget_name",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Widget_type_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_type_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_model_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_model_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_operation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_operation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_parameters_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_parameters",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_section_widget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_section_widget_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "widgets_roles_role_widget_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_roles_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

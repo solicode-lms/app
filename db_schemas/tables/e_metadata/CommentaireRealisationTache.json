@@ -259,5 +259,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "CommentaireRealisationTache_commentaire",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "CommentaireRealisationTache_commentaire_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CommentaireRealisationTache_commentaire",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CommentaireRealisationTache_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CommentaireRealisationTache_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CommentaireRealisationTache_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CommentaireRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CommentaireRealisationTache_apprenant_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CommentaireRealisationTache_apprenant_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

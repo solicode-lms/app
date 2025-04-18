@@ -186,5 +186,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "NatureLivrable_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "NatureLivrable_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "NatureLivrable_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "nature_livrables_hasMany_livrables_nature_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "nature_livrables_hasMany_livrables_nature_livrable_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

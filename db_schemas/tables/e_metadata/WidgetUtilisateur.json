@@ -449,5 +449,17 @@
         ],
         "e_data_field_reference": "WidgetUtilisateur_widget_id",
         "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "WidgetUtilisateur_user_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetUtilisateur_user_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WidgetUtilisateur_widget_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetUtilisateur_widget_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

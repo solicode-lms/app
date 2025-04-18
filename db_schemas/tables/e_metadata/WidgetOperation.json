@@ -188,5 +188,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "WidgetOperation_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "WidgetOperation_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetOperation_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "widget_operations_hasMany_widgets_operation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "widget_operations_hasMany_widgets_operation_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

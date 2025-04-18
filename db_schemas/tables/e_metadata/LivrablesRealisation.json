@@ -311,5 +311,23 @@
         },
         "e_data_field_reference": "LivrablesRealisation_lien",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "LivrablesRealisation_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_livrable_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_realisation_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

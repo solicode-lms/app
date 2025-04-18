@@ -381,5 +381,35 @@
         },
         "e_data_field_reference": "SysModule_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "SysModule_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModule_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

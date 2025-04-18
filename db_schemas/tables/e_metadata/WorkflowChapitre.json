@@ -268,5 +268,23 @@
         },
         "e_data_field_reference": "WorkflowChapitre_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowChapitre_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "workflow_chapitres_hasMany_etat_chapitres_workflow_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "workflow_chapitres_hasMany_etat_chapitres_workflow_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

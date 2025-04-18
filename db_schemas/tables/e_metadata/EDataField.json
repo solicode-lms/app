@@ -562,5 +562,35 @@
         "value_float": 0,
         "e_data_field_reference": "EDataField-displayOrder",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EDataField_calculable_sql_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_calculable_sql",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_e_model_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_e_relationship_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField_e_relationship_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

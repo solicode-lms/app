@@ -317,5 +317,29 @@
         },
         "e_data_field_reference": "SysModel_icone",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "SysModel_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_sys_module_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_module_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "sys_models_hasMany_widgets_model_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_models_hasMany_widgets_model_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

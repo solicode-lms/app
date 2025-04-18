@@ -186,5 +186,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "CategoryTechnology_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "CategoryTechnology_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "category_technologies_hasMany_technologies_category_technology_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

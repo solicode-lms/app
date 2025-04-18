@@ -256,5 +256,35 @@
         "value_integer": 6,
         "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Technology_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Technology_category_technology_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Technology_category_technology_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "technologies_competences_competence_technology_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "technologies_competences_competence_technology_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "technologies_formations_formation_technology_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "technologies_formations_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "technologies_transfert_competences_technology_transfert_competence_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "technologies_transfert_competences_technology_transfert_competence_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

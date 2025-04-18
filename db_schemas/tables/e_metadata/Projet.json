@@ -496,5 +496,65 @@
         "value_boolean": 1,
         "e_data_field_reference": "Projet_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Projet_travail_a_faire_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_travail_a_faire",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_critere_de_travail_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_critere_de_travail",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_filiere_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "projets_hasMany_affectation_projets_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "projets_hasMany_livrables_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_livrables_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "projets_hasMany_resources_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_resources_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "projets_hasMany_taches_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_taches_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

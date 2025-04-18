@@ -154,5 +154,17 @@
         "value_integer": 6,
         "e_data_field_reference": "UserModelFilter_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_user_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_user_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_filters_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_filters",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

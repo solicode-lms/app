@@ -186,5 +186,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "TypeDependanceTache_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "TypeDependanceTache_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "TypeDependanceTache_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

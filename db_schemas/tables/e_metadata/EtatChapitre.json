@@ -337,5 +337,35 @@
         ],
         "e_model_reference": "etat_chapitres",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "EtatChapitre_workflow_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_workflow_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatChapitre_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatChapitre_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatChapitre_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatChapitre_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

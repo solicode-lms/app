@@ -193,5 +193,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "HistoriqueRealisationTache_changement",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

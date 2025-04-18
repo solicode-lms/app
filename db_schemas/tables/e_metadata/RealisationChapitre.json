@@ -266,5 +266,23 @@
         "value_integer": 6,
         "e_data_field_reference": "RealisationChapitre_updated_at",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationChapitre_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationChapitre_realisation_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_realisation_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationChapitre_etat_chapitre_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre_etat_chapitre_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -329,5 +329,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "Groupe_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Groupe_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_filiere_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_filiere_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Groupe_annee_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Groupe_annee_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "groupes_hasMany_affectation_projets_groupe_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "groupes_hasMany_affectation_projets_groupe_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "groupes_apprenants_apprenant_groupe_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "groupes_apprenants_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "groupes_formateurs_formateur_groupe_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "groupes_formateurs_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

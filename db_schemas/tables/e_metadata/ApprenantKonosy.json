@@ -492,5 +492,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "ApprenantKonosy_Adresse",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "ApprenantKonosy_Adresse_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantKonosy_Adresse",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

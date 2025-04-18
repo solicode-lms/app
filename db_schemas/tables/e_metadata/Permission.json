@@ -232,5 +232,23 @@
         "value_integer": 6,
         "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Permission_controller_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_controller_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "permissions_features_feature_permission_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_features_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "permissions_roles_role_has_permissions_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

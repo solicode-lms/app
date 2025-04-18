@@ -341,5 +341,35 @@
         "value_float": 0,
         "e_data_field_reference": "Livrable_is_affichable_seulement_par_formateur",
         "e_metadata_definition_reference": "persistInLocalStorageOnCreate"
+    },
+    {
+        "reference": "Livrable_nature_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_nature_livrable_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Livrable_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Livrable_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "livrables_taches_livrable_tache_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "livrables_taches_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "livrables_hasMany_livrables_realisations_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -342,5 +342,35 @@
         },
         "e_data_field_reference": "EtatsRealisationProjet_sys_color_id",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EtatsRealisationProjet_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_sys_color_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_sys_color_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_workflow_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_workflow_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

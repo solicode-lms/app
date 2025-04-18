@@ -522,5 +522,53 @@
         },
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "dynamicDropdown"
+    },
+    {
+        "reference": "Formation_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_formateur_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formateur_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_formation_officiel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formation_officiel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "formations_hasMany_chapitres_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_chapitres_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "formations_technologies_formation_technology_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_technologies_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "formations_hasMany_formations_formation_officiel_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_formations_formation_officiel_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "formations_hasMany_realisation_formations_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_realisation_formations_formation_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

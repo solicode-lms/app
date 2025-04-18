@@ -211,5 +211,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "Nationalite_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Nationalite_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "nationalites_hasMany_apprenants_nationalite_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "nationalites_hasMany_apprenants_nationalite_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

@@ -583,5 +583,47 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationTache_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_realisation_projet_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_realisation_projet_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_remarques_formateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_formateur",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_remarques_apprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarques_apprenant",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

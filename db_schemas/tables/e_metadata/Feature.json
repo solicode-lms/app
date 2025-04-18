@@ -221,5 +221,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "Feature_description",
         "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "Feature_description_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_feature_domain_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

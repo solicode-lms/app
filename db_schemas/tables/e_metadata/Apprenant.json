@@ -832,5 +832,53 @@
         },
         "e_data_field_reference": "Apprenant-duree_sans_terminer_tache",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Apprenant_adresse_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Apprenant_user_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_formations_apprenant_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_formations_apprenant_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "sortable"
     }
 ]
