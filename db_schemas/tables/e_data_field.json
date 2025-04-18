@@ -10482,5 +10482,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 805,
+        "reference": "EDataField-displayInTable",
+        "name": "displayInTable",
+        "column_name": "displayInTable",
+        "data_type": "Boolean",
+        "field_order": 2,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT em.value_boolean\r\nFROM e_metadata em\r\nJOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id\r\nWHERE em.e_data_field_id = e_data_fields.id\r\nAND emd.reference = 'displayInTable'",
+        "description": ""
     }
 ]

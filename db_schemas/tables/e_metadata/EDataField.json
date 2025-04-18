@@ -558,7 +558,7 @@
     {
         "reference": "EDataField-displayOrder_columnWidth",
         "value_boolean": 0,
-        "value_integer": 10,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "EDataField-displayOrder",
         "e_metadata_definition_reference": "columnWidth"
@@ -676,5 +676,70 @@
         "value_boolean": 1,
         "e_data_field_reference": "EDataField-displayOrder",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField_calculable_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_calculable",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EDataField-displayInTable_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EDataField-displayInTable_displayOrder",
+        "value_boolean": 0,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EDataField-displayInTable_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EDataField-displayInTable_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EDataField-displayInTable_filterable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EDataField_name_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 15,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_name",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EDataField_data_type_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_data_type",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EDataField-displayInTable_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 8,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField-displayInTable",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

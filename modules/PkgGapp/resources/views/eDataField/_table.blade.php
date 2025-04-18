@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="10"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
-                <x-sortable-column width="36"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
-                <x-sortable-column width="36"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
+                <x-sortable-column :sortable="true" width="5"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
+                <x-sortable-column :sortable="true" width="15"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
+                <x-sortable-column :sortable="true" width="10"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
+                <x-sortable-column :sortable="true" width="8"  field="displayInTable" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayInTable')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -21,19 +22,26 @@
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}">
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
+                    <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">
                         {{ $eDataField->displayOrder }}
                     </x-field>
                     </td>
-                    <td style="max-width: 36%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
+                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
                     <x-field :entity="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 36%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
+                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
                     <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayInTable }}" >
+                    <x-field :entity="$eDataField" field="displayInTable">
+                        <span class="{{ $eDataField->displayInTable ? 'text-success' : 'text-danger' }}">
+                            {{ $eDataField->displayInTable ? 'Oui' : 'Non' }}
+                        </span>
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

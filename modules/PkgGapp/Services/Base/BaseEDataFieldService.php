@@ -70,6 +70,10 @@ class BaseEDataFieldService extends BaseService
         $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
         }
 
+        if (!array_key_exists('calculable', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'calculable', 'type' => 'Boolean', 'label' => 'calculable'];
+        }
+
     }
 
     /**
