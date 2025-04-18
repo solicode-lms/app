@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Core',
-    'icon' => 'fa-cog'
+    'icon' => 'fas fa-cog'
 ];

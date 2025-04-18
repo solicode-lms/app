@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Autorisation',
-    'icon' => 'fa-key'
+    'icon' => 'fas fa-key'
 ];

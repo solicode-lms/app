@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Formation',
-    'icon' => 'fa-box'
+    'icon' => 'fas fa-box'
 ];

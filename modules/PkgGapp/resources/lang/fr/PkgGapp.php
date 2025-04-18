@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Gapp',
-    'icon' => 'fa-database'
+    'icon' => 'fas fa-database'
 ];

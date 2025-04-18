@@ -5,7 +5,7 @@
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgCreationProjet" class="nav-item has-treeview  {{ Request::is('admin/PkgCreationProjet*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCreationProjet*') ? 'active' : '' }}">
-        <i class="nav-icon fas  {{__('PkgCreationProjet::PkgCreationProjet.icon')}}"></i>
+        <i class="nav-icon {{__('PkgCreationProjet::PkgCreationProjet.icon')}}"></i>
         <p>
             {{__('PkgCreationProjet::PkgCreationProjet.name')}}
             <i class="fas fa-angle-left right"></i>

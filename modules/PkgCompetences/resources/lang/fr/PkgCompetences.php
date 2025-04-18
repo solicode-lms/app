@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Compétences',
-    'icon' => 'fa-bullseye'
+    'icon' => 'fas fa-bullseye'
 ];

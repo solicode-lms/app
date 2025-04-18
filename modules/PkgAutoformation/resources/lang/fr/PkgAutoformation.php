@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Autoformation',
-    'icon' => 'fa-award'
+    'icon' => 'fas fa-award'
 ];

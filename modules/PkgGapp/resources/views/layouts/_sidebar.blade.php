@@ -5,7 +5,7 @@
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgGapp" class="nav-item has-treeview  {{ Request::is('admin/PkgGapp*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgGapp*') ? 'active' : '' }}">
-        <i class="nav-icon fas  {{__('PkgGapp::PkgGapp.icon')}}"></i>
+        <i class="nav-icon {{__('PkgGapp::PkgGapp.icon')}}"></i>
         <p>
             {{__('PkgGapp::PkgGapp.name')}}
             <i class="fas fa-angle-left right"></i>

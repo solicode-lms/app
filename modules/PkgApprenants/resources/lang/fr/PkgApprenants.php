@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Apprenants',
-    'icon' => 'fa-users'
+    'icon' => 'fas fa-users'
 ];

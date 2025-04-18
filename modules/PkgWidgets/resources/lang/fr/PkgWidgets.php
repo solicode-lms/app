@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Widgets',
-    'icon' => 'fa-chart-line'
+    'icon' => 'fas fa-chart-line'
 ];
