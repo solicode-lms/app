@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Components;
 
 use Illuminate\View\Component;
@@ -7,104 +8,64 @@ use Modules\Core\Services\ViewStateService;
 class SortableColumn extends Component
 {
     public $field;
-
-    public $width;
-
     public $label;
-
+    public $sortable;
     public $modelname;
     protected $viewState;
 
-    /**
-     * Constructeur.
-     *
-     * @param string $field - Le champ à trier
-     * @param string $label - Le label à afficher dans la colonne
-     */
-    public function __construct($field, $modelname  , $label, $width = null)
+    public function __construct($field, $label, $sortable = true, $modelname = null)
     {
-        $this->width = $width;
         $this->field = $field;
         $this->label = $label;
+        $this->sortable = $sortable;
         $this->modelname = $modelname;
+ 
+
+        // Récupération automatique du ViewState (injecté dans le middleware)
         $this->viewState = app(ViewStateService::class);
     }
 
-    /**
-     * Vérifie si la colonne est actuellement triée.
-     *
-     * @return bool
-     */
-    public function isSorted()
+    protected function getSortKey(): string
     {
-        $sortVariables = $this->viewState->getSortVariables(modelName: $this->modelname);
-        $currentSort = $sortVariables["sort"] ?? "";
-        if (!$currentSort) {
-            return false; // Pas de tri si "sort" est vide
-        }
-    
-        // Divise les critères de tri en un tableau
-        $sortArray = explode(',', $currentSort);
-    
-        // Vérifie si l'un des critères commence par le champ actuel suivi de "_"
-        return collect($sortArray)->contains(function ($sort) {
-            return str_starts_with(trim($sort), $this->field . '_');
-        });
+        return "sort.{$this->modelname}.{$this->field}";
     }
 
-    /**
-     * Récupère la direction actuelle de tri pour cette colonne.
-     *
-     * @return string|null - 'asc', 'desc' ou null (pas de tri)
-     */
-    public function getSortDirection()
+    public function isSorted(): bool
     {
-        $sortVariables = $this->viewState->getSortVariables($this->modelname );
-        $currentSort = $sortVariables["sort"] ?? "";
-        return collect(explode(',', $currentSort))
-            ->filter(fn($sort) => str_starts_with($sort, $this->field . '_'))
-            ->map(fn($sort) => last(explode('_', $sort)) ?? 'asc') // Récupérer le dernier segment après "_"
-            ->first();
+        return $this->viewState->get($this->getSortKey()) !== null;
     }
 
-
-    /**
-     * Génère la direction de tri suivante pour cette colonne.
-     *
-     * @return string|null - 'asc', 'desc' ou null
-     */
-    public function getNextSortDirection()
+    public function getSortDirection(): ?string
     {
-        $currentDirection = $this->getSortDirection();
+        return $this->viewState->get($this->getSortKey());
+    }
 
-        return match ($currentDirection) {
+    public function getNextSortDirection(): ?string
+    {
+        return match ($this->getSortDirection()) {
             'asc' => 'desc',
             'desc' => null,
             default => 'asc',
         };
     }
 
-    /**
-     * Génère l'URL pour le tri suivant.
-     *
-     * @return string
-     */
-    public function getSortUrl()
+    public function getSortUrl(): string
     {
-        $currentSort = request('sort', '');
-        $sortArray = collect(explode(',', $currentSort))
-            ->reject(fn($sort) => str_starts_with($sort, $this->field . '_')) // Supprime le tri actuel pour ce champ
-            ->when($this->getNextSortDirection(), fn($collection) => $collection->push("{$this->field}_{$this->getNextSortDirection()}"))
-            ->join(',');
+        $query = request()->query();
     
-        return request()->fullUrlWithQuery(['sort' => $sortArray]);
+        $key = "sort.{$this->modelname}.{$this->field}";
+    
+        // Supprimer la clé existante
+        unset($query[$key]);
+    
+        // Ajouter la nouvelle direction si elle existe
+        if ($newDir = $this->getNextSortDirection()) {
+            $query[$key] = $newDir;
+        }
+    
+        return request()->url() . '?' . http_build_query($query);
     }
 
-    /**
-     * Récupère la vue du composant.
-     *
-     * @return \Illuminate\View\View
-     */
     public function render()
     {
         return view('components.sortable-column');
