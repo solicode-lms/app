@@ -1,6 +1,6 @@
 {
     "name": "Formateur",
-    "icon": "fa-chalkboard-teacher",
+    "icon": "fas fa-chalkboard-teacher",
     "attributes": [
         {
             "name": "id",

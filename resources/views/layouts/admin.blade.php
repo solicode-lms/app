@@ -25,29 +25,8 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                   <i class="fas fa-bars"></i>
-                  </a>
-              </li>
-              <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-                <a href="{{ route(name: 'widgetUtilisateurs.index') }}" data-toggle="tooltip" title="Tableau de bord" class="nav-link">
-                  <i class="fas  fa-chart-pie"></i>
-                </a>
-              </li>
-              <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-                <a href="{{ route('realisationTaches.index') }}" data-toggle="tooltip" title="Réalisation des tâches" class="nav-link">
-                 <i class="fas fa-laptop-code"></i>
-                </a>
-              </li>
-              <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-                <a href="{{ route(name: 'realisationProjets.index') }}" data-toggle="tooltip" title="Réalisation des projets" class="nav-link">
-                  <i class="fas fa-laptop"></i>
-                </a>
-              </li>
-            </ul>
+          @include('layouts.left-navbar')  
+      
         
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">

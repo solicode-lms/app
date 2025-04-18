@@ -1,6 +1,6 @@
 {
     "name": "Ville",
-    "icon": "fa-city",
+    "icon": "fas fa-city",
     "attributes": [
         {
             "name": "id",

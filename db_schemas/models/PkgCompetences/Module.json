@@ -1,6 +1,6 @@
 {
     "name": "Module",
-    "icon": "fa-puzzle-piece",
+    "icon": "fas fa-puzzle-piece",
     "attributes": [
         {
             "name": "id",

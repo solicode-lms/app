@@ -1,6 +1,6 @@
 {
     "name": "Role",
-    "icon": "fa-id-badge",
+    "icon": "fas fa-id-badge",
     "attributes": [
         {
             "name": "id",

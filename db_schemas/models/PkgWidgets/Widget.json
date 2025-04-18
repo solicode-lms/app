@@ -1,6 +1,6 @@
 {
     "name": "Widget",
-    "icon": "fa-table",
+    "icon": "fas fa-table",
     "attributes": [
         {
             "name": "id",

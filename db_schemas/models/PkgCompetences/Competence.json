@@ -1,6 +1,6 @@
 {
     "name": "Competence",
-    "icon": "fa-tools",
+    "icon": "fas fa-tools",
     "attributes": [
         {
             "name": "id",

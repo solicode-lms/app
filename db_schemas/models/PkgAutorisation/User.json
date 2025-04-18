@@ -1,6 +1,6 @@
 {
     "name": "User",
-    "icon": "fa-user-circle",
+    "icon": "fas fa-user-circle",
     "attributes": [
         {
             "name": "id",

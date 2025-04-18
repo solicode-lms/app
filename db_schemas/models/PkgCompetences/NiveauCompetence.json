@@ -1,6 +1,6 @@
 {
     "name": "NiveauCompetence",
-    "icon": "fa-bars",
+    "icon": "fas fa-bars",
     "attributes": [
         {
             "name": "id",

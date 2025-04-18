@@ -1,6 +1,6 @@
 {
     "name": "Specialite",
-    "icon": "fa-award",
+    "icon": "fas fa-award",
     "attributes": [
         {
             "name": "id",

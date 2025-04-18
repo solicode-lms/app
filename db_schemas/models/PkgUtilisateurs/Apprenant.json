@@ -1,6 +1,6 @@
 {
     "name": "Apprenant",
-    "icon": "fa-user-graduate",
+    "icon": "fas fa-user-graduate",
     "attributes": [
         {
             "name": "id",

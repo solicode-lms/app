@@ -1,6 +1,6 @@
 {
     "name": "Filiere",
-    "icon": "fa-book",
+    "icon": "fas fa-book",
     "attributes": [
         {
             "name": "id",

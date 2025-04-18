@@ -1,6 +1,6 @@
 {
     "name": "NiveauxScolaire",
-    "icon": "fa-graduation-cap",
+    "icon": "fas fa-graduation-cap",
     "attributes": [
         {
             "name": "id",

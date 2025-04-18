@@ -20,6 +20,13 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
 
+    /**
+     * Affecter un projet à un groupe
+     * - ajouter une Réalisation de projet pour chaque apprenant
+     * @param mixed $data
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
     public function create($data)
     {
         // Vérification des champs obligatoires

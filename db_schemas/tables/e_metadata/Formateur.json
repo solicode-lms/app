@@ -397,7 +397,7 @@
         "value_float": 0,
         "value_json": [
             {
-                "icon": "fa-unlock-alt",
+                "icon": "fas fa-unlock-alt",
                 "title": "Initialiser le mot de passe",
                 "methode": "initPassword",
                 "actionType": "confirm",

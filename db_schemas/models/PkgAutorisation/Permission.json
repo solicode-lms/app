@@ -1,6 +1,6 @@
 {
     "name": "Permission",
-    "icon": "fa-lock-open",
+    "icon": "fas fa-lock-open",
     "attributes": [
         {
             "name": "id",

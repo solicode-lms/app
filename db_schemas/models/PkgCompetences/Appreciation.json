@@ -1,6 +1,6 @@
 {
     "name": "Appreciation",
-    "icon": "fa-chart-line",
+    "icon": "fas fa-chart-line",
     "attributes": [
         {
             "name": "id",

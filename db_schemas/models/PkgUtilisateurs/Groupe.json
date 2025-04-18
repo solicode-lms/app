@@ -1,6 +1,6 @@
 {
     "name": "Groupe",
-    "icon": "fa-cubes",
+    "icon": "fas fa-cubes",
     "attributes": [
         {
             "name": "id",

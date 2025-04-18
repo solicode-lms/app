@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Réalisations',
-    'icon' => 'fa-laptop-code'
+    'name' => 'Réalisations de projets',
+    'icon' => 'fa-bolt'
 ];

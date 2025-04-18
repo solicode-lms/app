@@ -1,6 +1,6 @@
 {
     "name": "Technology",
-    "icon": "fa-bolt",
+    "icon": "fas fa-bolt",
     "attributes": [
         {
             "name": "id",
