@@ -137,7 +137,7 @@
     },
     {
         "reference": "livrables_iconModel",
-        "value_string": "fa-file-alt",
+        "value_string": "fas fa-file-alt",
         "value_float": 0,
         "e_model_reference": "livrables",
         "e_metadata_definition_reference": "iconModel"

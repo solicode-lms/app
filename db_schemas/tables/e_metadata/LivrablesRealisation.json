@@ -172,7 +172,7 @@
     },
     {
         "reference": "livrables_realisations_iconModel",
-        "value_string": "fa-file-code",
+        "value_string": "fas fa-file-code",
         "value_float": 0,
         "e_model_reference": "livrables_realisations",
         "e_metadata_definition_reference": "iconModel"

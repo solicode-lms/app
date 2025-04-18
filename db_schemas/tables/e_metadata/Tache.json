@@ -15,7 +15,7 @@
     {
         "reference": "taches_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-clipboard-list",
+        "value_string": "fas fa-clipboard-list",
         "value_float": 0,
         "e_model_reference": "taches",
         "e_metadata_definition_reference": "iconModel"

@@ -252,7 +252,7 @@
     {
         "reference": "widget_utilisateurs_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-chart-pie",
+        "value_string": "fas fa-chart-pie",
         "value_float": 0,
         "e_model_reference": "widget_utilisateurs",
         "e_metadata_definition_reference": "iconModel"

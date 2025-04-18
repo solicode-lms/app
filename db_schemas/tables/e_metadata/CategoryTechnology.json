@@ -44,7 +44,7 @@
     {
         "reference": "category_technologies_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-tags",
+        "value_string": "fas fa-tags",
         "value_float": 0,
         "e_model_reference": "category_technologies",
         "e_metadata_definition_reference": "iconModel"

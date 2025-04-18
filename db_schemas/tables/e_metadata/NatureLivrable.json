@@ -85,7 +85,7 @@
     },
     {
         "reference": "nature_livrables_iconModel",
-        "value_string": "fa-file-archive",
+        "value_string": "fas fa-file-archive",
         "value_float": 0,
         "e_model_reference": "nature_livrables",
         "e_metadata_definition_reference": "iconModel"

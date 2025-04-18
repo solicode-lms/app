@@ -79,7 +79,7 @@
     },
     {
         "reference": "model_has_roles_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "model_has_roles",
         "e_metadata_definition_reference": "iconModel"
     },

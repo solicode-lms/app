@@ -13,7 +13,7 @@
     },
     {
         "reference": "livrable_tache_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "livrable_tache",
         "e_metadata_definition_reference": "iconModel"
     },

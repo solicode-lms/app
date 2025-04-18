@@ -37,7 +37,7 @@
     },
     {
         "reference": "villes_iconModel",
-        "value_string": "fa-city",
+        "value_string": "fas fa-city",
         "e_model_reference": "villes",
         "e_metadata_definition_reference": "iconModel"
     },

@@ -91,7 +91,7 @@
     },
     {
         "reference": "technology_transfert_competence_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "technology_transfert_competence",
         "e_metadata_definition_reference": "iconModel"
     },

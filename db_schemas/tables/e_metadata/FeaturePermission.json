@@ -91,7 +91,7 @@
     },
     {
         "reference": "feature_permission_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "feature_permission",
         "e_metadata_definition_reference": "iconModel"
     },

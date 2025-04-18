@@ -43,7 +43,7 @@
     },
     {
         "reference": "role_has_permissions_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "role_has_permissions",
         "e_metadata_definition_reference": "iconModel"
     },

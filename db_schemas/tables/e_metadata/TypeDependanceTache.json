@@ -14,7 +14,7 @@
     {
         "reference": "type_dependance_taches_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-random",
+        "value_string": "fas fa-random",
         "value_float": 0,
         "e_model_reference": "type_dependance_taches",
         "e_metadata_definition_reference": "iconModel"

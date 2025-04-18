@@ -116,7 +116,7 @@
     {
         "reference": "apprenants_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-id-card",
+        "value_string": "fas fa-id-card",
         "value_float": 0,
         "e_model_reference": "apprenants",
         "e_metadata_definition_reference": "iconModel"

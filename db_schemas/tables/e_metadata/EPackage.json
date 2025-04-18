@@ -133,7 +133,7 @@
     },
     {
         "reference": "e_packages_iconModel",
-        "value_string": "fa-box",
+        "value_string": "fas fa-box",
         "value_float": 0,
         "e_model_reference": "e_packages",
         "e_metadata_definition_reference": "iconModel"

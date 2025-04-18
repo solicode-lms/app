@@ -73,7 +73,7 @@
     },
     {
         "reference": "competence_technology_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "competence_technology",
         "e_metadata_definition_reference": "iconModel"
     },

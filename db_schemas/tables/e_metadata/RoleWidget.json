@@ -13,7 +13,7 @@
     },
     {
         "reference": "role_widget_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "role_widget",
         "e_metadata_definition_reference": "iconModel"
     },

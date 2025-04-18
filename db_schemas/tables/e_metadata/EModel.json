@@ -275,7 +275,7 @@
     },
     {
         "reference": "e_models_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "value_float": 0,
         "e_model_reference": "e_models",
         "e_metadata_definition_reference": "iconModel"

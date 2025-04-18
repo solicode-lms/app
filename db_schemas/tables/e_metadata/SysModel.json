@@ -207,7 +207,7 @@
     },
     {
         "reference": "sys_models_iconModel",
-        "value_string": "fa-cubes",
+        "value_string": "fas fa-cubes",
         "value_float": 0,
         "e_model_reference": "sys_models",
         "e_metadata_definition_reference": "iconModel"

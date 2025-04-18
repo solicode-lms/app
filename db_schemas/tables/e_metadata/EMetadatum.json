@@ -325,7 +325,7 @@
     },
     {
         "reference": "e_metadata_iconModel",
-        "value_string": "fa-th-list",
+        "value_string": "fas fa-th-list",
         "value_float": 0,
         "e_model_reference": "e_metadata",
         "e_metadata_definition_reference": "iconModel"

@@ -61,7 +61,7 @@
     },
     {
         "reference": "permissions_iconModel",
-        "value_string": "fa-lock-open",
+        "value_string": "fas fa-lock-open",
         "e_model_reference": "permissions",
         "e_metadata_definition_reference": "iconModel"
     },

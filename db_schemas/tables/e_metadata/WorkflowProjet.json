@@ -13,7 +13,7 @@
     },
     {
         "reference": "workflow_projets_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "workflow_projets",
         "e_metadata_definition_reference": "iconModel"
     },

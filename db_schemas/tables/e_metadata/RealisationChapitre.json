@@ -14,7 +14,7 @@
     {
         "reference": "realisation_chapitres_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-code",
+        "value_string": "fas fa-code",
         "value_float": 0,
         "e_model_reference": "realisation_chapitres",
         "e_metadata_definition_reference": "iconModel"

@@ -153,7 +153,7 @@
     {
         "reference": "nationalites_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-map-marked-alt",
+        "value_string": "fas fa-map-marked-alt",
         "value_float": 0,
         "e_model_reference": "nationalites",
         "e_metadata_definition_reference": "iconModel"

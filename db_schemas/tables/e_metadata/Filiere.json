@@ -56,7 +56,7 @@
     },
     {
         "reference": "filieres_iconModel",
-        "value_string": "fa-book",
+        "value_string": "fas fa-book",
         "value_float": 0,
         "e_model_reference": "filieres",
         "e_metadata_definition_reference": "iconModel"

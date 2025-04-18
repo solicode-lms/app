@@ -136,7 +136,7 @@
     {
         "reference": "niveau_difficultes_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-battery-three-quarters",
+        "value_string": "fas fa-battery-three-quarters",
         "value_float": 0,
         "e_model_reference": "niveau_difficultes",
         "e_metadata_definition_reference": "iconModel"

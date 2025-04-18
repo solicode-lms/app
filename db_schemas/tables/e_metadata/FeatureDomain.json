@@ -181,7 +181,7 @@
     },
     {
         "reference": "feature_domains_iconModel",
-        "value_string": "fa-th-large",
+        "value_string": "fas fa-th-large",
         "value_float": 0,
         "e_model_reference": "feature_domains",
         "e_metadata_definition_reference": "iconModel"

@@ -128,7 +128,7 @@
     {
         "reference": "widget_types_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-cube",
+        "value_string": "fas fa-cube",
         "value_float": 0,
         "e_model_reference": "widget_types",
         "e_metadata_definition_reference": "iconModel"

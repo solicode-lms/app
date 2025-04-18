@@ -37,7 +37,7 @@
     },
     {
         "reference": "specialites_iconModel",
-        "value_string": "fa-award",
+        "value_string": "fas fa-award",
         "e_model_reference": "specialites",
         "e_metadata_definition_reference": "iconModel"
     },

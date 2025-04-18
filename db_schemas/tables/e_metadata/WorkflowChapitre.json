@@ -14,7 +14,7 @@
     {
         "reference": "workflow_chapitres_iconModel",
         "value_boolean": 0,
-        "value_string": "fa-check-square",
+        "value_string": "fas fa-check-square",
         "value_float": 0,
         "e_model_reference": "workflow_chapitres",
         "e_metadata_definition_reference": "iconModel"

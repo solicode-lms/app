@@ -50,7 +50,7 @@
     },
     {
         "reference": "roles_iconModel",
-        "value_string": "fa-id-badge",
+        "value_string": "fas fa-id-badge",
         "e_model_reference": "roles",
         "e_metadata_definition_reference": "iconModel"
     },

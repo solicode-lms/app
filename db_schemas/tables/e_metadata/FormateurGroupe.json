@@ -73,7 +73,7 @@
     },
     {
         "reference": "formateur_groupe_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "formateur_groupe",
         "e_metadata_definition_reference": "iconModel"
     },

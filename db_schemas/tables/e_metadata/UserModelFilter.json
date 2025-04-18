@@ -13,7 +13,7 @@
     },
     {
         "reference": "user_model_filters_iconModel",
-        "value_string": "fa-table",
+        "value_string": "fas fa-table",
         "e_model_reference": "user_model_filters",
         "e_metadata_definition_reference": "iconModel"
     },
