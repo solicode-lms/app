@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.ordre')) }}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -21,17 +22,22 @@
             @foreach ($workflowProjets_data as $workflowProjet)
                 <tr id="workflowProjet-row-{{$workflowProjet->id}}">
                     <x-checkbox-row :item="$workflowProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
+                    <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
                     <x-field :entity="$workflowProjet" field="code">
                         {{ $workflowProjet->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->titre }}" >
+                    <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->titre }}" >
                     <x-field :entity="$workflowProjet" field="titre">
                         {{ $workflowProjet->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >
+                    <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->ordre }}" >
+                    <x-field :entity="$workflowProjet" field="ordre">
+                        {{ $workflowProjet->ordre }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >
                     <x-field :entity="$workflowProjet" field="sysColor">
                         <x-badge 
                         :text="$workflowProjet->sysColor->name ?? ''" 

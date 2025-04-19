@@ -41,6 +41,7 @@ export class TableUI {
         TableUI.initTooltip();
         this.initTruncatText();
         this.initWidgets();
+        this.initOrderColumn();
     }
 
     
@@ -259,6 +260,10 @@ export class TableUI {
     
             observer.observe(card, { attributes: true });
         });
+    }
+
+    initOrderColumn(){
+
     }
 }
 
