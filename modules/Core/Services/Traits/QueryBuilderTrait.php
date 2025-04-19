@@ -99,51 +99,70 @@ trait QueryBuilderTrait
 
         return $query;
     }
+    /**
+     * Applique un tri dynamique à la requête selon les champs spécifiés.
+     *
+     * Cette méthode gère :
+     * 1. Le tri sur des relations via `sortByPath` défini dans le tableau `manyToOne` du modèle.
+     * 2. Le tri sur des champs simples déclarés dans `getFieldsSortable()`.
+     * 3. Un tri par défaut (sur `ordre` ou `updated_at`) si aucun champ de tri n'est précisé.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+     *        La requête sur laquelle appliquer le tri.
+     * @param array|null $sortFields
+     *        Tableau associatif des champs à trier avec leur direction (ex: ['etat_realisation_tache_id' => 'asc']).
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+     *         La requête modifiée avec les clauses de tri appliquées.
+     */
 
-    
     public function applySort($query, $sortFields)
     {
         if ($sortFields) {
-          
-            foreach ($sortFields as  $field => $direction) {
-
-                // $fieldParts = explode('_', $sortField);
-                // $direction = end($fieldParts);
-                // $field = implode('_', array_slice($fieldParts, 0, -1));
+            foreach ($sortFields as $field => $direction) {
     
-                // Vérifier si le champ est une relation sortable
-                $filterableField = collect($this->fieldsFilterable)
-                    ->firstWhere('field', $field);
+                // 1. Vérifie si le champ a une définition sortByPath dans la relation manyToOne du modèle
+                if (isset($this->model->manyToOne)) {
+                    foreach ($this->model->manyToOne as $relationKey => $relationConfig) {
+                        if (
+                            isset($relationConfig['foreign_key']) &&
+                            $relationConfig['foreign_key'] === $field &&
+                            isset($relationConfig['sortByPath'])
+                        ) {
+                            $sortPath = $relationConfig['sortByPath'];
+                            $sortSegments = explode('.', $sortPath);
+                            $sortAlias = str_replace('.', '_', $sortPath);
     
-                if ($filterableField && isset($filterableField['sortable'])) {
-                    [$relationTable, $relationColumn] = explode('.', $filterableField['sortable']);
-                    $query->join($relationTable, "{$this->model->getTable()}.{$field}", '=', "{$relationTable}.id")
-                            ->select([
-                                "{$this->model->getTable()}.*",
-                                "{$relationTable}.{$relationColumn} as {$field}_sortable"
-                            ])
-                            ->orderBy("{$relationTable}.{$relationColumn}", $direction);
-                } elseif (in_array($field, $this->getFieldsSortable())) {
-                    // Appliquer un tri normal pour les champs directs
+                            // Génère un alias unique pour le tri, évite conflits de noms
+                            $query->leftJoinRelation(implode('.', array_slice($sortSegments, 0, -1)))
+                                  ->select("{$this->model->getTable()}.*")
+                                  ->addSelect([
+                                      "{$sortPath} as {$sortAlias}"
+                                  ])
+                                  ->orderBy($sortPath, $direction);
+                            continue 2;
+                        }
+                    }
+                }
+    
+                // 2. Sinon, appliquer un tri normal si le champ est sortable
+                if (in_array($field, $this->getFieldsSortable())) {
                     $query->orderBy($field, $direction);
                 }
             }
-
+    
             return $query;
         }
     
-        // Trie par date de mise à jour si il n'existe aucune trie
-        // Vérifie si le champ 'ordre' existe dans la table
+        // Tri par défaut : 'ordre' si présent, sinon 'updated_at'
         $model = $query->getModel();
         if (Schema::hasColumn($model->getTable(), 'ordre')) {
             return $query->orderBy('ordre', 'asc');
         }
-
+    
         return $query->orderBy('updated_at', 'desc');
-   
-
-        
     }
+    
 
     /**
      * Cette fonction est utilisé aussi Dans DynamiqueContextScope

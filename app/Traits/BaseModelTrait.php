@@ -11,7 +11,11 @@ trait BaseModelTrait
     public bool $isOwnedByUser = false;
     public string $ownerRelationPath = "";
 
-
+    /**
+     * Contient la déclaration des relation ManyToOne avec pathe de trie, ..
+     * @var array
+     */
+    public $manyToOne = [];
 
     public function loadBelongsToRelations()
     {

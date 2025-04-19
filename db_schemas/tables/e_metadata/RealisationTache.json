@@ -679,5 +679,15 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationTache-projet_title",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_sortByPath",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "path": "etatRealisationTache.workflowTache.code"
+        },
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "sortByPath"
     }
 ]

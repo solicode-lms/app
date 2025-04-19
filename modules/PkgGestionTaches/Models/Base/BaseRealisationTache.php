@@ -61,6 +61,21 @@ class BaseRealisationTache extends BaseModel
     protected $fillable = [
         'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'etat_realisation_tache_id', 'remarques_formateur', 'remarques_apprenant'
     ];
+    public $manyToOne = [
+        'Tache' => [
+            'relation' => 'taches' , 
+            "foreign_key" => "tache_id", 
+            ],
+        'RealisationProjet' => [
+            'relation' => 'realisationProjets' , 
+            "foreign_key" => "realisation_projet_id", 
+            ],
+        'EtatRealisationTache' => [
+            'relation' => 'etatRealisationTaches' , 
+            "foreign_key" => "etat_realisation_tache_id", 
+            "sortByPath" => "etatRealisationTache.workflowTache.code"
+            ]
+    ];
 
 
     /**
