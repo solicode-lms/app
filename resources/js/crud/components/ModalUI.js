@@ -8,6 +8,8 @@ export class ModalUI {
     constructor(config, indexUI) {
         this.config = config;
         this.indexUI = indexUI;
+        // Fixer la valeur de titre : à ne pas modifier
+        this.fixedTitle = false;
         
         this.modalCounter = 0;
         this.curd_id = this.config.id;
@@ -119,6 +121,18 @@ export class ModalUI {
 
     setTitle(title){
         $(`#${this.currentModalId}`).iziModal("setTitle", title);
+    }
+
+    /**
+     *  Fixer le titre de modal : qui ne sera pas modifier 
+     * @param  title 
+     */
+    setFixedTitle(title){
+        if(!this.fixedTitle){
+            $(`#${this.currentModalId}`).iziModal("setTitle", title);
+            this.fixedTitle = true;
+        }
+       
     }
     
     /**

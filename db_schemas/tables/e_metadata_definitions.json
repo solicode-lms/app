@@ -778,5 +778,17 @@
         "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Permet d’ajouter un bouton ou une icône dans chaque ligne de la <span style=\"color: #800000;\">`TableUI`</span>, afin de rediriger </div><div>l'utilisateur vers une autre page (souvent un index ou un détail) avec des paramètres dynamiques </div><div>liés à l'entité de la ligne. Cela facilite la navigation vers des vues filtrées ou contextuelles </div><div>(ex. : tâches d’un apprenant, livrables d’un projet).</div><br></div>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 66,
+        "reference": "sortByPath",
+        "name": "sortByPath",
+        "type": "Json",
+        "scope": "field",
+        "default_value": "{\r\n  \"path\": \"etatRealisationTache.workflowTache.code\"\r\n}",
+        "groupe": "table",
+        "description": "<p><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">Permet de spécifier dynamiquement le chemin du champ à utiliser pour trier l’entité dans les listes ou tables. Ce chemin peut naviguer dans des relations Laravel (</span><code style=\"font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; color: rgb(36, 41, 46); background-color: rgba(27, 31, 35, 0.05); padding: 0.2em 0.4em; border-radius: 3px; font-size: 13.6px; line-height: 1.357em; margin: 0px;\">ManyToOne</code><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">) pour atteindre une propriété spécifique de l’objet cible.</span></p>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
