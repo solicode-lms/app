@@ -56,11 +56,11 @@ class BaseWorkflowProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new WorkflowProjet([
-             'code' => $values[0] ?? null,
-             'titre' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
+             'ordre' => $values[0] ?? null,
+             'code' => $values[1] ?? null,
+             'titre' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
-             'ordre' => $values[4] ?? null,
              'sys_color_id' => $values[5] ?? null,
         ]);
 

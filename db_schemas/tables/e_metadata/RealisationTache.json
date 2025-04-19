@@ -685,7 +685,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "path": "etatRealisationTache.workflowTache.code"
+            "path": "etatRealisationTache.workflowTache.ordre"
         },
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "sortByPath"

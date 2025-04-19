@@ -741,5 +741,15 @@
         "value_float": 0,
         "e_data_field_reference": "EDataField-displayInTable",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EDataField-displayOrder_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "EDataField-displayOrder",
+        "e_metadata_definition_reference": "nature"
     }
 ]

@@ -24,7 +24,9 @@
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">
-                        {{ $eDataField->displayOrder }}
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $eDataField->displayOrder }}"  data-toggle="tooltip" ></i>  
+                        </div>
                     </x-field>
                     </td>
                     <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >

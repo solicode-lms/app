@@ -19,10 +19,10 @@ class BaseWorkflowProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'code',
         'titre',
         'description',
-        'ordre',
         'sys_color_id'
     ];
 

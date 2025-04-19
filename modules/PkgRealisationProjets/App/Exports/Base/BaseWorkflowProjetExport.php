@@ -28,20 +28,20 @@ class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAu
     {
      if($this->format == 'csv'){
         return [
+            'ordre' => 'ordre',
             'code' => 'code',
             'titre' => 'titre',
             'description' => 'description',
             'reference' => 'reference',
-            'ordre' => 'ordre',
             'sys_color_id' => 'sys_color_id',
         ];
         }else{
         return [
+            'ordre' => __('PkgRealisationProjets::workflowProjet.ordre'),
             'code' => __('PkgRealisationProjets::workflowProjet.code'),
             'titre' => __('PkgRealisationProjets::workflowProjet.titre'),
             'description' => __('PkgRealisationProjets::workflowProjet.description'),
             'reference' => __('Core::msg.reference'),
-            'ordre' => __('PkgRealisationProjets::workflowProjet.ordre'),
             'sys_color_id' => __('PkgRealisationProjets::workflowProjet.sys_color_id'),
         ];
 
@@ -53,11 +53,11 @@ class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAu
     {
         return $this->data->map(function ($workflowProjet) {
             return [
+                'ordre' => $workflowProjet->ordre,
                 'code' => $workflowProjet->code,
                 'titre' => $workflowProjet->titre,
                 'description' => $workflowProjet->description,
                 'reference' => $workflowProjet->reference,
-                'ordre' => $workflowProjet->ordre,
                 'sys_color_id' => $workflowProjet->sys_color_id,
             ];
         });

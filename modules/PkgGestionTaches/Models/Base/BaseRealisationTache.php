@@ -76,7 +76,7 @@ class BaseRealisationTache extends BaseModel
             'model' => "Modules\\PkgGestionTaches\\Models\\EtatRealisationTache",
             'relation' => 'etatRealisationTaches' , 
             "foreign_key" => "etat_realisation_tache_id", 
-            "sortByPath" => "etatRealisationTache.workflowTache.code"
+            "sortByPath" => "etatRealisationTache.workflowTache.ordre"
             ]
     ];
 
