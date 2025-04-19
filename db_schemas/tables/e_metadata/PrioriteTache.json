@@ -322,5 +322,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "PrioriteTache_ordre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "PrioriteTache_ordre_columnWidth",
+        "value_integer": 5,
+        "e_data_field_reference": "PrioriteTache_ordre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

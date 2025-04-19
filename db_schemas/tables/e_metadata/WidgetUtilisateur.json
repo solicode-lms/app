@@ -521,5 +521,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "WidgetUtilisateur-type",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WidgetUtilisateur_ordre_columnWidth",
+        "value_integer": 5,
+        "e_data_field_reference": "WidgetUtilisateur_ordre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

@@ -348,5 +348,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowTache_ordre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "WorkflowTache_ordre_columnWidth",
+        "value_integer": 5,
+        "e_data_field_reference": "WorkflowTache_ordre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

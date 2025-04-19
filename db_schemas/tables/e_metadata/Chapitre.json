@@ -542,5 +542,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "Chapitre_ordre",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Chapitre_ordre_columnWidth",
+        "value_integer": 5,
+        "e_data_field_reference": "Chapitre_ordre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
