@@ -29,10 +29,10 @@ class BaseWorkflowTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'nullable|integer',
             'code' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'ordre' => 'nullable|integer',
             'sys_color_id' => 'nullable'
         ];
     }
@@ -45,12 +45,12 @@ class BaseWorkflowTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.ordre')]),
             'code.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.code')]),
             'code.max' => __('validation.codeMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.titre')]),
             'titre.max' => __('validation.titreMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.description')]),
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.ordre')]),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.sys_color_id')])
         ];
     }

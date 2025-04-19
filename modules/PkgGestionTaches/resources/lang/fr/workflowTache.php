@@ -7,4 +7,5 @@ return [
     'code' => 'code',
     'titre' => 'titre',
     'description' => 'description',
+    'ordre' => '#'
 ];

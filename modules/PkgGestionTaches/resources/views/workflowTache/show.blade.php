@@ -25,6 +25,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}:</label>
+                                <p>{{ $itemWorkflowTache->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="code">{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}:</label>
                                 <p>{{ $itemWorkflowTache->code }}</p>
                             </div>
@@ -35,10 +39,6 @@
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGestionTaches::workflowTache.description')) }}:</label>
                                 <p>{{ $itemWorkflowTache->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}:</label>
-                                <p>{{ $itemWorkflowTache->ordre }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('PkgGestionTaches::workflowTache.sys_color_id')) }}:</label>

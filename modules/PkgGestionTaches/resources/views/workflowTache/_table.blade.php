@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
+                <x-sortable-column :sortable="true" width="20.5"  field="ordre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="code" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="titre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="ordre" modelname="workflowTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}" />
                 <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="workflowTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -22,6 +22,11 @@
             @foreach ($workflowTaches_data as $workflowTache)
                 <tr id="workflowTache-row-{{$workflowTache->id}}">
                     <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
+                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
+                    <x-field :entity="$workflowTache" field="ordre">
+                        {{ $workflowTache->ordre }}
+                    </x-field>
+                    </td>
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >
                     <x-field :entity="$workflowTache" field="code">
                         {{ $workflowTache->code }}
@@ -30,11 +35,6 @@
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
                     <x-field :entity="$workflowTache" field="titre">
                         {{ $workflowTache->titre }}
-                    </x-field>
-                    </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
-                    <x-field :entity="$workflowTache" field="ordre">
-                        {{ $workflowTache->ordre }}
                     </x-field>
                     </td>
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->sysColor }}" >

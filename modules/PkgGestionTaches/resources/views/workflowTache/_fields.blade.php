@@ -24,6 +24,33 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}
+            
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgGestionTaches::workflowTache.ordre') }}"
+                value="{{ $itemWorkflowTache ? $itemWorkflowTache->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -94,33 +121,6 @@
                 id="description"
                 placeholder="{{ __('PkgGestionTaches::workflowTache.description') }}">{{ $itemWorkflowTache ? $itemWorkflowTache->description : old('description') }}</textarea>
           @error('description')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="ordre">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}
-            
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgGestionTaches::workflowTache.ordre') }}"
-                value="{{ $itemWorkflowTache ? $itemWorkflowTache->ordre : old('ordre') }}">
-          @error('ordre')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
