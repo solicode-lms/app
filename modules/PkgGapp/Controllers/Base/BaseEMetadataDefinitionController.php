@@ -41,12 +41,12 @@ class BaseEMetadataDefinitionController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $eMetadataDefinitions_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'eMetadataDefinitions_search',
                 $this->viewState->get("filter.eMetadataDefinition.eMetadataDefinitions_search")
             )],
-            $request->except(['eMetadataDefinitions_search', 'page', 'sort'])
+            $request->except(['eMetadataDefinitions_search', 'page'])
         );
 
         // prepareDataForIndexView

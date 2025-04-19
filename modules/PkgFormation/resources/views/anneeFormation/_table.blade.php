@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332"  field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.titre')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="date_debut" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_debut')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="date_fin" modelname="anneeFormation" label="{{ ucfirst(__('PkgFormation::anneeFormation.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

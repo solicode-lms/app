@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332" field="competence_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column width="27.333333333333332" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="note" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="competence_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCompetences::niveauDifficulte.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="note" modelname="transfertCompetence" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.note')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

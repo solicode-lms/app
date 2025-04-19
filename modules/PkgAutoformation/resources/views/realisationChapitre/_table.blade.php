@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="16.4"  field="date_debut" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_debut')) }}" />
-                <x-sortable-column width="16.4"  field="date_fin" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_fin')) }}" />
-                <x-sortable-column width="16.4" field="chapitre_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
-                <x-sortable-column width="16.4" field="realisation_formation_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.singular')) }}" />
-                <x-sortable-column width="16.4" field="etat_chapitre_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_debut')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationChapitre.date_fin')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="chapitre_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="realisation_formation_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_chapitre_id" modelname="realisationChapitre" label="{{ ucfirst(__('PkgAutoformation::etatChapitre.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -44,12 +44,12 @@ class BaseWorkflowTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $workflowTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'workflowTaches_search',
                 $this->viewState->get("filter.workflowTache.workflowTaches_search")
             )],
-            $request->except(['workflowTaches_search', 'page', 'sort'])
+            $request->except(['workflowTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

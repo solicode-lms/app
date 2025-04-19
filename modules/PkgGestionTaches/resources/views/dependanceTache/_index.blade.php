@@ -27,7 +27,9 @@
     });
 </script>
 <script>
-    window.modalTitle = '{{ $dependanceTache_title }}'
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $dependanceTache_title }}'
+    }
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState = @json($viewState);

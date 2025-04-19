@@ -49,12 +49,12 @@ class BaseRealisationChapitreController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $realisationChapitres_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'realisationChapitres_search',
                 $this->viewState->get("filter.realisationChapitre.realisationChapitres_search")
             )],
-            $request->except(['realisationChapitres_search', 'page', 'sort'])
+            $request->except(['realisationChapitres_search', 'page'])
         );
 
         // prepareDataForIndexView

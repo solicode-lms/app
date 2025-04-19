@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column width="27.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
-                <x-sortable-column width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

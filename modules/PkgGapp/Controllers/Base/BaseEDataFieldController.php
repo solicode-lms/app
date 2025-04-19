@@ -47,12 +47,12 @@ class BaseEDataFieldController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $eDataFields_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'eDataFields_search',
                 $this->viewState->get("filter.eDataField.eDataFields_search")
             )],
-            $request->except(['eDataFields_search', 'page', 'sort'])
+            $request->except(['eDataFields_search', 'page'])
         );
 
         // prepareDataForIndexView

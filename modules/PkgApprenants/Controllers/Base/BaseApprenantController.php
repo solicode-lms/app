@@ -56,12 +56,12 @@ class BaseApprenantController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $apprenants_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'apprenants_search',
                 $this->viewState->get("filter.apprenant.apprenants_search")
             )],
-            $request->except(['apprenants_search', 'page', 'sort'])
+            $request->except(['apprenants_search', 'page'])
         );
 
         // prepareDataForIndexView

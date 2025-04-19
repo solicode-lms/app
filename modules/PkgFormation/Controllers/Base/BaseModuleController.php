@@ -44,12 +44,12 @@ class BaseModuleController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $modules_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'modules_search',
                 $this->viewState->get("filter.module.modules_search")
             )],
-            $request->except(['modules_search', 'page', 'sort'])
+            $request->except(['modules_search', 'page'])
         );
 
         // prepareDataForIndexView

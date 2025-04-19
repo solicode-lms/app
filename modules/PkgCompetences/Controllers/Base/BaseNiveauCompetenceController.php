@@ -43,12 +43,12 @@ class BaseNiveauCompetenceController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $niveauCompetences_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'niveauCompetences_search',
                 $this->viewState->get("filter.niveauCompetence.niveauCompetences_search")
             )],
-            $request->except(['niveauCompetences_search', 'page', 'sort'])
+            $request->except(['niveauCompetences_search', 'page'])
         );
 
         // prepareDataForIndexView

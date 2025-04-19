@@ -10,8 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="41" field="nature_livrable_id" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}" />
-                <x-sortable-column width="41"  field="titre" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}" />
+                <x-sortable-column :sortable="true" width="41" field="nature_livrable_id" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}" />
+                <x-sortable-column :sortable="true" width="41"  field="titre" modelname="livrable" label="{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

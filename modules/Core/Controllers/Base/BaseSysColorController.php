@@ -53,12 +53,12 @@ class BaseSysColorController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $sysColors_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'sysColors_search',
                 $this->viewState->get("filter.sysColor.sysColors_search")
             )],
-            $request->except(['sysColors_search', 'page', 'sort'])
+            $request->except(['sysColors_search', 'page'])
         );
 
         // prepareDataForIndexView

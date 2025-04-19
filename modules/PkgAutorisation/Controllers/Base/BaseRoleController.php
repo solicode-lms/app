@@ -49,12 +49,12 @@ class BaseRoleController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $roles_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'roles_search',
                 $this->viewState->get("filter.role.roles_search")
             )],
-            $request->except(['roles_search', 'page', 'sort'])
+            $request->except(['roles_search', 'page'])
         );
 
         // prepareDataForIndexView

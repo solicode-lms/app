@@ -10,10 +10,11 @@
         editUrl: '{{ route('affectationProjets.edit',  ['affectationProjet' => ':id']) }}',
         indexUrl: '{{ route('affectationProjets.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::affectationProjet.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationProjets::affectationProjet.singular") }} - {{ $itemAffectationProjet }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemAffectationProjet }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

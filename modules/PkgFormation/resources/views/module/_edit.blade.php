@@ -10,10 +10,11 @@
         editUrl: '{{ route('modules.edit',  ['module' => ':id']) }}',
         indexUrl: '{{ route('modules.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::module.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::module.singular") }} - {{ $itemModule }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemModule }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

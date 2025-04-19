@@ -47,12 +47,12 @@ class BaseResourceController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $resources_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'resources_search',
                 $this->viewState->get("filter.resource.resources_search")
             )],
-            $request->except(['resources_search', 'page', 'sort'])
+            $request->except(['resources_search', 'page'])
         );
 
         // prepareDataForIndexView

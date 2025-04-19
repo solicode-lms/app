@@ -53,12 +53,12 @@ class BaseGroupeController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $groupes_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'groupes_search',
                 $this->viewState->get("filter.groupe.groupes_search")
             )],
-            $request->except(['groupes_search', 'page', 'sort'])
+            $request->except(['groupes_search', 'page'])
         );
 
         // prepareDataForIndexView

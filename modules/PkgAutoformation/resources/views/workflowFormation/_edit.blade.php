@@ -10,10 +10,11 @@
         editUrl: '{{ route('workflowFormations.edit',  ['workflowFormation' => ':id']) }}',
         indexUrl: '{{ route('workflowFormations.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::workflowFormation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::workflowFormation.singular") }} - {{ $itemWorkflowFormation }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemWorkflowFormation }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

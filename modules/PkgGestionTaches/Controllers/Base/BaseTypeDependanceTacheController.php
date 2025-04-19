@@ -41,12 +41,12 @@ class BaseTypeDependanceTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $typeDependanceTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'typeDependanceTaches_search',
                 $this->viewState->get("filter.typeDependanceTache.typeDependanceTaches_search")
             )],
-            $request->except(['typeDependanceTaches_search', 'page', 'sort'])
+            $request->except(['typeDependanceTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

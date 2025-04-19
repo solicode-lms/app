@@ -10,10 +10,11 @@
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
         indexUrl: '{{ route('competences.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::competence.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::competence.singular") }} - {{ $itemCompetence }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemCompetence }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

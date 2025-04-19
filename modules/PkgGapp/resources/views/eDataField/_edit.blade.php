@@ -10,10 +10,11 @@
         editUrl: '{{ route('eDataFields.edit',  ['eDataField' => ':id']) }}',
         indexUrl: '{{ route('eDataFields.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: 'aaa',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eDataField.singular") }} - {{ $itemEDataField }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemEDataField }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

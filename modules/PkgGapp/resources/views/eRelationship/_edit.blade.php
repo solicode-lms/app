@@ -10,10 +10,11 @@
         editUrl: '{{ route('eRelationships.edit',  ['eRelationship' => ':id']) }}',
         indexUrl: '{{ route('eRelationships.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eRelationship.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eRelationship.singular") }} - {{ $itemERelationship }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemERelationship }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

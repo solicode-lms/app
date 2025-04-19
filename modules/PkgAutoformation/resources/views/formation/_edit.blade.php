@@ -10,10 +10,11 @@
         editUrl: '{{ route('formations.edit',  ['formation' => ':id']) }}',
         indexUrl: '{{ route('formations.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::formation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::formation.singular") }} - {{ $itemFormation }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemFormation }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

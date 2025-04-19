@@ -47,12 +47,12 @@ class BaseSysModelController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $sysModels_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'sysModels_search',
                 $this->viewState->get("filter.sysModel.sysModels_search")
             )],
-            $request->except(['sysModels_search', 'page', 'sort'])
+            $request->except(['sysModels_search', 'page'])
         );
 
         // prepareDataForIndexView

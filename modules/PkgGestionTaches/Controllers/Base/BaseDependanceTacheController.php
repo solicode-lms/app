@@ -46,12 +46,12 @@ class BaseDependanceTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $dependanceTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'dependanceTaches_search',
                 $this->viewState->get("filter.dependanceTache.dependanceTaches_search")
             )],
-            $request->except(['dependanceTaches_search', 'page', 'sort'])
+            $request->except(['dependanceTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

@@ -53,12 +53,12 @@ class BaseValidationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $validations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'validations_search',
                 $this->viewState->get("filter.validation.validations_search")
             )],
-            $request->except(['validations_search', 'page', 'sort'])
+            $request->except(['validations_search', 'page'])
         );
 
         // prepareDataForIndexView

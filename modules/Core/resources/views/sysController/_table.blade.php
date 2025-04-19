@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column width="20.5"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
-                <x-sortable-column width="20.5"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
-                <x-sortable-column width="20.5"  field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="sys_module_id" modelname="sysController" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="sysController" label="{{ ucfirst(__('Core::sysController.name')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="is_active" modelname="sysController" label="{{ ucfirst(__('Core::sysController.is_active')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="Permission" modelname="sysController" label="{{ ucfirst(__('PkgAutorisation::permission.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>

@@ -10,10 +10,11 @@
         editUrl: '{{ route('eMetadataDefinitions.edit',  ['eMetadataDefinition' => ':id']) }}',
         indexUrl: '{{ route('eMetadataDefinitions.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eMetadataDefinition.singular") }} - {{ $itemEMetadataDefinition }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemEMetadataDefinition }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

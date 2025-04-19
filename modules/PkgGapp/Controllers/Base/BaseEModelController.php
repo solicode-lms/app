@@ -45,12 +45,12 @@ class BaseEModelController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $eModels_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'eModels_search',
                 $this->viewState->get("filter.eModel.eModels_search")
             )],
-            $request->except(['eModels_search', 'page', 'sort'])
+            $request->except(['eModels_search', 'page'])
         );
 
         // prepareDataForIndexView

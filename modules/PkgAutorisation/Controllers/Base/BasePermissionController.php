@@ -49,12 +49,12 @@ class BasePermissionController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $permissions_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'permissions_search',
                 $this->viewState->get("filter.permission.permissions_search")
             )],
-            $request->except(['permissions_search', 'page', 'sort'])
+            $request->except(['permissions_search', 'page'])
         );
 
         // prepareDataForIndexView

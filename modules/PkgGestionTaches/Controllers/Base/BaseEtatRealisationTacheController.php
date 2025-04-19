@@ -53,12 +53,12 @@ class BaseEtatRealisationTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $etatRealisationTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'etatRealisationTaches_search',
                 $this->viewState->get("filter.etatRealisationTache.etatRealisationTaches_search")
             )],
-            $request->except(['etatRealisationTaches_search', 'page', 'sort'])
+            $request->except(['etatRealisationTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

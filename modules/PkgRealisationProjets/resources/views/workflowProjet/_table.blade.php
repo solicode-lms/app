@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
-                <x-sortable-column width="27.333333333333332" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.code')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="workflowProjet" label="{{ ucfirst(__('PkgRealisationProjets::workflowProjet.titre')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="workflowProjet" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

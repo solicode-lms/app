@@ -10,10 +10,11 @@
         editUrl: '{{ route('chapitres.edit',  ['chapitre' => ':id']) }}',
         indexUrl: '{{ route('chapitres.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::chapitre.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutoformation::chapitre.singular") }} - {{ $itemChapitre }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemChapitre }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

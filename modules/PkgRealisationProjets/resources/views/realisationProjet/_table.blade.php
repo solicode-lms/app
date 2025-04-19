@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="16.4" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
-                <x-sortable-column width="16.4" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column width="16.4" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
-                <x-sortable-column width="16.4"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
-                <x-sortable-column width="16.4"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="affectation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="avancement_projet" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>

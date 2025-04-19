@@ -44,12 +44,12 @@ class BaseSectionWidgetController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $sectionWidgets_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'sectionWidgets_search',
                 $this->viewState->get("filter.sectionWidget.sectionWidgets_search")
             )],
-            $request->except(['sectionWidgets_search', 'page', 'sort'])
+            $request->except(['sectionWidgets_search', 'page'])
         );
 
         // prepareDataForIndexView

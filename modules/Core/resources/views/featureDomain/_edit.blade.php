@@ -10,10 +10,11 @@
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
         indexUrl: '{{ route('featureDomains.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::featureDomain.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::featureDomain.singular") }} - {{ $itemFeatureDomain }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemFeatureDomain }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

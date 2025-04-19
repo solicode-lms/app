@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="27.333333333333332"  field="name" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="email" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
-                <x-sortable-column width="27.333333333333332"  field="roles" modelname="user" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.name')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="email" modelname="user" label="{{ ucfirst(__('PkgAutorisation::user.email')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="roles" modelname="user" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -50,7 +50,7 @@
                         data-url="{{ route('users.initPassword', ['id' => $user->id]) }}" 
                         data-action-type="confirm"
                         class="btn btn-default btn-sm context-state actionEntity">
-                            <i class="fas fa-unlock-alt"></i>
+                            <i class="fa-unlock-alt"></i>
                         </a>
                         @endcan
                         

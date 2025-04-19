@@ -53,12 +53,12 @@ class BaseEtatsRealisationProjetController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $etatsRealisationProjets_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'etatsRealisationProjets_search',
                 $this->viewState->get("filter.etatsRealisationProjet.etatsRealisationProjets_search")
             )],
-            $request->except(['etatsRealisationProjets_search', 'page', 'sort'])
+            $request->except(['etatsRealisationProjets_search', 'page'])
         );
 
         // prepareDataForIndexView

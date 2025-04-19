@@ -27,7 +27,9 @@
     });
 </script>
 <script>
-    window.modalTitle = '{{ $workflowTache_title }}'
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $workflowTache_title }}'
+    }
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState = @json($viewState);

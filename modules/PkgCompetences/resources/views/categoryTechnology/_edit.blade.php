@@ -10,10 +10,11 @@
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
         indexUrl: '{{ route('categoryTechnologies.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCompetences::categoryTechnology.singular") }} - {{ $itemCategoryTechnology }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemCategoryTechnology }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

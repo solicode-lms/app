@@ -48,12 +48,12 @@ class BaseUserController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $users_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'users_search',
                 $this->viewState->get("filter.user.users_search")
             )],
-            $request->except(['users_search', 'page', 'sort'])
+            $request->except(['users_search', 'page'])
         );
 
         // prepareDataForIndexView

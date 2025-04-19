@@ -10,10 +10,11 @@
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
         indexUrl: '{{ route('nationalites.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::nationalite.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::nationalite.singular") }} - {{ $itemNationalite }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemNationalite }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

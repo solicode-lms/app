@@ -40,12 +40,12 @@ class BaseVilleController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $villes_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'villes_search',
                 $this->viewState->get("filter.ville.villes_search")
             )],
-            $request->except(['villes_search', 'page', 'sort'])
+            $request->except(['villes_search', 'page'])
         );
 
         // prepareDataForIndexView

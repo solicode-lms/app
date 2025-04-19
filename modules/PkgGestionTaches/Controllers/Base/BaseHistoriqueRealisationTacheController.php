@@ -43,12 +43,12 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $historiqueRealisationTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'historiqueRealisationTaches_search',
                 $this->viewState->get("filter.historiqueRealisationTache.historiqueRealisationTaches_search")
             )],
-            $request->except(['historiqueRealisationTaches_search', 'page', 'sort'])
+            $request->except(['historiqueRealisationTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

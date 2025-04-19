@@ -50,12 +50,12 @@ class BaseLivrablesRealisationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $livrablesRealisations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'livrablesRealisations_search',
                 $this->viewState->get("filter.livrablesRealisation.livrablesRealisations_search")
             )],
-            $request->except(['livrablesRealisations_search', 'page', 'sort'])
+            $request->except(['livrablesRealisations_search', 'page'])
         );
 
         // prepareDataForIndexView

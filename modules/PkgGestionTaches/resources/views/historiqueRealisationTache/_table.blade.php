@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="82" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="82" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

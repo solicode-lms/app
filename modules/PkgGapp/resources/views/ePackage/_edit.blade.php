@@ -10,10 +10,11 @@
         editUrl: '{{ route('ePackages.edit',  ['ePackage' => ':id']) }}',
         indexUrl: '{{ route('ePackages.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::ePackage.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::ePackage.singular") }} - {{ $itemEPackage }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemEPackage }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

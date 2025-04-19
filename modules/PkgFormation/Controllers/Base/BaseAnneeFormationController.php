@@ -42,12 +42,12 @@ class BaseAnneeFormationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $anneeFormations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'anneeFormations_search',
                 $this->viewState->get("filter.anneeFormation.anneeFormations_search")
             )],
-            $request->except(['anneeFormations_search', 'page', 'sort'])
+            $request->except(['anneeFormations_search', 'page'])
         );
 
         // prepareDataForIndexView

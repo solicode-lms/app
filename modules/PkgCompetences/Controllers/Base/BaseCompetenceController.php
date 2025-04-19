@@ -48,12 +48,12 @@ class BaseCompetenceController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $competences_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'competences_search',
                 $this->viewState->get("filter.competence.competences_search")
             )],
-            $request->except(['competences_search', 'page', 'sort'])
+            $request->except(['competences_search', 'page'])
         );
 
         // prepareDataForIndexView

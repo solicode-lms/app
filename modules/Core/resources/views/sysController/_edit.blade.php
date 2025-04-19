@@ -10,10 +10,11 @@
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
         indexUrl: '{{ route('sysControllers.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysController.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysController.singular") }} - {{ $itemSysController }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemSysController }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

@@ -44,12 +44,12 @@ class BaseWorkflowChapitreController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $workflowChapitres_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'workflowChapitres_search',
                 $this->viewState->get("filter.workflowChapitre.workflowChapitres_search")
             )],
-            $request->except(['workflowChapitres_search', 'page', 'sort'])
+            $request->except(['workflowChapitres_search', 'page'])
         );
 
         // prepareDataForIndexView

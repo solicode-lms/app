@@ -10,12 +10,12 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column width="20.5"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
 
-                <x-sortable-column width="20.5"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column width="20.5" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

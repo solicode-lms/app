@@ -27,7 +27,9 @@
     });
 </script>
 <script>
-    window.modalTitle = '{{ $profile_title }}'
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $profile_title }}'
+    }
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState = @json($viewState);

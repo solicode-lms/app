@@ -27,7 +27,9 @@
     });
 </script>
 <script>
-    window.modalTitle = '{{ $niveauxScolaire_title }}'
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $niveauxScolaire_title }}'
+    }
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState = @json($viewState);

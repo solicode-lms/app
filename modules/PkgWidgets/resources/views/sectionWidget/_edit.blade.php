@@ -10,10 +10,11 @@
         editUrl: '{{ route('sectionWidgets.edit',  ['sectionWidget' => ':id']) }}',
         indexUrl: '{{ route('sectionWidgets.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::sectionWidget.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::sectionWidget.singular") }} - {{ $itemSectionWidget }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemSectionWidget }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

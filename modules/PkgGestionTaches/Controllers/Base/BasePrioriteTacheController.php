@@ -47,12 +47,12 @@ class BasePrioriteTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $prioriteTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'prioriteTaches_search',
                 $this->viewState->get("filter.prioriteTache.prioriteTaches_search")
             )],
-            $request->except(['prioriteTaches_search', 'page', 'sort'])
+            $request->except(['prioriteTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

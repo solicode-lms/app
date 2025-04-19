@@ -40,12 +40,12 @@ class BaseApprenantKonosyController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $apprenantKonosies_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'apprenantKonosies_search',
                 $this->viewState->get("filter.apprenantKonosy.apprenantKonosies_search")
             )],
-            $request->except(['apprenantKonosies_search', 'page', 'sort'])
+            $request->except(['apprenantKonosies_search', 'page'])
         );
 
         // prepareDataForIndexView

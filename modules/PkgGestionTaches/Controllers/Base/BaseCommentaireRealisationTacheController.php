@@ -49,12 +49,12 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $commentaireRealisationTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'commentaireRealisationTaches_search',
                 $this->viewState->get("filter.commentaireRealisationTache.commentaireRealisationTaches_search")
             )],
-            $request->except(['commentaireRealisationTaches_search', 'page', 'sort'])
+            $request->except(['commentaireRealisationTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

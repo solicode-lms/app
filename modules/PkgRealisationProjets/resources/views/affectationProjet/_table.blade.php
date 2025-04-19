@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5" field="projet_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column width="20.5" field="groupe_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
-                <x-sortable-column width="20.5"  field="date_debut" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
-                <x-sortable-column width="20.5"  field="date_fin" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="projet_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="groupe_id" modelname="affectationProjet" label="{{ ucfirst(__('PkgApprenants::groupe.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="date_debut" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="date_fin" modelname="affectationProjet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

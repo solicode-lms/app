@@ -41,12 +41,12 @@ class BaseEPackageController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $ePackages_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'ePackages_search',
                 $this->viewState->get("filter.ePackage.ePackages_search")
             )],
-            $request->except(['ePackages_search', 'page', 'sort'])
+            $request->except(['ePackages_search', 'page'])
         );
 
         // prepareDataForIndexView

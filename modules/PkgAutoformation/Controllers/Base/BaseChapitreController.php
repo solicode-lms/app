@@ -50,12 +50,12 @@ class BaseChapitreController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $chapitres_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'chapitres_search',
                 $this->viewState->get("filter.chapitre.chapitres_search")
             )],
-            $request->except(['chapitres_search', 'page', 'sort'])
+            $request->except(['chapitres_search', 'page'])
         );
 
         // prepareDataForIndexView

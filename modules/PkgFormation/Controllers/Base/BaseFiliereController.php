@@ -43,12 +43,12 @@ class BaseFiliereController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $filieres_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'filieres_search',
                 $this->viewState->get("filter.filiere.filieres_search")
             )],
-            $request->except(['filieres_search', 'page', 'sort'])
+            $request->except(['filieres_search', 'page'])
         );
 
         // prepareDataForIndexView

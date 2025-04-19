@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="16.4"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
-                <x-sortable-column width="16.4"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
-                <x-sortable-column width="16.4" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column width="16.4" field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
-                <x-sortable-column width="16.4" field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_debut')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::realisationFormation.date_fin')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_formation_id" modelname="realisationFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

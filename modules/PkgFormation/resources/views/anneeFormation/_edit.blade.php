@@ -10,10 +10,11 @@
         editUrl: '{{ route('anneeFormations.edit',  ['anneeFormation' => ':id']) }}',
         indexUrl: '{{ route('anneeFormations.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::anneeFormation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::anneeFormation.singular") }} - {{ $itemAnneeFormation }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemAnneeFormation }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

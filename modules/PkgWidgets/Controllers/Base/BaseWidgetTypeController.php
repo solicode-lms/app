@@ -41,12 +41,12 @@ class BaseWidgetTypeController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $widgetTypes_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'widgetTypes_search',
                 $this->viewState->get("filter.widgetType.widgetTypes_search")
             )],
-            $request->except(['widgetTypes_search', 'page', 'sort'])
+            $request->except(['widgetTypes_search', 'page'])
         );
 
         // prepareDataForIndexView

@@ -43,12 +43,12 @@ class BaseSpecialiteController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $specialites_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'specialites_search',
                 $this->viewState->get("filter.specialite.specialites_search")
             )],
-            $request->except(['specialites_search', 'page', 'sort'])
+            $request->except(['specialites_search', 'page'])
         );
 
         // prepareDataForIndexView

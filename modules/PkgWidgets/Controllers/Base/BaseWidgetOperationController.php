@@ -41,12 +41,12 @@ class BaseWidgetOperationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $widgetOperations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'widgetOperations_search',
                 $this->viewState->get("filter.widgetOperation.widgetOperations_search")
             )],
-            $request->except(['widgetOperations_search', 'page', 'sort'])
+            $request->except(['widgetOperations_search', 'page'])
         );
 
         // prepareDataForIndexView

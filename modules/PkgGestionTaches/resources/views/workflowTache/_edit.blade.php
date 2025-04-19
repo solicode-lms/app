@@ -10,10 +10,11 @@
         editUrl: '{{ route('workflowTaches.edit',  ['workflowTache' => ':id']) }}',
         indexUrl: '{{ route('workflowTaches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::workflowTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::workflowTache.singular") }} - {{ $itemWorkflowTache }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemWorkflowTache }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

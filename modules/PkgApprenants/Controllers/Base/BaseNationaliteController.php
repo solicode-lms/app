@@ -41,12 +41,12 @@ class BaseNationaliteController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $nationalites_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'nationalites_search',
                 $this->viewState->get("filter.nationalite.nationalites_search")
             )],
-            $request->except(['nationalites_search', 'page', 'sort'])
+            $request->except(['nationalites_search', 'page'])
         );
 
         // prepareDataForIndexView

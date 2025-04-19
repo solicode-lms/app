@@ -10,10 +10,11 @@
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
         indexUrl: '{{ route('formateurs.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::formateur.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::formateur.singular") }} - {{ $itemFormateur }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemFormateur }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

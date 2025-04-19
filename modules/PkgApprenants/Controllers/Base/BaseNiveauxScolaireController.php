@@ -41,12 +41,12 @@ class BaseNiveauxScolaireController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $niveauxScolaires_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'niveauxScolaires_search',
                 $this->viewState->get("filter.niveauxScolaire.niveauxScolaires_search")
             )],
-            $request->except(['niveauxScolaires_search', 'page', 'sort'])
+            $request->except(['niveauxScolaires_search', 'page'])
         );
 
         // prepareDataForIndexView

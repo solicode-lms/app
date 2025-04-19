@@ -43,12 +43,12 @@ class BaseUserModelFilterController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $userModelFilters_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'userModelFilters_search',
                 $this->viewState->get("filter.userModelFilter.userModelFilters_search")
             )],
-            $request->except(['userModelFilters_search', 'page', 'sort'])
+            $request->except(['userModelFilters_search', 'page'])
         );
 
         // prepareDataForIndexView

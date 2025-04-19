@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
-                <x-sortable-column width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
-                <x-sortable-column width="54"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
-                <x-sortable-column width="10" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
+                <x-sortable-column :sortable="true" width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
+                <x-sortable-column :sortable="true" width="54"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
+                <x-sortable-column :sortable="true" width="10" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -29,7 +29,9 @@
                     </td>
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
                     <x-field :entity="$sectionWidget" field="icone">
-                        <i class="{{ $sectionWidget->icone }}" ></i>
+                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="{{ $sectionWidget->icone }}" ></i>
+                        </div>
                     </x-field>
                     </td>
 

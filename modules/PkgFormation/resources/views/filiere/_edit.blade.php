@@ -10,10 +10,11 @@
         editUrl: '{{ route('filieres.edit',  ['filiere' => ':id']) }}',
         indexUrl: '{{ route('filieres.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::filiere.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgFormation::filiere.singular") }} - {{ $itemFiliere }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemFiliere }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

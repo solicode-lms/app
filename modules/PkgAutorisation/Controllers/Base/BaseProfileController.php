@@ -57,12 +57,12 @@ class BaseProfileController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $profiles_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'profiles_search',
                 $this->viewState->get("filter.profile.profiles_search")
             )],
-            $request->except(['profiles_search', 'page', 'sort'])
+            $request->except(['profiles_search', 'page'])
         );
 
         // prepareDataForIndexView

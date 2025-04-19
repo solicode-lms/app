@@ -50,12 +50,12 @@ class BaseRealisationFormationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $realisationFormations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'realisationFormations_search',
                 $this->viewState->get("filter.realisationFormation.realisationFormations_search")
             )],
-            $request->except(['realisationFormations_search', 'page', 'sort'])
+            $request->except(['realisationFormations_search', 'page'])
         );
 
         // prepareDataForIndexView

@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5"  field="commentaire" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}" />
-                <x-sortable-column width="20.5" field="realisation_tache_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
-                <x-sortable-column width="20.5" field="formateur_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column width="20.5" field="apprenant_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="commentaire" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="realisation_tache_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="apprenant_id" modelname="commentaireRealisationTache" label="{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

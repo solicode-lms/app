@@ -10,10 +10,11 @@
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
         indexUrl: '{{ route('niveauxScolaires.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::niveauxScolaire.singular") }} - {{ $itemNiveauxScolaire }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemNiveauxScolaire }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

@@ -44,12 +44,12 @@ class BaseWorkflowProjetController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $workflowProjets_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'workflowProjets_search',
                 $this->viewState->get("filter.workflowProjet.workflowProjets_search")
             )],
-            $request->except(['workflowProjets_search', 'page', 'sort'])
+            $request->except(['workflowProjets_search', 'page'])
         );
 
         // prepareDataForIndexView

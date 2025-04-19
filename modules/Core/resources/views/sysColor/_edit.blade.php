@@ -10,10 +10,11 @@
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
         indexUrl: '{{ route('sysColors.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysColor.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysColor.singular") }} - {{ $itemSysColor }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemSysColor }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

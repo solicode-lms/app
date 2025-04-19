@@ -10,10 +10,11 @@
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
         indexUrl: '{{ route('eModels.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGapp::eModel.singular") }} - {{ $itemEModel }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemEModel }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

@@ -47,12 +47,12 @@ class BaseNiveauDifficulteController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $niveauDifficultes_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'niveauDifficultes_search',
                 $this->viewState->get("filter.niveauDifficulte.niveauDifficultes_search")
             )],
-            $request->except(['niveauDifficultes_search', 'page', 'sort'])
+            $request->except(['niveauDifficultes_search', 'page'])
         );
 
         // prepareDataForIndexView

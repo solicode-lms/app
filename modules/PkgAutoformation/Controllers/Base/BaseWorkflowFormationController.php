@@ -44,12 +44,12 @@ class BaseWorkflowFormationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $workflowFormations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'workflowFormations_search',
                 $this->viewState->get("filter.workflowFormation.workflowFormations_search")
             )],
-            $request->except(['workflowFormations_search', 'page', 'sort'])
+            $request->except(['workflowFormations_search', 'page'])
         );
 
         // prepareDataForIndexView

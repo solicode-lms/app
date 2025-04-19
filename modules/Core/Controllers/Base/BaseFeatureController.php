@@ -46,12 +46,12 @@ class BaseFeatureController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $features_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'features_search',
                 $this->viewState->get("filter.feature.features_search")
             )],
-            $request->except(['features_search', 'page', 'sort'])
+            $request->except(['features_search', 'page'])
         );
 
         // prepareDataForIndexView

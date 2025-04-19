@@ -10,10 +10,11 @@
         editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
         indexUrl: '{{ route('users.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::user.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgAutorisation::user.singular") }} - {{ $itemUser }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemUser }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

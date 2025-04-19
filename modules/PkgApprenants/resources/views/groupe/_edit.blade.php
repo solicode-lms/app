@@ -10,10 +10,11 @@
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
         indexUrl: '{{ route('groupes.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgApprenants::groupe.singular") }} - {{ $itemGroupe }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemGroupe }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

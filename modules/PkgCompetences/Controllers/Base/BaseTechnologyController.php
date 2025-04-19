@@ -52,12 +52,12 @@ class BaseTechnologyController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $technologies_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'technologies_search',
                 $this->viewState->get("filter.technology.technologies_search")
             )],
-            $request->except(['technologies_search', 'page', 'sort'])
+            $request->except(['technologies_search', 'page'])
         );
 
         // prepareDataForIndexView

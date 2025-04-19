@@ -50,12 +50,12 @@ class BaseLabelRealisationTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $labelRealisationTaches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'labelRealisationTaches_search',
                 $this->viewState->get("filter.labelRealisationTache.labelRealisationTaches_search")
             )],
-            $request->except(['labelRealisationTaches_search', 'page', 'sort'])
+            $request->except(['labelRealisationTaches_search', 'page'])
         );
 
         // prepareDataForIndexView

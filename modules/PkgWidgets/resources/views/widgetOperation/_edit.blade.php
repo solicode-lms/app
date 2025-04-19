@@ -10,10 +10,11 @@
         editUrl: '{{ route('widgetOperations.edit',  ['widgetOperation' => ':id']) }}',
         indexUrl: '{{ route('widgetOperations.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetOperation.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgWidgets::widgetOperation.singular") }} - {{ $itemWidgetOperation }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemWidgetOperation }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

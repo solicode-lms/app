@@ -53,12 +53,12 @@ class BaseEtatFormationController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $etatFormations_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'etatFormations_search',
                 $this->viewState->get("filter.etatFormation.etatFormations_search")
             )],
-            $request->except(['etatFormations_search', 'page', 'sort'])
+            $request->except(['etatFormations_search', 'page'])
         );
 
         // prepareDataForIndexView

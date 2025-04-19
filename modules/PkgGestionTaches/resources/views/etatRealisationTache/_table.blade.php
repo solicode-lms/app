@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
-                <x-sortable-column width="20.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
-                <x-sortable-column width="20.5" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column width="20.5" field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="etatRealisationTache" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="etatRealisationTache" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

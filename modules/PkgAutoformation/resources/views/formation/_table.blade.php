@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
-                <x-sortable-column width="20.5" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
-                <x-sortable-column width="20.5"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
-                <x-sortable-column width="20.5" field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.nom')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="competence_id" modelname="formation" label="{{ ucfirst(__('PkgCompetences::competence.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="is_officiel" modelname="formation" label="{{ ucfirst(__('PkgAutoformation::formation.is_officiel')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="formation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

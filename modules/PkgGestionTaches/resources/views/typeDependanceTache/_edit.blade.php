@@ -10,10 +10,11 @@
         editUrl: '{{ route('typeDependanceTaches.edit',  ['typeDependanceTache' => ':id']) }}',
         indexUrl: '{{ route('typeDependanceTaches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }} - {{ $itemTypeDependanceTache }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemTypeDependanceTache }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

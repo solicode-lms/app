@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column width="20.5"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
-                <x-sortable-column width="20.5" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
-                <x-sortable-column width="20.5" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
-                <x-sortable-column width="20.5"  field="livrables" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="titre" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="projet_id" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5" field="priorite_tache_id" modelname="tache" label="{{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="livrables" modelname="tache" label="{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

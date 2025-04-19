@@ -57,12 +57,12 @@ class BaseFormateurController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $formateurs_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'formateurs_search',
                 $this->viewState->get("filter.formateur.formateurs_search")
             )],
-            $request->except(['formateurs_search', 'page', 'sort'])
+            $request->except(['formateurs_search', 'page'])
         );
 
         // prepareDataForIndexView

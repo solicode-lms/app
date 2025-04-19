@@ -10,10 +10,11 @@
         editUrl: '{{ route('sysModels.edit',  ['sysModel' => ':id']) }}',
         indexUrl: '{{ route('sysModels.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysModel.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("Core::sysModel.singular") }} - {{ $itemSysModel }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemSysModel }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

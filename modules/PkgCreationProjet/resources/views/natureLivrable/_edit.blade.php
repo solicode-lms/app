@@ -10,10 +10,11 @@
         editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',
         indexUrl: '{{ route('natureLivrables.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationProjet::natureLivrable.singular") }} - {{ $itemNatureLivrable }}',
     });
 </script>
 <script>
+    window.modalTitle = '{{ $itemNatureLivrable }}';
     window.contextState = @json($contextState);
     window.viewState = @json($viewState);
 </script>

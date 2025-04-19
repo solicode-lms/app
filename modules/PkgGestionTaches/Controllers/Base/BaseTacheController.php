@@ -51,12 +51,12 @@ class BaseTacheController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $taches_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'taches_search',
                 $this->viewState->get("filter.tache.taches_search")
             )],
-            $request->except(['taches_search', 'page', 'sort'])
+            $request->except(['taches_search', 'page'])
         );
 
         // prepareDataForIndexView

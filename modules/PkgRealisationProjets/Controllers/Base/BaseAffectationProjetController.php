@@ -61,12 +61,12 @@ class BaseAffectationProjetController extends AdminController
 
          // Extraire les paramètres de recherche, pagination, filtres
         $affectationProjets_params = array_merge(
-            $request->only(['page', 'sort']),
+            $request->only(['page']),
             ['search' => $request->get(
                 'affectationProjets_search',
                 $this->viewState->get("filter.affectationProjet.affectationProjets_search")
             )],
-            $request->except(['affectationProjets_search', 'page', 'sort'])
+            $request->except(['affectationProjets_search', 'page'])
         );
 
         // prepareDataForIndexView
