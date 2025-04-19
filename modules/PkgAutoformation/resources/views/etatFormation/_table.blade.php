@@ -19,7 +19,7 @@
         <tbody>
             @section('etatFormation-table-tbody')
             @foreach ($etatFormations_data as $etatFormation)
-                <tr id="etatFormation-row-{{$etatFormation->id}}">
+                <tr id="etatFormation-row-{{$etatFormation->id}}" data-id="{{$etatFormation->id}}">
                     <x-checkbox-row :item="$etatFormation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
                     <x-field :entity="$etatFormation" field="nom">

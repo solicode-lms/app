@@ -22,11 +22,13 @@
         <tbody>
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
-                <tr id="widget-row-{{$widget->id}}">
+                <tr id="widget-row-{{$widget->id}}" data-id="{{$widget->id}}">
                     <x-checkbox-row :item="$widget" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->ordre }}" >
                     <x-field :entity="$widget" field="ordre">
-                        {{ $widget->ordre }}
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $widget->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
                     </x-field>
                     </td>
                     <td style="max-width: 19%;" class="text-truncate" data-toggle="tooltip" title="{{ $widget->name }}" >

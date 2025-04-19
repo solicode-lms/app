@@ -20,7 +20,7 @@
         <tbody>
             @section('workflowProjet-table-tbody')
             @foreach ($workflowProjets_data as $workflowProjet)
-                <tr id="workflowProjet-row-{{$workflowProjet->id}}">
+                <tr id="workflowProjet-row-{{$workflowProjet->id}}" data-id="{{$workflowProjet->id}}">
                     <x-checkbox-row :item="$workflowProjet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
                     <x-field :entity="$workflowProjet" field="code">
@@ -34,7 +34,9 @@
                     </td>
                     <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->ordre }}" >
                     <x-field :entity="$workflowProjet" field="ordre">
-                        {{ $workflowProjet->ordre }}
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $workflowProjet->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
                     </x-field>
                     </td>
                     <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >

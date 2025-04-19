@@ -17,7 +17,7 @@
         <tbody>
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
-                <tr id="ePackage-row-{{$ePackage->id}}">
+                <tr id="ePackage-row-{{$ePackage->id}}" data-id="{{$ePackage->id}}">
                     <x-checkbox-row :item="$ePackage" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $ePackage->name }}" >
                     <x-field :entity="$ePackage" field="name">

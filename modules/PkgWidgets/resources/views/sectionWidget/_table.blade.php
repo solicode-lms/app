@@ -20,11 +20,13 @@
         <tbody>
             @section('sectionWidget-table-tbody')
             @foreach ($sectionWidgets_data as $sectionWidget)
-                <tr id="sectionWidget-row-{{$sectionWidget->id}}">
+                <tr id="sectionWidget-row-{{$sectionWidget->id}}" data-id="{{$sectionWidget->id}}">
                     <x-checkbox-row :item="$sectionWidget" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
                     <x-field :entity="$sectionWidget" field="ordre">
-                        {{ $sectionWidget->ordre }}
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $sectionWidget->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
                     </x-field>
                     </td>
                     <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >

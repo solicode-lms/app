@@ -24,7 +24,7 @@
                     <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
                     <x-field :entity="$workflowTache" field="ordre">
-                        <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $workflowTache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>

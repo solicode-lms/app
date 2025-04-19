@@ -20,7 +20,7 @@
         <tbody>
             @section('commentaireRealisationTache-table-tbody')
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
-                <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}">
+                <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}" data-id="{{$commentaireRealisationTache->id}}">
                     <x-checkbox-row :item="$commentaireRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
                     <x-field :entity="$commentaireRealisationTache" field="commentaire">

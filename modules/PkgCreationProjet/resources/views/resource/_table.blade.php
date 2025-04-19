@@ -18,7 +18,7 @@
         <tbody>
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
-                <tr id="resource-row-{{$resource->id}}">
+                <tr id="resource-row-{{$resource->id}}" data-id="{{$resource->id}}">
                     <x-checkbox-row :item="$resource" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $resource->nom }}" >
                     <x-field :entity="$resource" field="nom">

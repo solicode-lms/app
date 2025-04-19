@@ -19,7 +19,7 @@
         <tbody>
             @section('user-table-tbody')
             @foreach ($users_data as $user)
-                <tr id="user-row-{{$user->id}}">
+                <tr id="user-row-{{$user->id}}" data-id="{{$user->id}}">
                     <x-checkbox-row :item="$user" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $user->name }}" >
                     <x-field :entity="$user" field="name">

@@ -19,7 +19,7 @@
         <tbody>
             @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
-                <tr id="eMetadatum-row-{{$eMetadatum->id}}">
+                <tr id="eMetadatum-row-{{$eMetadatum->id}}" data-id="{{$eMetadatum->id}}">
                     <x-checkbox-row :item="$eMetadatum" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
                     <x-field :entity="$eMetadatum" field="eModel">

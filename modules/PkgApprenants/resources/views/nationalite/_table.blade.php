@@ -17,7 +17,7 @@
         <tbody>
             @section('nationalite-table-tbody')
             @foreach ($nationalites_data as $nationalite)
-                <tr id="nationalite-row-{{$nationalite->id}}">
+                <tr id="nationalite-row-{{$nationalite->id}}" data-id="{{$nationalite->id}}">
                     <x-checkbox-row :item="$nationalite" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
                     <x-field :entity="$nationalite" field="code">

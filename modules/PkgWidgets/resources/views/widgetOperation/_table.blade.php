@@ -18,7 +18,7 @@
         <tbody>
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
-                <tr id="widgetOperation-row-{{$widgetOperation->id}}">
+                <tr id="widgetOperation-row-{{$widgetOperation->id}}" data-id="{{$widgetOperation->id}}">
                     <x-checkbox-row :item="$widgetOperation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
                     <x-field :entity="$widgetOperation" field="operation">

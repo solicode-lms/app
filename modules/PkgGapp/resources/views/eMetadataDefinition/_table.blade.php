@@ -19,7 +19,7 @@
         <tbody>
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
-                <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}">
+                <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}" data-id="{{$eMetadataDefinition->id}}">
                     <x-checkbox-row :item="$eMetadataDefinition" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
                     <x-field :entity="$eMetadataDefinition" field="name">

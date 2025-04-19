@@ -17,7 +17,7 @@
         <tbody>
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
-                <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}">
+                <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}" data-id="{{$historiqueRealisationTache->id}}">
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
                     <x-field :entity="$historiqueRealisationTache" field="realisationTache">

@@ -20,7 +20,7 @@
         <tbody>
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
-                <tr id="competence-row-{{$competence->id}}">
+                <tr id="competence-row-{{$competence->id}}" data-id="{{$competence->id}}">
                     <x-checkbox-row :item="$competence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $competence->code }}" >
                     <x-field :entity="$competence" field="code">

@@ -21,7 +21,7 @@
         <tbody>
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
-                <tr id="sysController-row-{{$sysController->id}}">
+                <tr id="sysController-row-{{$sysController->id}}" data-id="{{$sysController->id}}">
                     <x-checkbox-row :item="$sysController" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
                     <x-field :entity="$sysController" field="sysModule">

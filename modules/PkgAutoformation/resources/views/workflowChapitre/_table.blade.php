@@ -19,7 +19,7 @@
         <tbody>
             @section('workflowChapitre-table-tbody')
             @foreach ($workflowChapitres_data as $workflowChapitre)
-                <tr id="workflowChapitre-row-{{$workflowChapitre->id}}">
+                <tr id="workflowChapitre-row-{{$workflowChapitre->id}}" data-id="{{$workflowChapitre->id}}">
                     <x-checkbox-row :item="$workflowChapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowChapitre->code }}" >
                     <x-field :entity="$workflowChapitre" field="code">

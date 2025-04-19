@@ -17,7 +17,7 @@
         <tbody>
             @section('userModelFilter-table-tbody')
             @foreach ($userModelFilters_data as $userModelFilter)
-                <tr id="userModelFilter-row-{{$userModelFilter->id}}">
+                <tr id="userModelFilter-row-{{$userModelFilter->id}}" data-id="{{$userModelFilter->id}}">
                     <x-checkbox-row :item="$userModelFilter" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $userModelFilter->user }}" >
                     <x-field :entity="$userModelFilter" field="user">

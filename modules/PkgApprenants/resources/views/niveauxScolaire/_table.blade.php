@@ -17,7 +17,7 @@
         <tbody>
             @section('niveauxScolaire-table-tbody')
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
-                <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}">
+                <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}" data-id="{{$niveauxScolaire->id}}">
                     <x-checkbox-row :item="$niveauxScolaire" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
                     <x-field :entity="$niveauxScolaire" field="code">

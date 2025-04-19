@@ -19,7 +19,7 @@
         <tbody>
             @section('eModel-table-tbody')
             @foreach ($eModels_data as $eModel)
-                <tr id="eModel-row-{{$eModel->id}}">
+                <tr id="eModel-row-{{$eModel->id}}" data-id="{{$eModel->id}}">
                     <x-checkbox-row :item="$eModel" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 7%;" class="text-truncate" data-toggle="tooltip" title="{{ $eModel->icone }}" >
                     <x-field :entity="$eModel" field="icone">

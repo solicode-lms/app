@@ -19,7 +19,7 @@
         <tbody>
             @section('validation-table-tbody')
             @foreach ($validations_data as $validation)
-                <tr id="validation-row-{{$validation->id}}">
+                <tr id="validation-row-{{$validation->id}}" data-id="{{$validation->id}}">
                     <x-checkbox-row :item="$validation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
                     <x-field :entity="$validation" field="transfertCompetence">

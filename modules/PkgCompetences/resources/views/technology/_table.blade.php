@@ -18,7 +18,7 @@
         <tbody>
             @section('technology-table-tbody')
             @foreach ($technologies_data as $technology)
-                <tr id="technology-row-{{$technology->id}}">
+                <tr id="technology-row-{{$technology->id}}" data-id="{{$technology->id}}">
                     <x-checkbox-row :item="$technology" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
                     <x-field :entity="$technology" field="nom">

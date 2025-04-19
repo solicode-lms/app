@@ -19,7 +19,7 @@
         <tbody>
             @section('permission-table-tbody')
             @foreach ($permissions_data as $permission)
-                <tr id="permission-row-{{$permission->id}}">
+                <tr id="permission-row-{{$permission->id}}" data-id="{{$permission->id}}">
                     <x-checkbox-row :item="$permission" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
                     <x-field :entity="$permission" field="name">

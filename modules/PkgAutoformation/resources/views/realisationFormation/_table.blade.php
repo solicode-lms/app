@@ -21,7 +21,7 @@
         <tbody>
             @section('realisationFormation-table-tbody')
             @foreach ($realisationFormations_data as $realisationFormation)
-                <tr id="realisationFormation-row-{{$realisationFormation->id}}">
+                <tr id="realisationFormation-row-{{$realisationFormation->id}}" data-id="{{$realisationFormation->id}}">
                     <x-checkbox-row :item="$realisationFormation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
                     <x-field :entity="$realisationFormation" field="date_debut">

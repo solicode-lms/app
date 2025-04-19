@@ -22,7 +22,7 @@
         <tbody>
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
-                <tr id="projet-row-{{$projet->id}}">
+                <tr id="projet-row-{{$projet->id}}" data-id="{{$projet->id}}">
                     <x-checkbox-row :item="$projet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
                     <x-field :entity="$projet" field="titre">

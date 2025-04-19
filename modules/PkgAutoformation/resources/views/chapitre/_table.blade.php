@@ -10,49 +10,57 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="niveau_competence_id" modelname="chapitre" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="formateur_id" modelname="chapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="chapitre_officiel_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.ordre')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="niveau_competence_id" modelname="chapitre" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="formateur_id" modelname="chapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="chapitre_officiel_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
         <tbody>
             @section('chapitre-table-tbody')
             @foreach ($chapitres_data as $chapitre)
-                <tr id="chapitre-row-{{$chapitre->id}}">
+                <tr id="chapitre-row-{{$chapitre->id}}" data-id="{{$chapitre->id}}">
                     <x-checkbox-row :item="$chapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->nom }}" >
                     <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->lien }}" >
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->lien }}" >
                     <x-field :entity="$chapitre" field="lien">
                         {{ $chapitre->lien }}
                     </x-field>
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formation }}" >
+                    <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->ordre }}" >
+                    <x-field :entity="$chapitre" field="ordre">
+                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $chapitre->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
+                    </x-field>
+                    </td>
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formation }}" >
                     <x-field :entity="$chapitre" field="formation">
                        
                          {{  $chapitre->formation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
                     <x-field :entity="$chapitre" field="niveauCompetence">
                        
                          {{  $chapitre->niveauCompetence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
                     <x-field :entity="$chapitre" field="formateur">
                        
                          {{  $chapitre->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
+                    <td style="max-width: 12.833333333333334%;" class="text-truncate" data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
                     <x-field :entity="$chapitre" field="chapitreOfficiel">
                        
                          {{  $chapitre->chapitreOfficiel }}

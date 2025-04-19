@@ -22,7 +22,7 @@
         <tbody>
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
-                <tr id="module-row-{{$module->id}}">
+                <tr id="module-row-{{$module->id}}" data-id="{{$module->id}}">
                     <x-checkbox-row :item="$module" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
                     <x-field :entity="$module" field="code">

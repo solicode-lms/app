@@ -20,7 +20,7 @@
         <tbody>
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
-                <tr id="eDataField-row-{{$eDataField->id}}">
+                <tr id="eDataField-row-{{$eDataField->id}}" data-id="{{$eDataField->id}}">
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">

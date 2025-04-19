@@ -18,7 +18,7 @@
         <tbody>
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
-                <tr id="widgetType-row-{{$widgetType->id}}">
+                <tr id="widgetType-row-{{$widgetType->id}}" data-id="{{$widgetType->id}}">
                     <x-checkbox-row :item="$widgetType" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $widgetType->type }}" >
                     <x-field :entity="$widgetType" field="type">

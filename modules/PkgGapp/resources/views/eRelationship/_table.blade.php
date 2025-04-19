@@ -20,7 +20,7 @@
         <tbody>
             @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
-                <tr id="eRelationship-row-{{$eRelationship->id}}">
+                <tr id="eRelationship-row-{{$eRelationship->id}}" data-id="{{$eRelationship->id}}">
                     <x-checkbox-row :item="$eRelationship" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eRelationship->name }}" >
                     <x-field :entity="$eRelationship" field="name">

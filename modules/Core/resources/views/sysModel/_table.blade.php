@@ -20,7 +20,7 @@
         <tbody>
             @section('sysModel-table-tbody')
             @foreach ($sysModels_data as $sysModel)
-                <tr id="sysModel-row-{{$sysModel->id}}">
+                <tr id="sysModel-row-{{$sysModel->id}}" data-id="{{$sysModel->id}}">
                     <x-checkbox-row :item="$sysModel" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModel->name }}" >
                     <x-field :entity="$sysModel" field="name">

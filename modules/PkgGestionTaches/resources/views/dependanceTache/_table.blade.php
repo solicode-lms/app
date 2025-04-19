@@ -19,7 +19,7 @@
         <tbody>
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
-                <tr id="dependanceTache-row-{{$dependanceTache->id}}">
+                <tr id="dependanceTache-row-{{$dependanceTache->id}}" data-id="{{$dependanceTache->id}}">
                     <x-checkbox-row :item="$dependanceTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
                     <x-field :entity="$dependanceTache" field="tache">
