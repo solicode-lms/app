@@ -35,76 +35,99 @@ trait SortTrait
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      *         La requête modifiée avec les clauses de tri appliquées.
      */
-     public function applySort($query, $sortFields)
-     {
-         if ($sortFields) {
-             foreach ($sortFields as $field => $direction) {
-     
-                 if (property_exists($this->model, 'manyToOne')) {
-                     foreach ($this->model->manyToOne as $rootKey => $rootConfig) {
-                         if (
-                             isset($rootConfig['foreign_key']) &&
-                             $rootConfig['foreign_key'] === $field &&
-                             isset($rootConfig['sortByPath'])
-                         ) {
-                             $sortPath = $rootConfig['sortByPath'];
-                             $segments = explode('.', $sortPath);
-                             $finalColumn = array_pop($segments);
-     
-                             $baseTable = $this->model->getTable();
-                             $previousAlias = $baseTable;
-                             $previousModel = $this->model;
-                             $aliasMap = [];
-     
-                             foreach ($segments as $segment) {
-                                 $target = collect($previousModel->manyToOne ?? [])
-                                     ->first(function ($item, $key) use ($segment) {
-                                         return Str::camel($key) === Str::camel($segment) ||
-                                                Str::camel($item['relation'] ?? '') === Str::camel($segment);
-                                     });
-     
-                                 if (!$target || !isset($target['model'], $target['relation'])) {
-                                     continue 2; // Abandonner ce tri si un segment échoue
-                                 }
-     
-                                 $relationTable = Str::snake($target['relation']);
-                                 $foreignKey = $target['foreign_key'] ?? ($segment . '_id');
-                                 $currentAlias = "{$previousAlias}__{$segment}";
-     
-                                 if (!in_array($currentAlias, $aliasMap)) {
-                                     $query->leftJoin("{$relationTable} as {$currentAlias}", "{$previousAlias}.{$foreignKey}", '=', "{$currentAlias}.id");
-                                     $aliasMap[] = $currentAlias;
-                                 }
-     
-                                 // Utilise le modèle défini dans la config
-                                 $previousModel = new $target['model'];
-                                 $previousAlias = $currentAlias;
-                             }
-     
-                             $sortAlias = str_replace('.', '_', $sortPath);
-                             $query->addSelect([
-                                 "{$baseTable}.*",
-                                 "{$previousAlias}.{$finalColumn} as {$sortAlias}"
-                             ])->orderBy("{$previousAlias}.{$finalColumn}", $direction);
-     
-                             continue 2;
-                         }
-                     }
-                 }
-     
-                 // Fallback : tri simple
-                 if (in_array($field, $this->getFieldsSortable())) {
-                     $query->orderBy($field, $direction);
-                 }
-             }
-     
-             return $query;
-         }
-     
-         // Tri par défaut
-         $model = $query->getModel();
-         return Schema::hasColumn($model->getTable(), 'ordre')
-             ? $query->orderBy('ordre', 'asc')
-             : $query->orderBy('updated_at', 'desc');
-     }
+    public function applySort($query, $sortFields)
+    {
+        // Si des champs de tri sont spécifiés
+        if ($sortFields) {
+            // Parcours de chaque champ à trier
+            foreach ($sortFields as $field => $direction) {
+
+                // Vérifie si le modèle courant déclare des relations manyToOne
+                if (property_exists($this->model, 'manyToOne')) {
+
+                    // Parcours des relations manyToOne du modèle
+                    foreach ($this->model->manyToOne as $rootKey => $rootConfig) {
+
+                        // Si ce champ est une clé étrangère avec un sortByPath défini
+                        if (
+                            isset($rootConfig['foreign_key']) &&
+                            $rootConfig['foreign_key'] === $field &&
+                            isset($rootConfig['sortByPath'])
+                        ) {
+                            // Exemple : "etatRealisationTache.workflowTache.code"
+                            $sortPath = $rootConfig['sortByPath'];
+
+                            // On découpe le chemin en segments ["etatRealisationTache", "workflowTache", "code"]
+                            $segments = explode('.', $sortPath);
+                            $finalColumn = array_pop($segments); // Le dernier segment est la colonne sur laquelle trier
+
+                            $baseTable = $this->model->getTable(); // ex: realisation_taches
+                            $previousAlias = $baseTable;          // Pour la première jointure
+                            $previousModel = $this->model;        // Modèle initial
+                            $aliasMap = [];                       // Suivi des alias déjà utilisés (éviter les doublons)
+
+                            // Résolution de chaque segment comme une relation successive
+                            foreach ($segments as $segment) {
+                                // Cherche la relation correspondante dans le modèle courant
+                                $target = collect($previousModel->manyToOne ?? [])
+                                    ->first(function ($item, $key) use ($segment) {
+                                        return Str::camel($key) === Str::camel($segment) ||
+                                            Str::camel($item['relation'] ?? '') === Str::camel($segment);
+                                    });
+
+                                // Si la relation n'existe pas ou est incomplète, on annule ce tri
+                                if (!$target || !isset($target['model'], $target['relation'])) {
+                                    continue 2; // Passe au champ de tri suivant
+                                }
+
+                                // Nom réel de la table cible
+                                $relationTable = Str::snake($target['relation']);
+
+                                // Clé étrangère utilisée pour la jointure (par convention ou config)
+                                $foreignKey = $target['foreign_key'] ?? ($segment . '_id');
+
+                                // On génère un alias unique pour éviter les conflits
+                                $currentAlias = "{$previousAlias}__{$segment}";
+
+                                // Si l’alias n’a pas encore été joint, on ajoute la jointure
+                                if (!in_array($currentAlias, $aliasMap)) {
+                                    $query->leftJoin("{$relationTable} as {$currentAlias}", "{$previousAlias}.{$foreignKey}", '=', "{$currentAlias}.id");
+                                    $aliasMap[] = $currentAlias;
+                                }
+
+                                // On passe au modèle suivant dans la chaîne
+                                $previousModel = new $target['model'];
+                                $previousAlias = $currentAlias;
+                            }
+
+                            // Nom d'alias final (utilisé pour la colonne triable)
+                            $sortAlias = str_replace('.', '_', $sortPath);
+
+                            // Sélectionne les colonnes du modèle courant + la colonne de tri
+                            $query->addSelect([
+                                "{$baseTable}.*",
+                                "{$previousAlias}.{$finalColumn} as {$sortAlias}"
+                            ])->orderBy("{$previousAlias}.{$finalColumn}", $direction);
+
+                            continue 2; // Passe au champ de tri suivant
+                        }
+                    }
+                }
+
+                // Si ce n’est pas une relation, applique un tri simple si autorisé
+                if (in_array($field, $this->getFieldsSortable())) {
+                    $query->orderBy($field, $direction);
+                }
+            }
+
+            return $query;
+        }
+
+        // Si aucun champ de tri fourni → fallback par défaut
+        $model = $query->getModel();
+        return Schema::hasColumn($model->getTable(), 'ordre')
+            ? $query->orderBy('ordre', 'asc')
+            : $query->orderBy('updated_at', 'desc');
+    }
+
 }
