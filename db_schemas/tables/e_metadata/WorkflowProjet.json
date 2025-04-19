@@ -320,5 +320,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowProjet_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_ordre_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "WorkflowProjet_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "WorkflowProjet_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "WorkflowProjet_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "WorkflowProjet_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "WorkflowProjet_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_ordre",
+        "e_metadata_definition_reference": "sortable"
     }
 ]
