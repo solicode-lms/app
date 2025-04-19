@@ -20,11 +20,13 @@
         <tbody>
             @section('workflowTache-table-tbody')
             @foreach ($workflowTaches_data as $workflowTache)
-                <tr id="workflowTache-row-{{$workflowTache->id}}">
+                <tr id="workflowTache-row-{{$workflowTache->id}}" data-id="{{$workflowTache->id}}">
                     <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
                     <x-field :entity="$workflowTache" field="ordre">
-                        {{ $workflowTache->ordre }}
+                        <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $workflowTache->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
                     </x-field>
                     </td>
                     <td style="max-width: 25.666666666666668%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowTache->code }}" >

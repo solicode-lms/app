@@ -9,6 +9,7 @@ import { EntityAction } from './../actions/EntityAction';
 import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
 import { ShowIndexAction } from "../actions/ShowIndexAction";
 import { BulkAction } from "../actions/BulkAction";
+import { OrdreColumn } from "./TableUI/OrdreColumn";
 
 export class TableUI {
     constructor(config, indexUI) {
@@ -26,6 +27,7 @@ export class TableUI {
         this.entityAction = new EntityAction(config,this);
         this.bulkAction = new BulkAction(config,this);
         this.viewSwitcherAction = new IndexViewSwitcherAction(config, this);
+        this.ordreColumn = new OrdreColumn(config, this);
     }
 
     init(){
@@ -41,7 +43,7 @@ export class TableUI {
         TableUI.initTooltip();
         this.initTruncatText();
         this.initWidgets();
-        this.initOrderColumn();
+        this.ordreColumn.init();
     }
 
     
@@ -260,10 +262,6 @@ export class TableUI {
     
             observer.observe(card, { attributes: true });
         });
-    }
-
-    initOrderColumn(){
-
     }
 }
 
