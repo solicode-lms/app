@@ -103,6 +103,33 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgRealisationProjets::workflowProjet.ordre')) }}
+            
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgRealisationProjets::workflowProjet.ordre') }}"
+                value="{{ $itemWorkflowProjet ? $itemWorkflowProjet->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sys_color_id" id="bulk_field_sys_color_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif

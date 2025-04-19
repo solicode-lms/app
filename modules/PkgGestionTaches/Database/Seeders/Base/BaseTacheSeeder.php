@@ -78,6 +78,7 @@ class BaseTacheSeeder extends Seeder
                     "description" => $row["description"] ?? null,
                     "dateDebut" => $row["dateDebut"] ?? null,
                     "dateFin" => $row["dateFin"] ?? null,
+                    "ordre" => $row["ordre"] ?? null,
                     "projet_id" => $row["projet_id"] ?? null,
                     "priorite_tache_id" => $row["priorite_tache_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,

@@ -22,6 +22,7 @@ class BaseWorkflowTacheService extends BaseService
         'code',
         'titre',
         'description',
+        'ordre',
         'sys_color_id'
     ];
 

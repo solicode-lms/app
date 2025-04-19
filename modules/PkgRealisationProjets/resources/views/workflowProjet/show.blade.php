@@ -37,6 +37,10 @@
                                 <p>{{ $itemWorkflowProjet->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgRealisationProjets::workflowProjet.ordre')) }}:</label>
+                                <p>{{ $itemWorkflowProjet->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('PkgRealisationProjets::workflowProjet.sys_color_id')) }}:</label>
                                 <p>{{ $itemWorkflowProjet->sys_color_id }}</p>
                             </div>

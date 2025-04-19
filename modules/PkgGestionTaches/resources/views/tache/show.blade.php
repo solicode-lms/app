@@ -41,6 +41,10 @@
                                 <p>{{ $itemTache->dateFin }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}:</label>
+                                <p>{{ $itemTache->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgGestionTaches::tache.projet_id')) }}:</label>
                                 <p>{{ $itemTache->projet_id }}</p>
                             </div>

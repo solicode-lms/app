@@ -37,6 +37,10 @@
                                 <p>{{ $itemWorkflowTache->description }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}:</label>
+                                <p>{{ $itemWorkflowTache->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('PkgGestionTaches::workflowTache.sys_color_id')) }}:</label>
                                 <p>{{ $itemWorkflowTache->sys_color_id }}</p>
                             </div>

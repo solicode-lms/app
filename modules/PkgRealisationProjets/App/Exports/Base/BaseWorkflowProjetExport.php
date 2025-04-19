@@ -32,6 +32,7 @@ class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAu
             'titre' => 'titre',
             'description' => 'description',
             'reference' => 'reference',
+            'ordre' => 'ordre',
             'sys_color_id' => 'sys_color_id',
         ];
         }else{
@@ -40,6 +41,7 @@ class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAu
             'titre' => __('PkgRealisationProjets::workflowProjet.titre'),
             'description' => __('PkgRealisationProjets::workflowProjet.description'),
             'reference' => __('Core::msg.reference'),
+            'ordre' => __('PkgRealisationProjets::workflowProjet.ordre'),
             'sys_color_id' => __('PkgRealisationProjets::workflowProjet.sys_color_id'),
         ];
 
@@ -55,6 +57,7 @@ class BaseWorkflowProjetExport implements FromCollection, WithHeadings, ShouldAu
                 'titre' => $workflowProjet->titre,
                 'description' => $workflowProjet->description,
                 'reference' => $workflowProjet->reference,
+                'ordre' => $workflowProjet->ordre,
                 'sys_color_id' => $workflowProjet->sys_color_id,
             ];
         });

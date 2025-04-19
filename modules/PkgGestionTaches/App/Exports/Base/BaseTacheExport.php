@@ -33,6 +33,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
             'reference' => 'reference',
+            'ordre' => 'ordre',
             'projet_id' => 'projet_id',
             'priorite_tache_id' => 'priorite_tache_id',
         ];
@@ -43,6 +44,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'dateDebut' => __('PkgGestionTaches::tache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::tache.dateFin'),
             'reference' => __('Core::msg.reference'),
+            'ordre' => __('PkgGestionTaches::tache.ordre'),
             'projet_id' => __('PkgGestionTaches::tache.projet_id'),
             'priorite_tache_id' => __('PkgGestionTaches::tache.priorite_tache_id'),
         ];
@@ -60,6 +62,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'dateDebut' => $tache->dateDebut,
                 'dateFin' => $tache->dateFin,
                 'reference' => $tache->reference,
+                'ordre' => $tache->ordre,
                 'projet_id' => $tache->projet_id,
                 'priorite_tache_id' => $tache->priorite_tache_id,
             ];

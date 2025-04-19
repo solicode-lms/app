@@ -23,6 +23,7 @@ class BaseTacheService extends BaseService
         'description',
         'dateDebut',
         'dateFin',
+        'ordre',
         'projet_id',
         'priorite_tache_id'
     ];
