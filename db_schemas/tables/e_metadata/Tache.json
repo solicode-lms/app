@@ -499,5 +499,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "Tache_ordre",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Tache_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_ordre",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

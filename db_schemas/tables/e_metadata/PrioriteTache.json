@@ -316,5 +316,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "PrioriteTache_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "PrioriteTache_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "PrioriteTache_ordre",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

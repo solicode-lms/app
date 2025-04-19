@@ -340,5 +340,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowTache_ordre",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowTache_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_ordre",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

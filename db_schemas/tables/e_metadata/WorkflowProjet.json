@@ -344,5 +344,11 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowProjet_ordre",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowProjet_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowProjet_ordre",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]
