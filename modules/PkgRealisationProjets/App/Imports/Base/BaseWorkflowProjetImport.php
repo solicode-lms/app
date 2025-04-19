@@ -59,9 +59,9 @@ class BaseWorkflowProjetImport implements ToModel, WithHeadingRow
              'ordre' => $values[0] ?? null,
              'code' => $values[1] ?? null,
              'titre' => $values[2] ?? null,
-             'description' => $values[3] ?? null,
+             'sys_color_id' => $values[3] ?? null,
+             'description' => $values[4] ?? null,
              'reference' => $reference,
-             'sys_color_id' => $values[5] ?? null,
         ]);
 
 

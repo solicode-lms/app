@@ -22,8 +22,8 @@ class BaseWorkflowProjetService extends BaseService
         'ordre',
         'code',
         'titre',
-        'description',
-        'sys_color_id'
+        'sys_color_id',
+        'description'
     ];
 
     /**

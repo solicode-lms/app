@@ -136,7 +136,7 @@
     },
     {
         "reference": "EDataField_name_displayOrder",
-        "value_integer": 3,
+        "value_integer": 4,
         "e_data_field_reference": "EDataField_name",
         "e_metadata_definition_reference": "displayOrder"
     },

@@ -77,8 +77,8 @@ class BaseWorkflowProjetSeeder extends Seeder
                     "ordre" => $row["ordre"] ?? null,
                     "code" => $row["code"] ?? null,
                     "titre" => $row["titre"] ?? null,
-                    "description" => $row["description"] ?? null,
                     "sys_color_id" => $row["sys_color_id"] ?? null,
+                    "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

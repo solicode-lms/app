@@ -34,7 +34,7 @@ class BaseWorkflowProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'titre', 'description', 'sys_color_id'
+        'ordre', 'code', 'titre', 'sys_color_id', 'description'
     ];
     public $manyToOne = [
         'SysColor' => [

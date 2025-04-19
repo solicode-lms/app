@@ -32,8 +32,8 @@ class BaseWorkflowProjetRequest extends FormRequest
             'ordre' => 'nullable|integer',
             'code' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'sys_color_id' => 'required'
+            'sys_color_id' => 'required',
+            'description' => 'nullable|string'
         ];
     }
 
@@ -50,8 +50,8 @@ class BaseWorkflowProjetRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::WorkflowProjet.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::WorkflowProjet.description')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::WorkflowProjet.sys_color_id')])
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::WorkflowProjet.sys_color_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::WorkflowProjet.description')])
         ];
     }
 

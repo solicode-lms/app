@@ -6,6 +6,8 @@ namespace Modules\PkgGapp\Services;
 use Modules\PkgGapp\Services\Base\BaseEDataFieldService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\Core\App\Traits\GappCommands;
+use Modules\PkgGapp\Models\EMetadataDefinition;
+use Modules\PkgGapp\Models\EMetadatum;
 
 /**
  * Classe EDataFieldService pour gérer la persistance de l'entité EDataField.
@@ -35,6 +37,11 @@ class EDataFieldService extends BaseEDataFieldService
     public function update($id, array $data)
     {
         $entity = parent::update($id, $data);
+
+        // Mettre à jour l'ordre
+        $this->updateOrCreateMetadata($entity->id, "displayOrder",$data['ordre']);
+
+
         $this->metaSeedByDataFieldReference(true, $entity->reference);
         
         $this->updateGappCrud($entity->eModel);
@@ -103,7 +110,23 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
 }
 
 
-    
-    
+protected function updateOrCreateMetadata(int $eDataFieldId, string $reference, mixed $value): void
+{
+    $definition = EMetadataDefinition::where('reference', $reference)->first();
+
+    if (!$definition) {
+        throw new \Exception("La metadata definition '{$reference}' est introuvable.");
+    }
+
+    EMetadatum::updateOrCreate(
+        [
+            'e_data_field_id' => $eDataFieldId,
+            'e_metadata_definition_id' => $definition->id,
+        ],
+        [
+            'value_integer' => $value,
+        ]
+    );
+}
 
 }
