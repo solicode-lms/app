@@ -39,6 +39,23 @@ class BaseAffectationProjet extends BaseModel
     protected $fillable = [
         'projet_id', 'groupe_id', 'date_debut', 'date_fin', 'description', 'annee_formation_id'
     ];
+    public $manyToOne = [
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
+            ],
+        'Groupe' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Groupe",
+            'relation' => 'groupes' , 
+            "foreign_key" => "groupe_id", 
+            ],
+        'AnneeFormation' => [
+            'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
+            'relation' => 'anneeFormations' , 
+            "foreign_key" => "annee_formation_id", 
+            ]
+    ];
 
 
     /**

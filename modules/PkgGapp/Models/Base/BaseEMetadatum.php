@@ -37,6 +37,23 @@ class BaseEMetadatum extends BaseModel
     protected $fillable = [
         'value_boolean', 'value_string', 'value_integer', 'value_float', 'value_date', 'value_datetime', 'value_enum', 'value_json', 'value_text', 'e_model_id', 'e_data_field_id', 'e_metadata_definition_id'
     ];
+    public $manyToOne = [
+        'EModel' => [
+            'model' => "Modules\\PkgGapp\\Models\\EModel",
+            'relation' => 'eModels' , 
+            "foreign_key" => "e_model_id", 
+            ],
+        'EDataField' => [
+            'model' => "Modules\\PkgGapp\\Models\\EDataField",
+            'relation' => 'eDataFields' , 
+            "foreign_key" => "e_data_field_id", 
+            ],
+        'EMetadataDefinition' => [
+            'model' => "Modules\\PkgGapp\\Models\\EMetadataDefinition",
+            'relation' => 'eMetadataDefinitions' , 
+            "foreign_key" => "e_metadata_definition_id", 
+            ]
+    ];
 
 
     /**

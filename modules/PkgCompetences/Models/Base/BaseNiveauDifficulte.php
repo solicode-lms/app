@@ -37,6 +37,13 @@ class BaseNiveauDifficulte extends BaseModel
     protected $fillable = [
         'nom', 'noteMin', 'noteMax', 'formateur_id', 'description'
     ];
+    public $manyToOne = [
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ]
+    ];
 
 
     /**

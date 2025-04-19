@@ -37,6 +37,23 @@ class BaseCommentaireRealisationTache extends BaseModel
     protected $fillable = [
         'commentaire', 'dateCommentaire', 'realisation_tache_id', 'formateur_id', 'apprenant_id'
     ];
+    public $manyToOne = [
+        'RealisationTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
+            'relation' => 'realisationTaches' , 
+            "foreign_key" => "realisation_tache_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
+            ]
+    ];
 
 
     /**

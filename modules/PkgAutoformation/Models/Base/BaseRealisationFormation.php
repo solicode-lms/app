@@ -38,6 +38,23 @@ class BaseRealisationFormation extends BaseModel
     protected $fillable = [
         'date_debut', 'date_fin', 'formation_id', 'apprenant_id', 'etat_formation_id'
     ];
+    public $manyToOne = [
+        'Formation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\Formation",
+            'relation' => 'formations' , 
+            "foreign_key" => "formation_id", 
+            ],
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
+            ],
+        'EtatFormation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\EtatFormation",
+            'relation' => 'etatFormations' , 
+            "foreign_key" => "etat_formation_id", 
+            ]
+    ];
 
 
     /**

@@ -50,6 +50,33 @@ class BaseWidget extends BaseModel
     public $manyToMany = [
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
+    public $manyToOne = [
+        'WidgetType' => [
+            'model' => "Modules\\PkgWidgets\\Models\\WidgetType",
+            'relation' => 'widgetTypes' , 
+            "foreign_key" => "widget_type_id", 
+            ],
+        'SysModel' => [
+            'model' => "Modules\\Core\\Models\\SysModel",
+            'relation' => 'sysModels' , 
+            "foreign_key" => "sys_model_id", 
+            ],
+        'WidgetOperation' => [
+            'model' => "Modules\\PkgWidgets\\Models\\WidgetOperation",
+            'relation' => 'widgetOperations' , 
+            "foreign_key" => "widget_operation_id", 
+            ],
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ],
+        'SectionWidget' => [
+            'model' => "Modules\\PkgWidgets\\Models\\SectionWidget",
+            'relation' => 'sectionWidgets' , 
+            "foreign_key" => "section_widget_id", 
+            ]
+    ];
 
 
     /**

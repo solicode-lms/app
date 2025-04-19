@@ -43,6 +43,13 @@ class BaseTechnology extends BaseModel
         'Formation' => ['relation' => 'formations' , "foreign_key" => "formation_id" ],
         'TransfertCompetence' => ['relation' => 'transfertCompetences' , "foreign_key" => "transfert_competence_id" ]
     ];
+    public $manyToOne = [
+        'CategoryTechnology' => [
+            'model' => "Modules\\PkgCompetences\\Models\\CategoryTechnology",
+            'relation' => 'categoryTechnologies' , 
+            "foreign_key" => "category_technology_id", 
+            ]
+    ];
 
 
     /**

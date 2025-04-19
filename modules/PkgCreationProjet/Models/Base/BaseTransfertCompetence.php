@@ -43,6 +43,23 @@ class BaseTransfertCompetence extends BaseModel
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+    public $manyToOne = [
+        'Competence' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Competence",
+            'relation' => 'competences' , 
+            "foreign_key" => "competence_id", 
+            ],
+        'NiveauDifficulte' => [
+            'model' => "Modules\\PkgCompetences\\Models\\NiveauDifficulte",
+            'relation' => 'niveauDifficultes' , 
+            "foreign_key" => "niveau_difficulte_id", 
+            ],
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
+            ]
+    ];
 
 
     /**

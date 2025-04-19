@@ -36,6 +36,13 @@ class BaseWorkflowFormation extends BaseModel
     protected $fillable = [
         'code', 'titre', 'sys_color_id', 'description'
     ];
+    public $manyToOne = [
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ]
+    ];
 
 
     /**

@@ -37,6 +37,18 @@ class BaseSysModel extends BaseModel
     protected $fillable = [
         'name', 'model', 'sys_module_id', 'sys_color_id', 'icone', 'description'
     ];
+    public $manyToOne = [
+        'SysModule' => [
+            'model' => "Modules\\Core\\Models\\SysModule",
+            'relation' => 'sysModules' , 
+            "foreign_key" => "sys_module_id", 
+            ],
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ]
+    ];
 
 
     /**

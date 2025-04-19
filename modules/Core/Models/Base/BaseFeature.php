@@ -39,6 +39,13 @@ class BaseFeature extends BaseModel
     public $manyToMany = [
         'Permission' => ['relation' => 'permissions' , "foreign_key" => "permission_id" ]
     ];
+    public $manyToOne = [
+        'FeatureDomain' => [
+            'model' => "Modules\\Core\\Models\\FeatureDomain",
+            'relation' => 'featureDomains' , 
+            "foreign_key" => "feature_domain_id", 
+            ]
+    ];
 
 
     /**

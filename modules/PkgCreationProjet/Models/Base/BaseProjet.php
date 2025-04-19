@@ -42,6 +42,18 @@ class BaseProjet extends BaseModel
     protected $fillable = [
         'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'description', 'formateur_id', 'filiere_id'
     ];
+    public $manyToOne = [
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'Filiere' => [
+            'model' => "Modules\\PkgFormation\\Models\\Filiere",
+            'relation' => 'filieres' , 
+            "foreign_key" => "filiere_id", 
+            ]
+    ];
 
 
     /**

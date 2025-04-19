@@ -35,6 +35,13 @@ class BaseUserModelFilter extends BaseModel
     protected $fillable = [
         'user_id', 'model_name', 'filters'
     ];
+    public $manyToOne = [
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
+            ]
+    ];
 
 
     /**

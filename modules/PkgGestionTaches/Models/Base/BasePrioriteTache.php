@@ -37,6 +37,13 @@ class BasePrioriteTache extends BaseModel
     protected $fillable = [
         'nom', 'ordre', 'description', 'formateur_id'
     ];
+    public $manyToOne = [
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ]
+    ];
 
 
     /**

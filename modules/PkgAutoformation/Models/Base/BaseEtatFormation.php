@@ -39,6 +39,23 @@ class BaseEtatFormation extends BaseModel
     protected $fillable = [
         'nom', 'workflow_formation_id', 'sys_color_id', 'is_editable_only_by_formateur', 'formateur_id', 'description'
     ];
+    public $manyToOne = [
+        'WorkflowFormation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\WorkflowFormation",
+            'relation' => 'workflowFormations' , 
+            "foreign_key" => "workflow_formation_id", 
+            ],
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ]
+    ];
 
 
     /**

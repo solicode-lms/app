@@ -36,6 +36,13 @@ class BaseSectionWidget extends BaseModel
     protected $fillable = [
         'ordre', 'icone', 'titre', 'sous_titre', 'sys_color_id'
     ];
+    public $manyToOne = [
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ]
+    ];
 
 
     /**

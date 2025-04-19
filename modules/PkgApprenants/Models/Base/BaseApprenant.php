@@ -67,6 +67,23 @@ class BaseApprenant extends BaseModel
     public $manyToMany = [
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
+    public $manyToOne = [
+        'Nationalite' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Nationalite",
+            'relation' => 'nationalites' , 
+            "foreign_key" => "nationalite_id", 
+            ],
+        'NiveauxScolaire' => [
+            'model' => "Modules\\PkgApprenants\\Models\\NiveauxScolaire",
+            'relation' => 'niveauxScolaires' , 
+            "foreign_key" => "niveaux_scolaire_id", 
+            ],
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
+            ]
+    ];
 
 
     /**

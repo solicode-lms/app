@@ -37,6 +37,18 @@ class BaseValidation extends BaseModel
     protected $fillable = [
         'transfert_competence_id', 'note', 'message', 'is_valide', 'realisation_projet_id'
     ];
+    public $manyToOne = [
+        'TransfertCompetence' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\TransfertCompetence",
+            'relation' => 'transfertCompetences' , 
+            "foreign_key" => "transfert_competence_id", 
+            ],
+        'RealisationProjet' => [
+            'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
+            'relation' => 'realisationProjets' , 
+            "foreign_key" => "realisation_projet_id", 
+            ]
+    ];
 
 
     /**

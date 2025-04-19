@@ -42,6 +42,18 @@ class BaseTache extends BaseModel
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
     ];
+    public $manyToOne = [
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
+            ],
+        'PrioriteTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\PrioriteTache",
+            'relation' => 'prioriteTaches' , 
+            "foreign_key" => "priorite_tache_id", 
+            ]
+    ];
 
 
     /**

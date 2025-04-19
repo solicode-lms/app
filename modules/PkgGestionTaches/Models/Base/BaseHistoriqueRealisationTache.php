@@ -35,6 +35,13 @@ class BaseHistoriqueRealisationTache extends BaseModel
     protected $fillable = [
         'dateModification', 'changement', 'realisation_tache_id'
     ];
+    public $manyToOne = [
+        'RealisationTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
+            'relation' => 'realisationTaches' , 
+            "foreign_key" => "realisation_tache_id", 
+            ]
+    ];
 
 
     /**

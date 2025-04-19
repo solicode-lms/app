@@ -36,6 +36,13 @@ class BaseProfile extends BaseModel
     protected $fillable = [
         'user_id', 'phone', 'address', 'profile_picture', 'bio'
     ];
+    public $manyToOne = [
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
+            ]
+    ];
 
 
     /**

@@ -51,6 +51,18 @@ class BaseEDataField extends BaseModel
     protected $fillable = [
         'name', 'default_value', 'column_name', 'e_model_id', 'e_relationship_id', 'field_order', 'data_type', 'db_primaryKey', 'db_nullable', 'db_unique', 'calculable', 'calculable_sql', 'description'
     ];
+    public $manyToOne = [
+        'EModel' => [
+            'model' => "Modules\\PkgGapp\\Models\\EModel",
+            'relation' => 'eModels' , 
+            "foreign_key" => "e_model_id", 
+            ],
+        'ERelationship' => [
+            'model' => "Modules\\PkgGapp\\Models\\ERelationship",
+            'relation' => 'eRelationships' , 
+            "foreign_key" => "e_relationship_id", 
+            ]
+    ];
 
 
     /**

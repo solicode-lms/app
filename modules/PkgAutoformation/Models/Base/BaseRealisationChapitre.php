@@ -37,6 +37,23 @@ class BaseRealisationChapitre extends BaseModel
     protected $fillable = [
         'date_debut', 'date_fin', 'chapitre_id', 'realisation_formation_id', 'etat_chapitre_id'
     ];
+    public $manyToOne = [
+        'Chapitre' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\Chapitre",
+            'relation' => 'chapitres' , 
+            "foreign_key" => "chapitre_id", 
+            ],
+        'RealisationFormation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\RealisationFormation",
+            'relation' => 'realisationFormations' , 
+            "foreign_key" => "realisation_formation_id", 
+            ],
+        'EtatChapitre' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\EtatChapitre",
+            'relation' => 'etatChapitres' , 
+            "foreign_key" => "etat_chapitre_id", 
+            ]
+    ];
 
 
     /**

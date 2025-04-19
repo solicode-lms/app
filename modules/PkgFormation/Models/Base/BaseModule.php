@@ -36,6 +36,13 @@ class BaseModule extends BaseModel
     protected $fillable = [
         'code', 'nom', 'description', 'masse_horaire', 'filiere_id'
     ];
+    public $manyToOne = [
+        'Filiere' => [
+            'model' => "Modules\\PkgFormation\\Models\\Filiere",
+            'relation' => 'filieres' , 
+            "foreign_key" => "filiere_id", 
+            ]
+    ];
 
 
     /**

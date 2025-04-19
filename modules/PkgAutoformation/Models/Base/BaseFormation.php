@@ -51,6 +51,23 @@ class BaseFormation extends BaseModel
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+    public $manyToOne = [
+        'Competence' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Competence",
+            'relation' => 'competences' , 
+            "foreign_key" => "competence_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'Formation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\Formation",
+            'relation' => 'formations' , 
+            "foreign_key" => "formation_id", 
+            ]
+    ];
 
 
     /**

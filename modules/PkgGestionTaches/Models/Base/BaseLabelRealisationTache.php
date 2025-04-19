@@ -37,6 +37,18 @@ class BaseLabelRealisationTache extends BaseModel
     protected $fillable = [
         'nom', 'description', 'formateur_id', 'sys_color_id'
     ];
+    public $manyToOne = [
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ]
+    ];
 
 
     /**

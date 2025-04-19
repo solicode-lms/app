@@ -36,6 +36,13 @@ class BaseResource extends BaseModel
     protected $fillable = [
         'nom', 'lien', 'description', 'projet_id'
     ];
+    public $manyToOne = [
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
+            ]
+    ];
 
 
     /**

@@ -36,6 +36,18 @@ class BaseERelationship extends BaseModel
     protected $fillable = [
         'name', 'type', 'source_e_model_id', 'target_e_model_id', 'cascade_on_delete', 'is_cascade', 'description', 'column_name', 'referenced_table', 'referenced_column', 'through', 'with_column', 'morph_name'
     ];
+    public $manyToOne = [
+        'EModel' => [
+            'model' => "Modules\\PkgGapp\\Models\\EModel",
+            'relation' => 'eModels' , 
+            "foreign_key" => "e_model_id", 
+            ],
+        'EModel' => [
+            'model' => "Modules\\PkgGapp\\Models\\EModel",
+            'relation' => 'eModels' , 
+            "foreign_key" => "e_model_id", 
+            ]
+    ];
 
 
     /**

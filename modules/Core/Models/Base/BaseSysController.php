@@ -36,6 +36,13 @@ class BaseSysController extends BaseModel
     protected $fillable = [
         'sys_module_id', 'name', 'slug', 'description', 'is_active'
     ];
+    public $manyToOne = [
+        'SysModule' => [
+            'model' => "Modules\\Core\\Models\\SysModule",
+            'relation' => 'sysModules' , 
+            "foreign_key" => "sys_module_id", 
+            ]
+    ];
 
 
     /**

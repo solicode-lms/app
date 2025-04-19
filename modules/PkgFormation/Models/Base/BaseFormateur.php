@@ -52,6 +52,13 @@ class BaseFormateur extends BaseModel
         'Specialite' => ['relation' => 'specialites' , "foreign_key" => "specialite_id" ],
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
+    public $manyToOne = [
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
+            ]
+    ];
 
 
     /**

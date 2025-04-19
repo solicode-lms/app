@@ -42,6 +42,13 @@ class BaseCompetence extends BaseModel
     public $manyToMany = [
         'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
     ];
+    public $manyToOne = [
+        'Module' => [
+            'model' => "Modules\\PkgFormation\\Models\\Module",
+            'relation' => 'modules' , 
+            "foreign_key" => "module_id", 
+            ]
+    ];
 
 
     /**

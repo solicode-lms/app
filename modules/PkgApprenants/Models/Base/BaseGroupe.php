@@ -43,6 +43,18 @@ class BaseGroupe extends BaseModel
         'Apprenant' => ['relation' => 'apprenants' , "foreign_key" => "apprenant_id" ],
         'Formateur' => ['relation' => 'formateurs' , "foreign_key" => "formateur_id" ]
     ];
+    public $manyToOne = [
+        'Filiere' => [
+            'model' => "Modules\\PkgFormation\\Models\\Filiere",
+            'relation' => 'filieres' , 
+            "foreign_key" => "filiere_id", 
+            ],
+        'AnneeFormation' => [
+            'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
+            'relation' => 'anneeFormations' , 
+            "foreign_key" => "annee_formation_id", 
+            ]
+    ];
 
 
     /**

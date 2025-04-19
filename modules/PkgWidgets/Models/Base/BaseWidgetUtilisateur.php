@@ -59,6 +59,18 @@ class BaseWidgetUtilisateur extends BaseModel
     protected $fillable = [
         'ordre', 'user_id', 'widget_id', 'titre', 'sous_titre', 'visible'
     ];
+    public $manyToOne = [
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
+            ],
+        'Widget' => [
+            'model' => "Modules\\PkgWidgets\\Models\\Widget",
+            'relation' => 'widgets' , 
+            "foreign_key" => "widget_id", 
+            ]
+    ];
 
 
     /**

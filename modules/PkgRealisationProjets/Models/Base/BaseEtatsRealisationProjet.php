@@ -39,6 +39,23 @@ class BaseEtatsRealisationProjet extends BaseModel
     protected $fillable = [
         'formateur_id', 'titre', 'description', 'sys_color_id', 'workflow_projet_id', 'is_editable_by_formateur'
     ];
+    public $manyToOne = [
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'SysColor' => [
+            'model' => "Modules\\Core\\Models\\SysColor",
+            'relation' => 'sysColors' , 
+            "foreign_key" => "sys_color_id", 
+            ],
+        'WorkflowProjet' => [
+            'model' => "Modules\\PkgRealisationProjets\\Models\\WorkflowProjet",
+            'relation' => 'workflowProjets' , 
+            "foreign_key" => "workflow_projet_id", 
+            ]
+    ];
 
 
     /**

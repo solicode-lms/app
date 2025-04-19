@@ -44,6 +44,13 @@ class BaseEModel extends BaseModel
     protected $fillable = [
         'name', 'table_name', 'icon', 'is_pivot_table', 'description', 'e_package_id'
     ];
+    public $manyToOne = [
+        'EPackage' => [
+            'model' => "Modules\\PkgGapp\\Models\\EPackage",
+            'relation' => 'ePackages' , 
+            "foreign_key" => "e_package_id", 
+            ]
+    ];
 
 
     /**

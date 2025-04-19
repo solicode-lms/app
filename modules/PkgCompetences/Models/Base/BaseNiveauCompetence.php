@@ -36,6 +36,13 @@ class BaseNiveauCompetence extends BaseModel
     protected $fillable = [
         'nom', 'description', 'competence_id'
     ];
+    public $manyToOne = [
+        'Competence' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Competence",
+            'relation' => 'competences' , 
+            "foreign_key" => "competence_id", 
+            ]
+    ];
 
 
     /**

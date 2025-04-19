@@ -36,6 +36,23 @@ class BaseDependanceTache extends BaseModel
     protected $fillable = [
         'tache_id', 'type_dependance_tache_id', 'tache_cible_id'
     ];
+    public $manyToOne = [
+        'Tache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
+            'relation' => 'taches' , 
+            "foreign_key" => "tache_id", 
+            ],
+        'TypeDependanceTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\TypeDependanceTache",
+            'relation' => 'typeDependanceTaches' , 
+            "foreign_key" => "type_dependance_tache_id", 
+            ],
+        'Tache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
+            'relation' => 'taches' , 
+            "foreign_key" => "tache_id", 
+            ]
+    ];
 
 
     /**

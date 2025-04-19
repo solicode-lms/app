@@ -36,6 +36,13 @@ class BaseFeatureDomain extends BaseModel
     protected $fillable = [
         'name', 'slug', 'description', 'sys_module_id'
     ];
+    public $manyToOne = [
+        'SysModule' => [
+            'model' => "Modules\\Core\\Models\\SysModule",
+            'relation' => 'sysModules' , 
+            "foreign_key" => "sys_module_id", 
+            ]
+    ];
 
 
     /**

@@ -41,6 +41,13 @@ class BasePermission extends BaseModel
         'Feature' => ['relation' => 'features' , "foreign_key" => "feature_id" ],
         'Role' => ['relation' => 'roles' , "foreign_key" => "role_id" ]
     ];
+    public $manyToOne = [
+        'SysController' => [
+            'model' => "Modules\\Core\\Models\\SysController",
+            'relation' => 'sysControllers' , 
+            "foreign_key" => "sys_controller_id", 
+            ]
+    ];
 
 
     /**

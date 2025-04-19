@@ -39,6 +39,28 @@ class BaseChapitre extends BaseModel
     protected $fillable = [
         'nom', 'lien', 'coefficient', 'description', 'ordre', 'is_officiel', 'formation_id', 'niveau_competence_id', 'formateur_id', 'chapitre_officiel_id'
     ];
+    public $manyToOne = [
+        'Formation' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\Formation",
+            'relation' => 'formations' , 
+            "foreign_key" => "formation_id", 
+            ],
+        'NiveauCompetence' => [
+            'model' => "Modules\\PkgCompetences\\Models\\NiveauCompetence",
+            'relation' => 'niveauCompetences' , 
+            "foreign_key" => "niveau_competence_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
+            ],
+        'Chapitre' => [
+            'model' => "Modules\\PkgAutoformation\\Models\\Chapitre",
+            'relation' => 'chapitres' , 
+            "foreign_key" => "chapitre_id", 
+            ]
+    ];
 
 
     /**
