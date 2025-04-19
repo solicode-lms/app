@@ -13,6 +13,7 @@ use Modules\Core\Services\Traits\{
     CrudTrait,
     RelationTrait,
     FilterTrait,
+    SortTrait,
     StatsTrait
 };
 
@@ -27,6 +28,7 @@ abstract class BaseService implements ServiceInterface
     use 
         MessageTrait,
         PaginateTrait, 
+        SortTrait,
         QueryBuilderTrait, 
         CrudTrait, 
         RelationTrait, 
