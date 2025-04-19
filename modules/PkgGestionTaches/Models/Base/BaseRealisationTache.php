@@ -63,14 +63,17 @@ class BaseRealisationTache extends BaseModel
     ];
     public $manyToOne = [
         'Tache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             ],
         'RealisationProjet' => [
+            'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
             'relation' => 'realisationProjets' , 
             "foreign_key" => "realisation_projet_id", 
             ],
         'EtatRealisationTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\EtatRealisationTache",
             'relation' => 'etatRealisationTaches' , 
             "foreign_key" => "etat_realisation_tache_id", 
             "sortByPath" => "etatRealisationTache.workflowTache.code"
