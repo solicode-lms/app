@@ -703,5 +703,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "Widget-package",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Widget_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "nature"
     }
 ]

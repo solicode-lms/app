@@ -527,5 +527,13 @@
         "value_integer": 5,
         "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "WidgetUtilisateur_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "WidgetUtilisateur_ordre",
+        "e_metadata_definition_reference": "nature"
     }
 ]

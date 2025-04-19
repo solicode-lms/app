@@ -375,5 +375,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "SectionWidget_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SectionWidget_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "nature"
     }
 ]
