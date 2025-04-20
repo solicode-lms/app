@@ -410,7 +410,7 @@ class BaseFiliereController extends AdminController
             return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
         }
     
-        $this->getService()->update($validated['id'], $dataToUpdate);
+        $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
         return JsonResponseHelper::success(__('Mise à jour réussie.'), [
             'entity_id' => $validated['id']

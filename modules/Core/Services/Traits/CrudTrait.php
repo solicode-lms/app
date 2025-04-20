@@ -92,6 +92,7 @@ trait CrudTrait
 
     /**
      * Met à jour un élément existant.
+     * Si les valeur ManytoMany n'existe pas dans $data il seron supprimer
      *
      * @param mixed $id Identifiant de l'élément à mettre à jour.
      * @param array $data Données à mettre à jour.
@@ -124,6 +125,34 @@ trait CrudTrait
 
         $this->syncManyToManyRelations($record, $data);
         return $record;
+    }
+
+    public function updateOnlyExistanteAttribute($id, array $data)
+    {
+        $record = $this->find($id);
+
+        if (!$record) {
+            return false;
+        }
+
+        if ($this->hasOrdreColumn()) {
+            $ancienOrdre = $record->ordre;
+    
+            if (!isset($data['ordre']) || $data['ordre'] === null) {
+                $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+            }
+    
+            $nouvelOrdre = $data['ordre'];
+    
+            if ($nouvelOrdre !== $ancienOrdre) {
+                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id);
+            }
+        }
+
+
+       $record->update($data);
+
+       return $record;
     }
 
     /**
