@@ -14,42 +14,54 @@ export class InlineEdit {
     inlineEditEventHandler() {
         const selector = `${this.config.tableSelector} .editable-cell`;
 
-        // 🔹 Activer l'édition au clic
-        $(document).on('dblclick', selector, function () {
-            const $cell = $(this);
-            $cell.find('.editable-text').addClass('d-none');
-            $cell.find('.editable-input').removeClass('d-none').focus();
-        });
+        // 🔹 Activer l'édition au double-clic
+        $(document).on('dblclick', selector, async (e) => {
+            const $cell = $(e.currentTarget);
+            const field = $cell.data('field');
+            const id = $cell.data('id');
 
-        // 🔹 Valider au blur
-        $(document).on('blur', `${selector} .editable-input`, (e) => {
-            this.submitEdit($(e.target).closest('.editable-cell'));
-        });
+            if (!field || !id) return;
 
-        // 🔹 Valider au ENTER
-        $(document).on('keydown', `${selector} .editable-input`, (e) => {
-            if (e.key === 'Enter') {
-                this.submitEdit($(e.target).closest('.editable-cell'));
+            const url = this.config.editUrl.replace(':id', id);
+            try {
+                const response = await $.get(url);
+                const html = $('<div>').html(response);
+                const formField = html.find(`[name="${field}"]`).closest('.form-group');
+
+                if (!formField.length) {
+                    console.warn(`Champ '${field}' introuvable dans le formulaire.`);
+                    return;
+                }
+
+                const $editableZone = $cell;
+                $editableZone.find('.editable-text').addClass('d-none');
+                $editableZone.find('.editable-input').remove();
+                $editableZone.append(formField);
+
+                const input = $editableZone.find(`[name="${field}"]`);
+                input.focus();
+
+                // Blur → validation automatique
+                input.on('blur', () => {
+                    const newValue = input.val();
+                    const data = { id, [field]: newValue };
+                    this.entityEditor.update_attributes(data, () => {
+                        $editableZone.find('.editable-text').text(newValue).removeClass('d-none');
+                        formField.remove();
+                        NotificationHandler.showSuccess('Champ mis à jour avec succès.');
+                    });
+                });
+
+                // ENTER → validation
+                input.on('keydown', (evt) => {
+                    if (evt.key === 'Enter') {
+                        input.blur();
+                    }
+                });
+            } catch (error) {
+                console.error('Erreur de chargement du formulaire :', error);
+                NotificationHandler.showError('Erreur lors de l\'ouverture de l\'éditeur inline.');
             }
-        });
-    }
-
-    submitEdit($cell) {
-        const id = $cell.data('id');
-        const field = $cell.data('field');
-        const newValue = $cell.find('.editable-input').val();
-
-        if (!id || !field) return;
-
-        const data = {
-            id: id,
-            [field]: newValue
-        };
-
-        this.entityEditor.update_attributes(data, () => {
-            $cell.find('.editable-text').text(newValue).removeClass('d-none');
-            $cell.find('.editable-input').addClass('d-none');
-            NotificationHandler.showSuccess('Champ mis à jour avec succès.');
         });
     }
 }
