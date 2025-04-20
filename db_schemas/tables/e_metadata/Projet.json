@@ -43,7 +43,8 @@
     },
     {
         "reference": "Projet_formateur_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Projet_formateur_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -182,7 +183,7 @@
     },
     {
         "reference": "projets_hasMany_affectation_projets_projet_id_displayOrder",
-        "value_integer": 3,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -190,7 +191,7 @@
     {
         "reference": "projets_hasMany_livrables_projet_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 5,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_livrables_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -205,7 +206,7 @@
     },
     {
         "reference": "projets_hasMany_transfert_competences_projet_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 4,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -311,7 +312,7 @@
     },
     {
         "reference": "projets_hasMany_affectation_projets_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "displayInTable"
@@ -463,7 +464,7 @@
     },
     {
         "reference": "projets_hasMany_taches_projet_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 2,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -614,5 +615,21 @@
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "Projet_titre_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 35,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_titre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "projets_hasMany_taches_projet_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 30,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_taches_projet_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

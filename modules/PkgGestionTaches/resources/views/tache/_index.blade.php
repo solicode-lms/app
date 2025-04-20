@@ -41,7 +41,7 @@
        $titre = __("PkgGestionTaches::tache.singular");
     @endphp
     <x-crud-header 
-        id="tache-crud-header" icon="fas fa-clipboard-list"  
+        id="tache-crud-header" icon="fas fa-tasks"  
         iconColor="text-info"
         title="{{ $tache_title }}"
         :breadcrumbs="[

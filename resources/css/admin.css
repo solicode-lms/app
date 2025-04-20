@@ -123,6 +123,15 @@
 }
 
 
+/* Table */
+
+thead  {
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* assez haut pour passer devant les éléments */
+    background: #f8f9fa; /* couleur de fond pour cacher ce qui défile derrière */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* optionnel */
+}
 
 /* Formulaire */
 
@@ -318,4 +327,50 @@ input[type="checkbox"] {
 
 .crud-bulk-action .bulk-selected-count-container{
     float: left;
+}
+
+
+/* Projet  */
+
+.projet-card {
+    white-space: normal;
+    word-break: break-word;
+}
+
+.projet-titre h2 {
+    font-size: 1.25rem;
+}
+
+.projet-section {
+    margin-bottom: 1rem;
+}
+
+.projet-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.projet-affectations li,
+.projet-ressources li {
+    list-style-type: disc;
+    margin-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.projet-formateur {
+    border-top: 1px solid #ced4da;
+    padding-top: 0.5rem;
+    font-weight: 500;
+    color: #212529;
+}
+
+ul.projet-taches {
+    margin: 0px;
+    padding: 0px;
+}
+
+.projet-taches li {
+    list-style-type: none;
+    margin-bottom: 0.4rem;
 }

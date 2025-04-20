@@ -6,10 +6,10 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
-use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -182,6 +182,20 @@ class BaseProjetController extends AdminController
         $filieres = $this->filiereService->all();
 
 
+        $this->viewState->set('scope.tache.projet_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
+        $this->viewState->set('scope.livrable.projet_id', $id);
+        
+
+        $livrableService =  new LivrableService();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
+
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         
         // scopeDataInEditContext
@@ -208,20 +222,6 @@ class BaseProjetController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
-        $this->viewState->set('scope.tache.projet_id', $id);
-        
-
-        $tacheService =  new TacheService();
-        $taches_view_data = $tacheService->prepareDataForIndexView();
-        extract($taches_view_data);
-
-        $this->viewState->set('scope.livrable.projet_id', $id);
-        
-
-        $livrableService =  new LivrableService();
-        $livrables_view_data = $livrableService->prepareDataForIndexView();
-        extract($livrables_view_data);
-
         $this->viewState->set('scope.resource.projet_id', $id);
         
 
@@ -230,10 +230,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
 
     }
     /**
@@ -251,6 +251,20 @@ class BaseProjetController extends AdminController
         $filieres = $this->filiereService->all();
 
 
+        $this->viewState->set('scope.tache.projet_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
+        $this->viewState->set('scope.livrable.projet_id', $id);
+        
+
+        $livrableService =  new LivrableService();
+        $livrables_view_data = $livrableService->prepareDataForIndexView();
+        extract($livrables_view_data);
+
         $this->viewState->set('scope.transfertCompetence.projet_id', $id);
         
         // scopeDataInEditContext
@@ -277,20 +291,6 @@ class BaseProjetController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
-        $this->viewState->set('scope.tache.projet_id', $id);
-        
-
-        $tacheService =  new TacheService();
-        $taches_view_data = $tacheService->prepareDataForIndexView();
-        extract($taches_view_data);
-
-        $this->viewState->set('scope.livrable.projet_id', $id);
-        
-
-        $livrableService =  new LivrableService();
-        $livrables_view_data = $livrableService->prepareDataForIndexView();
-        extract($livrables_view_data);
-
         $this->viewState->set('scope.resource.projet_id', $id);
         
 
@@ -299,10 +299,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
 
 
     }

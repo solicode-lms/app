@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <i class="nav-icon fas fa-tasks"></i>
                                 {{ curd_index_add_label('PkgGestionTaches::tache') }}
                             </h3>
                         </div>
