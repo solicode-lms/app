@@ -27,6 +27,23 @@ export class InlineEdit extends Action {
     bindInlineEditEvents() {
         const selector = `${this.config.tableSelector} .editable-cell`;
         EventUtil.bindEvent('dblclick', selector, (e) => this.handleInlineEdit(e));
+
+        // 🔹 Ajouter un curseur pointer + surlignage léger au survol
+        EventUtil.bindEvent('mouseover', `${this.config.tableSelector} .editable-cell`, (e) => {
+            $(e.currentTarget).css({
+                cursor: 'pointer',
+                backgroundColor: '#aaaa'
+            });
+        });
+
+        EventUtil.bindEvent('mouseout', `${this.config.tableSelector} .editable-cell`, (e) => {
+            $(e.currentTarget).css({
+                cursor: '',
+                backgroundColor: ''
+            });
+        });
+
+
     }
 
     /**
