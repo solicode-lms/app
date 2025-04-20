@@ -29,12 +29,12 @@
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <td style="max-width: 18.5%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
                     <x-field :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
+                    <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
                     <x-field :entity="$realisationTache" field="nom_prenom_apprenant">
                         {{ $realisationTache->nom_prenom_apprenant }}
                     </x-field>
@@ -49,7 +49,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 18.5%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                     <x-field :entity="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>
