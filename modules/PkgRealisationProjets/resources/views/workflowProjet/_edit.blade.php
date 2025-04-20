@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="workflowProjet-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#workflowProjet-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="workflowProjet-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}</a>
+                            <a class="nav-link" id="workflowProjet-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#workflowProjet-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="workflowProjet-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural'))}}</a>
                         </li>
 
                        

@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="eDataField-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eDataField-hasmany-tabs-eMetadatum" role="tab" aria-controls="eDataField-hasmany-tabs-eMetadatum" aria-selected="false">{{__('PkgGapp::eMetadatum.plural')}}</a>
+                            <a class="nav-link" id="eDataField-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eDataField-hasmany-tabs-eMetadatum" role="tab" aria-controls="eDataField-hasmany-tabs-eMetadatum" aria-selected="false">{{ucfirst(__('PkgGapp::eMetadatum.plural'))}}</a>
                         </li>
 
                        

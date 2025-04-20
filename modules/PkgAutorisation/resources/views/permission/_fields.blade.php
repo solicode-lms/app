@@ -114,7 +114,7 @@
           </div>
           @endif
           <label for="features">
-            {{ ucfirst(__('Core::Feature.plural')) }}
+            {{ ucfirst(__('Core::feature.plural')) }}
             
           </label>
                       <select
@@ -146,7 +146,7 @@
           </div>
           @endif
           <label for="roles">
-            {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
+            {{ ucfirst(__('PkgAutorisation::role.plural')) }}
             
           </label>
                       <select

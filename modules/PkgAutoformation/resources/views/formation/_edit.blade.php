@@ -37,13 +37,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="formation-hasmany-tabs-formation-tab" data-toggle="pill" href="#formation-hasmany-tabs-formation" role="tab" aria-controls="formation-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
+                            <a class="nav-link" id="formation-hasmany-tabs-formation-tab" data-toggle="pill" href="#formation-hasmany-tabs-formation" role="tab" aria-controls="formation-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formation-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formation-hasmany-tabs-chapitre" role="tab" aria-controls="formation-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
+                            <a class="nav-link" id="formation-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formation-hasmany-tabs-chapitre" role="tab" aria-controls="formation-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::chapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formation-hasmany-tabs-realisationFormation-tab" data-toggle="pill" href="#formation-hasmany-tabs-realisationFormation" role="tab" aria-controls="formation-hasmany-tabs-realisationFormation" aria-selected="false">{{__('PkgAutoformation::realisationFormation.plural')}}</a>
+                            <a class="nav-link" id="formation-hasmany-tabs-realisationFormation-tab" data-toggle="pill" href="#formation-hasmany-tabs-realisationFormation" role="tab" aria-controls="formation-hasmany-tabs-realisationFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::realisationFormation.plural'))}}</a>
                         </li>
 
                        

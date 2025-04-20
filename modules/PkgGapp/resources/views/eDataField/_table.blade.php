@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="5"  field="displayOrder" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayOrder')) }}" />
-                <x-sortable-column :sortable="true" width="15"  field="name" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.name')) }}" />
-                <x-sortable-column :sortable="true" width="15" field="e_model_id" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eModel.singular')) }}" />
-                <x-sortable-column :sortable="true" width="10"  field="data_type" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}" />
-                <x-sortable-column :sortable="true" width="8"  field="displayInTable" modelname="eDataField" label="{{ ucfirst(__('PkgGapp::eDataField.displayInTable')) }}" />
+                <x-sortable-column :sortable="true" width="5"  field="displayOrder" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.displayOrder'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="name" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.name'))}}" />
+                <x-sortable-column :sortable="true" width="15" field="e_model_id" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eModel.singular'))}}" />
+                <x-sortable-column :sortable="true" width="10"  field="data_type" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.data_type'))}}" />
+                <x-sortable-column :sortable="true" width="8"  field="displayInTable" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.displayInTable'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -233,7 +233,7 @@
           </div>
           @endif
           <label for="livrables">
-            {{ ucfirst(__('PkgCreationProjet::Livrable.plural')) }}
+            {{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}
             
           </label>
                       <select

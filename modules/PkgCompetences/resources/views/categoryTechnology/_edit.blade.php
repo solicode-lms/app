@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="categoryTechnology-hasmany-tabs-technology-tab" data-toggle="pill" href="#categoryTechnology-hasmany-tabs-technology" role="tab" aria-controls="categoryTechnology-hasmany-tabs-technology" aria-selected="false">{{__('PkgCompetences::technology.plural')}}</a>
+                            <a class="nav-link" id="categoryTechnology-hasmany-tabs-technology-tab" data-toggle="pill" href="#categoryTechnology-hasmany-tabs-technology" role="tab" aria-controls="categoryTechnology-hasmany-tabs-technology" aria-selected="false">{{ucfirst(__('PkgCompetences::technology.plural'))}}</a>
                         </li>
 
                        

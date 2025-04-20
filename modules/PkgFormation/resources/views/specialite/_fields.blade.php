@@ -80,7 +80,7 @@
           </div>
           @endif
           <label for="formateurs">
-            {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
+            {{ ucfirst(__('PkgFormation::formateur.plural')) }}
             
           </label>
                       <select

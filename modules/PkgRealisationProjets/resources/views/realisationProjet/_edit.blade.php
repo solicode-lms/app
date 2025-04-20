@@ -37,13 +37,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationProjet-hasmany-tabs-livrablesRealisation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-livrablesRealisation" role="tab" aria-controls="realisationProjet-hasmany-tabs-livrablesRealisation" aria-selected="false">{{__('PkgRealisationProjets::livrablesRealisation.plural')}}</a>
+                            <a class="nav-link" id="realisationProjet-hasmany-tabs-livrablesRealisation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-livrablesRealisation" role="tab" aria-controls="realisationProjet-hasmany-tabs-livrablesRealisation" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationProjet-hasmany-tabs-validation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-validation" role="tab" aria-controls="realisationProjet-hasmany-tabs-validation" aria-selected="false">{{__('PkgRealisationProjets::validation.plural')}}</a>
+                            <a class="nav-link" id="realisationProjet-hasmany-tabs-validation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-validation" role="tab" aria-controls="realisationProjet-hasmany-tabs-validation" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::validation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">{{__('PkgGestionTaches::realisationTache.plural')}}</a>
+                            <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::realisationTache.plural'))}}</a>
                         </li>
 
                        

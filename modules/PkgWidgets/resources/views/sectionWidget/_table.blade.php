@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="8"  field="ordre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}" />
-                <x-sortable-column :sortable="true" width="10"  field="icone" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}" />
-                <x-sortable-column :sortable="true" width="54"  field="titre" modelname="sectionWidget" label="{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}" />
-                <x-sortable-column :sortable="true" width="10" field="sys_color_id" modelname="sectionWidget" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="8"  field="ordre" modelname="sectionWidget" label="{{ucfirst(__('PkgWidgets::sectionWidget.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="10"  field="icone" modelname="sectionWidget" label="{{ucfirst(__('PkgWidgets::sectionWidget.icone'))}}" />
+                <x-sortable-column :sortable="true" width="54"  field="titre" modelname="sectionWidget" label="{{ucfirst(__('PkgWidgets::sectionWidget.titre'))}}" />
+                <x-sortable-column :sortable="true" width="10" field="sys_color_id" modelname="sectionWidget" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="workflowFormation-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#workflowFormation-hasmany-tabs-etatFormation" role="tab" aria-controls="workflowFormation-hasmany-tabs-etatFormation" aria-selected="false">{{__('PkgAutoformation::etatFormation.plural')}}</a>
+                            <a class="nav-link" id="workflowFormation-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#workflowFormation-hasmany-tabs-etatFormation" role="tab" aria-controls="workflowFormation-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
                         </li>
 
                        

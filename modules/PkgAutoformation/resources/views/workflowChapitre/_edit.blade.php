@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="workflowChapitre-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#workflowChapitre-hasmany-tabs-etatChapitre" role="tab" aria-controls="workflowChapitre-hasmany-tabs-etatChapitre" aria-selected="false">{{__('PkgAutoformation::etatChapitre.plural')}}</a>
+                            <a class="nav-link" id="workflowChapitre-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#workflowChapitre-hasmany-tabs-etatChapitre" role="tab" aria-controls="workflowChapitre-hasmany-tabs-etatChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatChapitre.plural'))}}</a>
                         </li>
 
                        

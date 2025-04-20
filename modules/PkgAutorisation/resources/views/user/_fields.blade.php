@@ -207,7 +207,7 @@
           </div>
           @endif
           <label for="roles">
-            {{ ucfirst(__('PkgAutorisation::Role.plural')) }}
+            {{ ucfirst(__('PkgAutorisation::role.plural')) }}
             
           </label>
                       <select

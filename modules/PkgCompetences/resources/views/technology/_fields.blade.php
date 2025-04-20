@@ -87,7 +87,7 @@
           </div>
           @endif
           <label for="competences">
-            {{ ucfirst(__('PkgCompetences::Competence.plural')) }}
+            {{ ucfirst(__('PkgCompetences::competence.plural')) }}
             
           </label>
                       <select

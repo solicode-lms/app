@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationFormation-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#realisationFormation-hasmany-tabs-realisationChapitre" role="tab" aria-controls="realisationFormation-hasmany-tabs-realisationChapitre" aria-selected="false">{{__('PkgAutoformation::realisationChapitre.plural')}}</a>
+                            <a class="nav-link" id="realisationFormation-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#realisationFormation-hasmany-tabs-realisationChapitre" role="tab" aria-controls="realisationFormation-hasmany-tabs-realisationChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::realisationChapitre.plural'))}}</a>
                         </li>
 
                        

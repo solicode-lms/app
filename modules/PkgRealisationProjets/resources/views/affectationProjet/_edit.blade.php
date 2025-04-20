@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">{{__('PkgRealisationProjets::realisationProjet.plural')}}</a>
+                            <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::realisationProjet.plural'))}}</a>
                         </li>
 
                        

@@ -37,10 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="chapitre-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#chapitre-hasmany-tabs-chapitre" role="tab" aria-controls="chapitre-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
+                            <a class="nav-link" id="chapitre-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#chapitre-hasmany-tabs-chapitre" role="tab" aria-controls="chapitre-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::chapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="chapitre-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#chapitre-hasmany-tabs-realisationChapitre" role="tab" aria-controls="chapitre-hasmany-tabs-realisationChapitre" aria-selected="false">{{__('PkgAutoformation::realisationChapitre.plural')}}</a>
+                            <a class="nav-link" id="chapitre-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#chapitre-hasmany-tabs-realisationChapitre" role="tab" aria-controls="chapitre-hasmany-tabs-realisationChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::realisationChapitre.plural'))}}</a>
                         </li>
 
                        

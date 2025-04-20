@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.name')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="is_active" modelname="sysModule" label="{{ ucfirst(__('Core::sysModule.is_active')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="sysModule" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="sysModule" label="{{ucfirst(__('Core::sysModule.name'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="is_active" modelname="sysModule" label="{{ucfirst(__('Core::sysModule.is_active'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="sysModule" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

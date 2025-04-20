@@ -10,13 +10,13 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="12.833333333333334"  field="nom" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.nom')) }}" />
-                <x-sortable-column :sortable="true" width="12.833333333333334"  field="lien" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.lien')) }}" />
-                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.ordre')) }}" />
-                <x-sortable-column :sortable="true" width="12.833333333333334" field="formation_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::formation.singular')) }}" />
-                <x-sortable-column :sortable="true" width="12.833333333333334" field="niveau_competence_id" modelname="chapitre" label="{{ ucfirst(__('PkgCompetences::niveauCompetence.singular')) }}" />
-                <x-sortable-column :sortable="true" width="12.833333333333334" field="formateur_id" modelname="chapitre" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
-                <x-sortable-column :sortable="true" width="12.833333333333334" field="chapitre_officiel_id" modelname="chapitre" label="{{ ucfirst(__('PkgAutoformation::chapitre.singular')) }}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.nom'))}}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334"  field="lien" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.lien'))}}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="formation_id" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::formation.singular'))}}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="niveau_competence_id" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::niveauCompetence.singular'))}}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="formateur_id" modelname="chapitre" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="12.833333333333334" field="chapitre_officiel_id" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

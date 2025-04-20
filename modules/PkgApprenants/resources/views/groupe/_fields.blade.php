@@ -174,7 +174,7 @@
           </div>
           @endif
           <label for="apprenants">
-            {{ ucfirst(__('PkgApprenants::Apprenant.plural')) }}
+            {{ ucfirst(__('PkgApprenants::apprenant.plural')) }}
             
           </label>
                       <select
@@ -206,7 +206,7 @@
           </div>
           @endif
           <label for="formateurs">
-            {{ ucfirst(__('PkgFormation::Formateur.plural')) }}
+            {{ ucfirst(__('PkgFormation::formateur.plural')) }}
             
           </label>
                       <select

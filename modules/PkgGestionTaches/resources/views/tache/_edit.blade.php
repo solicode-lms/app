@@ -37,10 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-dependanceTache" role="tab" aria-controls="tache-hasmany-tabs-dependanceTache" aria-selected="false">{{__('PkgGestionTaches::dependanceTache.plural')}}</a>
+                            <a class="nav-link" id="tache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-dependanceTache" role="tab" aria-controls="tache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::dependanceTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{__('PkgGestionTaches::realisationTache.plural')}}</a>
+                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::realisationTache.plural'))}}</a>
                         </li>
 
                        

@@ -410,7 +410,7 @@
           </div>
           @endif
           <label for="groupes">
-            {{ ucfirst(__('PkgApprenants::Groupe.plural')) }}
+            {{ ucfirst(__('PkgApprenants::groupe.plural')) }}
             
           </label>
                       <select

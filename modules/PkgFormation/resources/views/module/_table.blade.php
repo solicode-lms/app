@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="16.4"  field="code" modelname="module" label="{{ ucfirst(__('PkgFormation::module.code')) }}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="nom" modelname="module" label="{{ ucfirst(__('PkgFormation::module.nom')) }}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="masse_horaire" modelname="module" label="{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}" />
-                <x-sortable-column :sortable="true" width="16.4" field="filiere_id" modelname="module" label="{{ ucfirst(__('PkgFormation::filiere.singular')) }}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="Competence" modelname="module" label="{{ ucfirst(__('PkgCompetences::competence.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="code" modelname="module" label="{{ucfirst(__('PkgFormation::module.code'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="nom" modelname="module" label="{{ucfirst(__('PkgFormation::module.nom'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="masse_horaire" modelname="module" label="{{ucfirst(__('PkgFormation::module.masse_horaire'))}}" />
+                <x-sortable-column :sortable="true" width="16.4" field="filiere_id" modelname="module" label="{{ucfirst(__('PkgFormation::filiere.singular'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Competence" modelname="module" label="{{ucfirst(__('PkgCompetences::competence.plural'))}}" />
 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>

@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="nationalite-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#nationalite-hasmany-tabs-apprenant" role="tab" aria-controls="nationalite-hasmany-tabs-apprenant" aria-selected="false">{{__('PkgApprenants::apprenant.plural')}}</a>
+                            <a class="nav-link" id="nationalite-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#nationalite-hasmany-tabs-apprenant" role="tab" aria-controls="nationalite-hasmany-tabs-apprenant" aria-selected="false">{{ucfirst(__('PkgApprenants::apprenant.plural'))}}</a>
                         </li>
 
                        

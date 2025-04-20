@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.name')) }}" />
-                <x-sortable-column :sortable="true" width="20.5" field="sys_module_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysModule.singular')) }}" />
-                <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="sysModel" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="icone" modelname="sysModel" label="{{ ucfirst(__('Core::sysModel.icone')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="sysModel" label="{{ucfirst(__('Core::sysModel.name'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="sys_module_id" modelname="sysModel" label="{{ucfirst(__('Core::sysModule.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="sysModel" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="icone" modelname="sysModel" label="{{ucfirst(__('Core::sysModel.icone'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

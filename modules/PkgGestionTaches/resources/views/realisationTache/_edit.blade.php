@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationTache-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="realisationTache-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{__('PkgGestionTaches::historiqueRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="realisationTache-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="realisationTache-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural'))}}</a>
                         </li>
 
                        

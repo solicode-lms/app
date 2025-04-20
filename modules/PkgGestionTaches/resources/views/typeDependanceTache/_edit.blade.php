@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="typeDependanceTache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-dependanceTache" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-dependanceTache" aria-selected="false">{{__('PkgGestionTaches::dependanceTache.plural')}}</a>
+                            <a class="nav-link" id="typeDependanceTache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-dependanceTache" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::dependanceTache.plural'))}}</a>
                         </li>
 
                        

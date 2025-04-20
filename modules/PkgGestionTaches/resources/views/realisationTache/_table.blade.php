@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}" />
-                <x-sortable-column :sortable="true" width="18.5"  field="projet_title" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.projet_title')) }}" />
-                <x-sortable-column :sortable="true" width="15"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant')) }}" />
-                <x-sortable-column :sortable="true" width="10" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}" />
-                <x-sortable-column :sortable="true" width="18.5"  field="nombre_livrables" modelname="realisationTache" label="{{ ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables')) }}" />
+                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="18.5"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant'))}}" />
+                <x-sortable-column :sortable="true" width="10" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="18.5"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

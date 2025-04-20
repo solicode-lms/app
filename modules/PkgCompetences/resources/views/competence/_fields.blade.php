@@ -141,7 +141,7 @@
           </div>
           @endif
           <label for="technologies">
-            {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            {{ ucfirst(__('PkgCompetences::technology.plural')) }}
             
           </label>
                       <select
@@ -182,7 +182,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgCompetences::competence.description')) }}
+            {{ ucfirst(__('PkgCompetences::competence.aaa')) }}
             
           </label>
                       <textarea rows="" cols=""

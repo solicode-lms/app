@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::permission.name')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="controller_id" modelname="permission" label="{{ ucfirst(__('Core::sysController.singular')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="roles" modelname="permission" label="{{ ucfirst(__('PkgAutorisation::role.plural')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="permission" label="{{ucfirst(__('PkgAutorisation::permission.name'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="controller_id" modelname="permission" label="{{ucfirst(__('Core::sysController.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="roles" modelname="permission" label="{{ucfirst(__('PkgAutorisation::role.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

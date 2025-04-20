@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="workflowTache-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="workflowTache-hasmany-tabs-etatRealisationTache" aria-selected="false">{{__('PkgGestionTaches::etatRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="workflowTache-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="workflowTache-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
                         </li>
 
                        

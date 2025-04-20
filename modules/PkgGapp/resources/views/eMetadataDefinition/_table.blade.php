@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.name')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="groupe" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.groupe')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="description" modelname="eMetadataDefinition" label="{{ ucfirst(__('PkgGapp::eMetadataDefinition.description')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.name'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="groupe" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.groupe'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="description" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.description'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

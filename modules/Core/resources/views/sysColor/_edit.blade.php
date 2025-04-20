@@ -37,43 +37,43 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-etatChapitre" aria-selected="false">{{__('PkgAutoformation::etatChapitre.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-etatChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatChapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationTache" aria-selected="false">{{__('PkgGestionTaches::etatRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModel" role="tab" aria-controls="sysColor-hasmany-tabs-sysModel" aria-selected="false">{{__('Core::sysModel.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModel" role="tab" aria-controls="sysColor-hasmany-tabs-sysModel" aria-selected="false">{{ucfirst(__('Core::sysModel.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatFormation" role="tab" aria-controls="sysColor-hasmany-tabs-etatFormation" aria-selected="false">{{__('PkgAutoformation::etatFormation.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatFormation" role="tab" aria-controls="sysColor-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-labelRealisationTache" aria-selected="false">{{__('PkgGestionTaches::labelRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-labelRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::labelRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-sysModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModule" role="tab" aria-controls="sysColor-hasmany-tabs-sysModule" aria-selected="false">{{__('Core::sysModule.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-sysModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModule" role="tab" aria-controls="sysColor-hasmany-tabs-sysModule" aria-selected="false">{{ucfirst(__('Core::sysModule.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{__('PkgRealisationProjets::etatsRealisationProjet.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-sectionWidget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sectionWidget" role="tab" aria-controls="sysColor-hasmany-tabs-sectionWidget" aria-selected="false">{{__('PkgWidgets::sectionWidget.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-sectionWidget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sectionWidget" role="tab" aria-controls="sysColor-hasmany-tabs-sectionWidget" aria-selected="false">{{ucfirst(__('PkgWidgets::sectionWidget.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-widget" role="tab" aria-controls="sysColor-hasmany-tabs-widget" aria-selected="false">{{__('PkgWidgets::widget.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-widget" role="tab" aria-controls="sysColor-hasmany-tabs-widget" aria-selected="false">{{ucfirst(__('PkgWidgets::widget.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-workflowChapitre" aria-selected="false">{{__('PkgAutoformation::workflowChapitre.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-workflowChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::workflowChapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowFormation" role="tab" aria-controls="sysColor-hasmany-tabs-workflowFormation" aria-selected="false">{{__('PkgAutoformation::workflowFormation.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowFormation" role="tab" aria-controls="sysColor-hasmany-tabs-workflowFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::workflowFormation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowProjet" role="tab" aria-controls="sysColor-hasmany-tabs-workflowProjet" aria-selected="false">{{__('PkgRealisationProjets::workflowProjet.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowProjet" role="tab" aria-controls="sysColor-hasmany-tabs-workflowProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::workflowProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowTache" role="tab" aria-controls="sysColor-hasmany-tabs-workflowTache" aria-selected="false">{{__('PkgGestionTaches::workflowTache.plural')}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowTache" role="tab" aria-controls="sysColor-hasmany-tabs-workflowTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::workflowTache.plural'))}}</a>
                         </li>
 
                        

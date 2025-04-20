@@ -37,28 +37,28 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">{{__('PkgAutoformation::chapitre.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::chapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-commentaireRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-commentaireRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-commentaireRealisationTache" aria-selected="false">{{__('PkgGestionTaches::commentaireRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-commentaireRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-commentaireRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-commentaireRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::commentaireRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">{{__('PkgGestionTaches::etatRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatChapitre" role="tab" aria-controls="formateur-hasmany-tabs-etatChapitre" aria-selected="false">{{__('PkgAutoformation::etatChapitre.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatChapitre" role="tab" aria-controls="formateur-hasmany-tabs-etatChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatChapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatFormation" role="tab" aria-controls="formateur-hasmany-tabs-etatFormation" aria-selected="false">{{__('PkgAutoformation::etatFormation.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatFormation" role="tab" aria-controls="formateur-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-labelRealisationTache" aria-selected="false">{{__('PkgGestionTaches::labelRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-labelRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::labelRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-formation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-formation" role="tab" aria-controls="formateur-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-formation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-formation" role="tab" aria-controls="formateur-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">{{__('PkgGestionTaches::prioriteTache.plural')}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::prioriteTache.plural'))}}</a>
                         </li>
 
                        

@@ -37,10 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="competence-hasmany-tabs-niveauCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-niveauCompetence" role="tab" aria-controls="competence-hasmany-tabs-niveauCompetence" aria-selected="false">{{__('PkgCompetences::niveauCompetence.plural')}}</a>
+                            <a class="nav-link" id="competence-hasmany-tabs-niveauCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-niveauCompetence" role="tab" aria-controls="competence-hasmany-tabs-niveauCompetence" aria-selected="false">{{ucfirst(__('PkgCompetences::niveauCompetence.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="competence-hasmany-tabs-formation-tab" data-toggle="pill" href="#competence-hasmany-tabs-formation" role="tab" aria-controls="competence-hasmany-tabs-formation" aria-selected="false">{{__('PkgAutoformation::formation.plural')}}</a>
+                            <a class="nav-link" id="competence-hasmany-tabs-formation-tab" data-toggle="pill" href="#competence-hasmany-tabs-formation" role="tab" aria-controls="competence-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
                         </li>
 
                        

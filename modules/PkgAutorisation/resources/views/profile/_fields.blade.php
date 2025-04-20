@@ -28,7 +28,7 @@
           </div>
           @endif
           <label for="old_password">
-            {{ ucfirst(__('PkgAutorisation::profile.old_password')) }}
+            {{  }}
             
           </label>
                       <input

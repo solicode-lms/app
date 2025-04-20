@@ -37,10 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="anneeFormation-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-affectationProjet" role="tab" aria-controls="anneeFormation-hasmany-tabs-affectationProjet" aria-selected="false">{{__('PkgRealisationProjets::affectationProjet.plural')}}</a>
+                            <a class="nav-link" id="anneeFormation-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-affectationProjet" role="tab" aria-controls="anneeFormation-hasmany-tabs-affectationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="anneeFormation-hasmany-tabs-groupe-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-groupe" role="tab" aria-controls="anneeFormation-hasmany-tabs-groupe" aria-selected="false">{{__('PkgApprenants::groupe.plural')}}</a>
+                            <a class="nav-link" id="anneeFormation-hasmany-tabs-groupe-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-groupe" role="tab" aria-controls="anneeFormation-hasmany-tabs-groupe" aria-selected="false">{{ucfirst(__('PkgApprenants::groupe.plural'))}}</a>
                         </li>
 
                        

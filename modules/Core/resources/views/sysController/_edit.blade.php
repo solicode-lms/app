@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sysController-hasmany-tabs-permission-tab" data-toggle="pill" href="#sysController-hasmany-tabs-permission" role="tab" aria-controls="sysController-hasmany-tabs-permission" aria-selected="false">{{__('PkgAutorisation::permission.plural')}}</a>
+                            <a class="nav-link" id="sysController-hasmany-tabs-permission-tab" data-toggle="pill" href="#sysController-hasmany-tabs-permission" role="tab" aria-controls="sysController-hasmany-tabs-permission" aria-selected="false">{{ucfirst(__('PkgAutorisation::permission.plural'))}}</a>
                         </li>
 
                        

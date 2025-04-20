@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="82"  field="titre" modelname="typeDependanceTache" label="{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}" />
+                <x-sortable-column :sortable="true" width="82"  field="titre" modelname="typeDependanceTache" label="{{ucfirst(__('PkgGestionTaches::typeDependanceTache.titre'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

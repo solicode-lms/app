@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="etatFormation" label="{{ ucfirst(__('PkgAutoformation::etatFormation.nom')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatFormation" label="{{ ucfirst(__('Core::sysColor.singular')) }}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="etatFormation" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="etatFormation" label="{{ucfirst(__('PkgAutoformation::etatFormation.nom'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatFormation" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="etatFormation" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

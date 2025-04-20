@@ -92,7 +92,7 @@
           </div>
           @endif
           <label for="technologies">
-            {{ ucfirst(__('PkgCompetences::Technology.plural')) }}
+            {{ ucfirst(__('PkgCompetences::technology.plural')) }}
             
           </label>
                       <select

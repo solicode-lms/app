@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.nom')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="formateur" label="{{ ucfirst(__('PkgFormation::formateur.prenom')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="specialites" modelname="formateur" label="{{ ucfirst(__('PkgFormation::specialite.plural')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="formateur" label="{{ ucfirst(__('PkgApprenants::groupe.plural')) }}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formateur" label="{{ucfirst(__('PkgFormation::formateur.nom'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="formateur" label="{{ucfirst(__('PkgFormation::formateur.prenom'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="specialites" modelname="formateur" label="{{ucfirst(__('PkgFormation::specialite.plural'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="formateur" label="{{ucfirst(__('PkgApprenants::groupe.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

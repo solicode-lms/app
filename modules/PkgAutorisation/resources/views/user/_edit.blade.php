@@ -37,19 +37,19 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#user-hasmany-tabs-apprenant" role="tab" aria-controls="user-hasmany-tabs-apprenant" aria-selected="false">{{__('PkgApprenants::apprenant.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#user-hasmany-tabs-apprenant" role="tab" aria-controls="user-hasmany-tabs-apprenant" aria-selected="false">{{ucfirst(__('PkgApprenants::apprenant.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{__('PkgFormation::formateur.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{ucfirst(__('PkgFormation::formateur.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{__('PkgAutorisation::profile.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{ucfirst(__('PkgAutorisation::profile.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-userModelFilter-tab" data-toggle="pill" href="#user-hasmany-tabs-userModelFilter" role="tab" aria-controls="user-hasmany-tabs-userModelFilter" aria-selected="false">{{__('Core::userModelFilter.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-userModelFilter-tab" data-toggle="pill" href="#user-hasmany-tabs-userModelFilter" role="tab" aria-controls="user-hasmany-tabs-userModelFilter" aria-selected="false">{{ucfirst(__('Core::userModelFilter.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-widgetUtilisateur-tab" data-toggle="pill" href="#user-hasmany-tabs-widgetUtilisateur" role="tab" aria-controls="user-hasmany-tabs-widgetUtilisateur" aria-selected="false">{{__('PkgWidgets::widgetUtilisateur.plural')}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-widgetUtilisateur-tab" data-toggle="pill" href="#user-hasmany-tabs-widgetUtilisateur" role="tab" aria-controls="user-hasmany-tabs-widgetUtilisateur" aria-selected="false">{{ucfirst(__('PkgWidgets::widgetUtilisateur.plural'))}}</a>
                         </li>
 
                        

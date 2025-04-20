@@ -37,13 +37,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-groupe-tab" data-toggle="pill" href="#filiere-hasmany-tabs-groupe" role="tab" aria-controls="filiere-hasmany-tabs-groupe" aria-selected="false">{{__('PkgApprenants::groupe.plural')}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-groupe-tab" data-toggle="pill" href="#filiere-hasmany-tabs-groupe" role="tab" aria-controls="filiere-hasmany-tabs-groupe" aria-selected="false">{{ucfirst(__('PkgApprenants::groupe.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">{{__('PkgFormation::module.plural')}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">{{ucfirst(__('PkgFormation::module.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">{{__('PkgCreationProjet::projet.plural')}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.plural'))}}</a>
                         </li>
 
                        

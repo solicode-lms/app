@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sectionWidget-hasmany-tabs-widget-tab" data-toggle="pill" href="#sectionWidget-hasmany-tabs-widget" role="tab" aria-controls="sectionWidget-hasmany-tabs-widget" aria-selected="false">{{__('PkgWidgets::widget.plural')}}</a>
+                            <a class="nav-link" id="sectionWidget-hasmany-tabs-widget-tab" data-toggle="pill" href="#sectionWidget-hasmany-tabs-widget" role="tab" aria-controls="sectionWidget-hasmany-tabs-widget" aria-selected="false">{{ucfirst(__('PkgWidgets::widget.plural'))}}</a>
                         </li>
 
                        

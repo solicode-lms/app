@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="ePackage-hasmany-tabs-eModel-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-eModel" role="tab" aria-controls="ePackage-hasmany-tabs-eModel" aria-selected="false">{{__('PkgGapp::eModel.plural')}}</a>
+                            <a class="nav-link" id="ePackage-hasmany-tabs-eModel-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-eModel" role="tab" aria-controls="ePackage-hasmany-tabs-eModel" aria-selected="false">{{ucfirst(__('PkgGapp::eModel.plural'))}}</a>
                         </li>
 
                        
