@@ -19,9 +19,19 @@
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}" data-id="{{$ville->id}}">
                     <x-checkbox-row :item="$ville" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $ville->nom }}" >
+                    <td 
+                        style="max-width: 82%;" 
+                        class="editable-cell text-truncate" 
+                        data-toggle="tooltip" 
+                        data-id="{{ $ville->id }}" 
+                        title="{{ $ville->nom }}" 
+                        data-field="nom"
+                        >
                     <x-field :entity="$ville" field="nom">
-                        {{ $ville->nom }}
+                        <span class="editable-text">{{ $ville->nom }}</span>
+                        <input type="text" 
+                        class="editable-input form-control d-none" 
+                        value="{{ $ville->nom }}" />
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

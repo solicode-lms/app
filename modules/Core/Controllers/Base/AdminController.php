@@ -11,6 +11,7 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
 use Modules\Core\Services\ViewStateService;
+use Modules\PkgApprenants\App\Requests\VilleRequest;
 use Str;
 /**
  * AdminController est responsable de la gestion des fonctionnalités liées aux administrateurs.
@@ -81,44 +82,7 @@ class AdminController extends AppController
     }
 
 
-     /**
-     * @DynamicPermissionIgnore
-     * Met à jour les attributs, il est utilisé par type View : Widgets
-     */
-    public function updateAttributes(Request $request)
-    {
-        // Autorisation dynamique basée sur le nom du contrôleur
-        $this->authorizeAction('update');
-    
-        $updatableFields = $this->getUpdatableAttributes();
-    
-        // Règles de validation regroupées dans un seul tableau
-        $validationRules = [
-            'id' => ['required', 'integer', 'exists:' . Str::snake(Str::plural($this->getModelName())) . ',id'],
-            'ordre' => 'nullable|integer|min:1',
-            'visible' => 'nullable|boolean',
-        ];
-    
-        // Ne conserver que les règles liées aux champs modifiables + id
-        $validationRules = collect($validationRules)
-            ->only(array_merge(['id'], $updatableFields))
-            ->toArray();
-    
-        $validated = $request->validate($validationRules);
-    
-        $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
-    
-        if (empty($dataToUpdate)) {
-            return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
-        }
-    
-        $this->getService()->update($validated['id'], $dataToUpdate);
-    
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
-    }
-    
+     
     /**
      * Autorisation d'une action dans le current Controller
      * @param string $action
@@ -144,11 +108,5 @@ class AdminController extends AppController
     {
         return Str::studly($this->getControllerName()); // Ex: WidgetUtilisateur
     }
-    /**
-     * Retourne les champs qui peuvent être mis à jour dynamiquement.
-     */
-    protected function getUpdatableAttributes(): array
-    {
-        return ['ordre', 'visible']; // Par défaut dans WidgetUtilisateur
-    }
+
 }
