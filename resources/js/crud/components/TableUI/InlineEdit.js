@@ -1,69 +1,88 @@
+import { Action } from "../../actions/Action";
+import EventUtil from "../../utils/EventUtil";
+import { FormUI } from "../FormUI";
 import { NotificationHandler } from "../NotificationHandler";
-
-export class InlineEdit {
+ 
+export class InlineEdit extends Action  {
     constructor(config, tableUI) {
+        super(config);
         this.config = config;
         this.tableUI = tableUI;
         this.entityEditor = this.tableUI.entityEditor; // Injectée via CrudManager
+       
     }
 
     init() {
-        this.inlineEditEventHandler();
+        this.bindInlineEditEvents();
     }
 
-    inlineEditEventHandler() {
+    bindInlineEditEvents() {
         const selector = `${this.config.tableSelector} .editable-cell`;
+        EventUtil.bindEvent('dblclick', selector, (e) => this.handleInlineEdit(e));
+    }
 
-        // 🔹 Activer l'édition au double-clic
-        $(document).on('dblclick', selector, async (e) => {
-            const $cell = $(e.currentTarget);
-            const field = $cell.data('field');
-            const id = $cell.data('id');
+    async handleInlineEdit(e) {
+        const $cell = $(e.currentTarget);
+        const field = $cell.data('field');
+        const id = $cell.data('id');
 
-            if (!field || !id) return;
+        if (!field || !id) return;
 
-            const url = this.config.editUrl.replace(':id', id);
-            try {
-                const response = await $.get(url);
-                const html = $('<div>').html(response);
-                const formField = html.find(`[name="${field}"]`).closest('.form-group');
+        const url = this.config.editUrl.replace(':id', id);
+        try {
 
-                if (!formField.length) {
-                    console.warn(`Champ '${field}' introuvable dans le formulaire.`);
-                    return;
-                }
+            this.loader.show();
+            const response = await $.get(url);
+            this.loader.hide();
 
-                const currentValue = $cell.text().trim();
-                $cell.data('original', currentValue);
+            const html = $('<div>').html(response);
+            this.executeScripts(html);
 
-                $cell.empty().append(formField);
+            const formField = html.find(`[name="${field}"]`).closest('.form-group');
 
-                const input = $cell.find(`[name="${field}"]`);
-                input.focus();
+           
 
-                // Blur → validation automatique
-                input.on('blur', () => {
-                    const newValue = input.val();
-                    const data = { id, [field]: newValue };
-                    this.entityEditor.update_attributes(data, () => {
-                        $cell.empty().text(newValue);
-                        NotificationHandler.showSuccess('Champ mis à jour avec succès.');
-                        this.tableUI.entityLoader.loadEntities(); // 🔄 Recharger toute la table
-                    });
-                });
+            if (!formField.length) {
+                console.warn(`Champ '${field}' introuvable dans le formulaire.`);
+                return;
+            }
 
-                // ENTER → validation
-                input.on('keydown', (evt) => {
-                    if (evt.key === 'Enter') {
-                        input.blur();
-                    } else if (evt.key === 'Escape') {
-                        // Annuler l'édition et restaurer la valeur initiale
-                        $cell.empty().text($cell.data('original'));
-                    }
-                });
-            } catch (error) {
-                console.error('Erreur de chargement du formulaire :', error);
-                NotificationHandler.showError('Erreur lors de l\'ouverture de l\'éditeur inline.');
+            const currentValue = $cell.text().trim();
+            $cell.data('original', currentValue);
+            $cell.empty().append(formField);
+
+             const formUI = new FormUI(this.config, this.tableUI.indexUI,`#${$cell.attr("id") || $cell.closest('tr').attr('id')}`)
+
+             formUI.init(() => this.submitEntity(),false);
+            
+
+            const input = $cell.find(`[name="${field}"]`);
+            input.focus();
+
+            this.bindFieldEvents(input, $cell, field, id);
+        } catch (error) {
+            console.error('Erreur de chargement du formulaire :', error);
+            NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
+        }
+    }
+
+    bindFieldEvents(input, $cell, field, id) {
+        input.off('blur').on('blur', () => {
+            const newValue = input.val();
+            const data = { id, [field]: newValue };
+
+            this.entityEditor.update_attributes(data, () => {
+                $cell.empty().text(newValue);
+                NotificationHandler.showSuccess('Champ mis à jour avec succès.');
+                this.tableUI.entityLoader.loadEntities(); // 🔄 Recharger toute la table
+            });
+        });
+
+        input.off('keydown').on('keydown', (evt) => {
+            if (evt.key === 'Enter') {
+                input.blur();
+            } else if (evt.key === 'Escape') {
+                $cell.empty().text($cell.data('original'));
             }
         });
     }

@@ -26,10 +26,13 @@ export class FormUI  {
      * @param {string} formSelector - Sélecteur CSS du formulaire à gérer.
      * @param {ModalUI} modalUI - Instance de ModalUI pour gérer les interactions modales.
      */
-    constructor(config, indexUI) {
+    constructor(config, indexUI , formSelector ="") {
         this.config = config;
         this.indexUI = indexUI;
-        this.formSelector = this.config.formSelector
+        if(formSelector = "") {
+            this.formSelector = this.config.formSelector
+        }
+        
         this.viewStateService = this.config.viewStateService;
         this.loader = new LoadingIndicator(this.formSelector);
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
@@ -70,7 +73,7 @@ export class FormUI  {
         }
 
          // DynamicDropdownTreatment
-         document.querySelectorAll(this.config.formSelector +  " [data-target-dynamic-dropdown]").forEach((element) => {
+         document.querySelectorAll(this.formSelector +  " [data-target-dynamic-dropdown]").forEach((element) => {
             new DynamicDropdownTreatment(element,this.config);
         });
 
@@ -94,7 +97,7 @@ export class FormUI  {
         const formData = this.config.viewStateService.getFormVariables();
 
         Object.keys(scopeData).forEach((key) => {
-            const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+            const filterElement = document.querySelector(`${this.formSelector} #${key}`);
             if (filterElement) {
                 if (this.config.isDebug) {
                     filterElement.parentElement.style.backgroundColor = 'lightblue'; // Mode debug : surligner
@@ -108,7 +111,7 @@ export class FormUI  {
         // Dans le cas de create seulement
         if(isCreate){
             Object.keys(formData).forEach((key) => {
-                const filterElement = document.querySelector(`${this.config.formSelector} #${key}`);
+                const filterElement = document.querySelector(`${this.formSelector} #${key}`);
                 if (filterElement) {
                         if (filterElement.tagName === "INPUT" || filterElement.tagName === "TEXTAREA") {
                             filterElement.value = formData[key];
