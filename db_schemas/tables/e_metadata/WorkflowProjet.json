@@ -109,7 +109,7 @@
     },
     {
         "reference": "WorkflowProjet_description_displayOrder",
-        "value_integer": 5,
+        "value_integer": 6,
         "e_data_field_reference": "WorkflowProjet_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -139,7 +139,7 @@
     },
     {
         "reference": "WorkflowProjet_reference_displayOrder",
-        "value_integer": 9,
+        "value_integer": 8,
         "e_data_field_reference": "WorkflowProjet_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -201,7 +201,7 @@
     },
     {
         "reference": "WorkflowProjet_created_at_displayOrder",
-        "value_integer": 7,
+        "value_integer": 5,
         "e_data_field_reference": "WorkflowProjet_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -219,7 +219,7 @@
     },
     {
         "reference": "WorkflowProjet_updated_at_displayOrder",
-        "value_integer": 8,
+        "value_integer": 7,
         "e_data_field_reference": "WorkflowProjet_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
