@@ -21,18 +21,18 @@
             @foreach ($features_data as $feature)
                 <tr id="feature-row-{{$feature->id}}" data-id="{{$feature->id}}">
                     <x-checkbox-row :item="$feature" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->name }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$feature->id}}" data-field="name"  data-toggle="tooltip" title="{{ $feature->name }}" >
                     <x-field :entity="$feature" field="name">
                         {{ $feature->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$feature->id}}" data-field="feature_domain_id"  data-toggle="tooltip" title="{{ $feature->featureDomain }}" >
                     <x-field :entity="$feature" field="featureDomain">
                        
                          {{  $feature->featureDomain }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $feature->permissions }}" >
+                    <td style="max-width: 27.333333333333332%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$feature->id}}" data-field="permissions"  data-toggle="tooltip" title="{{ $feature->permissions }}" >
                     <x-field :entity="$feature" field="permissions">
                         <ul>
                             @foreach ($feature->permissions as $permission)

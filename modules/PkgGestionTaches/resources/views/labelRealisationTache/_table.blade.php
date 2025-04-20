@@ -21,18 +21,18 @@
             @foreach ($labelRealisationTaches_data as $labelRealisationTache)
                 <tr id="labelRealisationTache-row-{{$labelRealisationTache->id}}" data-id="{{$labelRealisationTache->id}}">
                     <x-checkbox-row :item="$labelRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->nom }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $labelRealisationTache->nom }}" >
                     <x-field :entity="$labelRealisationTache" field="nom">
                         {{ $labelRealisationTache->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->formateur }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $labelRealisationTache->formateur }}" >
                     <x-field :entity="$labelRealisationTache" field="formateur">
                        
                          {{  $labelRealisationTache->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
                     <x-field :entity="$labelRealisationTache" field="sysColor">
                         <x-badge 
                         :text="$labelRealisationTache->sysColor->name ?? ''" 

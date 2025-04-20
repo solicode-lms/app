@@ -20,12 +20,12 @@
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}" data-id="{{$niveauCompetence->id}}">
                     <x-checkbox-row :item="$niveauCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
                     <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
                     <x-field :entity="$niveauCompetence" field="competence">
                        
                          {{  $niveauCompetence->competence }}

@@ -388,4 +388,38 @@ class BaseTransfertCompetenceController extends AdminController
     }
     
 
+
+    /**
+     * @DynamicPermissionIgnore
+     * Met à jour les attributs, il est utilisé par type View : Widgets
+     */
+    public function updateAttributes(Request $request)
+    {
+        // Autorisation dynamique basée sur le nom du contrôleur
+        $this->authorizeAction('update');
+    
+        $updatableFields = $this->service->getFieldsEditable();
+        $transfertCompetenceRequest = new TransfertCompetenceRequest();
+        $fullRules = $transfertCompetenceRequest->rules();
+        $rules = collect($fullRules)
+            ->only(array_intersect(array_keys($request->all()), $updatableFields))
+            ->toArray();
+
+        // Ajout obligatoire de l'ID
+        $rules['id'] = ['required', 'integer', 'exists:transfert_competences,id'];
+        $validated = $request->validate($rules);
+
+        
+        $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
+    
+        if (empty($dataToUpdate)) {
+            return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
+        }
+    
+        $this->getService()->update($validated['id'], $dataToUpdate);
+    
+        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
+            'entity_id' => $validated['id']
+        ]);
+    }
 }

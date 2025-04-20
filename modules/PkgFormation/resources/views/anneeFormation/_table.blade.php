@@ -21,17 +21,17 @@
             @foreach ($anneeFormations_data as $anneeFormation)
                 <tr id="anneeFormation-row-{{$anneeFormation->id}}" data-id="{{$anneeFormation->id}}">
                     <x-checkbox-row :item="$anneeFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$anneeFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $anneeFormation->titre }}" >
                     <x-field :entity="$anneeFormation" field="titre">
                         {{ $anneeFormation->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $anneeFormation->date_debut }}" >
                     <x-field :entity="$anneeFormation" field="date_debut">
                         {{ $anneeFormation->date_debut }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$anneeFormation->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $anneeFormation->date_fin }}" >
                     <x-field :entity="$anneeFormation" field="date_fin">
                         {{ $anneeFormation->date_fin }}
                     </x-field>

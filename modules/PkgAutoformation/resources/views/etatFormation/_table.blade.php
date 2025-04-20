@@ -21,12 +21,12 @@
             @foreach ($etatFormations_data as $etatFormation)
                 <tr id="etatFormation-row-{{$etatFormation->id}}" data-id="{{$etatFormation->id}}">
                     <x-checkbox-row :item="$etatFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$etatFormation->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatFormation->nom }}" >
                     <x-field :entity="$etatFormation" field="nom">
                         {{ $etatFormation->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$etatFormation->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatFormation->sysColor }}" >
                     <x-field :entity="$etatFormation" field="sysColor">
                         <x-badge 
                         :text="$etatFormation->sysColor->name ?? ''" 
@@ -34,7 +34,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$etatFormation->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatFormation->formateur }}" >
                     <x-field :entity="$etatFormation" field="formateur">
                        
                          {{  $etatFormation->formateur }}

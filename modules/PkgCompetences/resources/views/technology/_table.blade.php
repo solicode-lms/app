@@ -20,12 +20,12 @@
             @foreach ($technologies_data as $technology)
                 <tr id="technology-row-{{$technology->id}}" data-id="{{$technology->id}}">
                     <x-checkbox-row :item="$technology" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->nom }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$technology->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $technology->nom }}" >
                     <x-field :entity="$technology" field="nom">
                         {{ $technology->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $technology->categoryTechnology }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$technology->id}}" data-field="category_technology_id"  data-toggle="tooltip" title="{{ $technology->categoryTechnology }}" >
                     <x-field :entity="$technology" field="categoryTechnology">
                        
                          {{  $technology->categoryTechnology }}

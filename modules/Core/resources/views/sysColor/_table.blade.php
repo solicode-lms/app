@@ -19,7 +19,7 @@
             @foreach ($sysColors_data as $sysColor)
                 <tr id="sysColor-row-{{$sysColor->id}}" data-id="{{$sysColor->id}}">
                     <x-checkbox-row :item="$sysColor" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysColor->name }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$sysColor->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysColor->name }}" >
                     <x-field :entity="$sysColor" field="name">
                         {{ $sysColor->name }}
                     </x-field>

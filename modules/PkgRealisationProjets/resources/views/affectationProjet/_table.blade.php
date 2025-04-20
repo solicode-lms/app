@@ -22,24 +22,24 @@
             @foreach ($affectationProjets_data as $affectationProjet)
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}" data-id="{{$affectationProjet->id}}">
                     <x-checkbox-row :item="$affectationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
                     <x-field :entity="$affectationProjet" field="projet">
                        
                          {{  $affectationProjet->projet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
                     <x-field :entity="$affectationProjet" field="groupe">
                        
                          {{  $affectationProjet->groupe }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
                     <x-field :entity="$affectationProjet" field="date_debut">
                         {{ $affectationProjet->date_debut }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
                     <x-field :entity="$affectationProjet" field="date_fin">
                         {{ $affectationProjet->date_fin }}
                     </x-field>

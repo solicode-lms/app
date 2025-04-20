@@ -21,18 +21,18 @@
             @foreach ($livrablesRealisations_data as $livrablesRealisation)
                 <tr id="livrablesRealisation-row-{{$livrablesRealisation->id}}" data-id="{{$livrablesRealisation->id}}">
                     <x-checkbox-row :item="$livrablesRealisation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="livrable_id"  data-toggle="tooltip" title="{{ $livrablesRealisation->livrable }}" >
                     <x-field :entity="$livrablesRealisation" field="livrable">
                        
                          {{  $livrablesRealisation->livrable }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
                     <x-field :entity="$livrablesRealisation" field="lien">
                         {{ $livrablesRealisation->lien }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >
                     <x-field :entity="$livrablesRealisation" field="titre">
                         {{ $livrablesRealisation->titre }}
                     </x-field>

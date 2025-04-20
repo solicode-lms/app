@@ -21,17 +21,17 @@
             @foreach ($sysModules_data as $sysModule)
                 <tr id="sysModule-row-{{$sysModule->id}}" data-id="{{$sysModule->id}}">
                     <x-checkbox-row :item="$sysModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->name }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$sysModule->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModule->name }}" >
                     <x-field :entity="$sysModule" field="name">
                         {{ $sysModule->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$sysModule->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
                     <x-field :entity="$sysModule" field="is_active">
                         {{ $sysModule->is_active }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$sysModule->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
                     <x-field :entity="$sysModule" field="sysColor">
                         <x-badge 
                         :text="$sysModule->sysColor->name ?? ''" 

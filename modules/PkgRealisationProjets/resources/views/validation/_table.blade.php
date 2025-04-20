@@ -21,18 +21,18 @@
             @foreach ($validations_data as $validation)
                 <tr id="validation-row-{{$validation->id}}" data-id="{{$validation->id}}">
                     <x-checkbox-row :item="$validation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$validation->id}}" data-field="transfert_competence_id"  data-toggle="tooltip" title="{{ $validation->transfertCompetence }}" >
                     <x-field :entity="$validation" field="transfertCompetence">
                        
                          {{  $validation->transfertCompetence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->note }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$validation->id}}" data-field="note"  data-toggle="tooltip" title="{{ $validation->note }}" >
                     <x-field :entity="$validation" field="note">
                         {{ $validation->note }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $validation->message }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$validation->id}}" data-field="message"  data-toggle="tooltip" title="{{ $validation->message }}" >
                     <x-field :entity="$validation" field="message">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($validation->message, 30) !!}
                     </x-field>

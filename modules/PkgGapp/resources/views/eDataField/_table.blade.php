@@ -23,30 +23,30 @@
             @foreach ($eDataFields_data as $eDataField)
                 <tr id="eDataField-row-{{$eDataField->id}}" data-id="{{$eDataField->id}}">
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
+                    <td style="max-width: 5%;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="displayOrder"  data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
                     <x-field :entity="$eDataField" field="displayOrder">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $eDataField->displayOrder }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->name }}" >
+                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eDataField->name }}" >
                     <x-field :entity="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->eModel }}" >
+                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eDataField->eModel }}" >
                     <x-field :entity="$eDataField" field="eModel">
                        
                          {{  $eDataField->eModel }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
+                    <td style="max-width: 10%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="data_type"  data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
                     <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 8%;" class="text-truncate" data-toggle="tooltip" title="{{ $eDataField->displayInTable }}" >
+                    <td style="max-width: 8%;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="displayInTable"  data-toggle="tooltip" title="{{ $eDataField->displayInTable }}" >
                     <x-field :entity="$eDataField" field="displayInTable">
                         <span class="{{ $eDataField->displayInTable ? 'text-success' : 'text-danger' }}">
                             {{ $eDataField->displayInTable ? 'Oui' : 'Non' }}

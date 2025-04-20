@@ -24,19 +24,19 @@
             @foreach ($realisationProjets_data as $realisationProjet)
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}" data-id="{{$realisationProjet->id}}">
                     <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                     <x-field :entity="$realisationProjet" field="affectationProjet">
                        
                          {{  $realisationProjet->affectationProjet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
                     <x-field :entity="$realisationProjet" field="apprenant">
                        
                          {{  $realisationProjet->apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
                     <x-field :entity="$realisationProjet" field="etatsRealisationProjet">
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
@@ -46,7 +46,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
+                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="avancement_projet"  data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
                     <x-field :entity="$realisationProjet" field="avancement_projet">
                         <div class="progress progress-sm">
                             <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->avancement_projet }}%">
@@ -57,7 +57,7 @@
                         </small>
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                     <x-field :entity="$realisationProjet" field="livrablesRealisations">
                         <ul>
                             @foreach ($realisationProjet->livrablesRealisations as $livrablesRealisation)

@@ -22,24 +22,24 @@
             @foreach ($commentaireRealisationTaches_data as $commentaireRealisationTache)
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}" data-id="{{$commentaireRealisationTache->id}}">
                     <x-checkbox-row :item="$commentaireRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="commentaire"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
                     <x-field :entity="$commentaireRealisationTache" field="commentaire">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
                     <x-field :entity="$commentaireRealisationTache" field="realisationTache">
                        
                          {{  $commentaireRealisationTache->realisationTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->formateur }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->formateur }}" >
                     <x-field :entity="$commentaireRealisationTache" field="formateur">
                        
                          {{  $commentaireRealisationTache->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $commentaireRealisationTache->apprenant }}" >
+                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->apprenant }}" >
                     <x-field :entity="$commentaireRealisationTache" field="apprenant">
                        
                          {{  $commentaireRealisationTache->apprenant }}

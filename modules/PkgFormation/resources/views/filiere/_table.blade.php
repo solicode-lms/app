@@ -20,12 +20,12 @@
             @foreach ($filieres_data as $filiere)
                 <tr id="filiere-row-{{$filiere->id}}" data-id="{{$filiere->id}}">
                     <x-checkbox-row :item="$filiere" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->code }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$filiere->id}}" data-field="code"  data-toggle="tooltip" title="{{ $filiere->code }}" >
                     <x-field :entity="$filiere" field="code">
                         {{ $filiere->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $filiere->nom }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$filiere->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $filiere->nom }}" >
                     <x-field :entity="$filiere" field="nom">
                         {{ $filiere->nom }}
                     </x-field>

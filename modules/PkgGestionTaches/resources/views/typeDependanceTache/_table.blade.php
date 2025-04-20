@@ -19,7 +19,7 @@
             @foreach ($typeDependanceTaches_data as $typeDependanceTache)
                 <tr id="typeDependanceTache-row-{{$typeDependanceTache->id}}" data-id="{{$typeDependanceTache->id}}">
                     <x-checkbox-row :item="$typeDependanceTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$typeDependanceTache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $typeDependanceTache->titre }}" >
                     <x-field :entity="$typeDependanceTache" field="titre">
                         {{ $typeDependanceTache->titre }}
                     </x-field>

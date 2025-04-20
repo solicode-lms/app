@@ -19,7 +19,7 @@
             @foreach ($natureLivrables_data as $natureLivrable)
                 <tr id="natureLivrable-row-{{$natureLivrable->id}}" data-id="{{$natureLivrable->id}}">
                     <x-checkbox-row :item="$natureLivrable" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$natureLivrable->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $natureLivrable->nom }}" >
                     <x-field :entity="$natureLivrable" field="nom">
                         {{ $natureLivrable->nom }}
                     </x-field>

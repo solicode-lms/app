@@ -24,28 +24,28 @@
             @foreach ($modules_data as $module)
                 <tr id="module-row-{{$module->id}}" data-id="{{$module->id}}">
                     <x-checkbox-row :item="$module" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->code }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$module->id}}" data-field="code"  data-toggle="tooltip" title="{{ $module->code }}" >
                     <x-field :entity="$module" field="code">
                         {{ $module->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->nom }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$module->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $module->nom }}" >
                     <x-field :entity="$module" field="nom">
                         {{ $module->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$module->id}}" data-field="masse_horaire"  data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
                     <x-field :entity="$module" field="masse_horaire">
                         {{ $module->masse_horaire }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->filiere }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$module->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $module->filiere }}" >
                     <x-field :entity="$module" field="filiere">
                        
                          {{  $module->filiere }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $module->competences }}" >
+                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$module->id}}" data-field="Competence"  data-toggle="tooltip" title="{{ $module->competences }}" >
                     <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)

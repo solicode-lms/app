@@ -19,7 +19,7 @@
             @foreach ($roles_data as $role)
                 <tr id="role-row-{{$role->id}}" data-id="{{$role->id}}">
                     <x-checkbox-row :item="$role" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $role->name }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$role->id}}" data-field="name"  data-toggle="tooltip" title="{{ $role->name }}" >
                     <x-field :entity="$role" field="name">
                         {{ $role->name }}
                     </x-field>

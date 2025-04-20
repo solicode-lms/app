@@ -20,12 +20,12 @@
             @foreach ($featureDomains_data as $featureDomain)
                 <tr id="featureDomain-row-{{$featureDomain->id}}" data-id="{{$featureDomain->id}}">
                     <x-checkbox-row :item="$featureDomain" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->name }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$featureDomain->id}}" data-field="name"  data-toggle="tooltip" title="{{ $featureDomain->name }}" >
                     <x-field :entity="$featureDomain" field="name">
                         {{ $featureDomain->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="text-truncate" data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
+                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$featureDomain->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
                     <x-field :entity="$featureDomain" field="sysModule">
                        
                          {{  $featureDomain->sysModule }}

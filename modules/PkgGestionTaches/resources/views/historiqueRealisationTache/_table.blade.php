@@ -19,7 +19,7 @@
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}" data-id="{{$historiqueRealisationTache->id}}">
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
                     <x-field :entity="$historiqueRealisationTache" field="realisationTache">
                        
                          {{  $historiqueRealisationTache->realisationTache }}

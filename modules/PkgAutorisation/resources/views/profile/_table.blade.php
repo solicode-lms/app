@@ -19,7 +19,7 @@
             @foreach ($profiles_data as $profile)
                 <tr id="profile-row-{{$profile->id}}" data-id="{{$profile->id}}">
                     <x-checkbox-row :item="$profile" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $profile->user }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$profile->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $profile->user }}" >
                     <x-field :entity="$profile" field="user">
                        
                          {{  $profile->user }}

@@ -21,18 +21,18 @@
             @foreach ($permissions_data as $permission)
                 <tr id="permission-row-{{$permission->id}}" data-id="{{$permission->id}}">
                     <x-checkbox-row :item="$permission" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->name }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$permission->id}}" data-field="name"  data-toggle="tooltip" title="{{ $permission->name }}" >
                     <x-field :entity="$permission" field="name">
                         {{ $permission->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->controller }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$permission->id}}" data-field="controller_id"  data-toggle="tooltip" title="{{ $permission->controller }}" >
                     <x-field :entity="$permission" field="controller">
                        
                          {{  $permission->controller }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $permission->roles }}" >
+                    <td style="max-width: 27.333333333333332%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$permission->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $permission->roles }}" >
                     <x-field :entity="$permission" field="roles">
                         <ul>
                             @foreach ($permission->roles as $role)

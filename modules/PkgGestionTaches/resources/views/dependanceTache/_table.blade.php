@@ -21,19 +21,19 @@
             @foreach ($dependanceTaches_data as $dependanceTache)
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}" data-id="{{$dependanceTache->id}}">
                     <x-checkbox-row :item="$dependanceTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$dependanceTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
                     <x-field :entity="$dependanceTache" field="tache">
                        
                          {{  $dependanceTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->typeDependanceTache }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$dependanceTache->id}}" data-field="type_dependance_tache_id"  data-toggle="tooltip" title="{{ $dependanceTache->typeDependanceTache }}" >
                     <x-field :entity="$dependanceTache" field="typeDependanceTache">
                        
                          {{  $dependanceTache->typeDependanceTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $dependanceTache->tacheCible }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$dependanceTache->id}}" data-field="tache_cible_id"  data-toggle="tooltip" title="{{ $dependanceTache->tacheCible }}" >
                     <x-field :entity="$dependanceTache" field="tacheCible">
                        
                          {{  $dependanceTache->tacheCible }}

@@ -19,7 +19,7 @@
             @foreach ($nationalites_data as $nationalite)
                 <tr id="nationalite-row-{{$nationalite->id}}" data-id="{{$nationalite->id}}">
                     <x-checkbox-row :item="$nationalite" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="text-truncate" data-toggle="tooltip" title="{{ $nationalite->code }}" >
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$nationalite->id}}" data-field="code"  data-toggle="tooltip" title="{{ $nationalite->code }}" >
                     <x-field :entity="$nationalite" field="code">
                         {{ $nationalite->code }}
                     </x-field>

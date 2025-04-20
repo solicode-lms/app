@@ -21,17 +21,17 @@
             @foreach ($workflowChapitres_data as $workflowChapitre)
                 <tr id="workflowChapitre-row-{{$workflowChapitre->id}}" data-id="{{$workflowChapitre->id}}">
                     <x-checkbox-row :item="$workflowChapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowChapitre->code }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowChapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowChapitre->code }}" >
                     <x-field :entity="$workflowChapitre" field="code">
                         {{ $workflowChapitre->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowChapitre->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowChapitre->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowChapitre->titre }}" >
                     <x-field :entity="$workflowChapitre" field="titre">
                         {{ $workflowChapitre->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="text-truncate" data-toggle="tooltip" title="{{ $workflowChapitre->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowChapitre->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowChapitre->sysColor }}" >
                     <x-field :entity="$workflowChapitre" field="sysColor">
                         <x-badge 
                         :text="$workflowChapitre->sysColor->name ?? ''" 
