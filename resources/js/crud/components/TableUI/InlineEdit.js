@@ -33,12 +33,12 @@ export class InlineEdit {
                     return;
                 }
 
-                const $editableZone = $cell;
-                $editableZone.find('.editable-text').addClass('d-none');
-                $editableZone.find('.editable-input').remove();
-                $editableZone.append(formField);
+                const currentValue = $cell.text().trim();
+                $cell.data('original', currentValue);
 
-                const input = $editableZone.find(`[name="${field}"]`);
+                $cell.empty().append(formField);
+
+                const input = $cell.find(`[name="${field}"]`);
                 input.focus();
 
                 // Blur → validation automatique
@@ -46,9 +46,9 @@ export class InlineEdit {
                     const newValue = input.val();
                     const data = { id, [field]: newValue };
                     this.entityEditor.update_attributes(data, () => {
-                        $editableZone.find('.editable-text').text(newValue).removeClass('d-none');
-                        formField.remove();
+                        $cell.empty().text(newValue);
                         NotificationHandler.showSuccess('Champ mis à jour avec succès.');
+                        this.tableUI.entityLoader.loadEntities(); // 🔄 Recharger toute la table
                     });
                 });
 
@@ -56,6 +56,9 @@ export class InlineEdit {
                 input.on('keydown', (evt) => {
                     if (evt.key === 'Enter') {
                         input.blur();
+                    } else if (evt.key === 'Escape') {
+                        // Annuler l'édition et restaurer la valeur initiale
+                        $cell.empty().text($cell.data('original'));
                     }
                 });
             } catch (error) {
