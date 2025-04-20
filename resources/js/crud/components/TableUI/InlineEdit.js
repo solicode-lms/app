@@ -43,7 +43,7 @@ export class InlineEdit extends Action {
 
         const url = this.config.editUrl.replace(':id', id);
 
-        try {
+        // try {
 
             // Récupération de formulaire de l'édition avec tous les champs
             this.loader.show();
@@ -69,11 +69,20 @@ export class InlineEdit extends Action {
             const input = $cell.find(`[name="${field}"]`);
             input.focus();
 
-            this.bindFieldEvents(formUI, input, $cell, field, id);
-        } catch (error) {
-            console.error('Erreur de chargement du formulaire :', error);
-            NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
-        }
+            // Initialisation spécifique pour select2 si nécessaire
+            if (input.is('select') && input.hasClass('select2')) {
+
+                // 🔁 Submit immédiat après changement de valeur
+                input.off('change').on('change', () => {
+                    this.submit(formUI, input, $cell, field, id);
+                });
+            } else {
+                this.bindFieldEvents(formUI, input, $cell, field, id);
+            }
+        // } catch (error) {
+        //     console.error('Erreur de chargement du formulaire :', error);
+        //     NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
+        // }
     }
 
     /**
@@ -103,7 +112,6 @@ export class InlineEdit extends Action {
             const data = { id, [field]: newValue };
 
             this.entityEditor.update_attributes(data, () => {
-                $cell.empty().text(newValue);
                 NotificationHandler.showSuccess('Champ mis à jour avec succès.');
                 this.tableUI.entityLoader.loadEntities(); // 🔄 Recharger toute la table
             });

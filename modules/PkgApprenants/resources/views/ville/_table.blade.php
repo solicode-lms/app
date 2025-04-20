@@ -19,16 +19,16 @@
             @foreach ($villes_data as $ville)
                 <tr id="ville-row-{{$ville->id}}" data-id="{{$ville->id}}">
                     <x-checkbox-row :item="$ville" :bulkEdit="$bulkEdit" />
-                    <td class="editable-cell text-truncate" 
-                        data-id="{{ $ville->id }}" data-field="nom"
-                        title="{{ $ville->nom }}" 
-                        data-toggle="tooltip" 
-                        style="max-width: 82%;">
+                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
                     <x-field :entity="$ville" field="nom">
                         {{ $ville->nom }}
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">
+
+
+                       
+
                         @can('edit-ville')
                         @can('update', $ville)
                             <a href="{{ route('villes.edit', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-sm btn-default context-state editEntity">

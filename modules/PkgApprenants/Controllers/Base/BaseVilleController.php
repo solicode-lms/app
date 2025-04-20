@@ -336,6 +336,8 @@ class BaseVilleController extends AdminController
         ]);
     }
     
+
+
     /**
      * @DynamicPermissionIgnore
      * Met à jour les attributs, il est utilisé par type View : Widgets
@@ -369,5 +371,4 @@ class BaseVilleController extends AdminController
             'entity_id' => $validated['id']
         ]);
     }
-    
 }

@@ -23,23 +23,23 @@
             @foreach ($realisationTaches_data as $realisationTache)
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
+                    <td style="max-width: 20%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                     <x-field :entity="$realisationTache" field="tache">
                        
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <td style="max-width: 18.5%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
                     <x-field :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
+                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
                     <x-field :entity="$realisationTache" field="nom_prenom_apprenant">
                         {{ $realisationTache->nom_prenom_apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
+                    <td style="max-width: 10%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                     <x-field :entity="$realisationTache" field="etatRealisationTache">
                         @if(!empty($realisationTache->etatRealisationTache))
                         <x-badge 
@@ -49,7 +49,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 18.5%;" class="editable-cell text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                     <x-field :entity="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>

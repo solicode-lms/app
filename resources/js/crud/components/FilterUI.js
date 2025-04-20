@@ -179,7 +179,10 @@ export class FilterUI {
       updateFilterState (){
         const filterIcon = document.querySelector(this.config.filterIconSelector);
         const filterForm = document.querySelector(this.config.filterFormSelector);
+        if(!filterForm) 
+            return;
         const filters = new FormData(filterForm);
+        
         let hasActiveFilters = false;
 
         for (let [key, value] of filters.entries()) {
