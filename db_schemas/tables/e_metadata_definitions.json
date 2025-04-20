@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "reference": "label",
-        "name": "label",
+        "reference": "metaLabel",
+        "name": "metaLabel",
         "type": "String",
         "scope": "field",
         "default_value": null,

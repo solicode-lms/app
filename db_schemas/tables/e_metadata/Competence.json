@@ -264,7 +264,7 @@
         "value_string": "aaa",
         "value_float": 0,
         "e_data_field_reference": "Competence_description",
-        "e_metadata_definition_reference": "label"
+        "e_metadata_definition_reference": "metaLabel"
     },
     {
         "reference": "Competence_id_inputMdWidth",

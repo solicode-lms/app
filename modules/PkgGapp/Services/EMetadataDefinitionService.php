@@ -39,9 +39,21 @@ class EMetadataDefinitionService extends BaseEMetadataDefinitionService
      */
     public function update($id, array $data)
     {
-        $value = parent::update($id, $data);
+        $model = $this->find($id); // ou $this->query()->findOrFail($id)
+
+        $model->fill($data); // les données sont modifiées, mais pas encore sauvées
+    
+        // 👉 Tu peux tester isDirty ici
+        if ($model->isDirty('name')) {
+            $model->reference = $model->generateReference();
+        }
+    
+        $model->save(); // sauvegarde finale avec ou sans référence
+    
+        // Export des métadonnées après mise à jour
         $this->metaExport();
-        return $value;
+
+        return $model;
     }
 
     

@@ -613,6 +613,6 @@
         "value_string": "affectationProjets",
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
-        "e_metadata_definition_reference": "label"
+        "e_metadata_definition_reference": "metaLabel"
     }
 ]

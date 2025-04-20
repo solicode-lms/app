@@ -10,14 +10,14 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="16.4"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.affectationProjets')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="titre" modelname="projet" label="{{ucfirst(__('PkgCreationProjet::projet.titre')) }}}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="AffectationProjet" modelname="projet" label="{{ucfirst(__('PkgCreationProjet::projet.affectationProjets'))}}" />
 
-                <x-sortable-column :sortable="true" width="16.4"  field="Tache" modelname="projet" label="{{ ucfirst(__('PkgGestionTaches::tache.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Tache" modelname="projet" label="{{ucfirst(__('PkgGestionTaches::tache.plural'))}}" />
 
-                <x-sortable-column :sortable="true" width="16.4"  field="Livrable" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Livrable" modelname="projet" label="{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}" />
 
-                <x-sortable-column :sortable="true" width="16.4" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4" field="formateur_id" modelname="projet" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
