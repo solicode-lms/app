@@ -29,6 +29,14 @@
                                 <p>{{ $itemEDataField->name }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="e_model_id">{{ ucfirst(__('PkgGapp::eDataField.e_model_id')) }}:</label>
+                                <p>{{ $itemEDataField->e_model_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
+                                <p>{{ $itemEDataField->data_type }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="default_value">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}:</label>
                                 <p>{{ $itemEDataField->default_value }}</p>
                             </div>
@@ -37,20 +45,12 @@
                                 <p>{{ $itemEDataField->column_name }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="e_model_id">{{ ucfirst(__('PkgGapp::eDataField.e_model_id')) }}:</label>
-                                <p>{{ $itemEDataField->e_model_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="e_relationship_id">{{ ucfirst(__('PkgGapp::eDataField.e_relationship_id')) }}:</label>
                                 <p>{{ $itemEDataField->e_relationship_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="field_order">{{ ucfirst(__('PkgGapp::eDataField.field_order')) }}:</label>
                                 <p>{{ $itemEDataField->field_order }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="data_type">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}:</label>
-                                <p>{{ $itemEDataField->data_type }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="db_primaryKey">{{ ucfirst(__('PkgGapp::eDataField.db_primaryKey')) }}:</label>

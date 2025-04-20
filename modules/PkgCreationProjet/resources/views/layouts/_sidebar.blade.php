@@ -23,7 +23,7 @@
         @can('index-projet') 
         <li class="nav-item" id="menu-projets">
             <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-calendar-alt"></i>
+                <i class="nav-icon fas fa-lightbulb"></i>
                 {{__('PkgCreationProjet::projet.plural')}}
             </a>
         </li>

@@ -41,7 +41,7 @@
        $titre = __("PkgCreationProjet::projet.singular");
     @endphp
     <x-crud-header 
-        id="projet-crud-header" icon="fas fa-calendar-alt"  
+        id="projet-crud-header" icon="fas fa-lightbulb"  
         iconColor="text-info"
         title="{{ $projet_title }}"
         :breadcrumbs="[

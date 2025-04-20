@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'id' => 'id',
+    'created_at' => 'Date de création',
+    'updated_at' => 'Date de modification',
     'add' => 'Ajouter',
     'search' => 'Rechercher',
     'delete' => 'Supprimer',

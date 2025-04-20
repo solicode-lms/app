@@ -29,6 +29,10 @@
                                 <p>{{ $itemProjet->titre }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>
+                                <p>{{ $itemProjet->formateur_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="travail_a_faire">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}:</label>
                                 <p>{{ $itemProjet->travail_a_faire }}</p>
                             </div>
@@ -41,16 +45,12 @@
                                 <p>{{ $itemProjet->nombre_jour }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
-                                <p>{{ $itemProjet->description }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="formateur_id">{{ ucfirst(__('PkgCreationProjet::projet.formateur_id')) }}:</label>
-                                <p>{{ $itemProjet->formateur_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="filiere_id">{{ ucfirst(__('PkgCreationProjet::projet.filiere_id')) }}:</label>
                                 <p>{{ $itemProjet->filiere_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="description">{{ ucfirst(__('PkgCreationProjet::projet.description')) }}:</label>
+                                <p>{{ $itemProjet->description }}</p>
                             </div>
                         </div>
                     </div>

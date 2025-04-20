@@ -28,14 +28,14 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
-            'reference' => 'reference',
             'name' => 'name',
+            'e_model_id' => 'e_model_id',
+            'data_type' => 'data_type',
             'default_value' => 'default_value',
             'column_name' => 'column_name',
-            'e_model_id' => 'e_model_id',
             'e_relationship_id' => 'e_relationship_id',
             'field_order' => 'field_order',
-            'data_type' => 'data_type',
+            'reference' => 'reference',
             'db_primaryKey' => 'db_primaryKey',
             'db_nullable' => 'db_nullable',
             'db_unique' => 'db_unique',
@@ -45,14 +45,14 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
         ];
         }else{
         return [
-            'reference' => __('Core::msg.reference'),
             'name' => __('PkgGapp::eDataField.name'),
+            'e_model_id' => __('PkgGapp::eDataField.e_model_id'),
+            'data_type' => __('PkgGapp::eDataField.data_type'),
             'default_value' => __('PkgGapp::eDataField.default_value'),
             'column_name' => __('PkgGapp::eDataField.column_name'),
-            'e_model_id' => __('PkgGapp::eDataField.e_model_id'),
             'e_relationship_id' => __('PkgGapp::eDataField.e_relationship_id'),
             'field_order' => __('PkgGapp::eDataField.field_order'),
-            'data_type' => __('PkgGapp::eDataField.data_type'),
+            'reference' => __('Core::msg.reference'),
             'db_primaryKey' => __('PkgGapp::eDataField.db_primaryKey'),
             'db_nullable' => __('PkgGapp::eDataField.db_nullable'),
             'db_unique' => __('PkgGapp::eDataField.db_unique'),
@@ -69,14 +69,14 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($eDataField) {
             return [
-                'reference' => $eDataField->reference,
                 'name' => $eDataField->name,
+                'e_model_id' => $eDataField->e_model_id,
+                'data_type' => $eDataField->data_type,
                 'default_value' => $eDataField->default_value,
                 'column_name' => $eDataField->column_name,
-                'e_model_id' => $eDataField->e_model_id,
                 'e_relationship_id' => $eDataField->e_relationship_id,
                 'field_order' => $eDataField->field_order,
-                'data_type' => $eDataField->data_type,
+                'reference' => $eDataField->reference,
                 'db_primaryKey' => $eDataField->db_primaryKey,
                 'db_nullable' => $eDataField->db_nullable,
                 'db_unique' => $eDataField->db_unique,

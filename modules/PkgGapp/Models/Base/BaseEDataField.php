@@ -49,7 +49,7 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'default_value', 'column_name', 'e_model_id', 'e_relationship_id', 'field_order', 'data_type', 'db_primaryKey', 'db_nullable', 'db_unique', 'calculable', 'calculable_sql', 'description'
+        'name', 'e_model_id', 'data_type', 'default_value', 'column_name', 'e_relationship_id', 'field_order', 'db_primaryKey', 'db_nullable', 'db_unique', 'calculable', 'calculable_sql', 'description'
     ];
     public $manyToOne = [
         'EModel' => [

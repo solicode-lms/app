@@ -37,7 +37,7 @@
         @can('index-projet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="Planification de projets" class="nav-link">
-            <i class="fas fa-lightbulb"></i>
+            <i class="fas fa-calendar-alt"></i>
           </a>
         </li>
         @endcan

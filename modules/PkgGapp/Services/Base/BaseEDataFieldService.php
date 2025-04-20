@@ -20,12 +20,12 @@ class BaseEDataFieldService extends BaseService
      */
     protected $fieldsSearchable = [
         'name',
+        'e_model_id',
+        'data_type',
         'default_value',
         'column_name',
-        'e_model_id',
         'e_relationship_id',
         'field_order',
-        'data_type',
         'db_primaryKey',
         'db_nullable',
         'db_unique',

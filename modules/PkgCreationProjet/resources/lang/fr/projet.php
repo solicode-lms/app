@@ -11,5 +11,6 @@ return [
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'formateur_id' => 'Formateur',
-    'nombre_jour' => 'Durée en jour'
+    'nombre_jour' => 'Durée en jour',
+    'affectationProjets' => 'affectation'
 ];

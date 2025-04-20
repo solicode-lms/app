@@ -51,6 +51,65 @@
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_model_id" id="bulk_field_e_model_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="e_model_id">
+            {{ ucfirst(__('PkgGapp::eModel.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="e_model_id" 
+            required
+            
+            
+            name="e_model_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($eModels as $eModel)
+                    <option value="{{ $eModel->id }}"
+                        {{ (isset($itemEDataField) && $itemEDataField->e_model_id == $eModel->id) || (old('e_model_id>') == $eModel->id) ? 'selected' : '' }}>
+                        {{ $eModel }}
+                    </option>
+                @endforeach
+            </select>
+          @error('e_model_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="data_type" id="bulk_field_data_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="data_type">
+            {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="data_type"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="data_type"
+                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
+                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
+          @error('data_type')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="default_value" id="bulk_field_default_value" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -96,38 +155,6 @@
                 placeholder="{{ __('PkgGapp::eDataField.column_name') }}"
                 value="{{ $itemEDataField ? $itemEDataField->column_name : old('column_name') }}">
           @error('column_name')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-3">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="e_model_id" id="bulk_field_e_model_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="e_model_id">
-            {{ ucfirst(__('PkgGapp::eModel.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="e_model_id" 
-            required
-            
-            
-            name="e_model_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($eModels as $eModel)
-                    <option value="{{ $eModel->id }}"
-                        {{ (isset($itemEDataField) && $itemEDataField->e_model_id == $eModel->id) || (old('e_model_id>') == $eModel->id) ? 'selected' : '' }}>
-                        {{ $eModel }}
-                    </option>
-                @endforeach
-            </select>
-          @error('e_model_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -187,33 +214,6 @@
                 placeholder="{{ __('PkgGapp::eDataField.field_order') }}"
                 value="{{ $itemEDataField ? $itemEDataField->field_order : old('field_order') }}">
           @error('field_order')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-3">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="data_type" id="bulk_field_data_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="data_type">
-            {{ ucfirst(__('PkgGapp::eDataField.data_type')) }}
-            <span class="text-danger">*</span>
-          </label>
-           <input
-                name="data_type"
-                type="input"
-                class="form-control"
-                required
-                
-                
-                id="data_type"
-                placeholder="{{ __('PkgGapp::eDataField.data_type') }}"
-                value="{{ $itemEDataField ? $itemEDataField->data_type : old('data_type') }}">
-          @error('data_type')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

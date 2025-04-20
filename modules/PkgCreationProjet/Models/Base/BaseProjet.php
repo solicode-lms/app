@@ -15,8 +15,8 @@ use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
-use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\Resource;
 
 /**
@@ -40,7 +40,7 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'description', 'formateur_id', 'filiere_id'
+        'titre', 'formateur_id', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'filiere_id', 'description'
     ];
     public $manyToOne = [
         'Formateur' => [
@@ -99,18 +99,18 @@ class BaseProjet extends BaseModel
      *
      * @return HasMany
      */
-    public function livrables(): HasMany
+    public function taches(): HasMany
     {
-        return $this->hasMany(Livrable::class, 'projet_id', 'id');
+        return $this->hasMany(Tache::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.
      *
      * @return HasMany
      */
-    public function taches(): HasMany
+    public function livrables(): HasMany
     {
-        return $this->hasMany(Tache::class, 'projet_id', 'id');
+        return $this->hasMany(Livrable::class, 'projet_id', 'id');
     }
     /**
      * Relation HasMany pour Projets.

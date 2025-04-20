@@ -10,12 +10,14 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="20.5"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="TransfertCompetence" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="titre" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::projet.titre')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
 
-                <x-sortable-column :sortable="true" width="20.5"  field="AffectationProjet" modelname="projet" label="{{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Tache" modelname="projet" label="{{ ucfirst(__('PkgGestionTaches::tache.plural')) }}" />
 
-                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Livrable" modelname="projet" label="{{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}" />
+
+                <x-sortable-column :sortable="true" width="16.4" field="formateur_id" modelname="projet" label="{{ ucfirst(__('PkgFormation::formateur.singular')) }}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,21 +26,12 @@
             @foreach ($projets_data as $projet)
                 <tr id="projet-row-{{$projet->id}}" data-id="{{$projet->id}}">
                     <x-checkbox-row :item="$projet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->titre }}" >
                     <x-field :entity="$projet" field="titre">
                         {{ $projet->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->transfertCompetences }}" >
-                    <x-field :entity="$projet" field="transfertCompetences">
-                        <ul>
-                            @foreach ($projet->transfertCompetences as $transfertCompetence)
-                                <li>{{$transfertCompetence}} </li>
-                            @endforeach
-                        </ul>
-                    </x-field>
-                    </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->affectationProjets }}" >
                     <x-field :entity="$projet" field="affectationProjets">
                         <ul>
                             @foreach ($projet->affectationProjets as $affectationProjet)
@@ -47,7 +40,25 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->taches }}" >
+                    <x-field :entity="$projet" field="taches">
+                        <ul>
+                            @foreach ($projet->taches as $tache)
+                                <li>{{$tache}} </li>
+                            @endforeach
+                        </ul>
+                    </x-field>
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->livrables }}" >
+                    <x-field :entity="$projet" field="livrables">
+                        <ul>
+                            @foreach ($projet->livrables as $livrable)
+                                <li>{{$livrable}} </li>
+                            @endforeach
+                        </ul>
+                    </x-field>
+                    </td>
+                    <td style="max-width: 16.4%;" class="text-truncate" data-toggle="tooltip" title="{{ $projet->formateur }}" >
                     <x-field :entity="$projet" field="formateur">
                        
                          {{  $projet->formateur }}

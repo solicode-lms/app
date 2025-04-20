@@ -67,7 +67,7 @@
     },
     {
         "reference": "EDataField_e_model_id_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "EDataField_e_model_id",
         "e_metadata_definition_reference": "displayInTable"
@@ -124,26 +124,26 @@
     },
     {
         "reference": "EDataField_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 10,
         "e_data_field_reference": "EDataField_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "EDataField_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 11,
         "e_data_field_reference": "EDataField_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "EDataField_name_displayOrder",
-        "value_integer": 4,
+        "value_integer": 2,
         "e_data_field_reference": "EDataField_name",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "EDataField_column_name_displayOrder",
         "value_boolean": 0,
-        "value_integer": 5,
+        "value_integer": 7,
         "value_float": 0,
         "e_data_field_reference": "EDataField_column_name",
         "e_metadata_definition_reference": "displayOrder"
@@ -151,7 +151,7 @@
     {
         "reference": "EDataField_data_type_displayOrder",
         "value_boolean": 0,
-        "value_integer": 9,
+        "value_integer": 4,
         "value_float": 0,
         "e_data_field_reference": "EDataField_data_type",
         "e_metadata_definition_reference": "displayOrder"
@@ -159,7 +159,7 @@
     {
         "reference": "EDataField_field_order_displayOrder",
         "value_boolean": 0,
-        "value_integer": 8,
+        "value_integer": 9,
         "value_float": 0,
         "e_data_field_reference": "EDataField_field_order",
         "e_metadata_definition_reference": "displayOrder"
@@ -167,7 +167,7 @@
     {
         "reference": "EDataField_db_nullable_displayOrder",
         "value_boolean": 0,
-        "value_integer": 11,
+        "value_integer": 13,
         "value_float": 0,
         "e_data_field_reference": "EDataField_db_nullable",
         "e_metadata_definition_reference": "displayOrder"
@@ -175,7 +175,7 @@
     {
         "reference": "EDataField_db_primaryKey_displayOrder",
         "value_boolean": 0,
-        "value_integer": 10,
+        "value_integer": 12,
         "value_float": 0,
         "e_data_field_reference": "EDataField_db_primaryKey",
         "e_metadata_definition_reference": "displayOrder"
@@ -183,7 +183,7 @@
     {
         "reference": "EDataField_db_unique_displayOrder",
         "value_boolean": 0,
-        "value_integer": 12,
+        "value_integer": 14,
         "value_float": 0,
         "e_data_field_reference": "EDataField_db_unique",
         "e_metadata_definition_reference": "displayOrder"
@@ -191,7 +191,7 @@
     {
         "reference": "EDataField_default_value_displayOrder",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 6,
         "value_float": 0,
         "e_data_field_reference": "EDataField_default_value",
         "e_metadata_definition_reference": "displayOrder"
@@ -199,7 +199,7 @@
     {
         "reference": "EDataField_description_displayOrder",
         "value_boolean": 0,
-        "value_integer": 30,
+        "value_integer": 20,
         "value_float": 0,
         "e_data_field_reference": "EDataField_description",
         "e_metadata_definition_reference": "displayOrder"
@@ -207,7 +207,7 @@
     {
         "reference": "EDataField_e_model_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 6,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "EDataField_e_model_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -215,26 +215,26 @@
     {
         "reference": "EDataField_e_relationship_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 7,
+        "value_integer": 8,
         "value_float": 0,
         "e_data_field_reference": "EDataField_e_relationship_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "EDataField_created_at_displayOrder",
-        "value_integer": 14,
+        "value_integer": 16,
         "e_data_field_reference": "EDataField_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "EDataField_updated_at_displayOrder",
-        "value_integer": 15,
+        "value_integer": 17,
         "e_data_field_reference": "EDataField_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_displayOrder",
-        "value_integer": 16,
+        "value_integer": 18,
         "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -484,7 +484,7 @@
     {
         "reference": "EDataField_calculable_displayOrder",
         "value_boolean": 0,
-        "value_integer": 13,
+        "value_integer": 15,
         "value_float": 0,
         "e_data_field_reference": "EDataField_calculable",
         "e_metadata_definition_reference": "displayOrder"
@@ -506,7 +506,7 @@
     {
         "reference": "EDataField_calculable_sql_displayOrder",
         "value_boolean": 0,
-        "value_integer": 20,
+        "value_integer": 19,
         "value_float": 0,
         "e_data_field_reference": "EDataField_calculable_sql",
         "e_metadata_definition_reference": "displayOrder"
@@ -693,7 +693,7 @@
     {
         "reference": "EDataField-displayInTable_displayOrder",
         "value_boolean": 0,
-        "value_integer": 10,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "EDataField-displayInTable",
         "e_metadata_definition_reference": "displayOrder"
@@ -751,5 +751,13 @@
         },
         "e_data_field_reference": "EDataField-displayOrder",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EDataField_e_model_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 15,
+        "value_float": 0,
+        "e_data_field_reference": "EDataField_e_model_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

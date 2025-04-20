@@ -29,24 +29,24 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
      if($this->format == 'csv'){
         return [
             'titre' => 'titre',
+            'formateur_id' => 'formateur_id',
             'travail_a_faire' => 'travail_a_faire',
             'critere_de_travail' => 'critere_de_travail',
             'nombre_jour' => 'nombre_jour',
+            'filiere_id' => 'filiere_id',
             'description' => 'description',
             'reference' => 'reference',
-            'formateur_id' => 'formateur_id',
-            'filiere_id' => 'filiere_id',
         ];
         }else{
         return [
             'titre' => __('PkgCreationProjet::projet.titre'),
+            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
             'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
             'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
             'nombre_jour' => __('PkgCreationProjet::projet.nombre_jour'),
+            'filiere_id' => __('PkgCreationProjet::projet.filiere_id'),
             'description' => __('PkgCreationProjet::projet.description'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
-            'filiere_id' => __('PkgCreationProjet::projet.filiere_id'),
         ];
 
         }
@@ -58,13 +58,13 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
         return $this->data->map(function ($projet) {
             return [
                 'titre' => $projet->titre,
+                'formateur_id' => $projet->formateur_id,
                 'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,
                 'nombre_jour' => $projet->nombre_jour,
+                'filiere_id' => $projet->filiere_id,
                 'description' => $projet->description,
                 'reference' => $projet->reference,
-                'formateur_id' => $projet->formateur_id,
-                'filiere_id' => $projet->filiere_id,
             ];
         });
     }

@@ -20,12 +20,12 @@ class BaseProjetService extends BaseService
      */
     protected $fieldsSearchable = [
         'titre',
+        'formateur_id',
         'travail_a_faire',
         'critere_de_travail',
         'nombre_jour',
-        'description',
-        'formateur_id',
-        'filiere_id'
+        'filiere_id',
+        'description'
     ];
 
     /**

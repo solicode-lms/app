@@ -12,27 +12,11 @@
 
     @canany([$importPermission,$exportPermission])
     <div class="dropdown mr-2">
-        <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-download"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
-            @can($importPermission ?? '')
-                <form class="dropdown-item" action="{{ $importRoute ?? '#' }}" method="post" enctype="multipart/form-data" id="importForm">
-                    @csrf
-                    <label for="upload">
-                        <i class="fas fa-file-download"></i>
-                        {{ $importText ?? __('Core::msg.import') }}
-                    </label>
-                    <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
-                    
-                </form>
-                <script>
-                    // TODO : Il faut génrer ce cod dnas CrudManager, et le généraliser
-                    function submitForm() {
-                        document.getElementById("importForm").submit();
-                    }
-                </script>
-            @endcan
+           
             @can($exportPermission ?? '')
                 <form class="dropdown-item">
                     <a href="{{ $exportXlsxRoute ?? '#' }}">
@@ -47,6 +31,23 @@
                     </a>
                 </form>
             @endcan
+            @can($importPermission ?? '')
+            <form class="dropdown-item" action="{{ $importRoute ?? '#' }}" method="post" enctype="multipart/form-data" id="importForm">
+                @csrf
+                <label for="upload">
+                    <i class="fas fa-file-upload"></i>
+                    {{ $importText ?? __('Core::msg.import') }}
+                </label>
+                <input type="file" id="upload" name="file" style="display:none;" onchange="submitForm()" />
+                
+            </form>
+            <script>
+                // TODO : Il faut génrer ce cod dnas CrudManager, et le généraliser
+                function submitForm() {
+                    document.getElementById("importForm").submit();
+                }
+            </script>
+        @endcan
         </div>
     </div>
     @endcan

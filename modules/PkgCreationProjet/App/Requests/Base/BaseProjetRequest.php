@@ -30,12 +30,12 @@ class BaseProjetRequest extends FormRequest
     {
         return [
             'titre' => 'required|string|max:255',
+            'formateur_id' => 'required',
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
             'nombre_jour' => 'required|integer',
-            'description' => 'nullable|string',
-            'formateur_id' => 'required',
-            'filiere_id' => 'required'
+            'filiere_id' => 'required',
+            'description' => 'nullable|string'
         ];
     }
 
@@ -49,12 +49,12 @@ class BaseProjetRequest extends FormRequest
         return [
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
             'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
             'nombre_jour.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.nombre_jour')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')])
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')])
         ];
     }
 
