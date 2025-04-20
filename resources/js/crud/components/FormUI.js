@@ -29,7 +29,8 @@ export class FormUI  {
     constructor(config, indexUI , formSelector ="") {
         this.config = config;
         this.indexUI = indexUI;
-        if(formSelector = "") {
+        this.formSelector = formSelector;
+        if(this.formSelector  == "") {
             this.formSelector = this.config.formSelector
         }
         
@@ -232,7 +233,7 @@ export class FormUI  {
 
                     // Add an error message if not already added
                     if (!field.next('.error-message').length) {
-                        field.after('<span class="error-message text-danger">This field is required.</span>');
+                        field.after('<span class="error-message text-danger">Ce champ est obligatoire..</span>');
                     }
 
                     isValid = false;
@@ -282,7 +283,7 @@ export class FormUI  {
     
                     // Add an error message if not already added
                     if (!richTextContainer.next('.error-message').length) {
-                        richTextContainer.after('<span class="error-message text-danger">This field cannot be empty.</span>');
+                        richTextContainer.after('<span class="error-message text-danger">Ce champ ne peut pas être vide.</span>');
                     }
     
                     isValid = false;
@@ -299,7 +300,7 @@ export class FormUI  {
                     field.addClass('is-invalid');
                     // Add an error message if not already added
                     if (!field.next('.error-message').length) {
-                        field.after('<span class="error-message text-danger">This field cannot be empty.</span>');
+                        field.after('<span class="error-message text-danger">Ce champ ne peut pas être vide.</span>');
                     }
                     isValid = false;
                 } else {
