@@ -569,5 +569,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationProjet-avancement_projet",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationProjet_affectation_projet_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "RealisationProjet_apprenant_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationProjet_apprenant_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]
