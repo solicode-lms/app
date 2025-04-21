@@ -689,5 +689,12 @@
         },
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "sortByPath"
+    },
+    {
+        "reference": "RealisationTache_tache_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_tache_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]
