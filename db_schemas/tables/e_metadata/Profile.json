@@ -170,7 +170,7 @@
             {
                 "name": "old_password",
                 "type": "String",
-                "label": "Ancien Mode de passe",
+                "label": "Ancien mot de passe",
                 "inputType": "Password",
                 "dispalyOrder": 4,
                 "inputMdWidth": "12"
@@ -178,7 +178,7 @@
             {
                 "name": "password",
                 "type": "String",
-                "label": "Mode de passe",
+                "label": "Mot de passe",
                 "inputType": "Password",
                 "isConfirmed": "true",
                 "dispalyOrder": 1,

@@ -2,10 +2,12 @@
 
 namespace Modules\Core\Services;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use JsonSerializable;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\AnneeFormationService;
 
 /**
@@ -85,9 +87,15 @@ class SessionState implements JsonSerializable
                 $this->set("formateur_id",$formateur->id);
             }
            
+            // TODO : captuer BLL Exception
             $apprenant = $user->apprenant;
             if ($apprenant) {
                 $this->set("apprenant_id",$apprenant->id);
+            }else{
+                if($role == Role::APPRENANT_ROLE){
+                    Auth::logout();
+                    throw new Exception("L'apprenant est en état inactive");
+                }
             }
         }
     }

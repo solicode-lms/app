@@ -28,7 +28,7 @@
           </div>
           @endif
           <label for="old_password">
-            {{  }}
+            {{ 'Ancien mot de passe' }}
             
           </label>
                       <input
