@@ -11,10 +11,10 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
                 <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="18.5"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
+                <x-sortable-column :sortable="true" width="17"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant'))}}" />
-                <x-sortable-column :sortable="true" width="10" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="18.5"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
+                <x-sortable-column :sortable="true" width="13" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="17"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                          {{  $realisationTache->tache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <td style="max-width: 17%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
                     <x-field :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
                     </x-field>
@@ -42,7 +42,7 @@
                         {{ $realisationTache->nom_prenom_apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
+                    <td style="max-width: 13%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                     <x-field :entity="$realisationTache" field="etatRealisationTache">
                         @if(!empty($realisationTache->etatRealisationTache))
                         <x-badge 
@@ -52,7 +52,7 @@
                         @endif
                     </x-field>
                     </td>
-                    <td style="max-width: 18.5%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 17%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                     <x-field :entity="$realisationTache" field="nombre_livrables">
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>
