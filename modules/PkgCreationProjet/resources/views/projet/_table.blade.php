@@ -21,9 +21,9 @@
         <tbody>
             @section('projet-table-tbody')
             @foreach ($projets_data as $projet)
-            @php
-                 $isEditable = Auth::user()->can('edit-projet') && Auth::user()->can('update', $projet);
-            @endphp
+                @php
+                    $isEditable = Auth::user()->can('edit-projet') && Auth::user()->can('update', $projet);
+                @endphp
                 <tr id="projet-row-{{$projet->id}}" data-id="{{$projet->id}}">
                     <x-checkbox-row :item="$projet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 35%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$projet->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $projet->titre }}" >
