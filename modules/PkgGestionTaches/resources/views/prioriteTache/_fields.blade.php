@@ -24,33 +24,6 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="nom">
-            {{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}
-            <span class="text-danger">*</span>
-          </label>
-           <input
-                name="nom"
-                type="input"
-                class="form-control"
-                required
-                
-                
-                id="nom"
-                placeholder="{{ __('PkgGestionTaches::prioriteTache.nom') }}"
-                value="{{ $itemPrioriteTache ? $itemPrioriteTache->nom : old('nom') }}">
-          @error('nom')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -69,6 +42,33 @@
                 placeholder="{{ __('PkgGestionTaches::prioriteTache.ordre') }}"
                 value="{{ $itemPrioriteTache ? $itemPrioriteTache->ordre : old('ordre') }}">
           @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="nom">
+            {{ ucfirst(__('PkgGestionTaches::prioriteTache.nom')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="nom"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="nom"
+                placeholder="{{ __('PkgGestionTaches::prioriteTache.nom') }}"
+                value="{{ $itemPrioriteTache ? $itemPrioriteTache->nom : old('nom') }}">
+          @error('nom')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

@@ -33,7 +33,7 @@
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id"  data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
+                    <td style="max-width: 19.25%;" class=" text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id"  data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
                     <x-field :entity="$widgetUtilisateur" field="widget">
                        
                          {{  $widgetUtilisateur->widget }}

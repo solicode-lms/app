@@ -48,7 +48,7 @@
                          {{  $module->filiere }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="Competence"  data-toggle="tooltip" title="{{ $module->competences }}" >
+                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$module->id}}" data-field="Competence"  data-toggle="tooltip" title="{{ $module->competences }}" >
                     <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)

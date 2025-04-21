@@ -28,16 +28,16 @@ class BasePrioriteTacheExport implements FromCollection, WithHeadings, ShouldAut
     {
      if($this->format == 'csv'){
         return [
-            'nom' => 'nom',
             'ordre' => 'ordre',
+            'nom' => 'nom',
             'description' => 'description',
             'reference' => 'reference',
             'formateur_id' => 'formateur_id',
         ];
         }else{
         return [
-            'nom' => __('PkgGestionTaches::prioriteTache.nom'),
             'ordre' => __('PkgGestionTaches::prioriteTache.ordre'),
+            'nom' => __('PkgGestionTaches::prioriteTache.nom'),
             'description' => __('PkgGestionTaches::prioriteTache.description'),
             'reference' => __('Core::msg.reference'),
             'formateur_id' => __('PkgGestionTaches::prioriteTache.formateur_id'),
@@ -51,8 +51,8 @@ class BasePrioriteTacheExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($prioriteTache) {
             return [
-                'nom' => $prioriteTache->nom,
                 'ordre' => $prioriteTache->ordre,
+                'nom' => $prioriteTache->nom,
                 'description' => $prioriteTache->description,
                 'reference' => $prioriteTache->reference,
                 'formateur_id' => $prioriteTache->formateur_id,

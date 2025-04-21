@@ -74,8 +74,8 @@ class BasePrioriteTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $prioriteTacheData =[
-                    "nom" => $row["nom"] ?? null,
                     "ordre" => $row["ordre"] ?? null,
+                    "nom" => $row["nom"] ?? null,
                     "description" => $row["description"] ?? null,
                     "formateur_id" => $row["formateur_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,

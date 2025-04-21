@@ -44,7 +44,7 @@
                         </span>
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
                     <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)

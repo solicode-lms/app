@@ -535,5 +535,12 @@
         },
         "e_data_field_reference": "WidgetUtilisateur_ordre",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WidgetUtilisateur_widget_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "WidgetUtilisateur_widget_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]

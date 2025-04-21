@@ -19,8 +19,8 @@ class BasePrioriteTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'nom',
         'ordre',
+        'nom',
         'description',
         'formateur_id'
     ];

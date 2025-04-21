@@ -87,7 +87,9 @@
     },
     {
         "reference": "PrioriteTache_ordre_displayOrder",
-        "value_integer": 3,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "PrioriteTache_ordre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -336,5 +338,12 @@
         },
         "e_data_field_reference": "PrioriteTache_ordre",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "PrioriteTache_formateur_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "PrioriteTache_formateur_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]

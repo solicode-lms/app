@@ -35,7 +35,7 @@ class BasePrioriteTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'ordre', 'description', 'formateur_id'
+        'ordre', 'nom', 'description', 'formateur_id'
     ];
     public $manyToOne = [
         'Formateur' => [

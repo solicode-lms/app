@@ -29,8 +29,8 @@ class BasePrioriteTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|string|max:255',
             'ordre' => 'required|integer',
+            'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
             'formateur_id' => 'required'
         ];
@@ -44,9 +44,9 @@ class BasePrioriteTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::PrioriteTache.ordre')]),
             'nom.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::PrioriteTache.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::PrioriteTache.ordre')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::PrioriteTache.description')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::PrioriteTache.formateur_id')])
         ];

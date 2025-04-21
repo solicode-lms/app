@@ -5230,7 +5230,7 @@
         "name": "ordre",
         "column_name": "ordre",
         "data_type": "Integer",
-        "field_order": 3,
+        "field_order": 1,
         "db_nullable": 0,
         "db_primaryKey": 0,
         "db_unique": 0,

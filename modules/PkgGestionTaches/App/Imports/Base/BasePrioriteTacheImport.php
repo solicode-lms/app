@@ -56,8 +56,8 @@ class BasePrioriteTacheImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new PrioriteTache([
-             'nom' => $values[0] ?? null,
-             'ordre' => $values[1] ?? null,
+             'ordre' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
              'description' => $values[2] ?? null,
              'reference' => $reference,
              'formateur_id' => $values[4] ?? null,

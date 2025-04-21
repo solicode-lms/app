@@ -31,7 +31,7 @@
                         {{ $projet->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$projet->id}}" data-field="Tache"  data-toggle="tooltip" title="{{ $projet->taches }}" >
+                    <td style="max-width: 30%;" class=" text-truncate" data-id="{{$projet->id}}" data-field="Tache"  data-toggle="tooltip" title="{{ $projet->taches }}" >
                     <x-field :entity="$projet" field="taches">
                         <ul>
                             @foreach ($projet->taches as $tache)
@@ -40,7 +40,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 17%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$projet->id}}" data-field="Livrable"  data-toggle="tooltip" title="{{ $projet->livrables }}" >
+                    <td style="max-width: 17%;" class=" text-truncate" data-id="{{$projet->id}}" data-field="Livrable"  data-toggle="tooltip" title="{{ $projet->livrables }}" >
                     <x-field :entity="$projet" field="livrables">
                         <ul>
                             @foreach ($projet->livrables as $livrable)

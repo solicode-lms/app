@@ -28,7 +28,7 @@
                         {{ $niveauDifficulte->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $niveauDifficulte->formateur }}" >
+                    <td style="max-width: 41%;" class=" text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $niveauDifficulte->formateur }}" >
                     <x-field :entity="$niveauDifficulte" field="formateur">
                        
                          {{  $niveauDifficulte->formateur }}

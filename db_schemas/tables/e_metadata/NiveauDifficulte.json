@@ -348,5 +348,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "NiveauDifficulte_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "NiveauDifficulte_formateur_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "NiveauDifficulte_formateur_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]

@@ -44,7 +44,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
                     <x-field :entity="$etatRealisationTache" field="formateur">
                        
                          {{  $etatRealisationTache->formateur }}
