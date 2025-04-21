@@ -32,13 +32,15 @@ export class InlineEdit extends Action {
         EventUtil.bindEvent('mouseover', `${this.config.tableSelector} .editable-cell`, (e) => {
             $(e.currentTarget).css({
                 cursor: 'pointer',
-                backgroundColor: '#aaaa'
+                backgroundColor: '#e9ecef',
+              
             });
         });
 
         EventUtil.bindEvent('mouseout', `${this.config.tableSelector} .editable-cell`, (e) => {
             $(e.currentTarget).css({
                 cursor: '',
+                
                 backgroundColor: ''
             });
         });
@@ -93,7 +95,14 @@ export class InlineEdit extends Action {
                 input.off('change').on('change', () => {
                     this.submit(formUI, input, $cell, field, id);
                 });
-            } else {
+            } else if (input.is(':checkbox')) {
+                input.off('change').on('change', () => {
+                    const isChecked = input.is(':checked');
+                    input.val(isChecked ? 1 : 0); // for consistency with backend
+                    this.submit(formUI, input, $cell, field, id);
+                });
+            
+            }  else {
                 this.bindFieldEvents(formUI, input, $cell, field, id);
             }
         // } catch (error) {

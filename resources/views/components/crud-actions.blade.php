@@ -61,7 +61,7 @@
 @endphp
 @if ($hasAlternativeViews)
     <div class="dropdown mr-2">
-        <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="exportDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-eye"></i> Vue
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="exportDropdown">
