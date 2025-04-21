@@ -22,16 +22,19 @@
         <tbody>
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
+                @php
+                    $isEditable = Auth::user()->can('edit-widget') && Auth::user()->can('update', $widget);
+                @endphp
                 <tr id="widget-row-{{$widget->id}}" data-id="{{$widget->id}}">
                     <x-checkbox-row :item="$widget" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 8%;" class="editable-cell text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
+                    <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
                     <x-field :entity="$widget" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 19%;" class="editable-cell text-truncate" data-id="{{$widget->id}}" data-field="name"  data-toggle="tooltip" title="{{ $widget->name }}" >
+                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="name"  data-toggle="tooltip" title="{{ $widget->name }}" >
                     <x-field :entity="$widget" field="name">
                          <x-badge 
                         :text="$widget->name ?? ''" 
@@ -40,18 +43,18 @@
 
                     </x-field>
                     </td>    
-                    <td style="max-width: 19%;" class="editable-cell text-truncate" data-id="{{$widget->id}}" data-field="label"  data-toggle="tooltip" title="{{ $widget->label }}" >
+                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="label"  data-toggle="tooltip" title="{{ $widget->label }}" >
                     <x-field :entity="$widget" field="label">
                         {{ $widget->label }}
                     </x-field>
                     </td>
-                    <td style="max-width: 7%;" class="editable-cell text-truncate" data-id="{{$widget->id}}" data-field="type_id"  data-toggle="tooltip" title="{{ $widget->type }}" >
+                    <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="type_id"  data-toggle="tooltip" title="{{ $widget->type }}" >
                     <x-field :entity="$widget" field="type">
                        
                          {{  $widget->type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$widget->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $widget->roles }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $widget->roles }}" >
                     <x-field :entity="$widget" field="roles">
                         <ul>
                             @foreach ($widget->roles as $role)
@@ -60,7 +63,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 19%;" class="editable-cell text-truncate" data-id="{{$widget->id}}" data-field="section_widget_id"  data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
+                    <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="section_widget_id"  data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
                     <x-field :entity="$widget" field="sectionWidget">
                        
                          {{  $widget->sectionWidget }}

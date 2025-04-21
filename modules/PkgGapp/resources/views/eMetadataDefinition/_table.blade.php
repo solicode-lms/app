@@ -19,19 +19,22 @@
         <tbody>
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
+                @php
+                    $isEditable = Auth::user()->can('edit-eMetadataDefinition') && Auth::user()->can('update', $eMetadataDefinition);
+                @endphp
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}" data-id="{{$eMetadataDefinition->id}}">
                     <x-checkbox-row :item="$eMetadataDefinition" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
                     <x-field :entity="$eMetadataDefinition" field="name">
                         {{ $eMetadataDefinition->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="groupe"  data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="groupe"  data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
                     <x-field :entity="$eMetadataDefinition" field="groupe">
                         {{ $eMetadataDefinition->groupe }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
                     <x-field :entity="$eMetadataDefinition" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
                     </x-field>

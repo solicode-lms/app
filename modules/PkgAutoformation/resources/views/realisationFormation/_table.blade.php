@@ -21,31 +21,34 @@
         <tbody>
             @section('realisationFormation-table-tbody')
             @foreach ($realisationFormations_data as $realisationFormation)
+                @php
+                    $isEditable = Auth::user()->can('edit-realisationFormation') && Auth::user()->can('update', $realisationFormation);
+                @endphp
                 <tr id="realisationFormation-row-{{$realisationFormation->id}}" data-id="{{$realisationFormation->id}}">
                     <x-checkbox-row :item="$realisationFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationFormation->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationFormation->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationFormation->date_debut }}" >
                     <x-field :entity="$realisationFormation" field="date_debut">
                         {{ $realisationFormation->date_debut }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationFormation->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationFormation->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationFormation->date_fin }}" >
                     <x-field :entity="$realisationFormation" field="date_fin">
                         {{ $realisationFormation->date_fin }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationFormation->id}}" data-field="formation_id"  data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationFormation->id}}" data-field="formation_id"  data-toggle="tooltip" title="{{ $realisationFormation->formation }}" >
                     <x-field :entity="$realisationFormation" field="formation">
                        
                          {{  $realisationFormation->formation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationFormation->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationFormation->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationFormation->apprenant }}" >
                     <x-field :entity="$realisationFormation" field="apprenant">
                        
                          {{  $realisationFormation->apprenant }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="editable-cell text-truncate" data-id="{{$realisationFormation->id}}" data-field="etat_formation_id"  data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationFormation->id}}" data-field="etat_formation_id"  data-toggle="tooltip" title="{{ $realisationFormation->etatFormation }}" >
                     <x-field :entity="$realisationFormation" field="etatFormation">
                         @if(!empty($realisationFormation->etatFormation))
                         <x-badge 

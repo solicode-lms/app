@@ -18,14 +18,17 @@
         <tbody>
             @section('niveauDifficulte-table-tbody')
             @foreach ($niveauDifficultes_data as $niveauDifficulte)
+                @php
+                    $isEditable = Auth::user()->can('edit-niveauDifficulte') && Auth::user()->can('update', $niveauDifficulte);
+                @endphp
                 <tr id="niveauDifficulte-row-{{$niveauDifficulte->id}}" data-id="{{$niveauDifficulte->id}}">
                     <x-checkbox-row :item="$niveauDifficulte" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauDifficulte->nom }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauDifficulte->nom }}" >
                     <x-field :entity="$niveauDifficulte" field="nom">
                         {{ $niveauDifficulte->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $niveauDifficulte->formateur }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauDifficulte->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $niveauDifficulte->formateur }}" >
                     <x-field :entity="$niveauDifficulte" field="formateur">
                        
                          {{  $niveauDifficulte->formateur }}

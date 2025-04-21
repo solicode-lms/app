@@ -21,27 +21,30 @@
         <tbody>
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
+                @php
+                    $isEditable = Auth::user()->can('edit-sysController') && Auth::user()->can('update', $sysController);
+                @endphp
                 <tr id="sysController-row-{{$sysController->id}}" data-id="{{$sysController->id}}">
                     <x-checkbox-row :item="$sysController" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysController->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
                     <x-field :entity="$sysController" field="sysModule">
                        
                          {{  $sysController->sysModule }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysController->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysController->name }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysController->name }}" >
                     <x-field :entity="$sysController" field="name">
                         {{ $sysController->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysController->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysController->is_active }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysController->is_active }}" >
                     <x-field :entity="$sysController" field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
                     <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)

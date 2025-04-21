@@ -20,16 +20,19 @@
         <tbody>
             @section('sectionWidget-table-tbody')
             @foreach ($sectionWidgets_data as $sectionWidget)
+                @php
+                    $isEditable = Auth::user()->can('edit-sectionWidget') && Auth::user()->can('update', $sectionWidget);
+                @endphp
                 <tr id="sectionWidget-row-{{$sectionWidget->id}}" data-id="{{$sectionWidget->id}}">
                     <x-checkbox-row :item="$sectionWidget" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 8%;" class="editable-cell text-truncate" data-id="{{$sectionWidget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
+                    <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sectionWidget->ordre }}" >
                     <x-field :entity="$sectionWidget" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $sectionWidget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="editable-cell text-truncate" data-id="{{$sectionWidget->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sectionWidget->icone }}" >
                     <x-field :entity="$sectionWidget" field="icone">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $sectionWidget->icone }}" ></i>
@@ -37,12 +40,12 @@
                     </x-field>
                     </td>
 
-                    <td style="max-width: 54%;" class="editable-cell text-truncate" data-id="{{$sectionWidget->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
+                    <td style="max-width: 54%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sectionWidget->titre }}" >
                     <x-field :entity="$sectionWidget" field="titre">
                         {{ $sectionWidget->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="editable-cell text-truncate" data-id="{{$sectionWidget->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sectionWidget->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sectionWidget->sysColor }}" >
                     <x-field :entity="$sectionWidget" field="sysColor">
                         <x-badge 
                         :text="$sectionWidget->sysColor->name ?? ''" 

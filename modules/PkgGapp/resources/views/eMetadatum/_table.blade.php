@@ -19,21 +19,24 @@
         <tbody>
             @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
+                @php
+                    $isEditable = Auth::user()->can('edit-eMetadatum') && Auth::user()->can('update', $eMetadatum);
+                @endphp
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}" data-id="{{$eMetadatum->id}}">
                     <x-checkbox-row :item="$eMetadatum" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
                     <x-field :entity="$eMetadatum" field="eModel">
                        
                          {{  $eMetadatum->eModel }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_data_field_id"  data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_data_field_id"  data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
                     <x-field :entity="$eMetadatum" field="eDataField">
                        
                          {{  $eMetadatum->eDataField }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id"  data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id"  data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
                     <x-field :entity="$eMetadatum" field="eMetadataDefinition">
                        
                          {{  $eMetadatum->eMetadataDefinition }}

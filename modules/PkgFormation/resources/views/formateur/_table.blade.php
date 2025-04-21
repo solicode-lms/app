@@ -20,19 +20,22 @@
         <tbody>
             @section('formateur-table-tbody')
             @foreach ($formateurs_data as $formateur)
+                @php
+                    $isEditable = Auth::user()->can('edit-formateur') && Auth::user()->can('update', $formateur);
+                @endphp
                 <tr id="formateur-row-{{$formateur->id}}" data-id="{{$formateur->id}}">
                     <x-checkbox-row :item="$formateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formateur->nom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formateur->nom }}" >
                     <x-field :entity="$formateur" field="nom">
                         {{ $formateur->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $formateur->prenom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $formateur->prenom }}" >
                     <x-field :entity="$formateur" field="prenom">
                         {{ $formateur->prenom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$formateur->id}}" data-field="specialites"  data-toggle="tooltip" title="{{ $formateur->specialites }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="specialites"  data-toggle="tooltip" title="{{ $formateur->specialites }}" >
                     <x-field :entity="$formateur" field="specialites">
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
@@ -41,7 +44,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$formateur->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $formateur->groupes }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $formateur->groupes }}" >
                     <x-field :entity="$formateur" field="groupes">
                         <ul>
                             @foreach ($formateur->groupes as $groupe)

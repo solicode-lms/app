@@ -18,14 +18,17 @@
         <tbody>
             @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
+                @php
+                    $isEditable = Auth::user()->can('edit-specialite') && Auth::user()->can('update', $specialite);
+                @endphp
                 <tr id="specialite-row-{{$specialite->id}}" data-id="{{$specialite->id}}">
                     <x-checkbox-row :item="$specialite" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$specialite->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $specialite->nom }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $specialite->nom }}" >
                     <x-field :entity="$specialite" field="nom">
                         {{ $specialite->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$specialite->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
                     <x-field :entity="$specialite" field="formateurs">
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)

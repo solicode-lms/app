@@ -19,19 +19,22 @@
         <tbody>
             @section('workflowFormation-table-tbody')
             @foreach ($workflowFormations_data as $workflowFormation)
+                @php
+                    $isEditable = Auth::user()->can('edit-workflowFormation') && Auth::user()->can('update', $workflowFormation);
+                @endphp
                 <tr id="workflowFormation-row-{{$workflowFormation->id}}" data-id="{{$workflowFormation->id}}">
                     <x-checkbox-row :item="$workflowFormation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowFormation->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowFormation->code }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowFormation->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowFormation->code }}" >
                     <x-field :entity="$workflowFormation" field="code">
                         {{ $workflowFormation->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowFormation->titre }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowFormation->titre }}" >
                     <x-field :entity="$workflowFormation" field="titre">
                         {{ $workflowFormation->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$workflowFormation->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowFormation->sysColor }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowFormation->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowFormation->sysColor }}" >
                     <x-field :entity="$workflowFormation" field="sysColor">
                         <x-badge 
                         :text="$workflowFormation->sysColor->name ?? ''" 

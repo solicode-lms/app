@@ -19,21 +19,24 @@
         <tbody>
             @section('transfertCompetence-table-tbody')
             @foreach ($transfertCompetences_data as $transfertCompetence)
+                @php
+                    $isEditable = Auth::user()->can('edit-transfertCompetence') && Auth::user()->can('update', $transfertCompetence);
+                @endphp
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}" data-id="{{$transfertCompetence->id}}">
                     <x-checkbox-row :item="$transfertCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$transfertCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
                     <x-field :entity="$transfertCompetence" field="competence">
                        
                          {{  $transfertCompetence->competence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$transfertCompetence->id}}" data-field="niveau_difficulte_id"  data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="niveau_difficulte_id"  data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
                     <x-field :entity="$transfertCompetence" field="niveauDifficulte">
                        
                          {{  $transfertCompetence->niveauDifficulte }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$transfertCompetence->id}}" data-field="note"  data-toggle="tooltip" title="{{ $transfertCompetence->note }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="note"  data-toggle="tooltip" title="{{ $transfertCompetence->note }}" >
                     <x-field :entity="$transfertCompetence" field="note">
                         {{ $transfertCompetence->note }}
                     </x-field>

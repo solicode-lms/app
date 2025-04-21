@@ -20,24 +20,27 @@
         <tbody>
             @section('competence-table-tbody')
             @foreach ($competences_data as $competence)
+                @php
+                    $isEditable = Auth::user()->can('edit-competence') && Auth::user()->can('update', $competence);
+                @endphp
                 <tr id="competence-row-{{$competence->id}}" data-id="{{$competence->id}}">
                     <x-checkbox-row :item="$competence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$competence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $competence->code }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $competence->code }}" >
                     <x-field :entity="$competence" field="code">
                         {{ $competence->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$competence->id}}" data-field="mini_code"  data-toggle="tooltip" title="{{ $competence->mini_code }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="mini_code"  data-toggle="tooltip" title="{{ $competence->mini_code }}" >
                     <x-field :entity="$competence" field="mini_code">
                         {{ $competence->mini_code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$competence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $competence->nom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $competence->nom }}" >
                     <x-field :entity="$competence" field="nom">
                         {{ $competence->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$competence->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $competence->module }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $competence->module }}" >
                     <x-field :entity="$competence" field="module">
                        
                          {{  $competence->module }}

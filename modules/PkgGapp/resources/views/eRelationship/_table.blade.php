@@ -20,25 +20,28 @@
         <tbody>
             @section('eRelationship-table-tbody')
             @foreach ($eRelationships_data as $eRelationship)
+                @php
+                    $isEditable = Auth::user()->can('edit-eRelationship') && Auth::user()->can('update', $eRelationship);
+                @endphp
                 <tr id="eRelationship-row-{{$eRelationship->id}}" data-id="{{$eRelationship->id}}">
                     <x-checkbox-row :item="$eRelationship" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$eRelationship->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eRelationship->name }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eRelationship->name }}" >
                     <x-field :entity="$eRelationship" field="name">
                         {{ $eRelationship->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$eRelationship->id}}" data-field="type"  data-toggle="tooltip" title="{{ $eRelationship->type }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="type"  data-toggle="tooltip" title="{{ $eRelationship->type }}" >
                     <x-field :entity="$eRelationship" field="type">
                         {{ $eRelationship->type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$eRelationship->id}}" data-field="source_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->sourceEModel }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="source_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->sourceEModel }}" >
                     <x-field :entity="$eRelationship" field="sourceEModel">
                        
                          {{  $eRelationship->sourceEModel }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$eRelationship->id}}" data-field="target_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->targetEModel }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eRelationship->id}}" data-field="target_e_model_id"  data-toggle="tooltip" title="{{ $eRelationship->targetEModel }}" >
                     <x-field :entity="$eRelationship" field="targetEModel">
                        
                          {{  $eRelationship->targetEModel }}

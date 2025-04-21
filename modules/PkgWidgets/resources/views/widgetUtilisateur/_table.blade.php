@@ -21,16 +21,19 @@
         <tbody>
             @section('widgetUtilisateur-table-tbody')
             @foreach ($widgetUtilisateurs_data as $widgetUtilisateur)
+                @php
+                    $isEditable = Auth::user()->can('edit-widgetUtilisateur') && Auth::user()->can('update', $widgetUtilisateur);
+                @endphp
                 <tr id="widgetUtilisateur-row-{{$widgetUtilisateur->id}}" data-id="{{$widgetUtilisateur->id}}">
                     <x-checkbox-row :item="$widgetUtilisateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="editable-cell text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
+                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widgetUtilisateur->ordre }}" >
                     <x-field :entity="$widgetUtilisateur" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widgetUtilisateur->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="editable-cell text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id"  data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="widget_id"  data-toggle="tooltip" title="{{ $widgetUtilisateur->widget }}" >
                     <x-field :entity="$widgetUtilisateur" field="widget">
                        
                          {{  $widgetUtilisateur->widget }}
@@ -46,7 +49,7 @@
                         {{ $widgetUtilisateur->type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="editable-cell text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="visible"  data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetUtilisateur->id}}" data-field="visible"  data-toggle="tooltip" title="{{ $widgetUtilisateur->visible }}" >
                     <x-field :entity="$widgetUtilisateur" field="visible">
                         <span class="{{ $widgetUtilisateur->visible ? 'text-success' : 'text-danger' }}">
                             {{ $widgetUtilisateur->visible ? 'Oui' : 'Non' }}

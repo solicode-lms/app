@@ -21,6 +21,9 @@
         <tbody>
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
+                @php
+                    $isEditable = Auth::user()->can('edit-eDataField') && Auth::user()->can('update', $eDataField);
+                @endphp
                 <tr id="eDataField-row-{{$eDataField->id}}" data-id="{{$eDataField->id}}">
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="displayOrder"  data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
@@ -30,18 +33,18 @@
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eDataField->name }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eDataField->name }}" >
                     <x-field :entity="$eDataField" field="name">
                         {{ $eDataField->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 15%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eDataField->eModel }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eDataField->eModel }}" >
                     <x-field :entity="$eDataField" field="eModel">
                        
                          {{  $eDataField->eModel }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="editable-cell text-truncate" data-id="{{$eDataField->id}}" data-field="data_type"  data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="data_type"  data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
                     <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
                     </x-field>

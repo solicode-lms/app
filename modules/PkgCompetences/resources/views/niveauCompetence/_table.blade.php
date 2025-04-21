@@ -18,14 +18,17 @@
         <tbody>
             @section('niveauCompetence-table-tbody')
             @foreach ($niveauCompetences_data as $niveauCompetence)
+                @php
+                    $isEditable = Auth::user()->can('edit-niveauCompetence') && Auth::user()->can('update', $niveauCompetence);
+                @endphp
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}" data-id="{{$niveauCompetence->id}}">
                     <x-checkbox-row :item="$niveauCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
                     <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$niveauCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
                     <x-field :entity="$niveauCompetence" field="competence">
                        
                          {{  $niveauCompetence->competence }}

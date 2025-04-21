@@ -21,33 +21,36 @@
         <tbody>
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
+                @php
+                    $isEditable = Auth::user()->can('edit-tache') && Auth::user()->can('update', $tache);
+                @endphp
                 <tr id="tache-row-{{$tache->id}}" data-id="{{$tache->id}}">
                     <x-checkbox-row :item="$tache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 19.25%;" class="editable-cell text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
                     <x-field :entity="$tache" field="titre">
                         {{ $tache->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 5%;" class="editable-cell text-truncate" data-id="{{$tache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $tache->ordre }}" >
+                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $tache->ordre }}" >
                     <x-field :entity="$tache" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $tache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="editable-cell text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
                     <x-field :entity="$tache" field="projet">
                        
                          {{  $tache->projet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="editable-cell text-truncate" data-id="{{$tache->id}}" data-field="priorite_tache_id"  data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite_tache_id"  data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
                     <x-field :entity="$tache" field="prioriteTache">
                        
                          {{  $tache->prioriteTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
                     <x-field :entity="$tache" field="livrables">
                         <ul>
                             @foreach ($tache->livrables as $livrable)

@@ -20,14 +20,17 @@
         <tbody>
             @section('apprenant-table-tbody')
             @foreach ($apprenants_data as $apprenant)
+                @php
+                    $isEditable = Auth::user()->can('edit-apprenant') && Auth::user()->can('update', $apprenant);
+                @endphp
                 <tr id="apprenant-row-{{$apprenant->id}}" data-id="{{$apprenant->id}}">
                     <x-checkbox-row :item="$apprenant" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$apprenant->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $apprenant->nom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $apprenant->nom }}" >
                     <x-field :entity="$apprenant" field="nom">
                         {{ $apprenant->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$apprenant->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $apprenant->prenom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $apprenant->prenom }}" >
                     <x-field :entity="$apprenant" field="prenom">
                         {{ $apprenant->prenom }}
                     </x-field>
@@ -37,7 +40,7 @@
                         <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$apprenant->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $apprenant->groupes }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $apprenant->groupes }}" >
                     <x-field :entity="$apprenant" field="groupes">
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)

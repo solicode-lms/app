@@ -19,19 +19,22 @@
         <tbody>
             @section('user-table-tbody')
             @foreach ($users_data as $user)
+                @php
+                    $isEditable = Auth::user()->can('edit-user') && Auth::user()->can('update', $user);
+                @endphp
                 <tr id="user-row-{{$user->id}}" data-id="{{$user->id}}">
                     <x-checkbox-row :item="$user" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$user->id}}" data-field="name"  data-toggle="tooltip" title="{{ $user->name }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="name"  data-toggle="tooltip" title="{{ $user->name }}" >
                     <x-field :entity="$user" field="name">
                         {{ $user->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$user->id}}" data-field="email"  data-toggle="tooltip" title="{{ $user->email }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="email"  data-toggle="tooltip" title="{{ $user->email }}" >
                     <x-field :entity="$user" field="email">
                         {{ $user->email }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$user->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $user->roles }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $user->roles }}" >
                     <x-field :entity="$user" field="roles">
                         <ul>
                             @foreach ($user->roles as $role)

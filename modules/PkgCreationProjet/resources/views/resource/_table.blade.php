@@ -18,14 +18,17 @@
         <tbody>
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
+                @php
+                    $isEditable = Auth::user()->can('edit-resource') && Auth::user()->can('update', $resource);
+                @endphp
                 <tr id="resource-row-{{$resource->id}}" data-id="{{$resource->id}}">
                     <x-checkbox-row :item="$resource" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$resource->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $resource->nom }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $resource->nom }}" >
                     <x-field :entity="$resource" field="nom">
                         {{ $resource->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$resource->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $resource->lien }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $resource->lien }}" >
                     <x-field :entity="$resource" field="lien">
                         {{ $resource->lien }}
                     </x-field>

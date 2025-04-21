@@ -20,26 +20,29 @@
         <tbody>
             @section('workflowTache-table-tbody')
             @foreach ($workflowTaches_data as $workflowTache)
+                @php
+                    $isEditable = Auth::user()->can('edit-workflowTache') && Auth::user()->can('update', $workflowTache);
+                @endphp
                 <tr id="workflowTache-row-{{$workflowTache->id}}" data-id="{{$workflowTache->id}}">
                     <x-checkbox-row :item="$workflowTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 5%;" class="editable-cell text-truncate" data-id="{{$workflowTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
+                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $workflowTache->ordre }}" >
                     <x-field :entity="$workflowTache" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $workflowTache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="editable-cell text-truncate" data-id="{{$workflowTache->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowTache->code }}" >
+                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowTache->code }}" >
                     <x-field :entity="$workflowTache" field="code">
                         {{ $workflowTache->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="editable-cell text-truncate" data-id="{{$workflowTache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
+                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowTache->titre }}" >
                     <x-field :entity="$workflowTache" field="titre">
                         {{ $workflowTache->titre }}
                     </x-field>
                     </td>
-                    <td style="max-width: 25.666666666666668%;" class="editable-cell text-truncate" data-id="{{$workflowTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowTache->sysColor }}" >
+                    <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowTache->sysColor }}" >
                     <x-field :entity="$workflowTache" field="sysColor">
                         <x-badge 
                         :text="$workflowTache->sysColor->name ?? ''" 

@@ -19,21 +19,24 @@
         <tbody>
             @section('prioriteTache-table-tbody')
             @foreach ($prioriteTaches_data as $prioriteTache)
+                @php
+                    $isEditable = Auth::user()->can('edit-prioriteTache') && Auth::user()->can('update', $prioriteTache);
+                @endphp
                 <tr id="prioriteTache-row-{{$prioriteTache->id}}" data-id="{{$prioriteTache->id}}">
                     <x-checkbox-row :item="$prioriteTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 38.5%;" class="editable-cell text-truncate" data-id="{{$prioriteTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
+                    <td style="max-width: 38.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$prioriteTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $prioriteTache->nom }}" >
                     <x-field :entity="$prioriteTache" field="nom">
                         {{ $prioriteTache->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 5%;" class="editable-cell text-truncate" data-id="{{$prioriteTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $prioriteTache->ordre }}" >
+                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$prioriteTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $prioriteTache->ordre }}" >
                     <x-field :entity="$prioriteTache" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $prioriteTache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 38.5%;" class="editable-cell text-truncate" data-id="{{$prioriteTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $prioriteTache->formateur }}" >
+                    <td style="max-width: 38.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$prioriteTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $prioriteTache->formateur }}" >
                     <x-field :entity="$prioriteTache" field="formateur">
                        
                          {{  $prioriteTache->formateur }}

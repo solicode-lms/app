@@ -17,9 +17,12 @@
         <tbody>
             @section('ville-table-tbody')
             @foreach ($villes_data as $ville)
+                @php
+                    $isEditable = Auth::user()->can('edit-ville') && Auth::user()->can('update', $ville);
+                @endphp
                 <tr id="ville-row-{{$ville->id}}" data-id="{{$ville->id}}">
                     <x-checkbox-row :item="$ville" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
+                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
                     <x-field :entity="$ville" field="nom">
                         {{ $ville->nom }}
                     </x-field>

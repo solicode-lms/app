@@ -17,9 +17,12 @@
         <tbody>
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
+                @php
+                    $isEditable = Auth::user()->can('edit-ePackage') && Auth::user()->can('update', $ePackage);
+                @endphp
                 <tr id="ePackage-row-{{$ePackage->id}}" data-id="{{$ePackage->id}}">
                     <x-checkbox-row :item="$ePackage" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$ePackage->id}}" data-field="name"  data-toggle="tooltip" title="{{ $ePackage->name }}" >
+                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ePackage->id}}" data-field="name"  data-toggle="tooltip" title="{{ $ePackage->name }}" >
                     <x-field :entity="$ePackage" field="name">
                         {{ $ePackage->name }}
                     </x-field>

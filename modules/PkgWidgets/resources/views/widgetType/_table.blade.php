@@ -18,14 +18,17 @@
         <tbody>
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
+                @php
+                    $isEditable = Auth::user()->can('edit-widgetType') && Auth::user()->can('update', $widgetType);
+                @endphp
                 <tr id="widgetType-row-{{$widgetType->id}}" data-id="{{$widgetType->id}}">
                     <x-checkbox-row :item="$widgetType" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$widgetType->id}}" data-field="type"  data-toggle="tooltip" title="{{ $widgetType->type }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="type"  data-toggle="tooltip" title="{{ $widgetType->type }}" >
                     <x-field :entity="$widgetType" field="type">
                         {{ $widgetType->type }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
                     <x-field :entity="$widgetType" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 30) !!}
                     </x-field>

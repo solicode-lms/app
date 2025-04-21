@@ -20,20 +20,23 @@
         <tbody>
             @section('sysModel-table-tbody')
             @foreach ($sysModels_data as $sysModel)
+                @php
+                    $isEditable = Auth::user()->can('edit-sysModel') && Auth::user()->can('update', $sysModel);
+                @endphp
                 <tr id="sysModel-row-{{$sysModel->id}}" data-id="{{$sysModel->id}}">
                     <x-checkbox-row :item="$sysModel" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysModel->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModel->name }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModel->name }}" >
                     <x-field :entity="$sysModel" field="name">
                         {{ $sysModel->name }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysModel->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysModel->sysModule }}" >
                     <x-field :entity="$sysModel" field="sysModule">
                        
                          {{  $sysModel->sysModule }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysModel->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModel->sysColor }}" >
                     <x-field :entity="$sysModel" field="sysColor">
                         <x-badge 
                         :text="$sysModel->sysColor->name ?? ''" 
@@ -41,7 +44,7 @@
                         />
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$sysModel->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sysModel->icone }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModel->id}}" data-field="icone"  data-toggle="tooltip" title="{{ $sysModel->icone }}" >
                     <x-field :entity="$sysModel" field="icone">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $sysModel->icone }}" ></i>

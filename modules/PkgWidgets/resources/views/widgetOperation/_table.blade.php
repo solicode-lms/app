@@ -18,14 +18,17 @@
         <tbody>
             @section('widgetOperation-table-tbody')
             @foreach ($widgetOperations_data as $widgetOperation)
+                @php
+                    $isEditable = Auth::user()->can('edit-widgetOperation') && Auth::user()->can('update', $widgetOperation);
+                @endphp
                 <tr id="widgetOperation-row-{{$widgetOperation->id}}" data-id="{{$widgetOperation->id}}">
                     <x-checkbox-row :item="$widgetOperation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$widgetOperation->id}}" data-field="operation"  data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="operation"  data-toggle="tooltip" title="{{ $widgetOperation->operation }}" >
                     <x-field :entity="$widgetOperation" field="operation">
                         {{ $widgetOperation->operation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="editable-cell text-truncate" data-id="{{$widgetOperation->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetOperation->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetOperation->description }}" >
                     <x-field :entity="$widgetOperation" field="description">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetOperation->description, 30) !!}
                     </x-field>

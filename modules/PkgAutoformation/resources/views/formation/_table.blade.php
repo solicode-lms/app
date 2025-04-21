@@ -20,27 +20,30 @@
         <tbody>
             @section('formation-table-tbody')
             @foreach ($formations_data as $formation)
+                @php
+                    $isEditable = Auth::user()->can('edit-formation') && Auth::user()->can('update', $formation);
+                @endphp
                 <tr id="formation-row-{{$formation->id}}" data-id="{{$formation->id}}">
                     <x-checkbox-row :item="$formation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formation->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formation->nom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formation->nom }}" >
                     <x-field :entity="$formation" field="nom">
                         {{ $formation->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formation->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $formation->competence }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $formation->competence }}" >
                     <x-field :entity="$formation" field="competence">
                        
                          {{  $formation->competence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formation->id}}" data-field="is_officiel"  data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="is_officiel"  data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
                     <x-field :entity="$formation" field="is_officiel">
                         <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
                             {{ $formation->is_officiel ? 'Oui' : 'Non' }}
                         </span>
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="editable-cell text-truncate" data-id="{{$formation->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $formation->formateur }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $formation->formateur }}" >
                     <x-field :entity="$formation" field="formateur">
                        
                          {{  $formation->formateur }}

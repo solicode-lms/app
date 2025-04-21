@@ -19,20 +19,23 @@
         <tbody>
             @section('groupe-table-tbody')
             @foreach ($groupes_data as $groupe)
+                @php
+                    $isEditable = Auth::user()->can('edit-groupe') && Auth::user()->can('update', $groupe);
+                @endphp
                 <tr id="groupe-row-{{$groupe->id}}" data-id="{{$groupe->id}}">
                     <x-checkbox-row :item="$groupe" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$groupe->id}}" data-field="code"  data-toggle="tooltip" title="{{ $groupe->code }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="code"  data-toggle="tooltip" title="{{ $groupe->code }}" >
                     <x-field :entity="$groupe" field="code">
                         {{ $groupe->code }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="editable-cell text-truncate" data-id="{{$groupe->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $groupe->filiere }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $groupe->filiere }}" >
                     <x-field :entity="$groupe" field="filiere">
                        
                          {{  $groupe->filiere }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="%= column.dataField.displayInForm ? "editable-cell":""  text-truncate" data-id="{{$groupe->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $groupe->formateurs }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $groupe->formateurs }}" >
                     <x-field :entity="$groupe" field="formateurs">
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)

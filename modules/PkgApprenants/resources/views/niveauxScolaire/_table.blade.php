@@ -17,9 +17,12 @@
         <tbody>
             @section('niveauxScolaire-table-tbody')
             @foreach ($niveauxScolaires_data as $niveauxScolaire)
+                @php
+                    $isEditable = Auth::user()->can('edit-niveauxScolaire') && Auth::user()->can('update', $niveauxScolaire);
+                @endphp
                 <tr id="niveauxScolaire-row-{{$niveauxScolaire->id}}" data-id="{{$niveauxScolaire->id}}">
                     <x-checkbox-row :item="$niveauxScolaire" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="editable-cell text-truncate" data-id="{{$niveauxScolaire->id}}" data-field="code"  data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
+                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauxScolaire->id}}" data-field="code"  data-toggle="tooltip" title="{{ $niveauxScolaire->code }}" >
                     <x-field :entity="$niveauxScolaire" field="code">
                         {{ $niveauxScolaire->code }}
                     </x-field>

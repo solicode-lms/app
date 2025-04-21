@@ -23,44 +23,47 @@
         <tbody>
             @section('chapitre-table-tbody')
             @foreach ($chapitres_data as $chapitre)
+                @php
+                    $isEditable = Auth::user()->can('edit-chapitre') && Auth::user()->can('update', $chapitre);
+                @endphp
                 <tr id="chapitre-row-{{$chapitre->id}}" data-id="{{$chapitre->id}}">
                     <x-checkbox-row :item="$chapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
                     <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
                     <x-field :entity="$chapitre" field="lien">
                         {{ $chapitre->lien }}
                     </x-field>
                     </td>
-                    <td style="max-width: 5%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $chapitre->ordre }}" >
+                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $chapitre->ordre }}" >
                     <x-field :entity="$chapitre" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $chapitre->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="formation_id"  data-toggle="tooltip" title="{{ $chapitre->formation }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formation_id"  data-toggle="tooltip" title="{{ $chapitre->formation }}" >
                     <x-field :entity="$chapitre" field="formation">
                        
                          {{  $chapitre->formation }}
                     </x-field>
                     </td>
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="niveau_competence_id"  data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="niveau_competence_id"  data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
                     <x-field :entity="$chapitre" field="niveauCompetence">
                        
                          {{  $chapitre->niveauCompetence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
                     <x-field :entity="$chapitre" field="formateur">
                        
                          {{  $chapitre->formateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 12.833333333333334%;" class="editable-cell text-truncate" data-id="{{$chapitre->id}}" data-field="chapitre_officiel_id"  data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
+                    <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="chapitre_officiel_id"  data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
                     <x-field :entity="$chapitre" field="chapitreOfficiel">
                        
                          {{  $chapitre->chapitreOfficiel }}
