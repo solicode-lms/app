@@ -47,5 +47,19 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
             });
         })->get();
     }
+
+    /**
+     * Récupère l'état par défaut (ordre minimal) défini par un formateur.
+     *
+     * @param int $formateurId
+     * @return \Modules\PkgGestionTaches\Models\EtatRealisationTache|null
+     */
+    public function getDefaultEtatByFormateurId(int $formateurId)
+    {
+        return $this->model
+            ->where('formateur_id', $formateurId)
+            ->orderBy('ordre', 'asc')
+            ->first();
+    }
    
 }
