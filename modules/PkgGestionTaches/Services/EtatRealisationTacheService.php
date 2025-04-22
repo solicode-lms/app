@@ -2,6 +2,8 @@
 
 
 namespace Modules\PkgGestionTaches\Services;
+
+use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\PkgGestionTaches\Services\Base\BaseEtatRealisationTacheService;
 
 /**
@@ -56,10 +58,18 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
      */
     public function getDefaultEtatByFormateurId(int $formateurId)
     {
+        // Récupérer le workflow ayant l'ordre le plus bas
+        $workflowTacheMin = WorkflowTache::orderBy('ordre', 'asc')->first();
+    
+        if (!$workflowTacheMin) {
+            return null;
+        }
+    
         return $this->model
             ->where('formateur_id', $formateurId)
-            ->orderBy('ordre', 'asc')
+            ->where('workflow_tache_id', $workflowTacheMin->id)
             ->first();
     }
+    
    
 }
