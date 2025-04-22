@@ -322,6 +322,9 @@ export class FormUI  {
         // Solution : changement de id de filter
         $(`.select2`).each(function () {
 
+            const $el = $(this);
+            if (!$el.is('select')) return;
+
             let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
             $(this).select2({
@@ -349,14 +352,36 @@ export class FormUI  {
             return $('<span class="color-option"><span class="color-box" style="background-color:' + color + ';"></span>' + option.text + '</span>');
         }
 
-        $('.select2Color').select2({
-            templateResult: formatColor,
-            templateSelection: formatColor
+        // $('.select2Color').select2({
+        //     templateResult: formatColor,
+        //     templateSelection: formatColor
+        // });
+
+        // Initialiser les .select2Color
+        $('.select2Color').each(function () {
+
+            const $el = $(this);
+            if (!$el.is('select')) return;
+
+            if (!$el.data('initialized')) {
+                $el.select2({
+                    templateResult: formatColor,
+                    templateSelection: formatColor,
+                    width: '100%'
+                });
+                $el.data('initialized', true);
+                console.log($el.data('initialized'));
+            }
         });
+
     }
     static initializeSelect2() {
         // Initialise les éléments Select2
         $('.select2').each(function() {
+
+            const $el = $(this);
+            if (!$el.is('select')) return;
+
             let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
             $(this).select2({

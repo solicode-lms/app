@@ -89,7 +89,8 @@ export class InlineEdit extends Action {
             input.focus();
 
             // Initialisation spécifique pour select2 si nécessaire
-            if (input.is('select') && input.hasClass('select2')) {
+            // && input.hasClass('select2')
+            if (input.is('select') ) {
 
                 // 🔁 Submit immédiat après changement de valeur
                 input.off('change').on('change', () => {
