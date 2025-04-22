@@ -352,11 +352,6 @@ export class FormUI  {
             return $('<span class="color-option"><span class="color-box" style="background-color:' + color + ';"></span>' + option.text + '</span>');
         }
 
-        // $('.select2Color').select2({
-        //     templateResult: formatColor,
-        //     templateSelection: formatColor
-        // });
-
         // Initialiser les .select2Color
         $('.select2Color').each(function () {
 

@@ -56,6 +56,10 @@ export class InlineEdit extends Action {
         const $cell = $(e.currentTarget);
         const field = $cell.data('field');
         const id = $cell.data('id');
+
+        // 🛑 Annuler toutes les autres éditions avant de continuer
+        this.cancelAllEdits();
+
         const formUI = new FormUI(this.config, this.tableUI.indexUI, `#${$cell.attr("id") || $cell.closest('tr').attr('id')}`);
 
         if (!field || !id) return;
@@ -79,7 +83,7 @@ export class InlineEdit extends Action {
             }
             formField.find('label').hide();
 
-            const currentValue = $cell.text().trim();
+            const currentValue = $cell.html();
             $cell.data('original', currentValue);
             $cell.empty().append(formField.contents());
 
@@ -104,8 +108,14 @@ export class InlineEdit extends Action {
                 });
             
             }  else {
-                this.bindFieldEvents(formUI, input, $cell, field, id);
+                input.off('blur').on('blur', () => {
+                    this.submit(formUI, input, $cell, field, id);
+                });
+               
+        
+              
             }
+            this.bindFieldEvents(formUI, input, $cell, field, id);
         // } catch (error) {
         //     console.error('Erreur de chargement du formulaire :', error);
         //     NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
@@ -116,15 +126,14 @@ export class InlineEdit extends Action {
      * Attache les événements blur et keydown au champ actif.
      */
     bindFieldEvents(formUI, input, $cell, field, id) {
-        input.off('blur').on('blur', () => {
-            this.submit(formUI, input, $cell, field, id);
-        });
-
+        
         input.off('keydown').on('keydown', (evt) => {
-            if (evt.key === 'Enter') {
-                input.blur();
-            } else if (evt.key === 'Escape') {
-                $cell.empty().text($cell.data('original'));
+            if (evt.key === 'Escape') {
+              
+                this.cancelAllEdits(); // Annuler tout
+                
+            } else if (evt.key === 'Enter') {
+                this.submit(formUI, input, $cell, field, id);
             }
         });
     }
@@ -143,5 +152,17 @@ export class InlineEdit extends Action {
                 this.tableUI.entityLoader.loadEntities(); // 🔄 Recharger toute la table
             });
         }
+    }
+
+    cancelAllEdits() {
+        $(`${this.config.tableSelector} .editable-cell`).each(function () {
+            const $cell = $(this);
+            const original = $cell.data('original');
+            if (original !== undefined) {
+               
+                $cell.empty().html(original); 
+                $cell.removeData('original');
+            }
+        });
     }
 }
