@@ -2,6 +2,7 @@
 
 namespace Modules\PkgRealisationProjets\Services;
 
+use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
 
@@ -43,7 +44,7 @@ class AffectationProjetService extends BaseAffectationProjetService
         $affectationProjet = parent::create($data);
     
         // Récupération du service de gestion des groupes
-        $groupeService = app(\Modules\PkgApprenants\Services\Base\BaseGroupeService::class);
+        $groupeService = new GroupeService();
         $groupe = $groupeService->find($data['groupe_id']);
     
         if (!$groupe) {
@@ -54,7 +55,7 @@ class AffectationProjetService extends BaseAffectationProjetService
         $apprenants = $groupe->apprenants;
     
         // Récupération du service de gestion des réalisations de projets
-        $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\Base\BaseRealisationProjetService::class);
+        $realisationProjetService = new RealisationProjetService();
     
         // Créer une réalisation de projet pour chaque apprenant
         foreach ($apprenants as $apprenant) {

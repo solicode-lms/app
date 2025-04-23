@@ -5,6 +5,8 @@ namespace Modules\PkgGestionTaches\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\PkgGestionTaches\Services\Base\BaseTacheService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Modules\PkgAutorisation\Models\Role;
 
 /**
  * Classe TacheService pour gérer la persistance de l'entité Tache.
@@ -53,12 +55,20 @@ class TacheService extends BaseTacheService
             // Instance du service RealisationTacheService
             $realisationTacheService = new \Modules\PkgGestionTaches\Services\RealisationTacheService();
     
+          
+            $formateur_id = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+            ? Auth::user()->formateur?->id
+            : null;
+            $etatInitial = $formateur_id
+            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
+            : null;
+
             // Création des réalisations des tâches pour les apprenants concernés
             foreach ($realisationProjets as $realisationProjet) {
                 $realisationTacheService->create([
                     'tache_id' => $tache->id,
                     'realisation_projet_id' => $realisationProjet->id, // Associer à la bonne réalisation de projet
-                    'etat_realisation_tache_id' => null, // Valeur par défaut à définir si nécessaire
+                    'etat_realisation_tache_id' => $etatInitial?->id, // Valeur par défaut à définir si nécessaire
                     'dateDebut' => $tache->dateDebut,
                     'dateFin' => $tache->dateFin
                 ]);
