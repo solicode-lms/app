@@ -56,4 +56,37 @@ class BaseAffectationProjetRequest extends FormRequest
     }
 
     
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'projet_id' => "admin",
+            
+            'groupe_id' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $affectation_projet_id = $this->route('affectationProjet'); // Remplace 'model' par le bon paramètre de route
+        $model = AffectationProjet::find($affectation_projet_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
+    
 }

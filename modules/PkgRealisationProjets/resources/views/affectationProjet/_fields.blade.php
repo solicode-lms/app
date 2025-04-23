@@ -20,6 +20,7 @@
     @endif
 
     <div class="card-body row">
+      @php $canEditprojet_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -33,6 +34,7 @@
           </label>
                       <select 
             id="projet_id" 
+            {{ $canEditprojet_id ? '' : 'disabled' }}
             required
             
             
@@ -52,6 +54,7 @@
       </div>
   
 
+      @php $canEditgroupe_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -65,6 +68,7 @@
           </label>
                       <select 
             id="groupe_id" 
+            {{ $canEditgroupe_id ? '' : 'disabled' }}
             required
             
             

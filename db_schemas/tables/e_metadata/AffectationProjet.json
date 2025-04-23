@@ -453,5 +453,39 @@
         "value_boolean": 1,
         "e_data_field_reference": "AffectationProjet_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AffectationProjet_projet_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "AffectationProjet_projet_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "AffectationProjet_projet_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "AffectationProjet_projet_id",
+        "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_readOnly",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "readOnly"
     }
 ]

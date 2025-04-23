@@ -25,13 +25,13 @@
                 @endphp
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}" data-id="{{$affectationProjet->id}}">
                     <x-checkbox-row :item="$affectationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
                     <x-field :entity="$affectationProjet" field="projet">
                        
                          {{  $affectationProjet->projet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
                     <x-field :entity="$affectationProjet" field="groupe">
                        
                          {{  $affectationProjet->groupe }}
