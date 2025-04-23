@@ -1,93 +1,102 @@
-Voici un **tutoriel complet** pour installer et utiliser **Laravel Dusk** afin de tester l’**ajout d’un projet** via l’interface utilisateur.
+## 🎯 Objectif
+Simuler l'ajout d'un **projet** par un administrateur :
+1. Connexion à l'administration.
+2. Ouverture du formulaire.
+3. Remplissage des champs.
+4. Soumission du formulaire.
+5. Vérification de l'ajout.
 
 ---
 
-## ✅ Objectif  
-Simuler un vrai utilisateur dans un navigateur qui :
-1. Se connecte à l’administration.
-2. Ouvre le formulaire d’ajout de projet.
-3. Remplit les champs requis.
-4. Soumet le formulaire.
-5. Vérifie que le projet est bien visible dans la liste.
-
----
-
-## 🛠️ Étape 1 : Installer Laravel Dusk
+## 🛠️ Étape 1 – Installer Laravel Dusk
 
 ### 1.1 Ajouter le package
-
 ```bash
 composer require --dev laravel/dusk
 ```
 
 ### 1.2 Initialiser Dusk
-
 ```bash
 php artisan dusk:install
 ```
-
 Cela crée :
-- le dossier `tests/Browser`
-- la classe de base `DuskTestCase`
-- le fichier `.env.dusk.local` pour les tests
+- `tests/Browser/`
+- `DuskTestCase.php`
+- `.env.dusk.local`
 
 ---
 
-## 🧪 Étape 2 : Créer un test navigateur
+## 🐛 Problèmes SSL fréquents
+
+### ✅ Erreur 1 : Avast bloque les connexions HTTPS
+> **Symptôme** : `SSL certificate problem: unable to get local issuer certificate`
+
+**Solution** : *Désactive temporairement l’analyse HTTPS* dans Avast (ou l’antivirus concerné).
+
+---
+
+### ✅ Erreur 2 : `cacert.pem` manquant
+
+> **Message** : `cURL error 60: unable to get local issuer certificate`
+
+**Solution** :
+1. Télécharge le certificat depuis :  
+   [https://curl.se/ca/cacert.pem](https://curl.se/ca/cacert.pem)
+
+2. Place-le dans :
+
+   ```
+   C:\php\bin\extras\cacert.pem
+   ```
+
+3. Dans `php.ini`, ajoute :
+   ```ini
+   curl.cainfo = "C:\php\bin\extras\cacert.pem"
+   openssl.cafile = "C:\php\bin\extras\cacert.pem"
+   ```
+
+4. Redémarre Apache ou le serveur PHP.
+
+---
+
+## 🧪 Étape 2 – Créer un test navigateur
 
 ```bash
 php artisan dusk:make CreateProjetTest
 ```
 
-Cela génère le fichier : `tests/Browser/CreateProjetTest.php`
+Fichier généré : `tests/Browser/CreateProjetTest.php`
 
 ---
 
-## ✍️ Étape 3 : Écrire le test
-
-Voici un exemple de test qui remplit un formulaire de projet :
+## ✍️ Étape 3 – Exemple de test
 
 ```php
-namespace Tests\Browser;
-
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use App\Models\User;
-
-class CreateProjetTest extends DuskTestCase
+public function test_ajout_projet_depuis_interface_admin()
 {
-    use DatabaseMigrations;
+    $admin = \App\Models\User::factory()->create([
+        'email' => 'admin@solicode.test',
+    ]);
 
-    public function test_ajout_projet_depuis_interface_admin()
-    {
-        // 🔧 Créer un utilisateur ayant accès
-        $admin = User::factory()->create([
-            'email' => 'admin@solicode.test',
-        ]);
-
-        $this->browse(function (Browser $browser) use ($admin) {
-            $browser->loginAs($admin)
-                ->visit('/admin/PkgCreationProjet/projets/create')
-                ->assertSee('Ajouter un projet') // Modifier selon ton interface
-                ->type('titre', 'Projet Test UI')
-                ->type('description', 'Projet de test automatisé')
-                ->select('nature_livrable_id', 1) // Modifier selon ton formulaire
-                ->press('Enregistrer')
-                ->assertPathIs('/admin/PkgCreationProjet/projets') // Redirection attendue
-                ->assertSee('Projet Test UI');
-        });
-    }
+    $this->browse(function (Browser $browser) use ($admin) {
+        $browser->loginAs($admin)
+            ->visit('/admin/PkgCreationProjet/projets/create')
+            ->assertSee('Ajouter un projet')
+            ->type('titre', 'Projet Test UI')
+            ->type('description', 'Test automatisé')
+            ->select('nature_livrable_id', 1)
+            ->press('Enregistrer')
+            ->assertPathIs('/admin/PkgCreationProjet/projets')
+            ->assertSee('Projet Test UI');
+    });
 }
 ```
 
-> 🔁 Adapte les noms des champs (`titre`, `description`, `nature_livrable_id`) selon ton Blade ou Vue.js.
+> ⚠️ Adapte les champs (`titre`, `description`, etc.) à ton formulaire.
 
 ---
 
-## ⚙️ Étape 4 : Configurer `.env.dusk.local`
-
-Crée ce fichier si besoin, avec une config de test légère :
+## ⚙️ Étape 4 – Configuration `.env.dusk.local`
 
 ```dotenv
 APP_ENV=dusk
@@ -96,47 +105,38 @@ DB_CONNECTION=sqlite
 DB_DATABASE=:memory:
 ```
 
-> Ou utilise une base MySQL dédiée `solicode_test` avec rollback automatique (`use DatabaseMigrations`).
+> Tu peux aussi utiliser MySQL avec `DatabaseMigrations`.
 
 ---
 
-## ▶️ Étape 5 : Lancer les tests
+## ▶️ Étape 5 – Lancer les tests
 
 ```bash
 php artisan dusk
 ```
 
-📸 Tu peux générer une capture à un moment :
-
+Pour capturer une capture d’écran :
 ```php
 $browser->screenshot('formulaire-projet');
 ```
 
 ---
 
-## 💡 Astuces
+## 💡 Astuces et bonnes pratiques
 
-- Pour déboguer : ouvre `tests/Browser/screenshots/` et `console/`.
-- Si `chrome` ne se lance pas, installe **ChromeDriver** adapté :
+- 📷 Captures dans `tests/Browser/screenshots/`
+- ⚠️ Logs JS : `tests/Browser/console/`
+- 🔄 Pour installer ou corriger ChromeDriver :
   ```bash
   php artisan dusk:chrome-driver
   ```
 
 ---
 
-## 📦 Recommandations
+## 🔁 Automatiser la connexion
 
-- Utilise `DatabaseMigrations` pour un test isolé propre.
-- Utilise `assertPathIs`, `assertSee`, `type`, `select`, `press`, `screenshot`.
-- Regroupe les actions répétitives (ex : login) dans des composants (ex: `Pages` ou `Components`).
-
----
-
-Souhaites-tu que je t’aide à générer un test Dusk dynamique en lisant automatiquement les champs depuis le formulaire HTML ?
-
-
-## Documentation 
-
-````bash
+Crée un composant de page avec :
+```bash
 php artisan dusk:page Login
-````
+```
+
