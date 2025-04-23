@@ -75,12 +75,12 @@ class BaseProjetSeeder extends Seeder
             if ($row) {
                 $projetData =[
                     "titre" => $row["titre"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
                     "travail_a_faire" => $row["travail_a_faire"] ?? null,
                     "critere_de_travail" => $row["critere_de_travail"] ?? null,
                     "nombre_jour" => $row["nombre_jour"] ?? null,
                     "filiere_id" => $row["filiere_id"] ?? null,
                     "description" => $row["description"] ?? null,
+                    "formateur_id" => $row["formateur_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

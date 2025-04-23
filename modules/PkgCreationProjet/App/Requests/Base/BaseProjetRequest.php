@@ -30,12 +30,12 @@ class BaseProjetRequest extends FormRequest
     {
         return [
             'titre' => 'required|string|max:255',
-            'formateur_id' => 'required',
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
             'nombre_jour' => 'required|integer',
             'filiere_id' => 'required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'formateur_id' => 'required'
         ];
     }
 
@@ -49,14 +49,45 @@ class BaseProjetRequest extends FormRequest
         return [
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
             'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
             'nombre_jour.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.nombre_jour')]),
             'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')])
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'formateur_id' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $projet_id = $this->route('projet'); // Remplace 'model' par le bon paramètre de route
+        $model = Projet::find($projet_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

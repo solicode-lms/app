@@ -96,8 +96,8 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
 
-        $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+        $formateurs = $this->formateurService->all();
 
         if (request()->ajax()) {
             return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'filieres', 'formateurs'));
@@ -129,8 +129,8 @@ class BaseProjetController extends AdminController
          $itemProjet = $this->projetService->find($projet_ids[0]);
          
  
-        $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+        $formateurs = $this->formateurService->all();
 
         $bulkEdit = true;
 
@@ -178,8 +178,8 @@ class BaseProjetController extends AdminController
         $this->authorize('view', $itemProjet);
 
 
-        $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+        $formateurs = $this->formateurService->all();
 
 
         $this->viewState->set('scope.tache.projet_id', $id);
@@ -247,8 +247,8 @@ class BaseProjetController extends AdminController
         $this->authorize('edit', $itemProjet);
 
 
-        $formateurs = $this->formateurService->all();
         $filieres = $this->filiereService->all();
+        $formateurs = $this->formateurService->all();
 
 
         $this->viewState->set('scope.tache.projet_id', $id);

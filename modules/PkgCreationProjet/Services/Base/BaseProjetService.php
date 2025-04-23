@@ -20,12 +20,12 @@ class BaseProjetService extends BaseService
      */
     protected $fieldsSearchable = [
         'titre',
-        'formateur_id',
         'travail_a_faire',
         'critere_de_travail',
         'nombre_jour',
         'filiere_id',
-        'description'
+        'description',
+        'formateur_id'
     ];
 
     /**
@@ -56,12 +56,12 @@ class BaseProjetService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('formateur_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
-        }
-
         if (!array_key_exists('filiere_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
+        }
+
+        if (!array_key_exists('formateur_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
     }

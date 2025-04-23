@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgFormation\Models\Filiere;
+use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
@@ -40,31 +40,22 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'formateur_id', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'filiere_id', 'description'
+        'titre', 'travail_a_faire', 'critere_de_travail', 'nombre_jour', 'filiere_id', 'description', 'formateur_id'
     ];
     public $manyToOne = [
-        'Formateur' => [
-            'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
-            "foreign_key" => "formateur_id", 
-            ],
         'Filiere' => [
             'model' => "Modules\\PkgFormation\\Models\\Filiere",
             'relation' => 'filieres' , 
             "foreign_key" => "filiere_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
             ]
     ];
 
 
-    /**
-     * Relation BelongsTo pour Formateur.
-     *
-     * @return BelongsTo
-     */
-    public function formateur(): BelongsTo
-    {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
-    }
     /**
      * Relation BelongsTo pour Filiere.
      *
@@ -73,6 +64,15 @@ class BaseProjet extends BaseModel
     public function filiere(): BelongsTo
     {
         return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Formateur.
+     *
+     * @return BelongsTo
+     */
+    public function formateur(): BelongsTo
+    {
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
     }
 
 
