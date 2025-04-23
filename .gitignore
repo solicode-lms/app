@@ -19,3 +19,5 @@ yarn-error.log
 /.idea
 /.nova
 /.zed
+tests/Browser/screenshots/*
+tests/Browser/console/*
