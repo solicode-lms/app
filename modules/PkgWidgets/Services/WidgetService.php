@@ -74,6 +74,45 @@ class WidgetService extends BaseWidgetService
             
         }
 
+
+        // Calcule de Totla : c'est différent de count, le total c'est pour 
+        // calculer le pourcentage : count / total
+        if (!empty($query['total'])) {
+            // Exécuter une requête séparée pour obtenir le total selon les conditions "total"
+            $totalQuery = $query; // Copie de la requête originale
+            $totalQuery['conditions'] = $query['total']; // On remplace les conditions
+
+            // Supprimer les éléments non nécessaires à la requête "total"
+            unset($totalQuery['dataSource'], $totalQuery['limit'], $totalQuery['group_by'], $totalQuery['order_by'], $totalQuery['link'], $totalQuery['tableUI']);
+
+            // Déterminer le modèle
+            $modelClass = $totalQuery['model'];
+
+            // Construire la requête
+            $queryBuilder = $modelClass::query();
+
+            // Gestion des valeurs dynamiques (comme #apprenant_id)
+            if (!empty($totalQuery['conditions'])) {
+                $totalQuery['conditions'] = $this->replaceDynamicValues($totalQuery['conditions']);
+            }
+
+            $this->filter($queryBuilder, new $modelClass(), $totalQuery['conditions']);
+
+            // Exécution d'une opération count (total = nombre total d'éléments)
+            $widget->total = $queryBuilder->count();
+        }else{
+             // Exécuter une requête séparée pour obtenir le total selon les conditions "total"
+             $totalQuery = $query; // Copie de la requête originale
+             // Déterminer le modèle
+             $modelClass = $totalQuery['model'];
+ 
+             // Construire la requête
+             $queryBuilder = $modelClass::query();
+ 
+             // Exécution d'une opération count (total = nombre total d'éléments)
+             $widget->total = $queryBuilder->count();
+        }
+
       
         // Utiliser les titre et sous-titre utilisateur
         // if ($widget_utilisateur !== null) {
@@ -184,6 +223,13 @@ class WidgetService extends BaseWidgetService
             if ($value === '#user_id') {
                 $conditions[$column] = $this->sessionState->get("user_id");
             }
+            if ($value === '#apprenant_id') {
+                $conditions[$column] = $this->sessionState->get("apprenant_id");
+            }
+
+            if ($value === '#formateur_id') {
+                $conditions[$column] = $this->sessionState->get("formateur_id");
+            }
         }
         return $conditions;
     }
@@ -255,7 +301,7 @@ class WidgetService extends BaseWidgetService
             unset($query['conditions']['roles']); // Suppression après traitement
         }
 
-        foreach (['link','tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
+        foreach (['total', 'link','tableUI', 'group_by','order_by' ,'column','limit','dataSource'] as $key) {
             if (!empty($query['conditions'][$key])) {
                 $query[$key] = $query['conditions'][$key];
                 unset($query['conditions'][$key]);
