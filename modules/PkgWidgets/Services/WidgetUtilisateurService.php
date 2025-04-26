@@ -111,4 +111,15 @@ class WidgetUtilisateurService extends BaseWidgetUtilisateurService
             );
         }
     }
+
+    /**
+     * Supprime tous les WidgetUtilisateur liés à un Widget donné.
+     *
+     * @param int $widgetId
+     * @return int Nombre d'éléments supprimés
+     */
+    public function deleteAllWidgetUtilisateursByWidgetId(int $widgetId): int
+    {
+        return WidgetUtilisateur::where('widget_id', $widgetId)->delete();
+    }
 }

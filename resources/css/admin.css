@@ -128,7 +128,7 @@
 thead  {
     position: sticky;
     top: 0;
-    z-index: 1030; /* assez haut pour passer devant les éléments */
+    z-index: 2; /* assez haut pour passer devant les éléments */
     background: #f8f9fa; /* couleur de fond pour cacher ce qui défile derrière */
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); /* optionnel */
 }

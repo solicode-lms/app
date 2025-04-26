@@ -4,10 +4,10 @@
             <h3>
                 
                 {{ is_array($widget->data ?? null) ? ($widget->count ?? 'N/A') : ($widget->data ?? 'N/A') }}
-                @if(!empty($widget->total))
+              
                 /
                 {{$widget->total}}
-                @endif
+                @if(!empty($widget->total))  @endif
             </h3>
             <p class="card-title">{{ $widget->name }}</p>
             <p class="card-text">{{ $widget->label }}</p>
