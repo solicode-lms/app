@@ -133,6 +133,7 @@ thead  {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* optionnel */
 }
 
+
 /* Formulaire */
 
 
@@ -373,4 +374,9 @@ ul.projet-taches {
 .projet-taches li {
     list-style-type: none;
     margin-bottom: 0.4rem;
+}
+
+/* widget */
+.widget h3 {
+    line-height: 1.6;
 }

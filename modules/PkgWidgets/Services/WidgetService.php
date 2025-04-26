@@ -247,7 +247,8 @@ class WidgetService extends BaseWidgetService
         }
 
         if (!empty($query['order_by'])) {
-            $queryBuilder->orderBy($query['order_by']['column'], $query['order_by']['direction']);
+            $this->applySort($queryBuilder, [$query['order_by']['column'] => $query['order_by']['direction'] ]);
+          //  $queryBuilder->orderBy($query['order_by']['column'], $query['order_by']['direction']);
         }
 
         $widget->count= $queryBuilder->count();
