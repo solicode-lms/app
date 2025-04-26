@@ -130,7 +130,7 @@ thead  {
     top: 0;
     z-index: 1030; /* assez haut pour passer devant les éléments */
     background: #f8f9fa; /* couleur de fond pour cacher ce qui défile derrière */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* optionnel */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); /* optionnel */
 }
 
 

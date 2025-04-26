@@ -358,6 +358,33 @@ class WidgetService extends BaseWidgetService
                 $formattedRow[$label] = $value;
 
                 switch ($nature) {
+                    case "duree": {
+                        if (is_string($value)) {
+                            $value = \Carbon\Carbon::parse($value); // Convertir string en Carbon
+                        }
+                    
+                        if ($value instanceof \DateTimeInterface) {
+                            $now = now();
+                            $inPast = $value < $now; // vérifier si la date est passée ou future
+                    
+                            $diff = $value->diff($now);
+                            $jours = $diff->d;
+                            $heures = $diff->h;
+                    
+                            $prefix = $inPast ? '-' : ''; // si date dans le passé => préfixe négatif
+                    
+                            $duree = "{$prefix}{$jours} jours {$heures} heures";
+                        } else {
+                            $duree = null;
+                        }
+                    
+                        $formattedRow[$label] = [
+                            'value' => $duree,
+                            'String' => $nature,
+                        ];
+                        break;
+                    }
+                    
                     case "String":{
                         $formattedRow[$label] = [
                             'value' => $value,

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('tache-table')
-<div class="card-body table-responsive p-0 crud-card-body" id="taches-crud-card-body">
+<div class="card-body p-0 crud-card-body" id="taches-crud-card-body">
     <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
         <thead style="width: 100%">
             <tr>
