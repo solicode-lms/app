@@ -79,7 +79,7 @@ trait CrudTrait
 
             // Réorganiser les autres si l’ordre est explicitement fourni
             if (isset($data['ordre'])) {
-                $this->reorderOrdreColumn(null, $ordre);
+                $this->reorderOrdreColumn(null, $ordre, $data["projet_id"]);
             }
 
             $data['ordre'] = $ordre;
@@ -116,7 +116,7 @@ trait CrudTrait
             $nouvelOrdre = $data['ordre'];
     
             if ($nouvelOrdre !== $ancienOrdre) {
-                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id);
+                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id,$record->projet_id);
             }
         }
 
@@ -145,7 +145,7 @@ trait CrudTrait
             $nouvelOrdre = $data['ordre'];
     
             if ($nouvelOrdre !== $ancienOrdre) {
-                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id);
+                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $record->id, $record->projet_id);
             }
         }
 

@@ -449,12 +449,26 @@ export class FormUI  {
     }
 
     static initializeDate(){
+
+        // document.querySelectorAll('.datetimepicker').forEach(input => {
+        //     alert( input.value);
+        //     if (input.value && input.value.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/)) {
+        //         // Convertir "2025-04-21 15:20:00" => "2025-04-21 15:20"
+        //         // 2025-04-21 15:20:00
+        //         input.value = input.value.slice(0, 16);
+        //         alert( input.value);
+        //     }
+        // });
+
+        
          // Apply Flatpickr to any element with the class 'datetimepicker'
-        flatpickr('.datetimepicker', {
-            dateFormat: 'Y-m-d', // Format: 2023-01-01 14:30
-            locale: 'fr', 
-            allowInput: true, 
-            weekNumbers: true,
+         flatpickr('.datetimepicker', {
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i',  // flatpickr comprendra maintenant le S
+            time_24hr: true,
+            locale: 'fr',
+            allowInput: true,
+            weekNumbers: true
         });
     }
 

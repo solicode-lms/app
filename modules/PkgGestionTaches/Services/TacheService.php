@@ -13,8 +13,8 @@ use Modules\PkgAutorisation\Models\Role;
  */
 class TacheService extends BaseTacheService
 {
-    protected $ordreGroupColumn = 'projet_id';
-    
+    protected $ordreGroupColumn = "projet_id";
+
     public function dataCalcul($tache)
     {
         // En Cas d'édit

@@ -66,7 +66,7 @@ abstract class BaseService implements ServiceInterface
      * Colonne utilisée pour grouper les enregistrements lors du tri par ordre.
      * Exemple : 'projet_id' pour les tâches.
      */
-    protected ?string $ordreGroupColumn = null;
+    protected $ordreGroupColumn = null;
 
     /**
      * Méthode abstraite pour obtenir les champs recherchables.
@@ -122,72 +122,87 @@ abstract class BaseService implements ServiceInterface
         return $query->get();
     }
 
-    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null): void
+    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null, $groupValue = null): void
     {
-        $this->normalizeOrdreIfNeeded();
+        $this->normalizeOrdreIfNeeded($groupValue);
 
-        // Si ancien et nouvel ordre sont égaux, pas de traitement
         if ($ancienOrdre !== null && $nouvelOrdre === $ancienOrdre) {
             return;
         }
-    
+
         $query = $this->model->newQuery();
-    
+
         if ($idEnCours !== null) {
             $query->where('id', '!=', $idEnCours);
         }
-    
+
+        // ✅ Appliquer la contrainte de groupe si nécessaire
+        if ($this->ordreGroupColumn && $groupValue !== null) {
+            $query->where($this->ordreGroupColumn, $groupValue);
+        }
+
         if ($ancienOrdre === null) {
-            // ✅ Création dans une position spécifique → décaler tout vers le bas
             $query->where('ordre', '>=', $nouvelOrdre)
-                  ->orderBy('ordre', 'desc') // ⚠️ Important pour éviter écrasement
-                  ->get()
-                  ->each(function ($item) {
-                      $item->ordre += 1;
-                      $item->save();
-                  });
+                ->orderBy('ordre', 'desc')
+                ->get()
+                ->each(function ($item) {
+                    $item->ordre += 1;
+                    $item->save();
+                });
         } else {
-            // ✅ Modification d’ordre existant
             if ($nouvelOrdre > $ancienOrdre) {
                 $query->whereBetween('ordre', [$ancienOrdre + 1, $nouvelOrdre])
-                      ->orderBy('ordre') // ordre croissant
-                      ->get()
-                      ->each(function ($item) {
-                          $item->ordre -= 1;
-                          $item->save();
-                      });
+                    ->orderBy('ordre')
+                    ->get()
+                    ->each(function ($item) {
+                        $item->ordre -= 1;
+                        $item->save();
+                    });
             } else {
                 $query->whereBetween('ordre', [$nouvelOrdre, $ancienOrdre - 1])
-                      ->orderBy('ordre', 'desc') // ordre décroissant
-                      ->get()
-                      ->each(function ($item) {
-                          $item->ordre += 1;
-                          $item->save();
-                      });
+                    ->orderBy('ordre', 'desc')
+                    ->get()
+                    ->each(function ($item) {
+                        $item->ordre += 1;
+                        $item->save();
+                    });
             }
         }
     }
+
     
 
-    protected function normalizeOrdreIfNeeded(): void
+    protected function normalizeOrdreIfNeeded($groupValue = null): void
     {
         $query = $this->model->newQuery();
-
-        // Chercher les éléments sans ordre
-        $elementsSansOrdre = $query->whereNull('ordre')->orWhere('ordre', '')->orderBy('id')->get();
-
+    
+        if ($this->ordreGroupColumn && $groupValue !== null) {
+            $query->where($this->ordreGroupColumn, $groupValue);
+        }
+    
+        $elementsSansOrdre = $query->where(function($q){
+                                    $q->whereNull('ordre')->orWhere('ordre', '');
+                                })
+                                ->orderBy('id')
+                                ->get();
+    
         if ($elementsSansOrdre->isEmpty()) {
             return;
         }
-
-        // Trouver l'ordre maximal actuel
-        $maxOrdre = $this->model->newQuery()->max('ordre') ?? 0;
-
+    
+        // Trouver l'ordre maximal actuel dans le groupe
+        $maxOrdreQuery = $this->model->newQuery();
+        if ($this->ordreGroupColumn && $groupValue !== null) {
+            $maxOrdreQuery->where($this->ordreGroupColumn, $groupValue);
+        }
+        $maxOrdre = $maxOrdreQuery->max('ordre') ?? 0;
+    
         foreach ($elementsSansOrdre as $element) {
             $maxOrdre++;
             $element->ordre = $maxOrdre;
             $element->save();
         }
     }
+    
 
 }
