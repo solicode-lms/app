@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="19.25"  field="titre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.titre'))}}" />
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="19.25"  field="titre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.titre'))}}" />
+                <x-sortable-column :sortable="true" width="19.25" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.priorite_tache_id'))}}" />
                 <x-sortable-column :sortable="true" width="19.25" field="projet_id" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="19.25" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::prioriteTache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="19.25"  field="livrables" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -26,11 +26,6 @@
                 @endphp
                 <tr id="tache-row-{{$tache->id}}" data-id="{{$tache->id}}">
                     <x-checkbox-row :item="$tache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
-                    <x-field :entity="$tache" field="titre">
-                        {{ $tache->titre }}
-                    </x-field>
-                    </td>
                     <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $tache->ordre }}" >
                     <x-field :entity="$tache" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
@@ -38,16 +33,21 @@
                         </div>
                     </x-field>
                     </td>
-                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
-                    <x-field :entity="$tache" field="projet">
-                       
-                         {{  $tache->projet }}
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
+                    <x-field :entity="$tache" field="titre">
+                        {{ $tache->titre }}
                     </x-field>
                     </td>
                     <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite_tache_id"  data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
                     <x-field :entity="$tache" field="prioriteTache">
                        
                          {{  $tache->prioriteTache }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
+                    <x-field :entity="$tache" field="projet">
+                       
+                         {{  $tache->projet }}
                     </x-field>
                     </td>
                     <td style="max-width: 19.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >

@@ -28,25 +28,25 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
      if($this->format == 'csv'){
         return [
+            'ordre' => 'ordre',
             'titre' => 'titre',
+            'priorite_tache_id' => 'priorite_tache_id',
             'description' => 'description',
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
             'reference' => 'reference',
-            'ordre' => 'ordre',
             'projet_id' => 'projet_id',
-            'priorite_tache_id' => 'priorite_tache_id',
         ];
         }else{
         return [
+            'ordre' => __('PkgGestionTaches::tache.ordre'),
             'titre' => __('PkgGestionTaches::tache.titre'),
+            'priorite_tache_id' => __('PkgGestionTaches::tache.priorite_tache_id'),
             'description' => __('PkgGestionTaches::tache.description'),
             'dateDebut' => __('PkgGestionTaches::tache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::tache.dateFin'),
             'reference' => __('Core::msg.reference'),
-            'ordre' => __('PkgGestionTaches::tache.ordre'),
             'projet_id' => __('PkgGestionTaches::tache.projet_id'),
-            'priorite_tache_id' => __('PkgGestionTaches::tache.priorite_tache_id'),
         ];
 
         }
@@ -57,14 +57,14 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return $this->data->map(function ($tache) {
             return [
+                'ordre' => $tache->ordre,
                 'titre' => $tache->titre,
+                'priorite_tache_id' => $tache->priorite_tache_id,
                 'description' => $tache->description,
                 'dateDebut' => $tache->dateDebut,
                 'dateFin' => $tache->dateFin,
                 'reference' => $tache->reference,
-                'ordre' => $tache->ordre,
                 'projet_id' => $tache->projet_id,
-                'priorite_tache_id' => $tache->priorite_tache_id,
             ];
         });
     }

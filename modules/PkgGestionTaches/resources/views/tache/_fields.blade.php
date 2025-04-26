@@ -21,7 +21,34 @@
 
     <div class="card-body row">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}
+            
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgGestionTaches::tache.ordre') }}"
+                value="{{ $itemTache ? $itemTache->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-8">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -42,6 +69,38 @@
                 placeholder="{{ __('PkgGestionTaches::tache.titre') }}"
                 value="{{ $itemTache ? $itemTache->titre : old('titre') }}">
           @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-2">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite_tache_id" id="bulk_field_priorite_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="priorite_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::tache.priorite_tache_id')) }}
+            
+          </label>
+                      <select 
+            id="priorite_tache_id" 
+            
+            
+            
+            name="priorite_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($prioriteTaches as $prioriteTache)
+                    <option value="{{ $prioriteTache->id }}"
+                        {{ (isset($itemTache) && $itemTache->priorite_tache_id == $prioriteTache->id) || (old('priorite_tache_id>') == $prioriteTache->id) ? 'selected' : '' }}>
+                        {{ $prioriteTache }}
+                    </option>
+                @endforeach
+            </select>
+          @error('priorite_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -132,33 +191,6 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="ordre">
-            {{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}
-            
-          </label>
-                      <input
-                name="ordre"
-                type="number"
-                class="form-control"
-                
-                
-                
-                id="ordre"
-                placeholder="{{ __('PkgGestionTaches::tache.ordre') }}"
-                value="{{ $itemTache ? $itemTache->ordre : old('ordre') }}">
-          @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -182,38 +214,6 @@
                 @endforeach
             </select>
           @error('projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite_tache_id" id="bulk_field_priorite_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="priorite_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::prioriteTache.singular')) }}
-            
-          </label>
-                      <select 
-            id="priorite_tache_id" 
-            
-            
-            
-            name="priorite_tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($prioriteTaches as $prioriteTache)
-                    <option value="{{ $prioriteTache->id }}"
-                        {{ (isset($itemTache) && $itemTache->priorite_tache_id == $prioriteTache->id) || (old('priorite_tache_id>') == $prioriteTache->id) ? 'selected' : '' }}>
-                        {{ $prioriteTache }}
-                    </option>
-                @endforeach
-            </select>
-          @error('priorite_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

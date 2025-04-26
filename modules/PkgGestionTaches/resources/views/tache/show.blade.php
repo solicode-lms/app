@@ -25,8 +25,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}:</label>
+                                <p>{{ $itemTache->ordre }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="titre">{{ ucfirst(__('PkgGestionTaches::tache.titre')) }}:</label>
                                 <p>{{ $itemTache->titre }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="priorite_tache_id">{{ ucfirst(__('PkgGestionTaches::tache.priorite_tache_id')) }}:</label>
+                                <p>{{ $itemTache->priorite_tache_id }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGestionTaches::tache.description')) }}:</label>
@@ -41,16 +49,8 @@
                                 <p>{{ $itemTache->dateFin }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="ordre">{{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}:</label>
-                                <p>{{ $itemTache->ordre }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="projet_id">{{ ucfirst(__('PkgGestionTaches::tache.projet_id')) }}:</label>
                                 <p>{{ $itemTache->projet_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="priorite_tache_id">{{ ucfirst(__('PkgGestionTaches::tache.priorite_tache_id')) }}:</label>
-                                <p>{{ $itemTache->priorite_tache_id }}</p>
                             </div>
                         </div>
                     </div>

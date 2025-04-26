@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
+use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgGestionTaches\Models\DependanceTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
@@ -37,34 +37,25 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'description', 'dateDebut', 'dateFin', 'ordre', 'projet_id', 'priorite_tache_id'
+        'ordre', 'titre', 'priorite_tache_id', 'description', 'dateDebut', 'dateFin', 'projet_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
     ];
     public $manyToOne = [
-        'Projet' => [
-            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
-            "foreign_key" => "projet_id", 
-            ],
         'PrioriteTache' => [
             'model' => "Modules\\PkgGestionTaches\\Models\\PrioriteTache",
             'relation' => 'prioriteTaches' , 
             "foreign_key" => "priorite_tache_id", 
+            ],
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
             ]
     ];
 
 
-    /**
-     * Relation BelongsTo pour Projet.
-     *
-     * @return BelongsTo
-     */
-    public function projet(): BelongsTo
-    {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
-    }
     /**
      * Relation BelongsTo pour PrioriteTache.
      *
@@ -73,6 +64,15 @@ class BaseTache extends BaseModel
     public function prioriteTache(): BelongsTo
     {
         return $this->belongsTo(PrioriteTache::class, 'priorite_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Projet.
+     *
+     * @return BelongsTo
+     */
+    public function projet(): BelongsTo
+    {
+        return $this->belongsTo(Projet::class, 'projet_id', 'id');
     }
 
     /**

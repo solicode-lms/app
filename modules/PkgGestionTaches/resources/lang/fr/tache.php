@@ -8,5 +8,6 @@ return [
     'dateDebut' => 'Date de début',
     'dateFin' => 'Date de fin',
     'projet_id' => 'Projet',
-    'priorite_tache_id' => 'Priorité de la tâche',
+    'priorite_tache_id' => 'Priorité',
+    'ordre' => 'ordre'
 ];

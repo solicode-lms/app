@@ -21,8 +21,11 @@ class ProjetService extends BaseProjetService
         return $projet;
     }
 
-    public function defaultSort($query){
-        return $this->applySort($query,  ["affectationProjets.date_fin" => "desc"]);
+    public function defaultSort($query)
+    {
+        return $query
+            ->withMax('affectationProjets', 'date_fin') // 🔥 Important
+            ->orderBy('affectation_projets_max_date_fin', 'desc');
     }
    
 }

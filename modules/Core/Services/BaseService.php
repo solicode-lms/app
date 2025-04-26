@@ -63,6 +63,12 @@ abstract class BaseService implements ServiceInterface
     protected $dataSources = [];
 
     /**
+     * Colonne utilisée pour grouper les enregistrements lors du tri par ordre.
+     * Exemple : 'projet_id' pour les tâches.
+     */
+    protected ?string $ordreGroupColumn = null;
+
+    /**
      * Méthode abstraite pour obtenir les champs recherchables.
      *
      * @return array
@@ -118,6 +124,8 @@ abstract class BaseService implements ServiceInterface
 
     protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null): void
     {
+        $this->normalizeOrdreIfNeeded();
+
         // Si ancien et nouvel ordre sont égaux, pas de traitement
         if ($ancienOrdre !== null && $nouvelOrdre === $ancienOrdre) {
             return;
@@ -160,5 +168,26 @@ abstract class BaseService implements ServiceInterface
         }
     }
     
+
+    protected function normalizeOrdreIfNeeded(): void
+    {
+        $query = $this->model->newQuery();
+
+        // Chercher les éléments sans ordre
+        $elementsSansOrdre = $query->whereNull('ordre')->orWhere('ordre', '')->orderBy('id')->get();
+
+        if ($elementsSansOrdre->isEmpty()) {
+            return;
+        }
+
+        // Trouver l'ordre maximal actuel
+        $maxOrdre = $this->model->newQuery()->max('ordre') ?? 0;
+
+        foreach ($elementsSansOrdre as $element) {
+            $maxOrdre++;
+            $element->ordre = $maxOrdre;
+            $element->save();
+        }
+    }
 
 }

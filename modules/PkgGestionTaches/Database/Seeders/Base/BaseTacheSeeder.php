@@ -74,13 +74,13 @@ class BaseTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $tacheData =[
+                    "ordre" => $row["ordre"] ?? null,
                     "titre" => $row["titre"] ?? null,
+                    "priorite_tache_id" => $row["priorite_tache_id"] ?? null,
                     "description" => $row["description"] ?? null,
                     "dateDebut" => $row["dateDebut"] ?? null,
                     "dateFin" => $row["dateFin"] ?? null,
-                    "ordre" => $row["ordre"] ?? null,
                     "projet_id" => $row["projet_id"] ?? null,
-                    "priorite_tache_id" => $row["priorite_tache_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -19,13 +19,13 @@ class BaseTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'titre',
+        'priorite_tache_id',
         'description',
         'dateDebut',
         'dateFin',
-        'ordre',
-        'projet_id',
-        'priorite_tache_id'
+        'projet_id'
     ];
 
     /**
@@ -56,12 +56,12 @@ class BaseTacheService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
-        }
-
         if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgGestionTaches\Models\PrioriteTache::class, 'nom');
+        }
+
+        if (!array_key_exists('projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
         }
 
     }
