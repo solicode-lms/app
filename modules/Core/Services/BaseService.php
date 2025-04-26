@@ -86,8 +86,10 @@ abstract class BaseService implements ServiceInterface
         $dynamicAttributes = array_keys($this->model->getDynamicAttributes());
         
         // On fusionne les champs "searchable" (en base) et les attributs dynamiques (calculés)
-        return array_merge($this->fieldsSearchable, $dynamicAttributes);
+        return array_merge($this->fieldsSearchable, $dynamicAttributes, ['created_at', 'updated_at']);
     }
+
+    
     /**
      * Constructeur de la classe BaseService.
      *

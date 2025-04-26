@@ -10,8 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="17"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
+                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant'))}}" />
                 <x-sortable-column :sortable="true" width="13" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="17"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
@@ -26,15 +26,15 @@
                 @endphp
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
+                    <td style="max-width: 17%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
+                    <x-field :entity="$realisationTache" field="projet_title">
+                        {{ $realisationTache->projet_title }}
+                    </x-field>
+                    </td>
                     <td style="max-width: 20%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
                     <x-field :entity="$realisationTache" field="tache">
                        
                          {{  $realisationTache->tache }}
-                    </x-field>
-                    </td>
-                    <td style="max-width: 17%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
-                    <x-field :entity="$realisationTache" field="projet_title">
-                        {{ $realisationTache->projet_title }}
                     </x-field>
                     </td>
                     <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >

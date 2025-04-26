@@ -3,6 +3,7 @@
 
 
 namespace Modules\PkgCreationProjet\Services;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 
 /**
@@ -18,6 +19,10 @@ class ProjetService extends BaseProjetService
         }
       
         return $projet;
+    }
+
+    public function defaultSort($query){
+        return $this->applySort($query,  ["affectationProjets.date_fin" => "desc"]);
     }
    
 }

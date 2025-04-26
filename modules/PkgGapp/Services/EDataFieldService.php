@@ -122,6 +122,36 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
         $entity = parent::update($id, $data);
 
         // 🔁 Mise à jour des métadonnées si présentes
+        $this->updateEntityMetadata($entity,$data);
+
+        $this->metaSeedByDataFieldReference(true, $entity->reference);
+        $this->updateGappCrud($entity->eModel);
+
+        return $entity;
+    }
+
+    public function updateOnlyExistanteAttribute($id, array $data){
+        $entity = parent::updateOnlyExistanteAttribute($id, $data);
+        
+        $this->updateEntityMetadata($entity,$data);
+
+        $this->metaSeedByDataFieldReference(true, $entity->reference);
+        $this->updateGappCrud($entity->eModel);
+
+        
+        return $entity;
+    }
+
+    /**
+     * Met à jour les métadonnées spécifiques d'une entité si elles sont présentes dans les données.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $entity
+     * @param array $data
+     * @return void
+     */
+    protected function updateEntityMetadata($entity, array $data): void
+    {
+       // 🔁 Mise à jour des métadonnées si présentes
         if (array_key_exists('ordre', $data)) {
             $this->updateOrCreateMetadata($entity->id, "displayOrder", $data['ordre']);
             $this->reorderMetadataDisplayOrder($entity->e_model_id, $entity->id, $data['ordre']);
@@ -130,13 +160,7 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
         if (array_key_exists('widthColumn', $data)) {
             $this->updateOrCreateMetadata($entity->id, "widthColumn", $data['widthColumn']);
         }
-
-        $this->metaSeedByDataFieldReference(true, $entity->reference);
-        $this->updateGappCrud($entity->eModel);
-
-        return $entity;
     }
-
     /**
      * Met à jour ou crée une métadonnée (`e_metadata`) liée à un champ `EDataField`.
      *

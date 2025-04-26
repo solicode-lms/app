@@ -37,7 +37,16 @@ trait SortTrait
             return $query;
         }
 
+        return $this->defaultSort($query);
         // Si aucun champ n’est fourni → fallback vers tri par ordre ou updated_at
+       
+    }
+
+    /**
+     * Trie par défault, il est utiliser par la méthode : applySort
+     * @param mixed $query
+     */
+    public function defaultSort($query){
         $model = $query->getModel();
         return Schema::hasColumn($model->getTable(), 'ordre')
             ? $query->orderBy('ordre', 'asc')

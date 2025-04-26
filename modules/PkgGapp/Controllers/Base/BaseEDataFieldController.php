@@ -370,6 +370,8 @@ class BaseEDataFieldController extends AdminController
     /**
      * @DynamicPermissionIgnore
      * Met à jour les attributs, il est utilisé par type View : Widgets
+     * cause d'override : l'attribut ordre n'existe dans getFieldsEditable et 
+     * dans rules
      */
     public function updateAttributes(Request $request)
     {
@@ -390,9 +392,9 @@ class BaseEDataFieldController extends AdminController
         
         $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
     
-        if (empty($dataToUpdate)) {
-            return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
-        }
+        // if (empty($dataToUpdate)) {
+        //     return JsonResponseHelper::error('Aucune donnée à mettre à jour.',null, 422);
+        // }
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
