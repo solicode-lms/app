@@ -101,7 +101,7 @@
           </label>
                       <input
                 name="dateDebut"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 required
                 
@@ -129,7 +129,7 @@
           </label>
                       <input
                 name="dateFin"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 

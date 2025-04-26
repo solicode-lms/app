@@ -170,7 +170,7 @@
           </label>
                       <input
                 name="date_naissance"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 
@@ -447,7 +447,7 @@
           </label>
                       <input
                 name="date_inscription"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 

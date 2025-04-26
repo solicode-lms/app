@@ -87,7 +87,7 @@
           </label>
                       <input
                 name="email_verified_at"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 

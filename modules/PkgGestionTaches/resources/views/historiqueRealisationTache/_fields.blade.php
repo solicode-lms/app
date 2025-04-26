@@ -33,7 +33,7 @@
           </label>
                       <input
                 name="dateModification"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 required
                 

@@ -3,7 +3,6 @@
 
 
 namespace Modules\PkgCreationProjet\Services;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 
 /**
@@ -19,13 +18,6 @@ class ProjetService extends BaseProjetService
         }
       
         return $projet;
-    }
-
-    public function defaultSort($query)
-    {
-        return $query
-            ->withMax('affectationProjets', 'date_fin') // 🔥 Important
-            ->orderBy('affectation_projets_max_date_fin', 'desc');
     }
    
 }

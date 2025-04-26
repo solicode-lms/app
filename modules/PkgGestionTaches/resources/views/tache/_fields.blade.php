@@ -140,7 +140,7 @@
           @endif
           <label for="dateDebut">
             {{ ucfirst(__('PkgGestionTaches::tache.dateDebut')) }}
-            {{$itemTache->dateDebut}}
+            
           </label>
                       <input
                 name="dateDebut"
@@ -172,7 +172,7 @@
           </label>
                       <input
                 name="dateFin"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 

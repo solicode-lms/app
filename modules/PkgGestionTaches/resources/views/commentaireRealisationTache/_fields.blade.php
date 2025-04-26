@@ -58,7 +58,7 @@
           </label>
                       <input
                 name="dateCommentaire"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 required
                 

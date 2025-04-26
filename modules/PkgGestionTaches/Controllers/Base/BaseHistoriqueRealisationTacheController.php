@@ -369,7 +369,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
     
         if (empty($dataToUpdate)) {
-            return JsonResponseHelper::error('Aucune donnée à mettre à jour.', 422);
+            return JsonResponseHelper::error('Aucune donnée à mettre à jour.',null, 422);
         }
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);

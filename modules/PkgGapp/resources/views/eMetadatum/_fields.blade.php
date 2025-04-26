@@ -143,7 +143,7 @@
           </label>
                       <input
                 name="value_date"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 
@@ -171,7 +171,7 @@
           </label>
                       <input
                 name="value_datetime"
-                type="date"
+                type="text"
                 class="form-control datetimepicker"
                 
                 
