@@ -38,10 +38,7 @@ class WidgetService extends Base\BaseWidgetService
        
         $this->resultFormatter($result, $query, $widget);
         $this->defaultDesigner($widget);
-
         $this->linkGenerator($widget, $query);
-
-        $widget->data = $result;
         return $widget;
     }
 

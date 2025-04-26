@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header  text-{{$widget?->sysColor?->textColor}}" style="background-color:  {{ $widget->sysColor?->hex}}">
             <h3 class="card-title"> 
-                <i class="fas {{ $widget->icon }}"></i> {{ $widget->label }}
+                <i class="fas {{ $widget->icon }}"></i> {{ $widget->name }}
             </h3>
             <div class="card-tools ">
                 <span title="Nombre des éléménts" class="badge badge-info">{{ $widget->count }}</span>

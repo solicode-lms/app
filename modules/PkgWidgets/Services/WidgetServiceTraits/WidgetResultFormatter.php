@@ -3,6 +3,7 @@
 namespace Modules\PkgWidgets\Services\WidgetServiceTraits;
 
 use Illuminate\Support\Collection;
+use Modules\Core\Services\SysColorService;
 
 trait WidgetResultFormatter
 {
@@ -47,6 +48,36 @@ trait WidgetResultFormatter
                 $formattedRow[$label] = $value;
 
                 switch ($nature) {
+                    case "deadline": {
+                        if (is_string($value)) {
+                            $value = \Carbon\Carbon::parse($value); // Convertir string en Carbon
+                        }
+                    
+                        if ($value instanceof \DateTimeInterface) {
+                            $now = now();
+                            $inPast = $value < $now; // vérifier si la date est passée ou future
+                    
+                            if ($inPast) {
+                                // Si le temps est dépassé, afficher directement la date formatée
+                                $duree = "{$value->format('d/m/Y')}";
+                            } else {
+                                // Sinon afficher la durée restante
+                                $diff = $value->diff($now);
+                                $jours = $diff->d;
+                                $heures = $diff->h;
+                    
+                                $duree = "{$jours} jours {$heures} heures";
+                            }
+                        } else {
+                            $duree = null;
+                        }
+                    
+                        $formattedRow[$label] = [
+                            'value' => $duree,
+                            'String' => $nature,
+                        ];
+                        break;
+                    }
                     case "duree": {
                         if (is_string($value)) {
                             $value = \Carbon\Carbon::parse($value); // Convertir string en Carbon
