@@ -76,7 +76,7 @@
                         @can('show-projet')
                             <a
                                 data-toggle="tooltip"
-                                title="Projets"
+                                title="Projet"
                                 href="{{ route('projets.show', [
                                         'projet' => $realisationTache->realisationProjet->affectationProjet->projet_id,
                                         'showIndex' => true,

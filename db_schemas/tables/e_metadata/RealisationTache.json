@@ -479,14 +479,14 @@
             {
                 "icon": "fas fa-laptop",
                 "class": "btn btn-default btn-sm context-state actionEntity showIndex",
-                "ordre": 2,
+                "ordre": 3,
                 "route": "projets.show",
                 "params": {
                     "projet": "$realisationTache->realisationProjet->affectationProjet->projet_id",
                     "showIndex": true,
                     "contextKey": "'projets.show'"
                 },
-                "tooltip": "Projets",
+                "tooltip": "Projet",
                 "permission": "show-projet"
             }
         ],

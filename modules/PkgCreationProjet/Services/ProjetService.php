@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCreationProjet\Services;
@@ -18,6 +17,13 @@ class ProjetService extends BaseProjetService
         }
       
         return $projet;
+    }
+
+    public function defaultSort($query)
+    {
+        return $query
+            ->withMax('affectationProjets', 'date_fin') // 🔥 Important
+            ->orderBy('affectation_projets_max_date_fin', 'desc');
     }
    
 }

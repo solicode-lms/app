@@ -21,19 +21,28 @@ export class ShowIndexAction extends Action {
      * Gère les événements liés à l'affichage de l'index dans une modale.
      */
     handleShowIndex() {
-         EventUtil.bindEvent('click', `${this.config.crudSelector} .showIndex`, (e) => {
+        EventUtil.bindEvent('click', `${this.config.crudSelector} .showIndex`, (e) => {
             e.preventDefault();
-
-            const url = e.currentTarget.href;
-            this.loadIndexContent(url);
-                });
+    
+            const $target = $(e.currentTarget);
+            const url = $target.attr('href');
+    
+           
+    
+            if ($target.hasClass('readOnly')) {
+                this.loadIndexContent(url,true);
+              
+            }else{
+                this.loadIndexContent(url, false);
+            }
+        });
     }
 
     /**
      * Charge le contenu de la page index dans un modal.
      * @param {string} url - URL à charger dans le modal.
      */
-    loadIndexContent(url) {
+    loadIndexContent(url,readOnly) {
         
         const fullUrl= this.appendParamsToUrl(
             url,
@@ -51,6 +60,9 @@ export class ShowIndexAction extends Action {
                 this.executeScripts(html);
                 this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
                 this.tableUI.indexUI.formUI.init();
+                if(readOnly){
+                    this.tableUI.indexUI.formUI.setToReadOnly();
+                }
 
             })
             .fail((xhr) => {
