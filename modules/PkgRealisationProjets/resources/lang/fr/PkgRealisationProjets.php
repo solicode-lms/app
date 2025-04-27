@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Réalisations de projets',
-    'icon' => 'fas fa-bolt'
+    'icon' => 'fas fa-laptop'
 ];

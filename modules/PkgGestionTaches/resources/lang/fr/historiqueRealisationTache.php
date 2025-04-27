@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Historique de Réalisation de Tâche',
-    'plural' => 'Historiques de Réalisation de Tâches',
+    'singular' => 'feedbacks',
+    'plural' => 'feedback',
     'dateModification' => 'Date de modification',
     'changement' => 'Changements effectués',
     'realisation_tache_id' => 'Réalisation de la tâche',

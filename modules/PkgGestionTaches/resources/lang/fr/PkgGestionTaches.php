@@ -3,5 +3,5 @@
 
 return [
     'name' => 'Gestion des Tâches',
-    'icon' => 'fas fa-tasks'
+    'icon' => 'fas fa-laptop-code'
 ];
