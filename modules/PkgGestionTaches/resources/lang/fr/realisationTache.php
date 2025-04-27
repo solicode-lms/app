@@ -13,5 +13,6 @@ return [
     'remarques_apprenant' => 'Remarques - apprenant',
     'nombre_livrables' => 'livrables',
     'nom_prenom_apprenant' => 'apprenant',
-    'projet_title' => 'projet'
+    'projet_title' => 'projet',
+    'deadline' => 'deadline'
 ];

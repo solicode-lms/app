@@ -42,6 +42,11 @@ class BaseRealisationTache extends BaseModel
         JOIN apprenants a ON a.id = rp.apprenant_id
         WHERE rp.id = realisation_taches.realisation_projet_id";
         static::addDynamicAttribute('nom_prenom_apprenant', $sql);
+        // Colonne dynamique : deadline
+        $sql = "SELECT t.dateFin
+        FROM taches t
+        WHERE t.id = realisation_taches.tache_id";
+        static::addDynamicAttribute('deadline', $sql);
         // Colonne dynamique : nombre_livrables
         $sql = "SELECT COUNT(*) 
         FROM livrables_realisations lr

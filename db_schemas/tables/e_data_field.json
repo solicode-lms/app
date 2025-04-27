@@ -10535,5 +10535,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 809,
+        "reference": "RealisationTache-deadline",
+        "name": "deadline",
+        "column_name": "deadline",
+        "data_type": "Date",
+        "field_order": 10,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.dateFin\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": ""
     }
 ]

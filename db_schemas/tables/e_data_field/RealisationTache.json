@@ -40,5 +40,19 @@
         "calculable_sql": "SELECT p.titre\r\nFROM realisation_projets rp\r\nJOIN affectation_projets ap ON ap.id = rp.affectation_projet_id\r\nJOIN projets p ON p.id = ap.projet_id\r\nWHERE rp.id = realisation_taches.realisation_projet_id",
         "description": "",
         "e_model_reference": "realisation_taches"
+    },
+    {
+        "reference": "RealisationTache-deadline",
+        "name": "deadline",
+        "column_name": "deadline",
+        "data_type": "Date",
+        "field_order": 10,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.dateFin\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": "",
+        "e_model_reference": "realisation_taches"
     }
 ]

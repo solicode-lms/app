@@ -706,5 +706,23 @@
         },
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "sortByPath"
+    },
+    {
+        "reference": "RealisationTache-deadline_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationTache-deadline_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache-deadline_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "sortable"
     }
 ]
