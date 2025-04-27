@@ -22,10 +22,10 @@ class BaseTacheService extends BaseService
         'ordre',
         'titre',
         'priorite_tache_id',
+        'projet_id',
         'description',
         'dateDebut',
-        'dateFin',
-        'projet_id'
+        'dateFin'
     ];
 
     /**

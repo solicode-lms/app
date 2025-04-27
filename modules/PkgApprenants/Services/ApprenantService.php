@@ -29,6 +29,10 @@ class ApprenantService extends BaseApprenantService
             "title" => "Apprenants qui ont des tâches en cours",
             "method" => "apprenantAvecTacheEnCoursQuery"
         ],
+        "apprenantAvecTacheAFaire" => [
+            "title" => "Apprenants qui ont des tâches à faire",
+            "method" => "apprenantAvecTacheAFaireQuery"
+        ],
         "apprenantSansTacheAFaire" => [
             "title" => "Apprenants qui n'ont pas de tâches à faire",
             "method" => "getApprenantSansTacheAFaireQuery"

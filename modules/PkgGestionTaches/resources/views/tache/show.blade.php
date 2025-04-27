@@ -37,6 +37,10 @@
                                 <p>{{ $itemTache->priorite_tache_id }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="projet_id">{{ ucfirst(__('PkgGestionTaches::tache.projet_id')) }}:</label>
+                                <p>{{ $itemTache->projet_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="description">{{ ucfirst(__('PkgGestionTaches::tache.description')) }}:</label>
                                 <p>{{ $itemTache->description }}</p>
                             </div>
@@ -47,10 +51,6 @@
                             <div class="col-sm-12">
                                 <label for="dateFin">{{ ucfirst(__('PkgGestionTaches::tache.dateFin')) }}:</label>
                                 <p>{{ $itemTache->dateFin }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="projet_id">{{ ucfirst(__('PkgGestionTaches::tache.projet_id')) }}:</label>
-                                <p>{{ $itemTache->projet_id }}</p>
                             </div>
                         </div>
                     </div>

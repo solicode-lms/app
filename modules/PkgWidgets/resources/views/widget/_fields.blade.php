@@ -48,6 +48,33 @@
   
 
 
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="icon" id="bulk_field_icon" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="icon">
+            {{ ucfirst(__('PkgWidgets::widget.icon')) }}
+            
+          </label>
+           <input
+                name="icon"
+                type="input"
+                class="form-control"
+                
+                
+                
+                id="icon"
+                placeholder="{{ __('PkgWidgets::widget.icon') }}"
+                value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
+          @error('icon')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
       <div class="form-group col-12 col-md-4">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -192,33 +219,6 @@
                 @endforeach
             </select>
           @error('operation_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-3">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="icon" id="bulk_field_icon" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="icon">
-            {{ ucfirst(__('PkgWidgets::widget.icon')) }}
-            
-          </label>
-           <input
-                name="icon"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="icon"
-                placeholder="{{ __('PkgWidgets::widget.icon') }}"
-                value="{{ $itemWidget ? $itemWidget->icon : old('icon') }}">
-          @error('icon')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

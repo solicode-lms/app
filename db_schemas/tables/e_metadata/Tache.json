@@ -28,7 +28,7 @@
     },
     {
         "reference": "Tache_id_displayOrder",
-        "value_integer": 3,
+        "value_integer": 9,
         "e_data_field_reference": "Tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -180,7 +180,7 @@
     },
     {
         "reference": "Tache_projet_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 4,
         "e_data_field_reference": "Tache_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -192,7 +192,9 @@
     },
     {
         "reference": "Tache_projet_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Tache_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -210,7 +212,7 @@
     },
     {
         "reference": "Tache_priorite_tache_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -223,7 +225,7 @@
     {
         "reference": "Tache_priorite_tache_id_inputMdWidth",
         "value_boolean": 0,
-        "value_integer": 2,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
@@ -534,5 +536,38 @@
         "value_float": 0,
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "Tache_dateFin_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Tache_dateFin_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "deadline"
+        },
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 8,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Tache_titre_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_titre",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

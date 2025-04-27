@@ -75,13 +75,13 @@ class BaseWidgetSeeder extends Seeder
             if ($row) {
                 $widgetData =[
                     "ordre" => $row["ordre"] ?? null,
+                    "icon" => $row["icon"] ?? null,
                     "name" => $row["name"] ?? null,
                     "label" => $row["label"] ?? null,
                     "type_id" => $row["type_id"] ?? null,
                     "model_id" => $row["model_id"] ?? null,
                     "operation_id" => $row["operation_id"] ?? null,
                     "color" => $row["color"] ?? null,
-                    "icon" => $row["icon"] ?? null,
                     "sys_color_id" => $row["sys_color_id"] ?? null,
                     "section_widget_id" => $row["section_widget_id"] ?? null,
                     "parameters" => $row["parameters"] ?? null,

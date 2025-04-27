@@ -72,7 +72,7 @@
         </div>
         <div class="card-footer clearfix">
             @if($widget->link )
-            <a href="{{ $widget->link }}" class="small-box-footer showIndex"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ $widget->link }}" class="small-box-footer"> Voir les détails <i class="fas fa-arrow-circle-right"></i></a>
             @endif
            
         </div>

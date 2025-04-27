@@ -60,6 +60,10 @@ trait WidgetResultFormatter
                             if ($inPast) {
                                 // Si le temps est dépassé, afficher directement la date formatée
                                 $duree = "{$value->format('d/m/Y')}";
+                                $formattedRow[$label] = [
+                                    'value' => $duree,
+                                    'String' => $nature,
+                                ];
                             } else {
                                 // Sinon afficher la durée restante
                                 $diff = $value->diff($now);
@@ -67,15 +71,26 @@ trait WidgetResultFormatter
                                 $heures = $diff->h;
                     
                                 $duree = "{$jours} jours {$heures} heures";
+
+                                if($jours == 0){
+                                    $couleur = "#dc3545";
+                                }else{
+                                    $couleur = "#17a2b8";
+                                }
+                              
+
+                                $formattedRow[$label] = [
+                                    'value' => $duree,
+                                    'nature' => "badge",
+                                    'couleur' => $couleur,
+                                    'textCouleur' => $sysColorService->getTextColorForBackground($couleur)
+                                ];
                             }
                         } else {
                             $duree = null;
                         }
                     
-                        $formattedRow[$label] = [
-                            'value' => $duree,
-                            'String' => $nature,
-                        ];
+                      
                         break;
                     }
                     case "duree": {

@@ -8,6 +8,6 @@ class Widget extends BaseWidget
 {
     public function __toString()
     {
-        return ($this->label ?? ($this->nam ?? ""));
+        return ($this->label ?? ($this->name ?? ""));
     }
 }

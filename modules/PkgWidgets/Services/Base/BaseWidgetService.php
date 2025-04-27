@@ -20,13 +20,13 @@ class BaseWidgetService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'icon',
         'name',
         'label',
         'type_id',
         'model_id',
         'operation_id',
         'color',
-        'icon',
         'sys_color_id',
         'section_widget_id',
         'parameters'

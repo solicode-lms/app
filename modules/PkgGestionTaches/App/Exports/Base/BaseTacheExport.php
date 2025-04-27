@@ -31,22 +31,22 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'ordre' => 'ordre',
             'titre' => 'titre',
             'priorite_tache_id' => 'priorite_tache_id',
+            'projet_id' => 'projet_id',
             'description' => 'description',
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
             'reference' => 'reference',
-            'projet_id' => 'projet_id',
         ];
         }else{
         return [
             'ordre' => __('PkgGestionTaches::tache.ordre'),
             'titre' => __('PkgGestionTaches::tache.titre'),
             'priorite_tache_id' => __('PkgGestionTaches::tache.priorite_tache_id'),
+            'projet_id' => __('PkgGestionTaches::tache.projet_id'),
             'description' => __('PkgGestionTaches::tache.description'),
             'dateDebut' => __('PkgGestionTaches::tache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::tache.dateFin'),
             'reference' => __('Core::msg.reference'),
-            'projet_id' => __('PkgGestionTaches::tache.projet_id'),
         ];
 
         }
@@ -60,11 +60,11 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'ordre' => $tache->ordre,
                 'titre' => $tache->titre,
                 'priorite_tache_id' => $tache->priorite_tache_id,
+                'projet_id' => $tache->projet_id,
                 'description' => $tache->description,
                 'dateDebut' => $tache->dateDebut,
                 'dateFin' => $tache->dateFin,
                 'reference' => $tache->reference,
-                'projet_id' => $tache->projet_id,
             ];
         });
     }

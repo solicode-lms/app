@@ -710,6 +710,7 @@
     {
         "reference": "RealisationTache-deadline_displayInTable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache-deadline",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -724,5 +725,15 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationTache-deadline",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationTache-deadline_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "deadline"
+        },
+        "e_data_field_reference": "RealisationTache-deadline",
+        "e_metadata_definition_reference": "nature"
     }
 ]

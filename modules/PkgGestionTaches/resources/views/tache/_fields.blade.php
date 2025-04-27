@@ -75,7 +75,7 @@
   
 
 
-      <div class="form-group col-12 col-md-2">
+      <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite_tache_id" id="bulk_field_priorite_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -101,6 +101,38 @@
                 @endforeach
             </select>
           @error('priorite_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-4">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="projet_id">
+            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="projet_id" 
+            required
+            
+            
+            name="projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($projets as $projet)
+                    <option value="{{ $projet->id }}"
+                        {{ (isset($itemTache) && $itemTache->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
+                        {{ $projet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -182,38 +214,6 @@
                 value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
 
           @error('dateFin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="projet_id">
-            {{ ucfirst(__('PkgCreationProjet::projet.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="projet_id" 
-            required
-            
-            
-            name="projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($projets as $projet)
-                    <option value="{{ $projet->id }}"
-                        {{ (isset($itemTache) && $itemTache->projet_id == $projet->id) || (old('projet_id>') == $projet->id) ? 'selected' : '' }}>
-                        {{ $projet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

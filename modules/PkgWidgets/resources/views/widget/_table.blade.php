@@ -10,7 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="8"  field="ordre" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="icon" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.icon'))}}" />
                 <x-sortable-column :sortable="true" width="19"  field="name" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.name'))}}" />
                 <x-sortable-column :sortable="true" width="19"  field="label" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.label'))}}" />
                 <x-sortable-column :sortable="true" width="7" field="type_id" modelname="widget" label="{{ucfirst(__('PkgWidgets::widgetType.singular'))}}" />
@@ -27,13 +28,21 @@
                 @endphp
                 <tr id="widget-row-{{$widget->id}}" data-id="{{$widget->id}}">
                     <x-checkbox-row :item="$widget" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
+                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
                     <x-field :entity="$widget" field="ordre">
                          <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
                     </x-field>
                     </td>
+                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="icon"  data-toggle="tooltip" title="{{ $widget->icon }}" >
+                    <x-field :entity="$widget" field="icon">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                            <i class="{{ $widget->icon }}" ></i>
+                        </div>
+                    </x-field>
+                    </td>
+
                     <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="name"  data-toggle="tooltip" title="{{ $widget->name }}" >
                     <x-field :entity="$widget" field="name">
                          <x-badge 

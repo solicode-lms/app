@@ -29,6 +29,10 @@
                                 <p>{{ $itemWidget->ordre }}</p>
                             </div>
                             <div class="col-sm-12">
+                                <label for="icon">{{ ucfirst(__('PkgWidgets::widget.icon')) }}:</label>
+                                <p>{{ $itemWidget->icon }}</p>
+                            </div>
+                            <div class="col-sm-12">
                                 <label for="name">{{ ucfirst(__('PkgWidgets::widget.name')) }}:</label>
                                 <p>{{ $itemWidget->name }}</p>
                             </div>
@@ -51,10 +55,6 @@
                             <div class="col-sm-12">
                                 <label for="color">{{ ucfirst(__('PkgWidgets::widget.color')) }}:</label>
                                 <p>{{ $itemWidget->color }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="icon">{{ ucfirst(__('PkgWidgets::widget.icon')) }}:</label>
-                                <p>{{ $itemWidget->icon }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sys_color_id">{{ ucfirst(__('PkgWidgets::widget.sys_color_id')) }}:</label>

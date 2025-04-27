@@ -55,7 +55,7 @@
                     </td>
                     <td style="max-width: 11.333333333333334%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="deadline"  data-toggle="tooltip" title="{{ $realisationTache->deadline }}" >
                     <x-field :entity="$realisationTache" field="deadline">
-                        {{ $realisationTache->deadline }}
+                        <x-deadline-display :value="$realisationTache->deadline" />
                     </x-field>
                     </td>
                     <td style="max-width: 11.333333333333334%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >

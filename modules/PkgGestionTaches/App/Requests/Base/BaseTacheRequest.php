@@ -32,10 +32,10 @@ class BaseTacheRequest extends FormRequest
             'ordre' => 'nullable|integer',
             'titre' => 'required|string|max:255',
             'priorite_tache_id' => 'nullable',
+            'projet_id' => 'required',
             'description' => 'nullable|string',
             'dateDebut' => 'nullable',
             'dateFin' => 'nullable',
-            'projet_id' => 'required',
             'livrables' => 'nullable|array'
         ];
     }
@@ -52,10 +52,10 @@ class BaseTacheRequest extends FormRequest
             'titre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.titre')]),
             'titre.max' => __('validation.titreMax'),
             'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.priorite_tache_id')]),
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.projet_id')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.description')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateFin')]),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.projet_id')]),
             'livrables.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.livrables')]),
             'livrables.array' => __('validation.array', ['attribute' => __('PkgGestionTaches::Tache.livrables')])
         ];

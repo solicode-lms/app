@@ -30,13 +30,13 @@ class BaseWidgetRequest extends FormRequest
     {
         return [
             'ordre' => 'nullable|integer',
+            'icon' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             'label' => 'nullable|string|max:255',
             'type_id' => 'required',
             'model_id' => 'required',
             'operation_id' => 'required',
             'color' => 'nullable|string|max:255',
-            'icon' => 'nullable|string|max:255',
             'sys_color_id' => 'nullable',
             'roles' => 'nullable|array',
             'section_widget_id' => 'nullable',
@@ -53,6 +53,8 @@ class BaseWidgetRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.ordre')]),
+            'icon.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.icon')]),
+            'icon.max' => __('validation.iconMax'),
             'name.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.name')]),
             'name.max' => __('validation.nameMax'),
             'label.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.label')]),
@@ -62,8 +64,6 @@ class BaseWidgetRequest extends FormRequest
             'operation_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.operation_id')]),
             'color.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.color')]),
             'color.max' => __('validation.colorMax'),
-            'icon.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.icon')]),
-            'icon.max' => __('validation.iconMax'),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.sys_color_id')]),
             'roles.required' => __('validation.required', ['attribute' => __('PkgWidgets::Widget.roles')]),
             'roles.array' => __('validation.array', ['attribute' => __('PkgWidgets::Widget.roles')]),
