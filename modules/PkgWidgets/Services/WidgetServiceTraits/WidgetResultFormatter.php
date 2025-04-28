@@ -49,6 +49,7 @@ trait WidgetResultFormatter
 
                 switch ($nature) {
                     case "deadline": {
+                       
                         if (is_string($value)) {
                             $value = \Carbon\Carbon::parse($value); // Convertir string en Carbon
                         }
@@ -65,12 +66,24 @@ trait WidgetResultFormatter
                                     'String' => $nature,
                                 ];
                             } else {
-                                // Sinon afficher la durée restante
                                 $diff = $value->diff($now);
+
+                                $mois = $diff->m;
                                 $jours = $diff->d;
                                 $heures = $diff->h;
-                    
-                                $duree = "{$jours} jours {$heures} heures";
+                                
+                                // Gestion du pluriel
+                                $moisLabel = $mois === 1 ? 'mois' : 'mois'; // "mois" est invariable
+                                $jourLabel = $jours === 1 ? 'jour' : 'jours';
+                                $heureLabel = $heures === 1 ? 'heure' : 'heures';
+                                
+                                if ($mois == 0) {
+                                    $duree = "{$jours} {$jourLabel} {$heures} {$heureLabel}";
+                                } else {
+                                    $duree = "{$mois} {$moisLabel} {$jours} {$jourLabel} {$heures} {$heureLabel}";
+                                }
+                              
+                                
 
                                 if($jours == 0){
                                     $couleur = "#dc3545";
