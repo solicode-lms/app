@@ -89,6 +89,12 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
 
 public function update_bl($record, array $data){
 
+        // 🛡️ Si l'utilisateur  est  formateur, on sort sans rien faire
+        if (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+            return;
+        }
+        
+
        // Empêcher un apprenant d'affecter un état réservé aux formateurs
        if (!empty($data["etat_realisation_tache_id"])) {
         $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
