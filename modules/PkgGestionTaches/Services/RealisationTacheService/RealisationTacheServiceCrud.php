@@ -77,17 +77,26 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
 
 
 
-public function update($id, array $data)
-{
-    $record = $this->find($id);
+// public function update($id, array $data)
+// {
+//     $record = $this->find($id);
 
-    if (!empty($data["etat_realisation_tache_id"])) {
+//     // Empêcher un apprenant d'affecter un état réservé aux formateurs
+//     $this->update_bl($record,$data);
+//     // Mise à jour standard du projet
+//     return parent::update($id, $data);
+// }
+
+public function update_bl($record, array $data){
+
+       // Empêcher un apprenant d'affecter un état réservé aux formateurs
+       if (!empty($data["etat_realisation_tache_id"])) {
         $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
         $nouvelEtat = EtatRealisationTache::find($etat_realisation_tache_id);
 
         // Vérifier si le nouvel état existe
         if ($nouvelEtat) {
-            // Empêcher un apprenant d'affecter un état réservé aux formateurs
+          
             if ($nouvelEtat->is_editable_only_by_formateur && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
                 throw ValidationException::withMessages([
                     'etat_realisation_tache_id' => "Seul un formateur peut affecter cet état de tâche."
@@ -115,9 +124,19 @@ public function update($id, array $data)
         }
     }
 
-    // Mise à jour standard du projet
-    return parent::update($id, $data);
 }
+
+// public function updateOnlyExistanteAttribute($id, array $data)
+// {
+//     $record = $this->find($id);
+
+//     $this->update_bl($record,$data);
+
+//     // Mise à jour standard du projet
+//     return parent::update($id, $data);
+// }
+
+ 
 
 
 protected function workflowExigeRespectDesPriorites(?string $workflowCode): bool

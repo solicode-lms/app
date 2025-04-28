@@ -58,6 +58,20 @@ trait CrudTrait
     {
         return \Illuminate\Support\Facades\Schema::hasColumn($this->createInstance()->getTable(), 'ordre');
     }
+
+
+
+    /**
+     * BL : Logique de traitement
+     * @param mixed $record
+     * @param array $data
+     * @return void
+     */
+    public function update_bl($record, array $data){
+
+
+
+    }
     /**
      * Crée un nouvel élément.
      *
@@ -106,6 +120,9 @@ trait CrudTrait
             return false;
         }
 
+
+        $this->update_bl($record,$data);
+
         if ($this->hasOrdreColumn()) {
             $ancienOrdre = $record->ordre;
     
@@ -135,6 +152,8 @@ trait CrudTrait
             return false;
         }
 
+        $this->update_bl($record,$data);
+        
         if ($this->hasOrdreColumn()) {
             $ancienOrdre = $record->ordre;
     

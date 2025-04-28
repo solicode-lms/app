@@ -10482,6 +10482,20 @@
     },
     {
         "id": 805,
+        "reference": "RealisationTache-deadline",
+        "name": "deadline",
+        "column_name": "deadline",
+        "data_type": "Date",
+        "field_order": 10,
+        "db_nullable": 1,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT t.dateFin\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
+        "description": ""
+    },
+    {
+        "id": 806,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -10495,7 +10509,7 @@
         "description": ""
     },
     {
-        "id": 806,
+        "id": 807,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -10509,7 +10523,7 @@
         "description": ""
     },
     {
-        "id": 807,
+        "id": 808,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -10523,7 +10537,7 @@
         "description": ""
     },
     {
-        "id": 808,
+        "id": 809,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",
@@ -10534,20 +10548,6 @@
         "db_unique": 0,
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
-        "description": ""
-    },
-    {
-        "id": 809,
-        "reference": "RealisationTache-deadline",
-        "name": "deadline",
-        "column_name": "deadline",
-        "data_type": "Date",
-        "field_order": 10,
-        "db_nullable": 1,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT t.dateFin\r\nFROM taches t\r\nWHERE t.id = realisation_taches.tache_id",
         "description": ""
     }
 ]
