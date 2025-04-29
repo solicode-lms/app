@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ historique --}}
 
 @section('realisationTache-form')
 <form 
@@ -175,10 +175,15 @@
           @enderror
       </div>
   
+<!--   HistoriqueRealisationTache HasMany --> 
+<div class="col-12 col-md-12">
+  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+
 
       @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
-      <div class="form-group col-12 col-md-6">
+      <div class="col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -232,7 +237,8 @@
 <!--   CommentaireRealisationTache HasMany --> 
 
 
-<!--   HistoriqueRealisationTache HasMany --> 
+
+
 
     </div>
 

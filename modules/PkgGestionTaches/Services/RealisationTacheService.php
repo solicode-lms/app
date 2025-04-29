@@ -16,6 +16,7 @@ use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
 use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheServiceCrud;
 use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheServiceWidgets;
+use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheWorkflow;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 
@@ -24,7 +25,10 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
  */
 class RealisationTacheService extends BaseRealisationTacheService
 {
-    use RealisationTacheServiceWidgets,  RealisationTacheServiceCrud;
+    use 
+        RealisationTacheServiceWidgets,  
+        RealisationTacheServiceCrud,
+        RealisationTacheWorkflow;
 
 
     

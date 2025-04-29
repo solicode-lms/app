@@ -10,9 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification'))}}" />
-                <x-sortable-column :sortable="true" width="40"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
-                <x-sortable-column :sortable="true" width="27" field="realisation_tache_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="80"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,20 +22,9 @@
                 @endphp
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}" data-id="{{$historiqueRealisationTache->id}}">
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->dateModification }}" >
-                    <x-field :entity="$historiqueRealisationTache" field="dateModification">
-                        {{ $historiqueRealisationTache->dateModification }}
-                    </x-field>
-                    </td>
-                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
+                    <td style="max-width: 80%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
                     <x-field :entity="$historiqueRealisationTache" field="changement">
-                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($historiqueRealisationTache->changement, 30) !!}
-                    </x-field>
-                    </td>
-                    <td style="max-width: 27%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->realisationTache }}" >
-                    <x-field :entity="$historiqueRealisationTache" field="realisationTache">
-                       
-                         {{  $historiqueRealisationTache->realisationTache }}
+                        {!! $historiqueRealisationTache->changement !!}
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">
