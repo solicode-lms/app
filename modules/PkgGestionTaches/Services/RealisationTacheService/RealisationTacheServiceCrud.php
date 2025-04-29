@@ -14,6 +14,7 @@ use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 
 trait RealisationTacheServiceCrud
 {
@@ -89,6 +90,9 @@ public function paginate(array $params = [], int $perPage = 0, array $columns = 
 
 public function update_bl($record, array $data){
 
+
+        $this->enregistrerChangement($record,$data);
+ 
         // 🛡️ Si l'utilisateur  est  formateur, on sort sans rien faire
         if (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
             return;
@@ -212,4 +216,96 @@ protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $re
 }
 
 
+
+
+    public function insererHistoriqueFeedback(RealisationTache $realisationTache, string $changement): HistoriqueRealisationTache
+    {
+        return HistoriqueRealisationTache::create([
+            'realisation_tache_id' => $realisationTache->id,
+            'dateModification' => now(),
+            'changement' => $changement,
+        ]);
+    }
+
+protected function enregistrerChangement(RealisationTache $realisationTache, array $nouveauxChamps)
+{
+    $champsModifies = [];
+
+    foreach ($nouveauxChamps as $champ => $nouvelleValeur) {
+        $ancienneValeur = $realisationTache->$champ ?? null;
+
+        // 🔍 Si l'ancien OU le nouveau est une date / datetime, on formate avant comparaison
+        if ($this->estDateOuDateTime($ancienneValeur) || $this->estDateOuDateTime($nouvelleValeur)) {
+            $ancienneFormatee = $this->formatterDate($ancienneValeur);
+            $nouvelleFormatee = $this->formatterDate($nouvelleValeur);
+
+            if ($ancienneFormatee !== $nouvelleFormatee) {
+                $champsModifies[$champ] = $nouvelleValeur;
+            }
+        } else {
+            // Cas normal
+            if ($ancienneValeur != $nouvelleValeur) {
+                $champsModifies[$champ] = $nouvelleValeur;
+            }
+        }
+    }
+
+    if (!empty($champsModifies)) {
+        $changement = collect($champsModifies)
+            ->map(function ($value, $key) use ($realisationTache) {
+                $label = ucfirst(__("PkgGestionTaches::realisationTache.$key")); // 💬 traduction via lang('fields.nom_champ')
+
+                // 🛠️ Vérifier si c'est une relation ManyToOne
+                if (isset($realisationTache->manyToOne)) {
+                    foreach ($realisationTache->manyToOne as $relationName => $relationData) {
+                        if (array_key_exists('foreign_key', $relationData) && $relationData['foreign_key'] === $key) {
+                            $relatedModel = $realisationTache->{$this->getRelationMethodName($relationName)}()->first();
+                            if ($relatedModel) {
+                                return "$label : " . $relatedModel->__toString();
+                            }
+                        }
+                    }
+                }
+
+                return "$label : " . (is_scalar($value) ? $value : json_encode($value));
+            })
+            ->implode(' </br> ');
+
+        $this->insererHistoriqueFeedback($realisationTache, $changement);
+    }
+}
+    
+
+    /**
+ * Vérifie si la valeur est une date ou datetime.
+ */
+protected function estDateOuDateTime($valeur): bool
+{
+    return $valeur instanceof \DateTimeInterface || (is_string($valeur) && strtotime($valeur) !== false);
+}
+
+/**
+ * Formate la date en string standard pour comparaison.
+ */
+protected function formatterDate($valeur): ?string
+{
+    if ($valeur instanceof \DateTimeInterface) {
+        return $valeur->format('Y-m-d H:i:s');
+    }
+
+    if (is_string($valeur) && strtotime($valeur) !== false) {
+        return date('Y-m-d H:i:s', strtotime($valeur));
+    }
+
+    return null;
+}
+
+/**
+ * Devine la méthode relation du modèle.
+ */
+protected function getRelationMethodName(string $relationName): string
+{
+    // Convention Laravel : méthode en camelCase
+    return lcfirst($relationName);
+}
 }

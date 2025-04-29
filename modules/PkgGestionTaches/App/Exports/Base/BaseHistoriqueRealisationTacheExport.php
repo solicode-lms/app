@@ -30,15 +30,15 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
         return [
             'dateModification' => 'dateModification',
             'changement' => 'changement',
-            'reference' => 'reference',
             'realisation_tache_id' => 'realisation_tache_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
             'dateModification' => __('PkgGestionTaches::historiqueRealisationTache.dateModification'),
             'changement' => __('PkgGestionTaches::historiqueRealisationTache.changement'),
-            'reference' => __('Core::msg.reference'),
             'realisation_tache_id' => __('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -51,8 +51,8 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
             return [
                 'dateModification' => $historiqueRealisationTache->dateModification,
                 'changement' => $historiqueRealisationTache->changement,
-                'reference' => $historiqueRealisationTache->reference,
                 'realisation_tache_id' => $historiqueRealisationTache->realisation_tache_id,
+                'reference' => $historiqueRealisationTache->reference,
             ];
         });
     }

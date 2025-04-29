@@ -28,7 +28,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 7,
         "e_data_field_reference": "HistoriqueRealisationTache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -52,7 +52,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_dateModification_displayOrder",
-        "value_integer": 2,
+        "value_integer": 1,
         "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -76,7 +76,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_changement_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "HistoriqueRealisationTache_changement",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -100,7 +100,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_reference_displayOrder",
-        "value_integer": 4,
+        "value_integer": 6,
         "e_data_field_reference": "HistoriqueRealisationTache_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -136,7 +136,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_realisation_tache_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 3,
         "e_data_field_reference": "HistoriqueRealisationTache_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -154,7 +154,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_created_at_displayOrder",
-        "value_integer": 6,
+        "value_integer": 4,
         "e_data_field_reference": "HistoriqueRealisationTache_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -172,7 +172,7 @@
     },
     {
         "reference": "HistoriqueRealisationTache_updated_at_displayOrder",
-        "value_integer": 7,
+        "value_integer": 5,
         "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -235,5 +235,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 40,
+        "value_float": 0,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 15,
+        "value_float": 0,
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
