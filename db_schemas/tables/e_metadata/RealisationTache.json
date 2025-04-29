@@ -724,5 +724,12 @@
         },
         "e_data_field_reference": "RealisationTache-deadline",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
     }
 ]
