@@ -67,7 +67,7 @@ trait CrudTrait
      * @param array $data
      * @return void
      */
-    public function update_bl($record, array $data){
+    public function update_bl($record, array &$data){
 
 
 
