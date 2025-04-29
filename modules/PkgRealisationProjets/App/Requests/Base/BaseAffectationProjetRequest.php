@@ -63,7 +63,7 @@ class BaseAffectationProjetRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'projet_id' => "admin",
+            'projet_id' => "admin,formateur",
             
             'groupe_id' => "formateur,admin",
             

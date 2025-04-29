@@ -20,7 +20,7 @@
     @endif
 
     <div class="card-body row">
-      @php $canEditprojet_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditprojet_id = Auth::user()->hasAnyRole(explode(',', 'admin,formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
