@@ -60,6 +60,7 @@
                         </small>
                     </x-field>
                     </td>
+
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                     <x-field :entity="$realisationProjet" field="livrablesRealisations">
                         <ul>
