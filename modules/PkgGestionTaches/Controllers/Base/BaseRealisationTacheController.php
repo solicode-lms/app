@@ -7,6 +7,7 @@ use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgGestionTaches\Services\TacheService;
+use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -167,7 +168,7 @@ class BaseRealisationTacheController extends AdminController
             );
         }
 
-        return redirect()->route('realisationTaches.index')->with(
+        return redirect()->route('realisationTaches.edit',['realisationTache' => $realisationTache->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $realisationTache,
@@ -195,11 +196,18 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
 
 
+        $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
+        
+
+        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
 
     }
     /**
@@ -222,11 +230,18 @@ class BaseRealisationTacheController extends AdminController
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
 
 
+        $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
+        
+
+        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
 
 
     }

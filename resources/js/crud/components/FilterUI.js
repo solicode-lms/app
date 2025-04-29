@@ -301,6 +301,7 @@ initFilterToogle() {
 
     // 🔸 Gérer le clic sur le bouton
     EventUtil.bindEvent('click', toggleButtonSelector, (e) => {
+        e.preventDefault();
         const self = $(e.currentTarget);
         const isVisible = self.attr('data-visible') === '1';
         setFilterVisibility(!isVisible);
