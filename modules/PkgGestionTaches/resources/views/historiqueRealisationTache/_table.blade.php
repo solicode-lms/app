@@ -24,9 +24,9 @@
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 80%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
                     <x-field :entity="$historiqueRealisationTache" field="changement">
-                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($historiqueRealisationTache->changement, 30) !!}
+                        {!! $historiqueRealisationTache->changement !!}
                     </x-field>
-                    </td>
+                    </td>   
                     <td class="text-right text-truncate" style="max-width: 15%;">
 
 

@@ -266,5 +266,15 @@
         "value_float": 0,
         "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "html"
+        },
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "nature"
     }
 ]
