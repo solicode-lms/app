@@ -176,17 +176,6 @@
       </div>
   
 
-
-<div class="col-12 col-md-12">
-   <label for="HistoriqueRealisationTache">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
-            
-    </label>
-
-  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-
-
       @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -238,6 +227,17 @@
           @enderror
       </div>
   
+
+
+<div class="col-12 col-md-12">
+   <label for="HistoriqueRealisationTache">
+            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+
 
     </div>
 

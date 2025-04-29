@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ historiqueRealisationTache-crud-filter-form : il donne form in form with dans RelaisationTache --}}
 
 
 <script>
@@ -88,33 +88,7 @@
                 @show
                 @section('historiqueRealisationTache-crud-filters')
                 <div class="card-header">
-                    <form id="historiqueRealisationTache-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($historiqueRealisationTaches_filters ?? [])}}">
-                            <!-- Filtres spécifiques -->
-                            @foreach ($historiqueRealisationTaches_filters as $filter)
-                                <x-filter-field 
-                                    :label="$filter['label']" 
-                                    :type="$filter['type']" 
-                                    :field="$filter['field']" 
-                                    :options="$filter['options'] ?? []"
-                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
-                                    :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
-                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
-                                    :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
-                            @endforeach
-                        </x-filter-group>
-                        @section('historiqueRealisationTache-crud-search-bar')
-                        <div id="historiqueRealisationTache-crud-search-bar"
-                            class="{{ count($historiqueRealisationTaches_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                            <x-search-bar
-                                :search="request('historiqueRealisationTaches_search')"
-                                name="historiqueRealisationTaches_search"
-                                id="historiqueRealisationTaches_search"
-                                placeholder="Recherche ..."
-                            />
-                        </div>
-                        @show
-                    </form>
+                     
                 </div>
                 @show
                 <div id="historiqueRealisationTache-data-container" class="data-container">
