@@ -160,9 +160,6 @@
       </div>
   
 
-
-<!--   Widget HasMany --> 
-
     </div>
 
     <div class="card-footer">

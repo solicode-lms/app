@@ -251,39 +251,6 @@
       </div>
   
 
-
-<!--   EtatsRealisationProjet HasMany --> 
-
-
-<!--   Chapitre HasMany --> 
-
-
-<!--   CommentaireRealisationTache HasMany --> 
-
-
-<!--   EtatRealisationTache HasMany --> 
-
-
-<!--   EtatChapitre HasMany --> 
-
-
-<!--   NiveauDifficulte HasMany --> 
-
-
-<!--   EtatFormation HasMany --> 
-
-
-<!--   Projet HasMany --> 
-
-
-<!--   LabelRealisationTache HasMany --> 
-
-
-<!--   Formation HasMany --> 
-
-
-<!--   PrioriteTache HasMany --> 
-
     </div>
 
     <div class="card-footer">

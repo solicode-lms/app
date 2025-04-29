@@ -131,9 +131,6 @@
       </div>
   
 
-
-<!--   Tache HasMany --> 
-
     </div>
 
     <div class="card-footer">

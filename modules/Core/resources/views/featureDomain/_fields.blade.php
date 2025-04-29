@@ -131,9 +131,6 @@
       </div>
   
 
-
-<!--   Feature HasMany --> 
-
     </div>
 
     <div class="card-footer">

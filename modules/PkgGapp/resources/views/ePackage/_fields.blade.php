@@ -72,9 +72,6 @@
       </div>
   
 
-
-<!--   EModel HasMany --> 
-
     </div>
 
     <div class="card-footer">

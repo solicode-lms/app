@@ -178,9 +178,6 @@
       </div>
   
 
-
-<!--   EMetadatum HasMany --> 
-
     </div>
 
     <div class="card-footer">

@@ -196,9 +196,6 @@
       </div>
   
 
-
-<!--   LivrablesRealisation HasMany --> 
-
     </div>
 
     <div class="card-footer">

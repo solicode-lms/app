@@ -131,9 +131,6 @@
       </div>
   
 
-
-<!--   EtatFormation HasMany --> 
-
     </div>
 
     <div class="card-footer">

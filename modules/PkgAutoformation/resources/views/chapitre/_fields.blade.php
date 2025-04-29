@@ -309,12 +309,6 @@
       </div>
   
 
-
-<!--   Chapitre HasMany --> 
-
-
-<!--   RealisationChapitre HasMany --> 
-
     </div>
 
     <div class="card-footer">

@@ -364,15 +364,6 @@
       </div>
   
 
-
-<!--   CommentaireRealisationTache HasMany --> 
-
-
-<!--   RealisationProjet HasMany --> 
-
-
-<!--   RealisationFormation HasMany --> 
-
       <h4 class="debut-groupe-title col-12 text-info">{{ __('Informations Académiques') }}</h4>
       <hr class="debut-groupe-hr col-12">
 

@@ -72,9 +72,6 @@
       </div>
   
 
-
-<!--   Technology HasMany --> 
-
     </div>
 
     <div class="card-footer">

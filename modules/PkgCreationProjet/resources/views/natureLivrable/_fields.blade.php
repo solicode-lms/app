@@ -72,9 +72,6 @@
       </div>
   
 
-
-<!--   Livrable HasMany --> 
-
     </div>
 
     <div class="card-footer">

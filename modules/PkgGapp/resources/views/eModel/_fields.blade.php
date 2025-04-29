@@ -159,18 +159,6 @@
       </div>
   
 
-
-<!--   EDataField HasMany --> 
-
-
-<!--   EMetadatum HasMany --> 
-
-
-<!--   ERelationship HasMany --> 
-
-
-<!--   ERelationship HasMany --> 
-
     </div>
 
     <div class="card-footer">

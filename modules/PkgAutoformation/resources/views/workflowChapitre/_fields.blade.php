@@ -131,9 +131,6 @@
       </div>
   
 
-
-<!--   EtatChapitre HasMany --> 
-
     </div>
 
     <div class="card-footer">

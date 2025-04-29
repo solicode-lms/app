@@ -74,45 +74,6 @@
       </div>
   
 
-
-<!--   EtatChapitre HasMany --> 
-
-
-<!--   EtatRealisationTache HasMany --> 
-
-
-<!--   SysModel HasMany --> 
-
-
-<!--   EtatFormation HasMany --> 
-
-
-<!--   LabelRealisationTache HasMany --> 
-
-
-<!--   SysModule HasMany --> 
-
-
-<!--   EtatsRealisationProjet HasMany --> 
-
-
-<!--   SectionWidget HasMany --> 
-
-
-<!--   Widget HasMany --> 
-
-
-<!--   WorkflowChapitre HasMany --> 
-
-
-<!--   WorkflowFormation HasMany --> 
-
-
-<!--   WorkflowProjet HasMany --> 
-
-
-<!--   WorkflowTache HasMany --> 
-
     </div>
 
     <div class="card-footer">

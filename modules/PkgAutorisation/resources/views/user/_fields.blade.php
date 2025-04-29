@@ -185,21 +185,6 @@
   
 
 
-<!--   Apprenant HasMany --> 
-
-
-<!--   Formateur HasMany --> 
-
-
-<!--   Profile HasMany --> 
-
-
-<!--   UserModelFilter HasMany --> 
-
-
-<!--   WidgetUtilisateur HasMany --> 
-
-
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">

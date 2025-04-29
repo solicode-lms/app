@@ -72,9 +72,6 @@
       </div>
   
 
-
-<!--   DependanceTache HasMany --> 
-
     </div>
 
     <div class="card-footer">

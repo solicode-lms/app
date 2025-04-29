@@ -103,12 +103,6 @@
       </div>
   
 
-
-<!--   AffectationProjet HasMany --> 
-
-
-<!--   Groupe HasMany --> 
-
     </div>
 
     <div class="card-footer">

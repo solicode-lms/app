@@ -48,21 +48,6 @@
   
 
 
-<!--   Tache HasMany --> 
-
-
-<!--   Livrable HasMany --> 
-
-
-<!--   TransfertCompetence HasMany --> 
-
-
-<!--   AffectationProjet HasMany --> 
-
-
-<!--   Resource HasMany --> 
-
-
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
