@@ -65,7 +65,7 @@ class BaseAffectationProjetRequest extends FormRequest
             
             'projet_id' => "admin",
             
-            'groupe_id' => "admin",
+            'groupe_id' => "formateur,admin",
             
         ];
 
