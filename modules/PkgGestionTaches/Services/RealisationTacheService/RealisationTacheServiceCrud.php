@@ -256,16 +256,22 @@ protected function enregistrerChangement(RealisationTache $realisationTache, arr
                 $label = ucfirst(__("PkgGestionTaches::realisationTache.$key")); // 💬 traduction via lang('fields.nom_champ')
 
                 // 🛠️ Vérifier si c'est une relation ManyToOne
+                // 🛠️ Est-ce que ce champ est une clé étrangère ManyToOne ?
                 if (isset($realisationTache->manyToOne)) {
                     foreach ($realisationTache->manyToOne as $relationName => $relationData) {
                         if (array_key_exists('foreign_key', $relationData) && $relationData['foreign_key'] === $key) {
-                            $relatedModel = $realisationTache->{$this->getRelationMethodName($relationName)}()->first();
-                            if ($relatedModel) {
-                                return "$label : " . $relatedModel->__toString();
+                            // Charger la nouvelle entité par son ID
+                            $modelClass = $relationData['model'];
+                            $nouvelObjet = $modelClass::find($value);
+                            if ($nouvelObjet) {
+                                return "$label : " . $nouvelObjet->__toString();
                             }
                         }
                     }
                 }
+
+
+
 
                 return "$label : " . (is_scalar($value) ? $value : json_encode($value));
             })
