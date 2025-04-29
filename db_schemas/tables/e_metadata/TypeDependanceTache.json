@@ -170,12 +170,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "type_dependance_taches_hasMany_dependance_taches_type_dependance_tache_id",

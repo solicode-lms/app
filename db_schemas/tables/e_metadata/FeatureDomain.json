@@ -168,12 +168,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "feature_domains_hasMany_features_feature_domain_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "feature_domains_hasMany_features_feature_domain_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "feature_domains_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "feature_domains",

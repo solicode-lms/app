@@ -191,12 +191,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "livrables_hasMany_livrables_realisations_livrable_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "livrables_hasMany_livrables_realisations_livrable_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "livrables_displayInSideBar",
         "value_boolean": 0,
         "value_float": 0,

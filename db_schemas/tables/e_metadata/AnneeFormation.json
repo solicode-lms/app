@@ -168,18 +168,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "annee_formations_hasMany_affectation_projets_annee_formation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "annee_formations_hasMany_affectation_projets_annee_formation_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "annee_formations_hasMany_groupes_annee_formation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "annee_formations_hasMany_groupes_annee_formation_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "annee_formations_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "annee_formations",

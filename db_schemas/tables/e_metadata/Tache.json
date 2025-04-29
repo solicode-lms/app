@@ -280,12 +280,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "taches_hasMany_dependance_taches_tache_cible_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "taches_hasMany_dependance_taches_tache_cible_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
@@ -304,12 +298,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "taches_hasMany_realisation_taches_tache_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "taches_hasMany_realisation_taches_tache_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
@@ -326,12 +314,6 @@
         "value_integer": 13,
         "e_data_field_reference": "taches_hasMany_dependance_taches_tache_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "taches_hasMany_dependance_taches_tache_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "taches_hasMany_dependance_taches_tache_id_inputMdWidth",

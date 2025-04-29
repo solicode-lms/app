@@ -248,12 +248,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "workflow_projets_hasMany_etats_realisation_projets_workflow_projet_id",

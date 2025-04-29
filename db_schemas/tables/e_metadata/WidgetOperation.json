@@ -108,12 +108,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "widget_operations_hasMany_widgets_operation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "widget_operations_hasMany_widgets_operation_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "widget_operations_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "widget_operations",

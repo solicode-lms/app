@@ -406,12 +406,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "chapitres_hasMany_chapitres_chapitre_officiel_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "chapitres_hasMany_chapitres_chapitre_officiel_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "chapitres_hasMany_chapitres_chapitre_officiel_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "chapitres_hasMany_chapitres_chapitre_officiel_id",
@@ -428,12 +422,6 @@
         "value_integer": 16,
         "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "chapitres_hasMany_realisation_chapitres_chapitre_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "chapitres_hasMany_realisation_chapitres_chapitre_id_inputMdWidth",

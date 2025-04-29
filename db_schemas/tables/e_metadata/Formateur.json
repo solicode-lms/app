@@ -356,12 +356,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
@@ -371,18 +365,6 @@
         "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "formateurs_hasMany_projets_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
@@ -578,12 +560,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id",
@@ -600,12 +576,6 @@
         "value_integer": 19,
         "e_data_field_reference": "formateurs_hasMany_etat_realisation_taches_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formateurs_hasMany_etat_realisation_taches_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_etat_realisation_taches_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "formateurs_hasMany_etat_realisation_taches_formateur_id_inputMdWidth",
@@ -626,12 +596,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formateurs_hasMany_label_realisation_taches_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_label_realisation_taches_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formateurs_hasMany_label_realisation_taches_formateur_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formateurs_hasMany_label_realisation_taches_formateur_id",
@@ -648,12 +612,6 @@
         "value_integer": 25,
         "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formateurs_hasMany_priorite_taches_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "formateurs_hasMany_priorite_taches_formateur_id_inputMdWidth",
@@ -698,12 +656,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formateurs_hasMany_chapitres_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formateurs_hasMany_chapitres_formateur_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
@@ -722,12 +674,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formateurs_hasMany_formations_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formateurs_hasMany_formations_formateur_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
@@ -744,12 +690,6 @@
         "value_integer": 20,
         "e_data_field_reference": "formateurs_hasMany_etat_chapitres_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formateurs_hasMany_etat_chapitres_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_etat_chapitres_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "formateurs_hasMany_etat_chapitres_formateur_id_inputMdWidth",
@@ -776,12 +716,6 @@
         "value_integer": 21,
         "e_data_field_reference": "formateurs_hasMany_etat_formations_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formateurs_hasMany_etat_formations_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formateurs_hasMany_etat_formations_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "formateurs_hasMany_etat_formations_formateur_id_inputMdWidth",

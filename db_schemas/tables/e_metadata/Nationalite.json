@@ -139,12 +139,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "nationalites_hasMany_apprenants_nationalite_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "nationalites_hasMany_apprenants_nationalite_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "nationalites_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "nationalites",

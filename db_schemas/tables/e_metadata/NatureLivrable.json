@@ -127,12 +127,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "nature_livrables_hasMany_livrables_nature_livrable_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "nature_livrables_hasMany_livrables_nature_livrable_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "nature_livrables_displayInSideBar",
         "value_boolean": 1,
         "value_float": 0,

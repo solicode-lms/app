@@ -335,12 +335,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "e_data_fields_hasMany_e_metadata_e_data_field_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "e_data_fields_hasMany_e_metadata_e_data_field_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "e_data_fields_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "e_data_fields",

@@ -128,12 +128,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "category_technologies_hasMany_technologies_category_technology_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "category_technologies_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "category_technologies",

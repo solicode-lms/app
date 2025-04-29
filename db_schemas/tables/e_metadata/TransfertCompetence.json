@@ -226,12 +226,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "transfert_competences_hasMany_validations_transfert_competence_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "transfert_competences_hasMany_validations_transfert_competence_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "transfert_competences_displayInSideBar",
         "value_boolean": 0,
         "value_float": 0,

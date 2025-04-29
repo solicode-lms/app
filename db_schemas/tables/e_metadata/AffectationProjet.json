@@ -233,12 +233,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "affectation_projets_displayInSideBar",
         "value_boolean": 0,
         "value_float": 0,

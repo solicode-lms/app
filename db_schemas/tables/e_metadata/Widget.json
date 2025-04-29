@@ -379,12 +379,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "widgets_hasMany_widget_utilisateurs_widget_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",

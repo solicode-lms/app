@@ -229,12 +229,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "groupes_hasMany_affectation_projets_groupe_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "groupes_hasMany_affectation_projets_groupe_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "groupes_apprenants_apprenant_groupe_m2m_m2m_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "groupes_apprenants_apprenant_groupe_m2m_m2m",

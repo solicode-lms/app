@@ -120,12 +120,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "e_packages_hasMany_e_models_e_package_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "e_packages_hasMany_e_models_e_package_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "e_packages_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "e_packages",

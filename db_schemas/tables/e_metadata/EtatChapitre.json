@@ -204,12 +204,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "etat_chapitres_hasMany_realisation_chapitres_etat_chapitre_id",

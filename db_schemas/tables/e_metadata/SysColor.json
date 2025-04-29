@@ -138,18 +138,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "sys_colors_hasMany_sys_models_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "sys_colors",
@@ -223,12 +211,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
@@ -245,12 +227,6 @@
         "value_integer": 8,
         "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_inputMdWidth",
@@ -279,12 +255,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
@@ -309,12 +279,6 @@
         "value_integer": 8,
         "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_etat_formations_sys_color_id_inputMdWidth",
@@ -343,12 +307,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
@@ -365,12 +323,6 @@
         "value_integer": 14,
         "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_inputMdWidth",
@@ -391,12 +343,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "sys_colors_hasMany_widgets_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_hasMany_widgets_sys_color_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
@@ -413,12 +359,6 @@
         "value_integer": 11,
         "e_data_field_reference": "sys_colors_hasMany_section_widgets_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_section_widgets_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_section_widgets_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_section_widgets_sys_color_id_inputMdWidth",
@@ -439,12 +379,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
@@ -461,12 +395,6 @@
         "value_integer": 10,
         "e_data_field_reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id_inputMdWidth",
@@ -493,12 +421,6 @@
         "value_integer": 19,
         "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_taches_sys_color_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "sys_colors_hasMany_workflow_taches_sys_color_id_inputMdWidth",

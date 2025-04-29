@@ -335,12 +335,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formations_hasMany_chapitres_formation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formations_hasMany_chapitres_formation_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formations_hasMany_chapitres_formation_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formations_hasMany_chapitres_formation_id",
@@ -381,12 +375,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "formations_hasMany_formations_formation_officiel_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formations_hasMany_formations_formation_officiel_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "formations_hasMany_formations_formation_officiel_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "formations_hasMany_formations_formation_officiel_id",
@@ -403,12 +391,6 @@
         "value_integer": 15,
         "e_data_field_reference": "formations_hasMany_realisation_formations_formation_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "formations_hasMany_realisation_formations_formation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "formations_hasMany_realisation_formations_formation_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "formations_hasMany_realisation_formations_formation_id_inputMdWidth",

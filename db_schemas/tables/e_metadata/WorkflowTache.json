@@ -200,12 +200,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",

@@ -252,24 +252,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "sys_modules_hasMany_sys_models_sys_module_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "sys_modules_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "sys_modules",

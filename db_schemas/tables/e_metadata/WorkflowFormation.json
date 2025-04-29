@@ -206,12 +206,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "workflow_formations_hasMany_etat_formations_workflow_formation_id",

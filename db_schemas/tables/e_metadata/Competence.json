@@ -222,18 +222,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "competences_hasMany_niveau_competences_competence_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "competences_displayInSideBar",
         "value_boolean": 0,
         "value_float": 0,
@@ -355,12 +343,6 @@
         "value_integer": 11,
         "e_data_field_reference": "competences_hasMany_formations_competence_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "competences_hasMany_formations_competence_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_formations_competence_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "competences_hasMany_formations_competence_id_inputMdWidth",

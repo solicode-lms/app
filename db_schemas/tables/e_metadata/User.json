@@ -194,18 +194,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "users_hasMany_apprenants_user_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_hasMany_apprenants_user_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "users_hasMany_formateurs_user_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_hasMany_formateurs_user_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "users_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "users",
@@ -229,12 +217,6 @@
         "value_integer": 12,
         "e_data_field_reference": "users_hasMany_profiles_user_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "users_hasMany_profiles_user_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_hasMany_profiles_user_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "User_must_change_password_required",
@@ -385,12 +367,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "users_hasMany_widget_utilisateurs_user_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_hasMany_widget_utilisateurs_user_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "users_hasMany_widget_utilisateurs_user_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "users_hasMany_widget_utilisateurs_user_id",
@@ -407,12 +383,6 @@
         "value_integer": 14,
         "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "users_hasMany_user_model_filters_user_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "users_hasMany_user_model_filters_user_id_inputMdWidth",

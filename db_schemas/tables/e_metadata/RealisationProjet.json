@@ -236,12 +236,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "realisation_projets_displayInSideBar",
         "value_boolean": 1,
         "e_model_reference": "realisation_projets",
@@ -266,12 +260,6 @@
         "value_integer": 11,
         "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_displayInTable",
@@ -430,12 +418,6 @@
         "value_integer": 12,
         "e_data_field_reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
-        "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id_inputMdWidth",
