@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ (bulkEditForm , edit HasMany)
 
 
 namespace Modules\PkgGestionTaches\Controllers\Base;
@@ -146,9 +146,20 @@ class BaseRealisationTacheController extends AdminController
         //  Vider les valeurs : 
         $itemRealisationTache = $this->realisationTacheService->createInstance();
         
+
+        // Edit HasMany Historique
+        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
+
+
+        // if (request()->ajax()) {
+        //     return view('PkgGestionTaches::realisationTache._fields', );
+        // }
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+            return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
+
         return view('PkgGestionTaches::realisationTache.bulk-edit', compact('bulkEdit', 'realisationTache_ids', 'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
     }
     /**
