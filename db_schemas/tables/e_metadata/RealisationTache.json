@@ -275,7 +275,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "editHasMany"
@@ -729,7 +729,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayInForm",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayInForm"
