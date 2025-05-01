@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ add indexActions --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
 <script>
@@ -14,6 +14,7 @@
         tableSelector: '#notification-data-container',
         formSelector: '#notificationForm',
         indexUrl: '{{ route('notifications.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('notifications.create') }}',
         editUrl: '{{ route('notifications.edit',  ['notification' => ':id']) }}',
         showUrl: '{{ route('notifications.show',  ['notification' => ':id']) }}',
@@ -65,34 +66,33 @@
                             />
                         </div>
                         <div class="col-sm-4">
-                            
                             <div class="d-flex align-items-center justify-content-end">
-
-                                @can("index-notification")
+                        
                                 <div class="actions d-flex align-items-center crud-action">
+                                    @can("index-notification")
                                     <a href="{{ route('notifications.markAllAsRead') }}" data-toggle="tooltip" title="Tout marquer comme lu" class="btn btn-sm btn-outline-info context-state  mr-2 ">
                                         <i class="fas fa-check-double"></i>
                                     </a>
+                                    @endcan
                                 </div>
-                                @endcan
-
                                 <x-crud-actions
-                                :instanceItem="$notification_instance"
-                                :createPermission="'create-notification'"
-                                :createRoute="route('notifications.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-notification'"
-                                :importRoute="route('notifications.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-notification'"
-                                :exportXlsxRoute="route('notifications.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('notifications.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$notification_viewTypes"
-                                :viewType="$notification_viewType"
-                            />
+                                    :instanceItem="$notification_instance"
+                                    :createPermission="'create-notification'"
+                                    :createRoute="route('notifications.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-notification'"
+                                    :importRoute="route('notifications.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-notification'"
+                                    :exportXlsxRoute="route('notifications.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('notifications.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$notification_viewTypes"
+                                    :viewType="$notification_viewType"
+                                />
                             </div>
-                           
+
+
                         
                         </div>
                     </div>
