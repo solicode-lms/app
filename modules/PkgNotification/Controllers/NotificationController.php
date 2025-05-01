@@ -34,4 +34,23 @@ class NotificationController extends BaseNotificationController
         );
     }
 
+
+   /**
+     * @DynamicPermissionIgnore
+     * Récupère les notifications de l'utilisateur et retourne le HTML pour le dropdown.
+     */
+    public function getUserNotifications(Request $request)
+    {
+        if (!Auth::check()) {
+            return response('<span class="dropdown-item text-center text-muted">Non authentifié</span>', 401);
+        }
+
+        $userId = Auth::id();
+
+        $notifications = $this->notificationService->getUnreadNotifications($userId, 5);
+        $unreadNotificationCount = $this->notificationService->countUnreadNotifications($userId);
+
+        return view('PkgNotification::notification._dropdown', compact('notifications', 'unreadNotificationCount'))->render();
+    }
+
 }

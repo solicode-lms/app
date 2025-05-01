@@ -24,6 +24,7 @@ export default class ConfigHelper {
         this.editUrl = config.editUrl;
         this.csrfToken = config.csrfToken;
         this.editTitle = config.edit_title;
+        this.getUserNotificationsUrl = config.getUserNotificationsUrl;
     }
 
     init(){

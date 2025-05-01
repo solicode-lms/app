@@ -13,6 +13,9 @@ Route::middleware('auth')->group(function () {
 
         
         Route::get('notifications/markAllAsRead', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+        
+        Route::get('notifications/getUserNotifications', [NotificationController::class, 'getUserNotifications'])->name('notifications.getUserNotifications');
+
 
         Route::get('notifications/getData', [NotificationController::class, 'getData'])->name('notifications.getData');
         // bulk - edit and delete

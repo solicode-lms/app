@@ -13,6 +13,7 @@
         crudSelector: '#realisationTache-crud',
         tableSelector: '#realisationTache-data-container',
         formSelector: '#realisationTacheForm',
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         indexUrl: '{{ route('realisationTaches.index') }}', 
         createUrl: '{{ route('realisationTaches.create') }}',
         editUrl: '{{ route('realisationTaches.edit',  ['realisationTache' => ':id']) }}',

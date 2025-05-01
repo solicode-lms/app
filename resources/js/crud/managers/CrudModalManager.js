@@ -8,6 +8,7 @@ import { FormUI } from '../components/FormUI';
 import { ModalUI } from '../components/ModalUI';
 import { ShowAction } from './../actions/ShowAction';
 import { BulkActionsUI } from '../components/BulkActionsUI';
+import { NotificationUI } from '../components/NotificationUI';
 
 
 export class CrudModalManager {
@@ -19,6 +20,7 @@ export class CrudModalManager {
         this.config = config;
 
         // Initialisation des composants UI
+        this.notificationUI = new NotificationUI(config, this);
         this.filterUI = new FilterUI(config, this);
         this.tableUI = new TableUI(config, this);
         this.bulkActionsUI = new BulkActionsUI(config, this);
@@ -87,6 +89,11 @@ export class CrudModalManager {
         const url = new URL(window.location.href);
         const actionName = url.searchParams.get("action");
         const actionId = url.searchParams.get("id");
+        const contextKey = url.searchParams.get("contextKey");
+    
+        if(contextKey && this.config.contextKey != contextKey) {
+            return;
+        }
 
         if (!actionName || !actionId) return; // Vérification : si action ou id est manquant, on arrête l'exécution
 

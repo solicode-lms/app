@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ show lien --}}
 
 @section('notification-table')
 <div class="card-body p-0 crud-card-body" id="notifications-crud-card-body">
@@ -52,9 +52,15 @@
                         @endcan
                         @elsecan('show-notification')
                         @can('view', $notification)
+                            @if(empty($notification->data["lien"]))
                             <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
+                            @else
+                            <a href="{{ $notification->data["lien"] }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            @endif
                         @endcan
                         @endcan
                         @can('destroy-notification')
