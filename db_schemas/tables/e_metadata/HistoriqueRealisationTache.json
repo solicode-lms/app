@@ -247,7 +247,7 @@
     {
         "reference": "HistoriqueRealisationTache_changement_columnWidth",
         "value_boolean": 1,
-        "value_integer": 80,
+        "value_integer": 50,
         "value_float": 0,
         "e_data_field_reference": "HistoriqueRealisationTache_changement",
         "e_metadata_definition_reference": "columnWidth"
@@ -315,7 +315,8 @@
     },
     {
         "reference": "HistoriqueRealisationTache_isFeedback_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "HistoriqueRealisationTache_isFeedback",
         "e_metadata_definition_reference": "required"
     },
@@ -342,5 +343,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "HistoriqueRealisationTache_isFeedback",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_isFeedback_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "HistoriqueRealisationTache_isFeedback",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_user_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "HistoriqueRealisationTache_user_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

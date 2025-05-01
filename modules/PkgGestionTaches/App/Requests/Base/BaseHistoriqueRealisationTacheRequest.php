@@ -54,4 +54,39 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
     }
 
     
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'dateModification' => "admin",
+            
+            'user_id' => "admin",
+            
+            'isFeedback' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $historique_realisation_tache_id = $this->route('historiqueRealisationTache'); // Remplace 'model' par le bon paramètre de route
+        $model = HistoriqueRealisationTache::find($historique_realisation_tache_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
+    
 }

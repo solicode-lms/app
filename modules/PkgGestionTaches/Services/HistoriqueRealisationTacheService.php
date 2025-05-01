@@ -3,6 +3,7 @@
 
 namespace Modules\PkgGestionTaches\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\Utils\DateUtil;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
@@ -53,6 +54,10 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
         }
 
         if (!empty($champsModifies)) {
+
+            // 🧠 Détecter si c'est un feedback
+            $isFeedback = isset($champsModifies['remarques_formateur']);
+            
             $changement = collect($champsModifies)
                 ->map(function ($value, $key) use ($realisationTache) {
                     $label = ucfirst(__("PkgGestionTaches::realisationTache.$key")); // 💬 traduction via lang('fields.nom_champ')
@@ -79,11 +84,13 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
                 })
                 ->implode(' </br> ');
 
-            HistoriqueRealisationTache::create([
-                'realisation_tache_id' => $realisationTache->id,
-                'dateModification' => now(),
-                'changement' => $changement,
-            ]);
+                HistoriqueRealisationTache::create([
+                    'realisation_tache_id' => $realisationTache->id,
+                    'dateModification' => now(),
+                    'changement' => $changement,
+                    'user_id' => Auth::user()?->id,
+                    'isFeedback' => $isFeedback,
+                ]);
         }
     }
 

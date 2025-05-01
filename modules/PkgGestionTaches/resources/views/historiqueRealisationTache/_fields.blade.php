@@ -20,6 +20,7 @@
     @endif
 
     <div class="card-body row">
+      @php $canEditdateModification = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -39,6 +40,7 @@
                 
                 
                 id="dateModification"
+                {{ $canEditdateModification ? '' : 'disabled' }}
                 placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.dateModification') }}"
                 value="{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->dateModification : old('dateModification') }}">
 
@@ -105,6 +107,7 @@
       </div>
   
 
+      @php $canEdituser_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -118,6 +121,7 @@
           </label>
                       <select 
             id="user_id" 
+            {{ $canEdituser_id ? '' : 'disabled' }}
             
             
             
@@ -137,6 +141,7 @@
       </div>
   
 
+      @php $canEditisFeedback = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -146,17 +151,18 @@
           @endif
           <label for="isFeedback">
             {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.isFeedback')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="isFeedback" value="0">
             <input
                 name="isFeedback"
                 type="checkbox"
                 class="form-control"
-                required
+                
                 
                 
                 id="isFeedback"
+                {{ $canEditisFeedback ? '' : 'disabled' }}
                 value="1"
                 {{ old('isFeedback', $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->isFeedback : 0) ? 'checked' : '' }}>
           @error('isFeedback')
