@@ -19,13 +19,13 @@ class BaseNotificationService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'user_id',
         'title',
-        'message',
-        'is_read',
         'type',
-        'data',
-        'sent_at'
+        'message',
+        'sent_at',
+        'is_read',
+        'user_id',
+        'data'
     ];
 
     /**
@@ -56,6 +56,10 @@ class BaseNotificationService extends BaseService
         $this->fieldsFilterable = [];
     
 
+        if (!array_key_exists('is_read', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'is_read', 'type' => 'Boolean', 'label' => 'is_read'];
+        }
+
         if (!array_key_exists('user_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
@@ -83,11 +87,25 @@ class BaseNotificationService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
 
         return $stats;
     }
 
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
 
 
 

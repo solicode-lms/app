@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ markAllAsRead
 
 
 
@@ -9,6 +9,10 @@ use Modules\PkgNotification\Controllers\NotificationController;
 // routes for notification management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgNotification')->group(function () {
+
+
+        
+        Route::get('notifications/markAllAsRead', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
         Route::get('notifications/getData', [NotificationController::class, 'getData'])->name('notifications.getData');
         // bulk - edit and delete

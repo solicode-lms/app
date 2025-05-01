@@ -25,32 +25,32 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-                                <label for="user_id">{{ ucfirst(__('PkgNotification::notification.user_id')) }}:</label>
-                                <p>{{ $itemNotification->user_id }}</p>
-                            </div>
-                            <div class="col-sm-12">
                                 <label for="title">{{ ucfirst(__('PkgNotification::notification.title')) }}:</label>
                                 <p>{{ $itemNotification->title }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="message">{{ ucfirst(__('PkgNotification::notification.message')) }}:</label>
-                                <p>{{ $itemNotification->message }}</p>
-                            </div>
-                            <div class="col-sm-12">
-                                <label for="is_read">{{ ucfirst(__('PkgNotification::notification.is_read')) }}:</label>
-                                <p>{{ $itemNotification->is_read }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="type">{{ ucfirst(__('PkgNotification::notification.type')) }}:</label>
                                 <p>{{ $itemNotification->type }}</p>
                             </div>
                             <div class="col-sm-12">
-                                <label for="data">{{ ucfirst(__('PkgNotification::notification.data')) }}:</label>
-                                <p>{{ $itemNotification->data }}</p>
+                                <label for="message">{{ ucfirst(__('PkgNotification::notification.message')) }}:</label>
+                                <p>{{ $itemNotification->message }}</p>
                             </div>
                             <div class="col-sm-12">
                                 <label for="sent_at">{{ ucfirst(__('PkgNotification::notification.sent_at')) }}:</label>
                                 <p>{{ $itemNotification->sent_at }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="is_read">{{ ucfirst(__('PkgNotification::notification.is_read')) }}:</label>
+                                <p>{{ $itemNotification->is_read }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="user_id">{{ ucfirst(__('PkgNotification::notification.user_id')) }}:</label>
+                                <p>{{ $itemNotification->user_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="data">{{ ucfirst(__('PkgNotification::notification.data')) }}:</label>
+                                <p>{{ $itemNotification->data }}</p>
                             </div>
                         </div>
                     </div>

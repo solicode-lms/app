@@ -38,6 +38,13 @@ class BaseNotificationController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.notification.user_id') == null){
+           $this->viewState->init('scope.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.notification.user_id') == null){
+           $this->viewState->init('scope.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -69,6 +76,13 @@ class BaseNotificationController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         $itemNotification = $this->notificationService->createInstance();
@@ -95,6 +109,13 @@ class BaseNotificationController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.notification.user_id'  , $this->sessionState->get('user_id'));
+        }
  
          $itemNotification = $this->notificationService->find($notification_ids[0]);
          
@@ -144,6 +165,7 @@ class BaseNotificationController extends AdminController
 
 
         $itemNotification = $this->notificationService->edit($id);
+        $this->authorize('view', $itemNotification);
 
 
         $users = $this->userService->all();
@@ -164,6 +186,7 @@ class BaseNotificationController extends AdminController
 
 
         $itemNotification = $this->notificationService->edit($id);
+        $this->authorize('edit', $itemNotification);
 
 
         $users = $this->userService->all();
@@ -180,6 +203,9 @@ class BaseNotificationController extends AdminController
     /**
      */
     public function update(NotificationRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $notification = $this->notificationService->find($id);
+        $this->authorize('update', $notification);
 
         $validatedData = $request->validated();
         $notification = $this->notificationService->update($id, $validatedData);
@@ -241,6 +267,9 @@ class BaseNotificationController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $notification = $this->notificationService->find($id);
+        $this->authorize('delete', $notification);
 
         $notification = $this->notificationService->destroy($id);
 
@@ -275,6 +304,9 @@ class BaseNotificationController extends AdminController
         }
         foreach ($notification_ids as $id) {
             $entity = $this->notificationService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $notification = $this->notificationService->find($id);
+            $this->authorize('delete', $notification);
             $this->notificationService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

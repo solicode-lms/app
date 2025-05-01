@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ add indexActions --}}
 
 
 <script>
@@ -65,8 +65,18 @@
                             />
                         </div>
                         <div class="col-sm-4">
-                        
-                            <x-crud-actions
+                            
+                            <div class="d-flex align-items-center justify-content-end">
+
+                                @can("index-notification")
+                                <div class="actions d-flex align-items-center crud-action">
+                                    <a href="{{ route('notifications.markAllAsRead') }}" data-toggle="tooltip" title="Tout marquer comme lu" class="btn btn-sm btn-outline-info context-state  mr-2 ">
+                                        <i class="fas fa-check-double"></i>
+                                    </a>
+                                </div>
+                                @endcan
+
+                                <x-crud-actions
                                 :instanceItem="$notification_instance"
                                 :createPermission="'create-notification'"
                                 :createRoute="route('notifications.create')"
@@ -81,6 +91,8 @@
                                 :viewTypes="$notification_viewTypes"
                                 :viewType="$notification_viewType"
                             />
+                            </div>
+                           
                         
                         </div>
                     </div>

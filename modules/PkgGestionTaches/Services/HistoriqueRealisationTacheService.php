@@ -8,6 +8,7 @@ use Modules\Core\Utils\DateUtil;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Services\Base\BaseHistoriqueRealisationTacheService;
+use Modules\PkgNotification\Services\NotificationService;
 
 /**
  * Classe HistoriqueRealisationTacheService pour gérer la persistance de l'entité HistoriqueRealisationTache.
@@ -91,6 +92,25 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
                     'user_id' => Auth::user()?->id,
                     'isFeedback' => $isFeedback,
                 ]);
+
+                // ✅ Envoyer une notification uniquement si c'est un feedback
+                if ($isFeedback) {
+
+                    $user_id = $realisationTache->realisationProjet->apprenant?->user_id;
+
+                    if ($user_id) {
+                        (new NotificationService())->sendNotification(
+                            $user_id,
+                            'Nouveau feedback reçu',
+                            'Le formateur a ajouté un feedback sur votre tâche "' . ($realisationTache->tache->titre ?? 'Tâche') . '".',
+                            [
+                                'realisation_tache_id' => $realisationTache->id,
+                                'tache_id' => $realisationTache->tache_id,
+                            ],
+                            'feedback'
+                        );
+                    }
+                }
         }
     }
 

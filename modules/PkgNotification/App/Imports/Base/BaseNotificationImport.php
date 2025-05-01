@@ -56,13 +56,13 @@ class BaseNotificationImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Notification([
-             'user_id' => $values[0] ?? null,
-             'title' => $values[1] ?? null,
+             'title' => $values[0] ?? null,
+             'type' => $values[1] ?? null,
              'message' => $values[2] ?? null,
-             'is_read' => $values[3] ?? null,
-             'type' => $values[4] ?? null,
-             'data' => $values[5] ?? null,
-             'sent_at' => $values[6] ?? null,
+             'sent_at' => $values[3] ?? null,
+             'is_read' => $values[4] ?? null,
+             'user_id' => $values[5] ?? null,
+             'data' => $values[6] ?? null,
         ]);
 
 

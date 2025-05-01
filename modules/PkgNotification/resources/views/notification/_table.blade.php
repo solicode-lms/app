@@ -10,9 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="user_id" modelname="notification" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="title" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.title'))}}" />
                 <x-sortable-column :sortable="false" width="27.333333333333332"  field="message" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.message'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="sent_at" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.sent_at'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,12 +24,6 @@
                 @endphp
                 <tr id="notification-row-{{$notification->id}}" data-id="{{$notification->id}}">
                     <x-checkbox-row :item="$notification" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $notification->user }}" >
-                    <x-field :entity="$notification" field="user">
-                       
-                         {{  $notification->user }}
-                    </x-field>
-                    </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="title"  data-toggle="tooltip" title="{{ $notification->title }}" >
                     <x-field :entity="$notification" field="title">
                         {{ $notification->title }}
@@ -38,6 +32,11 @@
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="message"  data-toggle="tooltip" title="{{ $notification->message }}" >
                     <x-field :entity="$notification" field="message">
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($notification->message, 30) !!}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="sent_at"  data-toggle="tooltip" title="{{ $notification->sent_at }}" >
+                    <x-field :entity="$notification" field="sent_at">
+                        {{ $notification->sent_at }}
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

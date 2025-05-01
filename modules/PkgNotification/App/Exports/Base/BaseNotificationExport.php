@@ -28,23 +28,23 @@ class BaseNotificationExport implements FromCollection, WithHeadings, ShouldAuto
     {
      if($this->format == 'csv'){
         return [
-            'user_id' => 'user_id',
             'title' => 'title',
-            'message' => 'message',
-            'is_read' => 'is_read',
             'type' => 'type',
-            'data' => 'data',
+            'message' => 'message',
             'sent_at' => 'sent_at',
+            'is_read' => 'is_read',
+            'user_id' => 'user_id',
+            'data' => 'data',
         ];
         }else{
         return [
-            'user_id' => __('PkgNotification::notification.user_id'),
             'title' => __('PkgNotification::notification.title'),
-            'message' => __('PkgNotification::notification.message'),
-            'is_read' => __('PkgNotification::notification.is_read'),
             'type' => __('PkgNotification::notification.type'),
-            'data' => __('PkgNotification::notification.data'),
+            'message' => __('PkgNotification::notification.message'),
             'sent_at' => __('PkgNotification::notification.sent_at'),
+            'is_read' => __('PkgNotification::notification.is_read'),
+            'user_id' => __('PkgNotification::notification.user_id'),
+            'data' => __('PkgNotification::notification.data'),
         ];
 
         }
@@ -55,13 +55,13 @@ class BaseNotificationExport implements FromCollection, WithHeadings, ShouldAuto
     {
         return $this->data->map(function ($notification) {
             return [
-                'user_id' => $notification->user_id,
                 'title' => $notification->title,
-                'message' => $notification->message,
-                'is_read' => $notification->is_read,
                 'type' => $notification->type,
-                'data' => $notification->data,
+                'message' => $notification->message,
                 'sent_at' => $notification->sent_at,
+                'is_read' => $notification->is_read,
+                'user_id' => $notification->user_id,
+                'data' => $notification->data,
             ];
         });
     }

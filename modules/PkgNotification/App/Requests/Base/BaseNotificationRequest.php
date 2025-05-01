@@ -29,13 +29,13 @@ class BaseNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
             'title' => 'required|string|max:255',
-            'message' => 'required|string',
-            'is_read' => 'required|boolean',
             'type' => 'nullable|string|max:255',
-            'data' => 'nullable',
-            'sent_at' => 'nullable'
+            'message' => 'required|string',
+            'sent_at' => 'nullable',
+            'is_read' => 'required|boolean',
+            'user_id' => 'required',
+            'data' => 'nullable'
         ];
     }
 
@@ -47,15 +47,15 @@ class BaseNotificationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.user_id')]),
             'title.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.title')]),
             'title.max' => __('validation.titleMax'),
-            'message.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.message')]),
-            'is_read.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.is_read')]),
             'type.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.type')]),
             'type.max' => __('validation.typeMax'),
-            'data.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.data')]),
-            'sent_at.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.sent_at')])
+            'message.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.message')]),
+            'sent_at.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.sent_at')]),
+            'is_read.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.is_read')]),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.user_id')]),
+            'data.required' => __('validation.required', ['attribute' => __('PkgNotification::Notification.data')])
         ];
     }
 

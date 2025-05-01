@@ -27,7 +27,7 @@
     },
     {
         "reference": "Notification_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 10,
         "e_data_field_reference": "Notification_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -51,7 +51,8 @@
     },
     {
         "reference": "Notification_user_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Notification_user_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -69,7 +70,7 @@
     },
     {
         "reference": "Notification_user_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 6,
         "e_data_field_reference": "Notification_user_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -111,7 +112,7 @@
     },
     {
         "reference": "Notification_title_displayOrder",
-        "value_integer": 3,
+        "value_integer": 1,
         "e_data_field_reference": "Notification_title",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -147,7 +148,7 @@
     },
     {
         "reference": "Notification_message_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "e_data_field_reference": "Notification_message",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -201,13 +202,14 @@
     },
     {
         "reference": "Notification_type_displayOrder",
-        "value_integer": 6,
+        "value_integer": 2,
         "e_data_field_reference": "Notification_type",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Notification_type_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Notification_type",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -231,7 +233,8 @@
     },
     {
         "reference": "Notification_data_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Notification_data",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -243,7 +246,7 @@
     },
     {
         "reference": "Notification_sent_at_displayOrder",
-        "value_integer": 8,
+        "value_integer": 4,
         "e_data_field_reference": "Notification_sent_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -267,7 +270,7 @@
     },
     {
         "reference": "Notification_created_at_displayOrder",
-        "value_integer": 9,
+        "value_integer": 8,
         "e_data_field_reference": "Notification_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -291,7 +294,7 @@
     },
     {
         "reference": "Notification_updated_at_displayOrder",
-        "value_integer": 10,
+        "value_integer": 9,
         "e_data_field_reference": "Notification_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -312,5 +315,50 @@
         "value_boolean": 1,
         "e_data_field_reference": "Notification_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "notifications_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            }
+        ],
+        "e_model_reference": "notifications",
+        "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "Notification_is_read_filterable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Notification_is_read",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Notification_sent_at_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Notification_sent_at",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Notification_sent_at_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "duree"
+        },
+        "e_data_field_reference": "Notification_sent_at",
+        "e_metadata_definition_reference": "nature"
     }
 ]

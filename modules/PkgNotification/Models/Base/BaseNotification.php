@@ -19,11 +19,12 @@ use Modules\PkgAutorisation\Models\User;
  */
 class BaseNotification extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "user,user";
     }
 
     
@@ -33,7 +34,7 @@ class BaseNotification extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'title', 'message', 'is_read', 'type', 'data', 'sent_at'
+        'title', 'type', 'message', 'sent_at', 'is_read', 'user_id', 'data'
     ];
     public $manyToOne = [
         'User' => [

@@ -24,38 +24,6 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="user_id">
-            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="user_id" 
-            required
-            
-            
-            name="user_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}"
-                        {{ (isset($itemNotification) && $itemNotification->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
-                        {{ $user }}
-                    </option>
-                @endforeach
-            </select>
-          @error('user_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="title" id="bulk_field_title" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -108,6 +76,34 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sent_at" id="bulk_field_sent_at" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="sent_at">
+            {{ ucfirst(__('PkgNotification::notification.sent_at')) }}
+            
+          </label>
+                      <input
+                name="sent_at"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="sent_at"
+                placeholder="{{ __('PkgNotification::notification.sent_at') }}"
+                value="{{ $itemNotification ? $itemNotification->sent_at : old('sent_at') }}">
+
+          @error('sent_at')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_read" id="bulk_field_is_read" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -136,81 +132,29 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type" id="bulk_field_type" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="type">
-            {{ ucfirst(__('PkgNotification::notification.type')) }}
-            
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            <span class="text-danger">*</span>
           </label>
-           <input
-                name="type"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="type"
-                placeholder="{{ __('PkgNotification::notification.type') }}"
-                value="{{ $itemNotification ? $itemNotification->type : old('type') }}">
-          @error('type')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="data" id="bulk_field_data" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="data">
-            {{ ucfirst(__('PkgNotification::notification.data')) }}
+                      <select 
+            id="user_id" 
+            required
             
-          </label>
-              <div class="form-control editeur_json code-editor"
-        contenteditable="true">{{ $itemNotification ? $itemNotification->data : old('data') }}</div>
-    <input
-        type="hidden"
-        name="data"
-        class="form-control"
-        id="data"
-         
-        
-        
-        value = "{{ $itemNotification ? $itemNotification->data : old('data') }}"
-    >
-          @error('data')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sent_at" id="bulk_field_sent_at" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="sent_at">
-            {{ ucfirst(__('PkgNotification::notification.sent_at')) }}
             
-          </label>
-                      <input
-                name="sent_at"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="sent_at"
-                placeholder="{{ __('PkgNotification::notification.sent_at') }}"
-                value="{{ $itemNotification ? $itemNotification->sent_at : old('sent_at') }}">
-
-          @error('sent_at')
+            name="user_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}"
+                        {{ (isset($itemNotification) && $itemNotification->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
+                        {{ $user }}
+                    </option>
+                @endforeach
+            </select>
+          @error('user_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
