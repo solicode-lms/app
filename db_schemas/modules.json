@@ -141,9 +141,13 @@
         "realisation_formations",
         "realisation_chapitres"
     ]
+},
+"PkgNotification": {
+    "name": "PkgNotification",
+    "tables": [
+        "notifications"
+    ]
 }
-
-
         
 }
 
