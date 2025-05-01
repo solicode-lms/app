@@ -1,0 +1,381 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgNotification\Controllers\Base;
+use Modules\PkgNotification\Services\NotificationService;
+use Modules\PkgAutorisation\Services\UserService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Core\Controllers\Base\AdminController;
+use Modules\Core\App\Helpers\JsonResponseHelper;
+use Modules\PkgNotification\App\Requests\NotificationRequest;
+use Modules\PkgNotification\Models\Notification;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\PkgNotification\App\Exports\NotificationExport;
+use Modules\PkgNotification\App\Imports\NotificationImport;
+use Modules\Core\Services\ContextState;
+
+class BaseNotificationController extends AdminController
+{
+    protected $notificationService;
+    protected $userService;
+
+    public function __construct(NotificationService $notificationService, UserService $userService) {
+        parent::__construct();
+        $this->service  =  $notificationService;
+        $this->notificationService = $notificationService;
+        $this->userService = $userService;
+    }
+
+    /**
+     */
+    public function index(Request $request) {
+        
+        $this->viewState->setContextKeyIfEmpty('notification.index');
+        
+        $userHasSentFilter = $this->viewState->getFilterVariables('notification');
+        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
+
+
+
+
+
+         // Extraire les paramètres de recherche, pagination, filtres
+        $notifications_params = array_merge(
+            $request->only(['page']),
+            ['search' => $request->get(
+                'notifications_search',
+                $this->viewState->get("filter.notification.notifications_search")
+            )],
+            $request->except(['notifications_search', 'page'])
+        );
+
+        // prepareDataForIndexView
+        $tcView = $this->notificationService->prepareDataForIndexView($notifications_params);
+        extract($tcView); // Toutes les variables sont injectées automatiquement
+        
+        // Retourner la vue ou les données pour une requête AJAX
+        if ($request->ajax()) {
+            if($request['showIndex']){
+                return view('PkgNotification::notification._index', $notification_compact_value)->render();
+            }else{
+                return view($notification_partialViewName, $notification_compact_value)->render();
+            }
+        }
+
+        return view('PkgNotification::notification.index', $notification_compact_value);
+    }
+    /**
+     */
+    public function create() {
+
+
+        $itemNotification = $this->notificationService->createInstance();
+        
+
+        $users = $this->userService->all();
+
+        if (request()->ajax()) {
+            return view('PkgNotification::notification._fields', compact('itemNotification', 'users'));
+        }
+        return view('PkgNotification::notification.create', compact('itemNotification', 'users'));
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkEditForm(Request $request) {
+        $this->authorizeAction('update');
+
+        $notification_ids = $request->input('ids', []);
+
+        if (!is_array($notification_ids) || count($notification_ids) === 0) {
+            return response()->json(['html' => '<div class="alert alert-warning">Aucun élément sélectionné.</div>']);
+        }
+
+        // Même traitement de create 
+
+ 
+         $itemNotification = $this->notificationService->find($notification_ids[0]);
+         
+ 
+        $users = $this->userService->all();
+
+        $bulkEdit = true;
+
+        //  Vider les valeurs : 
+        $itemNotification = $this->notificationService->createInstance();
+        
+        if (request()->ajax()) {
+            return view('PkgNotification::notification._fields', compact('bulkEdit', 'notification_ids', 'itemNotification', 'users'));
+        }
+        return view('PkgNotification::notification.bulk-edit', compact('bulkEdit', 'notification_ids', 'itemNotification', 'users'));
+    }
+    /**
+     */
+    public function store(NotificationRequest $request) {
+        $validatedData = $request->validated();
+        $notification = $this->notificationService->create($validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.addSuccess', [
+                'entityToString' => $notification,
+                'modelName' => __('PkgNotification::notification.singular')]);
+        
+            return JsonResponseHelper::success(
+             $message,
+             ['entity_id' => $notification->id]
+            );
+        }
+
+        return redirect()->route('notifications.index')->with(
+            'success',
+            __('Core::msg.addSuccess', [
+                'entityToString' => $notification,
+                'modelName' => __('PkgNotification::notification.singular')
+            ])
+        );
+    }
+    /**
+     */
+    public function show(string $id) {
+
+        $this->viewState->setContextKey('notification.edit_' . $id);
+
+
+        $itemNotification = $this->notificationService->edit($id);
+
+
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgNotification::notification._fields', array_merge(compact('itemNotification','users'),));
+        }
+
+        return view('PkgNotification::notification.edit', array_merge(compact('itemNotification','users'),));
+
+    }
+    /**
+     */
+    public function edit(string $id) {
+
+        $this->viewState->setContextKey('notification.edit_' . $id);
+
+
+        $itemNotification = $this->notificationService->edit($id);
+
+
+        $users = $this->userService->all();
+
+
+        if (request()->ajax()) {
+            return view('PkgNotification::notification._fields', array_merge(compact('itemNotification','users'),));
+        }
+
+        return view('PkgNotification::notification.edit', array_merge(compact('itemNotification','users'),));
+
+
+    }
+    /**
+     */
+    public function update(NotificationRequest $request, string $id) {
+
+        $validatedData = $request->validated();
+        $notification = $this->notificationService->update($id, $validatedData);
+
+        if ($request->ajax()) {
+             $message = __('Core::msg.updateSuccess', [
+                'entityToString' => $notification,
+                'modelName' =>  __('PkgNotification::notification.singular')]);
+            
+            return JsonResponseHelper::success(
+                $message,
+                ['entity_id' => $notification->id]
+            );
+        }
+
+        return redirect()->route('notifications.index')->with(
+            'success',
+            __('Core::msg.updateSuccess', [
+                'entityToString' => $notification,
+                'modelName' =>  __('PkgNotification::notification.singular')
+                ])
+        );
+
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkUpdate(Request $request) {
+        $this->authorizeAction('update');
+    
+        $notification_ids = $request->input('notification_ids', []);
+        $champsCoches = $request->input('fields_modifiables', []); // ✅ champs à appliquer
+    
+        if (!is_array($notification_ids) || count($notification_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        if (empty($champsCoches)) {
+            return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
+        }
+    
+        foreach ($notification_ids as $id) {
+            $entity = $this->notificationService->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->notificationService->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->notificationService->update($id, $data);
+            }
+        }
+    
+        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+    }
+    /**
+     */
+    public function destroy(Request $request, string $id) {
+
+        $notification = $this->notificationService->destroy($id);
+
+        if ($request->ajax()) {
+            $message = __('Core::msg.deleteSuccess', [
+                'entityToString' => $notification,
+                'modelName' =>  __('PkgNotification::notification.singular')]);
+            
+
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+
+        return redirect()->route('notifications.index')->with(
+            'success',
+            __('Core::msg.deleteSuccess', [
+                'entityToString' => $notification,
+                'modelName' =>  __('PkgNotification::notification.singular')
+                ])
+        );
+
+    }
+    /**
+     * @DynamicPermissionIgnore
+     */
+    public function bulkDelete(Request $request) {
+        $this->authorizeAction('destroy');
+        $notification_ids = $request->input('ids', []);
+        if (!is_array($notification_ids) || count($notification_ids) === 0) {
+            return JsonResponseHelper::error("Aucun élément sélectionné.");
+        }
+        foreach ($notification_ids as $id) {
+            $entity = $this->notificationService->find($id);
+            $this->notificationService->destroy($id);
+        }
+        return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
+            'entityToString' => count($notification_ids) . ' éléments',
+            'modelName' => __('PkgNotification::notification.plural')
+        ]));
+    }
+
+    public function export($format)
+    {
+        $notifications_data = $this->notificationService->all();
+        
+        // Vérifier le format et exporter en conséquence
+        if ($format === 'csv') {
+            return Excel::download(new NotificationExport($notifications_data,'csv'), 'notification_export.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        } elseif ($format === 'xlsx') {
+            return Excel::download(new NotificationExport($notifications_data,'xlsx'), 'notification_export.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new NotificationImport, $request->file('file'));
+        } catch (\InvalidArgumentException $e) {
+            return redirect()->route('notifications.index')->withError('Invalid format or missing data.');
+        }
+
+        return redirect()->route('notifications.index')->with(
+            'success', __('Core::msg.importSuccess', [
+            'modelNames' =>  __('PkgNotification::notification.plural')
+            ]));
+
+
+
+    }
+
+    // Il permet d'afficher les information en format JSON pour une utilisation avec Ajax
+    public function getNotifications()
+    {
+        $notifications = $this->notificationService->all();
+        return response()->json($notifications);
+    }
+
+
+    public function dataCalcul(Request $request)
+    {
+
+        // Extraire les données de la requête
+        $data = $request->all();
+
+        $notification = $this->notificationService->createInstance($data);
+    
+        // Mise à jour des attributs via le service
+        $updatedNotification = $this->notificationService->dataCalcul($notification);
+    
+        return response()->json([
+            'success' => true,
+            'entity' => $updatedNotification
+        ]);
+    }
+    
+
+
+    /**
+     * @DynamicPermissionIgnore
+     * Met à jour les attributs, il est utilisé par type View : Widgets
+     */
+    public function updateAttributes(Request $request)
+    {
+        // Autorisation dynamique basée sur le nom du contrôleur
+        $this->authorizeAction('update');
+    
+        $updatableFields = $this->service->getFieldsEditable();
+        $notificationRequest = new NotificationRequest();
+        $fullRules = $notificationRequest->rules();
+        $rules = collect($fullRules)
+            ->only(array_intersect(array_keys($request->all()), $updatableFields))
+            ->toArray();
+
+        // Ajout obligatoire de l'ID
+        $rules['id'] = ['required', 'integer', 'exists:notifications,id'];
+        $validated = $request->validate($rules);
+
+        
+        $dataToUpdate = collect($validated)->only($updatableFields)->toArray();
+    
+        if (empty($dataToUpdate)) {
+            return JsonResponseHelper::error('Aucune donnée à mettre à jour.',null, 422);
+        }
+    
+        $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
+    
+        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
+            'entity_id' => $validated['id']
+        ]);
+    }
+}

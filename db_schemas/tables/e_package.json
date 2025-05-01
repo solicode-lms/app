@@ -86,5 +86,13 @@
         "description": "Automatically generated package for PkgAutoformation",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 12,
+        "reference": "PkgNotification",
+        "name": "PkgNotification",
+        "description": "Automatically generated package for PkgNotification",
+        "created_at": null,
+        "updated_at": null
     }
 ]

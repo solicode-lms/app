@@ -503,5 +503,23 @@
         "value_integer": 6,
         "e_data_field_reference": "users_hasMany_historique_realisation_taches_user_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "users_hasMany_notifications_user_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_notifications_user_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "users_hasMany_notifications_user_id_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "users_hasMany_notifications_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "users_hasMany_notifications_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "users_hasMany_notifications_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
     }
 ]
