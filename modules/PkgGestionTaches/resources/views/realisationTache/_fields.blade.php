@@ -176,7 +176,7 @@
       </div>
   
 
-
+@if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">
             {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
@@ -185,6 +185,7 @@
 
   @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
+@endif
 
 
       @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
