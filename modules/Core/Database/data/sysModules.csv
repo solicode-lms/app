@@ -11,3 +11,4 @@
 "Réalisation des projets","PkgRealisationProjets","Contient les tables","1","10","1","6","19e4b9be-4ec7-407d-90e9-387e659c603f"
 "Gestion des tâches","PkgGestionTaches","Contient les tables PkgGestionTaches","1","11","1","6","PkgGestionTaches"
 "Gestion des autoformations","PkgAutoformation","Contient les tables PkgAutoformation","1","11","1","6","PkgAutoformation"
+"Gestion des notification","PkgNotification","Contient les tables PkgNotification","1","11","1","6","PkgNotification"
