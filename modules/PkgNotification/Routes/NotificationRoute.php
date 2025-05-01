@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ markAllAsRead
+// Ce fichier est maintenu par ESSARRAJ getUserNotifications
 
 
 

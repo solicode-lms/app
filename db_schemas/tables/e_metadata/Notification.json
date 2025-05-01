@@ -370,6 +370,7 @@
                 "icon": "fas fa-check-double",
                 "route": "notifications.markAllAsRead",
                 "title": "Tout marquer comme lu",
+                "action": "markAllAsRead",
                 "permission": "index-notification"
             }
         ],

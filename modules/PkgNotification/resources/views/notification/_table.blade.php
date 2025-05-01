@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ show lien --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('notification-table')
 <div class="card-body p-0 crud-card-body" id="notifications-crud-card-body">
@@ -41,17 +41,18 @@
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">
 
-
-                       
-
                         @can('edit-notification')
-                        @can('update', $notification)
+                        <x-action-button :entity="$notification" actionName="edit">
+                            @can('update', $notification)
                             <a href="{{ route('notifications.edit', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                            @endcan
+                        </x-action-button>
                         @elsecan('show-notification')
-                        @can('view', $notification)
+                       
+                        <x-action-button :entity="$notification" actionName="show">
+                            @can('view', $notification)
                             @if(empty($notification->data["lien"]))
                             <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
@@ -61,10 +62,13 @@
                                 <i class="fas fa-check"></i>
                             </a>
                             @endif
+                            @endcan
+                        </x-action-button>
                         @endcan
-                        @endcan
-                        @can('destroy-notification')
-                        @can('delete', $notification)
+                        
+                        <x-action-button :entity="$notification" actionName="delete">
+                            @can('destroy-notification')
+                            @can('delete', $notification)
                             <form class="context-state" action="{{ route('notifications.destroy',['notification' => $notification->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -72,8 +76,11 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                            @endcan
+                            @endcan
+                        </x-action-button>
+                        
+                        
                     </td>
                 </tr>
             @endforeach
