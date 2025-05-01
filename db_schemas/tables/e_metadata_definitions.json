@@ -790,5 +790,17 @@
         "description": "<p><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">Permet de spécifier dynamiquement le chemin du champ à utiliser pour trier l’entité dans les listes ou tables. Ce chemin peut naviguer dans des relations Laravel (</span><code style=\"font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, monospace; color: rgb(36, 41, 46); background-color: rgba(27, 31, 35, 0.05); padding: 0.2em 0.4em; border-radius: 3px; font-size: 13.6px; line-height: 1.357em; margin: 0px;\">ManyToOne</code><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">) pour atteindre une propriété spécifique de l’objet cible.</span></p>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 67,
+        "reference": "indexActions",
+        "name": "indexActions",
+        "type": "Json",
+        "scope": "model",
+        "default_value": "[\r\n    {\r\n      \"title\": \"Tout marquer comme lu\",\r\n      \"route\": \"notifications.markAllAsRead\",\r\n      \"icon\": \"fas fa-check-double\",\r\n      \"permission\": \"index-notification\"\r\n    }\r\n]",
+        "groupe": "index",
+        "description": "<p><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">Permet d’ajouter un ou plusieurs boutons d'action globaux dans la page&nbsp;</span><span style=\"font-weight: 600; color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">index</span><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">&nbsp;d'un module CRUD, afin d'exécuter des opérations sur&nbsp;</span><span style=\"font-weight: 600; color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">tout l'ensemble des entités</span><span style=\"color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;\">&nbsp;visibles (ex: marquer toutes les notifications comme lues).</span></p>",
+        "created_at": null,
+        "updated_at": null
     }
 ]

@@ -360,5 +360,20 @@
         },
         "e_data_field_reference": "Notification_sent_at",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "notifications_indexActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-check-double",
+                "route": "notifications.markAllAsRead",
+                "title": "Tout marquer comme lu",
+                "permission": "index-notification"
+            }
+        ],
+        "e_model_reference": "notifications",
+        "e_metadata_definition_reference": "indexActions"
     }
 ]
