@@ -21,7 +21,9 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     protected $fieldsSearchable = [
         'dateModification',
         'changement',
-        'realisation_tache_id'
+        'realisation_tache_id',
+        'user_id',
+        'isFeedback'
     ];
 
     /**
@@ -54,6 +56,10 @@ class BaseHistoriqueRealisationTacheService extends BaseService
 
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
+        }
+
+        if (!array_key_exists('user_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
 
     }

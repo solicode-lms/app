@@ -59,7 +59,9 @@ class BaseHistoriqueRealisationTacheImport implements ToModel, WithHeadingRow
              'dateModification' => $values[0] ?? null,
              'changement' => $values[1] ?? null,
              'realisation_tache_id' => $values[2] ?? null,
+             'user_id' => $values[3] ?? null,
              'reference' => $reference,
+             'isFeedback' => $values[5] ?? null,
         ]);
 
 

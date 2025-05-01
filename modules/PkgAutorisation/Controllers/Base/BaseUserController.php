@@ -8,6 +8,7 @@ use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
+use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
 use Modules\Core\Services\UserModelFilterService;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Illuminate\Http\Request;
@@ -175,6 +176,13 @@ class BaseUserController extends AdminController
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
+        $this->viewState->set('scope.historiqueRealisationTache.user_id', $id);
+        
+
+        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
+
         $this->viewState->set('scope.userModelFilter.user_id', $id);
         
 
@@ -190,10 +198,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
     }
     /**
@@ -230,6 +238,13 @@ class BaseUserController extends AdminController
         $profiles_view_data = $profileService->prepareDataForIndexView();
         extract($profiles_view_data);
 
+        $this->viewState->set('scope.historiqueRealisationTache.user_id', $id);
+        
+
+        $historiqueRealisationTacheService =  new HistoriqueRealisationTacheService();
+        $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
+        extract($historiqueRealisationTaches_view_data);
+
         $this->viewState->set('scope.userModelFilter.user_id', $id);
         
 
@@ -245,10 +260,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
 
     }

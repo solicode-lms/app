@@ -15,6 +15,7 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgAutorisation\Models\Profile;
+use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\Core\Models\UserModelFilter;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 
@@ -82,6 +83,15 @@ class BaseUser extends BaseModel
     public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function historiqueRealisationTaches(): HasMany
+    {
+        return $this->hasMany(HistoriqueRealisationTache::class, 'user_id', 'id');
     }
     /**
      * Relation HasMany pour Users.

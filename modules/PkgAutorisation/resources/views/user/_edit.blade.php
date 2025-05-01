@@ -46,6 +46,9 @@
                             <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{ucfirst(__('PkgAutorisation::profile.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="user-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#user-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="user-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-userModelFilter-tab" data-toggle="pill" href="#user-hasmany-tabs-userModelFilter" role="tab" aria-controls="user-hasmany-tabs-userModelFilter" aria-selected="false">{{ucfirst(__('Core::userModelFilter.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -69,6 +72,9 @@
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-profile" role="tabpanel" aria-labelledby="user-hasmany-tabs-profile-tab">
                                 @include('PkgAutorisation::profile._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
+                            </div>
+                            <div class="tab-pane fade" id="user-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="user-hasmany-tabs-historiqueRealisationTache-tab">
+                                @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-userModelFilter" role="tabpanel" aria-labelledby="user-hasmany-tabs-userModelFilter-tab">
                                 @include('Core::userModelFilter._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])

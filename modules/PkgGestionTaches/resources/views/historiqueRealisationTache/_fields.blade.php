@@ -105,6 +105,66 @@
       </div>
   
 
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            
+          </label>
+                      <select 
+            id="user_id" 
+            
+            
+            
+            name="user_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}"
+                        {{ (isset($itemHistoriqueRealisationTache) && $itemHistoriqueRealisationTache->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
+                        {{ $user }}
+                    </option>
+                @endforeach
+            </select>
+          @error('user_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="isFeedback" id="bulk_field_isFeedback" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="isFeedback">
+            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.isFeedback')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="isFeedback" value="0">
+            <input
+                name="isFeedback"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                
+                id="isFeedback"
+                value="1"
+                {{ old('isFeedback', $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->isFeedback : 0) ? 'checked' : '' }}>
+          @error('isFeedback')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
     </div>
 
     <div class="card-footer">

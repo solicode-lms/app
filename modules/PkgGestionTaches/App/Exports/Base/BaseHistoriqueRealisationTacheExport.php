@@ -31,14 +31,18 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
             'dateModification' => 'dateModification',
             'changement' => 'changement',
             'realisation_tache_id' => 'realisation_tache_id',
+            'user_id' => 'user_id',
             'reference' => 'reference',
+            'isFeedback' => 'isFeedback',
         ];
         }else{
         return [
             'dateModification' => __('PkgGestionTaches::historiqueRealisationTache.dateModification'),
             'changement' => __('PkgGestionTaches::historiqueRealisationTache.changement'),
             'realisation_tache_id' => __('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id'),
+            'user_id' => __('PkgGestionTaches::historiqueRealisationTache.user_id'),
             'reference' => __('Core::msg.reference'),
+            'isFeedback' => __('PkgGestionTaches::historiqueRealisationTache.isFeedback'),
         ];
 
         }
@@ -52,7 +56,9 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
                 'dateModification' => $historiqueRealisationTache->dateModification,
                 'changement' => $historiqueRealisationTache->changement,
                 'realisation_tache_id' => $historiqueRealisationTache->realisation_tache_id,
+                'user_id' => $historiqueRealisationTache->user_id,
                 'reference' => $historiqueRealisationTache->reference,
+                'isFeedback' => $historiqueRealisationTache->isFeedback,
             ];
         });
     }

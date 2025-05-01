@@ -11,6 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
                 <x-sortable-column :sortable="true" width="80"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
+                <x-sortable-column :sortable="true" width="2" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -27,6 +28,12 @@
                         {!! $historiqueRealisationTache->changement !!}
                     </x-field>
                     </td>   
+                    <td style="max-width: 2%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
+                    <x-field :entity="$historiqueRealisationTache" field="user">
+                       
+                         {{  $historiqueRealisationTache->user }}
+                    </x-field>
+                    </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">
 
 

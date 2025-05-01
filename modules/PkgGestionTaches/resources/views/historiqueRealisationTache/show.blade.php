@@ -36,6 +36,14 @@
                                 <label for="realisation_tache_id">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id')) }}:</label>
                                 <p>{{ $itemHistoriqueRealisationTache->realisation_tache_id }}</p>
                             </div>
+                            <div class="col-sm-12">
+                                <label for="user_id">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.user_id')) }}:</label>
+                                <p>{{ $itemHistoriqueRealisationTache->user_id }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="isFeedback">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.isFeedback')) }}:</label>
+                                <p>{{ $itemHistoriqueRealisationTache->isFeedback }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

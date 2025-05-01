@@ -31,7 +31,9 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
         return [
             'dateModification' => 'required',
             'changement' => 'required|string',
-            'realisation_tache_id' => 'required'
+            'realisation_tache_id' => 'required',
+            'user_id' => 'nullable',
+            'isFeedback' => 'required|boolean'
         ];
     }
 
@@ -45,7 +47,9 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
         return [
             'dateModification.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.dateModification')]),
             'changement.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.changement')]),
-            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.realisation_tache_id')])
+            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.realisation_tache_id')]),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.user_id')]),
+            'isFeedback.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.isFeedback')])
         ];
     }
 

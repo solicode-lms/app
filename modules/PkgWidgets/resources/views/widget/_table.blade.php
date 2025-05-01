@@ -51,7 +51,7 @@
                         />
 
                     </x-field>
-                    </td>    
+                    </td> 
                     <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="label"  data-toggle="tooltip" title="{{ $widget->label }}" >
                     <x-field :entity="$widget" field="label">
                         {{ $widget->label }}

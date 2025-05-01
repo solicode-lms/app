@@ -5,6 +5,7 @@
 namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -20,12 +21,14 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 {
     protected $historiqueRealisationTacheService;
     protected $realisationTacheService;
+    protected $userService;
 
-    public function __construct(HistoriqueRealisationTacheService $historiqueRealisationTacheService, RealisationTacheService $realisationTacheService) {
+    public function __construct(HistoriqueRealisationTacheService $historiqueRealisationTacheService, RealisationTacheService $realisationTacheService, UserService $userService) {
         parent::__construct();
         $this->service  =  $historiqueRealisationTacheService;
         $this->historiqueRealisationTacheService = $historiqueRealisationTacheService;
         $this->realisationTacheService = $realisationTacheService;
+        $this->userService = $userService;
     }
 
     /**
@@ -75,11 +78,12 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         
 
         $realisationTaches = $this->realisationTacheService->all();
+        $users = $this->userService->all();
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('itemHistoriqueRealisationTache', 'realisationTaches'));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
         }
-        return view('PkgGestionTaches::historiqueRealisationTache.create', compact('itemHistoriqueRealisationTache', 'realisationTaches'));
+        return view('PkgGestionTaches::historiqueRealisationTache.create', compact('itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -100,6 +104,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
          
  
         $realisationTaches = $this->realisationTacheService->all();
+        $users = $this->userService->all();
 
         $bulkEdit = true;
 
@@ -107,9 +112,9 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches'));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
         }
-        return view('PkgGestionTaches::historiqueRealisationTache.bulk-edit', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches'));
+        return view('PkgGestionTaches::historiqueRealisationTache.bulk-edit', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
     }
     /**
      */
@@ -147,13 +152,14 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         $realisationTaches = $this->realisationTacheService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
+        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
 
     }
     /**
@@ -167,13 +173,14 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         $realisationTaches = $this->realisationTacheService->all();
+        $users = $this->userService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches'),));
+        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
 
 
     }

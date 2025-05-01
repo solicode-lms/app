@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgAutorisation\Models\User;
 
 /**
  * Classe BaseHistoriqueRealisationTache
@@ -33,13 +34,18 @@ class BaseHistoriqueRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'dateModification', 'changement', 'realisation_tache_id'
+        'dateModification', 'changement', 'realisation_tache_id', 'user_id', 'isFeedback'
     ];
     public $manyToOne = [
         'RealisationTache' => [
             'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
             'relation' => 'realisationTaches' , 
             "foreign_key" => "realisation_tache_id", 
+            ],
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
             ]
     ];
 
@@ -52,6 +58,15 @@ class BaseHistoriqueRealisationTache extends BaseModel
     public function realisationTache(): BelongsTo
     {
         return $this->belongsTo(RealisationTache::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour User.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 
