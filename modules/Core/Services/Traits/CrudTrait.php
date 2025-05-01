@@ -63,6 +63,9 @@ trait CrudTrait
 
     /**
      * BL : Logique de traitement
+     * il est utilisé dans les méthodes :
+     * - updateOnlyExistanteAttribute
+     * - update
      * @param mixed $record
      * @param array $data
      * @return void

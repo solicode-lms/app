@@ -26,12 +26,9 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 class RealisationTacheService extends BaseRealisationTacheService
 {
     use 
-        RealisationTacheServiceWidgets,  
         RealisationTacheServiceCrud,
+        RealisationTacheServiceWidgets,  
         RealisationTacheWorkflow;
-
-
-    
 
 
     public function initFieldsFilterable()
@@ -149,17 +146,7 @@ class RealisationTacheService extends BaseRealisationTacheService
         
     }
 
-    public function defaultSort($query)
-    {
-        return $query
-            ->with(['realisationProjet.affectationProjet']) // Charger affectationProjet
-            ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
-            ->join('affectation_projets', 'realisation_projets.affectation_projet_id', '=', 'affectation_projets.id')
-            ->join('taches', 'realisation_taches.tache_id', '=', 'taches.id')
-            ->orderBy('affectation_projets.date_fin', 'desc') // 1️⃣ Trier par date de fin de l'affectation
-            ->orderBy('taches.ordre', 'asc') // 2️⃣ Ensuite par ordre de tâche
-            ->select('realisation_taches.*'); // 🎯 Important pour éviter le problème de Model::hydrate
-    }
+
 
 
 }

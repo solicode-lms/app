@@ -16,12 +16,13 @@ use Modules\PkgGestionTaches\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
-
+use Modules\PkgGestionTaches\Services\WorkflowTacheService;
 
 trait RealisationTacheWorkflow
 {
     /**
-     * Liste des codes de workflows imposant une validation de priorité
+     * Liste des codes de workflows imposant une validation de priorité après la modification
+     * d'un objet : realisationTache
      * @param mixed $workflowCode
      * @return bool
      */
@@ -30,23 +31,26 @@ trait RealisationTacheWorkflow
         if (!$workflowCode) {
             return false;
         }
-
         // Liste des codes de workflows imposant une validation de priorité
         $workflowsBloquants = [
             'EN_COURS', // adapte selon tes besoins
             'EN_VALIDATION',
             'TERMINEE'
         ];
-
         return in_array($workflowCode, $workflowsBloquants);
     }
 
+    /**
+     * Vérifier que les tâches moins prioritaire sont terminé 
+     * @param $realisationTache
+     * @param mixed $workflowCode
+     * @return void
+     */
     protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache,$workflowCode): void
     {
         // Charger les relations nécessaires
         $realisationTache->loadMissing('etatRealisationTache.workflowTache', 'tache.prioriteTache');
 
-    
         // Appliquer la règle seulement si le workflow le demande
         if (!$this->workflowExigeRespectDesPriorites($workflowCode)) {
             return;
@@ -75,8 +79,6 @@ trait RealisationTacheWorkflow
                 ->with('tache') // Charger les noms des tâches
                 ->get();
 
-        
-
             if ($tachesBloquantes->isNotEmpty()) {
                 $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->map(function ($nom) {
                     return "<li>" . e($nom) . "</li>";
@@ -91,22 +93,7 @@ trait RealisationTacheWorkflow
         }
     }
 
-    // TODO : à migrer vers WorkflowTacheService
-    /**
-     * get ou créer le WorkflowTache : REVISION_NECESSAIRE
-     * @return TModel
-     */
-    protected function getWorkflowRevision()
-    {
-        return WorkflowTache::firstOrCreate([
-            'code' => 'REVISION_NECESSAIRE'
-        ], [
-            'titre' => 'Révision nécessaire',
-            'description' => 'La tâche a été révisée par le formateur.',
-            'sys_color_id' => 4, // Couleur neutre
-            'reference' => 'REVISION_NECESSAIRE',
-        ]);
-    }
+
 
         /**
      * Met à jour automatiquement l'état de la tâche en "Révision nécessaire"
@@ -148,7 +135,7 @@ trait RealisationTacheWorkflow
         }
 
         // Chercher ou créer l'état REVISION_NECESSAIRE pour le formateur connecté
-        $wk_revision_necessaire = $this->getWorkflowRevision();
+        $wk_revision_necessaire = (new WorkflowTacheService())->getOrCreateWorkflowRevision();
 
         $etatRevision = EtatRealisationTache::firstOrCreate([
             'workflow_tache_id' => $wk_revision_necessaire->id ,
