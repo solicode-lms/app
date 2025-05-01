@@ -176,6 +176,7 @@
       </div>
   
 
+
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">
