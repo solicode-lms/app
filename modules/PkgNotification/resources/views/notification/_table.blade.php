@@ -41,34 +41,30 @@
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">
 
+
+                       
+
                         @can('edit-notification')
                         <x-action-button :entity="$notification" actionName="edit">
-                            @can('update', $notification)
+                        @can('update', $notification)
                             <a href="{{ route('notifications.edit', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                            @endcan
+                        @endcan
                         </x-action-button>
                         @elsecan('show-notification')
-                       
                         <x-action-button :entity="$notification" actionName="show">
-                            @can('view', $notification)
-                            @if(empty($notification->data["lien"]))
+                        @can('view', $notification)
                             <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                            @else
-                            <a href="{{ $notification->data["lien"] }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state">
-                                <i class="fas fa-check"></i>
-                            </a>
-                            @endif
-                            @endcan
+                        @endcan
                         </x-action-button>
                         @endcan
-                        
+
                         <x-action-button :entity="$notification" actionName="delete">
-                            @can('destroy-notification')
-                            @can('delete', $notification)
+                        @can('destroy-notification')
+                        @can('delete', $notification)
                             <form class="context-state" action="{{ route('notifications.destroy',['notification' => $notification->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -76,11 +72,9 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                            @endcan
-                            @endcan
+                        @endcan
+                        @endcan
                         </x-action-button>
-                        
-                        
                     </td>
                 </tr>
             @endforeach
