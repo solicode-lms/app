@@ -82,7 +82,7 @@ trait CrudCreateTrait
         $entity = $this->model->create($data);
         $this->syncManyToManyRelations($entity, $data);
 
-        $this->executeRules('after', 'delete', $entity, $entity->id);
+        $this->executeRules('after', 'create', $entity, $entity->id);
         return  $entity;
     }
   

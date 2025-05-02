@@ -4,6 +4,7 @@ namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 trait CrudTrait
 {
@@ -33,6 +34,32 @@ trait CrudTrait
         }
     }
 
+
+      // TODO : déplacer dans NotificationService
+    /**
+     * Marquer toutes les notifications liées à une realisation_tache comme lues.
+     */
+    protected function markNotificationsAsRead($id): void
+    {
+        $user = Auth::user();
+        $jsonField = $this->modelName;
+        if (!$user) {
+            return;
+        }
+    
+        /** @var \Modules\PkgNotification\Services\NotificationService $notificationService */
+        $notificationService = app(\Modules\PkgNotification\Services\NotificationService::class);
+    
+        $notifications = $notificationService->newQuery()
+            ->where('user_id', $user->id)
+            ->where('is_read', false)
+            ->where("data->{$jsonField}", $id) // ⬅️ utilisation générique du chemin JSON
+            ->get();
+    
+        foreach ($notifications as $notification) {
+            $notificationService->markAsRead($notification->id);
+        }
+    }
 
     protected function getNextOrdre(): int
     {

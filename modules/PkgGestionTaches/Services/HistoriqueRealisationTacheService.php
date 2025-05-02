@@ -106,8 +106,7 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
                             'Le formateur a ajouté un feedback sur votre tâche "' . ($realisationTache->tache->titre ?? 'Tâche') . '".',
                             [
                                 'lien' => route('realisationTaches.index',  ['contextKey' => 'realisationTache.index', 'action' => 'edit', 'id' => $realisationTache->id]),
-                                'realisation_tache_id' => $realisationTache->id,
-                                'tache_id' => $realisationTache->tache_id,
+                                'realisationTache' => $realisationTache->id
                             ],
                             NotificationType::FEEDBACK_FORMATEUR->value
                         );

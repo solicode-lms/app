@@ -13,6 +13,10 @@ trait CrudEditTrait
         $this->executeRules('before', 'edit', $empty, $id);
         $entity =  $this->model->find($id);
         $this->executeRules('after', 'edit', $entity, $id);
+
+        // TODO : il doit être appliquer aussi afterShow
+        $this->markNotificationsAsRead($id);
+
         return $entity;
     }
 

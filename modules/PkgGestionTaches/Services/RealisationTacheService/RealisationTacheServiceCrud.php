@@ -40,45 +40,19 @@ trait RealisationTacheServiceCrud
      * affectation de dataDebut = now()
      * @param int $id
      */
-    public function edit(int $id)
+    public function afterEditRules($entity, $id)
     {
-        $entity = $this->model->find($id);
         if (is_null($entity->dateDebut)) {
             $entity->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
             $entity->save(); // il faut sauvegarder si tu veux que le changement soit persisté
         }
 
-        // ✅ Marquer les notifications liées à cette realisation_tache comme lues
-        $this->markNotificationsAsReadForRealisationTache($entity->id);
-
-
-        return $entity;
+        // Déja appliquer par parrent
+        // $this->markNotificationsAsRead( $entity->id);
     }
 
-    // TODO : déplacer dans NotificationService
-    /**
-     * Marquer toutes les notifications liées à une realisation_tache comme lues.
-     */
-    protected function markNotificationsAsReadForRealisationTache(int $realisationTacheId): void
-    {
-        $user = Auth::user();
-
-        if (!$user) {
-            return;
-        }
-
-        $notificationService = app(\Modules\PkgNotification\Services\NotificationService::class);
-
-        $notifications = $notificationService->newQuery()
-            ->where('user_id', $user->id)
-            ->where('is_read', false)
-            ->where('data->realisation_tache_id', $realisationTacheId) // ✅ Attention, syntaxe spéciale pour JSON
-            ->get();
-
-        foreach ($notifications as $notification) {
-            $notificationService->markAsRead($notification->id);
-        }
-    }
+  
+    
 
     /**
      * Trie pardéfaut

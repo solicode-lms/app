@@ -39,7 +39,7 @@ export class CrudModalManager {
         this.tableUI.init();
         this.bulkActionsUI.init();
         this.paginationUI.init();
-
+        this.notificationUI.init();
         if(this.config.isMany){
             this.adapterUiPour_isMany();         
         }

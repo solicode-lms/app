@@ -9,6 +9,8 @@ export class NotificationUI {
         this.config = config;
         this.indexUI = indexUI;
         this.loader = new LoadingIndicator("#notificationUI");
+        this.isTabActive = true; // ✅ On considère actif par défaut
+        this.initVisibilityDetection(); // ➡️ Ajouter la détection
     }
 
     /**
@@ -71,7 +73,26 @@ export class NotificationUI {
      */
     startAutoRefresh() {
         setInterval(() => {
-            this.loadNotifications();
-        }, 10000);
+            if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
+                this.loadNotifications();
+            }
+        }, 10000); // 10 secondes
+    }
+
+    /**
+     * Initialise la détection de visibilité du navigateur.
+     */
+    initVisibilityDetection() {
+        EventUtil.bindEvent('visibilitychange', document, () => {
+            this.isTabActive = !document.hidden;
+        });
+    
+        // window.addEventListener('focus', () => {
+        //     this.isTabActive = true;
+        // });
+    
+        // window.addEventListener('blur', () => {
+        //     this.isTabActive = false;
+        // });
     }
 }

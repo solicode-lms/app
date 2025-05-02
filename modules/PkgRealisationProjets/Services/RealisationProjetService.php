@@ -271,8 +271,8 @@ class RealisationProjetService extends BaseRealisationProjetService
                 title: 'Nouveau Projet de Réalisation Assigné',
                 message: "Vous avez été assigné à un nouveau projet de réalisation. Consultez votre espace projets.",
                 data: [
-                    'realisation_projet_id' => $realisationProjet->id,
-                    'affectation_projet_id' => $realisationProjet->affectation_projet_id,
+                    'lien' => route('realisationProjets.index',  ['contextKey' => 'realisationProjet.index', 'action' => 'edit', 'id' => $realisationProjet->id]),
+                    'realisationProjet' => $realisationProjet->id
                 ],
                 type: NotificationType::NOUVEAU_PROJET->value 
             );

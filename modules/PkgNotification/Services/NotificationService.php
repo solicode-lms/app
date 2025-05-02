@@ -42,9 +42,20 @@ class NotificationService extends BaseNotificationService
 
     /**
      * Envoie une notification à un utilisateur
+     * data doit contient : lien à visiter pour rendre la notification readed
      */
     public function sendNotification(int $userId, string $title, string $message, array $data = [], ?string $type = null)
     {
+
+        // Exemple de data
+        // [
+        //     'lien' => route('realisationTaches.index',  ['contextKey' => 'realisationTache.index', 'action' => 'edit', 'id' => $realisationTache->id]),
+        //     'realisationTache' => $realisationTache->id
+        // ],
+
+        // data doit contient : lien à visiter pour rendre la notification readed
+        //   'lien' => route('realisationTaches.index',  ['contextKey' => 'realisationTache.index', 'action' => 'edit', 'id' => $realisationTache->id]),
+        
         return $this->create([
             'user_id' => $userId,
             'title' => $title,
