@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ : show
 
 
 namespace Modules\PkgGestionTaches\Controllers\Base;
@@ -204,10 +204,10 @@ class BaseRealisationTacheController extends AdminController
         extract($historiqueRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+            return view('PkgGestionTaches::realisationTache._show', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+        return view('PkgGestionTaches::realisationTache.show', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
 
     }
     /**

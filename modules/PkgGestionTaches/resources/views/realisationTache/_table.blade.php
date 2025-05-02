@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ : afficher le button show --}}
 
 @section('realisationTache-table')
 <div class="card-body p-0 crud-card-body" id="realisationTaches-crud-card-body">
@@ -105,7 +105,9 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-realisationTache')
+                        @endcan
+                        
+                        @can('show-realisationTache')
                         <x-action-button :entity="$realisationTache" actionName="show">
                         @can('view', $realisationTache)
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
