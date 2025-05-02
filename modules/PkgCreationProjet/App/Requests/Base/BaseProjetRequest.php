@@ -59,4 +59,40 @@ class BaseProjetRequest extends FormRequest
     }
 
     
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'formateur_id' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $projet_id = $this->route('projet'); // Remplace 'model' par le bon paramètre de route
+      
+        // Vérifier si c'est une édition (projet existant dans l'URL)
+        if (!$projet_id) {
+            return;
+        }
+
+        $model = Projet::find($projet_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
+    
 }

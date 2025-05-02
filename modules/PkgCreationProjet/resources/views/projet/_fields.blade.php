@@ -156,6 +156,7 @@
       </div>
   
 
+      @php $canEditformateur_id =!$itemProjet || !$itemProjet->id ||Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -169,6 +170,7 @@
           </label>
                       <select 
             id="formateur_id" 
+            {{ $canEditformateur_id ? '' : 'disabled' }}
             required
             
             
