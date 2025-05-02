@@ -8,6 +8,7 @@ use Modules\Core\Utils\DateUtil;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Services\Base\BaseHistoriqueRealisationTacheService;
+use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgNotification\Services\NotificationService;
 
 /**
@@ -108,7 +109,7 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
                                 'realisation_tache_id' => $realisationTache->id,
                                 'tache_id' => $realisationTache->tache_id,
                             ],
-                            'feedback'
+                            NotificationType::FEEDBACK_FORMATEUR->value
                         );
                     }
                 }

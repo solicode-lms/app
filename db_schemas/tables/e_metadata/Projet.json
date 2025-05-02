@@ -607,7 +607,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "admin"
+            "roles": "formateur,admin"
         },
         "e_data_field_reference": "Projet_formateur_id",
         "e_metadata_definition_reference": "editableByRoles"

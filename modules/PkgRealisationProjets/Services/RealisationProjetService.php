@@ -23,6 +23,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 
 /**
@@ -179,36 +180,103 @@ class RealisationProjetService extends BaseRealisationProjetService
     
  
 
+
     /**
-     * Summary of update
-     * 
+     * Règles métiers appliquées avant la mise à jour d'un RealisationProjet.
+     *
+     * @param array $data Données à mettre à jour (passées par référence).
+     * @param int $id Identifiant de l'entité à modifier.
+     * @return void
+     * @throws ValidationException En cas de violation de règles métier.
      */
-    public function update($id, array $data)
+    public function beforeUpdateRules(array &$data, int $id): void
     {
-        $record =  $this->find($id);
+        $entity = $this->find($id);
 
+        if (empty($entity)) {
+            throw ValidationException::withMessages([
+                'id' => "Projet de réalisation introuvable."
+            ]);
+        }
 
+        // 🛡️ Vérification de changement d'état
         if (!empty($data["etats_realisation_projet_id"])) {
-            
-            $etats_realisation_projet_id = $data["etats_realisation_projet_id"];
-    
-            // Vérifier si l'état est éditable uniquement par le formateur
-            if ($record->etatsRealisationProjet 
-                && $record->etatsRealisationProjet->is_editable_by_formateur 
-                && $record->etatsRealisationProjet->id  != $etats_realisation_projet_id
-                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
-              
+            $nouvelEtatId = $data["etats_realisation_projet_id"];
+
+            $etatActuel = $entity->etatsRealisationProjet;
+
+            // Charger le nouvel état pour validation
+            $nouvelEtat = EtatsRealisationProjet::find($nouvelEtatId);
+
+            if (!$nouvelEtat) {
                 throw ValidationException::withMessages([
-                    'etats_realisation_projet_id' => "Cet état de projet doit être modifié par le formateur."
+                    'etats_realisation_projet_id' => "L'état sélectionné est invalide."
                 ]);
+            }
 
+            // 🛡️ 1. Empêcher la modification d'un état actuel protégé
+            if ($etatActuel) {
+                if (
+                    $etatActuel->is_editable_by_formateur
+                    && $etatActuel->id !== $nouvelEtatId
+                    && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+                ) {
+                    throw ValidationException::withMessages([
+                        'etats_realisation_projet_id' => "L'état actuel du projet ne peut être changé que par un formateur."
+                    ]);
+                }
+            }
 
-                return $record;
+            // 🛡️ 2. Empêcher l'affectation d'un nouvel état protégé
+            if (
+                $nouvelEtat->is_editable_by_formateur
+                && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+            ) {
+                throw ValidationException::withMessages([
+                    'etats_realisation_projet_id' => "Vous ne pouvez pas affecter cet état réservé au formateur."
+                ]);
             }
         }
-    
-        // Mise à jour standard du projet
-        return parent::update($id, $data);
+
+        // 🛡️ 3. Vérification cohérence dates (facultatif mais recommandé)
+        if (isset($data['date_debut'], $data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
+            throw ValidationException::withMessages([
+                'date_fin' => "La date de fin doit être postérieure à la date de début."
+            ]);
+        }
+    }
+
+
+    /**
+     * Actions métiers exécutées après la création d'un RealisationProjet.
+     *
+     * @param \Modules\PkgRealisationProjets\Models\RealisationProjet $realisationProjet
+     * @return void
+     */
+    public function afterCreateRules($realisationProjet): void
+    {
+        if (!$realisationProjet instanceof RealisationProjet) {
+            return; // 🛡️ Sécurité : on vérifie que c'est bien un RealisationProjet
+        }
+
+        $apprenant = $realisationProjet->apprenant;
+
+        if ($apprenant && $apprenant->user) {
+            /** @var \Modules\PkgNotification\Services\NotificationService $notificationService */
+            $notificationService = app(\Modules\PkgNotification\Services\NotificationService::class);
+
+            // Envoyer la notification à l'apprenant
+            $notificationService->sendNotification(
+                userId: $apprenant->user->id,
+                title: 'Nouveau Projet de Réalisation Assigné',
+                message: "Vous avez été assigné à un nouveau projet de réalisation. Consultez votre espace projets.",
+                data: [
+                    'realisation_projet_id' => $realisationProjet->id,
+                    'affectation_projet_id' => $realisationProjet->affectation_projet_id,
+                ],
+                type: NotificationType::NOUVEAU_PROJET->value 
+            );
+        }
     }
 
     

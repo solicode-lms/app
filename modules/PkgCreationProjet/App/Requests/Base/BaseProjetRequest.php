@@ -66,7 +66,7 @@ class BaseProjetRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'formateur_id' => "admin",
+            'formateur_id' => "formateur,admin",
             
         ];
 

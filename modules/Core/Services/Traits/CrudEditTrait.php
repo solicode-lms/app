@@ -9,7 +9,8 @@ trait CrudEditTrait
 {
     public function edit(int $id){
       
-        $this->executeRules('before', 'edit', null, $id);
+        $empty = null; // ✅ Déclarer une variable d'abord
+        $this->executeRules('before', 'edit', $empty, $id);
         $entity =  $this->model->find($id);
         $this->executeRules('after', 'edit', $entity, $id);
         return $entity;
