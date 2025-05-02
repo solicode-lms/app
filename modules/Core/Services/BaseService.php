@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Core\Services\Contracts\ServiceInterface;
 
 use Modules\Core\Services\Traits\{
+    CrudCreateTrait,
+    CrudDeleteTrait,
+    CrudEditTrait,
+    CrudReadTrait,
     MessageTrait,
     PaginateTrait,
     QueryBuilderTrait,
@@ -31,6 +35,10 @@ abstract class BaseService implements ServiceInterface
         SortTrait,
         QueryBuilderTrait, 
         CrudTrait, 
+        CrudReadTrait, 
+        CrudCreateTrait, 
+        CrudDeleteTrait, 
+        CrudEditTrait, 
         RelationTrait, 
         FilterTrait, 
         StatsTrait;
@@ -122,7 +130,15 @@ abstract class BaseService implements ServiceInterface
         return $query->get();
     }
 
-    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCours = null, $groupValue = null): void
+    /**
+     * Summary of reorderOrdreColumn
+     * @param mixed $ancienOrdre
+     * @param int $nouvelOrdre
+     * @param int $idEnCoursModification : pour ne pas changer l'ordre de l'objet en cours de modification
+     * @param mixed $groupValue
+     * @return void
+     */
+    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCoursModification = null, $groupValue = null): void
     {
         $this->normalizeOrdreIfNeeded($groupValue);
 
@@ -132,8 +148,8 @@ abstract class BaseService implements ServiceInterface
 
         $query = $this->model->newQuery();
 
-        if ($idEnCours !== null) {
-            $query->where('id', '!=', $idEnCours);
+        if ($idEnCoursModification !== null) {
+            $query->where('id', '!=', $idEnCoursModification);
         }
 
         // ✅ Appliquer la contrainte de groupe si nécessaire

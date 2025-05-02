@@ -61,34 +61,34 @@ trait WidgetResultFormatter
                             if ($inPast) {
                                 // Si le temps est dépassé, afficher directement la date formatée
                                 $duree = "{$value->format('d/m/Y')}";
+                                $duree = $value->diffForHumans();
                                 $formattedRow[$label] = [
                                     'value' => $duree,
                                     'String' => $nature,
                                 ];
                             } else {
-                                $diff = $value->diff($now);
 
-                                $mois = $diff->m;
-                                $jours = $diff->d;
-                                $heures = $diff->h;
-                                
-                                // Gestion du pluriel
-                                $moisLabel = $mois === 1 ? 'mois' : 'mois'; // "mois" est invariable
-                                $jourLabel = $jours === 1 ? 'jour' : 'jours';
-                                $heureLabel = $heures === 1 ? 'heure' : 'heures';
-                                
-                                if ($mois == 0) {
-                                    $duree = "{$jours} {$jourLabel} {$heures} {$heureLabel}";
+                                //  Remplacé par diffForHumans
+                                // $diff = $value->diff($now);
+                                // $mois = $diff->m;
+                                // $jours = $diff->d;
+                                // $heures = $diff->h;
+                                // // Gestion du pluriel
+                                // $moisLabel = $mois === 1 ? 'mois' : 'mois'; // "mois" est invariable
+                                // $jourLabel = $jours === 1 ? 'jour' : 'jours';
+                                // $heureLabel = $heures === 1 ? 'heure' : 'heures';
+                                // if ($mois == 0) {
+                                //     $duree = "{$jours} {$jourLabel} {$heures} {$heureLabel}";
+                                // } else {
+                                //     $duree = "{$mois} {$moisLabel} {$jours} {$jourLabel} {$heures} {$heureLabel}";
+                                // }
+
+                                $duree = $value->diffForHumans();
+                                $jours = $value->diffInDays(now(), false); // Important: false => permet négatif si date future
+                                if ($jours == 0) {
+                                    $couleur = "#dc3545"; // Rouge Bootstrap danger
                                 } else {
-                                    $duree = "{$mois} {$moisLabel} {$jours} {$jourLabel} {$heures} {$heureLabel}";
-                                }
-                              
-                                
-
-                                if($jours == 0){
-                                    $couleur = "#dc3545";
-                                }else{
-                                    $couleur = "#17a2b8";
+                                    $couleur = "#17a2b8"; // Bleu Bootstrap info
                                 }
                               
 
@@ -112,16 +112,18 @@ trait WidgetResultFormatter
                         }
                     
                         if ($value instanceof \DateTimeInterface) {
-                            $now = now();
-                            $inPast = $value < $now; // vérifier si la date est passée ou future
-                    
-                            $diff = $value->diff($now);
-                            $jours = $diff->d;
-                            $heures = $diff->h;
-                    
-                            $prefix = $inPast ? '-' : ''; // si date dans le passé => préfixe négatif
-                    
-                            $duree = "{$prefix}{$jours} jours {$heures} heures";
+
+                            // Remplacé par diffForHumans
+                            // $now = now();
+                            // $inPast = $value < $now; // vérifier si la date est passée ou future
+                            // $diff = $value->diff($now);
+                            // $jours = $diff->d;
+                            // $heures = $diff->h;
+                            // $prefix = $inPast ? '-' : ''; // si date dans le passé => préfixe négatif
+                            // $duree = "{$prefix}{$jours} jours {$heures} heures";
+
+                            $duree = $value->diffForHumans();
+
                         } else {
                             $duree = null;
                         }
