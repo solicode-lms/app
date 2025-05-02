@@ -40,18 +40,24 @@
                        
 
                         @can('edit-featureDomain')
+                        <x-action-button :entity="$featureDomain" actionName="edit">
                         @can('update', $featureDomain)
                             <a href="{{ route('featureDomains.edit', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-featureDomain')
+                        <x-action-button :entity="$featureDomain" actionName="show">
                         @can('view', $featureDomain)
                             <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$featureDomain" actionName="delete">
                         @can('destroy-featureDomain')
                         @can('delete', $featureDomain)
                             <form class="context-state" action="{{ route('featureDomains.destroy',['featureDomain' => $featureDomain->id]) }}" method="POST" style="display: inline;">
@@ -63,6 +69,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

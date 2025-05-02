@@ -14,6 +14,7 @@
         tableSelector: '#typeDependanceTache-data-container',
         formSelector: '#typeDependanceTacheForm',
         indexUrl: '{{ route('typeDependanceTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('typeDependanceTaches.create') }}',
         editUrl: '{{ route('typeDependanceTaches.edit',  ['typeDependanceTache' => ':id']) }}',
         showUrl: '{{ route('typeDependanceTaches.show',  ['typeDependanceTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$typeDependanceTache_instance"
-                                :createPermission="'create-typeDependanceTache'"
-                                :createRoute="route('typeDependanceTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-typeDependanceTache'"
-                                :importRoute="route('typeDependanceTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-typeDependanceTache'"
-                                :exportXlsxRoute="route('typeDependanceTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('typeDependanceTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$typeDependanceTache_viewTypes"
-                                :viewType="$typeDependanceTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$typeDependanceTache_instance"
+                                    :createPermission="'create-typeDependanceTache'"
+                                    :createRoute="route('typeDependanceTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-typeDependanceTache'"
+                                    :importRoute="route('typeDependanceTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-typeDependanceTache'"
+                                    :exportXlsxRoute="route('typeDependanceTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('typeDependanceTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$typeDependanceTache_viewTypes"
+                                    :viewType="$typeDependanceTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

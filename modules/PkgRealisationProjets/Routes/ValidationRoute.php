@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\ValidationController;
 // routes for validation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-
         Route::get('validations/getData', [ValidationController::class, 'getData'])->name('validations.getData');
         // bulk - edit and delete
         Route::post('validations/bulk-delete', [ValidationController::class, 'bulkDelete'])

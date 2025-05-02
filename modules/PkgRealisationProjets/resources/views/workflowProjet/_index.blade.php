@@ -14,6 +14,7 @@
         tableSelector: '#workflowProjet-data-container',
         formSelector: '#workflowProjetForm',
         indexUrl: '{{ route('workflowProjets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('workflowProjets.create') }}',
         editUrl: '{{ route('workflowProjets.edit',  ['workflowProjet' => ':id']) }}',
         showUrl: '{{ route('workflowProjets.show',  ['workflowProjet' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$workflowProjet_instance"
-                                :createPermission="'create-workflowProjet'"
-                                :createRoute="route('workflowProjets.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-workflowProjet'"
-                                :importRoute="route('workflowProjets.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-workflowProjet'"
-                                :exportXlsxRoute="route('workflowProjets.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('workflowProjets.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$workflowProjet_viewTypes"
-                                :viewType="$workflowProjet_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$workflowProjet_instance"
+                                    :createPermission="'create-workflowProjet'"
+                                    :createRoute="route('workflowProjets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-workflowProjet'"
+                                    :importRoute="route('workflowProjets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-workflowProjet'"
+                                    :exportXlsxRoute="route('workflowProjets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('workflowProjets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$workflowProjet_viewTypes"
+                                    :viewType="$workflowProjet_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

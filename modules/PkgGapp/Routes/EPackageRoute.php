@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\EPackageController;
 // routes for ePackage management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('ePackages/getData', [EPackageController::class, 'getData'])->name('ePackages.getData');
         // bulk - edit and delete
         Route::post('ePackages/bulk-delete', [EPackageController::class, 'bulkDelete'])

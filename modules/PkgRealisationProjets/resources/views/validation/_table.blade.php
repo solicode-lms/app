@@ -46,18 +46,24 @@
                        
 
                         @can('edit-validation')
+                        <x-action-button :entity="$validation" actionName="edit">
                         @can('update', $validation)
                             <a href="{{ route('validations.edit', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-validation')
+                        <x-action-button :entity="$validation" actionName="show">
                         @can('view', $validation)
                             <a href="{{ route('validations.show', ['validation' => $validation->id]) }}" data-id="{{$validation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$validation" actionName="delete">
                         @can('destroy-validation')
                         @can('delete', $validation)
                             <form class="context-state" action="{{ route('validations.destroy',['validation' => $validation->id]) }}" method="POST" style="display: inline;">
@@ -69,6 +75,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

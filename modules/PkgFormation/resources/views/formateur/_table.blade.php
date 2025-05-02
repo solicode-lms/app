@@ -71,18 +71,24 @@
                        
 
                         @can('edit-formateur')
+                        <x-action-button :entity="$formateur" actionName="edit">
                         @can('update', $formateur)
                             <a href="{{ route('formateurs.edit', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-formateur')
+                        <x-action-button :entity="$formateur" actionName="show">
                         @can('view', $formateur)
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$formateur" actionName="delete">
                         @can('destroy-formateur')
                         @can('delete', $formateur)
                             <form class="context-state" action="{{ route('formateurs.destroy',['formateur' => $formateur->id]) }}" method="POST" style="display: inline;">
@@ -94,6 +100,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

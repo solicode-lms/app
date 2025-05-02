@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\ApprenantKonosyController;
 // routes for apprenantKonosy management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('apprenantKonosies/getData', [ApprenantKonosyController::class, 'getData'])->name('apprenantKonosies.getData');
         // bulk - edit and delete
         Route::post('apprenantKonosies/bulk-delete', [ApprenantKonosyController::class, 'bulkDelete'])

@@ -39,18 +39,24 @@
                        
 
                         @can('edit-widgetType')
+                        <x-action-button :entity="$widgetType" actionName="edit">
                         @can('update', $widgetType)
                             <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-widgetType')
+                        <x-action-button :entity="$widgetType" actionName="show">
                         @can('view', $widgetType)
                             <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$widgetType" actionName="delete">
                         @can('destroy-widgetType')
                         @can('delete', $widgetType)
                             <form class="context-state" action="{{ route('widgetTypes.destroy',['widgetType' => $widgetType->id]) }}" method="POST" style="display: inline;">
@@ -62,6 +68,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

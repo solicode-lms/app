@@ -14,6 +14,7 @@
         tableSelector: '#eMetadatum-data-container',
         formSelector: '#eMetadatumForm',
         indexUrl: '{{ route('eMetadata.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eMetadata.create') }}',
         editUrl: '{{ route('eMetadata.edit',  ['eMetadatum' => ':id']) }}',
         showUrl: '{{ route('eMetadata.show',  ['eMetadatum' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$eMetadatum_instance"
-                                :createPermission="'create-eMetadatum'"
-                                :createRoute="route('eMetadata.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-eMetadatum'"
-                                :importRoute="route('eMetadata.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-eMetadatum'"
-                                :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$eMetadatum_viewTypes"
-                                :viewType="$eMetadatum_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$eMetadatum_instance"
+                                    :createPermission="'create-eMetadatum'"
+                                    :createRoute="route('eMetadata.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-eMetadatum'"
+                                    :importRoute="route('eMetadata.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-eMetadatum'"
+                                    :exportXlsxRoute="route('eMetadata.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('eMetadata.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$eMetadatum_viewTypes"
+                                    :viewType="$eMetadatum_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

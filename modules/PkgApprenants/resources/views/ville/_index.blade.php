@@ -14,6 +14,7 @@
         tableSelector: '#ville-data-container',
         formSelector: '#villeForm',
         indexUrl: '{{ route('villes.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('villes.create') }}',
         editUrl: '{{ route('villes.edit',  ['ville' => ':id']) }}',
         showUrl: '{{ route('villes.show',  ['ville' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$ville_instance"
-                                :createPermission="'create-ville'"
-                                :createRoute="route('villes.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-ville'"
-                                :importRoute="route('villes.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-ville'"
-                                :exportXlsxRoute="route('villes.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('villes.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$ville_viewTypes"
-                                :viewType="$ville_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$ville_instance"
+                                    :createPermission="'create-ville'"
+                                    :createRoute="route('villes.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-ville'"
+                                    :importRoute="route('villes.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-ville'"
+                                    :exportXlsxRoute="route('villes.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('villes.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$ville_viewTypes"
+                                    :viewType="$ville_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

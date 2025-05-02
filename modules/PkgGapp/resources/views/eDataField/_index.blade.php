@@ -14,6 +14,7 @@
         tableSelector: '#eDataField-data-container',
         formSelector: '#eDataFieldForm',
         indexUrl: '{{ route('eDataFields.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eDataFields.create') }}',
         editUrl: '{{ route('eDataFields.edit',  ['eDataField' => ':id']) }}',
         showUrl: '{{ route('eDataFields.show',  ['eDataField' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$eDataField_instance"
-                                :createPermission="'create-eDataField'"
-                                :createRoute="route('eDataFields.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-eDataField'"
-                                :importRoute="route('eDataFields.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-eDataField'"
-                                :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$eDataField_viewTypes"
-                                :viewType="$eDataField_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$eDataField_instance"
+                                    :createPermission="'create-eDataField'"
+                                    :createRoute="route('eDataFields.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-eDataField'"
+                                    :importRoute="route('eDataFields.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-eDataField'"
+                                    :exportXlsxRoute="route('eDataFields.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('eDataFields.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$eDataField_viewTypes"
+                                    :viewType="$eDataField_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

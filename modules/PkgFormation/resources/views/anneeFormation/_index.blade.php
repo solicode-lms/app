@@ -14,6 +14,7 @@
         tableSelector: '#anneeFormation-data-container',
         formSelector: '#anneeFormationForm',
         indexUrl: '{{ route('anneeFormations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('anneeFormations.create') }}',
         editUrl: '{{ route('anneeFormations.edit',  ['anneeFormation' => ':id']) }}',
         showUrl: '{{ route('anneeFormations.show',  ['anneeFormation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$anneeFormation_instance"
-                                :createPermission="'create-anneeFormation'"
-                                :createRoute="route('anneeFormations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-anneeFormation'"
-                                :importRoute="route('anneeFormations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-anneeFormation'"
-                                :exportXlsxRoute="route('anneeFormations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('anneeFormations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$anneeFormation_viewTypes"
-                                :viewType="$anneeFormation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$anneeFormation_instance"
+                                    :createPermission="'create-anneeFormation'"
+                                    :createRoute="route('anneeFormations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-anneeFormation'"
+                                    :importRoute="route('anneeFormations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-anneeFormation'"
+                                    :exportXlsxRoute="route('anneeFormations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('anneeFormations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$anneeFormation_viewTypes"
+                                    :viewType="$anneeFormation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

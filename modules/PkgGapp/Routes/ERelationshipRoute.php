@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\ERelationshipController;
 // routes for eRelationship management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('eRelationships/getData', [ERelationshipController::class, 'getData'])->name('eRelationships.getData');
         // bulk - edit and delete
         Route::post('eRelationships/bulk-delete', [ERelationshipController::class, 'bulkDelete'])

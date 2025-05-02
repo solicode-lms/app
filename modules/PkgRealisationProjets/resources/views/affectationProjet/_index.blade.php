@@ -14,6 +14,7 @@
         tableSelector: '#affectationProjet-data-container',
         formSelector: '#affectationProjetForm',
         indexUrl: '{{ route('affectationProjets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('affectationProjets.create') }}',
         editUrl: '{{ route('affectationProjets.edit',  ['affectationProjet' => ':id']) }}',
         showUrl: '{{ route('affectationProjets.show',  ['affectationProjet' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$affectationProjet_instance"
-                                :createPermission="'create-affectationProjet'"
-                                :createRoute="route('affectationProjets.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-affectationProjet'"
-                                :importRoute="route('affectationProjets.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-affectationProjet'"
-                                :exportXlsxRoute="route('affectationProjets.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('affectationProjets.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$affectationProjet_viewTypes"
-                                :viewType="$affectationProjet_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$affectationProjet_instance"
+                                    :createPermission="'create-affectationProjet'"
+                                    :createRoute="route('affectationProjets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-affectationProjet'"
+                                    :importRoute="route('affectationProjets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-affectationProjet'"
+                                    :exportXlsxRoute="route('affectationProjets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('affectationProjets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$affectationProjet_viewTypes"
+                                    :viewType="$affectationProjet_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

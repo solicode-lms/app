@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\TypeDependanceTacheController;
 // routes for typeDependanceTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('typeDependanceTaches/getData', [TypeDependanceTacheController::class, 'getData'])->name('typeDependanceTaches.getData');
         // bulk - edit and delete
         Route::post('typeDependanceTaches/bulk-delete', [TypeDependanceTacheController::class, 'bulkDelete'])

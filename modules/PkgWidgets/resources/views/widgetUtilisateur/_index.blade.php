@@ -14,6 +14,7 @@
         tableSelector: '#widgetUtilisateur-data-container',
         formSelector: '#widgetUtilisateurForm',
         indexUrl: '{{ route('widgetUtilisateurs.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('widgetUtilisateurs.create') }}',
         editUrl: '{{ route('widgetUtilisateurs.edit',  ['widgetUtilisateur' => ':id']) }}',
         showUrl: '{{ route('widgetUtilisateurs.show',  ['widgetUtilisateur' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$widgetUtilisateur_instance"
-                                :createPermission="'create-widgetUtilisateur'"
-                                :createRoute="route('widgetUtilisateurs.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-widgetUtilisateur'"
-                                :importRoute="route('widgetUtilisateurs.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-widgetUtilisateur'"
-                                :exportXlsxRoute="route('widgetUtilisateurs.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('widgetUtilisateurs.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$widgetUtilisateur_viewTypes"
-                                :viewType="$widgetUtilisateur_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$widgetUtilisateur_instance"
+                                    :createPermission="'create-widgetUtilisateur'"
+                                    :createRoute="route('widgetUtilisateurs.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-widgetUtilisateur'"
+                                    :importRoute="route('widgetUtilisateurs.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-widgetUtilisateur'"
+                                    :exportXlsxRoute="route('widgetUtilisateurs.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('widgetUtilisateurs.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$widgetUtilisateur_viewTypes"
+                                    :viewType="$widgetUtilisateur_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -56,18 +56,24 @@
                        
 
                         @can('edit-workflowTache')
+                        <x-action-button :entity="$workflowTache" actionName="edit">
                         @can('update', $workflowTache)
                             <a href="{{ route('workflowTaches.edit', ['workflowTache' => $workflowTache->id]) }}" data-id="{{$workflowTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-workflowTache')
+                        <x-action-button :entity="$workflowTache" actionName="show">
                         @can('view', $workflowTache)
                             <a href="{{ route('workflowTaches.show', ['workflowTache' => $workflowTache->id]) }}" data-id="{{$workflowTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$workflowTache" actionName="delete">
                         @can('destroy-workflowTache')
                         @can('delete', $workflowTache)
                             <form class="context-state" action="{{ route('workflowTaches.destroy',['workflowTache' => $workflowTache->id]) }}" method="POST" style="display: inline;">
@@ -79,6 +85,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

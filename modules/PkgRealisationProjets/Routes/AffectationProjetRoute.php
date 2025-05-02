@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\AffectationProjetController;
 // routes for affectationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-
         Route::get('affectationProjets/getData', [AffectationProjetController::class, 'getData'])->name('affectationProjets.getData');
         // bulk - edit and delete
         Route::post('affectationProjets/bulk-delete', [AffectationProjetController::class, 'bulkDelete'])

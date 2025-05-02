@@ -33,18 +33,24 @@
                        
 
                         @can('edit-role')
+                        <x-action-button :entity="$role" actionName="edit">
                         @can('update', $role)
                             <a href="{{ route('roles.edit', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-role')
+                        <x-action-button :entity="$role" actionName="show">
                         @can('view', $role)
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$role" actionName="delete">
                         @can('destroy-role')
                         @can('delete', $role)
                             <form class="context-state" action="{{ route('roles.destroy',['role' => $role->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

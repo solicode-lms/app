@@ -14,6 +14,7 @@
         tableSelector: '#validation-data-container',
         formSelector: '#validationForm',
         indexUrl: '{{ route('validations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('validations.create') }}',
         editUrl: '{{ route('validations.edit',  ['validation' => ':id']) }}',
         showUrl: '{{ route('validations.show',  ['validation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$validation_instance"
-                                :createPermission="'create-validation'"
-                                :createRoute="route('validations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-validation'"
-                                :importRoute="route('validations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-validation'"
-                                :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$validation_viewTypes"
-                                :viewType="$validation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$validation_instance"
+                                    :createPermission="'create-validation'"
+                                    :createRoute="route('validations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-validation'"
+                                    :importRoute="route('validations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-validation'"
+                                    :exportXlsxRoute="route('validations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('validations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$validation_viewTypes"
+                                    :viewType="$validation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

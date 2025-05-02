@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\WorkflowProjetController;
 // routes for workflowProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-
         Route::get('workflowProjets/getData', [WorkflowProjetController::class, 'getData'])->name('workflowProjets.getData');
         // bulk - edit and delete
         Route::post('workflowProjets/bulk-delete', [WorkflowProjetController::class, 'bulkDelete'])

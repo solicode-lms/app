@@ -59,18 +59,24 @@
                        
 
                         @can('edit-sysController')
+                        <x-action-button :entity="$sysController" actionName="edit">
                         @can('update', $sysController)
                             <a href="{{ route('sysControllers.edit', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-sysController')
+                        <x-action-button :entity="$sysController" actionName="show">
                         @can('view', $sysController)
                             <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$sysController" actionName="delete">
                         @can('destroy-sysController')
                         @can('delete', $sysController)
                             <form class="context-state" action="{{ route('sysControllers.destroy',['sysController' => $sysController->id]) }}" method="POST" style="display: inline;">
@@ -82,6 +88,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

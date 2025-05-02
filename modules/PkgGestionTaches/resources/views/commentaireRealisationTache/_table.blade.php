@@ -54,18 +54,24 @@
                        
 
                         @can('edit-commentaireRealisationTache')
+                        <x-action-button :entity="$commentaireRealisationTache" actionName="edit">
                         @can('update', $commentaireRealisationTache)
                             <a href="{{ route('commentaireRealisationTaches.edit', ['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" data-id="{{$commentaireRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-commentaireRealisationTache')
+                        <x-action-button :entity="$commentaireRealisationTache" actionName="show">
                         @can('view', $commentaireRealisationTache)
                             <a href="{{ route('commentaireRealisationTaches.show', ['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" data-id="{{$commentaireRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$commentaireRealisationTache" actionName="delete">
                         @can('destroy-commentaireRealisationTache')
                         @can('delete', $commentaireRealisationTache)
                             <form class="context-state" action="{{ route('commentaireRealisationTaches.destroy',['commentaireRealisationTache' => $commentaireRealisationTache->id]) }}" method="POST" style="display: inline;">
@@ -77,6 +83,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

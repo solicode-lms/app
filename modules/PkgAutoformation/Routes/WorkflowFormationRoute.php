@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\WorkflowFormationController;
 // routes for workflowFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('workflowFormations/getData', [WorkflowFormationController::class, 'getData'])->name('workflowFormations.getData');
         // bulk - edit and delete
         Route::post('workflowFormations/bulk-delete', [WorkflowFormationController::class, 'bulkDelete'])

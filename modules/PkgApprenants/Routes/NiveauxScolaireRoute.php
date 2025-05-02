@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\NiveauxScolaireController;
 // routes for niveauxScolaire management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('niveauxScolaires/getData', [NiveauxScolaireController::class, 'getData'])->name('niveauxScolaires.getData');
         // bulk - edit and delete
         Route::post('niveauxScolaires/bulk-delete', [NiveauxScolaireController::class, 'bulkDelete'])

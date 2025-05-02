@@ -33,18 +33,24 @@
                        
 
                         @can('edit-sysColor')
+                        <x-action-button :entity="$sysColor" actionName="edit">
                         @can('update', $sysColor)
                             <a href="{{ route('sysColors.edit', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-sysColor')
+                        <x-action-button :entity="$sysColor" actionName="show">
                         @can('view', $sysColor)
                             <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$sysColor" actionName="delete">
                         @can('destroy-sysColor')
                         @can('delete', $sysColor)
                             <form class="context-state" action="{{ route('sysColors.destroy',['sysColor' => $sysColor->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

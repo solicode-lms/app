@@ -13,8 +13,8 @@
         crudSelector: '#realisationTache-crud',
         tableSelector: '#realisationTache-data-container',
         formSelector: '#realisationTacheForm',
-        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         indexUrl: '{{ route('realisationTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('realisationTaches.create') }}',
         editUrl: '{{ route('realisationTaches.edit',  ['realisationTache' => ':id']) }}',
         showUrl: '{{ route('realisationTaches.show',  ['realisationTache' => ':id']) }}',
@@ -66,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$realisationTache_instance"
-                                :createPermission="'create-realisationTache'"
-                                :createRoute="route('realisationTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-realisationTache'"
-                                :importRoute="route('realisationTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-realisationTache'"
-                                :exportXlsxRoute="route('realisationTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('realisationTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$realisationTache_viewTypes"
-                                :viewType="$realisationTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$realisationTache_instance"
+                                    :createPermission="'create-realisationTache'"
+                                    :createRoute="route('realisationTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-realisationTache'"
+                                    :importRoute="route('realisationTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-realisationTache'"
+                                    :exportXlsxRoute="route('realisationTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('realisationTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$realisationTache_viewTypes"
+                                    :viewType="$realisationTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

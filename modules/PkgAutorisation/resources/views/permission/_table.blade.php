@@ -50,18 +50,24 @@
                        
 
                         @can('edit-permission')
+                        <x-action-button :entity="$permission" actionName="edit">
                         @can('update', $permission)
                             <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-permission')
+                        <x-action-button :entity="$permission" actionName="show">
                         @can('view', $permission)
                             <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$permission" actionName="delete">
                         @can('destroy-permission')
                         @can('delete', $permission)
                             <form class="context-state" action="{{ route('permissions.destroy',['permission' => $permission->id]) }}" method="POST" style="display: inline;">
@@ -73,6 +79,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

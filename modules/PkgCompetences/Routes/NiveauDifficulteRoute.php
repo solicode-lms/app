@@ -9,7 +9,6 @@ use Modules\PkgCompetences\Controllers\NiveauDifficulteController;
 // routes for niveauDifficulte management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
-
         Route::get('niveauDifficultes/getData', [NiveauDifficulteController::class, 'getData'])->name('niveauDifficultes.getData');
         // bulk - edit and delete
         Route::post('niveauDifficultes/bulk-delete', [NiveauDifficulteController::class, 'bulkDelete'])

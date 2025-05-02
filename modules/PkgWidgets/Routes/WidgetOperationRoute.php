@@ -9,7 +9,6 @@ use Modules\PkgWidgets\Controllers\WidgetOperationController;
 // routes for widgetOperation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
-
         Route::get('widgetOperations/getData', [WidgetOperationController::class, 'getData'])->name('widgetOperations.getData');
         // bulk - edit and delete
         Route::post('widgetOperations/bulk-delete', [WidgetOperationController::class, 'bulkDelete'])

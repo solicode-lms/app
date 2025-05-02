@@ -9,7 +9,6 @@ use Modules\PkgWidgets\Controllers\SectionWidgetController;
 // routes for sectionWidget management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
-
         Route::get('sectionWidgets/getData', [SectionWidgetController::class, 'getData'])->name('sectionWidgets.getData');
         // bulk - edit and delete
         Route::post('sectionWidgets/bulk-delete', [SectionWidgetController::class, 'bulkDelete'])

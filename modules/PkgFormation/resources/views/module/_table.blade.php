@@ -63,18 +63,24 @@
                        
 
                         @can('edit-module')
+                        <x-action-button :entity="$module" actionName="edit">
                         @can('update', $module)
                             <a href="{{ route('modules.edit', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-module')
+                        <x-action-button :entity="$module" actionName="show">
                         @can('view', $module)
                             <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$module" actionName="delete">
                         @can('destroy-module')
                         @can('delete', $module)
                             <form class="context-state" action="{{ route('modules.destroy',['module' => $module->id]) }}" method="POST" style="display: inline;">
@@ -86,6 +92,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

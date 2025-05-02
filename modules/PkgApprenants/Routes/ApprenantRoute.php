@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\ApprenantController;
 // routes for apprenant management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('apprenants/getData', [ApprenantController::class, 'getData'])->name('apprenants.getData');
         // bulk - edit and delete
         Route::post('apprenants/bulk-delete', [ApprenantController::class, 'bulkDelete'])

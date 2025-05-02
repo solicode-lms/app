@@ -9,7 +9,6 @@ use Modules\PkgAutorisation\Controllers\RoleController;
 // routes for role management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
-
         Route::get('roles/getData', [RoleController::class, 'getData'])->name('roles.getData');
         // bulk - edit and delete
         Route::post('roles/bulk-delete', [RoleController::class, 'bulkDelete'])

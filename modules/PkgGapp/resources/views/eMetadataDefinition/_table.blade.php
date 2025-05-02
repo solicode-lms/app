@@ -45,18 +45,24 @@
                        
 
                         @can('edit-eMetadataDefinition')
+                        <x-action-button :entity="$eMetadataDefinition" actionName="edit">
                         @can('update', $eMetadataDefinition)
                             <a href="{{ route('eMetadataDefinitions.edit', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-eMetadataDefinition')
+                        <x-action-button :entity="$eMetadataDefinition" actionName="show">
                         @can('view', $eMetadataDefinition)
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$eMetadataDefinition" actionName="delete">
                         @can('destroy-eMetadataDefinition')
                         @can('delete', $eMetadataDefinition)
                             <form class="context-state" action="{{ route('eMetadataDefinitions.destroy',['eMetadataDefinition' => $eMetadataDefinition->id]) }}" method="POST" style="display: inline;">
@@ -68,6 +74,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

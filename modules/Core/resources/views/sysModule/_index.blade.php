@@ -14,6 +14,7 @@
         tableSelector: '#sysModule-data-container',
         formSelector: '#sysModuleForm',
         indexUrl: '{{ route('sysModules.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysModules.create') }}',
         editUrl: '{{ route('sysModules.edit',  ['sysModule' => ':id']) }}',
         showUrl: '{{ route('sysModules.show',  ['sysModule' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$sysModule_instance"
-                                :createPermission="'create-sysModule'"
-                                :createRoute="route('sysModules.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-sysModule'"
-                                :importRoute="route('sysModules.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-sysModule'"
-                                :exportXlsxRoute="route('sysModules.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('sysModules.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$sysModule_viewTypes"
-                                :viewType="$sysModule_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$sysModule_instance"
+                                    :createPermission="'create-sysModule'"
+                                    :createRoute="route('sysModules.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-sysModule'"
+                                    :importRoute="route('sysModules.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-sysModule'"
+                                    :exportXlsxRoute="route('sysModules.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('sysModules.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$sysModule_viewTypes"
+                                    :viewType="$sysModule_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

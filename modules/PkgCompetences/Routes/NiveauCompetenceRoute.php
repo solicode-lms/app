@@ -9,7 +9,6 @@ use Modules\PkgCompetences\Controllers\NiveauCompetenceController;
 // routes for niveauCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
-
         Route::get('niveauCompetences/getData', [NiveauCompetenceController::class, 'getData'])->name('niveauCompetences.getData');
         // bulk - edit and delete
         Route::post('niveauCompetences/bulk-delete', [NiveauCompetenceController::class, 'bulkDelete'])

@@ -14,6 +14,7 @@
         tableSelector: '#sysController-data-container',
         formSelector: '#sysControllerForm',
         indexUrl: '{{ route('sysControllers.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysControllers.create') }}',
         editUrl: '{{ route('sysControllers.edit',  ['sysController' => ':id']) }}',
         showUrl: '{{ route('sysControllers.show',  ['sysController' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$sysController_instance"
-                                :createPermission="'create-sysController'"
-                                :createRoute="route('sysControllers.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-sysController'"
-                                :importRoute="route('sysControllers.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-sysController'"
-                                :exportXlsxRoute="route('sysControllers.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('sysControllers.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$sysController_viewTypes"
-                                :viewType="$sysController_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$sysController_instance"
+                                    :createPermission="'create-sysController'"
+                                    :createRoute="route('sysControllers.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-sysController'"
+                                    :importRoute="route('sysControllers.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-sysController'"
+                                    :exportXlsxRoute="route('sysControllers.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('sysControllers.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$sysController_viewTypes"
+                                    :viewType="$sysController_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

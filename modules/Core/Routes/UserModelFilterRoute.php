@@ -9,7 +9,6 @@ use Modules\Core\Controllers\UserModelFilterController;
 // routes for userModelFilter management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('userModelFilters/getData', [UserModelFilterController::class, 'getData'])->name('userModelFilters.getData');
         // bulk - edit and delete
         Route::post('userModelFilters/bulk-delete', [UserModelFilterController::class, 'bulkDelete'])

@@ -14,6 +14,7 @@
         tableSelector: '#sectionWidget-data-container',
         formSelector: '#sectionWidgetForm',
         indexUrl: '{{ route('sectionWidgets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sectionWidgets.create') }}',
         editUrl: '{{ route('sectionWidgets.edit',  ['sectionWidget' => ':id']) }}',
         showUrl: '{{ route('sectionWidgets.show',  ['sectionWidget' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$sectionWidget_instance"
-                                :createPermission="'create-sectionWidget'"
-                                :createRoute="route('sectionWidgets.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-sectionWidget'"
-                                :importRoute="route('sectionWidgets.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-sectionWidget'"
-                                :exportXlsxRoute="route('sectionWidgets.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('sectionWidgets.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$sectionWidget_viewTypes"
-                                :viewType="$sectionWidget_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$sectionWidget_instance"
+                                    :createPermission="'create-sectionWidget'"
+                                    :createRoute="route('sectionWidgets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-sectionWidget'"
+                                    :importRoute="route('sectionWidgets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-sectionWidget'"
+                                    :exportXlsxRoute="route('sectionWidgets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('sectionWidgets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$sectionWidget_viewTypes"
+                                    :viewType="$sectionWidget_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

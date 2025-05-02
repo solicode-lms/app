@@ -14,6 +14,7 @@
         tableSelector: '#specialite-data-container',
         formSelector: '#specialiteForm',
         indexUrl: '{{ route('specialites.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('specialites.create') }}',
         editUrl: '{{ route('specialites.edit',  ['specialite' => ':id']) }}',
         showUrl: '{{ route('specialites.show',  ['specialite' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$specialite_instance"
-                                :createPermission="'create-specialite'"
-                                :createRoute="route('specialites.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-specialite'"
-                                :importRoute="route('specialites.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-specialite'"
-                                :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$specialite_viewTypes"
-                                :viewType="$specialite_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$specialite_instance"
+                                    :createPermission="'create-specialite'"
+                                    :createRoute="route('specialites.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-specialite'"
+                                    :importRoute="route('specialites.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-specialite'"
+                                    :exportXlsxRoute="route('specialites.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('specialites.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$specialite_viewTypes"
+                                    :viewType="$specialite_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

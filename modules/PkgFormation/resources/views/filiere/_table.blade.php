@@ -39,18 +39,24 @@
                        
 
                         @can('edit-filiere')
+                        <x-action-button :entity="$filiere" actionName="edit">
                         @can('update', $filiere)
                             <a href="{{ route('filieres.edit', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-filiere')
+                        <x-action-button :entity="$filiere" actionName="show">
                         @can('view', $filiere)
                             <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$filiere" actionName="delete">
                         @can('destroy-filiere')
                         @can('delete', $filiere)
                             <form class="context-state" action="{{ route('filieres.destroy',['filiere' => $filiere->id]) }}" method="POST" style="display: inline;">
@@ -62,6 +68,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

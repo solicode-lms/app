@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\CommentaireRealisationTacheController;
 // routes for commentaireRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('commentaireRealisationTaches/getData', [CommentaireRealisationTacheController::class, 'getData'])->name('commentaireRealisationTaches.getData');
         // bulk - edit and delete
         Route::post('commentaireRealisationTaches/bulk-delete', [CommentaireRealisationTacheController::class, 'bulkDelete'])

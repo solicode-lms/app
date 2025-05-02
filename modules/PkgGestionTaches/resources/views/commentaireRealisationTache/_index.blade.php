@@ -14,6 +14,7 @@
         tableSelector: '#commentaireRealisationTache-data-container',
         formSelector: '#commentaireRealisationTacheForm',
         indexUrl: '{{ route('commentaireRealisationTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('commentaireRealisationTaches.create') }}',
         editUrl: '{{ route('commentaireRealisationTaches.edit',  ['commentaireRealisationTache' => ':id']) }}',
         showUrl: '{{ route('commentaireRealisationTaches.show',  ['commentaireRealisationTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$commentaireRealisationTache_instance"
-                                :createPermission="'create-commentaireRealisationTache'"
-                                :createRoute="route('commentaireRealisationTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-commentaireRealisationTache'"
-                                :importRoute="route('commentaireRealisationTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-commentaireRealisationTache'"
-                                :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$commentaireRealisationTache_viewTypes"
-                                :viewType="$commentaireRealisationTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$commentaireRealisationTache_instance"
+                                    :createPermission="'create-commentaireRealisationTache'"
+                                    :createRoute="route('commentaireRealisationTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-commentaireRealisationTache'"
+                                    :importRoute="route('commentaireRealisationTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-commentaireRealisationTache'"
+                                    :exportXlsxRoute="route('commentaireRealisationTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('commentaireRealisationTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$commentaireRealisationTache_viewTypes"
+                                    :viewType="$commentaireRealisationTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

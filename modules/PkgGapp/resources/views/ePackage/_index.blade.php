@@ -14,6 +14,7 @@
         tableSelector: '#ePackage-data-container',
         formSelector: '#ePackageForm',
         indexUrl: '{{ route('ePackages.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('ePackages.create') }}',
         editUrl: '{{ route('ePackages.edit',  ['ePackage' => ':id']) }}',
         showUrl: '{{ route('ePackages.show',  ['ePackage' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$ePackage_instance"
-                                :createPermission="'create-ePackage'"
-                                :createRoute="route('ePackages.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-ePackage'"
-                                :importRoute="route('ePackages.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-ePackage'"
-                                :exportXlsxRoute="route('ePackages.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$ePackage_viewTypes"
-                                :viewType="$ePackage_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$ePackage_instance"
+                                    :createPermission="'create-ePackage'"
+                                    :createRoute="route('ePackages.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-ePackage'"
+                                    :importRoute="route('ePackages.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-ePackage'"
+                                    :exportXlsxRoute="route('ePackages.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('ePackages.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$ePackage_viewTypes"
+                                    :viewType="$ePackage_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

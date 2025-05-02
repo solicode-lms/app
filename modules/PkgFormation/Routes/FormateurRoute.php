@@ -9,7 +9,6 @@ use Modules\PkgFormation\Controllers\FormateurController;
 // routes for formateur management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
-
         Route::get('formateurs/getData', [FormateurController::class, 'getData'])->name('formateurs.getData');
         // bulk - edit and delete
         Route::post('formateurs/bulk-delete', [FormateurController::class, 'bulkDelete'])

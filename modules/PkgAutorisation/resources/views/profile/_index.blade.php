@@ -14,6 +14,7 @@
         tableSelector: '#profile-data-container',
         formSelector: '#profileForm',
         indexUrl: '{{ route('profiles.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('profiles.create') }}',
         editUrl: '{{ route('profiles.edit',  ['profile' => ':id']) }}',
         showUrl: '{{ route('profiles.show',  ['profile' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$profile_instance"
-                                :createPermission="'create-profile'"
-                                :createRoute="route('profiles.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-profile'"
-                                :importRoute="route('profiles.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-profile'"
-                                :exportXlsxRoute="route('profiles.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('profiles.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$profile_viewTypes"
-                                :viewType="$profile_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$profile_instance"
+                                    :createPermission="'create-profile'"
+                                    :createRoute="route('profiles.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-profile'"
+                                    :importRoute="route('profiles.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-profile'"
+                                    :exportXlsxRoute="route('profiles.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('profiles.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$profile_viewTypes"
+                                    :viewType="$profile_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -14,6 +14,7 @@
         tableSelector: '#etatRealisationTache-data-container',
         formSelector: '#etatRealisationTacheForm',
         indexUrl: '{{ route('etatRealisationTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatRealisationTaches.create') }}',
         editUrl: '{{ route('etatRealisationTaches.edit',  ['etatRealisationTache' => ':id']) }}',
         showUrl: '{{ route('etatRealisationTaches.show',  ['etatRealisationTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$etatRealisationTache_instance"
-                                :createPermission="'create-etatRealisationTache'"
-                                :createRoute="route('etatRealisationTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-etatRealisationTache'"
-                                :importRoute="route('etatRealisationTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-etatRealisationTache'"
-                                :exportXlsxRoute="route('etatRealisationTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('etatRealisationTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$etatRealisationTache_viewTypes"
-                                :viewType="$etatRealisationTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$etatRealisationTache_instance"
+                                    :createPermission="'create-etatRealisationTache'"
+                                    :createRoute="route('etatRealisationTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-etatRealisationTache'"
+                                    :importRoute="route('etatRealisationTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-etatRealisationTache'"
+                                    :exportXlsxRoute="route('etatRealisationTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('etatRealisationTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$etatRealisationTache_viewTypes"
+                                    :viewType="$etatRealisationTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

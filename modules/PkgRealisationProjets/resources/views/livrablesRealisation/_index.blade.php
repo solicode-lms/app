@@ -14,6 +14,7 @@
         tableSelector: '#livrablesRealisation-data-container',
         formSelector: '#livrablesRealisationForm',
         indexUrl: '{{ route('livrablesRealisations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('livrablesRealisations.create') }}',
         editUrl: '{{ route('livrablesRealisations.edit',  ['livrablesRealisation' => ':id']) }}',
         showUrl: '{{ route('livrablesRealisations.show',  ['livrablesRealisation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$livrablesRealisation_instance"
-                                :createPermission="'create-livrablesRealisation'"
-                                :createRoute="route('livrablesRealisations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-livrablesRealisation'"
-                                :importRoute="route('livrablesRealisations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-livrablesRealisation'"
-                                :exportXlsxRoute="route('livrablesRealisations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('livrablesRealisations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$livrablesRealisation_viewTypes"
-                                :viewType="$livrablesRealisation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$livrablesRealisation_instance"
+                                    :createPermission="'create-livrablesRealisation'"
+                                    :createRoute="route('livrablesRealisations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-livrablesRealisation'"
+                                    :importRoute="route('livrablesRealisations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-livrablesRealisation'"
+                                    :exportXlsxRoute="route('livrablesRealisations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('livrablesRealisations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$livrablesRealisation_viewTypes"
+                                    :viewType="$livrablesRealisation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

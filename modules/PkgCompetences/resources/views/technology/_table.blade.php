@@ -40,18 +40,24 @@
                        
 
                         @can('edit-technology')
+                        <x-action-button :entity="$technology" actionName="edit">
                         @can('update', $technology)
                             <a href="{{ route('technologies.edit', ['technology' => $technology->id]) }}" data-id="{{$technology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-technology')
+                        <x-action-button :entity="$technology" actionName="show">
                         @can('view', $technology)
                             <a href="{{ route('technologies.show', ['technology' => $technology->id]) }}" data-id="{{$technology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$technology" actionName="delete">
                         @can('destroy-technology')
                         @can('delete', $technology)
                             <form class="context-state" action="{{ route('technologies.destroy',['technology' => $technology->id]) }}" method="POST" style="display: inline;">
@@ -63,6 +69,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

@@ -33,18 +33,24 @@
                        
 
                         @can('edit-ePackage')
+                        <x-action-button :entity="$ePackage" actionName="edit">
                         @can('update', $ePackage)
                             <a href="{{ route('ePackages.edit', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-ePackage')
+                        <x-action-button :entity="$ePackage" actionName="show">
                         @can('view', $ePackage)
                             <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$ePackage" actionName="delete">
                         @can('destroy-ePackage')
                         @can('delete', $ePackage)
                             <form class="context-state" action="{{ route('ePackages.destroy',['ePackage' => $ePackage->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

@@ -9,7 +9,6 @@ use Modules\PkgFormation\Controllers\FiliereController;
 // routes for filiere management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
-
         Route::get('filieres/getData', [FiliereController::class, 'getData'])->name('filieres.getData');
         // bulk - edit and delete
         Route::post('filieres/bulk-delete', [FiliereController::class, 'bulkDelete'])

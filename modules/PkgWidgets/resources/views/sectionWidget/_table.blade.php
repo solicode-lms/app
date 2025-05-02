@@ -59,18 +59,24 @@
                        
 
                         @can('edit-sectionWidget')
+                        <x-action-button :entity="$sectionWidget" actionName="edit">
                         @can('update', $sectionWidget)
                             <a href="{{ route('sectionWidgets.edit', ['sectionWidget' => $sectionWidget->id]) }}" data-id="{{$sectionWidget->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-sectionWidget')
+                        <x-action-button :entity="$sectionWidget" actionName="show">
                         @can('view', $sectionWidget)
                             <a href="{{ route('sectionWidgets.show', ['sectionWidget' => $sectionWidget->id]) }}" data-id="{{$sectionWidget->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$sectionWidget" actionName="delete">
                         @can('destroy-sectionWidget')
                         @can('delete', $sectionWidget)
                             <form class="context-state" action="{{ route('sectionWidgets.destroy',['sectionWidget' => $sectionWidget->id]) }}" method="POST" style="display: inline;">
@@ -82,6 +88,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

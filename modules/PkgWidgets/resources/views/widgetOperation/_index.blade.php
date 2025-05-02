@@ -14,6 +14,7 @@
         tableSelector: '#widgetOperation-data-container',
         formSelector: '#widgetOperationForm',
         indexUrl: '{{ route('widgetOperations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('widgetOperations.create') }}',
         editUrl: '{{ route('widgetOperations.edit',  ['widgetOperation' => ':id']) }}',
         showUrl: '{{ route('widgetOperations.show',  ['widgetOperation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$widgetOperation_instance"
-                                :createPermission="'create-widgetOperation'"
-                                :createRoute="route('widgetOperations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-widgetOperation'"
-                                :importRoute="route('widgetOperations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-widgetOperation'"
-                                :exportXlsxRoute="route('widgetOperations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('widgetOperations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$widgetOperation_viewTypes"
-                                :viewType="$widgetOperation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$widgetOperation_instance"
+                                    :createPermission="'create-widgetOperation'"
+                                    :createRoute="route('widgetOperations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-widgetOperation'"
+                                    :importRoute="route('widgetOperations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-widgetOperation'"
+                                    :exportXlsxRoute="route('widgetOperations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('widgetOperations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$widgetOperation_viewTypes"
+                                    :viewType="$widgetOperation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

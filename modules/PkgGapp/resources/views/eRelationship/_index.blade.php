@@ -14,6 +14,7 @@
         tableSelector: '#eRelationship-data-container',
         formSelector: '#eRelationshipForm',
         indexUrl: '{{ route('eRelationships.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eRelationships.create') }}',
         editUrl: '{{ route('eRelationships.edit',  ['eRelationship' => ':id']) }}',
         showUrl: '{{ route('eRelationships.show',  ['eRelationship' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$eRelationship_instance"
-                                :createPermission="'create-eRelationship'"
-                                :createRoute="route('eRelationships.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-eRelationship'"
-                                :importRoute="route('eRelationships.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-eRelationship'"
-                                :exportXlsxRoute="route('eRelationships.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$eRelationship_viewTypes"
-                                :viewType="$eRelationship_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$eRelationship_instance"
+                                    :createPermission="'create-eRelationship'"
+                                    :createRoute="route('eRelationships.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-eRelationship'"
+                                    :importRoute="route('eRelationships.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-eRelationship'"
+                                    :exportXlsxRoute="route('eRelationships.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('eRelationships.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$eRelationship_viewTypes"
+                                    :viewType="$eRelationship_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

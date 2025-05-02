@@ -33,18 +33,24 @@
                        
 
                         @can('edit-typeDependanceTache')
+                        <x-action-button :entity="$typeDependanceTache" actionName="edit">
                         @can('update', $typeDependanceTache)
                             <a href="{{ route('typeDependanceTaches.edit', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-typeDependanceTache')
+                        <x-action-button :entity="$typeDependanceTache" actionName="show">
                         @can('view', $typeDependanceTache)
                             <a href="{{ route('typeDependanceTaches.show', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$typeDependanceTache" actionName="delete">
                         @can('destroy-typeDependanceTache')
                         @can('delete', $typeDependanceTache)
                             <form class="context-state" action="{{ route('typeDependanceTaches.destroy',['typeDependanceTache' => $typeDependanceTache->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

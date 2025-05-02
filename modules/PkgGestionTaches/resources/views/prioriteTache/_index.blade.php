@@ -14,6 +14,7 @@
         tableSelector: '#prioriteTache-data-container',
         formSelector: '#prioriteTacheForm',
         indexUrl: '{{ route('prioriteTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('prioriteTaches.create') }}',
         editUrl: '{{ route('prioriteTaches.edit',  ['prioriteTache' => ':id']) }}',
         showUrl: '{{ route('prioriteTaches.show',  ['prioriteTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$prioriteTache_instance"
-                                :createPermission="'create-prioriteTache'"
-                                :createRoute="route('prioriteTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-prioriteTache'"
-                                :importRoute="route('prioriteTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-prioriteTache'"
-                                :exportXlsxRoute="route('prioriteTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('prioriteTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$prioriteTache_viewTypes"
-                                :viewType="$prioriteTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$prioriteTache_instance"
+                                    :createPermission="'create-prioriteTache'"
+                                    :createRoute="route('prioriteTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-prioriteTache'"
+                                    :importRoute="route('prioriteTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-prioriteTache'"
+                                    :exportXlsxRoute="route('prioriteTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('prioriteTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$prioriteTache_viewTypes"
+                                    :viewType="$prioriteTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

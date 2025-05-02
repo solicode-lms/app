@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\TacheController;
 // routes for tache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('taches/getData', [TacheController::class, 'getData'])->name('taches.getData');
         // bulk - edit and delete
         Route::post('taches/bulk-delete', [TacheController::class, 'bulkDelete'])

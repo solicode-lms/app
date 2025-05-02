@@ -14,6 +14,7 @@
         tableSelector: '#realisationFormation-data-container',
         formSelector: '#realisationFormationForm',
         indexUrl: '{{ route('realisationFormations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('realisationFormations.create') }}',
         editUrl: '{{ route('realisationFormations.edit',  ['realisationFormation' => ':id']) }}',
         showUrl: '{{ route('realisationFormations.show',  ['realisationFormation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$realisationFormation_instance"
-                                :createPermission="'create-realisationFormation'"
-                                :createRoute="route('realisationFormations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-realisationFormation'"
-                                :importRoute="route('realisationFormations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-realisationFormation'"
-                                :exportXlsxRoute="route('realisationFormations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('realisationFormations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$realisationFormation_viewTypes"
-                                :viewType="$realisationFormation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$realisationFormation_instance"
+                                    :createPermission="'create-realisationFormation'"
+                                    :createRoute="route('realisationFormations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-realisationFormation'"
+                                    :importRoute="route('realisationFormations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-realisationFormation'"
+                                    :exportXlsxRoute="route('realisationFormations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('realisationFormations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$realisationFormation_viewTypes"
+                                    :viewType="$realisationFormation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

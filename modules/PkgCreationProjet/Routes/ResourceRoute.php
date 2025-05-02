@@ -9,7 +9,6 @@ use Modules\PkgCreationProjet\Controllers\ResourceController;
 // routes for resource management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
-
         Route::get('resources/getData', [ResourceController::class, 'getData'])->name('resources.getData');
         // bulk - edit and delete
         Route::post('resources/bulk-delete', [ResourceController::class, 'bulkDelete'])

@@ -14,6 +14,7 @@
         tableSelector: '#workflowFormation-data-container',
         formSelector: '#workflowFormationForm',
         indexUrl: '{{ route('workflowFormations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('workflowFormations.create') }}',
         editUrl: '{{ route('workflowFormations.edit',  ['workflowFormation' => ':id']) }}',
         showUrl: '{{ route('workflowFormations.show',  ['workflowFormation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$workflowFormation_instance"
-                                :createPermission="'create-workflowFormation'"
-                                :createRoute="route('workflowFormations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-workflowFormation'"
-                                :importRoute="route('workflowFormations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-workflowFormation'"
-                                :exportXlsxRoute="route('workflowFormations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('workflowFormations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$workflowFormation_viewTypes"
-                                :viewType="$workflowFormation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$workflowFormation_instance"
+                                    :createPermission="'create-workflowFormation'"
+                                    :createRoute="route('workflowFormations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-workflowFormation'"
+                                    :importRoute="route('workflowFormations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-workflowFormation'"
+                                    :exportXlsxRoute="route('workflowFormations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('workflowFormations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$workflowFormation_viewTypes"
+                                    :viewType="$workflowFormation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

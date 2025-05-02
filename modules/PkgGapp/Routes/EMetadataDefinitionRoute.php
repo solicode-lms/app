@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\EMetadataDefinitionController;
 // routes for eMetadataDefinition management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('eMetadataDefinitions/getData', [EMetadataDefinitionController::class, 'getData'])->name('eMetadataDefinitions.getData');
         // bulk - edit and delete
         Route::post('eMetadataDefinitions/bulk-delete', [EMetadataDefinitionController::class, 'bulkDelete'])

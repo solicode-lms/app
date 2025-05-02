@@ -14,6 +14,7 @@
         tableSelector: '#tache-data-container',
         formSelector: '#tacheForm',
         indexUrl: '{{ route('taches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('taches.create') }}',
         editUrl: '{{ route('taches.edit',  ['tache' => ':id']) }}',
         showUrl: '{{ route('taches.show',  ['tache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$tache_instance"
-                                :createPermission="'create-tache'"
-                                :createRoute="route('taches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-tache'"
-                                :importRoute="route('taches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-tache'"
-                                :exportXlsxRoute="route('taches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('taches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$tache_viewTypes"
-                                :viewType="$tache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$tache_instance"
+                                    :createPermission="'create-tache'"
+                                    :createRoute="route('taches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-tache'"
+                                    :importRoute="route('taches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-tache'"
+                                    :exportXlsxRoute="route('taches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('taches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$tache_viewTypes"
+                                    :viewType="$tache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

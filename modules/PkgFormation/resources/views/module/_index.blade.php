@@ -14,6 +14,7 @@
         tableSelector: '#module-data-container',
         formSelector: '#moduleForm',
         indexUrl: '{{ route('modules.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('modules.create') }}',
         editUrl: '{{ route('modules.edit',  ['module' => ':id']) }}',
         showUrl: '{{ route('modules.show',  ['module' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$module_instance"
-                                :createPermission="'create-module'"
-                                :createRoute="route('modules.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-module'"
-                                :importRoute="route('modules.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-module'"
-                                :exportXlsxRoute="route('modules.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('modules.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$module_viewTypes"
-                                :viewType="$module_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$module_instance"
+                                    :createPermission="'create-module'"
+                                    :createRoute="route('modules.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-module'"
+                                    :importRoute="route('modules.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-module'"
+                                    :exportXlsxRoute="route('modules.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('modules.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$module_viewTypes"
+                                    :viewType="$module_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

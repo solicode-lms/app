@@ -9,7 +9,6 @@ use Modules\Core\Controllers\SysControllerController;
 // routes for sysController management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('sysControllers/getData', [SysControllerController::class, 'getData'])->name('sysControllers.getData');
         // bulk - edit and delete
         Route::post('sysControllers/bulk-delete', [SysControllerController::class, 'bulkDelete'])

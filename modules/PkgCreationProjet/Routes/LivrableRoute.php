@@ -9,7 +9,6 @@ use Modules\PkgCreationProjet\Controllers\LivrableController;
 // routes for livrable management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
-
         Route::get('livrables/getData', [LivrableController::class, 'getData'])->name('livrables.getData');
         // bulk - edit and delete
         Route::post('livrables/bulk-delete', [LivrableController::class, 'bulkDelete'])

@@ -71,6 +71,12 @@ class BaseAffectationProjetRequest extends FormRequest
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
         $affectation_projet_id = $this->route('affectationProjet'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (affectationProjet existant dans l'URL)
+        if (!$affectationProjet_id) {
+            return;
+        }
+        
         $model = AffectationProjet::find($affectation_projet_id);
 
         

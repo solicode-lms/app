@@ -9,7 +9,6 @@ use Modules\PkgAutorisation\Controllers\UserController;
 // routes for user management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
-
         Route::get('users/getData', [UserController::class, 'getData'])->name('users.getData');
         // bulk - edit and delete
         Route::post('users/bulk-delete', [UserController::class, 'bulkDelete'])

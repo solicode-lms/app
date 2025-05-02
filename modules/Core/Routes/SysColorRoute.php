@@ -9,7 +9,6 @@ use Modules\Core\Controllers\SysColorController;
 // routes for sysColor management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('sysColors/getData', [SysColorController::class, 'getData'])->name('sysColors.getData');
         // bulk - edit and delete
         Route::post('sysColors/bulk-delete', [SysColorController::class, 'bulkDelete'])

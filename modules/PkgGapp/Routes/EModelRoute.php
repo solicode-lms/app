@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\EModelController;
 // routes for eModel management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('eModels/getData', [EModelController::class, 'getData'])->name('eModels.getData');
         // bulk - edit and delete
         Route::post('eModels/bulk-delete', [EModelController::class, 'bulkDelete'])

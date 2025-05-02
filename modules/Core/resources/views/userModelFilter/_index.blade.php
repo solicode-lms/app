@@ -14,6 +14,7 @@
         tableSelector: '#userModelFilter-data-container',
         formSelector: '#userModelFilterForm',
         indexUrl: '{{ route('userModelFilters.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('userModelFilters.create') }}',
         editUrl: '{{ route('userModelFilters.edit',  ['userModelFilter' => ':id']) }}',
         showUrl: '{{ route('userModelFilters.show',  ['userModelFilter' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$userModelFilter_instance"
-                                :createPermission="'create-userModelFilter'"
-                                :createRoute="route('userModelFilters.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-userModelFilter'"
-                                :importRoute="route('userModelFilters.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-userModelFilter'"
-                                :exportXlsxRoute="route('userModelFilters.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('userModelFilters.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$userModelFilter_viewTypes"
-                                :viewType="$userModelFilter_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$userModelFilter_instance"
+                                    :createPermission="'create-userModelFilter'"
+                                    :createRoute="route('userModelFilters.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-userModelFilter'"
+                                    :importRoute="route('userModelFilters.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-userModelFilter'"
+                                    :exportXlsxRoute="route('userModelFilters.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('userModelFilters.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$userModelFilter_viewTypes"
+                                    :viewType="$userModelFilter_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

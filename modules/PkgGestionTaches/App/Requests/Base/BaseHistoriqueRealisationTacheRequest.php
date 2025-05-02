@@ -71,6 +71,12 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
         $historique_realisation_tache_id = $this->route('historiqueRealisationTache'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (historiqueRealisationTache existant dans l'URL)
+        if (!$historiqueRealisationTache_id) {
+            return;
+        }
+        
         $model = HistoriqueRealisationTache::find($historique_realisation_tache_id);
 
         

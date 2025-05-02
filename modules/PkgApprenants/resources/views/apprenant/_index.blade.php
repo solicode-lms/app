@@ -14,6 +14,7 @@
         tableSelector: '#apprenant-data-container',
         formSelector: '#apprenantForm',
         indexUrl: '{{ route('apprenants.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('apprenants.create') }}',
         editUrl: '{{ route('apprenants.edit',  ['apprenant' => ':id']) }}',
         showUrl: '{{ route('apprenants.show',  ['apprenant' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$apprenant_instance"
-                                :createPermission="'create-apprenant'"
-                                :createRoute="route('apprenants.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-apprenant'"
-                                :importRoute="route('apprenants.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-apprenant'"
-                                :exportXlsxRoute="route('apprenants.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('apprenants.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$apprenant_viewTypes"
-                                :viewType="$apprenant_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$apprenant_instance"
+                                    :createPermission="'create-apprenant'"
+                                    :createRoute="route('apprenants.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-apprenant'"
+                                    :importRoute="route('apprenants.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-apprenant'"
+                                    :exportXlsxRoute="route('apprenants.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('apprenants.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$apprenant_viewTypes"
+                                    :viewType="$apprenant_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

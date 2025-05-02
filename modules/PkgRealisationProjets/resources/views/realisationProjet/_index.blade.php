@@ -14,6 +14,7 @@
         tableSelector: '#realisationProjet-data-container',
         formSelector: '#realisationProjetForm',
         indexUrl: '{{ route('realisationProjets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('realisationProjets.create') }}',
         editUrl: '{{ route('realisationProjets.edit',  ['realisationProjet' => ':id']) }}',
         showUrl: '{{ route('realisationProjets.show',  ['realisationProjet' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$realisationProjet_instance"
-                                :createPermission="'create-realisationProjet'"
-                                :createRoute="route('realisationProjets.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-realisationProjet'"
-                                :importRoute="route('realisationProjets.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-realisationProjet'"
-                                :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$realisationProjet_viewTypes"
-                                :viewType="$realisationProjet_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$realisationProjet_instance"
+                                    :createPermission="'create-realisationProjet'"
+                                    :createRoute="route('realisationProjets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-realisationProjet'"
+                                    :importRoute="route('realisationProjets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-realisationProjet'"
+                                    :exportXlsxRoute="route('realisationProjets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('realisationProjets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$realisationProjet_viewTypes"
+                                    :viewType="$realisationProjet_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

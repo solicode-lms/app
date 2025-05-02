@@ -9,7 +9,6 @@ use Modules\PkgCompetences\Controllers\CompetenceController;
 // routes for competence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
-
         Route::get('competences/getData', [CompetenceController::class, 'getData'])->name('competences.getData');
         // bulk - edit and delete
         Route::post('competences/bulk-delete', [CompetenceController::class, 'bulkDelete'])

@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\WorkflowChapitreController;
 // routes for workflowChapitre management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('workflowChapitres/getData', [WorkflowChapitreController::class, 'getData'])->name('workflowChapitres.getData');
         // bulk - edit and delete
         Route::post('workflowChapitres/bulk-delete', [WorkflowChapitreController::class, 'bulkDelete'])

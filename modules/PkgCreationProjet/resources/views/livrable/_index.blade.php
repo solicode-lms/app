@@ -14,6 +14,7 @@
         tableSelector: '#livrable-data-container',
         formSelector: '#livrableForm',
         indexUrl: '{{ route('livrables.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('livrables.create') }}',
         editUrl: '{{ route('livrables.edit',  ['livrable' => ':id']) }}',
         showUrl: '{{ route('livrables.show',  ['livrable' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$livrable_instance"
-                                :createPermission="'create-livrable'"
-                                :createRoute="route('livrables.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-livrable'"
-                                :importRoute="route('livrables.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-livrable'"
-                                :exportXlsxRoute="route('livrables.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('livrables.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$livrable_viewTypes"
-                                :viewType="$livrable_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$livrable_instance"
+                                    :createPermission="'create-livrable'"
+                                    :createRoute="route('livrables.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-livrable'"
+                                    :importRoute="route('livrables.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-livrable'"
+                                    :exportXlsxRoute="route('livrables.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('livrables.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$livrable_viewTypes"
+                                    :viewType="$livrable_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

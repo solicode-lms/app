@@ -14,6 +14,7 @@
         tableSelector: '#natureLivrable-data-container',
         formSelector: '#natureLivrableForm',
         indexUrl: '{{ route('natureLivrables.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('natureLivrables.create') }}',
         editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',
         showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$natureLivrable_instance"
-                                :createPermission="'create-natureLivrable'"
-                                :createRoute="route('natureLivrables.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-natureLivrable'"
-                                :importRoute="route('natureLivrables.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-natureLivrable'"
-                                :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$natureLivrable_viewTypes"
-                                :viewType="$natureLivrable_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$natureLivrable_instance"
+                                    :createPermission="'create-natureLivrable'"
+                                    :createRoute="route('natureLivrables.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-natureLivrable'"
+                                    :importRoute="route('natureLivrables.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-natureLivrable'"
+                                    :exportXlsxRoute="route('natureLivrables.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('natureLivrables.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$natureLivrable_viewTypes"
+                                    :viewType="$natureLivrable_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

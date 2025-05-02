@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\EDataFieldController;
 // routes for eDataField management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('eDataFields/getData', [EDataFieldController::class, 'getData'])->name('eDataFields.getData');
         // bulk - edit and delete
         Route::post('eDataFields/bulk-delete', [EDataFieldController::class, 'bulkDelete'])

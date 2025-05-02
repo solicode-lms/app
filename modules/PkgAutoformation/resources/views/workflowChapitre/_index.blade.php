@@ -14,6 +14,7 @@
         tableSelector: '#workflowChapitre-data-container',
         formSelector: '#workflowChapitreForm',
         indexUrl: '{{ route('workflowChapitres.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('workflowChapitres.create') }}',
         editUrl: '{{ route('workflowChapitres.edit',  ['workflowChapitre' => ':id']) }}',
         showUrl: '{{ route('workflowChapitres.show',  ['workflowChapitre' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$workflowChapitre_instance"
-                                :createPermission="'create-workflowChapitre'"
-                                :createRoute="route('workflowChapitres.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-workflowChapitre'"
-                                :importRoute="route('workflowChapitres.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-workflowChapitre'"
-                                :exportXlsxRoute="route('workflowChapitres.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('workflowChapitres.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$workflowChapitre_viewTypes"
-                                :viewType="$workflowChapitre_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$workflowChapitre_instance"
+                                    :createPermission="'create-workflowChapitre'"
+                                    :createRoute="route('workflowChapitres.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-workflowChapitre'"
+                                    :importRoute="route('workflowChapitres.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-workflowChapitre'"
+                                    :exportXlsxRoute="route('workflowChapitres.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('workflowChapitres.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$workflowChapitre_viewTypes"
+                                    :viewType="$workflowChapitre_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -14,6 +14,7 @@
         tableSelector: '#workflowTache-data-container',
         formSelector: '#workflowTacheForm',
         indexUrl: '{{ route('workflowTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('workflowTaches.create') }}',
         editUrl: '{{ route('workflowTaches.edit',  ['workflowTache' => ':id']) }}',
         showUrl: '{{ route('workflowTaches.show',  ['workflowTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$workflowTache_instance"
-                                :createPermission="'create-workflowTache'"
-                                :createRoute="route('workflowTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-workflowTache'"
-                                :importRoute="route('workflowTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-workflowTache'"
-                                :exportXlsxRoute="route('workflowTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('workflowTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$workflowTache_viewTypes"
-                                :viewType="$workflowTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$workflowTache_instance"
+                                    :createPermission="'create-workflowTache'"
+                                    :createRoute="route('workflowTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-workflowTache'"
+                                    :importRoute="route('workflowTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-workflowTache'"
+                                    :exportXlsxRoute="route('workflowTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('workflowTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$workflowTache_viewTypes"
+                                    :viewType="$workflowTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

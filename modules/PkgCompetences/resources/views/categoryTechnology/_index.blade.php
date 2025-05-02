@@ -14,6 +14,7 @@
         tableSelector: '#categoryTechnology-data-container',
         formSelector: '#categoryTechnologyForm',
         indexUrl: '{{ route('categoryTechnologies.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('categoryTechnologies.create') }}',
         editUrl: '{{ route('categoryTechnologies.edit',  ['categoryTechnology' => ':id']) }}',
         showUrl: '{{ route('categoryTechnologies.show',  ['categoryTechnology' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$categoryTechnology_instance"
-                                :createPermission="'create-categoryTechnology'"
-                                :createRoute="route('categoryTechnologies.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-categoryTechnology'"
-                                :importRoute="route('categoryTechnologies.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-categoryTechnology'"
-                                :exportXlsxRoute="route('categoryTechnologies.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('categoryTechnologies.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$categoryTechnology_viewTypes"
-                                :viewType="$categoryTechnology_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$categoryTechnology_instance"
+                                    :createPermission="'create-categoryTechnology'"
+                                    :createRoute="route('categoryTechnologies.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-categoryTechnology'"
+                                    :importRoute="route('categoryTechnologies.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-categoryTechnology'"
+                                    :exportXlsxRoute="route('categoryTechnologies.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('categoryTechnologies.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$categoryTechnology_viewTypes"
+                                    :viewType="$categoryTechnology_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

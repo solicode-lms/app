@@ -48,18 +48,24 @@
                        
 
                         @can('edit-eMetadatum')
+                        <x-action-button :entity="$eMetadatum" actionName="edit">
                         @can('update', $eMetadatum)
                             <a href="{{ route('eMetadata.edit', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-eMetadatum')
+                        <x-action-button :entity="$eMetadatum" actionName="show">
                         @can('view', $eMetadatum)
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$eMetadatum" actionName="delete">
                         @can('destroy-eMetadatum')
                         @can('delete', $eMetadatum)
                             <form class="context-state" action="{{ route('eMetadata.destroy',['eMetadatum' => $eMetadatum->id]) }}" method="POST" style="display: inline;">
@@ -71,6 +77,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

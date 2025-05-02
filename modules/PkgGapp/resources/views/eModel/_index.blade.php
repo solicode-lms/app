@@ -14,6 +14,7 @@
         tableSelector: '#eModel-data-container',
         formSelector: '#eModelForm',
         indexUrl: '{{ route('eModels.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eModels.create') }}',
         editUrl: '{{ route('eModels.edit',  ['eModel' => ':id']) }}',
         showUrl: '{{ route('eModels.show',  ['eModel' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$eModel_instance"
-                                :createPermission="'create-eModel'"
-                                :createRoute="route('eModels.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-eModel'"
-                                :importRoute="route('eModels.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-eModel'"
-                                :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$eModel_viewTypes"
-                                :viewType="$eModel_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$eModel_instance"
+                                    :createPermission="'create-eModel'"
+                                    :createRoute="route('eModels.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-eModel'"
+                                    :importRoute="route('eModels.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-eModel'"
+                                    :exportXlsxRoute="route('eModels.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('eModels.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$eModel_viewTypes"
+                                    :viewType="$eModel_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

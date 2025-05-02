@@ -50,18 +50,24 @@
                        
 
                         @can('edit-groupe')
+                        <x-action-button :entity="$groupe" actionName="edit">
                         @can('update', $groupe)
                             <a href="{{ route('groupes.edit', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-groupe')
+                        <x-action-button :entity="$groupe" actionName="show">
                         @can('view', $groupe)
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$groupe" actionName="delete">
                         @can('destroy-groupe')
                         @can('delete', $groupe)
                             <form class="context-state" action="{{ route('groupes.destroy',['groupe' => $groupe->id]) }}" method="POST" style="display: inline;">
@@ -73,6 +79,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

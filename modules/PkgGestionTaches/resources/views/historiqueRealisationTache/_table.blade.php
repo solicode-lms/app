@@ -40,18 +40,24 @@
                        
 
                         @can('edit-historiqueRealisationTache')
+                        <x-action-button :entity="$historiqueRealisationTache" actionName="edit">
                         @can('update', $historiqueRealisationTache)
                             <a href="{{ route('historiqueRealisationTaches.edit', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-historiqueRealisationTache')
+                        <x-action-button :entity="$historiqueRealisationTache" actionName="show">
                         @can('view', $historiqueRealisationTache)
                             <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$historiqueRealisationTache" actionName="delete">
                         @can('destroy-historiqueRealisationTache')
                         @can('delete', $historiqueRealisationTache)
                             <form class="context-state" action="{{ route('historiqueRealisationTaches.destroy',['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" method="POST" style="display: inline;">
@@ -63,6 +69,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

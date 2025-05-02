@@ -173,7 +173,7 @@
       </div>
   
 
-      @php $canEditis_officiel = Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
+      @php $canEditis_officiel = !$itemFormation || !$itemFormation->id || Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

@@ -20,7 +20,7 @@
     @endif
 
     <div class="card-body row">
-      @php $canEditdateModification = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditdateModification = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -107,7 +107,7 @@
       </div>
   
 
-      @php $canEdituser_id = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEdituser_id = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -141,7 +141,7 @@
       </div>
   
 
-      @php $canEditisFeedback = Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+      @php $canEditisFeedback = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

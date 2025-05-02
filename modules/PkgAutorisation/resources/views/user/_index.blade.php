@@ -14,6 +14,7 @@
         tableSelector: '#user-data-container',
         formSelector: '#userForm',
         indexUrl: '{{ route('users.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('users.create') }}',
         editUrl: '{{ route('users.edit',  ['user' => ':id']) }}',
         showUrl: '{{ route('users.show',  ['user' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$user_instance"
-                                :createPermission="'create-user'"
-                                :createRoute="route('users.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-user'"
-                                :importRoute="route('users.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-user'"
-                                :exportXlsxRoute="route('users.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('users.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$user_viewTypes"
-                                :viewType="$user_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$user_instance"
+                                    :createPermission="'create-user'"
+                                    :createRoute="route('users.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-user'"
+                                    :importRoute="route('users.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-user'"
+                                    :exportXlsxRoute="route('users.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('users.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$user_viewTypes"
+                                    :viewType="$user_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -34,18 +34,24 @@
                        
 
                         @can('edit-userModelFilter')
+                        <x-action-button :entity="$userModelFilter" actionName="edit">
                         @can('update', $userModelFilter)
                             <a href="{{ route('userModelFilters.edit', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-userModelFilter')
+                        <x-action-button :entity="$userModelFilter" actionName="show">
                         @can('view', $userModelFilter)
                             <a href="{{ route('userModelFilters.show', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$userModelFilter" actionName="delete">
                         @can('destroy-userModelFilter')
                         @can('delete', $userModelFilter)
                             <form class="context-state" action="{{ route('userModelFilters.destroy',['userModelFilter' => $userModelFilter->id]) }}" method="POST" style="display: inline;">
@@ -57,6 +63,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

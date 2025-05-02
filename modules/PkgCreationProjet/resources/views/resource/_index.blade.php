@@ -14,6 +14,7 @@
         tableSelector: '#resource-data-container',
         formSelector: '#resourceForm',
         indexUrl: '{{ route('resources.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('resources.create') }}',
         editUrl: '{{ route('resources.edit',  ['resource' => ':id']) }}',
         showUrl: '{{ route('resources.show',  ['resource' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$resource_instance"
-                                :createPermission="'create-resource'"
-                                :createRoute="route('resources.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-resource'"
-                                :importRoute="route('resources.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-resource'"
-                                :exportXlsxRoute="route('resources.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('resources.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$resource_viewTypes"
-                                :viewType="$resource_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$resource_instance"
+                                    :createPermission="'create-resource'"
+                                    :createRoute="route('resources.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-resource'"
+                                    :importRoute="route('resources.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-resource'"
+                                    :exportXlsxRoute="route('resources.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('resources.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$resource_viewTypes"
+                                    :viewType="$resource_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

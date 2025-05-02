@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\NationaliteController;
 // routes for nationalite management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('nationalites/getData', [NationaliteController::class, 'getData'])->name('nationalites.getData');
         // bulk - edit and delete
         Route::post('nationalites/bulk-delete', [NationaliteController::class, 'bulkDelete'])

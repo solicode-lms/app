@@ -14,6 +14,7 @@
         tableSelector: '#nationalite-data-container',
         formSelector: '#nationaliteForm',
         indexUrl: '{{ route('nationalites.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('nationalites.create') }}',
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
         showUrl: '{{ route('nationalites.show',  ['nationalite' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$nationalite_instance"
-                                :createPermission="'create-nationalite'"
-                                :createRoute="route('nationalites.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-nationalite'"
-                                :importRoute="route('nationalites.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-nationalite'"
-                                :exportXlsxRoute="route('nationalites.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('nationalites.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$nationalite_viewTypes"
-                                :viewType="$nationalite_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$nationalite_instance"
+                                    :createPermission="'create-nationalite'"
+                                    :createRoute="route('nationalites.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-nationalite'"
+                                    :importRoute="route('nationalites.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-nationalite'"
+                                    :exportXlsxRoute="route('nationalites.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('nationalites.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$nationalite_viewTypes"
+                                    :viewType="$nationalite_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

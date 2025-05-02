@@ -9,7 +9,6 @@ use Modules\PkgCreationProjet\Controllers\NatureLivrableController;
 // routes for natureLivrable management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
-
         Route::get('natureLivrables/getData', [NatureLivrableController::class, 'getData'])->name('natureLivrables.getData');
         // bulk - edit and delete
         Route::post('natureLivrables/bulk-delete', [NatureLivrableController::class, 'bulkDelete'])

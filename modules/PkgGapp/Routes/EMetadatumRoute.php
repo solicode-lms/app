@@ -9,7 +9,6 @@ use Modules\PkgGapp\Controllers\EMetadatumController;
 // routes for eMetadatum management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
-
         Route::get('eMetadata/getData', [EMetadatumController::class, 'getData'])->name('eMetadata.getData');
         // bulk - edit and delete
         Route::post('eMetadata/bulk-delete', [EMetadatumController::class, 'bulkDelete'])

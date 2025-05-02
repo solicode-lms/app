@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\EtatFormationController;
 // routes for etatFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('etatFormations/getData', [EtatFormationController::class, 'getData'])->name('etatFormations.getData');
         // bulk - edit and delete
         Route::post('etatFormations/bulk-delete', [EtatFormationController::class, 'bulkDelete'])

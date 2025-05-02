@@ -71,6 +71,12 @@ class BaseRealisationProjetRequest extends FormRequest
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
         $realisation_projet_id = $this->route('realisationProjet'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (realisationProjet existant dans l'URL)
+        if (!$realisationProjet_id) {
+            return;
+        }
+        
         $model = RealisationProjet::find($realisation_projet_id);
 
         

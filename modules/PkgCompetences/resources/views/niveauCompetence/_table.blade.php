@@ -40,18 +40,24 @@
                        
 
                         @can('edit-niveauCompetence')
+                        <x-action-button :entity="$niveauCompetence" actionName="edit">
                         @can('update', $niveauCompetence)
                             <a href="{{ route('niveauCompetences.edit', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-niveauCompetence')
+                        <x-action-button :entity="$niveauCompetence" actionName="show">
                         @can('view', $niveauCompetence)
                             <a href="{{ route('niveauCompetences.show', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$niveauCompetence" actionName="delete">
                         @can('destroy-niveauCompetence')
                         @can('delete', $niveauCompetence)
                             <form class="context-state" action="{{ route('niveauCompetences.destroy',['niveauCompetence' => $niveauCompetence->id]) }}" method="POST" style="display: inline;">
@@ -63,6 +69,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

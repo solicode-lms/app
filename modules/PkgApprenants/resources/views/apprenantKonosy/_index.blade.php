@@ -14,6 +14,7 @@
         tableSelector: '#apprenantKonosy-data-container',
         formSelector: '#apprenantKonosyForm',
         indexUrl: '{{ route('apprenantKonosies.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('apprenantKonosies.create') }}',
         editUrl: '{{ route('apprenantKonosies.edit',  ['apprenantKonosy' => ':id']) }}',
         showUrl: '{{ route('apprenantKonosies.show',  ['apprenantKonosy' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$apprenantKonosy_instance"
-                                :createPermission="'create-apprenantKonosy'"
-                                :createRoute="route('apprenantKonosies.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-apprenantKonosy'"
-                                :importRoute="route('apprenantKonosies.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-apprenantKonosy'"
-                                :exportXlsxRoute="route('apprenantKonosies.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('apprenantKonosies.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$apprenantKonosy_viewTypes"
-                                :viewType="$apprenantKonosy_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$apprenantKonosy_instance"
+                                    :createPermission="'create-apprenantKonosy'"
+                                    :createRoute="route('apprenantKonosies.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-apprenantKonosy'"
+                                    :importRoute="route('apprenantKonosies.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-apprenantKonosy'"
+                                    :exportXlsxRoute="route('apprenantKonosies.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('apprenantKonosies.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$apprenantKonosy_viewTypes"
+                                    :viewType="$apprenantKonosy_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

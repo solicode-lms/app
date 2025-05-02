@@ -49,18 +49,24 @@
                        
 
                         @can('edit-labelRealisationTache')
+                        <x-action-button :entity="$labelRealisationTache" actionName="edit">
                         @can('update', $labelRealisationTache)
                             <a href="{{ route('labelRealisationTaches.edit', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-labelRealisationTache')
+                        <x-action-button :entity="$labelRealisationTache" actionName="show">
                         @can('view', $labelRealisationTache)
                             <a href="{{ route('labelRealisationTaches.show', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$labelRealisationTache" actionName="delete">
                         @can('destroy-labelRealisationTache')
                         @can('delete', $labelRealisationTache)
                             <form class="context-state" action="{{ route('labelRealisationTaches.destroy',['labelRealisationTache' => $labelRealisationTache->id]) }}" method="POST" style="display: inline;">
@@ -72,6 +78,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

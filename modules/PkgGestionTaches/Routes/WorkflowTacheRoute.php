@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\WorkflowTacheController;
 // routes for workflowTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('workflowTaches/getData', [WorkflowTacheController::class, 'getData'])->name('workflowTaches.getData');
         // bulk - edit and delete
         Route::post('workflowTaches/bulk-delete', [WorkflowTacheController::class, 'bulkDelete'])

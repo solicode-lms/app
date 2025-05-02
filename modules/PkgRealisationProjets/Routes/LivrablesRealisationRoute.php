@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\LivrablesRealisationController;
 // routes for livrablesRealisation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-
         Route::get('livrablesRealisations/getData', [LivrablesRealisationController::class, 'getData'])->name('livrablesRealisations.getData');
         // bulk - edit and delete
         Route::post('livrablesRealisations/bulk-delete', [LivrablesRealisationController::class, 'bulkDelete'])

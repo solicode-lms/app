@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\RealisationChapitreController;
 // routes for realisationChapitre management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('realisationChapitres/getData', [RealisationChapitreController::class, 'getData'])->name('realisationChapitres.getData');
         // bulk - edit and delete
         Route::post('realisationChapitres/bulk-delete', [RealisationChapitreController::class, 'bulkDelete'])

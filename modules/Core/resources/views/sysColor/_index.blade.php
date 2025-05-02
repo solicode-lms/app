@@ -14,6 +14,7 @@
         tableSelector: '#sysColor-data-container',
         formSelector: '#sysColorForm',
         indexUrl: '{{ route('sysColors.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysColors.create') }}',
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
         showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$sysColor_instance"
-                                :createPermission="'create-sysColor'"
-                                :createRoute="route('sysColors.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-sysColor'"
-                                :importRoute="route('sysColors.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-sysColor'"
-                                :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$sysColor_viewTypes"
-                                :viewType="$sysColor_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$sysColor_instance"
+                                    :createPermission="'create-sysColor'"
+                                    :createRoute="route('sysColors.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-sysColor'"
+                                    :importRoute="route('sysColors.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-sysColor'"
+                                    :exportXlsxRoute="route('sysColors.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('sysColors.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$sysColor_viewTypes"
+                                    :viewType="$sysColor_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

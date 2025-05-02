@@ -9,7 +9,6 @@ use Modules\PkgCreationProjet\Controllers\TransfertCompetenceController;
 // routes for transfertCompetence management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
-
         Route::get('transfertCompetences/getData', [TransfertCompetenceController::class, 'getData'])->name('transfertCompetences.getData');
         // bulk - edit and delete
         Route::post('transfertCompetences/bulk-delete', [TransfertCompetenceController::class, 'bulkDelete'])

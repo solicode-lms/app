@@ -14,6 +14,7 @@
         tableSelector: '#eMetadataDefinition-data-container',
         formSelector: '#eMetadataDefinitionForm',
         indexUrl: '{{ route('eMetadataDefinitions.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('eMetadataDefinitions.create') }}',
         editUrl: '{{ route('eMetadataDefinitions.edit',  ['eMetadataDefinition' => ':id']) }}',
         showUrl: '{{ route('eMetadataDefinitions.show',  ['eMetadataDefinition' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$eMetadataDefinition_instance"
-                                :createPermission="'create-eMetadataDefinition'"
-                                :createRoute="route('eMetadataDefinitions.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-eMetadataDefinition'"
-                                :importRoute="route('eMetadataDefinitions.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-eMetadataDefinition'"
-                                :exportXlsxRoute="route('eMetadataDefinitions.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$eMetadataDefinition_viewTypes"
-                                :viewType="$eMetadataDefinition_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$eMetadataDefinition_instance"
+                                    :createPermission="'create-eMetadataDefinition'"
+                                    :createRoute="route('eMetadataDefinitions.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-eMetadataDefinition'"
+                                    :importRoute="route('eMetadataDefinitions.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-eMetadataDefinition'"
+                                    :exportXlsxRoute="route('eMetadataDefinitions.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('eMetadataDefinitions.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$eMetadataDefinition_viewTypes"
+                                    :viewType="$eMetadataDefinition_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

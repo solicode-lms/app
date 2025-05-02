@@ -70,6 +70,12 @@ class BaseProfileRequest extends FormRequest
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
         $profile_id = $this->route('profile'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (profile existant dans l'URL)
+        if (!$profile_id) {
+            return;
+        }
+        
         $model = Profile::find($profile_id);
 
         

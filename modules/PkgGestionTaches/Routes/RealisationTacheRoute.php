@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\RealisationTacheController;
 // routes for realisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('realisationTaches/getData', [RealisationTacheController::class, 'getData'])->name('realisationTaches.getData');
         // bulk - edit and delete
         Route::post('realisationTaches/bulk-delete', [RealisationTacheController::class, 'bulkDelete'])

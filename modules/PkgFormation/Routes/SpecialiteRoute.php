@@ -9,7 +9,6 @@ use Modules\PkgFormation\Controllers\SpecialiteController;
 // routes for specialite management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
-
         Route::get('specialites/getData', [SpecialiteController::class, 'getData'])->name('specialites.getData');
         // bulk - edit and delete
         Route::post('specialites/bulk-delete', [SpecialiteController::class, 'bulkDelete'])

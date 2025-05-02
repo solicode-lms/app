@@ -9,7 +9,6 @@ use Modules\PkgFormation\Controllers\AnneeFormationController;
 // routes for anneeFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
-
         Route::get('anneeFormations/getData', [AnneeFormationController::class, 'getData'])->name('anneeFormations.getData');
         // bulk - edit and delete
         Route::post('anneeFormations/bulk-delete', [AnneeFormationController::class, 'bulkDelete'])

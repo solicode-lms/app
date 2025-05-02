@@ -33,18 +33,24 @@
                        
 
                         @can('edit-nationalite')
+                        <x-action-button :entity="$nationalite" actionName="edit">
                         @can('update', $nationalite)
                             <a href="{{ route('nationalites.edit', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-nationalite')
+                        <x-action-button :entity="$nationalite" actionName="show">
                         @can('view', $nationalite)
                             <a href="{{ route('nationalites.show', ['nationalite' => $nationalite->id]) }}" data-id="{{$nationalite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$nationalite" actionName="delete">
                         @can('destroy-nationalite')
                         @can('delete', $nationalite)
                             <form class="context-state" action="{{ route('nationalites.destroy',['nationalite' => $nationalite->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

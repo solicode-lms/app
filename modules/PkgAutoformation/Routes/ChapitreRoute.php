@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\ChapitreController;
 // routes for chapitre management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('chapitres/getData', [ChapitreController::class, 'getData'])->name('chapitres.getData');
         // bulk - edit and delete
         Route::post('chapitres/bulk-delete', [ChapitreController::class, 'bulkDelete'])

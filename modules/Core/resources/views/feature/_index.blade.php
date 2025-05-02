@@ -14,6 +14,7 @@
         tableSelector: '#feature-data-container',
         formSelector: '#featureForm',
         indexUrl: '{{ route('features.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('features.create') }}',
         editUrl: '{{ route('features.edit',  ['feature' => ':id']) }}',
         showUrl: '{{ route('features.show',  ['feature' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$feature_instance"
-                                :createPermission="'create-feature'"
-                                :createRoute="route('features.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-feature'"
-                                :importRoute="route('features.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-feature'"
-                                :exportXlsxRoute="route('features.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('features.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$feature_viewTypes"
-                                :viewType="$feature_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$feature_instance"
+                                    :createPermission="'create-feature'"
+                                    :createRoute="route('features.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-feature'"
+                                    :importRoute="route('features.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-feature'"
+                                    :exportXlsxRoute="route('features.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('features.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$feature_viewTypes"
+                                    :viewType="$feature_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

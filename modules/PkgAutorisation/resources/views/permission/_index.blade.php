@@ -14,6 +14,7 @@
         tableSelector: '#permission-data-container',
         formSelector: '#permissionForm',
         indexUrl: '{{ route('permissions.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('permissions.create') }}',
         editUrl: '{{ route('permissions.edit',  ['permission' => ':id']) }}',
         showUrl: '{{ route('permissions.show',  ['permission' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$permission_instance"
-                                :createPermission="'create-permission'"
-                                :createRoute="route('permissions.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-permission'"
-                                :importRoute="route('permissions.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-permission'"
-                                :exportXlsxRoute="route('permissions.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('permissions.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$permission_viewTypes"
-                                :viewType="$permission_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$permission_instance"
+                                    :createPermission="'create-permission'"
+                                    :createRoute="route('permissions.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-permission'"
+                                    :importRoute="route('permissions.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-permission'"
+                                    :exportXlsxRoute="route('permissions.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('permissions.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$permission_viewTypes"
+                                    :viewType="$permission_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

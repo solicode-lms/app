@@ -14,6 +14,7 @@
         tableSelector: '#transfertCompetence-data-container',
         formSelector: '#transfertCompetenceForm',
         indexUrl: '{{ route('transfertCompetences.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('transfertCompetences.create') }}',
         editUrl: '{{ route('transfertCompetences.edit',  ['transfertCompetence' => ':id']) }}',
         showUrl: '{{ route('transfertCompetences.show',  ['transfertCompetence' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$transfertCompetence_instance"
-                                :createPermission="'create-transfertCompetence'"
-                                :createRoute="route('transfertCompetences.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-transfertCompetence'"
-                                :importRoute="route('transfertCompetences.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-transfertCompetence'"
-                                :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$transfertCompetence_viewTypes"
-                                :viewType="$transfertCompetence_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$transfertCompetence_instance"
+                                    :createPermission="'create-transfertCompetence'"
+                                    :createRoute="route('transfertCompetences.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-transfertCompetence'"
+                                    :importRoute="route('transfertCompetences.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-transfertCompetence'"
+                                    :exportXlsxRoute="route('transfertCompetences.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('transfertCompetences.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$transfertCompetence_viewTypes"
+                                    :viewType="$transfertCompetence_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

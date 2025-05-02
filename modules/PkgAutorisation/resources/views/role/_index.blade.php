@@ -14,6 +14,7 @@
         tableSelector: '#role-data-container',
         formSelector: '#roleForm',
         indexUrl: '{{ route('roles.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('roles.create') }}',
         editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
         showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$role_instance"
-                                :createPermission="'create-role'"
-                                :createRoute="route('roles.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-role'"
-                                :importRoute="route('roles.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-role'"
-                                :exportXlsxRoute="route('roles.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('roles.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$role_viewTypes"
-                                :viewType="$role_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$role_instance"
+                                    :createPermission="'create-role'"
+                                    :createRoute="route('roles.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-role'"
+                                    :importRoute="route('roles.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-role'"
+                                    :exportXlsxRoute="route('roles.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('roles.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$role_viewTypes"
+                                    :viewType="$role_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

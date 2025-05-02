@@ -14,6 +14,7 @@
         tableSelector: '#realisationChapitre-data-container',
         formSelector: '#realisationChapitreForm',
         indexUrl: '{{ route('realisationChapitres.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('realisationChapitres.create') }}',
         editUrl: '{{ route('realisationChapitres.edit',  ['realisationChapitre' => ':id']) }}',
         showUrl: '{{ route('realisationChapitres.show',  ['realisationChapitre' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$realisationChapitre_instance"
-                                :createPermission="'create-realisationChapitre'"
-                                :createRoute="route('realisationChapitres.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-realisationChapitre'"
-                                :importRoute="route('realisationChapitres.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-realisationChapitre'"
-                                :exportXlsxRoute="route('realisationChapitres.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('realisationChapitres.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$realisationChapitre_viewTypes"
-                                :viewType="$realisationChapitre_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$realisationChapitre_instance"
+                                    :createPermission="'create-realisationChapitre'"
+                                    :createRoute="route('realisationChapitres.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-realisationChapitre'"
+                                    :importRoute="route('realisationChapitres.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-realisationChapitre'"
+                                    :exportXlsxRoute="route('realisationChapitres.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('realisationChapitres.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$realisationChapitre_viewTypes"
+                                    :viewType="$realisationChapitre_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

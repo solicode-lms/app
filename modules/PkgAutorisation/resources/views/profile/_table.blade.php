@@ -34,18 +34,24 @@
                        
 
                         @can('edit-profile')
+                        <x-action-button :entity="$profile" actionName="edit">
                         @can('update', $profile)
                             <a href="{{ route('profiles.edit', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-profile')
+                        <x-action-button :entity="$profile" actionName="show">
                         @can('view', $profile)
                             <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" data-id="{{$profile->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$profile" actionName="delete">
                         @can('destroy-profile')
                         @can('delete', $profile)
                             <form class="context-state" action="{{ route('profiles.destroy',['profile' => $profile->id]) }}" method="POST" style="display: inline;">
@@ -57,6 +63,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

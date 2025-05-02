@@ -14,6 +14,7 @@
         tableSelector: '#niveauxScolaire-data-container',
         formSelector: '#niveauxScolaireForm',
         indexUrl: '{{ route('niveauxScolaires.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('niveauxScolaires.create') }}',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
         showUrl: '{{ route('niveauxScolaires.show',  ['niveauxScolaire' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$niveauxScolaire_instance"
-                                :createPermission="'create-niveauxScolaire'"
-                                :createRoute="route('niveauxScolaires.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-niveauxScolaire'"
-                                :importRoute="route('niveauxScolaires.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-niveauxScolaire'"
-                                :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$niveauxScolaire_viewTypes"
-                                :viewType="$niveauxScolaire_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$niveauxScolaire_instance"
+                                    :createPermission="'create-niveauxScolaire'"
+                                    :createRoute="route('niveauxScolaires.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-niveauxScolaire'"
+                                    :importRoute="route('niveauxScolaires.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-niveauxScolaire'"
+                                    :exportXlsxRoute="route('niveauxScolaires.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('niveauxScolaires.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$niveauxScolaire_viewTypes"
+                                    :viewType="$niveauxScolaire_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

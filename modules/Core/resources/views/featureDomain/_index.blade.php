@@ -14,6 +14,7 @@
         tableSelector: '#featureDomain-data-container',
         formSelector: '#featureDomainForm',
         indexUrl: '{{ route('featureDomains.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('featureDomains.create') }}',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
         showUrl: '{{ route('featureDomains.show',  ['featureDomain' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$featureDomain_instance"
-                                :createPermission="'create-featureDomain'"
-                                :createRoute="route('featureDomains.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-featureDomain'"
-                                :importRoute="route('featureDomains.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-featureDomain'"
-                                :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$featureDomain_viewTypes"
-                                :viewType="$featureDomain_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$featureDomain_instance"
+                                    :createPermission="'create-featureDomain'"
+                                    :createRoute="route('featureDomains.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-featureDomain'"
+                                    :importRoute="route('featureDomains.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-featureDomain'"
+                                    :exportXlsxRoute="route('featureDomains.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('featureDomains.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$featureDomain_viewTypes"
+                                    :viewType="$featureDomain_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

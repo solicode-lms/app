@@ -14,6 +14,7 @@
         tableSelector: '#chapitre-data-container',
         formSelector: '#chapitreForm',
         indexUrl: '{{ route('chapitres.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('chapitres.create') }}',
         editUrl: '{{ route('chapitres.edit',  ['chapitre' => ':id']) }}',
         showUrl: '{{ route('chapitres.show',  ['chapitre' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$chapitre_instance"
-                                :createPermission="'create-chapitre'"
-                                :createRoute="route('chapitres.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-chapitre'"
-                                :importRoute="route('chapitres.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-chapitre'"
-                                :exportXlsxRoute="route('chapitres.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('chapitres.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$chapitre_viewTypes"
-                                :viewType="$chapitre_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$chapitre_instance"
+                                    :createPermission="'create-chapitre'"
+                                    :createRoute="route('chapitres.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-chapitre'"
+                                    :importRoute="route('chapitres.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-chapitre'"
+                                    :exportXlsxRoute="route('chapitres.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('chapitres.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$chapitre_viewTypes"
+                                    :viewType="$chapitre_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -9,7 +9,6 @@ use Modules\PkgRealisationProjets\Controllers\EtatsRealisationProjetController;
 // routes for etatsRealisationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-
         Route::get('etatsRealisationProjets/getData', [EtatsRealisationProjetController::class, 'getData'])->name('etatsRealisationProjets.getData');
         // bulk - edit and delete
         Route::post('etatsRealisationProjets/bulk-delete', [EtatsRealisationProjetController::class, 'bulkDelete'])

@@ -14,6 +14,7 @@
         tableSelector: '#formateur-data-container',
         formSelector: '#formateurForm',
         indexUrl: '{{ route('formateurs.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('formateurs.create') }}',
         editUrl: '{{ route('formateurs.edit',  ['formateur' => ':id']) }}',
         showUrl: '{{ route('formateurs.show',  ['formateur' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$formateur_instance"
-                                :createPermission="'create-formateur'"
-                                :createRoute="route('formateurs.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-formateur'"
-                                :importRoute="route('formateurs.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-formateur'"
-                                :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$formateur_viewTypes"
-                                :viewType="$formateur_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$formateur_instance"
+                                    :createPermission="'create-formateur'"
+                                    :createRoute="route('formateurs.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-formateur'"
+                                    :importRoute="route('formateurs.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-formateur'"
+                                    :exportXlsxRoute="route('formateurs.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('formateurs.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$formateur_viewTypes"
+                                    :viewType="$formateur_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

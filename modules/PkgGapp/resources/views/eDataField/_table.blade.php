@@ -62,18 +62,24 @@
                        
 
                         @can('edit-eDataField')
+                        <x-action-button :entity="$eDataField" actionName="edit">
                         @can('update', $eDataField)
                             <a href="{{ route('eDataFields.edit', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-eDataField')
+                        <x-action-button :entity="$eDataField" actionName="show">
                         @can('view', $eDataField)
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$eDataField" actionName="delete">
                         @can('destroy-eDataField')
                         @can('delete', $eDataField)
                             <form class="context-state" action="{{ route('eDataFields.destroy',['eDataField' => $eDataField->id]) }}" method="POST" style="display: inline;">
@@ -85,6 +91,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

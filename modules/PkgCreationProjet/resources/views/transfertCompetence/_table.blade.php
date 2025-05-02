@@ -47,18 +47,24 @@
                        
 
                         @can('edit-transfertCompetence')
+                        <x-action-button :entity="$transfertCompetence" actionName="edit">
                         @can('update', $transfertCompetence)
                             <a href="{{ route('transfertCompetences.edit', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-transfertCompetence')
+                        <x-action-button :entity="$transfertCompetence" actionName="show">
                         @can('view', $transfertCompetence)
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$transfertCompetence" actionName="delete">
                         @can('destroy-transfertCompetence')
                         @can('delete', $transfertCompetence)
                             <form class="context-state" action="{{ route('transfertCompetences.destroy',['transfertCompetence' => $transfertCompetence->id]) }}" method="POST" style="display: inline;">
@@ -70,6 +76,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

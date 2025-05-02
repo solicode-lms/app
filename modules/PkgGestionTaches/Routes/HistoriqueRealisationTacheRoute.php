@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\HistoriqueRealisationTacheController;
 // routes for historiqueRealisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('historiqueRealisationTaches/getData', [HistoriqueRealisationTacheController::class, 'getData'])->name('historiqueRealisationTaches.getData');
         // bulk - edit and delete
         Route::post('historiqueRealisationTaches/bulk-delete', [HistoriqueRealisationTacheController::class, 'bulkDelete'])

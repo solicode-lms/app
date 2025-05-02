@@ -14,6 +14,7 @@
         tableSelector: '#dependanceTache-data-container',
         formSelector: '#dependanceTacheForm',
         indexUrl: '{{ route('dependanceTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('dependanceTaches.create') }}',
         editUrl: '{{ route('dependanceTaches.edit',  ['dependanceTache' => ':id']) }}',
         showUrl: '{{ route('dependanceTaches.show',  ['dependanceTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$dependanceTache_instance"
-                                :createPermission="'create-dependanceTache'"
-                                :createRoute="route('dependanceTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-dependanceTache'"
-                                :importRoute="route('dependanceTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-dependanceTache'"
-                                :exportXlsxRoute="route('dependanceTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('dependanceTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$dependanceTache_viewTypes"
-                                :viewType="$dependanceTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$dependanceTache_instance"
+                                    :createPermission="'create-dependanceTache'"
+                                    :createRoute="route('dependanceTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-dependanceTache'"
+                                    :importRoute="route('dependanceTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-dependanceTache'"
+                                    :exportXlsxRoute="route('dependanceTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('dependanceTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$dependanceTache_viewTypes"
+                                    :viewType="$dependanceTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

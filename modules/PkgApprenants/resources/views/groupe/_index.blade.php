@@ -14,6 +14,7 @@
         tableSelector: '#groupe-data-container',
         formSelector: '#groupeForm',
         indexUrl: '{{ route('groupes.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('groupes.create') }}',
         editUrl: '{{ route('groupes.edit',  ['groupe' => ':id']) }}',
         showUrl: '{{ route('groupes.show',  ['groupe' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$groupe_instance"
-                                :createPermission="'create-groupe'"
-                                :createRoute="route('groupes.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-groupe'"
-                                :importRoute="route('groupes.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-groupe'"
-                                :exportXlsxRoute="route('groupes.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('groupes.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$groupe_viewTypes"
-                                :viewType="$groupe_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$groupe_instance"
+                                    :createPermission="'create-groupe'"
+                                    :createRoute="route('groupes.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-groupe'"
+                                    :importRoute="route('groupes.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-groupe'"
+                                    :exportXlsxRoute="route('groupes.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('groupes.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$groupe_viewTypes"
+                                    :viewType="$groupe_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

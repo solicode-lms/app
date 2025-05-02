@@ -14,6 +14,7 @@
         tableSelector: '#etatFormation-data-container',
         formSelector: '#etatFormationForm',
         indexUrl: '{{ route('etatFormations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatFormations.create') }}',
         editUrl: '{{ route('etatFormations.edit',  ['etatFormation' => ':id']) }}',
         showUrl: '{{ route('etatFormations.show',  ['etatFormation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$etatFormation_instance"
-                                :createPermission="'create-etatFormation'"
-                                :createRoute="route('etatFormations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-etatFormation'"
-                                :importRoute="route('etatFormations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-etatFormation'"
-                                :exportXlsxRoute="route('etatFormations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('etatFormations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$etatFormation_viewTypes"
-                                :viewType="$etatFormation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$etatFormation_instance"
+                                    :createPermission="'create-etatFormation'"
+                                    :createRoute="route('etatFormations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-etatFormation'"
+                                    :importRoute="route('etatFormations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-etatFormation'"
+                                    :exportXlsxRoute="route('etatFormations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('etatFormations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$etatFormation_viewTypes"
+                                    :viewType="$etatFormation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

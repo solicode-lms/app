@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\FormationController;
 // routes for formation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('formations/getData', [FormationController::class, 'getData'])->name('formations.getData');
         // bulk - edit and delete
         Route::post('formations/bulk-delete', [FormationController::class, 'bulkDelete'])

@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\VilleController;
 // routes for ville management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('villes/getData', [VilleController::class, 'getData'])->name('villes.getData');
         // bulk - edit and delete
         Route::post('villes/bulk-delete', [VilleController::class, 'bulkDelete'])

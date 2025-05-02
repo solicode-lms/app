@@ -9,7 +9,6 @@ use Modules\PkgAutorisation\Controllers\ProfileController;
 // routes for profile management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
-
         Route::get('profiles/getData', [ProfileController::class, 'getData'])->name('profiles.getData');
         // bulk - edit and delete
         Route::post('profiles/bulk-delete', [ProfileController::class, 'bulkDelete'])

@@ -9,7 +9,6 @@ use Modules\PkgAutorisation\Controllers\PermissionController;
 // routes for permission management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
-
         Route::get('permissions/getData', [PermissionController::class, 'getData'])->name('permissions.getData');
         // bulk - edit and delete
         Route::post('permissions/bulk-delete', [PermissionController::class, 'bulkDelete'])

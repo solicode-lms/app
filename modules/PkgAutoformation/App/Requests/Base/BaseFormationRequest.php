@@ -76,6 +76,12 @@ class BaseFormationRequest extends FormRequest
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
         $formation_id = $this->route('formation'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (formation existant dans l'URL)
+        if (!$formation_id) {
+            return;
+        }
+        
         $model = Formation::find($formation_id);
 
         

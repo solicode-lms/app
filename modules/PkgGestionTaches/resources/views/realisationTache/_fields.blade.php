@@ -20,7 +20,7 @@
     @endif
 
     <div class="card-body row">
-      @php $canEdittache_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -54,7 +54,7 @@
       </div>
   
 
-      @php $canEditrealisation_projet_id = Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -189,7 +189,7 @@
 @endif
 
 
-      @php $canEditremarques_formateur = Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+      @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

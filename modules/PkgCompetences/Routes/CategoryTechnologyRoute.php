@@ -9,7 +9,6 @@ use Modules\PkgCompetences\Controllers\CategoryTechnologyController;
 // routes for categoryTechnology management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
-
         Route::get('categoryTechnologies/getData', [CategoryTechnologyController::class, 'getData'])->name('categoryTechnologies.getData');
         // bulk - edit and delete
         Route::post('categoryTechnologies/bulk-delete', [CategoryTechnologyController::class, 'bulkDelete'])

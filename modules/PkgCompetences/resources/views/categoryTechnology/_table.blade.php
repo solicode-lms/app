@@ -33,18 +33,24 @@
                        
 
                         @can('edit-categoryTechnology')
+                        <x-action-button :entity="$categoryTechnology" actionName="edit">
                         @can('update', $categoryTechnology)
                             <a href="{{ route('categoryTechnologies.edit', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-categoryTechnology')
+                        <x-action-button :entity="$categoryTechnology" actionName="show">
                         @can('view', $categoryTechnology)
                             <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$categoryTechnology" actionName="delete">
                         @can('destroy-categoryTechnology')
                         @can('delete', $categoryTechnology)
                             <form class="context-state" action="{{ route('categoryTechnologies.destroy',['categoryTechnology' => $categoryTechnology->id]) }}" method="POST" style="display: inline;">
@@ -56,6 +62,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

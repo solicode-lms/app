@@ -14,6 +14,7 @@
         tableSelector: '#formation-data-container',
         formSelector: '#formationForm',
         indexUrl: '{{ route('formations.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('formations.create') }}',
         editUrl: '{{ route('formations.edit',  ['formation' => ':id']) }}',
         showUrl: '{{ route('formations.show',  ['formation' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$formation_instance"
-                                :createPermission="'create-formation'"
-                                :createRoute="route('formations.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-formation'"
-                                :importRoute="route('formations.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-formation'"
-                                :exportXlsxRoute="route('formations.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('formations.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$formation_viewTypes"
-                                :viewType="$formation_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$formation_instance"
+                                    :createPermission="'create-formation'"
+                                    :createRoute="route('formations.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-formation'"
+                                    :importRoute="route('formations.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-formation'"
+                                    :exportXlsxRoute="route('formations.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('formations.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$formation_viewTypes"
+                                    :viewType="$formation_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

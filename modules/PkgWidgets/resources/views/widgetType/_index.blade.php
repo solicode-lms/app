@@ -14,6 +14,7 @@
         tableSelector: '#widgetType-data-container',
         formSelector: '#widgetTypeForm',
         indexUrl: '{{ route('widgetTypes.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('widgetTypes.create') }}',
         editUrl: '{{ route('widgetTypes.edit',  ['widgetType' => ':id']) }}',
         showUrl: '{{ route('widgetTypes.show',  ['widgetType' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$widgetType_instance"
-                                :createPermission="'create-widgetType'"
-                                :createRoute="route('widgetTypes.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-widgetType'"
-                                :importRoute="route('widgetTypes.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-widgetType'"
-                                :exportXlsxRoute="route('widgetTypes.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('widgetTypes.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$widgetType_viewTypes"
-                                :viewType="$widgetType_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$widgetType_instance"
+                                    :createPermission="'create-widgetType'"
+                                    :createRoute="route('widgetTypes.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-widgetType'"
+                                    :importRoute="route('widgetTypes.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-widgetType'"
+                                    :exportXlsxRoute="route('widgetTypes.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('widgetTypes.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$widgetType_viewTypes"
+                                    :viewType="$widgetType_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

@@ -14,6 +14,7 @@
         tableSelector: '#labelRealisationTache-data-container',
         formSelector: '#labelRealisationTacheForm',
         indexUrl: '{{ route('labelRealisationTaches.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('labelRealisationTaches.create') }}',
         editUrl: '{{ route('labelRealisationTaches.edit',  ['labelRealisationTache' => ':id']) }}',
         showUrl: '{{ route('labelRealisationTaches.show',  ['labelRealisationTache' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$labelRealisationTache_instance"
-                                :createPermission="'create-labelRealisationTache'"
-                                :createRoute="route('labelRealisationTaches.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-labelRealisationTache'"
-                                :importRoute="route('labelRealisationTaches.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-labelRealisationTache'"
-                                :exportXlsxRoute="route('labelRealisationTaches.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('labelRealisationTaches.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$labelRealisationTache_viewTypes"
-                                :viewType="$labelRealisationTache_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$labelRealisationTache_instance"
+                                    :createPermission="'create-labelRealisationTache'"
+                                    :createRoute="route('labelRealisationTaches.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-labelRealisationTache'"
+                                    :importRoute="route('labelRealisationTaches.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-labelRealisationTache'"
+                                    :exportXlsxRoute="route('labelRealisationTaches.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('labelRealisationTaches.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$labelRealisationTache_viewTypes"
+                                    :viewType="$labelRealisationTache_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

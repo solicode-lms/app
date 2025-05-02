@@ -14,6 +14,7 @@
         tableSelector: '#technology-data-container',
         formSelector: '#technologyForm',
         indexUrl: '{{ route('technologies.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('technologies.create') }}',
         editUrl: '{{ route('technologies.edit',  ['technology' => ':id']) }}',
         showUrl: '{{ route('technologies.show',  ['technology' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$technology_instance"
-                                :createPermission="'create-technology'"
-                                :createRoute="route('technologies.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-technology'"
-                                :importRoute="route('technologies.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-technology'"
-                                :exportXlsxRoute="route('technologies.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('technologies.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$technology_viewTypes"
-                                :viewType="$technology_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$technology_instance"
+                                    :createPermission="'create-technology'"
+                                    :createRoute="route('technologies.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-technology'"
+                                    :importRoute="route('technologies.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-technology'"
+                                    :exportXlsxRoute="route('technologies.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('technologies.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$technology_viewTypes"
+                                    :viewType="$technology_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

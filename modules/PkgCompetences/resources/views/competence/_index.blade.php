@@ -14,6 +14,7 @@
         tableSelector: '#competence-data-container',
         formSelector: '#competenceForm',
         indexUrl: '{{ route('competences.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('competences.create') }}',
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
         showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$competence_instance"
-                                :createPermission="'create-competence'"
-                                :createRoute="route('competences.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-competence'"
-                                :importRoute="route('competences.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-competence'"
-                                :exportXlsxRoute="route('competences.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('competences.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$competence_viewTypes"
-                                :viewType="$competence_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$competence_instance"
+                                    :createPermission="'create-competence'"
+                                    :createRoute="route('competences.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-competence'"
+                                    :importRoute="route('competences.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-competence'"
+                                    :exportXlsxRoute="route('competences.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('competences.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$competence_viewTypes"
+                                    :viewType="$competence_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

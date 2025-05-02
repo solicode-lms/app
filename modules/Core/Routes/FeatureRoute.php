@@ -9,7 +9,6 @@ use Modules\Core\Controllers\FeatureController;
 // routes for feature management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('features/getData', [FeatureController::class, 'getData'])->name('features.getData');
         // bulk - edit and delete
         Route::post('features/bulk-delete', [FeatureController::class, 'bulkDelete'])

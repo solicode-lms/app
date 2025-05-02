@@ -14,6 +14,7 @@
         tableSelector: '#etatChapitre-data-container',
         formSelector: '#etatChapitreForm',
         indexUrl: '{{ route('etatChapitres.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('etatChapitres.create') }}',
         editUrl: '{{ route('etatChapitres.edit',  ['etatChapitre' => ':id']) }}',
         showUrl: '{{ route('etatChapitres.show',  ['etatChapitre' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$etatChapitre_instance"
-                                :createPermission="'create-etatChapitre'"
-                                :createRoute="route('etatChapitres.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-etatChapitre'"
-                                :importRoute="route('etatChapitres.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-etatChapitre'"
-                                :exportXlsxRoute="route('etatChapitres.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('etatChapitres.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$etatChapitre_viewTypes"
-                                :viewType="$etatChapitre_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$etatChapitre_instance"
+                                    :createPermission="'create-etatChapitre'"
+                                    :createRoute="route('etatChapitres.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-etatChapitre'"
+                                    :importRoute="route('etatChapitres.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-etatChapitre'"
+                                    :exportXlsxRoute="route('etatChapitres.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('etatChapitres.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$etatChapitre_viewTypes"
+                                    :viewType="$etatChapitre_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

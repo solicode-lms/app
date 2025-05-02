@@ -9,7 +9,6 @@ use Modules\PkgAutoformation\Controllers\RealisationFormationController;
 // routes for realisationFormation management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutoformation')->group(function () {
-
         Route::get('realisationFormations/getData', [RealisationFormationController::class, 'getData'])->name('realisationFormations.getData');
         // bulk - edit and delete
         Route::post('realisationFormations/bulk-delete', [RealisationFormationController::class, 'bulkDelete'])

@@ -9,7 +9,6 @@ use Modules\Core\Controllers\SysModelController;
 // routes for sysModel management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('sysModels/getData', [SysModelController::class, 'getData'])->name('sysModels.getData');
         // bulk - edit and delete
         Route::post('sysModels/bulk-delete', [SysModelController::class, 'bulkDelete'])

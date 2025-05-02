@@ -14,6 +14,7 @@
         tableSelector: '#sysModel-data-container',
         formSelector: '#sysModelForm',
         indexUrl: '{{ route('sysModels.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('sysModels.create') }}',
         editUrl: '{{ route('sysModels.edit',  ['sysModel' => ':id']) }}',
         showUrl: '{{ route('sysModels.show',  ['sysModel' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$sysModel_instance"
-                                :createPermission="'create-sysModel'"
-                                :createRoute="route('sysModels.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-sysModel'"
-                                :importRoute="route('sysModels.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-sysModel'"
-                                :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$sysModel_viewTypes"
-                                :viewType="$sysModel_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$sysModel_instance"
+                                    :createPermission="'create-sysModel'"
+                                    :createRoute="route('sysModels.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-sysModel'"
+                                    :importRoute="route('sysModels.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-sysModel'"
+                                    :exportXlsxRoute="route('sysModels.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('sysModels.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$sysModel_viewTypes"
+                                    :viewType="$sysModel_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

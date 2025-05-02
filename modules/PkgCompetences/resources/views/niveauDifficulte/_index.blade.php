@@ -14,6 +14,7 @@
         tableSelector: '#niveauDifficulte-data-container',
         formSelector: '#niveauDifficulteForm',
         indexUrl: '{{ route('niveauDifficultes.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('niveauDifficultes.create') }}',
         editUrl: '{{ route('niveauDifficultes.edit',  ['niveauDifficulte' => ':id']) }}',
         showUrl: '{{ route('niveauDifficultes.show',  ['niveauDifficulte' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$niveauDifficulte_instance"
-                                :createPermission="'create-niveauDifficulte'"
-                                :createRoute="route('niveauDifficultes.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-niveauDifficulte'"
-                                :importRoute="route('niveauDifficultes.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-niveauDifficulte'"
-                                :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$niveauDifficulte_viewTypes"
-                                :viewType="$niveauDifficulte_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$niveauDifficulte_instance"
+                                    :createPermission="'create-niveauDifficulte'"
+                                    :createRoute="route('niveauDifficultes.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-niveauDifficulte'"
+                                    :importRoute="route('niveauDifficultes.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-niveauDifficulte'"
+                                    :exportXlsxRoute="route('niveauDifficultes.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('niveauDifficultes.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$niveauDifficulte_viewTypes"
+                                    :viewType="$niveauDifficulte_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

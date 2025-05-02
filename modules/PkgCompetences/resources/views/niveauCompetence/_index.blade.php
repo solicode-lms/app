@@ -14,6 +14,7 @@
         tableSelector: '#niveauCompetence-data-container',
         formSelector: '#niveauCompetenceForm',
         indexUrl: '{{ route('niveauCompetences.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('niveauCompetences.create') }}',
         editUrl: '{{ route('niveauCompetences.edit',  ['niveauCompetence' => ':id']) }}',
         showUrl: '{{ route('niveauCompetences.show',  ['niveauCompetence' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$niveauCompetence_instance"
-                                :createPermission="'create-niveauCompetence'"
-                                :createRoute="route('niveauCompetences.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-niveauCompetence'"
-                                :importRoute="route('niveauCompetences.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-niveauCompetence'"
-                                :exportXlsxRoute="route('niveauCompetences.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('niveauCompetences.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$niveauCompetence_viewTypes"
-                                :viewType="$niveauCompetence_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$niveauCompetence_instance"
+                                    :createPermission="'create-niveauCompetence'"
+                                    :createRoute="route('niveauCompetences.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-niveauCompetence'"
+                                    :importRoute="route('niveauCompetences.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-niveauCompetence'"
+                                    :exportXlsxRoute="route('niveauCompetences.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('niveauCompetences.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$niveauCompetence_viewTypes"
+                                    :viewType="$niveauCompetence_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>

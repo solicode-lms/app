@@ -9,7 +9,6 @@ use Modules\PkgFormation\Controllers\ModuleController;
 // routes for module management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
-
         Route::get('modules/getData', [ModuleController::class, 'getData'])->name('modules.getData');
         // bulk - edit and delete
         Route::post('modules/bulk-delete', [ModuleController::class, 'bulkDelete'])

@@ -9,7 +9,6 @@ use Modules\PkgGestionTaches\Controllers\DependanceTacheController;
 // routes for dependanceTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGestionTaches')->group(function () {
-
         Route::get('dependanceTaches/getData', [DependanceTacheController::class, 'getData'])->name('dependanceTaches.getData');
         // bulk - edit and delete
         Route::post('dependanceTaches/bulk-delete', [DependanceTacheController::class, 'bulkDelete'])

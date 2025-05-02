@@ -9,7 +9,6 @@ use Modules\Core\Controllers\FeatureDomainController;
 // routes for featureDomain management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
-
         Route::get('featureDomains/getData', [FeatureDomainController::class, 'getData'])->name('featureDomains.getData');
         // bulk - edit and delete
         Route::post('featureDomains/bulk-delete', [FeatureDomainController::class, 'bulkDelete'])

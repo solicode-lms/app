@@ -9,7 +9,6 @@ use Modules\PkgWidgets\Controllers\WidgetUtilisateurController;
 // routes for widgetUtilisateur management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
-
         Route::get('widgetUtilisateurs/getData', [WidgetUtilisateurController::class, 'getData'])->name('widgetUtilisateurs.getData');
         // bulk - edit and delete
         Route::post('widgetUtilisateurs/bulk-delete', [WidgetUtilisateurController::class, 'bulkDelete'])

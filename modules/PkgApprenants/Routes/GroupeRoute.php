@@ -9,7 +9,6 @@ use Modules\PkgApprenants\Controllers\GroupeController;
 // routes for groupe management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
-
         Route::get('groupes/getData', [GroupeController::class, 'getData'])->name('groupes.getData');
         // bulk - edit and delete
         Route::post('groupes/bulk-delete', [GroupeController::class, 'bulkDelete'])
