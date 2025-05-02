@@ -55,18 +55,24 @@
                        
 
                         @can('edit-projet')
+                        <x-action-button :entity="$projet" actionName="edit">
                         @can('update', $projet)
                             <a href="{{ route('projets.edit', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @elsecan('show-projet')
+                        <x-action-button :entity="$projet" actionName="show">
                         @can('view', $projet)
                             <a href="{{ route('projets.show', ['projet' => $projet->id]) }}" data-id="{{$projet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
                         @endcan
+                        </x-action-button>
                         @endcan
+
+                        <x-action-button :entity="$projet" actionName="delete">
                         @can('destroy-projet')
                         @can('delete', $projet)
                             <form class="context-state" action="{{ route('projets.destroy',['projet' => $projet->id]) }}" method="POST" style="display: inline;">
@@ -78,6 +84,7 @@
                             </form>
                         @endcan
                         @endcan
+                        </x-action-button>
                     </td>
                 </tr>
             @endforeach

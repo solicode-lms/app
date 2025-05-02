@@ -55,7 +55,7 @@ export class FormUI  {
         this.handleFormSubmission(submitHandler);
         this.loader.init();
         this.adapterPourContext(isCreate);
-        // this.initializeSelect2_in_modal();
+        this.initializeSelect2_in_modal();
         FormUI.initializeRichText();
         FormUI.initSelect2Color()
         FormUI.initializeDate();
@@ -372,19 +372,19 @@ export class FormUI  {
     }
     static initializeSelect2() {
         // Initialise les éléments Select2
-        // $('.select2').each(function() {
+        $('.select2').each(function() {
 
-        //     const $el = $(this);
-        //     if (!$el.is('select')) return;
+            const $el = $(this);
+            if (!$el.is('select')) return;
 
-        //     let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
+            let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
-        //     $(this).select2({
-        //         placeholder: placeholder, // Utiliser data-label comme placeholder
-        //         width: '100%',
-        //         allowClear: true,
-        //     });
-        // });
+            $(this).select2({
+                placeholder: placeholder, // Utiliser data-label comme placeholder
+                width: '100%',
+                allowClear: true,
+            });
+        });
     }
     static initializeRichText(){
 

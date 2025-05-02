@@ -9,7 +9,6 @@ use Modules\PkgCreationProjet\Controllers\ProjetController;
 // routes for projet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
-
         Route::get('projets/getData', [ProjetController::class, 'getData'])->name('projets.getData');
         // bulk - edit and delete
         Route::post('projets/bulk-delete', [ProjetController::class, 'bulkDelete'])

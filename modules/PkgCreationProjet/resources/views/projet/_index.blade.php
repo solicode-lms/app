@@ -14,6 +14,7 @@
         tableSelector: '#projet-data-container',
         formSelector: '#projetForm',
         indexUrl: '{{ route('projets.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
         createUrl: '{{ route('projets.create') }}',
         editUrl: '{{ route('projets.edit',  ['projet' => ':id']) }}',
         showUrl: '{{ route('projets.show',  ['projet' => ':id']) }}',
@@ -65,22 +66,28 @@
                             />
                         </div>
                         <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
                         
-                            <x-crud-actions
-                                :instanceItem="$projet_instance"
-                                :createPermission="'create-projet'"
-                                :createRoute="route('projets.create')"
-                                :createText="__('Ajouter')"
-                                :importPermission="'import-projet'"
-                                :importRoute="route('projets.import')"
-                                :importText="__('Importer')"
-                                :exportPermission="'export-projet'"
-                                :exportXlsxRoute="route('projets.export', ['format' => 'xlsx'])"
-                                :exportCsvRoute="route('projets.export', ['format' => 'csv']) "
-                                :exportText="__('Exporter')"
-                                :viewTypes="$projet_viewTypes"
-                                :viewType="$projet_viewType"
-                            />
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$projet_instance"
+                                    :createPermission="'create-projet'"
+                                    :createRoute="route('projets.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-projet'"
+                                    :importRoute="route('projets.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-projet'"
+                                    :exportXlsxRoute="route('projets.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('projets.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$projet_viewTypes"
+                                    :viewType="$projet_viewType"
+                                />
+                            </div>
+
+
                         
                         </div>
                     </div>
