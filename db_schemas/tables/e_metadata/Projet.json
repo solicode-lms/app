@@ -601,15 +601,5 @@
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "columnWidth"
-    },
-    {
-        "reference": "Projet_formateur_id_editableByRoles",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {
-            "roles": "formateur,admin"
-        },
-        "e_data_field_reference": "Projet_formateur_id",
-        "e_metadata_definition_reference": "editableByRoles"
     }
 ]
