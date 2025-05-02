@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 trait CrudUpdateTrait
 {
 
-    
     public function updateOnlyExistanteAttribute($id, array $data)
     {
         $this->executeRules('before', 'update', $data, $id);
@@ -19,8 +18,6 @@ trait CrudUpdateTrait
             return false;
         }
 
-        $this->update_bl($entity,$data);
-        
         if ($this->hasOrdreColumn()) {
             $ancienOrdre = $entity->ordre;
     
@@ -40,17 +37,7 @@ trait CrudUpdateTrait
        $this->executeRules('after', 'update', $entity, $id);
        return $entity;
     }
-    /**
-     * BL : Logique de traitement
-     * il est utilisé dans les méthodes :
-     * - updateOnlyExistanteAttribute
-     * - update
-     * @param mixed $entity
-     * @param array $data
-     * @return void
-     */
-    public function update_bl($entity, array &$data){
-    }
+
     /**
      * Met à jour un élément existant.
      * Si les valeur ManytoMany n'existe pas dans $data il seron supprimer
@@ -68,9 +55,6 @@ trait CrudUpdateTrait
         if (!$entity) {
             return false;
         }
-
-
-        $this->update_bl($entity,$data);
 
         if ($this->hasOrdreColumn()) {
             $ancienOrdre = $entity->ordre;

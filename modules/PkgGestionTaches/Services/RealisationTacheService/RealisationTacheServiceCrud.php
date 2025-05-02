@@ -103,15 +103,16 @@ trait RealisationTacheServiceCrud
     /**
      * Méthode contient les règles métier qui sont appliquer pendant l'édition
      * il est utilisée avec tous les méthode qui font update
-     * @param mixed $record
+     * @param mixed $entity
      * @param array $data
      * @return void
      */
-    public function update_bl($record, array &$data){
-
+    public function beforeUpdateRules(array &$data, $id){
+        
+        $entity = $this->find($id);
         $historiqueRealisationTacheService = new HistoriqueRealisationTacheService();
-        $historiqueRealisationTacheService->enregistrerChangement($record,$data);
-        $this->mettreAJourEtatRevisionSiRemarqueModifiee($record, $data);
+        $historiqueRealisationTacheService->enregistrerChangement($entity,$data);
+        $this->mettreAJourEtatRevisionSiRemarqueModifiee($entity, $data);
         
         // 🛡️ Si l'utilisateur  est  formateur, on sort sans rien faire
         // pour ne pas appliquer la règle : Empêcher un apprenant d'affecter un état réservé aux formateurs
@@ -134,15 +135,15 @@ trait RealisationTacheServiceCrud
                 // ✅ Vérifie le respect de la priorité selon le workflow
                 $workflowCode = optional($nouvelEtat->workflowTache)->code;
                 if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
-                    $this->verifierTachesMoinsPrioritairesTerminees($record,$workflowCode);
+                    $this->verifierTachesMoinsPrioritairesTerminees($entity,$workflowCode);
                 }
             }
 
             // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
-            if ($record->etatRealisationTache) {
+            if ($entity->etatRealisationTache) {
                 if (
-                    $record->etatRealisationTache->is_editable_only_by_formateur
-                    && $record->etatRealisationTache->id != $etat_realisation_tache_id
+                    $entity->etatRealisationTache->is_editable_only_by_formateur
+                    && $entity->etatRealisationTache->id != $etat_realisation_tache_id
                     && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
                 ) {
                     throw ValidationException::withMessages([

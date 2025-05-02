@@ -16,7 +16,7 @@ trait CrudTrait
      * @param int|null $id  L'identifiant (optionnel) si pertinent
      * @return void
      */
-    protected function executeRules(string $when, string $action, array|object|null $dataOrEntity = null, int|null $id = null): void
+    protected function executeRules(string $when, string $action, array|object|null &$dataOrEntity = null, int|null $id = null): void
     {
         $methodName = "{$when}".ucfirst($action)."Rules";
 
