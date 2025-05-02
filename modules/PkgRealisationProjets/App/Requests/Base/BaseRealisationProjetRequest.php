@@ -73,7 +73,7 @@ class BaseRealisationProjetRequest extends FormRequest
         $realisation_projet_id = $this->route('realisationProjet'); // Remplace 'model' par le bon paramètre de route
         
         // Vérifier si c'est une édition (realisationProjet existant dans l'URL)
-        if (!$realisationProjet_id) {
+        if (!$realisation_projet_id) {
             return;
         }
         

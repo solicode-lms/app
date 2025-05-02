@@ -77,7 +77,7 @@ class BaseRealisationTacheRequest extends FormRequest
         $realisation_tache_id = $this->route('realisationTache'); // Remplace 'model' par le bon paramètre de route
         
         // Vérifier si c'est une édition (realisationTache existant dans l'URL)
-        if (!$realisationTache_id) {
+        if (!$realisation_tache_id) {
             return;
         }
         
