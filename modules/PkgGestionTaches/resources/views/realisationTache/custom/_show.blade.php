@@ -1,6 +1,10 @@
+@extends('PkgGestionTaches::realisationTache._show')
 
-@section('realisationTache-show')
 
+@section('realisationTache-show1')
+
+Custom
+        {{-- ╔══ Corps ───────────────────────────────────────────╗ --}}
         <div class="card-body">
 
             {{-- 1️⃣  Informations générales --}}
@@ -130,4 +134,4 @@
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);
 </script>
-@show
+@endsection
