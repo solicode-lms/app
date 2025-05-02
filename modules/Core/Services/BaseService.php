@@ -21,7 +21,7 @@ use Modules\Core\Services\Traits\{
     SortTrait,
     StatsTrait
 };
-
+use Modules\PkgNotification\Services\NotificationService;
 
 /**
  * Classe abstraite BaseService qui fournit une implémentation de base
@@ -56,6 +56,7 @@ abstract class BaseService implements ServiceInterface
     protected $modelName;
     protected $paginationLimit = 20;
 
+    
     protected $totalFilteredCount;
 
     public $userHasSentFilter = false;
@@ -117,6 +118,7 @@ abstract class BaseService implements ServiceInterface
         // Scrop management
         $this->viewState = app(ViewStateService::class);
         $this->sessionState = app(SessionState::class);
+    
     }
 
     public function getData(string $filter, $value)

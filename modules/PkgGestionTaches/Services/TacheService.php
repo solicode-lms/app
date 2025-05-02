@@ -7,6 +7,8 @@ use Modules\PkgGestionTaches\Services\Base\BaseTacheService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgNotification\Enums\NotificationType;
+use Modules\PkgNotification\Services\NotificationService;
 
 /**
  * Classe TacheService pour gérer la persistance de l'entité Tache.
@@ -45,6 +47,8 @@ class TacheService extends BaseTacheService
 
     public function create(array|object $data)
     {
+        $notificationService = new NotificationService();
+
         // Créer la tâche
         $tache = parent::create($data);
     
@@ -67,13 +71,24 @@ class TacheService extends BaseTacheService
 
             // Création des réalisations des tâches pour les apprenants concernés
             foreach ($realisationProjets as $realisationProjet) {
-                $realisationTacheService->create([
+                $realisationTache = $realisationTacheService->create([
                     'tache_id' => $tache->id,
                     'realisation_projet_id' => $realisationProjet->id, // Associer à la bonne réalisation de projet
                     'etat_realisation_tache_id' => $etatInitial?->id, // Valeur par défaut à définir si nécessaire
                     'dateDebut' => $tache->dateDebut,
                     'dateFin' => $tache->dateFin
                 ]);
+
+                $user_id = $realisationTache->realisationProjet->apprenant?->user_id;
+
+                $notificationService->sendNotificationToReadData(
+                    "realisationTache",  // Le modèle concerné
+                    $realisationTache->id, // L'ID de l'entité
+                    $user_id,              // L'utilisateur cible
+                    "Nouvelle tâche attribuée : "  . $realisationTache->tache->titre, // ✅ titre personnalisé
+                    "Vous avez une nouvelle tâche à réaliser : " . $realisationTache->tache->titre, // ✅ message personnalisé
+                    NotificationType::NOUVELLE_TACHE->value // ✅ type personnalisé (optionnel)
+                );
             }
         }
     

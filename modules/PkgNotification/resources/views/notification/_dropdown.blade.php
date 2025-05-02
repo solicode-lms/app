@@ -12,18 +12,24 @@
         <div class="dropdown-divider"></div>
 
         @forelse ($notifications as $notification)
-            <a href="{{$notification->data["lien"] ?? "#"}}" class="dropdown-item text-truncate">
-                <i class="fas fa-envelope mr-2"></i> {{ $notification->title }}
-                <span class="float-right text-muted text-sm">
+        <a href="{{ $notification->data['lien'] ?? '#' }}" class="dropdown-item">
+            <div>
+                <div class="mb-1" style="white-space: normal;">
+                    <i class="fas fa-envelope mr-2"></i> 
+                    {{ $notification->title }}
+                </div>
+                <div class="text-muted text-sm text-right">
                     {{ $notification->created_at->diffForHumans() }}
-                </span>
-            </a>
-            <div class="dropdown-divider"></div>
-        @empty
-            <a href="#" class="dropdown-item text-center text-muted">
-                Aucune notification
-            </a>
-        @endforelse
+                </div>
+            </div>
+        </a>
+        <div class="dropdown-divider"></div>
+    @empty
+        <a href="#" class="dropdown-item text-center text-muted">
+            Aucune notification
+        </a>
+    @endforelse
+
 
         <div class="dropdown-divider"></div>
         <a href="{{ route('notifications.index') }}" class="dropdown-item dropdown-footer">Voir toutes les notifications</a>
