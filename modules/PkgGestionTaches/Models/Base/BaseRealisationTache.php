@@ -25,9 +25,6 @@ class BaseRealisationTache extends BaseModel
 {
     use HasFactory, HasDynamicContext, OwnedByUser;
 
-    public $names = "realisationTaches";
-
-
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
