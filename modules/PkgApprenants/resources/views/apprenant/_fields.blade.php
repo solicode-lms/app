@@ -19,8 +19,17 @@
         @endforeach
     @endif
 
-    <div class="card-body row">
-          <h4 class="debut-groupe-title col-12 text-info">{{ __('État Civil') }}</h4>
+    <div class="card-body">
+
+
+  
+
+  
+    
+
+    
+    <div class="row">
+              <h4 class="debut-groupe-title col-12 text-info">{{ __('État Civil') }}</h4>
       <hr class="debut-groupe-hr col-12">
 
       <div class="form-group col-12 col-md-3">
@@ -480,6 +489,12 @@
           @enderror
       </div>
   
+
+
+    </div>
+  
+    
+    
 
 
     </div>
