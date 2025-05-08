@@ -28,10 +28,11 @@
     
 
     
+      <h5 class="debut-groupe-title text-info">{{ __('État Civil') }}</h5>
+      <hr class="debut-groupe-hr">
+    
     <div class="row">
-              <h4 class="debut-groupe-title col-12 text-info">{{ __('État Civil') }}</h4>
-      <hr class="debut-groupe-hr col-12">
-
+        
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -312,9 +313,17 @@
       </div>
   
 
-      <h4 class="debut-groupe-title col-12 text-info">{{ __('Informations de Contact') }}</h4>
-      <hr class="debut-groupe-hr col-12">
 
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Informations de Contact') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -373,9 +382,17 @@
       </div>
   
 
-      <h4 class="debut-groupe-title col-12 text-info">{{ __('Informations Académiques') }}</h4>
-      <hr class="debut-groupe-hr col-12">
 
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Informations Académiques') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -493,7 +510,6 @@
 
     </div>
   
-    
     
 
 

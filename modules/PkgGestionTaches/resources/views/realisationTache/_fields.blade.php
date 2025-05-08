@@ -19,8 +19,20 @@
         @endforeach
     @endif
 
-    <div class="card-body row">
-      @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+    <div class="card-body">
+
+
+  
+
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Informations générales') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+              @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -89,6 +101,16 @@
   
 
 
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Dates de réalisation') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -145,6 +167,16 @@
   
 
 
+    </div>
+  
+    
+
+    
+      <h5 class="debut-groupe-title text-info">{{ __('État') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -177,19 +209,16 @@
   
 
 
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="HistoriqueRealisationTache">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
-            
-    </label>
+    </div>
+  
+    
 
-  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-@endif
-
-
-      @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+    
+      <h5 class="debut-groupe-title text-info">{{ __('Remarques') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+              @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -240,6 +269,32 @@
           @enderror
       </div>
   
+
+
+    </div>
+  
+    
+    
+
+    
+    <div class="row">
+        
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="HistoriqueRealisationTache">
+            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+
+
+
+    </div>
+  
+
 
     </div>
 

@@ -663,36 +663,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "Apprenant_nom_formStartGroup",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {
-            "label": "État Civil"
-        },
-        "e_data_field_reference": "Apprenant_nom",
-        "e_metadata_definition_reference": "formStartGroup"
-    },
-    {
-        "reference": "Apprenant_tele_num_formStartGroup",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {
-            "label": "Informations de Contact"
-        },
-        "e_data_field_reference": "Apprenant_tele_num",
-        "e_metadata_definition_reference": "formStartGroup"
-    },
-    {
-        "reference": "Apprenant_matricule_formStartGroup",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {
-            "label": "Informations Académiques"
-        },
-        "e_data_field_reference": "Apprenant_matricule",
-        "e_metadata_definition_reference": "formStartGroup"
-    },
-    {
         "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_editHasMany",
         "value_boolean": 0,
         "value_float": 0,
@@ -998,6 +968,10 @@
                 "label": "État Civil",
                 "order": 1
             },
+            "informations_contact": {
+                "label": "Informations de Contact",
+                "order": 2
+            },
             "informations_academiques": {
                 "label": "Informations Académiques",
                 "order": 3
@@ -1005,5 +979,145 @@
         },
         "e_model_reference": "apprenants",
         "e_metadata_definition_reference": "viewFormGroups"
+    },
+    {
+        "reference": "Apprenant_nom_group",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_nom_arab_group",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_prenom_group",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "value_json": {
+            "group_basic": {
+                "label": "Infos de base",
+                "order": 10,
+                "section": "tab_details"
+            },
+            "group_extra": {
+                "label": "Infos complémentaires",
+                "order": 20,
+                "section": "tab_details"
+            }
+        },
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_cin_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_date_naissance_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_sexe_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "etat_civil",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_user_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_contact",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_tele_num_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_contact",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_matricule_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_academiques",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_date_inscription_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_academiques",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_actif_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_academiques",
+        "value_float": 0,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "informations_academiques",
+        "value_float": 0,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]
