@@ -182,20 +182,10 @@ class BaseRealisationTacheController extends AdminController
 
         $this->viewState->setContextKey('realisationTache.show_' . $id);
 
-
         $itemRealisationTache = $this->realisationTacheService->edit($id);
         $this->authorize('view', $itemRealisationTache);
 
-        // scopeDataInEditContext
-        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
-        $key = 'scope.etatRealisationTache.formateur_id';
-        $this->viewState->set($key, $value);
-
-        $taches = $this->tacheService->all();
-        $realisationProjets = $this->realisationProjetService->all();
-        $etatRealisationTaches = $this->etatRealisationTacheService->all();
-
-
+     
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
         
 
@@ -204,10 +194,10 @@ class BaseRealisationTacheController extends AdminController
         extract($historiqueRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._show', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+            return view('PkgGestionTaches::realisationTache._show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.show', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+        return view('PkgGestionTaches::realisationTache.show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value));
 
     }
     /**
