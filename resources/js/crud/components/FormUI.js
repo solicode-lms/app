@@ -139,20 +139,31 @@ export class FormUI  {
             e.preventDefault();
             this.indexUI.modalUI.close();
         });
+        EventUtil.bindEvent('click', `${this.config.dynamicModalSelector} .form-cancel-button`, (e) => {
+            e.preventDefault();
+            this.indexUI.modalUI.close();
+        });
+        
     }
 
     /**
      * Modifie le style des pieds de formulaire (footers).
      */
-    handleCardFooter() {
-        $(`${this.formSelector} .card-footer`).each(function () {
-            $(this).removeClass('card-footer').addClass('modal-footer');
-        });
+        handleCardFooter() {
+        // on cible à la fois le formulaire et l'affichage show
+        const contexts = `${this.formSelector}, .dynamic-modal`;
 
-        $(`${this.formSelector} .card-body`).each(function () {
-            $(this).removeClass('card-body');
-        });
-    }
+        // on trouve les footers et on bascule la classe
+        $(contexts)
+            .find('.card-footer')
+            .removeClass('card-footer')
+            .addClass('modal-footer');
+
+        // on enlève simplement la classe card-body
+        $(contexts)
+            .find('.card-body')
+            .removeClass('card-body');
+        }
    /**
      * Attache un gestionnaire d'événements pour la soumission du formulaire.
      * @param {Function} submitHandler - Fonction personnalisée pour gérer la soumission.

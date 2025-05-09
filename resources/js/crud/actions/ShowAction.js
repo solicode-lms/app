@@ -1,6 +1,7 @@
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 import EventUtil from './../utils/EventUtil';
+import { ShowUI } from './../components/ShowUI';
 
 export class ShowAction extends Action {
 
@@ -45,17 +46,8 @@ export class ShowAction extends Action {
 
                 this.executeScripts(html);
                 this.tableUI.indexUI.modalUI.setTitle(window.modalTitle);
-                this.tableUI.indexUI.formUI.init();
-                this.tableUI.indexUI.formUI.setToReadOnly();
-
-
-                // EventUtil.bindEvent('opened', this.tableUI.indexUI.modalUI.this.currentModalId, function (e) {
-                  
-                // });
-
-                // Exécuter les scripts inclus dans le contenu AJAX
-             
-                // this.handleSuccess('Détails de l\'entité chargés avec succès.');
+                this.tableUI.indexUI.showUI.init();
+     
             })
             .fail((xhr) => {
                 this.tableUI.indexUI.modalUI.close();

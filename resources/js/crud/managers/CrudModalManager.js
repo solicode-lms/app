@@ -9,6 +9,7 @@ import { ModalUI } from '../components/ModalUI';
 import { ShowAction } from './../actions/ShowAction';
 import { BulkActionsUI } from '../components/BulkActionsUI';
 import { NotificationUI } from '../components/NotificationUI';
+import { ShowUI } from '../components/ShowUI';
 
 
 export class CrudModalManager {
@@ -26,6 +27,7 @@ export class CrudModalManager {
         this.bulkActionsUI = new BulkActionsUI(config, this);
         this.paginationUI = new PaginationUI(config, this);
         this.formUI = new FormUI(config,this);
+        this.showUI = new ShowUI(config,this);
         this.modalUI = new ModalUI(config,this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
     }

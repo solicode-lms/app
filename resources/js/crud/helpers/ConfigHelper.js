@@ -16,6 +16,8 @@ export default class ConfigHelper {
         this.view_type_variable = `${this.entity_name}_view_type` 
         this.contextKey = config.contextKey;
         this.formSelector = config.formSelector;
+        this.dynamicModalSelector = `#${this.entity_name}-crud-dynamic-modal`;
+         this.showContainerSelector = `#${this.entity_name}-crud-show`;
 
         this.sessionStatService = new SessionStateService();
         this.viewStateService = new ViewStateService(this.contextKey,this.entity_name);

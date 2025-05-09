@@ -1,6 +1,7 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+{{-- Ce fichier est maintenu par ESSARRAJ footer --}}
 
 @section('apprenant-show')
+<div id="apprenant-crud-show">
         <div class="card-body">
             <h6 class="text-muted mb-2">
                         <i class="fas fa-user mr-1"></i>{{ __('État Civil') }}
@@ -244,10 +245,11 @@
         </div>
         <div class="card-footer">
           <a href="{{ route('apprenants.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
-          <a href="{{ route('apprenants.edit', $itemApprenant) }}" class="btn btn-info ml-2">
+          <a data-id = {{$itemApprenant->id}} href="{{ route('apprenants.edit', $itemApprenant) }}" class="btn btn-info ml-2 editEntity">
                       <i class="fas fa-edit"></i> {{  __('Core::msg.edit')  }}
           </a>
         </div>
+</div>
 <script>
     window.modalTitle   = '{{ __("PkgApprenants::apprenant.singular") }} : {{ $itemApprenant }}';
     window.contextState = @json($contextState);

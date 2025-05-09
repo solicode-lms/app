@@ -5,11 +5,11 @@ import { NotificationHandler } from '../components/NotificationHandler';
 
 export class EditAction extends Action {
 
-    constructor(config, tableUI) {
+    constructor(config, tableUI, containerSelector = null) {
         super(config);
         this.config = config;
         this.tableUI = tableUI;
-
+        this.containerSelector = containerSelector || this.config.crudSelector;
         
         this.SuscesMessage = "Entité modifiée avec succès.";
        
@@ -61,7 +61,7 @@ export class EditAction extends Action {
      * Gère les événements liés à la modification d'une entité.
      */
     handleEditEntity() {
-        EventUtil.bindEvent('click', `${this.config.crudSelector} .editEntity`, (e) => {
+        EventUtil.bindEvent('click', `${this.containerSelector} .editEntity`, (e) => {
             e.preventDefault();
             const id = $(e.currentTarget).data('id'); // Récupérer l'ID de l'entité
             this.editEntity(id);
