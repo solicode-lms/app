@@ -22,7 +22,7 @@
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.travail_a_faire')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemProjet->travail_a_faire) && $itemProjet->travail_a_faire !== '')
-    {!! nl2br(e($itemProjet->travail_a_faire)) !!}
+    {!! $itemProjet->travail_a_faire !!}
   @else
     <span class="text-muted">—</span>
   @endif
@@ -35,7 +35,7 @@
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.critere_de_travail')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemProjet->critere_de_travail) && $itemProjet->critere_de_travail !== '')
-    {!! nl2br(e($itemProjet->critere_de_travail)) !!}
+    {!! $itemProjet->critere_de_travail !!}
   @else
     <span class="text-muted">—</span>
   @endif
@@ -95,7 +95,7 @@
           @can('edit-projet')
           <x-action-button :entity="$itemProjet" actionName="edit">
           @can('update', $itemProjet)
-              <a href="{{ route('projets.edit', ['projet' => $itemProjet->id]) }}" data-id="{$itemProjet->id}}" class="btn btn-info ml-2 editEntity">
+              <a href="{{ route('projets.edit', ['projet' => $itemProjet->id]) }}" data-id="{{$itemProjet->id}}" class="btn btn-info ml-2 editEntity">
                   <i class="fas fa-pen-square"></i>
               </a>
           @endcan
