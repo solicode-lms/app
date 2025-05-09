@@ -15,6 +15,10 @@ class Apprenant extends BaseApprenant
 {
     protected $appends = ['derniere_tache_terminee_ou_validation'];
 
+    protected $casts = [
+        'date_naissance' => 'date', // ou 'date' si vous n’avez pas besoin de l’heure
+    ];
+
 
     protected static function booted()
     {

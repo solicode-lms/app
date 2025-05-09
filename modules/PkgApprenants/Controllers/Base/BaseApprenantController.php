@@ -159,23 +159,16 @@ class BaseApprenantController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('apprenant.edit_' . $id);
-
+        $this->viewState->setContextKey('apprenant.show_' . $id);
 
         $itemApprenant = $this->apprenantService->edit($id);
 
 
-        $nationalites = $this->nationaliteService->all();
-        $niveauxScolaires = $this->niveauxScolaireService->all();
-        $users = $this->userService->all();
-        $groupes = $this->groupeService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
+            return view('PkgApprenants::apprenant._show', array_merge(compact('itemApprenant'),));
         }
 
-        return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
+        return view('PkgApprenants::apprenant.show', array_merge(compact('itemApprenant'),));
 
     }
     /**

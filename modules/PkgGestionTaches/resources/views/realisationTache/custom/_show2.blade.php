@@ -1,7 +1,7 @@
 @extends('PkgGestionTaches::realisationTache._show')
 
 
-@section('realisationTache-show1')
+@section('realisationTache-show')
 
 Custom
         {{-- ╔══ Corps ───────────────────────────────────────────╗ --}}

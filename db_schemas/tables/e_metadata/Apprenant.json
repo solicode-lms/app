@@ -965,14 +965,17 @@
         "value_float": 0,
         "value_json": {
             "etat_civil": {
+                "icon": "fas fa-user",
                 "label": "État Civil",
                 "order": 1
             },
             "informations_contact": {
+                "icon": "fas fa-address-book",
                 "label": "Informations de Contact",
                 "order": 2
             },
             "informations_academiques": {
+                "icon": "fas fa-graduation-cap",
                 "label": "Informations Académiques",
                 "order": 3
             }
