@@ -8,6 +8,7 @@ return [
     'search' => 'Rechercher',
     'delete' => 'Supprimer',
     'edit' => 'Modifier',
+    'show' => 'Afficher',
     'cancel' => 'Annuler',
     'export' => 'EXPORTER',
     'import' => 'IMPORTER',

@@ -1,3 +1,4 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
 @section('title', __('Core::msg.show') . ' ' . __('PkgGestionTaches::realisationTache.singular'))
@@ -13,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-laptop-code"></i>
-                                {{ __('Core::msg.edit') }}
+                                {{ __('Core::msg.show') }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->
