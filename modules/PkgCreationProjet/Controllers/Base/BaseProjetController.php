@@ -171,15 +171,10 @@ class BaseProjetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('projet.edit_' . $id);
-
+        $this->viewState->setContextKey('projet.show_' . $id);
 
         $itemProjet = $this->projetService->edit($id);
         $this->authorize('view', $itemProjet);
-
-
-        $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
 
 
         $this->viewState->set('scope.tache.projet_id', $id);
@@ -230,10 +225,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $transfertCompetence_compact_value, $affectationProjet_compact_value, $resource_compact_value));
 
     }
     /**

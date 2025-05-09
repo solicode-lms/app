@@ -245,7 +245,7 @@
         </div>
         <div class="card-footer">
           <a href="{{ route('apprenants.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
-         
+       
           @can('edit-apprenant')
           <x-action-button :entity="$itemApprenant" actionName="edit">
           @can('update', $itemApprenant)
