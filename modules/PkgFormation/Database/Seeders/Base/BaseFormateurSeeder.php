@@ -22,7 +22,7 @@ use Modules\PkgFormation\Services\FormateurService;
 
 class BaseFormateurSeeder extends Seeder
 {
-    public static int $order = 29;
+    public static int $order = 30;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

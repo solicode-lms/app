@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Services\RoleService;
 
 class BaseRoleSeeder extends Seeder
 {
-    public static int $order = 2;
+    public static int $order = 3;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

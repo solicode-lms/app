@@ -150,22 +150,16 @@ class BaseEMetadatumController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('eMetadatum.edit_' . $id);
-
+        $this->viewState->setContextKey('eMetadatum.show_' . $id);
 
         $itemEMetadatum = $this->eMetadatumService->edit($id);
 
 
-        $eModels = $this->eModelService->all();
-        $eDataFields = $this->eDataFieldService->all();
-        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+            return view('PkgGapp::eMetadatum._show', array_merge(compact('itemEMetadatum'),));
         }
 
-        return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+        return view('PkgGapp::eMetadatum.show', array_merge(compact('itemEMetadatum'),));
 
     }
     /**

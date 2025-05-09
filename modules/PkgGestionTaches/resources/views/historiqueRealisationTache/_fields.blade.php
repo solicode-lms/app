@@ -19,8 +19,17 @@
         @endforeach
     @endif
 
-    <div class="card-body row">
-      @php $canEditdateModification = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+    <div class="card-body">
+
+
+  
+
+  
+    
+
+    
+    <div class="row">
+              @php $canEditdateModification = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -170,6 +179,11 @@
           @enderror
       </div>
   
+
+
+    </div>
+  
+
 
     </div>
 

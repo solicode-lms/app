@@ -137,12 +137,9 @@ class BaseAnneeFormationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('anneeFormation.edit_' . $id);
-
+        $this->viewState->setContextKey('anneeFormation.show_' . $id);
 
         $itemAnneeFormation = $this->anneeFormationService->edit($id);
-
-
 
 
         $this->viewState->set('scope.affectationProjet.annee_formation_id', $id);
@@ -160,10 +157,10 @@ class BaseAnneeFormationController extends AdminController
         extract($groupes_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+            return view('PkgFormation::anneeFormation._show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+        return view('PkgFormation::anneeFormation.show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value));
 
     }
     /**

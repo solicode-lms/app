@@ -40,7 +40,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-role')
+                        @endcan
+                        @can('show-role')
                         <x-action-button :entity="$role" actionName="show">
                         @can('view', $role)
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">

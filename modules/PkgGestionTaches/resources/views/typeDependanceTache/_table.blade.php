@@ -40,7 +40,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-typeDependanceTache')
+                        @endcan
+                        @can('show-typeDependanceTache')
                         <x-action-button :entity="$typeDependanceTache" actionName="show">
                         @can('view', $typeDependanceTache)
                             <a href="{{ route('typeDependanceTaches.show', ['typeDependanceTache' => $typeDependanceTache->id]) }}" data-id="{{$typeDependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">

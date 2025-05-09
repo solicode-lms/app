@@ -22,7 +22,7 @@ use Modules\PkgCompetences\Services\CategoryTechnologyService;
 
 class BaseCategoryTechnologySeeder extends Seeder
 {
-    public static int $order = 17;
+    public static int $order = 18;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

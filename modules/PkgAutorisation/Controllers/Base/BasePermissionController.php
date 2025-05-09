@@ -150,22 +150,16 @@ class BasePermissionController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('permission.edit_' . $id);
-
+        $this->viewState->setContextKey('permission.show_' . $id);
 
         $itemPermission = $this->permissionService->edit($id);
 
 
-        $sysControllers = $this->sysControllerService->all();
-        $features = $this->featureService->all();
-        $roles = $this->roleService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
+            return view('PkgAutorisation::permission._show', array_merge(compact('itemPermission'),));
         }
 
-        return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
+        return view('PkgAutorisation::permission.show', array_merge(compact('itemPermission'),));
 
     }
     /**

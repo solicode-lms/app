@@ -55,7 +55,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-prioriteTache')
+                        @endcan
+                        @can('show-prioriteTache')
                         <x-action-button :entity="$prioriteTache" actionName="show">
                         @can('view', $prioriteTache)
                             <a href="{{ route('prioriteTaches.show', ['prioriteTache' => $prioriteTache->id]) }}" data-id="{{$prioriteTache->id}}" class="btn btn-default btn-sm context-state showEntity">

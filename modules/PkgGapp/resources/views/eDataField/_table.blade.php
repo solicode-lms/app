@@ -69,7 +69,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-eDataField')
+                        @endcan
+                        @can('show-eDataField')
                         <x-action-button :entity="$eDataField" actionName="show">
                         @can('view', $eDataField)
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">

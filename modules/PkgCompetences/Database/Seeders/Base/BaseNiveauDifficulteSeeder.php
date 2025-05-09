@@ -22,7 +22,7 @@ use Modules\PkgCompetences\Services\NiveauDifficulteService;
 
 class BaseNiveauDifficulteSeeder extends Seeder
 {
-    public static int $order = 36;
+    public static int $order = 37;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

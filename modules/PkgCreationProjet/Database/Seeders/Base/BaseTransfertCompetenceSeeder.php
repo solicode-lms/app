@@ -22,7 +22,7 @@ use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 
 class BaseTransfertCompetenceSeeder extends Seeder
 {
-    public static int $order = 41;
+    public static int $order = 42;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

@@ -22,7 +22,7 @@ use Modules\PkgCreationProjet\Services\NatureLivrableService;
 
 class BaseNatureLivrableSeeder extends Seeder
 {
-    public static int $order = 37;
+    public static int $order = 38;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

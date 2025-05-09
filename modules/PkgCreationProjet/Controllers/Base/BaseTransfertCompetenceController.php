@@ -167,24 +167,17 @@ class BaseTransfertCompetenceController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('transfertCompetence.edit_' . $id);
-
+        $this->viewState->setContextKey('transfertCompetence.show_' . $id);
 
         $itemTransfertCompetence = $this->transfertCompetenceService->edit($id);
         $this->authorize('view', $itemTransfertCompetence);
 
 
-        $competences = $this->competenceService->all();
-        $niveauDifficultes = $this->niveauDifficulteService->all();
-        $technologies = $this->technologyService->all();
-        $projets = $this->projetService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
+            return view('PkgCreationProjet::transfertCompetence._show', array_merge(compact('itemTransfertCompetence'),));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
+        return view('PkgCreationProjet::transfertCompetence.show', array_merge(compact('itemTransfertCompetence'),));
 
     }
     /**

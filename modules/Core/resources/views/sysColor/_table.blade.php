@@ -40,7 +40,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-sysColor')
+                        @endcan
+                        @can('show-sysColor')
                         <x-action-button :entity="$sysColor" actionName="show">
                         @can('view', $sysColor)
                             <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">

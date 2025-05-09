@@ -162,23 +162,17 @@ class BaseEtatsRealisationProjetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('etatsRealisationProjet.edit_' . $id);
-
+        $this->viewState->setContextKey('etatsRealisationProjet.show_' . $id);
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->edit($id);
         $this->authorize('view', $itemEtatsRealisationProjet);
 
 
-        $formateurs = $this->formateurService->all();
-        $sysColors = $this->sysColorService->all();
-        $workflowProjets = $this->workflowProjetService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._show', array_merge(compact('itemEtatsRealisationProjet'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.show', array_merge(compact('itemEtatsRealisationProjet'),));
 
     }
     /**

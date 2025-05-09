@@ -135,19 +135,16 @@ class BaseVilleController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('ville.edit_' . $id);
-
+        $this->viewState->setContextKey('ville.show_' . $id);
 
         $itemVille = $this->villeService->edit($id);
 
 
-
-
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille',),));
+            return view('PkgApprenants::ville._show', array_merge(compact('itemVille'),));
         }
 
-        return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));
+        return view('PkgApprenants::ville.show', array_merge(compact('itemVille'),));
 
     }
     /**

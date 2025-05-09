@@ -22,7 +22,7 @@ use Modules\PkgFormation\Services\SpecialiteService;
 
 class BaseSpecialiteSeeder extends Seeder
 {
-    public static int $order = 28;
+    public static int $order = 29;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

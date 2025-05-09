@@ -52,7 +52,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-eMetadataDefinition')
+                        @endcan
+                        @can('show-eMetadataDefinition')
                         <x-action-button :entity="$eMetadataDefinition" actionName="show">
                         @can('view', $eMetadataDefinition)
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">

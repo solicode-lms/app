@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseFeatureDomainSeeder extends Seeder
 {
-    public static int $order = 9;
+    public static int $order = 10;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

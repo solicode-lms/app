@@ -55,7 +55,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-workflowFormation')
+                        @endcan
+                        @can('show-workflowFormation')
                         <x-action-button :entity="$workflowFormation" actionName="show">
                         @can('view', $workflowFormation)
                             <a href="{{ route('workflowFormations.show', ['workflowFormation' => $workflowFormation->id]) }}" data-id="{{$workflowFormation->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -141,13 +141,9 @@ class BaseFeatureDomainController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('featureDomain.edit_' . $id);
-
+        $this->viewState->setContextKey('featureDomain.show_' . $id);
 
         $itemFeatureDomain = $this->featureDomainService->edit($id);
-
-
-        $sysModules = $this->sysModuleService->all();
 
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);
@@ -158,10 +154,10 @@ class BaseFeatureDomainController extends AdminController
         extract($features_view_data);
 
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
+            return view('Core::featureDomain._show', array_merge(compact('itemFeatureDomain'),$feature_compact_value));
         }
 
-        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
+        return view('Core::featureDomain.show', array_merge(compact('itemFeatureDomain'),$feature_compact_value));
 
     }
     /**

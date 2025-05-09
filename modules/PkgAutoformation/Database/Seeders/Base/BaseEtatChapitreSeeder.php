@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseEtatChapitreSeeder extends Seeder
 {
-    public static int $order = 73;
+    public static int $order = 74;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

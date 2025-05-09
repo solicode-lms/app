@@ -182,20 +182,10 @@ class BaseRealisationProjetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('realisationProjet.edit_' . $id);
-
+        $this->viewState->setContextKey('realisationProjet.show_' . $id);
 
         $itemRealisationProjet = $this->realisationProjetService->edit($id);
         $this->authorize('view', $itemRealisationProjet);
-
-        // scopeDataInEditContext
-        $value = $itemRealisationProjet->getNestedValue('affectationProjet.projet.formateur.id');
-        $key = 'scope.etatsRealisationProjet.formateur_id';
-        $this->viewState->set($key, $value);
-
-        $affectationProjets = $this->affectationProjetService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
 
         $this->viewState->set('scope.livrablesRealisation.realisation_projet_id', $id);
@@ -228,10 +218,10 @@ class BaseRealisationProjetController extends AdminController
         extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
+            return view('PkgRealisationProjets::realisationProjet._show', array_merge(compact('itemRealisationProjet'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.show', array_merge(compact('itemRealisationProjet'),$livrablesRealisation_compact_value, $validation_compact_value, $realisationTache_compact_value));
 
     }
     /**

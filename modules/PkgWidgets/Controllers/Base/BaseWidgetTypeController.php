@@ -136,12 +136,9 @@ class BaseWidgetTypeController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('widgetType.edit_' . $id);
-
+        $this->viewState->setContextKey('widgetType.show_' . $id);
 
         $itemWidgetType = $this->widgetTypeService->edit($id);
-
-
 
 
         $this->viewState->set('scope.widget.type_id', $id);
@@ -152,10 +149,10 @@ class BaseWidgetTypeController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
+            return view('PkgWidgets::widgetType._show', array_merge(compact('itemWidgetType'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
+        return view('PkgWidgets::widgetType.show', array_merge(compact('itemWidgetType'),$widget_compact_value));
 
     }
     /**

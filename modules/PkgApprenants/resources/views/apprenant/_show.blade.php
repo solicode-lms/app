@@ -249,7 +249,7 @@
           @can('edit-apprenant')
           <x-action-button :entity="$itemApprenant" actionName="edit">
           @can('update', $itemApprenant)
-              <a href="{{ route('apprenants.edit', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-info ml-2 editEntity">
+              <a href="{{ route('apprenants.edit', ['apprenant' => $itemApprenant->id]) }}" data-id="{{$itemApprenant->id}}" class="btn btn-info ml-2 editEntity">
                   <i class="fas fa-pen-square"></i>
               </a>
           @endcan

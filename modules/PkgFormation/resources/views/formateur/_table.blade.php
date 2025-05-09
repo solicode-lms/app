@@ -78,7 +78,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-formateur')
+                        @endcan
+                        @can('show-formateur')
                         <x-action-button :entity="$formateur" actionName="show">
                         @can('view', $formateur)
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">

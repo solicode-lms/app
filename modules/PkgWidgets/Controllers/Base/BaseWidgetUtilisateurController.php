@@ -180,23 +180,17 @@ class BaseWidgetUtilisateurController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('widgetUtilisateur.edit_' . $id);
-
+        $this->viewState->setContextKey('widgetUtilisateur.show_' . $id);
 
         $itemWidgetUtilisateur = $this->widgetUtilisateurService->edit($id);
         $this->authorize('view', $itemWidgetUtilisateur);
 
 
-        $users = $this->userService->all();
-        $widgets = $this->widgetService->all();
-        $sysModules = $this->sysModuleService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
+            return view('PkgWidgets::widgetUtilisateur._show', array_merge(compact('itemWidgetUtilisateur'),));
         }
 
-        return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
+        return view('PkgWidgets::widgetUtilisateur.show', array_merge(compact('itemWidgetUtilisateur'),));
 
     }
     /**

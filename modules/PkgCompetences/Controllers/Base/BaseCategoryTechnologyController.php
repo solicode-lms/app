@@ -136,12 +136,9 @@ class BaseCategoryTechnologyController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('categoryTechnology.edit_' . $id);
-
+        $this->viewState->setContextKey('categoryTechnology.show_' . $id);
 
         $itemCategoryTechnology = $this->categoryTechnologyService->edit($id);
-
-
 
 
         $this->viewState->set('scope.technology.category_technology_id', $id);
@@ -152,10 +149,10 @@ class BaseCategoryTechnologyController extends AdminController
         extract($technologies_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
+            return view('PkgCompetences::categoryTechnology._show', array_merge(compact('itemCategoryTechnology'),$technology_compact_value));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
+        return view('PkgCompetences::categoryTechnology.show', array_merge(compact('itemCategoryTechnology'),$technology_compact_value));
 
     }
     /**

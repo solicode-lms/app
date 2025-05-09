@@ -57,7 +57,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-permission')
+                        @endcan
+                        @can('show-permission')
                         <x-action-button :entity="$permission" actionName="show">
                         @can('view', $permission)
                             <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" data-id="{{$permission->id}}" class="btn btn-default btn-sm context-state showEntity">

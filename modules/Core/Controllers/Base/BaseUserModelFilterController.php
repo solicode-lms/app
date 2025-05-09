@@ -140,20 +140,16 @@ class BaseUserModelFilterController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('userModelFilter.edit_' . $id);
-
+        $this->viewState->setContextKey('userModelFilter.show_' . $id);
 
         $itemUserModelFilter = $this->userModelFilterService->edit($id);
 
 
-        $users = $this->userService->all();
-
-
         if (request()->ajax()) {
-            return view('Core::userModelFilter._fields', array_merge(compact('itemUserModelFilter','users'),));
+            return view('Core::userModelFilter._show', array_merge(compact('itemUserModelFilter'),));
         }
 
-        return view('Core::userModelFilter.edit', array_merge(compact('itemUserModelFilter','users'),));
+        return view('Core::userModelFilter.show', array_merge(compact('itemUserModelFilter'),));
 
     }
     /**

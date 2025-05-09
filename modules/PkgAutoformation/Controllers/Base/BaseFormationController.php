@@ -179,22 +179,10 @@ class BaseFormationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('formation.edit_' . $id);
-
+        $this->viewState->setContextKey('formation.show_' . $id);
 
         $itemFormation = $this->formationService->edit($id);
         $this->authorize('view', $itemFormation);
-
-        // scopeDataInEditContext
-        $value = $itemFormation->getNestedValue('1');
-        $key = 'scope.formationOfficiel.is_officiel';
-        $this->viewState->set($key, $value);
-
-        $competences = $this->competenceService->all();
-        $technologies = $this->technologyService->all();
-        $formateurs = $this->formateurService->all();
-        $formations = $this->formationService->all();
-        $filieres = $this->filiereService->all();
 
 
         $this->viewState->set('scope.formation.formation_officiel_id', $id);
@@ -223,10 +211,10 @@ class BaseFormationController extends AdminController
         extract($realisationFormations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
+            return view('PkgAutoformation::formation._show', array_merge(compact('itemFormation'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
         }
 
-        return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
+        return view('PkgAutoformation::formation.show', array_merge(compact('itemFormation'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
 
     }
     /**

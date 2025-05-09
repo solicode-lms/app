@@ -150,22 +150,16 @@ class BaseRoleController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('role.edit_' . $id);
-
+        $this->viewState->setContextKey('role.show_' . $id);
 
         $itemRole = $this->roleService->edit($id);
 
 
-        $permissions = $this->permissionService->all();
-        $widgets = $this->widgetService->all();
-        $users = $this->userService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
+            return view('PkgAutorisation::role._show', array_merge(compact('itemRole'),));
         }
 
-        return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
+        return view('PkgAutorisation::role.show', array_merge(compact('itemRole'),));
 
     }
     /**

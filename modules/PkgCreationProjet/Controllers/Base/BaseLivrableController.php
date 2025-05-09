@@ -170,27 +170,17 @@ class BaseLivrableController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('livrable.edit_' . $id);
-
+        $this->viewState->setContextKey('livrable.show_' . $id);
 
         $itemLivrable = $this->livrableService->edit($id);
         $this->authorize('view', $itemLivrable);
 
-        // scopeDataInEditContext
-        $value = $itemLivrable->getNestedValue('projet_id');
-        $key = 'scope.tache.projet_id';
-        $this->viewState->set($key, $value);
-
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
-        $taches = $this->tacheService->all();
-
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
+            return view('PkgCreationProjet::livrable._show', array_merge(compact('itemLivrable'),));
         }
 
-        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
+        return view('PkgCreationProjet::livrable.show', array_merge(compact('itemLivrable'),));
 
     }
     /**

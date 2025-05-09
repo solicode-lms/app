@@ -141,13 +141,9 @@ class BaseWorkflowChapitreController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('workflowChapitre.edit_' . $id);
-
+        $this->viewState->setContextKey('workflowChapitre.show_' . $id);
 
         $itemWorkflowChapitre = $this->workflowChapitreService->edit($id);
-
-
-        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatChapitre.workflow_chapitre_id', $id);
@@ -158,10 +154,10 @@ class BaseWorkflowChapitreController extends AdminController
         extract($etatChapitres_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
+            return view('PkgAutoformation::workflowChapitre._show', array_merge(compact('itemWorkflowChapitre'),$etatChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
+        return view('PkgAutoformation::workflowChapitre.show', array_merge(compact('itemWorkflowChapitre'),$etatChapitre_compact_value));
 
     }
     /**

@@ -156,16 +156,9 @@ class BaseGroupeController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('groupe.edit_' . $id);
-
+        $this->viewState->setContextKey('groupe.show_' . $id);
 
         $itemGroupe = $this->groupeService->edit($id);
-
-
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);
@@ -176,10 +169,10 @@ class BaseGroupeController extends AdminController
         extract($affectationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+            return view('PkgApprenants::groupe._show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+        return view('PkgApprenants::groupe.show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value));
 
     }
     /**

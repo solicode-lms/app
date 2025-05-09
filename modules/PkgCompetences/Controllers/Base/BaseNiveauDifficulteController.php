@@ -152,21 +152,17 @@ class BaseNiveauDifficulteController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('niveauDifficulte.edit_' . $id);
-
+        $this->viewState->setContextKey('niveauDifficulte.show_' . $id);
 
         $itemNiveauDifficulte = $this->niveauDifficulteService->edit($id);
         $this->authorize('view', $itemNiveauDifficulte);
 
 
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte','formateurs'),));
+            return view('PkgCompetences::niveauDifficulte._show', array_merge(compact('itemNiveauDifficulte'),));
         }
 
-        return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));
+        return view('PkgCompetences::niveauDifficulte.show', array_merge(compact('itemNiveauDifficulte'),));
 
     }
     /**

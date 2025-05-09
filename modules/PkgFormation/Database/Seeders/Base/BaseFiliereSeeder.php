@@ -22,7 +22,7 @@ use Modules\PkgFormation\Services\FiliereService;
 
 class BaseFiliereSeeder extends Seeder
 {
-    public static int $order = 15;
+    public static int $order = 16;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

@@ -22,7 +22,7 @@ use Modules\PkgGapp\Services\EModelService;
 
 class BaseEModelSeeder extends Seeder
 {
-    public static int $order = 46;
+    public static int $order = 47;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

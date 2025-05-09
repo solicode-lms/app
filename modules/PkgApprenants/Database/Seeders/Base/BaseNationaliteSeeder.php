@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseNationaliteSeeder extends Seeder
 {
-    public static int $order = 24;
+    public static int $order = 25;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

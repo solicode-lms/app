@@ -136,12 +136,9 @@ class BaseNatureLivrableController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('natureLivrable.edit_' . $id);
-
+        $this->viewState->setContextKey('natureLivrable.show_' . $id);
 
         $itemNatureLivrable = $this->natureLivrableService->edit($id);
-
-
 
 
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
@@ -152,10 +149,10 @@ class BaseNatureLivrableController extends AdminController
         extract($livrables_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
+            return view('PkgCreationProjet::natureLivrable._show', array_merge(compact('itemNatureLivrable'),$livrable_compact_value));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
+        return view('PkgCreationProjet::natureLivrable.show', array_merge(compact('itemNatureLivrable'),$livrable_compact_value));
 
     }
     /**

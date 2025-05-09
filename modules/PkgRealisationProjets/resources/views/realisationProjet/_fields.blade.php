@@ -19,8 +19,17 @@
         @endforeach
     @endif
 
-    <div class="card-body row">
-      @php $canEditaffectation_projet_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+    <div class="card-body">
+
+
+  
+
+  
+    
+
+    
+    <div class="row">
+              @php $canEditaffectation_projet_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -200,6 +209,11 @@
           @enderror
       </div>
   
+
+
+    </div>
+  
+
 
     </div>
 

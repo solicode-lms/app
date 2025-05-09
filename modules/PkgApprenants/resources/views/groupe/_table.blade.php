@@ -57,7 +57,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-groupe')
+                        @endcan
+                        @can('show-groupe')
                         <x-action-button :entity="$groupe" actionName="show">
                         @can('view', $groupe)
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">

@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseWorkflowFormationSeeder extends Seeder
 {
-    public static int $order = 71;
+    public static int $order = 72;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

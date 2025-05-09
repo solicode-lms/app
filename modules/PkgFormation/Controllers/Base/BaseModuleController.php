@@ -141,13 +141,9 @@ class BaseModuleController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('module.edit_' . $id);
-
+        $this->viewState->setContextKey('module.show_' . $id);
 
         $itemModule = $this->moduleService->edit($id);
-
-
-        $filieres = $this->filiereService->all();
 
 
         $this->viewState->set('scope.competence.module_id', $id);
@@ -158,10 +154,10 @@ class BaseModuleController extends AdminController
         extract($competences_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
+            return view('PkgFormation::module._show', array_merge(compact('itemModule'),$competence_compact_value));
         }
 
-        return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
+        return view('PkgFormation::module.show', array_merge(compact('itemModule'),$competence_compact_value));
 
     }
     /**

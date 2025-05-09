@@ -157,22 +157,17 @@ class BaseLabelRealisationTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('labelRealisationTache.edit_' . $id);
-
+        $this->viewState->setContextKey('labelRealisationTache.show_' . $id);
 
         $itemLabelRealisationTache = $this->labelRealisationTacheService->edit($id);
         $this->authorize('view', $itemLabelRealisationTache);
 
 
-        $formateurs = $this->formateurService->all();
-        $sysColors = $this->sysColorService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
+            return view('PkgGestionTaches::labelRealisationTache._show', array_merge(compact('itemLabelRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
+        return view('PkgGestionTaches::labelRealisationTache.show', array_merge(compact('itemLabelRealisationTache'),));
 
     }
     /**

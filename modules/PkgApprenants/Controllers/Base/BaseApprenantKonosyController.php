@@ -135,19 +135,16 @@ class BaseApprenantKonosyController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('apprenantKonosy.edit_' . $id);
-
+        $this->viewState->setContextKey('apprenantKonosy.show_' . $id);
 
         $itemApprenantKonosy = $this->apprenantKonosyService->edit($id);
 
 
-
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', array_merge(compact('itemApprenantKonosy',),));
+            return view('PkgApprenants::apprenantKonosy._show', array_merge(compact('itemApprenantKonosy'),));
         }
 
-        return view('PkgApprenants::apprenantKonosy.edit', array_merge(compact('itemApprenantKonosy',),));
+        return view('PkgApprenants::apprenantKonosy.show', array_merge(compact('itemApprenantKonosy'),));
 
     }
     /**

@@ -147,22 +147,16 @@ class BaseDependanceTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('dependanceTache.edit_' . $id);
-
+        $this->viewState->setContextKey('dependanceTache.show_' . $id);
 
         $itemDependanceTache = $this->dependanceTacheService->edit($id);
 
 
-        $taches = $this->tacheService->all();
-        $typeDependanceTaches = $this->typeDependanceTacheService->all();
-        $taches = $this->tacheService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::dependanceTache._fields', array_merge(compact('itemDependanceTache','taches', 'taches', 'typeDependanceTaches'),));
+            return view('PkgGestionTaches::dependanceTache._show', array_merge(compact('itemDependanceTache'),));
         }
 
-        return view('PkgGestionTaches::dependanceTache.edit', array_merge(compact('itemDependanceTache','taches', 'taches', 'typeDependanceTaches'),));
+        return view('PkgGestionTaches::dependanceTache.show', array_merge(compact('itemDependanceTache'),));
 
     }
     /**

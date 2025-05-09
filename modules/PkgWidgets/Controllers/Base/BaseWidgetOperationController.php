@@ -136,12 +136,9 @@ class BaseWidgetOperationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('widgetOperation.edit_' . $id);
-
+        $this->viewState->setContextKey('widgetOperation.show_' . $id);
 
         $itemWidgetOperation = $this->widgetOperationService->edit($id);
-
-
 
 
         $this->viewState->set('scope.widget.operation_id', $id);
@@ -152,10 +149,10 @@ class BaseWidgetOperationController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
+            return view('PkgWidgets::widgetOperation._show', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
+        return view('PkgWidgets::widgetOperation.show', array_merge(compact('itemWidgetOperation'),$widget_compact_value));
 
     }
     /**

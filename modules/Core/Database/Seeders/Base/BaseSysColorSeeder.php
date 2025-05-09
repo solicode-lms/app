@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseSysColorSeeder extends Seeder
 {
-    public static int $order = 6;
+    public static int $order = 7;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

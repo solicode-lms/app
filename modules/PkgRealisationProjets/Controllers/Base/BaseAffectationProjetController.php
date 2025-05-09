@@ -182,22 +182,10 @@ class BaseAffectationProjetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('affectationProjet.edit_' . $id);
-
-        if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.groupe.formateurs.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
+        $this->viewState->setContextKey('affectationProjet.show_' . $id);
 
         $itemAffectationProjet = $this->affectationProjetService->edit($id);
         $this->authorize('view', $itemAffectationProjet);
-
-
-        $projets = $this->projetService->all();
-        $groupes = $this->groupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
 
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
@@ -212,10 +200,10 @@ class BaseAffectationProjetController extends AdminController
         extract($realisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+        return view('PkgRealisationProjets::affectationProjet.show', array_merge(compact('itemAffectationProjet'),$realisationProjet_compact_value));
 
     }
     /**

@@ -22,7 +22,7 @@ use Modules\PkgGestionTaches\Services\TypeDependanceTacheService;
 
 class BaseTypeDependanceTacheSeeder extends Seeder
 {
-    public static int $order = 61;
+    public static int $order = 62;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

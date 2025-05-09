@@ -152,21 +152,17 @@ class BasePrioriteTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('prioriteTache.edit_' . $id);
-
+        $this->viewState->setContextKey('prioriteTache.show_' . $id);
 
         $itemPrioriteTache = $this->prioriteTacheService->edit($id);
         $this->authorize('view', $itemPrioriteTache);
 
 
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', array_merge(compact('itemPrioriteTache','formateurs'),));
+            return view('PkgGestionTaches::prioriteTache._show', array_merge(compact('itemPrioriteTache'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache','formateurs'),));
+        return view('PkgGestionTaches::prioriteTache.show', array_merge(compact('itemPrioriteTache'),));
 
     }
     /**

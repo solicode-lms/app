@@ -146,14 +146,9 @@ class BaseSysModelController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('sysModel.edit_' . $id);
-
+        $this->viewState->setContextKey('sysModel.show_' . $id);
 
         $itemSysModel = $this->sysModelService->edit($id);
-
-
-        $sysModules = $this->sysModuleService->all();
-        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.widget.model_id', $id);
@@ -164,10 +159,10 @@ class BaseSysModelController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+            return view('Core::sysModel._show', array_merge(compact('itemSysModel'),$widget_compact_value));
         }
 
-        return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+        return view('Core::sysModel.show', array_merge(compact('itemSysModel'),$widget_compact_value));
 
     }
     /**

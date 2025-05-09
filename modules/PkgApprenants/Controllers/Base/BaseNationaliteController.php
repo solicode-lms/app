@@ -136,12 +136,9 @@ class BaseNationaliteController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('nationalite.edit_' . $id);
-
+        $this->viewState->setContextKey('nationalite.show_' . $id);
 
         $itemNationalite = $this->nationaliteService->edit($id);
-
-
 
 
         $this->viewState->set('scope.apprenant.nationalite_id', $id);
@@ -152,10 +149,10 @@ class BaseNationaliteController extends AdminController
         extract($apprenants_view_data);
 
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
+            return view('PkgApprenants::nationalite._show', array_merge(compact('itemNationalite'),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
+        return view('PkgApprenants::nationalite.show', array_merge(compact('itemNationalite'),$apprenant_compact_value));
 
     }
     /**

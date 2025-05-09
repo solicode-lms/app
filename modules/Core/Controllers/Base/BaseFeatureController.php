@@ -145,21 +145,16 @@ class BaseFeatureController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('feature.edit_' . $id);
-
+        $this->viewState->setContextKey('feature.show_' . $id);
 
         $itemFeature = $this->featureService->edit($id);
 
 
-        $featureDomains = $this->featureDomainService->all();
-        $permissions = $this->permissionService->all();
-
-
         if (request()->ajax()) {
-            return view('Core::feature._fields', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
+            return view('Core::feature._show', array_merge(compact('itemFeature'),));
         }
 
-        return view('Core::feature.edit', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
+        return view('Core::feature.show', array_merge(compact('itemFeature'),));
 
     }
     /**

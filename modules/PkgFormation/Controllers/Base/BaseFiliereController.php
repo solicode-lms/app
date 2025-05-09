@@ -138,12 +138,9 @@ class BaseFiliereController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('filiere.edit_' . $id);
-
+        $this->viewState->setContextKey('filiere.show_' . $id);
 
         $itemFiliere = $this->filiereService->edit($id);
-
-
 
 
         $this->viewState->set('scope.groupe.filiere_id', $id);
@@ -168,10 +165,10 @@ class BaseFiliereController extends AdminController
         extract($projets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+            return view('PkgFormation::filiere._show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value));
         }
 
-        return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+        return view('PkgFormation::filiere.show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value));
 
     }
     /**

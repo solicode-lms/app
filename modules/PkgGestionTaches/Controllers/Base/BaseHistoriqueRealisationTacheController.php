@@ -145,21 +145,16 @@ class BaseHistoriqueRealisationTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('historiqueRealisationTache.edit_' . $id);
-
+        $this->viewState->setContextKey('historiqueRealisationTache.show_' . $id);
 
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->edit($id);
 
 
-        $realisationTaches = $this->realisationTacheService->all();
-        $users = $this->userService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+            return view('PkgGestionTaches::historiqueRealisationTache._show', array_merge(compact('itemHistoriqueRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+        return view('PkgGestionTaches::historiqueRealisationTache.show', array_merge(compact('itemHistoriqueRealisationTache'),));
 
     }
     /**

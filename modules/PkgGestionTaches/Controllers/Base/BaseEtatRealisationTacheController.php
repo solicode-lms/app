@@ -162,23 +162,17 @@ class BaseEtatRealisationTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('etatRealisationTache.edit_' . $id);
-
+        $this->viewState->setContextKey('etatRealisationTache.show_' . $id);
 
         $itemEtatRealisationTache = $this->etatRealisationTacheService->edit($id);
         $this->authorize('view', $itemEtatRealisationTache);
 
 
-        $workflowTaches = $this->workflowTacheService->all();
-        $sysColors = $this->sysColorService->all();
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+            return view('PkgGestionTaches::etatRealisationTache._show', array_merge(compact('itemEtatRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+        return view('PkgGestionTaches::etatRealisationTache.show', array_merge(compact('itemEtatRealisationTache'),));
 
     }
     /**

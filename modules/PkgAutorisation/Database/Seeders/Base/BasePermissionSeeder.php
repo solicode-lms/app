@@ -21,7 +21,7 @@ use Modules\PkgAutorisation\Services\PermissionService;
 
 class BasePermissionSeeder extends Seeder
 {
-    public static int $order = 3;
+    public static int $order = 4;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

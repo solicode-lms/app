@@ -141,13 +141,9 @@ class BaseSectionWidgetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('sectionWidget.edit_' . $id);
-
+        $this->viewState->setContextKey('sectionWidget.show_' . $id);
 
         $itemSectionWidget = $this->sectionWidgetService->edit($id);
-
-
-        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.widget.section_widget_id', $id);
@@ -158,10 +154,10 @@ class BaseSectionWidgetController extends AdminController
         extract($widgets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgWidgets::sectionWidget._edit', array_merge(compact('itemSectionWidget','sysColors'),$widget_compact_value));
+            return view('PkgWidgets::sectionWidget._show', array_merge(compact('itemSectionWidget'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::sectionWidget.edit', array_merge(compact('itemSectionWidget','sysColors'),$widget_compact_value));
+        return view('PkgWidgets::sectionWidget.show', array_merge(compact('itemSectionWidget'),$widget_compact_value));
 
     }
     /**

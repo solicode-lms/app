@@ -22,7 +22,7 @@ use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
 
 class BaseCommentaireRealisationTacheSeeder extends Seeder
 {
-    public static int $order = 65;
+    public static int $order = 66;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

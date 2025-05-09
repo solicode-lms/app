@@ -150,22 +150,16 @@ class BaseCommentaireRealisationTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('commentaireRealisationTache.edit_' . $id);
-
+        $this->viewState->setContextKey('commentaireRealisationTache.show_' . $id);
 
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->edit($id);
 
 
-        $realisationTaches = $this->realisationTacheService->all();
-        $formateurs = $this->formateurService->all();
-        $apprenants = $this->apprenantService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+            return view('PkgGestionTaches::commentaireRealisationTache._show', array_merge(compact('itemCommentaireRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+        return view('PkgGestionTaches::commentaireRealisationTache.show', array_merge(compact('itemCommentaireRealisationTache'),));
 
     }
     /**

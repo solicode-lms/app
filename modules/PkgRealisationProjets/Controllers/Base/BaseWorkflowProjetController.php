@@ -141,13 +141,9 @@ class BaseWorkflowProjetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('workflowProjet.edit_' . $id);
-
+        $this->viewState->setContextKey('workflowProjet.show_' . $id);
 
         $itemWorkflowProjet = $this->workflowProjetService->edit($id);
-
-
-        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatsRealisationProjet.workflow_projet_id', $id);
@@ -158,10 +154,10 @@ class BaseWorkflowProjetController extends AdminController
         extract($etatsRealisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::workflowProjet._edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
+            return view('PkgRealisationProjets::workflowProjet._show', array_merge(compact('itemWorkflowProjet'),$etatsRealisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::workflowProjet.edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
+        return view('PkgRealisationProjets::workflowProjet.show', array_merge(compact('itemWorkflowProjet'),$etatsRealisationProjet_compact_value));
 
     }
     /**

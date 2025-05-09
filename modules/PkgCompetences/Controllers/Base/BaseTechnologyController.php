@@ -155,23 +155,16 @@ class BaseTechnologyController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('technology.edit_' . $id);
-
+        $this->viewState->setContextKey('technology.show_' . $id);
 
         $itemTechnology = $this->technologyService->edit($id);
 
 
-        $categoryTechnologies = $this->categoryTechnologyService->all();
-        $competences = $this->competenceService->all();
-        $formations = $this->formationService->all();
-        $transfertCompetences = $this->transfertCompetenceService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
+            return view('PkgCompetences::technology._show', array_merge(compact('itemTechnology'),));
         }
 
-        return view('PkgCompetences::technology.edit', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
+        return view('PkgCompetences::technology.show', array_merge(compact('itemTechnology'),));
 
     }
     /**

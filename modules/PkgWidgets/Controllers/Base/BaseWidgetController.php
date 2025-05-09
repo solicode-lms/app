@@ -165,25 +165,16 @@ class BaseWidgetController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('widget.edit_' . $id);
-
+        $this->viewState->setContextKey('widget.show_' . $id);
 
         $itemWidget = $this->widgetService->edit($id);
 
 
-        $widgetTypes = $this->widgetTypeService->all();
-        $sysModels = $this->sysModelService->all();
-        $widgetOperations = $this->widgetOperationService->all();
-        $sysColors = $this->sysColorService->all();
-        $roles = $this->roleService->all();
-        $sectionWidgets = $this->sectionWidgetService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
+            return view('PkgWidgets::widget._show', array_merge(compact('itemWidget'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
+        return view('PkgWidgets::widget.show', array_merge(compact('itemWidget'),));
 
     }
     /**

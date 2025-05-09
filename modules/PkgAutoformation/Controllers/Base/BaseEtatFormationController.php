@@ -162,23 +162,17 @@ class BaseEtatFormationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('etatFormation.edit_' . $id);
-
+        $this->viewState->setContextKey('etatFormation.show_' . $id);
 
         $itemEtatFormation = $this->etatFormationService->edit($id);
         $this->authorize('view', $itemEtatFormation);
 
 
-        $workflowFormations = $this->workflowFormationService->all();
-        $sysColors = $this->sysColorService->all();
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._fields', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
+            return view('PkgAutoformation::etatFormation._show', array_merge(compact('itemEtatFormation'),));
         }
 
-        return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
+        return view('PkgAutoformation::etatFormation.show', array_merge(compact('itemEtatFormation'),));
 
     }
     /**

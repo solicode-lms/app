@@ -150,22 +150,16 @@ class BaseRealisationChapitreController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('realisationChapitre.edit_' . $id);
-
+        $this->viewState->setContextKey('realisationChapitre.show_' . $id);
 
         $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
 
 
-        $chapitres = $this->chapitreService->all();
-        $realisationFormations = $this->realisationFormationService->all();
-        $etatChapitres = $this->etatChapitreService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
+            return view('PkgAutoformation::realisationChapitre._show', array_merge(compact('itemRealisationChapitre'),));
         }
 
-        return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
+        return view('PkgAutoformation::realisationChapitre.show', array_merge(compact('itemRealisationChapitre'),));
 
     }
     /**

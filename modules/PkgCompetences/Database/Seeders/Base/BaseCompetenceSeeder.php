@@ -22,7 +22,7 @@ use Modules\PkgCompetences\Services\CompetenceService;
 
 class BaseCompetenceSeeder extends Seeder
 {
-    public static int $order = 18;
+    public static int $order = 19;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

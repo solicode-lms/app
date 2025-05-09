@@ -158,15 +158,9 @@ class BaseFormateurController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('formateur.edit_' . $id);
-
+        $this->viewState->setContextKey('formateur.show_' . $id);
 
         $itemFormateur = $this->formateurService->edit($id);
-
-
-        $specialites = $this->specialiteService->all();
-        $groupes = $this->groupeService->all();
-        $users = $this->userService->all();
 
 
         $this->viewState->set('scope.chapitre.formateur_id', $id);
@@ -226,10 +220,10 @@ class BaseFormateurController extends AdminController
         extract($prioriteTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
-        return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
     }
     /**

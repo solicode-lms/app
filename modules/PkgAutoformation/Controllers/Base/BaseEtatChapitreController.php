@@ -162,23 +162,17 @@ class BaseEtatChapitreController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('etatChapitre.edit_' . $id);
-
+        $this->viewState->setContextKey('etatChapitre.show_' . $id);
 
         $itemEtatChapitre = $this->etatChapitreService->edit($id);
         $this->authorize('view', $itemEtatChapitre);
 
 
-        $workflowChapitres = $this->workflowChapitreService->all();
-        $sysColors = $this->sysColorService->all();
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
+            return view('PkgAutoformation::etatChapitre._show', array_merge(compact('itemEtatChapitre'),));
         }
 
-        return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
+        return view('PkgAutoformation::etatChapitre.show', array_merge(compact('itemEtatChapitre'),));
 
     }
     /**

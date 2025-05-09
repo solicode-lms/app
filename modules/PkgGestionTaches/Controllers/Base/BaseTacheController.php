@@ -168,23 +168,9 @@ class BaseTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('tache.edit_' . $id);
-
+        $this->viewState->setContextKey('tache.show_' . $id);
 
         $itemTache = $this->tacheService->edit($id);
-
-        // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet_id');
-        $key = 'scope.livrable.projet_id';
-        $this->viewState->set($key, $value);
-
-        $prioriteTaches = $this->prioriteTacheService->all();
-        $projets = $this->projetService->all();
-        $livrables = $this->livrableService->all();
 
 
         $this->viewState->set('scope.dependanceTache.tache_id', $id);
@@ -202,10 +188,10 @@ class BaseTacheController extends AdminController
         extract($realisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+            return view('PkgGestionTaches::tache._show', array_merge(compact('itemTache'),$dependanceTache_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+        return view('PkgGestionTaches::tache.show', array_merge(compact('itemTache'),$dependanceTache_compact_value, $realisationTache_compact_value));
 
     }
     /**

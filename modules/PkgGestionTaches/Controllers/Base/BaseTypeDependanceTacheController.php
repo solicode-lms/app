@@ -136,12 +136,9 @@ class BaseTypeDependanceTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('typeDependanceTache.edit_' . $id);
-
+        $this->viewState->setContextKey('typeDependanceTache.show_' . $id);
 
         $itemTypeDependanceTache = $this->typeDependanceTacheService->edit($id);
-
-
 
 
         $this->viewState->set('scope.dependanceTache.type_dependance_tache_id', $id);
@@ -152,10 +149,10 @@ class BaseTypeDependanceTacheController extends AdminController
         extract($dependanceTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
+            return view('PkgGestionTaches::typeDependanceTache._show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
+        return view('PkgGestionTaches::typeDependanceTache.show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
 
     }
     /**

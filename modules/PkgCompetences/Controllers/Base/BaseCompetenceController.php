@@ -147,14 +147,9 @@ class BaseCompetenceController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('competence.edit_' . $id);
-
+        $this->viewState->setContextKey('competence.show_' . $id);
 
         $itemCompetence = $this->competenceService->edit($id);
-
-
-        $modules = $this->moduleService->all();
-        $technologies = $this->technologyService->all();
 
 
         $this->viewState->set('scope.niveauCompetence.competence_id', $id);
@@ -172,10 +167,10 @@ class BaseCompetenceController extends AdminController
         extract($formations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
 
     }
     /**

@@ -1,7 +1,11 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationTache-show')
+<div id="realisationTache-crud-show">
         <div class="card-body">
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Informations générales') }}
+            </h6>
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
@@ -31,13 +35,23 @@
       </div>
   
 
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Dates de réalisation') }}
+            </h6>
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}</small>
-                              
-      <span>
-        {{ optional($itemRealisationTache->dateDebut)->isoFormat('LLL') ?? '—' }}
-      </span>
+                            
+    <span>
+      @if ($itemRealisationTache->dateDebut)
+        {{ \Carbon\Carbon::parse($itemRealisationTache->dateDebut)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
           </div>
       </div>
   
@@ -45,15 +59,25 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}</small>
-                              
-      <span>
-        {{ optional($itemRealisationTache->dateFin)->isoFormat('LLL') ?? '—' }}
-      </span>
+                            
+    <span>
+      @if ($itemRealisationTache->dateFin)
+        {{ \Carbon\Carbon::parse($itemRealisationTache->dateFin)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
           </div>
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('État') }}
+            </h6>
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}</small>
                               
@@ -67,22 +91,18 @@
       </div>
   
 
-      <div class="col-12 col-md-12">
-        <label for="HistoriqueRealisationTache">
-                  {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
-                  
-          </label>
-        @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-      </div>
 
-
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            </div>
+            <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Remarques') }}
+            </h6>
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemRealisationTache->remarques_formateur) && $itemRealisationTache->remarques_formateur !== '')
-    {!! nl2br(e($itemRealisationTache->remarques_formateur)) !!}
+    {!! $itemRealisationTache->remarques_formateur !!}
   @else
     <span class="text-muted">—</span>
   @endif
@@ -95,7 +115,7 @@
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemRealisationTache->remarques_apprenant) && $itemRealisationTache->remarques_apprenant !== '')
-    {!! nl2br(e($itemRealisationTache->remarques_apprenant)) !!}
+    {!! $itemRealisationTache->remarques_apprenant !!}
   @else
     <span class="text-muted">—</span>
   @endif
@@ -105,17 +125,35 @@
 
 
             </div>
-        </div>
-         <div class="card-footer">
-            <div class="btn-group btn-group-sm">
-                <a href="{{ route('realisationTaches.index') }}"  class="btn btn-light">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <a href="{{ route('realisationTaches.edit', $itemRealisationTache) }}" class="btn btn-warning text-white">
-                    <i class="fas fa-edit"></i>
-                </a>
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-12">
+        <label for="HistoriqueRealisationTache">
+                  {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
+                  
+          </label>
+        @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+      </div>
+
+
+
+
             </div>
         </div>
+        <div class="card-footer">
+          <a href="{{ route('realisationTaches.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+       
+          @can('edit-realisationTache')
+          <x-action-button :entity="$itemRealisationTache" actionName="edit">
+          @can('update', $itemRealisationTache)
+              <a href="{{ route('realisationTaches.edit', ['realisationTache' => $itemRealisationTache->id]) }}" data-id="{{$itemRealisationTache->id}}" class="btn btn-info ml-2 editEntity">
+                  <i class="fas fa-pen-square"></i>
+              </a>
+          @endcan
+          </x-action-button>
+          @endcan
+
+        </div>
+</div>
 <script>
     window.modalTitle   = '{{ __("PkgGestionTaches::realisationTache.singular") }} : {{ $itemRealisationTache }}';
     window.contextState = @json($contextState);

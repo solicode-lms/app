@@ -140,20 +140,16 @@ class BaseSpecialiteController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('specialite.edit_' . $id);
-
+        $this->viewState->setContextKey('specialite.show_' . $id);
 
         $itemSpecialite = $this->specialiteService->edit($id);
 
 
-        $formateurs = $this->formateurService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', array_merge(compact('itemSpecialite','formateurs'),));
+            return view('PkgFormation::specialite._show', array_merge(compact('itemSpecialite'),));
         }
 
-        return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite','formateurs'),));
+        return view('PkgFormation::specialite.show', array_merge(compact('itemSpecialite'),));
 
     }
     /**

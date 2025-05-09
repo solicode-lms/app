@@ -19,8 +19,17 @@
         @endforeach
     @endif
 
-    <div class="card-body row">
+    <div class="card-body">
 
+
+  
+
+  
+    
+
+    
+    <div class="row">
+        
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -348,6 +357,11 @@
           @enderror
       </div>
   
+
+
+    </div>
+  
+
 
     </div>
 

@@ -22,7 +22,7 @@ use Modules\PkgGapp\Services\EMetadataDefinitionService;
 
 class BaseEMetadataDefinitionSeeder extends Seeder
 {
-    public static int $order = 44;
+    public static int $order = 45;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

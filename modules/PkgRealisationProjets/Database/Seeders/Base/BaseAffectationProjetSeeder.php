@@ -22,7 +22,7 @@ use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 
 class BaseAffectationProjetSeeder extends Seeder
 {
-    public static int $order = 51;
+    public static int $order = 52;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

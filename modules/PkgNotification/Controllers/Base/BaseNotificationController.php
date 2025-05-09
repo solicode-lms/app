@@ -161,21 +161,17 @@ class BaseNotificationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('notification.edit_' . $id);
-
+        $this->viewState->setContextKey('notification.show_' . $id);
 
         $itemNotification = $this->notificationService->edit($id);
         $this->authorize('view', $itemNotification);
 
 
-        $users = $this->userService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgNotification::notification._fields', array_merge(compact('itemNotification','users'),));
+            return view('PkgNotification::notification._show', array_merge(compact('itemNotification'),));
         }
 
-        return view('PkgNotification::notification.edit', array_merge(compact('itemNotification','users'),));
+        return view('PkgNotification::notification.show', array_merge(compact('itemNotification'),));
 
     }
     /**

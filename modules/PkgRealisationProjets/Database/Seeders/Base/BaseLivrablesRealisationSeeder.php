@@ -22,7 +22,7 @@ use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 
 class BaseLivrablesRealisationSeeder extends Seeder
 {
-    public static int $order = 54;
+    public static int $order = 55;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

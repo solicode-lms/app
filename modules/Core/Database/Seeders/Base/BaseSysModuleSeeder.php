@@ -20,7 +20,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseSysModuleSeeder extends Seeder
 {
-    public static int $order = 7;
+    public static int $order = 8;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

@@ -41,7 +41,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-userModelFilter')
+                        @endcan
+                        @can('show-userModelFilter')
                         <x-action-button :entity="$userModelFilter" actionName="show">
                         @can('view', $userModelFilter)
                             <a href="{{ route('userModelFilters.show', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-default btn-sm context-state showEntity">

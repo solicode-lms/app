@@ -166,22 +166,17 @@ class BaseValidationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('validation.edit_' . $id);
-
+        $this->viewState->setContextKey('validation.show_' . $id);
 
         $itemValidation = $this->validationService->edit($id);
         $this->authorize('view', $itemValidation);
 
 
-        $transfertCompetences = $this->transfertCompetenceService->all();
-        $realisationProjets = $this->realisationProjetService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
+            return view('PkgRealisationProjets::validation._show', array_merge(compact('itemValidation'),));
         }
 
-        return view('PkgRealisationProjets::validation.edit', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
+        return view('PkgRealisationProjets::validation.show', array_merge(compact('itemValidation'),));
 
     }
     /**

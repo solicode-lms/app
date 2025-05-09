@@ -140,20 +140,16 @@ class BaseNiveauCompetenceController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('niveauCompetence.edit_' . $id);
-
+        $this->viewState->setContextKey('niveauCompetence.show_' . $id);
 
         $itemNiveauCompetence = $this->niveauCompetenceService->edit($id);
 
 
-        $competences = $this->competenceService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', array_merge(compact('itemNiveauCompetence','competences'),));
+            return view('PkgCompetences::niveauCompetence._show', array_merge(compact('itemNiveauCompetence'),));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence','competences'),));
+        return view('PkgCompetences::niveauCompetence.show', array_merge(compact('itemNiveauCompetence'),));
 
     }
     /**

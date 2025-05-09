@@ -141,13 +141,9 @@ class BaseWorkflowTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('workflowTache.edit_' . $id);
-
+        $this->viewState->setContextKey('workflowTache.show_' . $id);
 
         $itemWorkflowTache = $this->workflowTacheService->edit($id);
-
-
-        $sysColors = $this->sysColorService->all();
 
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);
@@ -158,10 +154,10 @@ class BaseWorkflowTacheController extends AdminController
         extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+            return view('PkgGestionTaches::workflowTache._show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+        return view('PkgGestionTaches::workflowTache.show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
 
     }
     /**

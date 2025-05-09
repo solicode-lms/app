@@ -22,7 +22,7 @@ use Modules\PkgCreationProjet\Services\ResourceService;
 
 class BaseResourceSeeder extends Seeder
 {
-    public static int $order = 39;
+    public static int $order = 40;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

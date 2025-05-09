@@ -180,27 +180,17 @@ class BaseProfileController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('profile.edit_' . $id);
-
-        if(Auth::user()->hasRole('formateur')){
-            $this->viewState->set('scope.user.formateur.id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('apprenant')){
-            $this->viewState->set('scope.user.apprenant.id'  , $this->sessionState->get('apprenant_id'));
-        }
+        $this->viewState->setContextKey('profile.show_' . $id);
 
         $itemProfile = $this->profileService->edit($id);
         $this->authorize('view', $itemProfile);
 
 
-        $users = $this->userService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', array_merge(compact('itemProfile','users'),));
+            return view('PkgAutorisation::profile._show', array_merge(compact('itemProfile'),));
         }
 
-        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
+        return view('PkgAutorisation::profile.show', array_merge(compact('itemProfile'),));
 
     }
     /**

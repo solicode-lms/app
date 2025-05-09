@@ -52,7 +52,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @elsecan('show-notification')
+                        @endcan
+                        @can('show-notification')
                         <x-action-button :entity="$notification" actionName="show">
                         @can('view', $notification)
                             <a href="{{ route('notifications.show', ['notification' => $notification->id]) }}" data-id="{{$notification->id}}" class="btn btn-default btn-sm context-state showEntity">

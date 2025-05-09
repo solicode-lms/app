@@ -157,22 +157,17 @@ class BaseLivrablesRealisationController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('livrablesRealisation.edit_' . $id);
-
+        $this->viewState->setContextKey('livrablesRealisation.show_' . $id);
 
         $itemLivrablesRealisation = $this->livrablesRealisationService->edit($id);
         $this->authorize('view', $itemLivrablesRealisation);
 
 
-        $livrables = $this->livrableService->all();
-        $realisationProjets = $this->realisationProjetService->all();
-
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', array_merge(compact('itemLivrablesRealisation','livrables', 'realisationProjets'),));
+            return view('PkgRealisationProjets::livrablesRealisation._show', array_merge(compact('itemLivrablesRealisation'),));
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('itemLivrablesRealisation','livrables', 'realisationProjets'),));
+        return view('PkgRealisationProjets::livrablesRealisation.show', array_merge(compact('itemLivrablesRealisation'),));
 
     }
     /**

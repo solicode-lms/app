@@ -22,7 +22,7 @@ use Modules\PkgGapp\Services\EMetadatumService;
 
 class BaseEMetadatumSeeder extends Seeder
 {
-    public static int $order = 49;
+    public static int $order = 50;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
