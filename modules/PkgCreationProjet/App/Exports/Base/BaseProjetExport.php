@@ -33,9 +33,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'critere_de_travail' => 'critere_de_travail',
             'nombre_jour' => 'nombre_jour',
             'filiere_id' => 'filiere_id',
+            'formateur_id' => 'formateur_id',
             'description' => 'description',
             'reference' => 'reference',
-            'formateur_id' => 'formateur_id',
         ];
         }else{
         return [
@@ -44,9 +44,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
             'nombre_jour' => __('PkgCreationProjet::projet.nombre_jour'),
             'filiere_id' => __('PkgCreationProjet::projet.filiere_id'),
+            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
             'description' => __('PkgCreationProjet::projet.description'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
         ];
 
         }
@@ -62,9 +62,9 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'critere_de_travail' => $projet->critere_de_travail,
                 'nombre_jour' => $projet->nombre_jour,
                 'filiere_id' => $projet->filiere_id,
+                'formateur_id' => $projet->formateur_id,
                 'description' => $projet->description,
                 'reference' => $projet->reference,
-                'formateur_id' => $projet->formateur_id,
             ];
         });
     }

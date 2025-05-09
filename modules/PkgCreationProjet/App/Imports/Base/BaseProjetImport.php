@@ -61,9 +61,9 @@ class BaseProjetImport implements ToModel, WithHeadingRow
              'critere_de_travail' => $values[2] ?? null,
              'nombre_jour' => $values[3] ?? null,
              'filiere_id' => $values[4] ?? null,
-             'description' => $values[5] ?? null,
+             'formateur_id' => $values[5] ?? null,
+             'description' => $values[6] ?? null,
              'reference' => $reference,
-             'formateur_id' => $values[7] ?? null,
         ]);
 
 

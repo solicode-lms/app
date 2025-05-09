@@ -24,8 +24,8 @@ class BaseProjetService extends BaseService
         'critere_de_travail',
         'nombre_jour',
         'filiere_id',
-        'description',
-        'formateur_id'
+        'formateur_id',
+        'description'
     ];
 
     /**

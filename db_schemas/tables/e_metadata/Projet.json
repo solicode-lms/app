@@ -119,7 +119,7 @@
     },
     {
         "reference": "Projet_id_displayOrder",
-        "value_integer": 16,
+        "value_integer": 11,
         "e_data_field_reference": "Projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -131,26 +131,26 @@
     },
     {
         "reference": "Projet_travail_a_faire_displayOrder",
-        "value_integer": 8,
+        "value_integer": 2,
         "e_data_field_reference": "Projet_travail_a_faire",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_critere_de_travail_displayOrder",
-        "value_integer": 9,
+        "value_integer": 3,
         "e_data_field_reference": "Projet_critere_de_travail",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_description_displayOrder",
-        "value_integer": 12,
+        "value_integer": 7,
         "value_float": 0,
         "e_data_field_reference": "Projet_description",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_nombre_jour_displayOrder",
-        "value_integer": 10,
+        "value_integer": 4,
         "value_float": 0,
         "e_data_field_reference": "Projet_nombre_jour",
         "e_metadata_definition_reference": "displayOrder"
@@ -158,32 +158,32 @@
     {
         "reference": "Projet_formateur_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 20,
+        "value_integer": 6,
         "value_float": 0,
         "e_data_field_reference": "Projet_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_reference_displayOrder",
-        "value_integer": 13,
+        "value_integer": 8,
         "e_data_field_reference": "Projet_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_created_at_displayOrder",
-        "value_integer": 14,
+        "value_integer": 9,
         "e_data_field_reference": "Projet_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_updated_at_displayOrder",
-        "value_integer": 15,
+        "value_integer": 10,
         "e_data_field_reference": "Projet_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "projets_hasMany_affectation_projets_projet_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 13,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -191,7 +191,7 @@
     {
         "reference": "projets_hasMany_livrables_projet_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 3,
+        "value_integer": 15,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_livrables_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -199,14 +199,14 @@
     {
         "reference": "projets_hasMany_resources_projet_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 7,
+        "value_integer": 16,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_resources_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "projets_hasMany_transfert_competences_projet_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 12,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -409,7 +409,7 @@
     {
         "reference": "Projet_filiere_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 11,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -440,13 +440,15 @@
     },
     {
         "reference": "projets_hasMany_taches_projet_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 14,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "projets_hasMany_taches_projet_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -680,7 +682,8 @@
     },
     {
         "reference": "Projet_nombre_jour_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Projet_nombre_jour",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -746,7 +749,8 @@
     },
     {
         "reference": "projets_hasMany_affectation_projets_projet_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -773,5 +777,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "projets_hasMany_transfert_competences_projet_id_viewShowFieldOrder",
+        "value_boolean": 1,
+        "value_integer": 14,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_transfert_competences_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldOrder"
+    },
+    {
+        "reference": "projets_hasMany_taches_projet_id_viewShowFieldOrder",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "projets_hasMany_taches_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldOrder"
     }
 ]
