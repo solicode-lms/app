@@ -185,7 +185,7 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->edit($id);
         $this->authorize('view', $itemRealisationTache);
 
-     
+
         $this->viewState->set('scope.historiqueRealisationTache.realisation_tache_id', $id);
         
 
