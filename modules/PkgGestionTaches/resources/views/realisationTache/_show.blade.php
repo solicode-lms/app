@@ -1,133 +1,225 @@
-
-@section('realisationTache-show')
-
-        <div class="card-body">
-
-            {{-- 1️⃣  Informations générales --}}
-            <h6 class="text-muted mb-2">
-                <i class="fas fa-info-circle mr-1"></i>{{ __('Informations générales') }}
-            </h6>
-            <div class="row g-3 mb-4">
-                <div class="col-md-6 col-lg-6">
-                    <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::tache.singular') }}</small>
-                        {{ $itemRealisationTache->tache?->titre ?? '—' }}
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-6">
-                    <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgRealisationProjets::realisationProjet.singular') }}</small>
-                        {{ $itemRealisationTache->realisationProjet ?? '—' }}
-                    </div>
-                </div>
-
-                {{-- ➕  Ajoute ici d’autres attributs généraux --}}
-            </div>
-
-            {{-- 2️⃣  Dates de réalisation --}}
-            <h6 class="text-muted mb-2">
-                <i class="far fa-calendar-alt mr-1"></i>{{ __('Dates de réalisation') }}
-            </h6>
-            <div class="row g-3 mb-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::realisationTache.dateDebut') }}</small>
-                        {{ optional($itemRealisationTache->dateDebut)->isoFormat('LL') ?? '—' }}
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::realisationTache.dateFin') }}</small>
-                        {{ optional($itemRealisationTache->dateFin)->isoFormat('LL') ?? '—' }}
-                    </div>
-                </div>
-            </div>
-
-            {{-- 3️⃣  État --}}
-            <h6 class="text-muted mb-2">
-                <i class="fas fa-flag-checkered mr-1"></i>{{ __('État') }}
-            </h6>
-            <div class="row g-3 mb-4">
-                <div class="col-md-4 col-lg-3">
-                    <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::etatRealisationTache.singular') }}</small>
-                        @if($etat = $itemRealisationTache->etatRealisationTache)
-                            <span class="badge badge-{{ $etat->sysColor?->class ?? 'info' }} p-2">
-                                {{ $etat->nom }}
-                            </span>
-                        @else
-                            <span class="text-muted">—</span>
-                        @endif
-                    </div>
-                </div>
-
-                {{-- ➕  Place libre pour “Priorité”, “Progression %”, etc. --}}
-            </div>
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-            {{-- 4️⃣ Remarques ---------------------------------------------------- --}}
-            <h6 class="text-muted mb-2">
-                <i class="fas fa-comments mr-1"></i>{{ __('Remarques') }}
-            </h6>
+  
 
-            <div class="row g-3 mb-4">
-                {{-- Formateur --}}
-                <div class="col-md-6">
-                    <div class="callout callout-info m-0 h-100">
-                        <h6 class="mb-2">
-                            <i class="fas fa-chalkboard-teacher mr-1"></i>
-                            {{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}
-                        </h6>
-                        {!! nl2br(e($itemRealisationTache->remarques_formateur ?? '—')) !!}
-                    </div>
-                </div>
+  
+    
 
-                {{-- Apprenant --}}
-                <div class="col-md-6">
-                    <div class="callout callout-warning m-0 h-100">
-                        <h6 class="mb-2">
-                            <i class="fas fa-user-graduate mr-1"></i>
-                            {{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}
-                        </h6>
-                        {!! nl2br(e($itemRealisationTache->remarques_apprenant ?? '—')) !!}
-                    </div>
-                </div>
-            </div>
+    
+    <div class="row">
+              <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="tache_id">
+            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="tache_id" 
+            {{ $canEdittache_id ? '' : 'disabled' }}
+            required
+            
+            
+            name="tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($taches as $tache)
+                    <option value="{{ $tache->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->tache_id == $tache->id) || (old('tache_id>') == $tache->id) ? 'selected' : '' }}>
+                        {{ $tache }}
+                    </option>
+                @endforeach
+            </select>
+          @error('tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_projet_id" 
+            {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
+            required
+            
+            
+            name="realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationProjets as $realisationProjet)
+                    <option value="{{ $realisationProjet->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
+                        {{ $realisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dateDebut">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="dateDebut"
+                type="text"
+                class="form-control datetimepicker"
+                required
+                
+                
+                id="dateDebut"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.dateDebut') }}"
+                value="{{ $itemRealisationTache ? $itemRealisationTache->dateDebut : old('dateDebut') }}">
+
+          @error('dateDebut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dateFin">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
+            
+          </label>
+                      <input
+                name="dateFin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="dateFin"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
+                value="{{ $itemRealisationTache ? $itemRealisationTache->dateFin : old('dateFin') }}">
+
+          @error('dateFin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_tache_id" id="bulk_field_etat_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etat_realisation_tache_id">
+            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}
+            
+          </label>
+                      <select 
+            id="etat_realisation_tache_id" 
+            
+            
+            
+            name="etat_realisation_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatRealisationTaches as $etatRealisationTache)
+                    <option value="{{ $etatRealisationTache->id }}"
+                        {{ (isset($itemRealisationTache) && $itemRealisationTache->etat_realisation_tache_id == $etatRealisationTache->id) || (old('etat_realisation_tache_id>') == $etatRealisationTache->id) ? 'selected' : '' }}>
+                        {{ $etatRealisationTache }}
+                    </option>
+                @endforeach
+            </select>
+          @error('etat_realisation_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-            {{-- 5️⃣  Historique --}}
-            <h6 class="text-muted mt-4 mb-2">
-                <i class="fas fa-history mr-1"></i>{{ __('Historique') }}
-            </h6>
-            <div class="border rounded shadow-sm p-0">
-                @include('PkgGestionTaches::historiqueRealisationTache._index', [
-                    'isMany'        => true,
-                    'edit_has_many' => false,
-                    'contextKey'    => 'realisationTache.show_'.$itemRealisationTache->id
-                ])
-            </div>
-        </div>
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="HistoriqueRealisationTache">
+            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
 
 
-         {{-- ╔══ En-tête + actions ───────────────────────────────╗ --}}
-         <div class="card-footer">
-            <div class="btn-group btn-group-sm">
-                <a href="{{ route('realisationTaches.index') }}"  class="btn btn-light">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <a href="{{ route('realisationTaches.edit', $itemRealisationTache) }}" class="btn btn-warning text-white">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </div>
-        </div>
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_formateur" id="bulk_field_remarques_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="remarques_formateur">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="remarques_formateur"
+                class="form-control richText"
+                {{ $canEditremarques_formateur ? '' : 'disabled' }}
+                
+                
+                
+                id="remarques_formateur"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
+          @error('remarques_formateur')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques_apprenant" id="bulk_field_remarques_apprenant" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="remarques_apprenant">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="remarques_apprenant"
+                class="form-control richText"
+                
+                
+                
+                id="remarques_apprenant"
+                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}</textarea>
+          @error('remarques_apprenant')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
 
 
-<script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::realisationTache.singular") }} : {{ $itemRealisationTache }}';
-    window.contextState = @json($contextState);
-    window.sessionState = @json($sessionState);
-    window.viewState    = @json($viewState);
-</script>
-@show
+    </div>
+  
+
