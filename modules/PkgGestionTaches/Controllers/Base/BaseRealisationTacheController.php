@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ : show
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgGestionTaches\Controllers\Base;
@@ -180,7 +180,7 @@ class BaseRealisationTacheController extends AdminController
      */
     public function show(string $id) {
 
-        $this->viewState->setContextKey('realisationTache.edit_' . $id);
+        $this->viewState->setContextKey('realisationTache.show_' . $id);
 
 
         $itemRealisationTache = $this->realisationTacheService->edit($id);
