@@ -407,5 +407,131 @@
         "value_float": 0,
         "e_data_field_reference": "EtatRealisationTache_formateur_id",
         "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "EtatRealisationTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_is_editable_only_by_formateur_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_is_editable_only_by_formateur_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_workflow_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_workflow_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationTache_workflow_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationTache_workflow_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "etat_realisation_taches_hasMany_realisation_taches_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

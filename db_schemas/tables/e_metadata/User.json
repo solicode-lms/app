@@ -521,5 +521,179 @@
         "value_integer": 6,
         "e_data_field_reference": "users_hasMany_notifications_user_id",
         "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "User_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_email_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_email_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_email_verified_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email_verified_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_email_verified_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_email_verified_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_password_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_password",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_password_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_password",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_must_change_password_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_must_change_password_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_must_change_password",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_remember_token_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_remember_token",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_remember_token_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_remember_token",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "User_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "User_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "User_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_apprenants_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_apprenants_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_formateurs_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_formateurs_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_historique_realisation_taches_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_historique_realisation_taches_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_notifications_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_notifications_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_profiles_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_profiles_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_user_model_filters_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_user_model_filters_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_hasMany_widget_utilisateurs_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_hasMany_widget_utilisateurs_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "users_PolymorphicManyToMany_roles_model_has_roles_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

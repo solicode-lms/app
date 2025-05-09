@@ -365,5 +365,113 @@
         "value_boolean": 1,
         "e_data_field_reference": "LivrablesRealisation_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrablesRealisation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_lien_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_lien",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_lien_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_lien",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_livrable_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_livrable_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_livrable_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_livrable_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_realisation_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrablesRealisation_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrablesRealisation_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

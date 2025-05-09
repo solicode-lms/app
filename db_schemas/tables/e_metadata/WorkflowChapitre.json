@@ -316,5 +316,107 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowChapitre_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WorkflowChapitre_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowChapitre_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowChapitre_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "workflow_chapitres_hasMany_etat_chapitres_workflow_chapitre_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "workflow_chapitres_hasMany_etat_chapitres_workflow_chapitre_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -910,5 +910,299 @@
         "value_boolean": 1,
         "e_data_field_reference": "Formateur_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_matricule_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_matricule_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_matricule",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_prenom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_prenom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_prenom_arab_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom_arab",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_prenom_arab_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_prenom_arab",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_nom_arab_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom_arab",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_nom_arab_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_nom_arab",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_email_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_email",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_email_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_email",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_tele_num_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_tele_num",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_tele_num_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_tele_num",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_adresse_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_adresse",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_adresse_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_adresse",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_diplome_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_diplome",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_diplome_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_diplome",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_echelle_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelle",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_echelle_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelle",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_echelon_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelon",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_echelon_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_echelon",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_profile_image_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_profile_image",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_profile_image_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_profile_image",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formateur_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formateur_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formateur_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_chapitres_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_chapitres_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_commentaire_realisation_taches_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_etat_chapitres_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etat_chapitres_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_etat_formations_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etat_formations_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_etat_realisation_taches_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etat_realisation_taches_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_etats_realisation_projets_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_etats_realisation_projets_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "formateurs_groupes_formateur_groupe_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_groupes_formateur_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "formateurs_specialites_formateur_specialite_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_specialites_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_formations_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_formations_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_label_realisation_taches_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_label_realisation_taches_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_niveau_difficultes_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_niveau_difficultes_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_priorite_taches_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_priorite_taches_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formateurs_hasMany_projets_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formateurs_hasMany_projets_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

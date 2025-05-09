@@ -553,5 +553,215 @@
         "value_boolean": 1,
         "e_data_field_reference": "ERelationship_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ERelationship_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_type_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_type_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_type",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_source_e_model_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_source_e_model_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_target_e_model_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_target_e_model_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_cascade_on_delete_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_cascade_on_delete",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_is_cascade_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_is_cascade_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_is_cascade",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_column_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_column_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_column_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_referenced_table_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_referenced_table_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_table",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_referenced_column_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_referenced_column_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_referenced_column",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_through_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_through_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_through",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_with_column_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_with_column_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_with_column",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_morph_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_morph_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_morph_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ERelationship_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ERelationship_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ERelationship_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "e_relationships_hasMany_e_data_fields_e_relationship_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "e_relationships_hasMany_e_data_fields_e_relationship_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -154,5 +154,65 @@
         "value_boolean": 1,
         "e_data_field_reference": "FeaturePermission_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeaturePermission_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_feature_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_feature_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_feature_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_feature_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_permission_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_permission_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_permission_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_permission_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeaturePermission_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeaturePermission_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

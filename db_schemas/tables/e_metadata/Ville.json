@@ -168,5 +168,65 @@
         "value_boolean": 1,
         "e_data_field_reference": "Ville_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Ville_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Ville_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Ville_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Ville_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Ville_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Ville_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Ville_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Ville_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Ville_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Ville_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Ville_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

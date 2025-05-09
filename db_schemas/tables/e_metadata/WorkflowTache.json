@@ -356,5 +356,119 @@
         },
         "e_data_field_reference": "WorkflowTache_ordre",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "WorkflowTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WorkflowTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WorkflowTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "workflow_taches_hasMany_etat_realisation_taches_workflow_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

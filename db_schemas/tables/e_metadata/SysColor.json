@@ -541,5 +541,155 @@
         "value_boolean": 1,
         "e_data_field_reference": "SysColor_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysColor_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysColor_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysColor_hex_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_hex_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_hex",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysColor_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysColor_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysColor_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysColor_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysColor_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_label_realisation_taches_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_section_widgets_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_section_widgets_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_models_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_models_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_sys_modules_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_sys_modules_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_widgets_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_workflow_taches_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_workflow_taches_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

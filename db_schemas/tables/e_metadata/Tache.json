@@ -551,5 +551,167 @@
         "value_float": 0,
         "e_data_field_reference": "Tache_titre",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_dateDebut_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateDebut",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_dateDebut_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateDebut",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_dateFin_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_dateFin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_dateFin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Tache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Tache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "taches_hasMany_dependance_taches_tache_cible_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "taches_hasMany_dependance_taches_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_dependance_taches_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "taches_livrables_livrable_tache_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "taches_livrables_livrable_tache_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_livrables_livrable_tache_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "taches_hasMany_realisation_taches_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

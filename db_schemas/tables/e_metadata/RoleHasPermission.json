@@ -70,5 +70,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "RoleHasPermission_role_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RoleHasPermission_permission_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_permission_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RoleHasPermission_role_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RoleHasPermission_role_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

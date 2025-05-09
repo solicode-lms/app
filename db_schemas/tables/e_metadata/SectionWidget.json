@@ -377,5 +377,119 @@
         },
         "e_data_field_reference": "SectionWidget_ordre",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "SectionWidget_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_sous_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_sous_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_sous_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_sous_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_icone_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_icone",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_icone_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_icone",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SectionWidget_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SectionWidget_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "section_widgets_hasMany_widgets_section_widget_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "section_widgets_hasMany_widgets_section_widget_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

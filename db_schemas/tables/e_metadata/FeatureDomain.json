@@ -293,5 +293,107 @@
         "value_boolean": 1,
         "e_data_field_reference": "FeatureDomain_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FeatureDomain_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_slug_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_slug",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_slug_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_slug",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_sys_module_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_sys_module_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_sys_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FeatureDomain_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FeatureDomain_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "feature_domains_hasMany_features_feature_domain_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "feature_domains_hasMany_features_feature_domain_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -124,5 +124,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "ApprenantGroupe_apprenant_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "ApprenantGroupe_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_groupe_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_groupe_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_groupe_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_groupe_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_apprenant_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_apprenant_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "ApprenantGroupe_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "ApprenantGroupe_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -348,5 +348,119 @@
         "value_float": 0,
         "e_data_field_reference": "NiveauDifficulte_formateur_id",
         "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "NiveauDifficulte_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMin_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMax_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMax",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_noteMax_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_noteMax",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "NiveauDifficulte_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "NiveauDifficulte_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "niveau_difficultes_hasMany_transfert_competences_niveau_difficulte_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -447,5 +447,155 @@
         "value_boolean": 1,
         "e_data_field_reference": "SysModule_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModule_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_slug_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_slug_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_slug",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_is_active_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_is_active_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_is_active",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_order_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_order_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_order",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_version_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_version_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_version",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_modules_hasMany_feature_domains_sys_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_feature_domains_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_controllers_sys_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_controllers_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_modules_hasMany_sys_models_sys_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

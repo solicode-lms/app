@@ -124,5 +124,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "CompetenceTechnology_competence_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CompetenceTechnology_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_technology_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_technology_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_technology_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_technology_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_competence_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_competence_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CompetenceTechnology_competence_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CompetenceTechnology_competence_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

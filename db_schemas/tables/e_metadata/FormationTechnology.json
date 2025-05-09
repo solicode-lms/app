@@ -124,5 +124,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "FormationTechnology_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FormationTechnology_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_technology_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_technology_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_technology_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_technology_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormationTechnology_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormationTechnology_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

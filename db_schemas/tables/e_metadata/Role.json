@@ -275,5 +275,113 @@
         "value_boolean": 1,
         "e_data_field_reference": "Role_reference",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Role_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Role_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Role_guard_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_guard_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_guard_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_guard_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Role_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Role_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Role_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Role_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Role_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "roles_permissions_role_has_permissions_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_permissions_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "roles_permissions_role_has_permissions_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_permissions_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "roles_widgets_role_widget_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_widgets_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "roles_ManyToManyPolymorphic_users_model_has_roles_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -377,5 +377,131 @@
         "value_boolean": 1,
         "e_data_field_reference": "SysModel_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModel_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_model_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_model",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_model_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_model",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_sys_module_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_module_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_sys_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_icone_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_icone_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_icone",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModel_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModel_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModel_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_models_hasMany_widgets_model_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_models_hasMany_widgets_model_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

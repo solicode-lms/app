@@ -230,5 +230,83 @@
         "value_boolean": 1,
         "e_data_field_reference": "WidgetType_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "WidgetType_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetType_type_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_type",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_type_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_type",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetType_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetType_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetType_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "WidgetType_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "WidgetType_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "WidgetType_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "widget_types_hasMany_widgets_type_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "widget_types_hasMany_widgets_type_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

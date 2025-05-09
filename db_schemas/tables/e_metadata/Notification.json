@@ -376,5 +376,125 @@
         ],
         "e_model_reference": "notifications",
         "e_metadata_definition_reference": "indexActions"
+    },
+    {
+        "reference": "Notification_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_title_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_title",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_title_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_title",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_message_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_message",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_message_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_message",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_is_read_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_is_read",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_is_read_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_is_read",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_type_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_type",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_type_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_type",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_data_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_data",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_data_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_data",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_sent_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_sent_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_sent_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_sent_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Notification_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Notification_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Notification_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

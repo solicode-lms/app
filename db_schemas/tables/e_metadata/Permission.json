@@ -286,5 +286,113 @@
         "value_boolean": 1,
         "e_data_field_reference": "Permission_reference",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Permission_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_guard_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_guard_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_guard_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_guard_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_controller_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_controller_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_controller_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_controller_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Permission_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Permission_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Permission_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "permissions_features_feature_permission_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_features_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "permissions_features_feature_permission_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_features_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "permissions_roles_role_has_permissions_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "permissions_roles_role_has_permissions_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "permissions_roles_role_has_permissions_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

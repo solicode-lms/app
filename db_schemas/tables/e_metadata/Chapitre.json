@@ -544,5 +544,185 @@
         },
         "e_data_field_reference": "Chapitre_ordre",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "Chapitre_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_lien_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_lien",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_lien_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_lien",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_coefficient_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_coefficient",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_coefficient_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_coefficient",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_is_officiel_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_officiel",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_is_officiel_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_is_officiel",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_niveau_competence_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_niveau_competence_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_niveau_competence_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_niveau_competence_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_chapitre_officiel_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_chapitre_officiel_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_chapitre_officiel_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_chapitre_officiel_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "chapitres_hasMany_chapitres_chapitre_officiel_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_chapitres_chapitre_officiel_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "chapitres_hasMany_realisation_chapitres_chapitre_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

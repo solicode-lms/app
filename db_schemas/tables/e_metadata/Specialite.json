@@ -234,5 +234,89 @@
         "value_boolean": 1,
         "e_data_field_reference": "Specialite_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Specialite_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Specialite_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Specialite_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Specialite_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Specialite_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Specialite_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Specialite_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Specialite_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "specialites_formateurs_formateur_specialite_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "specialites_formateurs_formateur_specialite_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "specialites_formateurs_formateur_specialite_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

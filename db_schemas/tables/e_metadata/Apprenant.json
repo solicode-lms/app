@@ -1122,5 +1122,299 @@
         "value_float": 0,
         "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
         "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "Apprenant_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_prenom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_prenom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_prenom_arab_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_prenom_arab",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nom_arab_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nom_arab_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nom_arab",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_tele_num_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_tele_num_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_tele_num",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_profile_image_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_profile_image_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_profile_image",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_matricule_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_matricule_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_matricule",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_sexe_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_sexe_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_sexe",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_actif_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_actif_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_actif",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_diplome_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_diplome_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_diplome",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_date_naissance_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_date_naissance_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_naissance",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_date_inscription_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_date_inscription_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_date_inscription",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_lieu_naissance_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_lieu_naissance",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_cin_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_cin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_cin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_adresse_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_adresse_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_adresse",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_niveaux_scolaire_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_niveaux_scolaire_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_nationalite_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_nationalite_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Apprenant_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Apprenant_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Apprenant_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "apprenants_groupes_apprenant_groupe_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_groupes_apprenant_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_formations_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_formations_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_hasMany_realisation_projets_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

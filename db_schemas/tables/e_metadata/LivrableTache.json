@@ -124,5 +124,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "LivrableTache_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableTache_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_livrable_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_livrable_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_livrable_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_livrable_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

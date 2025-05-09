@@ -600,5 +600,167 @@
         "value_boolean": 1,
         "e_data_field_reference": "Formation-Filière",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_lien_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_lien",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_lien_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_lien",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_is_officiel_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_is_officiel",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_is_officiel_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_is_officiel",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_formation_officiel_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formation_officiel_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_formation_officiel_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_formation_officiel_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_competence_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_competence_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_competence_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_competence_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Formation_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Formation_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Formation_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formations_hasMany_chapitres_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_chapitres_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formations_technologies_formation_technology_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_technologies_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "formations_technologies_formation_technology_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_technologies_formation_technology_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formations_hasMany_formations_formation_officiel_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_formations_formation_officiel_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "formations_hasMany_realisation_formations_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "formations_hasMany_realisation_formations_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

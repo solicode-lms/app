@@ -142,5 +142,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "TechnologyTransfertCompetence_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_technology_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_technology_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_technology_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_technology_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_transfert_competence_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_transfert_competence_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_transfert_competence_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_transfert_competence_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "TechnologyTransfertCompetence_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TechnologyTransfertCompetence_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

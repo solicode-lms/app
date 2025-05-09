@@ -222,5 +222,83 @@
         "value_boolean": 1,
         "e_data_field_reference": "CategoryTechnology_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "CategoryTechnology_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "CategoryTechnology_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "CategoryTechnology_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "category_technologies_hasMany_technologies_category_technology_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "category_technologies_hasMany_technologies_category_technology_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

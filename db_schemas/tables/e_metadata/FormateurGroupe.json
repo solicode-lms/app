@@ -124,5 +124,53 @@
         "value_boolean": 1,
         "e_data_field_reference": "FormateurGroupe_formateur_id",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_groupe_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_groupe_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "FormateurGroupe_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "FormateurGroupe_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

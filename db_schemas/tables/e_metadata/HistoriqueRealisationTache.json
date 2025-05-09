@@ -373,5 +373,113 @@
         },
         "e_data_field_reference": "HistoriqueRealisationTache_user_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_dateModification_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_dateModification",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_changement_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_changement",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_isFeedback_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_isFeedback",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_isFeedback_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_isFeedback",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_realisation_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_realisation_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_realisation_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "HistoriqueRealisationTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "HistoriqueRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

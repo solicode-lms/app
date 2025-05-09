@@ -344,5 +344,119 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationFormation_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationFormation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_date_debut_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_date_debut",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_date_debut_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_date_debut",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_date_fin_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_date_fin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_date_fin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_date_fin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_apprenant_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_apprenant_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_etat_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_etat_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_etat_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_etat_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationFormation_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationFormation_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_formations_hasMany_realisation_chapitres_realisation_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_formations_hasMany_realisation_chapitres_realisation_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

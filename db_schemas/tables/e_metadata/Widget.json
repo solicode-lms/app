@@ -713,5 +713,203 @@
         "value_float": 0,
         "e_data_field_reference": "Widget_icon",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Widget_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_type_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_type_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_type_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_type_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_model_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_model_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_model_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_model_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_operation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_operation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_operation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_operation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_color_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_color",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_color_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_color",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_icon_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_icon",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_icon_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_icon",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_label_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_label",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_label_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_label",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_parameters_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_parameters",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_parameters_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_parameters",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_section_widget_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_section_widget_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_section_widget_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_section_widget_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Widget_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Widget_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Widget_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "widgets_roles_role_widget_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_roles_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "widgets_roles_role_widget_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_roles_role_widget_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "widgets_hasMany_widget_utilisateurs_widget_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "widgets_hasMany_widget_utilisateurs_widget_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

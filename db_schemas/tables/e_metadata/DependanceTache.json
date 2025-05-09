@@ -251,5 +251,89 @@
         "value_boolean": 1,
         "e_data_field_reference": "DependanceTache_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "DependanceTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_tache_cible_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_tache_cible_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_tache_cible_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_tache_cible_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_type_dependance_tache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_type_dependance_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_type_dependance_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_type_dependance_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "DependanceTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "DependanceTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

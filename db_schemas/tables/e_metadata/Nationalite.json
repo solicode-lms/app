@@ -253,5 +253,95 @@
         "value_boolean": 1,
         "e_data_field_reference": "Nationalite_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Nationalite_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Nationalite_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Nationalite_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Nationalite_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "nationalites_hasMany_apprenants_nationalite_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "nationalites_hasMany_apprenants_nationalite_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

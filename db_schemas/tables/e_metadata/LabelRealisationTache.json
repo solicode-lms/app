@@ -305,5 +305,101 @@
         "value_boolean": 1,
         "e_data_field_reference": "LabelRealisationTache_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LabelRealisationTache_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_formateur_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_formateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_formateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_sys_color_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LabelRealisationTache_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LabelRealisationTache_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

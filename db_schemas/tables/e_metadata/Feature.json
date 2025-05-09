@@ -269,5 +269,101 @@
         "value_boolean": 1,
         "e_data_field_reference": "Feature_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Feature_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_name_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_name_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_name",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_feature_domain_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_feature_domain_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_feature_domain_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Feature_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Feature_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Feature_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "features_permissions_feature_permission_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "features_permissions_feature_permission_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

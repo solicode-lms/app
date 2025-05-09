@@ -565,5 +565,143 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationProjet_apprenant_id",
         "e_metadata_definition_reference": "readOnly"
+    },
+    {
+        "reference": "RealisationProjet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_date_debut_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_debut",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_date_debut_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_debut",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_date_fin_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_fin",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_date_fin_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_date_fin",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_rapport_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_rapport",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_rapport_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_rapport",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_etats_realisation_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_etats_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_apprenant_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_apprenant_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_apprenant_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_apprenant_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_affectation_projet_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_affectation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_affectation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationProjet_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationProjet_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

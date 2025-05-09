@@ -300,5 +300,107 @@
         "value_boolean": 1,
         "e_data_field_reference": "Filiere_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Filiere_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_nom_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_nom",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_nom_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_nom",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Filiere_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Filiere_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Filiere_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "filieres_hasMany_groupes_filiere_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_groupes_filiere_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "filieres_hasMany_modules_filiere_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_modules_filiere_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "filieres_hasMany_projets_filiere_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "filieres_hasMany_projets_filiere_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

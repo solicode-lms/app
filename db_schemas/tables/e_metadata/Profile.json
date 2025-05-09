@@ -327,5 +327,101 @@
         "value_boolean": 1,
         "e_data_field_reference": "Profile_updated_at",
         "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Profile_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_phone_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_phone",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_phone_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_phone",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_address_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_address",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_address_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_address",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_profile_picture_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_profile_picture",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_profile_picture_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_profile_picture",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_bio_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_bio",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_bio_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_bio",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Profile_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Profile_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Profile_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
