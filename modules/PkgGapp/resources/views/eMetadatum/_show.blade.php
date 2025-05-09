@@ -181,7 +181,7 @@
           @can('edit-eMetadatum')
           <x-action-button :entity="$itemEMetadatum" actionName="edit">
           @can('update', $itemEMetadatum)
-              <a href="{{ route('eMetadatums.edit', ['eMetadatum' => $itemEMetadatum->id]) }}" data-id="{{$itemEMetadatum->id}}" class="btn btn-info ml-2 editEntity">
+              <a href="{{ route('eMetadata.edit', ['eMetadatum' => $itemEMetadatum->id]) }}" data-id="{{$itemEMetadatum->id}}" class="btn btn-info ml-2 editEntity">
                   <i class="fas fa-pen-square"></i>
               </a>
           @endcan
