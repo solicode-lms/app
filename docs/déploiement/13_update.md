@@ -20,3 +20,7 @@ php artisan db:seed --class=Modules\PkgNotification\Database\Seeders\Notificatio
  
 - Ajouter les doit d'accès pour notification 
 - Formateur,Apprenant,Admin : Lecture
+- Ajouter les droit d'accès pour lecture des pages index pour les relation HasMany de projet : 
+  - Tâche,
+  - Livrable
+  - ....
