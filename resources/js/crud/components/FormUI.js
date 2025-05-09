@@ -151,7 +151,7 @@ export class FormUI  {
      */
         handleCardFooter() {
         // on cible à la fois le formulaire et l'affichage show
-        const contexts = `${this.formSelector}, .dynamic-modal`;
+        const contexts = `${this.formSelector}`;
 
         // on trouve les footers et on bascule la classe
         $(contexts)
