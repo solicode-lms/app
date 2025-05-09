@@ -1042,5 +1042,29 @@
         "description": "",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 88,
+        "reference": "viewFormFieldVisible",
+        "name": "viewFormFieldVisible",
+        "type": "Boolean",
+        "scope": "field",
+        "default_value": null,
+        "groupe": "ViewFormField",
+        "description": "<p>Indique si le champs est visible dans le formulaire, s'il est n'est pas déclarer il prend la valeur de DisplayInForm</p>",
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 89,
+        "reference": "viewShowFieldVisible",
+        "name": "viewShowFieldVisible",
+        "type": "Boolean",
+        "scope": "field",
+        "default_value": null,
+        "groupe": "ViewShowField",
+        "description": "<p>Indique si le champs est visible dans l'interface Show, il prend la valeur de&nbsp;viewFormFieldVisible si il n'est pas déclarer</p>",
+        "created_at": null,
+        "updated_at": null
     }
 ]
