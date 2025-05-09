@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ footer --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('apprenant-show')
 <div id="apprenant-crud-show">
@@ -245,9 +245,17 @@
         </div>
         <div class="card-footer">
           <a href="{{ route('apprenants.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
-          <a data-id = {{$itemApprenant->id}} href="{{ route('apprenants.edit', $itemApprenant) }}" class="btn btn-info ml-2 editEntity">
-                      <i class="fas fa-edit"></i> {{  __('Core::msg.edit')  }}
-          </a>
+         
+          @can('edit-apprenant')
+          <x-action-button :entity="$itemApprenant" actionName="edit">
+          @can('update', $itemApprenant)
+              <a href="{{ route('apprenants.edit', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-info ml-2 editEntity">
+                  <i class="fas fa-pen-square"></i>
+              </a>
+          @endcan
+          </x-action-button>
+          @endcan
+
         </div>
 </div>
 <script>
