@@ -32,19 +32,6 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutoformation::formation.filiere_id')) }}</small>
-                              
-      @if($itemFormation->filiere)
-        {{ $itemFormation->filiere }}
-      @else
-        —
-      @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.singular')) }}</small>
                               
       @if($itemFormation->competence)
@@ -103,6 +90,15 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::formation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.show_' . $itemFormation->id])
+            </div>
+          </div>
+      </div>
+
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgAutoformation::formation.singular')) }}</small>
@@ -116,6 +112,24 @@
           </div>
       </div>
   
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::chapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.show_' . $itemFormation->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::realisationFormation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::realisationFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formation.show_' . $itemFormation->id])
+            </div>
+          </div>
+      </div>
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">

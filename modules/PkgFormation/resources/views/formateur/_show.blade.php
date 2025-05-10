@@ -45,6 +45,19 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom_arab')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemFormateur->prenom_arab) && $itemFormateur->prenom_arab !== '')
+          {{ $itemFormateur->prenom_arab }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.plural')) }}</small>
                               <!-- Valeurs many-to-many -->
         @if($itemFormateur->specialites->isNotEmpty())
@@ -55,6 +68,19 @@
               </span>
             @endforeach
           </div>
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom_arab')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemFormateur->nom_arab) && $itemFormateur->nom_arab !== '')
+          {{ $itemFormateur->nom_arab }}
         @else
           <span class="text-muted">—</span>
         @endif
@@ -109,6 +135,75 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.adresse')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemFormateur->adresse) && $itemFormateur->adresse !== '')
+          {{ $itemFormateur->adresse }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.diplome')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemFormateur->diplome) && $itemFormateur->diplome !== '')
+          {{ $itemFormateur->diplome }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelle')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemFormateur->echelle))
+          {{ $itemFormateur->echelle }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelon')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemFormateur->echelon))
+          {{ $itemFormateur->echelon }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.profile_image')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemFormateur->profile_image) && $itemFormateur->profile_image !== '')
+          {{ $itemFormateur->profile_image }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
                               
       @if($itemFormateur->user)
@@ -120,6 +215,105 @@
           </div>
       </div>
   
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::chapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGestionTaches::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::etatChapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::etatChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::niveauDifficulte.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCompetences::niveauDifficulte._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::etatFormation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::etatFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::labelRealisationTache.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::formation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::prioriteTache.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGestionTaches::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            </div>
+          </div>
+      </div>
 
 
             </div>

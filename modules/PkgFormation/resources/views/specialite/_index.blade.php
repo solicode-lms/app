@@ -21,6 +21,7 @@
         storeUrl: '{{ route('specialites.store') }}', 
         updateAttributesUrl: '{{ route('specialites.updateAttributes') }}', 
         deleteUrl: '{{ route('specialites.destroy',  ['specialite' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-specialite')),
         calculationUrl:  '{{ route('specialites.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::specialite.singular") }}',

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('apprenants.store') }}', 
         updateAttributesUrl: '{{ route('apprenants.updateAttributes') }}', 
         deleteUrl: '{{ route('apprenants.destroy',  ['apprenant' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-apprenant')),
         calculationUrl:  '{{ route('apprenants.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::apprenant.singular") }}',

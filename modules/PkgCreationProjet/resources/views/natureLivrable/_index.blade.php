@@ -21,6 +21,7 @@
         storeUrl: '{{ route('natureLivrables.store') }}', 
         updateAttributesUrl: '{{ route('natureLivrables.updateAttributes') }}', 
         deleteUrl: '{{ route('natureLivrables.destroy',  ['natureLivrable' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-natureLivrable')),
         calculationUrl:  '{{ route('natureLivrables.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::natureLivrable.singular") }}',

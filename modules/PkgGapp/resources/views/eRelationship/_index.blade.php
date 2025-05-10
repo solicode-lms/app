@@ -21,6 +21,7 @@
         storeUrl: '{{ route('eRelationships.store') }}', 
         updateAttributesUrl: '{{ route('eRelationships.updateAttributes') }}', 
         deleteUrl: '{{ route('eRelationships.destroy',  ['eRelationship' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-eRelationship')),
         calculationUrl:  '{{ route('eRelationships.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eRelationship.singular") }}',

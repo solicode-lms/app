@@ -21,6 +21,7 @@
         storeUrl: '{{ route('eMetadataDefinitions.store') }}', 
         updateAttributesUrl: '{{ route('eMetadataDefinitions.updateAttributes') }}', 
         deleteUrl: '{{ route('eMetadataDefinitions.destroy',  ['eMetadataDefinition' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-eMetadataDefinition')),
         calculationUrl:  '{{ route('eMetadataDefinitions.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eMetadataDefinition.singular") }}',

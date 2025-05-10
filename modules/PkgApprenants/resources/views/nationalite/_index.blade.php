@@ -21,6 +21,7 @@
         storeUrl: '{{ route('nationalites.store') }}', 
         updateAttributesUrl: '{{ route('nationalites.updateAttributes') }}', 
         deleteUrl: '{{ route('nationalites.destroy',  ['nationalite' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-nationalite')),
         calculationUrl:  '{{ route('nationalites.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::nationalite.singular") }}',

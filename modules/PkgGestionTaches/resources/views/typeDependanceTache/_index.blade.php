@@ -21,6 +21,7 @@
         storeUrl: '{{ route('typeDependanceTaches.store') }}', 
         updateAttributesUrl: '{{ route('typeDependanceTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('typeDependanceTaches.destroy',  ['typeDependanceTache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-typeDependanceTache')),
         calculationUrl:  '{{ route('typeDependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }}',

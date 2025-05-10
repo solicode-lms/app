@@ -21,6 +21,7 @@
         storeUrl: '{{ route('workflowChapitres.store') }}', 
         updateAttributesUrl: '{{ route('workflowChapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowChapitres.destroy',  ['workflowChapitre' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-workflowChapitre')),
         calculationUrl:  '{{ route('workflowChapitres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutoformation::workflowChapitre.singular") }}',

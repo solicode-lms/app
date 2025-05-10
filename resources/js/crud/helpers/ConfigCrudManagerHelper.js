@@ -24,6 +24,10 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
         this.createTitle = config.create_title;
         this.calculationUrl = config.calculationUrl;
 
+
+        this.canEdit = config.canEdit;
+
+
         this.searchInputSelector = `${this.crudSelector} .crud-search-input`;
         this.paginationSelector = `${this.crudSelector} .pagination`;
         this.dataContainerSelector = `${this.tableSelector}`;

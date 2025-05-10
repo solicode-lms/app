@@ -21,6 +21,7 @@
         storeUrl: '{{ route('affectationProjets.store') }}', 
         updateAttributesUrl: '{{ route('affectationProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('affectationProjets.destroy',  ['affectationProjet' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-affectationProjet')),
         calculationUrl:  '{{ route('affectationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::affectationProjet.singular") }}',

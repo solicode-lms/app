@@ -80,6 +80,15 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowProjet.show_' . $itemWorkflowProjet->id])
+            </div>
+          </div>
+      </div>
+
 
             </div>
         </div>

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('etatFormations.store') }}', 
         updateAttributesUrl: '{{ route('etatFormations.updateAttributes') }}', 
         deleteUrl: '{{ route('etatFormations.destroy',  ['etatFormation' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-etatFormation')),
         calculationUrl:  '{{ route('etatFormations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutoformation::etatFormation.singular") }}',

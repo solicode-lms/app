@@ -21,6 +21,7 @@
         storeUrl: '{{ route('competences.store') }}', 
         updateAttributesUrl: '{{ route('competences.updateAttributes') }}', 
         deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-competence')),
         calculationUrl:  '{{ route('competences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::competence.singular") }}',

@@ -80,6 +80,15 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::realisationFormation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgAutoformation::realisationFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'etatFormation.show_' . $itemEtatFormation->id])
+            </div>
+          </div>
+      </div>
+
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgAutoformation::etatFormation.description')) }}</small>

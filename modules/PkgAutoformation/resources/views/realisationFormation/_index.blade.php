@@ -21,6 +21,7 @@
         storeUrl: '{{ route('realisationFormations.store') }}', 
         updateAttributesUrl: '{{ route('realisationFormations.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationFormations.destroy',  ['realisationFormation' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-realisationFormation')),
         calculationUrl:  '{{ route('realisationFormations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutoformation::realisationFormation.singular") }}',

@@ -21,21 +21,6 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sys_module_id')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemWidgetUtilisateur->sys_module_id))
-          {{ number_format($itemWidgetUtilisateur->sys_module_id, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
                               
       @if($itemWidgetUtilisateur->user)
@@ -58,6 +43,32 @@
         —
       @endif
 
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemWidgetUtilisateur->titre) && $itemWidgetUtilisateur->titre !== '')
+          {{ $itemWidgetUtilisateur->titre }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemWidgetUtilisateur->sous_titre) && $itemWidgetUtilisateur->sous_titre !== '')
+          {{ $itemWidgetUtilisateur->sous_titre }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
           </div>
       </div>
   

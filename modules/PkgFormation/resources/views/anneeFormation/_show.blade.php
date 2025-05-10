@@ -47,6 +47,24 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::affectationProjet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.show_' . $itemAnneeFormation->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.show_' . $itemAnneeFormation->id])
+            </div>
+          </div>
+      </div>
+
 
             </div>
         </div>

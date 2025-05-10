@@ -21,6 +21,7 @@
         storeUrl: '{{ route('profiles.store') }}', 
         updateAttributesUrl: '{{ route('profiles.updateAttributes') }}', 
         deleteUrl: '{{ route('profiles.destroy',  ['profile' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-profile')),
         calculationUrl:  '{{ route('profiles.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::profile.singular") }}',

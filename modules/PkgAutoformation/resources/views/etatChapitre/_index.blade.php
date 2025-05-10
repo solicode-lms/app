@@ -21,6 +21,7 @@
         storeUrl: '{{ route('etatChapitres.store') }}', 
         updateAttributesUrl: '{{ route('etatChapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('etatChapitres.destroy',  ['etatChapitre' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-etatChapitre')),
         calculationUrl:  '{{ route('etatChapitres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutoformation::etatChapitre.singular") }}',

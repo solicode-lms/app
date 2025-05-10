@@ -21,6 +21,7 @@
         storeUrl: '{{ route('etatsRealisationProjets.store') }}', 
         updateAttributesUrl: '{{ route('etatsRealisationProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('etatsRealisationProjets.destroy',  ['etatsRealisationProjet' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-etatsRealisationProjet')),
         calculationUrl:  '{{ route('etatsRealisationProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::etatsRealisationProjet.singular") }}',

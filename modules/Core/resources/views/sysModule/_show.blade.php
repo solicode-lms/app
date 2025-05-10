@@ -108,6 +108,33 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('Core::featureDomain.plural')) }}</small>
+            <div class="pt-2">
+                  @include('Core::featureDomain._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.show_' . $itemSysModule->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('Core::sysController.plural')) }}</small>
+            <div class="pt-2">
+                  @include('Core::sysController._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.show_' . $itemSysModule->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('Core::sysModel.plural')) }}</small>
+            <div class="pt-2">
+                  @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.show_' . $itemSysModule->id])
+            </div>
+          </div>
+      </div>
+
 
             </div>
         </div>

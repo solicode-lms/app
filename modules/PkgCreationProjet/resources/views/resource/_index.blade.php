@@ -21,6 +21,7 @@
         storeUrl: '{{ route('resources.store') }}', 
         updateAttributesUrl: '{{ route('resources.updateAttributes') }}', 
         deleteUrl: '{{ route('resources.destroy',  ['resource' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-resource')),
         calculationUrl:  '{{ route('resources.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::resource.singular") }}',

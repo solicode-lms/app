@@ -21,6 +21,7 @@
         storeUrl: '{{ route('workflowProjets.store') }}', 
         updateAttributesUrl: '{{ route('workflowProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowProjets.destroy',  ['workflowProjet' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-workflowProjet')),
         calculationUrl:  '{{ route('workflowProjets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::workflowProjet.singular") }}',

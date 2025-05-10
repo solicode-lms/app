@@ -21,6 +21,7 @@
         storeUrl: '{{ route('groupes.store') }}', 
         updateAttributesUrl: '{{ route('groupes.updateAttributes') }}', 
         deleteUrl: '{{ route('groupes.destroy',  ['groupe' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-groupe')),
         calculationUrl:  '{{ route('groupes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgApprenants::groupe.singular") }}',

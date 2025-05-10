@@ -21,6 +21,7 @@
         storeUrl: '{{ route('livrables.store') }}', 
         updateAttributesUrl: '{{ route('livrables.updateAttributes') }}', 
         deleteUrl: '{{ route('livrables.destroy',  ['livrable' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-livrable')),
         calculationUrl:  '{{ route('livrables.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::livrable.singular") }}',

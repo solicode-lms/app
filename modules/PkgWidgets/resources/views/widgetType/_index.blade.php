@@ -21,6 +21,7 @@
         storeUrl: '{{ route('widgetTypes.store') }}', 
         updateAttributesUrl: '{{ route('widgetTypes.updateAttributes') }}', 
         deleteUrl: '{{ route('widgetTypes.destroy',  ['widgetType' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-widgetType')),
         calculationUrl:  '{{ route('widgetTypes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widgetType.singular") }}',

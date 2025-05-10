@@ -21,6 +21,7 @@
         storeUrl: '{{ route('categoryTechnologies.store') }}', 
         updateAttributesUrl: '{{ route('categoryTechnologies.updateAttributes') }}', 
         deleteUrl: '{{ route('categoryTechnologies.destroy',  ['categoryTechnology' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-categoryTechnology')),
         calculationUrl:  '{{ route('categoryTechnologies.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::categoryTechnology.singular") }}',

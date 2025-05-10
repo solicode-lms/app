@@ -21,6 +21,7 @@
         storeUrl: '{{ route('userModelFilters.store') }}', 
         updateAttributesUrl: '{{ route('userModelFilters.updateAttributes') }}', 
         deleteUrl: '{{ route('userModelFilters.destroy',  ['userModelFilter' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-userModelFilter')),
         calculationUrl:  '{{ route('userModelFilters.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::userModelFilter.singular") }}',

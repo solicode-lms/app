@@ -21,6 +21,7 @@
         storeUrl: '{{ route('anneeFormations.store') }}', 
         updateAttributesUrl: '{{ route('anneeFormations.updateAttributes') }}', 
         deleteUrl: '{{ route('anneeFormations.destroy',  ['anneeFormation' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-anneeFormation')),
         calculationUrl:  '{{ route('anneeFormations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::anneeFormation.singular") }}',

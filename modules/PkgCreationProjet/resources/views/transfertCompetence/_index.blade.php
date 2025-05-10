@@ -21,6 +21,7 @@
         storeUrl: '{{ route('transfertCompetences.store') }}', 
         updateAttributesUrl: '{{ route('transfertCompetences.updateAttributes') }}', 
         deleteUrl: '{{ route('transfertCompetences.destroy',  ['transfertCompetence' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-transfertCompetence')),
         calculationUrl:  '{{ route('transfertCompetences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationProjet::transfertCompetence.singular") }}',

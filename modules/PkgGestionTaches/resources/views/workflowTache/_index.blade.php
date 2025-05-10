@@ -21,6 +21,7 @@
         storeUrl: '{{ route('workflowTaches.store') }}', 
         updateAttributesUrl: '{{ route('workflowTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowTaches.destroy',  ['workflowTache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-workflowTache')),
         calculationUrl:  '{{ route('workflowTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::workflowTache.singular") }}',

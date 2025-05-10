@@ -21,6 +21,7 @@
         storeUrl: '{{ route('taches.store') }}', 
         updateAttributesUrl: '{{ route('taches.updateAttributes') }}', 
         deleteUrl: '{{ route('taches.destroy',  ['tache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-tache')),
         calculationUrl:  '{{ route('taches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::tache.singular") }}',

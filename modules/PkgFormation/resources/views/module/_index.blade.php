@@ -21,6 +21,7 @@
         storeUrl: '{{ route('modules.store') }}', 
         updateAttributesUrl: '{{ route('modules.updateAttributes') }}', 
         deleteUrl: '{{ route('modules.destroy',  ['module' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-module')),
         calculationUrl:  '{{ route('modules.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::module.singular") }}',

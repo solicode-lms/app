@@ -21,6 +21,7 @@
         storeUrl: '{{ route('featureDomains.store') }}', 
         updateAttributesUrl: '{{ route('featureDomains.updateAttributes') }}', 
         deleteUrl: '{{ route('featureDomains.destroy',  ['featureDomain' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-featureDomain')),
         calculationUrl:  '{{ route('featureDomains.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::featureDomain.singular") }}',

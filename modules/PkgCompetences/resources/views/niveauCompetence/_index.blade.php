@@ -21,6 +21,7 @@
         storeUrl: '{{ route('niveauCompetences.store') }}', 
         updateAttributesUrl: '{{ route('niveauCompetences.updateAttributes') }}', 
         deleteUrl: '{{ route('niveauCompetences.destroy',  ['niveauCompetence' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-niveauCompetence')),
         calculationUrl:  '{{ route('niveauCompetences.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauCompetence.singular") }}',

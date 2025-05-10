@@ -32,6 +32,19 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.icon')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemEModel->icon) && $itemEModel->icon !== '')
+          {{ $itemEModel->icon }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.is_pivot_table')) }}</small>
                               
       @if($itemEModel->is_pivot_table)
@@ -69,6 +82,42 @@
           </div>
       </div>
   
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eDataField.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.show_' . $itemEModel->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eMetadatum.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.show_' . $itemEModel->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eRelationship.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.show_' . $itemEModel->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGapp::eRelationship.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGapp::eRelationship._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eModel.show_' . $itemEModel->id])
+            </div>
+          </div>
+      </div>
 
 
             </div>

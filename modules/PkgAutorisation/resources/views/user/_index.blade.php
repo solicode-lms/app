@@ -21,6 +21,7 @@
         storeUrl: '{{ route('users.store') }}', 
         updateAttributesUrl: '{{ route('users.updateAttributes') }}', 
         deleteUrl: '{{ route('users.destroy',  ['user' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-user')),
         calculationUrl:  '{{ route('users.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::user.singular") }}',

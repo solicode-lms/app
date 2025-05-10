@@ -21,6 +21,7 @@
         storeUrl: '{{ route('niveauDifficultes.store') }}', 
         updateAttributesUrl: '{{ route('niveauDifficultes.updateAttributes') }}', 
         deleteUrl: '{{ route('niveauDifficultes.destroy',  ['niveauDifficulte' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-niveauDifficulte')),
         calculationUrl:  '{{ route('niveauDifficultes.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgCompetences::niveauDifficulte.singular") }}',

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('widgetUtilisateurs.store') }}', 
         updateAttributesUrl: '{{ route('widgetUtilisateurs.updateAttributes') }}', 
         deleteUrl: '{{ route('widgetUtilisateurs.destroy',  ['widgetUtilisateur' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-widgetUtilisateur')),
         calculationUrl:  '{{ route('widgetUtilisateurs.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::widgetUtilisateur.singular") }}',

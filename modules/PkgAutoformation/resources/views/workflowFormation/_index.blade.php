@@ -21,6 +21,7 @@
         storeUrl: '{{ route('workflowFormations.store') }}', 
         updateAttributesUrl: '{{ route('workflowFormations.updateAttributes') }}', 
         deleteUrl: '{{ route('workflowFormations.destroy',  ['workflowFormation' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-workflowFormation')),
         calculationUrl:  '{{ route('workflowFormations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutoformation::workflowFormation.singular") }}',

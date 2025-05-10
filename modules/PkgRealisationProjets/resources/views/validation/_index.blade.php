@@ -21,6 +21,7 @@
         storeUrl: '{{ route('validations.store') }}', 
         updateAttributesUrl: '{{ route('validations.updateAttributes') }}', 
         deleteUrl: '{{ route('validations.destroy',  ['validation' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-validation')),
         calculationUrl:  '{{ route('validations.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationProjets::validation.singular") }}',

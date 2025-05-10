@@ -21,6 +21,7 @@
         storeUrl: '{{ route('dependanceTaches.store') }}', 
         updateAttributesUrl: '{{ route('dependanceTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('dependanceTaches.destroy',  ['dependanceTache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-dependanceTache')),
         calculationUrl:  '{{ route('dependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::dependanceTache.singular") }}',

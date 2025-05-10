@@ -21,6 +21,7 @@
         storeUrl: '{{ route('labelRealisationTaches.store') }}', 
         updateAttributesUrl: '{{ route('labelRealisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('labelRealisationTaches.destroy',  ['labelRealisationTache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-labelRealisationTache')),
         calculationUrl:  '{{ route('labelRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::labelRealisationTache.singular") }}',

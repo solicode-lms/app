@@ -21,6 +21,7 @@
         storeUrl: '{{ route('sysColors.store') }}', 
         updateAttributesUrl: '{{ route('sysColors.updateAttributes') }}', 
         deleteUrl: '{{ route('sysColors.destroy',  ['sysColor' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-sysColor')),
         calculationUrl:  '{{ route('sysColors.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysColor.singular") }}',

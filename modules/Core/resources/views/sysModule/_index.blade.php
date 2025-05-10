@@ -21,6 +21,7 @@
         storeUrl: '{{ route('sysModules.store') }}', 
         updateAttributesUrl: '{{ route('sysModules.updateAttributes') }}', 
         deleteUrl: '{{ route('sysModules.destroy',  ['sysModule' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-sysModule')),
         calculationUrl:  '{{ route('sysModules.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("Core::sysModule.singular") }}',

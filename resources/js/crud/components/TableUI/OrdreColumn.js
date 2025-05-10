@@ -8,7 +8,9 @@ export class OrdreColumn {
     }
 
     init() {
-        this.initSortable();
+        if(this.config.canEdit){
+             this.initSortable();
+        }
     }
 
     initSortable() {

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('formateurs.store') }}', 
         updateAttributesUrl: '{{ route('formateurs.updateAttributes') }}', 
         deleteUrl: '{{ route('formateurs.destroy',  ['formateur' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-formateur')),
         calculationUrl:  '{{ route('formateurs.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::formateur.singular") }}',

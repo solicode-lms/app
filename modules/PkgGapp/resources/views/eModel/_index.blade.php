@@ -21,6 +21,7 @@
         storeUrl: '{{ route('eModels.store') }}', 
         updateAttributesUrl: '{{ route('eModels.updateAttributes') }}', 
         deleteUrl: '{{ route('eModels.destroy',  ['eModel' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-eModel')),
         calculationUrl:  '{{ route('eModels.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGapp::eModel.singular") }}',

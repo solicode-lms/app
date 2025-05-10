@@ -21,6 +21,7 @@
         storeUrl: '{{ route('notifications.store') }}', 
         updateAttributesUrl: '{{ route('notifications.updateAttributes') }}', 
         deleteUrl: '{{ route('notifications.destroy',  ['notification' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-notification')),
         calculationUrl:  '{{ route('notifications.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgNotification::notification.singular") }}',

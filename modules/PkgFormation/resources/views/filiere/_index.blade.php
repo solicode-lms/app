@@ -21,6 +21,7 @@
         storeUrl: '{{ route('filieres.store') }}', 
         updateAttributesUrl: '{{ route('filieres.updateAttributes') }}', 
         deleteUrl: '{{ route('filieres.destroy',  ['filiere' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-filiere')),
         calculationUrl:  '{{ route('filieres.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgFormation::filiere.singular") }}',

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('sectionWidgets.store') }}', 
         updateAttributesUrl: '{{ route('sectionWidgets.updateAttributes') }}', 
         deleteUrl: '{{ route('sectionWidgets.destroy',  ['sectionWidget' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-sectionWidget')),
         calculationUrl:  '{{ route('sectionWidgets.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgWidgets::sectionWidget.singular") }}',

@@ -21,6 +21,7 @@
         storeUrl: '{{ route('roles.store') }}', 
         updateAttributesUrl: '{{ route('roles.updateAttributes') }}', 
         deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-role')),
         calculationUrl:  '{{ route('roles.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgAutorisation::role.singular") }}',

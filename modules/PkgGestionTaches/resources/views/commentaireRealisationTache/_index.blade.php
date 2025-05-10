@@ -21,6 +21,7 @@
         storeUrl: '{{ route('commentaireRealisationTaches.store') }}', 
         updateAttributesUrl: '{{ route('commentaireRealisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('commentaireRealisationTaches.destroy',  ['commentaireRealisationTache' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-commentaireRealisationTache')),
         calculationUrl:  '{{ route('commentaireRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
         create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::commentaireRealisationTache.singular") }}',
