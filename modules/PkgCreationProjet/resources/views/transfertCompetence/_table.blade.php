@@ -10,9 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="competence_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::niveauDifficulte.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="note" modelname="transfertCompetence" label="{{ucfirst(__('PkgCreationProjet::transfertCompetence.note'))}}" />
+                <x-sortable-column :sortable="true" width="41" field="competence_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
+                <x-sortable-column :sortable="true" width="41" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::niveauDifficulte.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,21 +23,16 @@
                 @endphp
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}" data-id="{{$transfertCompetence->id}}">
                     <x-checkbox-row :item="$transfertCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
                     <x-field :entity="$transfertCompetence" field="competence">
                        
                          {{  $transfertCompetence->competence }}
                     </x-field>
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="niveau_difficulte_id"  data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="niveau_difficulte_id"  data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
                     <x-field :entity="$transfertCompetence" field="niveauDifficulte">
                        
                          {{  $transfertCompetence->niveauDifficulte }}
-                    </x-field>
-                    </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="note"  data-toggle="tooltip" title="{{ $transfertCompetence->note }}" >
-                    <x-field :entity="$transfertCompetence" field="note">
-                        {{ $transfertCompetence->note }}
                     </x-field>
                     </td>
                     <td class="text-right text-truncate" style="max-width: 15%;">

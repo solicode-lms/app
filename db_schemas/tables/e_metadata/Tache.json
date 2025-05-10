@@ -686,13 +686,15 @@
     },
     {
         "reference": "taches_hasMany_dependance_taches_tache_cible_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "taches_hasMany_dependance_taches_tache_cible_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "taches_hasMany_dependance_taches_tache_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "taches_hasMany_dependance_taches_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -710,8 +712,32 @@
     },
     {
         "reference": "taches_hasMany_realisation_taches_tache_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "taches_hasMany_realisation_taches_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Tache_ordre_viewShowFieldOrder",
+        "value_boolean": 1,
+        "value_integer": 11,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_ordre",
+        "e_metadata_definition_reference": "viewShowFieldOrder"
+    },
+    {
+        "reference": "Tache_priorite_tache_id_viewShowFieldOrder",
+        "value_boolean": 1,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_priorite_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldOrder"
+    },
+    {
+        "reference": "Tache_projet_id_viewShowFieldOrder",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Tache_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldOrder"
     }
 ]

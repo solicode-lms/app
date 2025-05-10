@@ -56,7 +56,8 @@
     },
     {
         "reference": "TransfertCompetence_note_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "TransfertCompetence_note",
         "e_metadata_definition_reference": "displayInTable"
     },
