@@ -37,13 +37,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::realisationTache.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-livrablesRealisation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-livrablesRealisation" role="tab" aria-controls="realisationProjet-hasmany-tabs-livrablesRealisation" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-validation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-validation" role="tab" aria-controls="realisationProjet-hasmany-tabs-validation" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::validation.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::realisationTache.plural'))}}</a>
                         </li>
 
                        
@@ -55,14 +55,14 @@
                                 @include('PkgRealisationProjets::realisationProjet._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-realisationTache-tab">
+                                @include('PkgGestionTaches::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
+                            </div>
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-livrablesRealisation" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-livrablesRealisation-tab">
                                 @include('PkgRealisationProjets::livrablesRealisation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
                             </div>
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-validation" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-validation-tab">
                                 @include('PkgRealisationProjets::validation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
-                            </div>
-                            <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-realisationTache-tab">
-                                @include('PkgGestionTaches::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
                             </div>
 
                            

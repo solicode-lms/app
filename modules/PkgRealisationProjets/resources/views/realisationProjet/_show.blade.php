@@ -34,20 +34,6 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}</small>
-                              
-      @if($itemRealisationProjet->etatsRealisationProjet)
-        {{ $itemRealisationProjet->etatsRealisationProjet }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}</small>
                             
     <span>
@@ -76,6 +62,57 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}</small>
+                              
+      @if($itemRealisationProjet->etatsRealisationProjet)
+        {{ $itemRealisationProjet->etatsRealisationProjet }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemRealisationProjet->avancement_projet))
+          {{ number_format($itemRealisationProjet->avancement_projet, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemRealisationProjet->rapport) && $itemRealisationProjet->rapport !== '')
+    {!! $itemRealisationProjet->rapport !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::realisationTache.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgGestionTaches::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
+            </div>
+          </div>
+      </div>
+
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}</small>
@@ -93,28 +130,6 @@
             </div>
           </div>
       </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::realisationTache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgGestionTaches::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemRealisationProjet->rapport) && $itemRealisationProjet->rapport !== '')
-    {!! $itemRealisationProjet->rapport !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
 
 
             </div>

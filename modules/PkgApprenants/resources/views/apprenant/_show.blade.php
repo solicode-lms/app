@@ -245,19 +245,6 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.profile_image')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->profile_image) && $itemApprenant->profile_image !== '')
-          {{ $itemApprenant->profile_image }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemApprenant->diplome) && $itemApprenant->diplome !== '')
@@ -282,29 +269,11 @@
       </div>
   
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgGestionTaches::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::realisationFormation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::realisationFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
             </div>
           </div>
       </div>

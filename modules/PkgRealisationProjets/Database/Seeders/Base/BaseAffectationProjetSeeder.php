@@ -76,10 +76,10 @@ class BaseAffectationProjetSeeder extends Seeder
                 $affectationProjetData =[
                     "projet_id" => $row["projet_id"] ?? null,
                     "groupe_id" => $row["groupe_id"] ?? null,
+                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
                     "date_debut" => $row["date_debut"] ?? null,
                     "date_fin" => $row["date_fin"] ?? null,
                     "description" => $row["description"] ?? null,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

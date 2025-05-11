@@ -31,9 +31,9 @@ class BaseRealisationProjetRequest extends FormRequest
         return [
             'affectation_projet_id' => 'required',
             'apprenant_id' => 'required',
-            'etats_realisation_projet_id' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
+            'etats_realisation_projet_id' => 'nullable',
             'rapport' => 'nullable|string'
         ];
     }
@@ -48,9 +48,9 @@ class BaseRealisationProjetRequest extends FormRequest
         return [
             'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')]),
             'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
-            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
+            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
             'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
         ];
     }

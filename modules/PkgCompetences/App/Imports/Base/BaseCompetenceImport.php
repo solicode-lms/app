@@ -60,8 +60,8 @@ class BaseCompetenceImport implements ToModel, WithHeadingRow
              'mini_code' => $values[1] ?? null,
              'nom' => $values[2] ?? null,
              'module_id' => $values[3] ?? null,
+             'description' => $values[4] ?? null,
              'reference' => $reference,
-             'description' => $values[5] ?? null,
         ]);
 
 

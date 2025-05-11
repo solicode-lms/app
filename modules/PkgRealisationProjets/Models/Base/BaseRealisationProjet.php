@@ -14,9 +14,9 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\PkgRealisationProjets\Models\Validation;
-use Modules\PkgGestionTaches\Models\RealisationTache;
 
 /**
  * Classe BaseRealisationProjet
@@ -57,7 +57,7 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'date_debut', 'date_fin', 'rapport'
+        'affectation_projet_id', 'apprenant_id', 'date_debut', 'date_fin', 'etats_realisation_projet_id', 'rapport'
     ];
     public $manyToOne = [
         'AffectationProjet' => [
@@ -112,6 +112,15 @@ class BaseRealisationProjet extends BaseModel
      *
      * @return HasMany
      */
+    public function realisationTaches(): HasMany
+    {
+        return $this->hasMany(RealisationTache::class, 'realisation_projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationProjets.
+     *
+     * @return HasMany
+     */
     public function livrablesRealisations(): HasMany
     {
         return $this->hasMany(LivrablesRealisation::class, 'realisation_projet_id', 'id');
@@ -124,15 +133,6 @@ class BaseRealisationProjet extends BaseModel
     public function validations(): HasMany
     {
         return $this->hasMany(Validation::class, 'realisation_projet_id', 'id');
-    }
-    /**
-     * Relation HasMany pour RealisationProjets.
-     *
-     * @return HasMany
-     */
-    public function realisationTaches(): HasMany
-    {
-        return $this->hasMany(RealisationTache::class, 'realisation_projet_id', 'id');
     }
 
 

@@ -101,38 +101,6 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etats_realisation_projet_id" id="bulk_field_etats_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="etats_realisation_projet_id">
-            {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="etats_realisation_projet_id" 
-            required
-            
-            
-            name="etats_realisation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($etatsRealisationProjets as $etatsRealisationProjet)
-                    <option value="{{ $etatsRealisationProjet->id }}"
-                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->etats_realisation_projet_id == $etatsRealisationProjet->id) || (old('etats_realisation_projet_id>') == $etatsRealisationProjet->id) ? 'selected' : '' }}>
-                        {{ $etatsRealisationProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('etats_realisation_projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
@@ -180,6 +148,38 @@
                 value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
 
           @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etats_realisation_projet_id" id="bulk_field_etats_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etats_realisation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="etats_realisation_projet_id" 
+            required
+            
+            
+            name="etats_realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatsRealisationProjets as $etatsRealisationProjet)
+                    <option value="{{ $etatsRealisationProjet->id }}"
+                        {{ (isset($itemRealisationProjet) && $itemRealisationProjet->etats_realisation_projet_id == $etatsRealisationProjet->id) || (old('etats_realisation_projet_id>') == $etatsRealisationProjet->id) ? 'selected' : '' }}>
+                        {{ $etatsRealisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('etats_realisation_projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

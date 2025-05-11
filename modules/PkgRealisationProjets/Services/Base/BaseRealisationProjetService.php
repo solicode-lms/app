@@ -21,9 +21,9 @@ class BaseRealisationProjetService extends BaseService
     protected $fieldsSearchable = [
         'affectation_projet_id',
         'apprenant_id',
-        'etats_realisation_projet_id',
         'date_debut',
         'date_fin',
+        'etats_realisation_projet_id',
         'rapport'
     ];
 

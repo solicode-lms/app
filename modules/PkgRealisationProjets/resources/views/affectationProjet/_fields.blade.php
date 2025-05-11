@@ -65,7 +65,7 @@
 
       @php $canEditgroupe_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="groupe_id" id="bulk_field_groupe_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -92,6 +92,38 @@
                 @endforeach
             </select>
           @error('groupe_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-3">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="annee_formation_id" id="bulk_field_annee_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="annee_formation_id">
+            {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="annee_formation_id" 
+            required
+            
+            
+            name="annee_formation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($anneeFormations as $anneeFormation)
+                    <option value="{{ $anneeFormation->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
+                        {{ $anneeFormation }}
+                    </option>
+                @endforeach
+            </select>
+          @error('annee_formation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -173,38 +205,6 @@
                 id="description"
                 placeholder="{{ __('PkgRealisationProjets::affectationProjet.description') }}">{{ $itemAffectationProjet ? $itemAffectationProjet->description : old('description') }}</textarea>
           @error('description')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="annee_formation_id" id="bulk_field_annee_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="annee_formation_id">
-            {{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="annee_formation_id" 
-            required
-            
-            
-            name="annee_formation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($anneeFormations as $anneeFormation)
-                    <option value="{{ $anneeFormation->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->annee_formation_id == $anneeFormation->id) || (old('annee_formation_id>') == $anneeFormation->id) ? 'selected' : '' }}>
-                        {{ $anneeFormation }}
-                    </option>
-                @endforeach
-            </select>
-          @error('annee_formation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

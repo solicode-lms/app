@@ -30,21 +30,21 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
         return [
             'affectation_projet_id' => 'affectation_projet_id',
             'apprenant_id' => 'apprenant_id',
-            'etats_realisation_projet_id' => 'etats_realisation_projet_id',
             'date_debut' => 'date_debut',
             'date_fin' => 'date_fin',
-            'reference' => 'reference',
+            'etats_realisation_projet_id' => 'etats_realisation_projet_id',
             'rapport' => 'rapport',
+            'reference' => 'reference',
         ];
         }else{
         return [
             'affectation_projet_id' => __('PkgRealisationProjets::realisationProjet.affectation_projet_id'),
             'apprenant_id' => __('PkgRealisationProjets::realisationProjet.apprenant_id'),
-            'etats_realisation_projet_id' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'),
             'date_debut' => __('PkgRealisationProjets::realisationProjet.date_debut'),
             'date_fin' => __('PkgRealisationProjets::realisationProjet.date_fin'),
-            'reference' => __('Core::msg.reference'),
+            'etats_realisation_projet_id' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'),
             'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -57,11 +57,11 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
             return [
                 'affectation_projet_id' => $realisationProjet->affectation_projet_id,
                 'apprenant_id' => $realisationProjet->apprenant_id,
-                'etats_realisation_projet_id' => $realisationProjet->etats_realisation_projet_id,
                 'date_debut' => $realisationProjet->date_debut,
                 'date_fin' => $realisationProjet->date_fin,
-                'reference' => $realisationProjet->reference,
+                'etats_realisation_projet_id' => $realisationProjet->etats_realisation_projet_id,
                 'rapport' => $realisationProjet->rapport,
+                'reference' => $realisationProjet->reference,
             ];
         });
     }

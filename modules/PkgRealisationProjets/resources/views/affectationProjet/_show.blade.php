@@ -18,12 +18,26 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.singular')) }}</small>
                               
       @if($itemAffectationProjet->groupe)
         {{ $itemAffectationProjet->groupe }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}</small>
+                              
+      @if($itemAffectationProjet->anneeFormation)
+        {{ $itemAffectationProjet->anneeFormation }}
       @else
         —
       @endif
@@ -75,21 +89,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::anneeFormation.singular')) }}</small>
-                              
-      @if($itemAffectationProjet->anneeFormation)
-        {{ $itemAffectationProjet->anneeFormation }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
             <div class="pt-2">

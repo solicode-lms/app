@@ -8,9 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
-use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
-use Modules\PkgAutoformation\Services\RealisationFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -167,13 +165,6 @@ class BaseApprenantController extends AdminController
         $itemApprenant = $this->apprenantService->edit($id);
 
 
-        $this->viewState->set('scope.commentaireRealisationTache.apprenant_id', $id);
-        
-
-        $commentaireRealisationTacheService =  new CommentaireRealisationTacheService();
-        $commentaireRealisationTaches_view_data = $commentaireRealisationTacheService->prepareDataForIndexView();
-        extract($commentaireRealisationTaches_view_data);
-
         $this->viewState->set('scope.realisationProjet.apprenant_id', $id);
         
 
@@ -181,18 +172,11 @@ class BaseApprenantController extends AdminController
         $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
         extract($realisationProjets_view_data);
 
-        $this->viewState->set('scope.realisationFormation.apprenant_id', $id);
-        
-
-        $realisationFormationService =  new RealisationFormationService();
-        $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
-        extract($realisationFormations_view_data);
-
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._show', array_merge(compact('itemApprenant'),$commentaireRealisationTache_compact_value, $realisationProjet_compact_value, $realisationFormation_compact_value));
+            return view('PkgApprenants::apprenant._show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value));
         }
 
-        return view('PkgApprenants::apprenant.show', array_merge(compact('itemApprenant'),$commentaireRealisationTache_compact_value, $realisationProjet_compact_value, $realisationFormation_compact_value));
+        return view('PkgApprenants::apprenant.show', array_merge(compact('itemApprenant'),$realisationProjet_compact_value));
 
     }
     /**

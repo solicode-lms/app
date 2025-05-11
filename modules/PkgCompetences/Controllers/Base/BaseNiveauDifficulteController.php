@@ -5,7 +5,6 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -159,18 +158,11 @@ class BaseNiveauDifficulteController extends AdminController
         $this->authorize('view', $itemNiveauDifficulte);
 
 
-        $this->viewState->set('scope.transfertCompetence.niveau_difficulte_id', $id);
-        
-
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
-        extract($transfertCompetences_view_data);
-
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._show', array_merge(compact('itemNiveauDifficulte'),$transfertCompetence_compact_value));
+            return view('PkgCompetences::niveauDifficulte._show', array_merge(compact('itemNiveauDifficulte'),));
         }
 
-        return view('PkgCompetences::niveauDifficulte.show', array_merge(compact('itemNiveauDifficulte'),$transfertCompetence_compact_value));
+        return view('PkgCompetences::niveauDifficulte.show', array_merge(compact('itemNiveauDifficulte'),));
 
     }
     /**

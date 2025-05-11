@@ -32,8 +32,8 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
             'mini_code' => 'mini_code',
             'nom' => 'nom',
             'module_id' => 'module_id',
-            'reference' => 'reference',
             'description' => 'description',
+            'reference' => 'reference',
         ];
         }else{
         return [
@@ -41,8 +41,8 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
             'mini_code' => __('PkgCompetences::competence.mini_code'),
             'nom' => __('PkgCompetences::competence.nom'),
             'module_id' => __('PkgCompetences::competence.module_id'),
-            'reference' => __('Core::msg.reference'),
             'description' => __('PkgCompetences::competence.description'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -57,8 +57,8 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'mini_code' => $competence->mini_code,
                 'nom' => $competence->nom,
                 'module_id' => $competence->module_id,
-                'reference' => $competence->reference,
                 'description' => $competence->description,
+                'reference' => $competence->reference,
             ];
         });
     }

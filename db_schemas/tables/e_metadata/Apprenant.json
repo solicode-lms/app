@@ -658,7 +658,9 @@
     },
     {
         "reference": "apprenants_hasMany_realisation_projets_apprenant_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -1203,7 +1205,8 @@
     },
     {
         "reference": "Apprenant_profile_image_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Apprenant_profile_image",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1401,13 +1404,15 @@
     },
     {
         "reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "apprenants_hasMany_commentaire_realisation_taches_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "apprenants_hasMany_realisation_formations_apprenant_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "apprenants_hasMany_realisation_formations_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -1416,5 +1421,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "apprenants_hasMany_realisation_projets_apprenant_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "apprenants_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "apprenants",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]
