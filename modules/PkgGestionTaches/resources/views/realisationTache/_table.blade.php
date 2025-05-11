@@ -1,4 +1,4 @@
-{{-- Ce fichier est maintenu par ESSARRAJ : afficher le button show --}}
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @section('realisationTache-table')
 <div class="card-body p-0 crud-card-body" id="realisationTaches-crud-card-body">
@@ -63,7 +63,7 @@
                         {{ $realisationTache->nombre_livrables }}
                     </x-field>
                     </td>
-                    <td class="text-right text-truncate" style="max-width: 15%;">
+                    <td class="text-right wrappable" style="max-width: 15%;">
                         @can('index-livrablesRealisation')
                             <a
                                 data-toggle="tooltip"
@@ -74,7 +74,7 @@
                                         'scope.livrable.projet_id' => $realisationTache->realisationProjet->affectationProjet->projet_id,
                                         'scope.livrablesRealisation.realisation_projet_id' => $realisationTache->realisation_projet_id,
                                 ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-file-alt"></i>
                             </a>
@@ -88,7 +88,7 @@
                                         'showIndex' => true,
                                         'contextKey' => 'projets.show',
                                 ]) }}"
-                                class="btn btn-default btn-sm context-state actionEntity showIndex"
+                                class="btn btn-default btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-laptop"></i>
                             </a>
@@ -106,7 +106,6 @@
                         @endcan
                         </x-action-button>
                         @endcan
-                        
                         @can('show-realisationTache')
                         <x-action-button :entity="$realisationTache" actionName="show">
                         @can('view', $realisationTache)
@@ -123,7 +122,7 @@
                             <form class="context-state" action="{{ route('realisationTaches.destroy',['realisationTache' => $realisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$realisationTache->id}}">
+                                <button type="submit" class="btn btn-sm btn-default d-none  d-lg-inline deleteEntity" data-id="{{$realisationTache->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
