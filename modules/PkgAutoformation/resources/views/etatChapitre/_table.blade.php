@@ -43,7 +43,7 @@
                          {{  $etatChapitre->formateur }}
                     </x-field>
                     </td>
-                    <td class="text-right text-truncate" style="max-width: 15%;">
+                    <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
@@ -73,7 +73,7 @@
                             <form class="context-state" action="{{ route('etatChapitres.destroy',['etatChapitre' => $etatChapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$etatChapitre->id}}">
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$etatChapitre->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

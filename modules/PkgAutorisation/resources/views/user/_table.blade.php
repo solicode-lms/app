@@ -43,7 +43,7 @@
                         </ul>
                     </x-field>
                     </td>
-                    <td class="text-right text-truncate" style="max-width: 15%;">
+                    <td class="text-right wrappable" style="max-width: 15%;">
                        @can('initPassword-user')
                         <a 
                         data-toggle="tooltip" 
@@ -52,7 +52,7 @@
                         data-id="{{$user->id}}" 
                         data-url="{{ route('users.initPassword', ['id' => $user->id]) }}" 
                         data-action-type="confirm"
-                        class="btn btn-default btn-sm context-state actionEntity">
+                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fa-unlock-alt"></i>
                         </a>
                         @endcan
@@ -85,7 +85,7 @@
                             <form class="context-state" action="{{ route('users.destroy',['user' => $user->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$user->id}}">
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$user->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

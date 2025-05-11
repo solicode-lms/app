@@ -42,7 +42,7 @@
                         />
                     </x-field>
                     </td>
-                    <td class="text-right text-truncate" style="max-width: 15%;">
+                    <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
@@ -72,7 +72,7 @@
                             <form class="context-state" action="{{ route('workflowChapitres.destroy',['workflowChapitre' => $workflowChapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger deleteEntity" data-id="{{$workflowChapitre->id}}">
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$workflowChapitre->id}}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
