@@ -5,6 +5,7 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
+use Modules\PkgAutoformation\Services\ChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -145,11 +146,18 @@ class BaseNiveauCompetenceController extends AdminController
         $itemNiveauCompetence = $this->niveauCompetenceService->edit($id);
 
 
+        $this->viewState->set('scope.chapitre.niveau_competence_id', $id);
+        
+
+        $chapitreService =  new ChapitreService();
+        $chapitres_view_data = $chapitreService->prepareDataForIndexView();
+        extract($chapitres_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._show', array_merge(compact('itemNiveauCompetence'),));
+            return view('PkgCompetences::niveauCompetence._show', array_merge(compact('itemNiveauCompetence'),$chapitre_compact_value));
         }
 
-        return view('PkgCompetences::niveauCompetence.show', array_merge(compact('itemNiveauCompetence'),));
+        return view('PkgCompetences::niveauCompetence.show', array_merge(compact('itemNiveauCompetence'),$chapitre_compact_value));
 
     }
     /**

@@ -7,6 +7,7 @@ use Modules\PkgAutoformation\Services\EtatChapitreService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\WorkflowChapitreService;
+use Modules\PkgAutoformation\Services\RealisationChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -168,11 +169,18 @@ class BaseEtatChapitreController extends AdminController
         $this->authorize('view', $itemEtatChapitre);
 
 
+        $this->viewState->set('scope.realisationChapitre.etat_chapitre_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._show', array_merge(compact('itemEtatChapitre'),));
+            return view('PkgAutoformation::etatChapitre._show', array_merge(compact('itemEtatChapitre'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::etatChapitre.show', array_merge(compact('itemEtatChapitre'),));
+        return view('PkgAutoformation::etatChapitre.show', array_merge(compact('itemEtatChapitre'),$realisationChapitre_compact_value));
 
     }
     /**

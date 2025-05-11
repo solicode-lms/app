@@ -10,6 +10,7 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 use Modules\PkgWidgets\Services\SectionWidgetService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgWidgets\Services\WidgetTypeService;
+use Modules\PkgWidgets\Services\WidgetUtilisateurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -170,11 +171,18 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->edit($id);
 
 
+        $this->viewState->set('scope.widgetUtilisateur.widget_id', $id);
+        
+
+        $widgetUtilisateurService =  new WidgetUtilisateurService();
+        $widgetUtilisateurs_view_data = $widgetUtilisateurService->prepareDataForIndexView();
+        extract($widgetUtilisateurs_view_data);
+
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._show', array_merge(compact('itemWidget'),));
+            return view('PkgWidgets::widget._show', array_merge(compact('itemWidget'),$widgetUtilisateur_compact_value));
         }
 
-        return view('PkgWidgets::widget.show', array_merge(compact('itemWidget'),));
+        return view('PkgWidgets::widget.show', array_merge(compact('itemWidget'),$widgetUtilisateur_compact_value));
 
     }
     /**

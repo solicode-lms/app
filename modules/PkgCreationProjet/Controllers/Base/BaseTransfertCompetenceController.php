@@ -8,6 +8,7 @@ use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -173,11 +174,18 @@ class BaseTransfertCompetenceController extends AdminController
         $this->authorize('view', $itemTransfertCompetence);
 
 
+        $this->viewState->set('scope.validation.transfert_competence_id', $id);
+        
+
+        $validationService =  new ValidationService();
+        $validations_view_data = $validationService->prepareDataForIndexView();
+        extract($validations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._show', array_merge(compact('itemTransfertCompetence'),));
+            return view('PkgCreationProjet::transfertCompetence._show', array_merge(compact('itemTransfertCompetence'),$validation_compact_value));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.show', array_merge(compact('itemTransfertCompetence'),));
+        return view('PkgCreationProjet::transfertCompetence.show', array_merge(compact('itemTransfertCompetence'),$validation_compact_value));
 
     }
     /**

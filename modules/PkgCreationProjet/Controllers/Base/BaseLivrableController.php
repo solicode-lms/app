@@ -7,6 +7,7 @@ use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -176,11 +177,18 @@ class BaseLivrableController extends AdminController
         $this->authorize('view', $itemLivrable);
 
 
+        $this->viewState->set('scope.livrablesRealisation.livrable_id', $id);
+        
+
+        $livrablesRealisationService =  new LivrablesRealisationService();
+        $livrablesRealisations_view_data = $livrablesRealisationService->prepareDataForIndexView();
+        extract($livrablesRealisations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._show', array_merge(compact('itemLivrable'),));
+            return view('PkgCreationProjet::livrable._show', array_merge(compact('itemLivrable'),$livrablesRealisation_compact_value));
         }
 
-        return view('PkgCreationProjet::livrable.show', array_merge(compact('itemLivrable'),));
+        return view('PkgCreationProjet::livrable.show', array_merge(compact('itemLivrable'),$livrablesRealisation_compact_value));
 
     }
     /**

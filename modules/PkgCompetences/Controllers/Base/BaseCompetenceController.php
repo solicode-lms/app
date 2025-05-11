@@ -8,6 +8,7 @@ use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Modules\PkgAutoformation\Services\FormationService;
+use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -166,11 +167,18 @@ class BaseCompetenceController extends AdminController
         $formations_view_data = $formationService->prepareDataForIndexView();
         extract($formations_view_data);
 
+        $this->viewState->set('scope.transfertCompetence.competence_id', $id);
+        
+
+        $transfertCompetenceService =  new TransfertCompetenceService();
+        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
+        extract($transfertCompetences_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value, $transfertCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value, $transfertCompetence_compact_value));
 
     }
     /**

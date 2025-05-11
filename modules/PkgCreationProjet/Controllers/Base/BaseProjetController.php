@@ -192,17 +192,6 @@ class BaseProjetController extends AdminController
         $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
         extract($transfertCompetences_view_data);
 
-        $this->viewState->set('scope.affectationProjet.projet_id', $id);
-        
-        // scopeDataInEditContext
-        $value = $itemProjet->getNestedValue('formateur_id');
-        $key = 'scope.groupe.formateurs.formateur_id';
-        $this->viewState->set($key, $value);
-
-        $affectationProjetService =  new AffectationProjetService();
-        $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
-        extract($affectationProjets_view_data);
-
         $this->viewState->set('scope.tache.projet_id', $id);
         
 
@@ -225,10 +214,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
     }
     /**

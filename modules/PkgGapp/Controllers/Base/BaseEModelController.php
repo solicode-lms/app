@@ -7,6 +7,7 @@ use Modules\PkgGapp\Services\EModelService;
 use Modules\PkgGapp\Services\EPackageService;
 use Modules\PkgGapp\Services\EDataFieldService;
 use Modules\PkgGapp\Services\EMetadatumService;
+use Modules\PkgGapp\Services\ERelationshipService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -161,11 +162,25 @@ class BaseEModelController extends AdminController
         $eMetadata_view_data = $eMetadatumService->prepareDataForIndexView();
         extract($eMetadata_view_data);
 
+        $this->viewState->set('scope.eRelationship.source_e_model_id', $id);
+        
+
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_view_data = $eRelationshipService->prepareDataForIndexView();
+        extract($eRelationships_view_data);
+
+        $this->viewState->set('scope.eRelationship.target_e_model_id', $id);
+        
+
+        $eRelationshipService =  new ERelationshipService();
+        $eRelationships_view_data = $eRelationshipService->prepareDataForIndexView();
+        extract($eRelationships_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value));
+            return view('PkgGapp::eModel._show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value, $eRelationship_compact_value, $eRelationship_compact_value));
         }
 
-        return view('PkgGapp::eModel.show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value));
+        return view('PkgGapp::eModel.show', array_merge(compact('itemEModel'),$eDataField_compact_value, $eMetadatum_compact_value, $eRelationship_compact_value, $eRelationship_compact_value));
 
     }
     /**

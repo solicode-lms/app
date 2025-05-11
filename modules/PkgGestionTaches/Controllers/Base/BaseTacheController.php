@@ -173,25 +173,11 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->edit($id);
 
 
-        $this->viewState->set('scope.dependanceTache.tache_id', $id);
-        
-
-        $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
-        extract($dependanceTaches_view_data);
-
-        $this->viewState->set('scope.realisationTache.tache_id', $id);
-        
-
-        $realisationTacheService =  new RealisationTacheService();
-        $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
-        extract($realisationTaches_view_data);
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._show', array_merge(compact('itemTache'),$dependanceTache_compact_value, $realisationTache_compact_value));
+            return view('PkgGestionTaches::tache._show', array_merge(compact('itemTache'),));
         }
 
-        return view('PkgGestionTaches::tache.show', array_merge(compact('itemTache'),$dependanceTache_compact_value, $realisationTache_compact_value));
+        return view('PkgGestionTaches::tache.show', array_merge(compact('itemTache'),));
 
     }
     /**

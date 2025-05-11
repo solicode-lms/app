@@ -15,6 +15,9 @@ use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
 use Modules\PkgAutoformation\Services\FormationService;
 use Modules\PkgGestionTaches\Services\PrioriteTacheService;
+use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgCompetences\Services\NiveauDifficulteService;
+use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -163,6 +166,13 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->edit($id);
 
 
+        $this->viewState->set('scope.etatsRealisationProjet.formateur_id', $id);
+        
+
+        $etatsRealisationProjetService =  new EtatsRealisationProjetService();
+        $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
+        extract($etatsRealisationProjets_view_data);
+
         $this->viewState->set('scope.chapitre.formateur_id', $id);
         
 
@@ -191,12 +201,26 @@ class BaseFormateurController extends AdminController
         $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
         extract($etatChapitres_view_data);
 
+        $this->viewState->set('scope.niveauDifficulte.formateur_id', $id);
+        
+
+        $niveauDifficulteService =  new NiveauDifficulteService();
+        $niveauDifficultes_view_data = $niveauDifficulteService->prepareDataForIndexView();
+        extract($niveauDifficultes_view_data);
+
         $this->viewState->set('scope.etatFormation.formateur_id', $id);
         
 
         $etatFormationService =  new EtatFormationService();
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
+
+        $this->viewState->set('scope.projet.formateur_id', $id);
+        
+
+        $projetService =  new ProjetService();
+        $projets_view_data = $projetService->prepareDataForIndexView();
+        extract($projets_view_data);
 
         $this->viewState->set('scope.labelRealisationTache.formateur_id', $id);
         
@@ -220,10 +244,10 @@ class BaseFormateurController extends AdminController
         extract($prioriteTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
-        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
     }
     /**

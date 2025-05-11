@@ -7,6 +7,7 @@ use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -168,11 +169,18 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->authorize('view', $itemEtatRealisationTache);
 
 
+        $this->viewState->set('scope.realisationTache.etat_realisation_tache_id', $id);
+        
+
+        $realisationTacheService =  new RealisationTacheService();
+        $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
+        extract($realisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._show', array_merge(compact('itemEtatRealisationTache'),));
+            return view('PkgGestionTaches::etatRealisationTache._show', array_merge(compact('itemEtatRealisationTache'),$realisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.show', array_merge(compact('itemEtatRealisationTache'),));
+        return view('PkgGestionTaches::etatRealisationTache.show', array_merge(compact('itemEtatRealisationTache'),$realisationTache_compact_value));
 
     }
     /**

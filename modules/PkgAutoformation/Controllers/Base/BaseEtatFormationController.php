@@ -7,6 +7,7 @@ use Modules\PkgAutoformation\Services\EtatFormationService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgAutoformation\Services\WorkflowFormationService;
+use Modules\PkgAutoformation\Services\RealisationFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -168,11 +169,18 @@ class BaseEtatFormationController extends AdminController
         $this->authorize('view', $itemEtatFormation);
 
 
+        $this->viewState->set('scope.realisationFormation.etat_formation_id', $id);
+        
+
+        $realisationFormationService =  new RealisationFormationService();
+        $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
+        extract($realisationFormations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._show', array_merge(compact('itemEtatFormation'),));
+            return view('PkgAutoformation::etatFormation._show', array_merge(compact('itemEtatFormation'),$realisationFormation_compact_value));
         }
 
-        return view('PkgAutoformation::etatFormation.show', array_merge(compact('itemEtatFormation'),));
+        return view('PkgAutoformation::etatFormation.show', array_merge(compact('itemEtatFormation'),$realisationFormation_compact_value));
 
     }
     /**
