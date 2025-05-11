@@ -182,7 +182,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgCompetences::competence.aaa')) }}
+            {{ ucfirst(__('PkgCompetences::competence.description')) }}
             
           </label>
                       <textarea rows="" cols=""

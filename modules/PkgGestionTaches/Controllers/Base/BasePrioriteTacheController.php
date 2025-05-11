@@ -5,7 +5,6 @@
 namespace Modules\PkgGestionTaches\Controllers\Base;
 use Modules\PkgGestionTaches\Services\PrioriteTacheService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgGestionTaches\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -159,18 +158,11 @@ class BasePrioriteTacheController extends AdminController
         $this->authorize('view', $itemPrioriteTache);
 
 
-        $this->viewState->set('scope.tache.priorite_tache_id', $id);
-        
-
-        $tacheService =  new TacheService();
-        $taches_view_data = $tacheService->prepareDataForIndexView();
-        extract($taches_view_data);
-
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._show', array_merge(compact('itemPrioriteTache'),$tache_compact_value));
+            return view('PkgGestionTaches::prioriteTache._show', array_merge(compact('itemPrioriteTache'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.show', array_merge(compact('itemPrioriteTache'),$tache_compact_value));
+        return view('PkgGestionTaches::prioriteTache.show', array_merge(compact('itemPrioriteTache'),));
 
     }
     /**

@@ -7,7 +7,6 @@ use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
-use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -169,18 +168,11 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->authorize('view', $itemEtatsRealisationProjet);
 
 
-        $this->viewState->set('scope.realisationProjet.etats_realisation_projet_id', $id);
-        
-
-        $realisationProjetService =  new RealisationProjetService();
-        $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
-        extract($realisationProjets_view_data);
-
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._show', array_merge(compact('itemEtatsRealisationProjet'),$realisationProjet_compact_value));
+            return view('PkgRealisationProjets::etatsRealisationProjet._show', array_merge(compact('itemEtatsRealisationProjet'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.show', array_merge(compact('itemEtatsRealisationProjet'),$realisationProjet_compact_value));
+        return view('PkgRealisationProjets::etatsRealisationProjet.show', array_merge(compact('itemEtatsRealisationProjet'),));
 
     }
     /**

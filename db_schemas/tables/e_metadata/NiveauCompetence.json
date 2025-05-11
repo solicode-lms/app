@@ -352,7 +352,8 @@
     },
     {
         "reference": "niveau_competences_hasMany_chapitres_niveau_competence_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "niveau_competences_hasMany_chapitres_niveau_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }

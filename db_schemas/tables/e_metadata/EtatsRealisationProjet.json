@@ -525,7 +525,8 @@
     },
     {
         "reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }

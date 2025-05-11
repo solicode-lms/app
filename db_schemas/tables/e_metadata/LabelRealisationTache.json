@@ -7,7 +7,8 @@
     },
     {
         "reference": "label_realisation_taches_displayInSideBar",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_model_reference": "label_realisation_taches",
         "e_metadata_definition_reference": "displayInSideBar"
     },
