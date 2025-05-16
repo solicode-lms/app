@@ -3,6 +3,8 @@
 namespace Modules\PkgGestionTaches\Services;
 
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\PkgApprenants\Models\Apprenant;
@@ -11,6 +13,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
@@ -146,6 +149,55 @@ class RealisationTacheService extends BaseRealisationTacheService
         
     }
 
+
+    /**
+     * Construit la requête pour récupérer les réalisations de tâches
+     * en état "REVISION_NECESSAIRE" et priorité inférieure.
+     *
+     * @param  int  $realisationTacheId
+     * @return Builder
+     */
+   protected function revisionsBeforePriorityQuery(int $realisationTacheId): Builder
+    {
+        $current = RealisationTache::with('tache.prioriteTache')->findOrFail($realisationTacheId);
+        $projectId = $current->realisation_projet_id;
+        $priorityOrdre = optional($current->tache->prioriteTache)->ordre;
+
+        return RealisationTache::query()
+            ->where('realisation_projet_id', $projectId)
+            ->where('id', '<>', $realisationTacheId)
+            ->whereHas('etatRealisationTache.workflowTache', function(Builder $q) {
+                $q->where('code', 'REVISION_NECESSAIRE');
+            })
+            ->whereHas('tache.prioriteTache', function(Builder $q) use ($priorityOrdre) {
+                $q->where('ordre', '<', $priorityOrdre);
+            });
+    }
+
+    /**
+     * Compte les réalisations avant priorité.
+     *
+     * @param  int  $realisationTacheId
+     * @return int
+     */
+    public function countRevisionsNecessairesBeforePriority(int $realisationTacheId): int
+    {
+        return $this->revisionsBeforePriorityQuery($realisationTacheId)
+                    ->count();
+    }
+
+    /**
+     * Récupère la liste des réalisations avant priorité.
+     *
+     * @param  int  $realisationTacheId
+     * @return Collection<int, RealisationTache>
+     */
+    public function getRevisionsNecessairesBeforePriority(int $realisationTacheId): Collection
+    {
+        return $this->revisionsBeforePriorityQuery($realisationTacheId)
+                    ->with(['tache', 'etatRealisationTache.workflowTache'])
+                    ->get();
+    }
 
 
 

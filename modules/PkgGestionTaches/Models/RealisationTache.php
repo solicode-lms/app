@@ -5,6 +5,7 @@ namespace Modules\PkgGestionTaches\Models;
 
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgGestionTaches\Models\Base\BaseRealisationTache;
+use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 class RealisationTache extends BaseRealisationTache
@@ -32,6 +33,12 @@ public function getRealisationLivrable()
     public function __toString()
     {
         return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
+    }
+
+    public function getRevisionsBeforePriority(): \Illuminate\Database\Eloquent\Collection
+    {
+        return (new RealisationTacheService)
+            ->getRevisionsNecessairesBeforePriority($this->id);
     }
 
 }
