@@ -3165,7 +3165,7 @@
         "field_order": 7,
         "db_nullable": 0,
         "db_primaryKey": 0,
-        "db_unique": 0,
+        "db_unique": 1,
         "calculable": 0,
         "description": "ManyToOne between evaluateurs and formateurs"
     },
