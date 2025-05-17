@@ -31,7 +31,7 @@ class BaseRealisationTacheRequest extends FormRequest
         return [
             'tache_id' => 'required',
             'realisation_projet_id' => 'required',
-            'dateDebut' => 'nullable',
+            'dateDebut' => 'required',
             'dateFin' => 'nullable',
             'etat_realisation_tache_id' => 'nullable',
             'note' => 'nullable',

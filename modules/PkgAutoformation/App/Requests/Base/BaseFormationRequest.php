@@ -31,9 +31,9 @@ class BaseFormationRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'lien' => 'nullable|string|max:255',
-            'competence_id' => 'nullable',
+            'competence_id' => 'required',
             'technologies' => 'nullable|array',
-            'is_officiel' => 'required|boolean',
+            'is_officiel' => 'nullable|boolean',
             'formateur_id' => 'nullable',
             'formation_officiel_id' => 'nullable',
             'description' => 'nullable|string'

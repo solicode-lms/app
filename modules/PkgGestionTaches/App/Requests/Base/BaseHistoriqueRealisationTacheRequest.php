@@ -33,7 +33,7 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
             'changement' => 'required|string',
             'realisation_tache_id' => 'required',
             'user_id' => 'nullable',
-            'isFeedback' => 'required|boolean'
+            'isFeedback' => 'nullable|boolean'
         ];
     }
 

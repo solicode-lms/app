@@ -30,7 +30,7 @@ class BaseProfileRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
             'profile_picture' => 'nullable|string|max:255',
             'bio' => 'nullable|string'

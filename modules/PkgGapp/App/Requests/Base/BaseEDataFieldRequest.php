@@ -36,10 +36,10 @@ class BaseEDataFieldRequest extends FormRequest
             'column_name' => 'required|string|max:255',
             'e_relationship_id' => 'nullable',
             'field_order' => 'required|integer',
-            'db_primaryKey' => 'required|boolean',
-            'db_nullable' => 'required|boolean',
-            'db_unique' => 'required|boolean',
-            'calculable' => 'required|boolean',
+            'db_primaryKey' => 'nullable|boolean',
+            'db_nullable' => 'nullable|boolean',
+            'db_unique' => 'nullable|boolean',
+            'calculable' => 'nullable|boolean',
             'calculable_sql' => 'nullable|string',
             'description' => 'nullable|string'
         ];

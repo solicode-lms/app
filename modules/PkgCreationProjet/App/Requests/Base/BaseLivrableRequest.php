@@ -33,7 +33,7 @@ class BaseLivrableRequest extends FormRequest
             'titre' => 'required|string|max:255',
             'projet_id' => 'required',
             'description' => 'nullable|string',
-            'is_affichable_seulement_par_formateur' => 'required|boolean',
+            'is_affichable_seulement_par_formateur' => 'nullable|boolean',
             'taches' => 'nullable|array'
         ];
     }

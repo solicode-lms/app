@@ -34,7 +34,7 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
             'description' => 'nullable|string',
             'sys_color_id' => 'nullable',
             'workflow_projet_id' => 'nullable',
-            'is_editable_by_formateur' => 'required|boolean'
+            'is_editable_by_formateur' => 'nullable|boolean'
         ];
     }
 

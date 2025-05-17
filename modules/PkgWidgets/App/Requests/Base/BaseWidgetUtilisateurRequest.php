@@ -29,12 +29,12 @@ class BaseWidgetUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ordre' => 'required|integer',
+            'ordre' => 'nullable|integer',
             'user_id' => 'required',
             'widget_id' => 'required',
             'titre' => 'nullable|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
-            'visible' => 'required|boolean'
+            'visible' => 'nullable|boolean'
         ];
     }
 

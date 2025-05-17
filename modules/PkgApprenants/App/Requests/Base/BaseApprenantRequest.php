@@ -47,7 +47,7 @@ class BaseApprenantRequest extends FormRequest
             'matricule' => 'required|string|max:255',
             'groupes' => 'nullable|array',
             'date_inscription' => 'nullable',
-            'actif' => 'required|boolean'
+            'actif' => 'nullable|boolean'
         ];
     }
 

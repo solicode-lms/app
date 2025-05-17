@@ -30,7 +30,7 @@ class BaseLivrablesRealisationRequest extends FormRequest
     {
         return [
             'livrable_id' => 'required',
-            'lien' => 'nullable|string|max:255',
+            'lien' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
             'realisation_projet_id' => 'required'
