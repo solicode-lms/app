@@ -55,6 +55,9 @@
                             <a class="nav-link" id="formateur-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-labelRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::labelRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-evaluateur-tab" data-toggle="pill" href="#formateur-hasmany-tabs-evaluateur" role="tab" aria-controls="formateur-hasmany-tabs-evaluateur" aria-selected="false">{{ucfirst(__('PkgValidationProjets::evaluateur.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-formation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-formation" role="tab" aria-controls="formateur-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -87,6 +90,9 @@
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-labelRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-labelRealisationTache-tab">
                                 @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-evaluateur" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-evaluateur-tab">
+                                @include('PkgValidationProjets::evaluateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-formation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-formation-tab">
                                 @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])

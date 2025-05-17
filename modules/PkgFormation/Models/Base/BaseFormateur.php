@@ -23,6 +23,7 @@ use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgAutoformation\Models\Formation;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
 
@@ -170,6 +171,15 @@ class BaseFormateur extends BaseModel
     public function labelRealisationTaches(): HasMany
     {
         return $this->hasMany(LabelRealisationTache::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function evaluateurs(): HasMany
+    {
+        return $this->hasMany(Evaluateur::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.

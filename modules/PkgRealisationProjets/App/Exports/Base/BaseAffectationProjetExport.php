@@ -34,6 +34,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'date_debut' => 'date_debut',
             'date_fin' => 'date_fin',
             'description' => 'description',
+            'is_formateur_evaluateur' => 'is_formateur_evaluateur',
             'reference' => 'reference',
         ];
         }else{
@@ -44,6 +45,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'date_debut' => __('PkgRealisationProjets::affectationProjet.date_debut'),
             'date_fin' => __('PkgRealisationProjets::affectationProjet.date_fin'),
             'description' => __('PkgRealisationProjets::affectationProjet.description'),
+            'is_formateur_evaluateur' => __('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur'),
             'reference' => __('Core::msg.reference'),
         ];
 
@@ -61,6 +63,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => $affectationProjet->date_debut,
                 'date_fin' => $affectationProjet->date_fin,
                 'description' => $affectationProjet->description,
+                'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur,
                 'reference' => $affectationProjet->reference,
             ];
         });

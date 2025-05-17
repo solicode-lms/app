@@ -80,6 +80,7 @@ class BaseAffectationProjetSeeder extends Seeder
                     "date_debut" => $row["date_debut"] ?? null,
                     "date_fin" => $row["date_fin"] ?? null,
                     "description" => $row["description"] ?? null,
+                    "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

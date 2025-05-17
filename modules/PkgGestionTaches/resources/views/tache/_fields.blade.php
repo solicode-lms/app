@@ -232,6 +232,34 @@
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note">
+            {{ ucfirst(__('PkgGestionTaches::tache.note')) }}
+            
+          </label>
+              <input
+        name="note"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note"
+        step="0.01"
+        placeholder="{{ __('PkgGestionTaches::tache.note') }}"
+        value="{{ $itemTache ? number_format($itemTache->note, 2, '.', '') : old('note') }}">
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="livrables" id="bulk_field_livrables" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif

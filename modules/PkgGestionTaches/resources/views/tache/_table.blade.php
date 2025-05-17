@@ -13,9 +13,10 @@
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.ordre'))}}" />
                 <x-sortable-column :sortable="true" width="20"  field="titre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.titre'))}}" />
                 <x-sortable-column :sortable="true" width="8" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.priorite_tache_id'))}}" />
-                <x-sortable-column :sortable="true" width="16.333333333333332" field="projet_id" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.333333333333332"  field="dateFin" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.dateFin'))}}" />
-                <x-sortable-column :sortable="true" width="16.333333333333332"  field="livrables" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}" />
+                <x-sortable-column :sortable="true" width="12.25" field="projet_id" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
+                <x-sortable-column :sortable="true" width="12.25"  field="dateFin" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.dateFin'))}}" />
+                <x-sortable-column :sortable="true" width="12.25"  field="note" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.note'))}}" />
+                <x-sortable-column :sortable="true" width="12.25"  field="livrables" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -45,18 +46,23 @@
                          {{  $tache->prioriteTache }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
+                    <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
                     <x-field :entity="$tache" field="projet">
                        
                          {{  $tache->projet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="dateFin"  data-toggle="tooltip" title="{{ $tache->dateFin }}" >
+                    <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="dateFin"  data-toggle="tooltip" title="{{ $tache->dateFin }}" >
                     <x-field :entity="$tache" field="dateFin">
                         <x-deadline-display :value="$tache->dateFin" />
                     </x-field>
                     </td>
-                    <td style="max-width: 16.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
+                    <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
+                    <x-field :entity="$tache" field="note">
+                        {{ $tache->note }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
                     <x-field :entity="$tache" field="livrables">
                         <ul>
                             @foreach ($tache->livrables as $livrable)

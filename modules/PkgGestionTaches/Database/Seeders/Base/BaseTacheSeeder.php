@@ -81,6 +81,7 @@ class BaseTacheSeeder extends Seeder
                     "description" => $row["description"] ?? null,
                     "dateDebut" => $row["dateDebut"] ?? null,
                     "dateFin" => $row["dateFin"] ?? null,
+                    "note" => $row["note"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

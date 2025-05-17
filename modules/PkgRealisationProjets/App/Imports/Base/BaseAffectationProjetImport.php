@@ -62,6 +62,7 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
              'date_debut' => $values[3] ?? null,
              'date_fin' => $values[4] ?? null,
              'description' => $values[5] ?? null,
+             'is_formateur_evaluateur' => $values[6] ?? null,
              'reference' => $reference,
         ]);
 

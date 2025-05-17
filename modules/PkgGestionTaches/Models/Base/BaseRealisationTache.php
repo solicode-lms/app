@@ -15,6 +15,7 @@ use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 
 /**
@@ -64,7 +65,7 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'etat_realisation_tache_id', 'remarques_formateur', 'remarques_apprenant'
+        'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'note', 'etat_realisation_tache_id', 'remarques_formateur', 'remarques_apprenant'
     ];
     public $manyToOne = [
         'Tache' => [
@@ -124,6 +125,15 @@ class BaseRealisationTache extends BaseModel
     public function historiqueRealisationTaches(): HasMany
     {
         return $this->hasMany(HistoriqueRealisationTache::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
+    public function evaluationRealisationTaches(): HasMany
+    {
+        return $this->hasMany(EvaluationRealisationTache::class, 'realisation_tache_id', 'id');
     }
     /**
      * Relation HasMany pour RealisationTaches.

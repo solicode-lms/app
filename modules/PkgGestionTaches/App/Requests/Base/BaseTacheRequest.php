@@ -36,6 +36,7 @@ class BaseTacheRequest extends FormRequest
             'description' => 'nullable|string',
             'dateDebut' => 'nullable',
             'dateFin' => 'nullable',
+            'note' => 'nullable',
             'livrables' => 'nullable|array'
         ];
     }
@@ -56,6 +57,7 @@ class BaseTacheRequest extends FormRequest
             'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.description')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateFin')]),
+            'note.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.note')]),
             'livrables.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.livrables')]),
             'livrables.array' => __('validation.array', ['attribute' => __('PkgGestionTaches::Tache.livrables')])
         ];

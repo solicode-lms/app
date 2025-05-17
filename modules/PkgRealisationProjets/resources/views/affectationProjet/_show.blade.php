@@ -89,6 +89,19 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur')) }}</small>
+                              
+      @if($itemAffectationProjet->is_formateur_evaluateur)
+        <span class="badge badge-success">{{ __('Oui') }}</span>
+      @else
+        <span class="badge badge-secondary">{{ __('Non') }}</span>
+      @endif
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
@@ -97,6 +110,25 @@
             </div>
           </div>
       </div>
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.plural')) }}</small>
+                              <!-- Valeurs many-to-many -->
+        @if($itemAffectationProjet->evaluateurs->isNotEmpty())
+          <div>
+            @foreach($itemAffectationProjet->evaluateurs as $evaluateur)
+              <span class="badge badge-info mr-1">
+                {{ $evaluateur }}
+              </span>
+            @endforeach
+          </div>
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
 
 
             </div>

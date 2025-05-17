@@ -64,6 +64,7 @@ class BaseTacheImport implements ToModel, WithHeadingRow
              'dateDebut' => $values[5] ?? null,
              'dateFin' => $values[6] ?? null,
              'reference' => $reference,
+             'note' => $values[8] ?? null,
         ]);
 
 

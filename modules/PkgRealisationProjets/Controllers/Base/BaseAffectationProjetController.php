@@ -4,6 +4,7 @@
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationProjet\Services\ProjetService;
@@ -22,14 +23,16 @@ use Modules\Core\Services\ContextState;
 class BaseAffectationProjetController extends AdminController
 {
     protected $affectationProjetService;
+    protected $evaluateurService;
     protected $anneeFormationService;
     protected $groupeService;
     protected $projetService;
 
-    public function __construct(AffectationProjetService $affectationProjetService, AnneeFormationService $anneeFormationService, GroupeService $groupeService, ProjetService $projetService) {
+    public function __construct(AffectationProjetService $affectationProjetService, EvaluateurService $evaluateurService, AnneeFormationService $anneeFormationService, GroupeService $groupeService, ProjetService $projetService) {
         parent::__construct();
         $this->service  =  $affectationProjetService;
         $this->affectationProjetService = $affectationProjetService;
+        $this->evaluateurService = $evaluateurService;
         $this->anneeFormationService = $anneeFormationService;
         $this->groupeService = $groupeService;
         $this->projetService = $projetService;
@@ -105,11 +108,12 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $evaluateurs = $this->evaluateurService->all();
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
         }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
+        return view('PkgRealisationProjets::affectationProjet.create', compact('itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -142,6 +146,7 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = true;
 
@@ -149,9 +154,9 @@ class BaseAffectationProjetController extends AdminController
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
         }
-        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'anneeFormations', 'groupes', 'projets'));
+        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
     }
     /**
      */
@@ -226,6 +231,7 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $evaluateurs = $this->evaluateurService->all();
 
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);
@@ -240,10 +246,10 @@ class BaseAffectationProjetController extends AdminController
         extract($realisationProjets_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
 
 
     }

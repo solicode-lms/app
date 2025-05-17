@@ -33,6 +33,7 @@ class BaseRealisationTacheRequest extends FormRequest
             'realisation_projet_id' => 'required',
             'dateDebut' => 'nullable',
             'dateFin' => 'nullable',
+            'note' => 'nullable',
             'etat_realisation_tache_id' => 'nullable',
             'remarques_formateur' => 'nullable|string',
             'remarques_apprenant' => 'nullable|string'
@@ -51,6 +52,7 @@ class BaseRealisationTacheRequest extends FormRequest
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.realisation_projet_id')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateFin')]),
+            'note.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.note')]),
             'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.etat_realisation_tache_id')]),
             'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.remarques_formateur')]),
             'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.remarques_apprenant')])

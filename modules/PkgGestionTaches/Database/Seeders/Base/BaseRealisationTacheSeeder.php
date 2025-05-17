@@ -78,6 +78,7 @@ class BaseRealisationTacheSeeder extends Seeder
                     "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
                     "dateDebut" => $row["dateDebut"] ?? null,
                     "dateFin" => $row["dateFin"] ?? null,
+                    "note" => $row["note"] ?? null,
                     "etat_realisation_tache_id" => $row["etat_realisation_tache_id"] ?? null,
                     "remarques_formateur" => $row["remarques_formateur"] ?? null,
                     "remarques_apprenant" => $row["remarques_apprenant"] ?? null,

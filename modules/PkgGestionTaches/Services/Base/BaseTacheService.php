@@ -25,7 +25,8 @@ class BaseTacheService extends BaseService
         'projet_id',
         'description',
         'dateDebut',
-        'dateFin'
+        'dateFin',
+        'note'
     ];
 
     /**

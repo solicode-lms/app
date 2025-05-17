@@ -8,6 +8,7 @@ use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -193,11 +194,18 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
+        $this->viewState->set('scope.evaluationRealisationTache.realisation_tache_id', $id);
+        
+
+        $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
+        $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
+        extract($evaluationRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value));
+            return view('PkgGestionTaches::realisationTache._show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value, $evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value));
+        return view('PkgGestionTaches::realisationTache.show', array_merge(compact('itemRealisationTache'),$historiqueRealisationTache_compact_value, $evaluationRealisationTache_compact_value));
 
     }
     /**
@@ -227,11 +235,18 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
+        $this->viewState->set('scope.evaluationRealisationTache.realisation_tache_id', $id);
+        
+
+        $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
+        $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
+        extract($evaluationRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+            return view('PkgGestionTaches::realisationTache._edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value, $evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$historiqueRealisationTache_compact_value, $evaluationRealisationTache_compact_value));
 
 
     }

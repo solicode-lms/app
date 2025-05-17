@@ -36,6 +36,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
             'reference' => 'reference',
+            'note' => 'note',
         ];
         }else{
         return [
@@ -47,6 +48,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'dateDebut' => __('PkgGestionTaches::tache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::tache.dateFin'),
             'reference' => __('Core::msg.reference'),
+            'note' => __('PkgGestionTaches::tache.note'),
         ];
 
         }
@@ -65,6 +67,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'dateDebut' => $tache->dateDebut,
                 'dateFin' => $tache->dateFin,
                 'reference' => $tache->reference,
+                'note' => $tache->note,
             ];
         });
     }

@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\AnneeFormation;
+use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**
@@ -37,7 +38,10 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'description'
+        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'description', 'is_formateur_evaluateur'
+    ];
+    public $manyToMany = [
+        'Evaluateur' => ['relation' => 'evaluateurs' , "foreign_key" => "evaluateur_id" ]
     ];
     public $manyToOne = [
         'Projet' => [
@@ -86,6 +90,15 @@ class BaseAffectationProjet extends BaseModel
         return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour Evaluateurs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function evaluateurs()
+    {
+        return $this->belongsToMany(Evaluateur::class, 'affectation_projet_evaluateur');
+    }
 
     /**
      * Relation HasMany pour AffectationProjets.
