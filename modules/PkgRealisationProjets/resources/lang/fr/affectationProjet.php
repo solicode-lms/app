@@ -15,5 +15,6 @@ return [
     'annee_formation_id' => 'Année de formation',
     'groupe_id' => 'Groupe',
     'projet_id' => 'Projet',
-    'description' => 'Description',
+    'description' => 'Remarques',
+    'is_formateur_evaluateur' => 'Le formateur évalue le projet.'
 ];

@@ -195,33 +195,6 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="description">
-
-      <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="description">
-            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.description')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                
-                id="description"
-                placeholder="{{ __('PkgRealisationProjets::affectationProjet.description') }}">{{ $itemAffectationProjet ? $itemAffectationProjet->description : old('description') }}</textarea>
-          @error('description')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :entity="$itemAffectationProjet" field="is_formateur_evaluateur">
 
       <div class="form-group col-12 col-md-6">
@@ -280,6 +253,33 @@
                 @endforeach
             </select>
           @error('evaluateurs')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemAffectationProjet" field="description">
+
+      <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="description">
+            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                
+                id="description"
+                placeholder="{{ __('PkgRealisationProjets::affectationProjet.description') }}">{{ $itemAffectationProjet ? $itemAffectationProjet->description : old('description') }}</textarea>
+          @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

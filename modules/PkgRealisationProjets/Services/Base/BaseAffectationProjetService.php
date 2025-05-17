@@ -24,8 +24,8 @@ class BaseAffectationProjetService extends BaseService
         'annee_formation_id',
         'date_debut',
         'date_fin',
-        'description',
-        'is_formateur_evaluateur'
+        'is_formateur_evaluateur',
+        'description'
     ];
 
     /**

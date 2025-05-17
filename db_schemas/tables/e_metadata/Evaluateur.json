@@ -429,7 +429,8 @@
     },
     {
         "reference": "evaluateurs_hasMany_evaluation_realisation_taches_evaluateur_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_taches_evaluateur_id",
         "e_metadata_definition_reference": "editHasMany"
     },

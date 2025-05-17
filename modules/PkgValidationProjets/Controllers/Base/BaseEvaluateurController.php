@@ -134,7 +134,7 @@ class BaseEvaluateurController extends AdminController
             );
         }
 
-        return redirect()->route('evaluateurs.edit',['evaluateur' => $evaluateur->id])->with(
+        return redirect()->route('evaluateurs.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $evaluateur,
@@ -179,18 +179,11 @@ class BaseEvaluateurController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
 
 
-        $this->viewState->set('scope.evaluationRealisationTache.evaluateur_id', $id);
-        
-
-        $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
-        $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
-        extract($evaluationRealisationTaches_view_data);
-
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._edit', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),$evaluationRealisationTache_compact_value));
+            return view('PkgValidationProjets::evaluateur._fields', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),));
         }
 
-        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),$evaluationRealisationTache_compact_value));
+        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),));
 
 
     }
