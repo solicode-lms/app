@@ -614,5 +614,77 @@
         "value_boolean": 1,
         "e_data_field_reference": "affectation_projets_hasMany_realisation_projets_affectation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_is_formateur_evaluateur_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "affectation_projets_evaluateurs_affectation_projet_evaluateur_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
