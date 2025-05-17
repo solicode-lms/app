@@ -56,10 +56,11 @@ class BaseEvaluationRealisationTacheImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EvaluationRealisationTache([
-             'note' => $values[0] ?? null,
-             'message' => $values[1] ?? null,
-             'evaluateur_id' => $values[2] ?? null,
-             'realisation_tache_id' => $values[3] ?? null,
+             'reference' => $reference,
+             'note' => $values[1] ?? null,
+             'message' => $values[2] ?? null,
+             'evaluateur_id' => $values[3] ?? null,
+             'realisation_tache_id' => $values[4] ?? null,
         ]);
 
 

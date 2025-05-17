@@ -28,6 +28,7 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
+            'reference' => 'reference',
             'nom' => 'nom',
             'prenom' => 'prenom',
             'email' => 'email',
@@ -37,6 +38,7 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
         ];
         }else{
         return [
+            'reference' => __('Core::msg.reference'),
             'nom' => __('PkgValidationProjets::evaluateur.nom'),
             'prenom' => __('PkgValidationProjets::evaluateur.prenom'),
             'email' => __('PkgValidationProjets::evaluateur.email'),
@@ -53,6 +55,7 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($evaluateur) {
             return [
+                'reference' => $evaluateur->reference,
                 'nom' => $evaluateur->nom,
                 'prenom' => $evaluateur->prenom,
                 'email' => $evaluateur->email,
