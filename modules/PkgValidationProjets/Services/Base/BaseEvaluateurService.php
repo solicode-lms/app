@@ -88,7 +88,17 @@ class BaseEvaluateurService extends BaseService
     }
 
 
-
+    public function initPassword(int $evaluateurId)
+    {
+        $evaluateur = $this->find($evaluateurId);
+        if (!$evaluateur) {
+            return false; 
+        }
+        $value =  $evaluateur->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)

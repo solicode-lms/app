@@ -353,7 +353,20 @@ class BaseEvaluateurController extends AdminController
         ]);
     }
     
-
+    public function initPassword(Request $request, string $id) {
+        $evaluateur = $this->evaluateurService->initPassword($id);
+        if ($request->ajax()) {
+            $message = "Le mot de passe a été modifier avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Evaluateur.index')->with(
+            'success',
+            "Le mot de passe a été modifier avec succès"
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

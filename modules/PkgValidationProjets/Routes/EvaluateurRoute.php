@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('evaluateurs/data-calcul', [EvaluateurController::class, 'dataCalcul'])->name('evaluateurs.dataCalcul');
         Route::post('evaluateurs/update-attributes', [EvaluateurController::class, 'updateAttributes'])->name('evaluateurs.updateAttributes');
-
+        Route::get('evaluateurs/initPassword/{id}', [EvaluateurController::class, 'initPassword'])->name('evaluateurs.initPassword');
+    
     
 
     });

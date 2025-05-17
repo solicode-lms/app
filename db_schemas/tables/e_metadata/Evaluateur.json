@@ -159,7 +159,8 @@
     },
     {
         "reference": "Evaluateur_email_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Evaluateur_email",
         "e_metadata_definition_reference": "required"
     },
@@ -508,5 +509,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "Evaluateur_user_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "evaluateurs_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-unlock-alt",
+                "title": "Initialiser le mot de passe",
+                "methode": "initPassword",
+                "actionType": "confirm",
+                "successMessage": "Le mot de passe a été modifier avec succès"
+            }
+        ],
+        "e_model_reference": "evaluateurs",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]
