@@ -134,7 +134,9 @@
 "PkgValidationProjets": {
     "name": "PkgValidationProjets",
     "tables": [
-        "evaluateurs"
+        "evaluateurs",
+        "evaluation_realisation_taches",
+        "affectation_projet_evaluateur"
     ]
 },
 
