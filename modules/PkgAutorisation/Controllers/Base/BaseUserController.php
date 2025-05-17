@@ -7,6 +7,7 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
 use Modules\PkgNotification\Services\NotificationService;
@@ -166,6 +167,13 @@ class BaseUserController extends AdminController
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
+        $this->viewState->set('scope.evaluateur.user_id', $id);
+        
+
+        $evaluateurService =  new EvaluateurService();
+        $evaluateurs_view_data = $evaluateurService->prepareDataForIndexView();
+        extract($evaluateurs_view_data);
+
         $this->viewState->set('scope.profile.user_id', $id);
         
 
@@ -202,10 +210,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.show', array_merge(compact('itemUser'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
     }
     /**
@@ -235,6 +243,13 @@ class BaseUserController extends AdminController
         $formateurs_view_data = $formateurService->prepareDataForIndexView();
         extract($formateurs_view_data);
 
+        $this->viewState->set('scope.evaluateur.user_id', $id);
+        
+
+        $evaluateurService =  new EvaluateurService();
+        $evaluateurs_view_data = $evaluateurService->prepareDataForIndexView();
+        extract($evaluateurs_view_data);
+
         $this->viewState->set('scope.profile.user_id', $id);
         
 
@@ -271,10 +286,10 @@ class BaseUserController extends AdminController
         extract($widgetUtilisateurs_view_data);
 
         if (request()->ajax()) {
-            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+            return view('PkgAutorisation::user._edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
 
     }

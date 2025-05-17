@@ -56,13 +56,13 @@ class BaseEvaluateurImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Evaluateur([
-             'reference' => $reference,
-             'nom' => $values[1] ?? null,
-             'prenom' => $values[2] ?? null,
-             'email' => $values[3] ?? null,
+             'nom' => $values[0] ?? null,
+             'prenom' => $values[1] ?? null,
+             'email' => $values[2] ?? null,
+             'organism' => $values[3] ?? null,
              'telephone' => $values[4] ?? null,
-             'organism' => $values[5] ?? null,
-             'formateur_id' => $values[6] ?? null,
+             'user_id' => $values[5] ?? null,
+             'reference' => $reference,
         ]);
 
 

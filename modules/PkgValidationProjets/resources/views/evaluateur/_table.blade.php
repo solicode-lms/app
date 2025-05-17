@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.nom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.prenom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.organism'))}}" />
-                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="evaluateur" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="user_id" modelname="evaluateur" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -40,10 +40,10 @@
                         {{ $evaluateur->organism }}
                     </x-field>
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $evaluateur->formateur }}" >
-                    <x-field :entity="$evaluateur" field="formateur">
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $evaluateur->user }}" >
+                    <x-field :entity="$evaluateur" field="user">
                        
-                         {{  $evaluateur->formateur }}
+                         {{  $evaluateur->user }}
                     </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

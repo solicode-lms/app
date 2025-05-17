@@ -45,19 +45,6 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.telephone')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEvaluateur->telephone) && $itemEvaluateur->telephone !== '')
-          {{ $itemEvaluateur->telephone }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.organism')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemEvaluateur->organism) && $itemEvaluateur->organism !== '')
@@ -71,10 +58,23 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.telephone')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemEvaluateur->telephone) && $itemEvaluateur->telephone !== '')
+          {{ $itemEvaluateur->telephone }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
                               
-      @if($itemEvaluateur->formateur)
-        {{ $itemEvaluateur->formateur }}
+      @if($itemEvaluateur->user)
+        {{ $itemEvaluateur->user }}
       @else
         —
       @endif

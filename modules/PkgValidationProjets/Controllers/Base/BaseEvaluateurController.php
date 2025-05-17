@@ -5,7 +5,7 @@
 namespace Modules\PkgValidationProjets\Controllers\Base;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
-use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +22,14 @@ class BaseEvaluateurController extends AdminController
 {
     protected $evaluateurService;
     protected $affectationProjetService;
-    protected $formateurService;
+    protected $userService;
 
-    public function __construct(EvaluateurService $evaluateurService, AffectationProjetService $affectationProjetService, FormateurService $formateurService) {
+    public function __construct(EvaluateurService $evaluateurService, AffectationProjetService $affectationProjetService, UserService $userService) {
         parent::__construct();
         $this->service  =  $evaluateurService;
         $this->evaluateurService = $evaluateurService;
         $this->affectationProjetService = $affectationProjetService;
-        $this->formateurService = $formateurService;
+        $this->userService = $userService;
     }
 
     /**
@@ -78,13 +78,13 @@ class BaseEvaluateurController extends AdminController
         $itemEvaluateur = $this->evaluateurService->createInstance();
         
 
-        $formateurs = $this->formateurService->all();
+        $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._fields', compact('itemEvaluateur', 'affectationProjets', 'formateurs'));
+            return view('PkgValidationProjets::evaluateur._fields', compact('itemEvaluateur', 'affectationProjets', 'users'));
         }
-        return view('PkgValidationProjets::evaluateur.create', compact('itemEvaluateur', 'affectationProjets', 'formateurs'));
+        return view('PkgValidationProjets::evaluateur.create', compact('itemEvaluateur', 'affectationProjets', 'users'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -104,7 +104,7 @@ class BaseEvaluateurController extends AdminController
          $itemEvaluateur = $this->evaluateurService->find($evaluateur_ids[0]);
          
  
-        $formateurs = $this->formateurService->all();
+        $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
         $bulkEdit = true;
@@ -113,9 +113,9 @@ class BaseEvaluateurController extends AdminController
         $itemEvaluateur = $this->evaluateurService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._fields', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'formateurs'));
+            return view('PkgValidationProjets::evaluateur._fields', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'users'));
         }
-        return view('PkgValidationProjets::evaluateur.bulk-edit', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'formateurs'));
+        return view('PkgValidationProjets::evaluateur.bulk-edit', compact('bulkEdit', 'evaluateur_ids', 'itemEvaluateur', 'affectationProjets', 'users'));
     }
     /**
      */
@@ -175,15 +175,15 @@ class BaseEvaluateurController extends AdminController
         $itemEvaluateur = $this->evaluateurService->edit($id);
 
 
-        $formateurs = $this->formateurService->all();
+        $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._fields', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),));
+            return view('PkgValidationProjets::evaluateur._fields', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),));
         }
 
-        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'formateurs'),));
+        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),));
 
 
     }

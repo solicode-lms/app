@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 
@@ -35,28 +35,28 @@ class BaseEvaluateur extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'prenom', 'email', 'telephone', 'organism', 'formateur_id'
+        'nom', 'prenom', 'email', 'organism', 'telephone', 'user_id'
     ];
     public $manyToMany = [
         'AffectationProjet' => ['relation' => 'affectationProjets' , "foreign_key" => "affectation_projet_id" ]
     ];
     public $manyToOne = [
-        'Formateur' => [
-            'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
-            "foreign_key" => "formateur_id", 
+        'User' => [
+            'model' => "Modules\\PkgAutorisation\\Models\\User",
+            'relation' => 'users' , 
+            "foreign_key" => "user_id", 
             ]
     ];
 
 
     /**
-     * Relation BelongsTo pour Formateur.
+     * Relation BelongsTo pour User.
      *
      * @return BelongsTo
      */
-    public function formateur(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**

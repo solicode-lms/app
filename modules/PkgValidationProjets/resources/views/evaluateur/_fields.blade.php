@@ -116,35 +116,6 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluateur" field="telephone">
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="telephone" id="bulk_field_telephone" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="telephone">
-            {{ ucfirst(__('PkgValidationProjets::evaluateur.telephone')) }}
-            
-          </label>
-           <input
-                name="telephone"
-                type="input"
-                class="form-control"
-                
-                
-                
-                id="telephone"
-                placeholder="{{ __('PkgValidationProjets::evaluateur.telephone') }}"
-                value="{{ $itemEvaluateur ? $itemEvaluateur->telephone : old('telephone') }}">
-          @error('telephone')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :entity="$itemEvaluateur" field="organism">
 
       <div class="form-group col-12 col-md-6">
@@ -174,34 +145,63 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluateur" field="formateur_id">
+<x-form-field :entity="$itemEvaluateur" field="telephone">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="telephone" id="bulk_field_telephone" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="formateur_id">
-            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-            <span class="text-danger">*</span>
+          <label for="telephone">
+            {{ ucfirst(__('PkgValidationProjets::evaluateur.telephone')) }}
+            
+          </label>
+           <input
+                name="telephone"
+                type="input"
+                class="form-control"
+                
+                
+                
+                id="telephone"
+                placeholder="{{ __('PkgValidationProjets::evaluateur.telephone') }}"
+                value="{{ $itemEvaluateur ? $itemEvaluateur->telephone : old('telephone') }}">
+          @error('telephone')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemEvaluateur" field="user_id">
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="user_id">
+            {{ ucfirst(__('PkgAutorisation::user.singular')) }}
+            
           </label>
                       <select 
-            id="formateur_id" 
-            required
+            id="user_id" 
             
             
-            name="formateur_id" 
+            
+            name="user_id" 
             class="form-control select2">
              <option value="">Sélectionnez une option</option>
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemEvaluateur) && $itemEvaluateur->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
-                        {{ $formateur }}
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}"
+                        {{ (isset($itemEvaluateur) && $itemEvaluateur->user_id == $user->id) || (old('user_id>') == $user->id) ? 'selected' : '' }}>
+                        {{ $user }}
                     </option>
                 @endforeach
             </select>
-          @error('formateur_id')
+          @error('user_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

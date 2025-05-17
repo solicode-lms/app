@@ -32,9 +32,9 @@ class BaseEvaluateurRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|max:255',
-            'telephone' => 'nullable|string|max:255',
             'organism' => 'nullable|string|max:255',
-            'formateur_id' => 'required',
+            'telephone' => 'nullable|string|max:255',
+            'user_id' => 'required',
             'affectationProjets' => 'nullable|array'
         ];
     }
@@ -53,11 +53,11 @@ class BaseEvaluateurRequest extends FormRequest
             'prenom.max' => __('validation.prenomMax'),
             'email.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.email')]),
             'email.max' => __('validation.emailMax'),
-            'telephone.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.telephone')]),
-            'telephone.max' => __('validation.telephoneMax'),
             'organism.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.organism')]),
             'organism.max' => __('validation.organismMax'),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.formateur_id')]),
+            'telephone.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.telephone')]),
+            'telephone.max' => __('validation.telephoneMax'),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.user_id')]),
             'affectationProjets.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::Evaluateur.affectationProjets')]),
             'affectationProjets.array' => __('validation.array', ['attribute' => __('PkgValidationProjets::Evaluateur.affectationProjets')])
         ];

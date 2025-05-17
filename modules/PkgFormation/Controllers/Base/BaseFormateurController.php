@@ -10,7 +10,6 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
 use Modules\PkgAutoformation\Services\EtatChapitreService;
 use Modules\PkgAutoformation\Services\EtatFormationService;
-use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgAutoformation\Services\FormationService;
 use Modules\PkgGestionTaches\Services\PrioriteTacheService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
@@ -230,13 +229,6 @@ class BaseFormateurController extends AdminController
         $labelRealisationTaches_view_data = $labelRealisationTacheService->prepareDataForIndexView();
         extract($labelRealisationTaches_view_data);
 
-        $this->viewState->set('scope.evaluateur.formateur_id', $id);
-        
-
-        $evaluateurService =  new EvaluateurService();
-        $evaluateurs_view_data = $evaluateurService->prepareDataForIndexView();
-        extract($evaluateurs_view_data);
-
         $this->viewState->set('scope.formation.formateur_id', $id);
         
 
@@ -252,10 +244,10 @@ class BaseFormateurController extends AdminController
         extract($prioriteTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $evaluateur_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+            return view('PkgFormation::formateur._show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
-        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $evaluateur_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+        return view('PkgFormation::formateur.show', array_merge(compact('itemFormateur'),$etatsRealisationProjet_compact_value, $chapitre_compact_value, $commentaireRealisationTache_compact_value, $etatRealisationTache_compact_value, $etatChapitre_compact_value, $niveauDifficulte_compact_value, $etatFormation_compact_value, $projet_compact_value, $labelRealisationTache_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
     }
     /**
@@ -294,13 +286,6 @@ class BaseFormateurController extends AdminController
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
 
-        $this->viewState->set('scope.evaluateur.formateur_id', $id);
-        
-
-        $evaluateurService =  new EvaluateurService();
-        $evaluateurs_view_data = $evaluateurService->prepareDataForIndexView();
-        extract($evaluateurs_view_data);
-
         $this->viewState->set('scope.formation.formateur_id', $id);
         
 
@@ -316,10 +301,10 @@ class BaseFormateurController extends AdminController
         extract($prioriteTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $evaluateur_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
-        return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $evaluateur_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+        return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $formation_compact_value, $prioriteTache_compact_value));
 
 
     }

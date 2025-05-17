@@ -201,7 +201,7 @@
     },
     {
         "reference": "Evaluateur_telephone_displayOrder",
-        "value_integer": 5,
+        "value_integer": 6,
         "e_data_field_reference": "Evaluateur_telephone",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -237,7 +237,7 @@
     },
     {
         "reference": "Evaluateur_organism_displayOrder",
-        "value_integer": 6,
+        "value_integer": 5,
         "e_data_field_reference": "Evaluateur_organism",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -272,62 +272,8 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "Evaluateur_formateur_id_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_filterable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "filterable"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_displayOrder",
-        "value_integer": 7,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "Evaluateur_formateur_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "Evaluateur_formateur_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "Evaluateur_created_at_displayOrder",
-        "value_integer": 8,
+        "value_integer": 7,
         "e_data_field_reference": "Evaluateur_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -363,7 +309,7 @@
     },
     {
         "reference": "Evaluateur_updated_at_displayOrder",
-        "value_integer": 9,
+        "value_integer": 10,
         "e_data_field_reference": "Evaluateur_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -399,7 +345,7 @@
     },
     {
         "reference": "evaluateurs_affectation_projets_affectation_projet_evaluateur_m2m_m2m_displayOrder",
-        "value_integer": 10,
+        "value_integer": 11,
         "e_data_field_reference": "evaluateurs_affectation_projets_affectation_projet_evaluateur_m2m_m2m",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -436,7 +382,7 @@
     },
     {
         "reference": "evaluateurs_hasMany_evaluation_realisation_taches_evaluateur_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 12,
         "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_taches_evaluateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -460,7 +406,7 @@
     },
     {
         "reference": "Evaluateur_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 9,
         "e_data_field_reference": "Evaluateur_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -507,5 +453,60 @@
         "value_float": 0,
         "e_data_field_reference": "Evaluateur_organism",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Evaluateur_user_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Evaluateur_user_id_required",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Evaluateur_user_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Evaluateur_user_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Evaluateur_user_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Evaluateur_user_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Evaluateur_user_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Evaluateur_user_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Evaluateur_user_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Evaluateur_user_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

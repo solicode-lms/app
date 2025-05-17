@@ -28,23 +28,23 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
      if($this->format == 'csv'){
         return [
-            'reference' => 'reference',
             'nom' => 'nom',
             'prenom' => 'prenom',
             'email' => 'email',
-            'telephone' => 'telephone',
             'organism' => 'organism',
-            'formateur_id' => 'formateur_id',
+            'telephone' => 'telephone',
+            'user_id' => 'user_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
-            'reference' => __('Core::msg.reference'),
             'nom' => __('PkgValidationProjets::evaluateur.nom'),
             'prenom' => __('PkgValidationProjets::evaluateur.prenom'),
             'email' => __('PkgValidationProjets::evaluateur.email'),
-            'telephone' => __('PkgValidationProjets::evaluateur.telephone'),
             'organism' => __('PkgValidationProjets::evaluateur.organism'),
-            'formateur_id' => __('PkgValidationProjets::evaluateur.formateur_id'),
+            'telephone' => __('PkgValidationProjets::evaluateur.telephone'),
+            'user_id' => __('PkgValidationProjets::evaluateur.user_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -55,13 +55,13 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
     {
         return $this->data->map(function ($evaluateur) {
             return [
-                'reference' => $evaluateur->reference,
                 'nom' => $evaluateur->nom,
                 'prenom' => $evaluateur->prenom,
                 'email' => $evaluateur->email,
-                'telephone' => $evaluateur->telephone,
                 'organism' => $evaluateur->organism,
-                'formateur_id' => $evaluateur->formateur_id,
+                'telephone' => $evaluateur->telephone,
+                'user_id' => $evaluateur->user_id,
+                'reference' => $evaluateur->reference,
             ];
         });
     }

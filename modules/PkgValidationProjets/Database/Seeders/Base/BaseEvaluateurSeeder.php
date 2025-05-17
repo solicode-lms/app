@@ -77,9 +77,9 @@ class BaseEvaluateurSeeder extends Seeder
                     "nom" => $row["nom"] ?? null,
                     "prenom" => $row["prenom"] ?? null,
                     "email" => $row["email"] ?? null,
-                    "telephone" => $row["telephone"] ?? null,
                     "organism" => $row["organism"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "telephone" => $row["telephone"] ?? null,
+                    "user_id" => $row["user_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

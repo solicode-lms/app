@@ -43,6 +43,9 @@
                             <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">{{ucfirst(__('PkgFormation::formateur.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="user-hasmany-tabs-evaluateur-tab" data-toggle="pill" href="#user-hasmany-tabs-evaluateur" role="tab" aria-controls="user-hasmany-tabs-evaluateur" aria-selected="false">{{ucfirst(__('PkgValidationProjets::evaluateur.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{ucfirst(__('PkgAutorisation::profile.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -72,6 +75,9 @@
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
                                 @include('PkgFormation::formateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
+                            </div>
+                            <div class="tab-pane fade" id="user-hasmany-tabs-evaluateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-evaluateur-tab">
+                                @include('PkgValidationProjets::evaluateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-profile" role="tabpanel" aria-labelledby="user-hasmany-tabs-profile-tab">
                                 @include('PkgAutorisation::profile._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])

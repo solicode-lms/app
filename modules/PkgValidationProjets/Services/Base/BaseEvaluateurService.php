@@ -22,9 +22,9 @@ class BaseEvaluateurService extends BaseService
         'nom',
         'prenom',
         'email',
-        'telephone',
         'organism',
-        'formateur_id'
+        'telephone',
+        'user_id'
     ];
 
     /**
@@ -55,8 +55,8 @@ class BaseEvaluateurService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('formateur_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
+        if (!array_key_exists('user_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
         }
 
     }

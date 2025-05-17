@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgAutorisation\Models\Profile;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgNotification\Models\Notification;
@@ -75,6 +76,15 @@ class BaseUser extends BaseModel
     public function formateurs(): HasMany
     {
         return $this->hasMany(Formateur::class, 'user_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Users.
+     *
+     * @return HasMany
+     */
+    public function evaluateurs(): HasMany
+    {
+        return $this->hasMany(Evaluateur::class, 'user_id', 'id');
     }
     /**
      * Relation HasMany pour Users.
