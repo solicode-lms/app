@@ -91,6 +91,21 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemRealisationTache->note))
+          {{ number_format($itemRealisationTache->note, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
 
             </div>
             <h6 class="text-muted mb-2">
@@ -126,22 +141,7 @@
 
             </div>
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemRealisationTache->note))
-          {{ number_format($itemRealisationTache->note, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}</small>
             <div class="pt-2">

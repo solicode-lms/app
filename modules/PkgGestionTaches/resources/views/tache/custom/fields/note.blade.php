@@ -1,0 +1,1 @@
+  {{ $entity->note }} /  {{ $entity->projet?->total_notes }}

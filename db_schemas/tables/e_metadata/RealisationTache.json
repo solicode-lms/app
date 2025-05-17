@@ -95,7 +95,7 @@
     },
     {
         "reference": "RealisationTache_reference_displayOrder",
-        "value_integer": 7,
+        "value_integer": 9,
         "e_data_field_reference": "RealisationTache_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -202,7 +202,7 @@
     },
     {
         "reference": "RealisationTache_etat_realisation_tache_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 7,
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -220,7 +220,7 @@
     },
     {
         "reference": "RealisationTache_created_at_displayOrder",
-        "value_integer": 14,
+        "value_integer": 15,
         "e_data_field_reference": "RealisationTache_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -238,7 +238,7 @@
     },
     {
         "reference": "RealisationTache_updated_at_displayOrder",
-        "value_integer": 15,
+        "value_integer": 17,
         "e_data_field_reference": "RealisationTache_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -263,7 +263,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 16,
+        "value_integer": 18,
         "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -282,7 +282,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 11,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -373,7 +373,7 @@
     },
     {
         "reference": "RealisationTache_remarques_formateur_displayOrder",
-        "value_integer": 11,
+        "value_integer": 12,
         "e_data_field_reference": "RealisationTache_remarques_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -393,7 +393,7 @@
     },
     {
         "reference": "RealisationTache_remarques_apprenant_displayOrder",
-        "value_integer": 12,
+        "value_integer": 13,
         "e_data_field_reference": "RealisationTache_remarques_apprenant",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -492,7 +492,7 @@
     },
     {
         "reference": "RealisationTache-nombre_livrables_displayOrder",
-        "value_integer": 17,
+        "value_integer": 19,
         "e_data_field_reference": "RealisationTache-nombre_livrables",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -528,7 +528,7 @@
     {
         "reference": "RealisationTache-nom_prenom_apprenant_displayOrder",
         "value_boolean": 0,
-        "value_integer": 8,
+        "value_integer": 10,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache-nom_prenom_apprenant",
         "e_metadata_definition_reference": "displayOrder"
@@ -707,7 +707,7 @@
     },
     {
         "reference": "RealisationTache-deadline_displayOrder",
-        "value_integer": 13,
+        "value_integer": 14,
         "e_data_field_reference": "RealisationTache-deadline",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1003,13 +1003,14 @@
     },
     {
         "reference": "RealisationTache_note_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache_note",
         "e_metadata_definition_reference": "displayInTable"
     },
     {
         "reference": "RealisationTache_note_displayOrder",
-        "value_integer": 6,
+        "value_integer": 8,
         "e_data_field_reference": "RealisationTache_note",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1051,7 +1052,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 16,
         "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1066,5 +1067,23 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationTache_note_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "État",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "RealisationTache_note_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur,evaluateur"
+        },
+        "e_data_field_reference": "RealisationTache_note",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

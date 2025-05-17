@@ -207,6 +207,38 @@
           @enderror
       </div>
   
+      <x-form-field :entity="$itemRealisationTache" field="note">
+      @php $canEditnote = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')); @endphp
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note">
+            {{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}
+            
+          </label>
+              <input
+        name="note"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note"
+        {{ $canEditnote ? '' : 'disabled' }}
+        step="0.01"
+        placeholder="{{ __('PkgGestionTaches::realisationTache.note') }}"
+        value="{{ $itemRealisationTache ? number_format($itemRealisationTache->note, 2, '.', '') : old('note') }}">
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+      </x-form-field>
+
+      
+  
 
 
     </div>
@@ -279,34 +311,6 @@
     
     <div class="row">
         
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="note">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}
-            
-          </label>
-              <input
-        name="note"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="note"
-        step="0.01"
-        placeholder="{{ __('PkgGestionTaches::realisationTache.note') }}"
-        value="{{ $itemRealisationTache ? number_format($itemRealisationTache->note, 2, '.', '') : old('note') }}">
-          @error('note')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-
-
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">

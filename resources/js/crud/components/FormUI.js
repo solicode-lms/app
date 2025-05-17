@@ -78,6 +78,27 @@ export class FormUI  {
             new DynamicDropdownTreatment(element,this.config);
         });
 
+
+
+       // ——————— Clamp automatique des inputs number[max] avec EventUtil ———————
+        EventUtil.bindEvent(
+        'input',
+        `${this.formSelector} input[type="number"][max]`,
+        (e) => {
+            const el   = e.target;
+            const min  = parseFloat(el.min) || 0;
+            const max  = parseFloat(el.max);
+            let   val  = parseFloat(el.value);
+
+            if (!isNaN(max)) {
+            if (val > max) el.value = max;
+            else if (val < min) el.value = min;
+            } else if (val < min) {
+            el.value = min;
+            }
+        }
+        );
+
     }
 
     disableRequiredAttributes() {

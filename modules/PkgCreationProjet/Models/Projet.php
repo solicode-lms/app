@@ -25,4 +25,14 @@ class Projet extends BaseProjet
  
 
     public static $user_column_name = "formateur_id";
+
+    /**
+     * Attribut dynamique total_notes
+     * 
+     * @return float
+     */
+    public function getTotalNotesAttribute(): float
+    {
+        return (float) $this->taches()->sum('note');
+    }
 }

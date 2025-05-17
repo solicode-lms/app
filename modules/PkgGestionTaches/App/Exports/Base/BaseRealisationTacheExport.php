@@ -32,9 +32,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
             'realisation_projet_id' => 'realisation_projet_id',
             'dateDebut' => 'dateDebut',
             'dateFin' => 'dateFin',
+            'etat_realisation_tache_id' => 'etat_realisation_tache_id',
             'note' => 'note',
             'reference' => 'reference',
-            'etat_realisation_tache_id' => 'etat_realisation_tache_id',
             'remarques_formateur' => 'remarques_formateur',
             'remarques_apprenant' => 'remarques_apprenant',
         ];
@@ -44,9 +44,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
             'realisation_projet_id' => __('PkgGestionTaches::realisationTache.realisation_projet_id'),
             'dateDebut' => __('PkgGestionTaches::realisationTache.dateDebut'),
             'dateFin' => __('PkgGestionTaches::realisationTache.dateFin'),
+            'etat_realisation_tache_id' => __('PkgGestionTaches::realisationTache.etat_realisation_tache_id'),
             'note' => __('PkgGestionTaches::realisationTache.note'),
             'reference' => __('Core::msg.reference'),
-            'etat_realisation_tache_id' => __('PkgGestionTaches::realisationTache.etat_realisation_tache_id'),
             'remarques_formateur' => __('PkgGestionTaches::realisationTache.remarques_formateur'),
             'remarques_apprenant' => __('PkgGestionTaches::realisationTache.remarques_apprenant'),
         ];
@@ -63,9 +63,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'realisation_projet_id' => $realisationTache->realisation_projet_id,
                 'dateDebut' => $realisationTache->dateDebut,
                 'dateFin' => $realisationTache->dateFin,
+                'etat_realisation_tache_id' => $realisationTache->etat_realisation_tache_id,
                 'note' => $realisationTache->note,
                 'reference' => $realisationTache->reference,
-                'etat_realisation_tache_id' => $realisationTache->etat_realisation_tache_id,
                 'remarques_formateur' => $realisationTache->remarques_formateur,
                 'remarques_apprenant' => $realisationTache->remarques_apprenant,
             ];
