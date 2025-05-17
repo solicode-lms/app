@@ -97,13 +97,13 @@
           @endif
           <label for="email">
             {{ ucfirst(__('PkgValidationProjets::evaluateur.email')) }}
-            
+            <span class="text-danger">*</span>
           </label>
            <input
                 name="email"
                 type="input"
                 class="form-control"
-                
+                required
                 
                 
                 id="email"

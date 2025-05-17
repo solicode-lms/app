@@ -34,7 +34,7 @@ class BaseEvaluateurRequest extends FormRequest
             'email' => 'required|string|max:255',
             'organism' => 'nullable|string|max:255',
             'telephone' => 'nullable|string|max:255',
-            'user_id' => 'required',
+            'user_id' => 'nullable',
             'affectationProjets' => 'nullable|array'
         ];
     }

@@ -159,7 +159,7 @@
     },
     {
         "reference": "Evaluateur_email_required",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "Evaluateur_email",
         "e_metadata_definition_reference": "required"
