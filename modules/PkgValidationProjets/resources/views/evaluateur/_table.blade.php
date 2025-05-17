@@ -10,8 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
-                <x-sortable-column :sortable="true" width="41"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.nom'))}}" />
-                <x-sortable-column :sortable="true" width="41" field="formateur_id" modelname="evaluateur" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.nom'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.prenom'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.organism'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="evaluateur" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,12 +25,22 @@
                 @endphp
                 <tr id="evaluateur-row-{{$evaluateur->id}}" data-id="{{$evaluateur->id}}">
                     <x-checkbox-row :item="$evaluateur" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $evaluateur->nom }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $evaluateur->nom }}" >
                     <x-field :entity="$evaluateur" field="nom">
                         {{ $evaluateur->nom }}
                     </x-field>
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $evaluateur->formateur }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $evaluateur->prenom }}" >
+                    <x-field :entity="$evaluateur" field="prenom">
+                        {{ $evaluateur->prenom }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="organism"  data-toggle="tooltip" title="{{ $evaluateur->organism }}" >
+                    <x-field :entity="$evaluateur" field="organism">
+                        {{ $evaluateur->organism }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $evaluateur->formateur }}" >
                     <x-field :entity="$evaluateur" field="formateur">
                        
                          {{  $evaluateur->formateur }}

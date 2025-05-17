@@ -493,5 +493,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "Evaluateur_reference",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Evaluateur_prenom_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Evaluateur_prenom",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Evaluateur_organism_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Evaluateur_organism",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]
