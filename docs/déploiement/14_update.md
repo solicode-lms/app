@@ -14,3 +14,10 @@ php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\Base\BaseRo
 php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EvaluateurSeeder
 
 ````
+
+# Ajouter permission pour le rôle : evaluateur
+
+Afficher : tous les objets
+Profile : Profile - Édition sans Ajouter
+WidgetUtilisateur : WidgetUtilisateur - Édition sans Ajouter 
+RealisationTache : RealisationTache - Édition sans Ajouter 
