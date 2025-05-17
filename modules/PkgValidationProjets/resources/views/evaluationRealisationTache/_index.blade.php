@@ -43,7 +43,7 @@
        $titre = __("PkgValidationProjets::evaluationRealisationTache.singular");
     @endphp
     <x-crud-header 
-        id="evaluationRealisationTache-crud-header" icon="fa-table"  
+        id="evaluationRealisationTache-crud-header" icon="fas fa-clipboard-list"  
         iconColor="text-info"
         title="{{ $evaluationRealisationTache_title }}"
         :breadcrumbs="[

@@ -1,8 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 
 return [
-    'name' => 'PkgValidationProjets',
-    'icon' => 'fa-table'
+    // Nom du package affiché
+    'name' => 'Validation de Projets',
+
+    // Icône FontAwesome 5 Solid (gratuit) pour symboliser l’évaluation
+    'icon' => 'fas fa-clipboard-check',
 ];

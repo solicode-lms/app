@@ -15,4 +15,12 @@ class Formateur extends BaseFormateur
     {
         return $this->matricule;
     }
+
+    /**
+     * Un Formateur a exactement un Evaluateur.
+     */
+    public function evaluateur()
+    {
+        return $this->hasOne(\Modules\PkgValidationProjets\Models\Evaluateur::class);
+    }
 }

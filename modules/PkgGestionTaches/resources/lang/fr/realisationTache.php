@@ -14,5 +14,6 @@ return [
     'nombre_livrables' => 'livrables',
     'nom_prenom_apprenant' => 'apprenant',
     'projet_title' => 'projet',
-    'deadline' => 'deadline'
+    'deadline' => 'deadline',
+    'note' => 'note'
 ];

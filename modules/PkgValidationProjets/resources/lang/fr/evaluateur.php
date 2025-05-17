@@ -1,14 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'Evaluateur',
-    'plural' => 'Evaluateurs',
-    'nom' => 'nom',
-    'prenom' => 'prenom',
-    'email' => 'email',
-    'telephone' => 'telephone',
-    'organism' => 'organism',
-    'formateur_id' => 'formateur_id',
+    // Libellés en français
+    'singular'    => 'Évaluateur',
+    'plural'      => 'Évaluateurs',
+    'nom'         => 'Nom',
+    'prenom'      => 'Prénom',
+    'email'       => 'E-mail',
+    'telephone'   => 'Téléphone',
+    'organism'    => 'Organisme',
+    'formateur_id'=> 'Formateur',
 ];

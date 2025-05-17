@@ -43,7 +43,7 @@
        $titre = __("PkgValidationProjets::evaluateur.singular");
     @endphp
     <x-crud-header 
-        id="evaluateur-crud-header" icon="fa-table"  
+        id="evaluateur-crud-header" icon="fas fa-user-check"  
         iconColor="text-info"
         title="{{ $evaluateur_title }}"
         :breadcrumbs="[
