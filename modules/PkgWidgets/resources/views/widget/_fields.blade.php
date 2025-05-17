@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemWidget" field="ordre">
+
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="icon">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="name">
 
       <div class="form-group col-12 col-md-4">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="label">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -136,7 +143,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="type_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -168,7 +177,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="model_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -200,7 +211,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="operation_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -232,7 +245,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="sys_color_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -264,7 +279,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="roles">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -296,7 +313,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="section_widget_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -328,7 +347,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemWidget" field="parameters">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -357,6 +378,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

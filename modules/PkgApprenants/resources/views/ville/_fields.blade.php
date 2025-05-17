@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemVille" field="nom">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,6 +56,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

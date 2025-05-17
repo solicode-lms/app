@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemTransfertCompetence" field="competence_id">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -60,7 +61,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTransfertCompetence" field="niveau_difficulte_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +95,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTransfertCompetence" field="technologies">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -124,7 +129,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTransfertCompetence" field="note">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -152,7 +159,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTransfertCompetence" field="projet_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -184,7 +193,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTransfertCompetence" field="question">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -209,6 +220,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemRealisationChapitre" field="date_debut">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -56,7 +57,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationChapitre" field="date_fin">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -84,7 +87,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationChapitre" field="chapitre_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -116,7 +121,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationChapitre" field="realisation_formation_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -148,7 +155,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationChapitre" field="etat_chapitre_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -180,6 +189,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemEMetadataDefinition" field="name">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadataDefinition" field="groupe">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadataDefinition" field="type">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadataDefinition" field="scope">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -136,7 +143,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadataDefinition" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -161,7 +170,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadataDefinition" field="default_value">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -186,6 +197,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

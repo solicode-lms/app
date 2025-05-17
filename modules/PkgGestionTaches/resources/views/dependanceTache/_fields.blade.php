@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemDependanceTache" field="tache_id">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -60,7 +61,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemDependanceTache" field="type_dependance_tache_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +95,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemDependanceTache" field="tache_cible_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -124,6 +129,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

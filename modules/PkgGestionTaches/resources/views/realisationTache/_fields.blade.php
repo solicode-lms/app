@@ -32,7 +32,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-              @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+        <x-form-field :entity="$itemRealisationTache" field="tache_id">
+      @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -65,7 +66,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationTache" field="realisation_projet_id">
       @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -99,6 +102,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>
@@ -110,7 +114,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        
+        <x-form-field :entity="$itemRealisationTache" field="dateDebut">
+
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -137,7 +142,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationTache" field="dateFin">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -165,6 +172,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>
@@ -176,7 +184,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        
+        <x-form-field :entity="$itemRealisationTache" field="etat_realisation_tache_id">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -207,8 +216,11 @@
           @enderror
       </div>
   
-      <x-form-field :entity="$itemRealisationTache" field="note">
+</x-form-field>
+
+<x-form-field :entity="$itemRealisationTache" field="note">
       @php $canEditnote = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')); @endphp
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -235,10 +247,8 @@
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
-      </x-form-field>
-
-      
   
+</x-form-field>
 
 
     </div>
@@ -250,7 +260,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-              @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
+        <x-form-field :entity="$itemRealisationTache" field="remarques_formateur">
+      @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -276,7 +287,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemRealisationTache" field="remarques_apprenant">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -301,6 +314,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemEvaluateur" field="nom">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="prenom">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="email">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="telephone">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -136,7 +143,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="organism">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -163,7 +172,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="formateur_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -195,7 +206,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEvaluateur" field="affectationProjets">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -227,6 +240,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

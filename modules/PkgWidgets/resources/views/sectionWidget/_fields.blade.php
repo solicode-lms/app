@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemSectionWidget" field="ordre">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemSectionWidget" field="icone">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemSectionWidget" field="titre">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemSectionWidget" field="sous_titre">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -136,7 +143,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemSectionWidget" field="sys_color_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -168,6 +177,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

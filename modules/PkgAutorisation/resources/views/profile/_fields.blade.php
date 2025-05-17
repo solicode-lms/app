@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemProfile" field="old_password">
+
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,6 +56,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
 <div class="form-group col-12 col-md-12">
@@ -95,6 +97,7 @@
             @enderror
 </div>
 
+<x-form-field :entity="$itemProfile" field="user_id">
       @php $canEdituser_id = !$itemProfile || !$itemProfile->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -128,7 +131,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemProfile" field="phone">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -155,6 +160,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

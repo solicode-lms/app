@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemPermission" field="name">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemPermission" field="guard_name">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemPermission" field="controller_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -114,7 +119,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemPermission" field="features">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -146,7 +153,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemPermission" field="roles">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -178,6 +187,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

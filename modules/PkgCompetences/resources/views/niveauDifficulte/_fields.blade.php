@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemNiveauDifficulte" field="nom">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemNiveauDifficulte" field="noteMin">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -83,7 +86,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemNiveauDifficulte" field="noteMax">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -111,7 +116,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemNiveauDifficulte" field="formateur_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -143,7 +150,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemNiveauDifficulte" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -168,6 +177,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

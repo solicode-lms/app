@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemTache" field="ordre">
+
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="titre">
 
       <div class="form-group col-12 col-md-8">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="priorite_tache_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -114,7 +119,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="projet_id">
 
       <div class="form-group col-12 col-md-4">
           @if (!empty($bulkEdit))
@@ -146,7 +153,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -171,7 +180,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="dateDebut">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -199,7 +210,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="dateFin">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -227,7 +240,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="note">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -255,7 +270,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemTache" field="livrables">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -287,6 +304,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

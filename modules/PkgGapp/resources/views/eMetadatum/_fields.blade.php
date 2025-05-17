@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemEMetadatum" field="value_boolean">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -56,7 +57,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_string">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -83,7 +86,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_integer">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -110,7 +115,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_float">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -138,7 +145,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_date">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -166,7 +175,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_datetime">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -194,7 +205,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_enum">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -221,7 +234,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_json">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -250,7 +265,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="value_text">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -275,7 +292,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="e_model_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -307,7 +326,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="e_data_field_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -339,7 +360,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEMetadatum" field="e_metadata_definition_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -371,6 +394,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

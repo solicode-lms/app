@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemModule" field="code">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemModule" field="nom">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemModule" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -107,7 +112,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemModule" field="masse_horaire">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -134,7 +141,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemModule" field="filiere_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -166,6 +175,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

@@ -32,7 +32,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        
+        <x-form-field :entity="$itemApprenant" field="nom">
+
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -58,7 +59,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="nom_arab">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -85,7 +88,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="prenom">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -112,7 +117,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="prenom_arab">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -139,7 +146,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="cin">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -166,7 +175,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="date_naissance">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -194,7 +205,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="sexe">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -221,7 +234,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="nationalite_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -253,7 +268,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="lieu_naissance">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -280,7 +297,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="niveaux_scolaire_id">
 
       <div class="form-group col-12 col-md-9">
           @if (!empty($bulkEdit))
@@ -312,6 +331,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>
@@ -323,7 +343,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        
+        <x-form-field :entity="$itemApprenant" field="tele_num">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -349,7 +370,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="user_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -381,6 +404,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>
@@ -392,7 +416,8 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        
+        <x-form-field :entity="$itemApprenant" field="matricule">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -418,7 +443,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="groupes">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -450,7 +477,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="date_inscription">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -478,7 +507,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenant" field="actif">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -506,6 +537,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

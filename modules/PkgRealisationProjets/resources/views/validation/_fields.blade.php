@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemValidation" field="transfert_competence_id">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -60,7 +61,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemValidation" field="note">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -88,7 +91,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemValidation" field="message">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -113,7 +118,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemValidation" field="is_valide">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -141,7 +148,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemValidation" field="realisation_projet_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -173,6 +182,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

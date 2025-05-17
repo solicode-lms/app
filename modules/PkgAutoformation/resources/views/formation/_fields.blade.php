@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemFormation" field="nom">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="lien">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="filiere_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -117,7 +122,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="competence_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -149,7 +156,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="technologies">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -181,7 +190,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="is_officiel">
       @php $canEditis_officiel = !$itemFormation || !$itemFormation->id || Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -211,7 +222,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="formateur_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -243,7 +256,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="formation_officiel_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -275,7 +290,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemFormation" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -300,6 +317,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

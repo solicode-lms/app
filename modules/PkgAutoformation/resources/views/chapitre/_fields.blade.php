@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemChapitre" field="nom">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="lien">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="coefficient">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -134,7 +141,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="ordre">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -161,7 +170,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="is_officiel">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -189,7 +200,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="formation_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -221,7 +234,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="niveau_competence_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -253,7 +268,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="formateur_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -285,7 +302,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="chapitre_officiel_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -317,6 +336,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

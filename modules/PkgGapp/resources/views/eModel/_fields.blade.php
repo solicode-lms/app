@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemEModel" field="name">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEModel" field="table_name">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEModel" field="is_pivot_table">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -110,7 +115,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEModel" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -135,7 +142,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEModel" field="e_package_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -167,6 +176,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

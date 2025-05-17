@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemEDataField" field="name">
+
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="e_model_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -87,7 +90,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="data_type">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -114,7 +119,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="default_value">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -141,7 +148,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="column_name">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -168,7 +177,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="e_relationship_id">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -200,7 +211,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="field_order">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -227,7 +240,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="db_primaryKey">
 
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
@@ -255,7 +270,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="db_nullable">
 
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
@@ -283,7 +300,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="db_unique">
 
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
@@ -311,7 +330,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="calculable">
 
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
@@ -339,7 +360,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="calculable_sql">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -364,7 +387,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemEDataField" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -389,6 +414,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

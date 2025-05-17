@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemApprenantKonosy" field="MatriculeEtudiant">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Nom">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Prenom">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -109,7 +114,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Sexe">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -136,7 +143,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="EtudiantActif">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -163,7 +172,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Diplome">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -190,7 +201,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Principale">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -217,7 +230,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="LibelleLong">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -244,7 +259,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="CodeDiplome">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -271,7 +288,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="DateNaissance">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -298,7 +317,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="DateInscription">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -325,7 +346,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="LieuNaissance">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -352,7 +375,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="CIN">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -379,7 +404,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="NTelephone">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -406,7 +433,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Adresse">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -431,7 +460,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Nationalite">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -458,7 +489,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Nom_Arabe">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -485,7 +518,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="Prenom_Arabe">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -512,7 +547,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemApprenantKonosy" field="NiveauScolaire">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -539,6 +576,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>

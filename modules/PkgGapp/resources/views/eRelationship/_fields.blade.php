@@ -29,7 +29,8 @@
 
     
     <div class="row">
-        
+        <x-form-field :entity="$itemERelationship" field="name">
+
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">
@@ -55,7 +56,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="type">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -82,7 +85,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="source_e_model_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -114,7 +119,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="target_e_model_id">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -146,7 +153,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="cascade_on_delete">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -174,7 +183,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="is_cascade">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -202,7 +213,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="description">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -227,7 +240,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="column_name">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -254,7 +269,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="referenced_table">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -281,7 +298,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="referenced_column">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -308,7 +327,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="through">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -335,7 +356,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="with_column">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -362,7 +385,9 @@
           @enderror
       </div>
   
+</x-form-field>
 
+<x-form-field :entity="$itemERelationship" field="morph_name">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -389,6 +414,7 @@
           @enderror
       </div>
   
+</x-form-field>
 
 
     </div>
