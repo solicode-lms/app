@@ -310,6 +310,12 @@
                 "dataScope": "filter",
                 "userModelName": "Apprenant",
                 "ownerRelationPath": "RealisationProjet.Apprenant.user"
+            },
+            {
+                "role": "evaluateur",
+                "dataScope": "scope",
+                "userModelName": "Evaluateur",
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.evaluateurs.user"
             }
         ],
         "e_model_reference": "realisation_taches",
