@@ -23,6 +23,7 @@ class BaseRealisationTacheService extends BaseService
         'realisation_projet_id',
         'dateDebut',
         'dateFin',
+        'remarque_evaluateur',
         'etat_realisation_tache_id',
         'note',
         'remarques_formateur',

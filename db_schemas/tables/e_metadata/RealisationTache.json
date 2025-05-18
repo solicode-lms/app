@@ -1170,5 +1170,41 @@
         },
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationTache_remarque_evaluateur_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationTache_remarque_evaluateur",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
