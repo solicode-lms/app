@@ -259,7 +259,7 @@ class RealisationTacheService extends BaseRealisationTacheService
          // Crée ou met à jour la note de l'évaluateur sur cette tâche
         (new EvaluationRealisationTacheService())->updateOrCreate(
             ['realisation_tache_id' => $entity->id, 'evaluateur_id' => $evaluateurId],
-            ['note' => $entity->note, 'message' => $entity->remarques_formateur]
+            ['note' => $entity->note, 'message' => $entity->remarque_evaluateur]
         );
 
         // Recalcule et met à jour la moyenne

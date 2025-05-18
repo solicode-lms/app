@@ -11,7 +11,7 @@
                 <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="note" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.note'))}}" />
-                <x-sortable-column :sortable="true" width="20"  field="remarques_formateur" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur'))}}" />
+                <x-sortable-column :sortable="true" width="20"  field="remarque_evaluateur" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur'))}}" />
 
                 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -65,9 +65,9 @@
                         {{ $realisationTache->note }}
                     </x-field>
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }}" data-id="{{$realisationTache->id}}" data-field="remarques_formateur"    >
-                    <x-field :entity="$realisationTache" field="remarques_formateur">
-                        {!! $realisationTache->remarques_formateur !!}
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }}" data-id="{{$realisationTache->id}}" data-field="remarque_evaluateur"    >
+                    <x-field :entity="$realisationTache" field="remarque_evaluateur">
+                        {!! $realisationTache->remarque_evaluateur !!}
                     </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

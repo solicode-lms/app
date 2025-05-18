@@ -11,6 +11,7 @@ return [
     'etat_realisation_tache_id' => 'État de réalisation de la tâche',
     'remarques_formateur' => 'Remarques - formateur',
     'remarques_apprenant' => 'Remarques - apprenant',
+    'remarque_evaluateur' => 'Remarques - évaluateur',
     'nombre_livrables' => 'livrables',
     'nom_prenom_apprenant' => 'apprenant',
     'projet_title' => 'projet',

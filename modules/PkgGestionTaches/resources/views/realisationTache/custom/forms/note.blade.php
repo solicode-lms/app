@@ -3,6 +3,7 @@
     use Illuminate\Support\Facades\Auth;
 
     $user = Auth::user();
+    
     $canEditnote = !$entity || !$entity->id || $user->hasAnyRole(explode(',', 'formateur,evaluateur'));
 
     // Note définie sur la tâche par défaut (peut être null)
@@ -11,12 +12,11 @@
     $myNote = $entity->note;
 
     // Récupérer la liste des évaluateurs du projet
-    $evaluateurs = $entity->realisationProjet
-        ->affectationProjet
+    $evaluateurs = $entity->realisationProjet?->affectationProjet
         ->evaluateurs
         ->pluck('id');
 
-    if ($user->hasRole('evaluateur') || $evaluateurs->contains($user->evaluateur->id)) {
+    if ($evaluateurs != null && ($user->hasRole('evaluateur') || $evaluateurs->contains($user->evaluateur?->id))) {
         $eval = $entity->evaluationRealisationTaches()
             ->where('evaluateur_id', $user->evaluateur->id)
             ->first();
