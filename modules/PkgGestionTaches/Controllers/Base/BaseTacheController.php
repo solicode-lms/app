@@ -279,7 +279,7 @@ class BaseTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->tacheService->update($id, $data);
+                $this->tacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     
