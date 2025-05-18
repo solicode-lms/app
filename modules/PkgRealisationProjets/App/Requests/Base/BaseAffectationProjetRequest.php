@@ -34,7 +34,7 @@ class BaseAffectationProjetRequest extends FormRequest
             'annee_formation_id' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'is_formateur_evaluateur' => 'required|boolean',
+            'is_formateur_evaluateur' => 'nullable|boolean',
             'evaluateurs' => 'nullable|array',
             'description' => 'nullable|string'
         ];

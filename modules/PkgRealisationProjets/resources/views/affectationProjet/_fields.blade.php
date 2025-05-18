@@ -195,36 +195,6 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="is_formateur_evaluateur">
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_formateur_evaluateur" id="bulk_field_is_formateur_evaluateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="is_formateur_evaluateur">
-            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input type="hidden" name="is_formateur_evaluateur" value="0">
-            <input
-                name="is_formateur_evaluateur"
-                type="checkbox"
-                class="form-control"
-                required
-                
-                
-                id="is_formateur_evaluateur"
-                value="1"
-                {{ old('is_formateur_evaluateur', $itemAffectationProjet ? $itemAffectationProjet->is_formateur_evaluateur : 0) ? 'checked' : '' }}>
-          @error('is_formateur_evaluateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :entity="$itemAffectationProjet" field="evaluateurs">
 
       <div class="form-group col-12 col-md-6">

@@ -21,3 +21,4 @@ Afficher : tous les objets
 Profile : Profile - Édition sans Ajouter
 WidgetUtilisateur : WidgetUtilisateur - Édition sans Ajouter 
 RealisationTache : RealisationTache - Édition sans Ajouter 
+

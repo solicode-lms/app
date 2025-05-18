@@ -617,7 +617,8 @@
     },
     {
         "reference": "AffectationProjet_is_formateur_evaluateur_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
         "e_metadata_definition_reference": "required"
     },
@@ -629,7 +630,8 @@
     },
     {
         "reference": "AffectationProjet_is_formateur_evaluateur_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -647,13 +649,15 @@
     },
     {
         "reference": "AffectationProjet_is_formateur_evaluateur_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "AffectationProjet_is_formateur_evaluateur_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AffectationProjet_is_formateur_evaluateur",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
