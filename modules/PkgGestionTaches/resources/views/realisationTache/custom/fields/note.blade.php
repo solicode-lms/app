@@ -1,36 +1,22 @@
 @php
-    use Illuminate\Support\Facades\Auth;
+    // Vérifie si l'utilisateur est évaluateur ou formateur assigné comme évaluateur
+    $currentEvalId = $entity->currentEvaluateurId();
 
-    $user = Auth::user();
+    // Note à afficher (personnelle ou moyenne)
+    $displayPrimary = $entity->getDisplayNote();
 
-    // TODO : clean et reformuler : getPersonalEval
-    // Liste des évaluateurs assignés
-    $evaluateurs = $entity->realisationProjet
-        ->affectationProjet
-        ->evaluateurs
-        ->pluck('id');
+    // Moyenne stockée dans $entity->note
+    $avgNote = $entity->getAverageNote();
 
-    // Récupère évaluation perso si l'utilisateur est évaluateur du projet
-    $personalEval = $user->hasRole('evaluateur') && $evaluateurs->contains($user->evaluateur->id)
-        ? $entity->evaluationRealisationTaches()
-            ->where('evaluateur_id', $user->evaluateur->id)
-            ->first()
-        : null;
-    $myNote = $personalEval?->note;
-
-    // Moyenne stockée dans note
-    $avgNote = number_format($entity->note, 2, '.', '');
-
-    // Valeur principale affichée : note perso si existe, sinon moyenne
-    $displayPrimary = $myNote !== null
-        ? number_format($myNote, 2, '.', '')
-        : $avgNote;
+    // Formatage
+    $displayPrimaryFmt = $displayPrimary !== null ? number_format($displayPrimary, 2, '.', '') : '—';
+    $avgNoteFmt       = $avgNote !== null ? number_format($avgNote, 2, '.', '') : '—';
 @endphp
 
 <div class="text-center align-middle">
     <div class="d-flex flex-column align-items-center">
-        <span class="font-weight-bold">{{ $displayPrimary }}</span>
-        <small class="text-muted">Moyenne : {{ $avgNote }}</small>
+        <span class="font-weight-bold">{{ $displayPrimaryFmt }}</span>
+        <small class="text-muted">Moyenne : {{ $avgNoteFmt }}</small>
     </div>
 </div>
 

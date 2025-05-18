@@ -1,34 +1,13 @@
 @php
-    use Illuminate\Support\Facades\Auth;
+    // Vérifie si l'utilisateur peut voir (évaluateur ou formateur assigné)
+    $canView = $entity->currentEvaluateurId() !== null;
 
-    $user = Auth::user();
-    // Afficher uniquement pour les évaluateurs ou formateurs présents dans la liste des évaluateurs
-    $evaluateurs = $entity->realisationProjet?->affectationProjet
-        ->evaluateurs
-        ->pluck('id');
-
-    $isEvaluatorOrAssignedFormateur = ($evaluateurs != null) &&  (
-        $user->hasRole('evaluateur') || 
-        ($user->hasRole('formateur') && $evaluateurs->contains($user->evaluateur->id))
-    );
-
-    if (! $isEvaluatorOrAssignedFormateur) {
+    if (! $canView) {
         return;
     }
 
-    // Récupère le message de l'évaluateur connecté si existant
-    $evalMessage = null;
-    if ($evaluateurs->contains($user->evaluateur->id)) {
-        $eval = $entity->evaluationRealisationTaches()
-            ->where('evaluateur_id', $user->evaluateur->id)
-            ->first();
-        $evalMessage = $eval->message ?? null;
-    }
-
-    // Message à afficher par défaut (formateur)
-    $defaultMessage = $entity->remarque_evaluateur;
-    // Choix du message final
-    $displayMessage = $evalMessage ?? $defaultMessage;
+    // Récupère le message à afficher via méthode utilitaire
+    $displayMessage = $entity->getDisplayMessage();
 @endphp
 
 <div class="form-group col-12 col-md-6">
@@ -48,17 +27,14 @@
         {{ ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur')) }}
     </label>
 
-  
-        <textarea
-            name="remarque_evaluateur"
-            id="remarque_evaluateur"
-            class="form-control richText"
-            placeholder="{{ __('PkgGestionTaches::realisationTache.remarque_evaluateur') }}"
-        >{{ old('remarque_evaluateur', $displayMessage) }}</textarea>
-  
+    <textarea
+        name="remarque_evaluateur"
+        id="remarque_evaluateur"
+        class="form-control richText"
+        placeholder="{{ __('PkgGestionTaches::realisationTache.remarque_evaluateur') }}"
+    >{{ old('remarque_evaluateur', $displayMessage) }}</textarea>
 
     @error('remarque_evaluateur')
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
-

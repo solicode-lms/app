@@ -1,45 +1,23 @@
-
 @php
     use Illuminate\Support\Facades\Auth;
 
     $user = Auth::user();
-    
-    $canEditnote = !$entity || !$entity->id || $user->hasAnyRole(explode(',', 'formateur,evaluateur'));
+    $canEditnote = !$entity || !$entity->id || $user->hasAnyRole(['formateur', 'evaluateur']);
 
-    // Note définie sur la tâche par défaut (peut être null)
-    $tacheNote = $entity->tache?->note;
-    // Note à afficher : évaluation perso si évaluateur (et formateur parmi évaluateurs), sinon note générale
-    $myNote = $entity->note;
+    // Note personnelle ou moyenne encapsulée
+    $myNote = $entity->getDisplayNote();
 
-    // Récupérer la liste des évaluateurs du projet
-    $evaluateurs = $entity->realisationProjet?->affectationProjet
-        ->evaluateurs
-        ->pluck('id');
+    // Moyenne des évaluations
+    $moyenneAffiche = $entity->getAverageNote();
 
-    if ($evaluateurs != null && ($user->hasRole('evaluateur') || $evaluateurs->contains($user->evaluateur?->id))) {
-        $eval = $entity->evaluationRealisationTaches()
-            ->where('evaluateur_id', $user->evaluateur->id)
-            ->first();
-        if ($eval && $eval->note !== null) {
-            $myNote = $eval->note;
-        }
-    }
+    // Plafond de la note (= barème max)
+    $maxNote = $entity->getMaxNote();
 
-    // Calcul de la moyenne des évaluations existantes
-    $moyenne = $entity->evaluationRealisationTaches()->avg('note');
-    $moyenneAffiche = $moyenne !== null ? number_format($moyenne, 2, '.', '') : null;
+    // Placeholder basé sur le barème
+    $inputPh = $maxNote !== null ? number_format($maxNote, 2, '.', '') : '';
 
-    // Valeur finale à afficher dans le champ
+    // Valeur à afficher dans le champ
     $inputValue = old('note', $myNote !== null ? number_format($myNote, 2, '.', '') : '');
-
-    // Placeholder : note max possible (par défaut, note de la tâche)
-    $inputPh = $tacheNote !== null
-        ? number_format($tacheNote, 2, '.', '')
-        : ($entity->note !== null ? number_format($entity->note, 2, '.', '') : '');
-
-    $maxNote = $tacheNote !== null
-        ? number_format($tacheNote, 2, '.', '')
-        : '';
 @endphp
 
 <div class="form-group col-12 col-md-6">
@@ -57,8 +35,8 @@
 
     <label for="note">
         {{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}
-        @if($moyenneAffiche)
-            <small class="text-muted">(Note moyenne actuelle : {{ $moyenneAffiche }})</small>
+        @if($moyenneAffiche !== null)
+            <small class="text-muted">(Moyenne : {{ number_format($moyenneAffiche, 2, '.', '') }})</small>
         @endif
     </label>
 
@@ -71,13 +49,11 @@
         id="note"
         {{ $canEditnote ? '' : 'disabled' }}
         step="0.25"
-        placeholder="{{ $inputPh }}"
         value="{{ $inputValue }}"
     >
 
-    {{-- Barème de notation pour UX --}}
     @if($maxNote)
-        <small class="form-text text-muted">Barème : 0 à {{ $maxNote }}</small>
+        <small class="form-text text-muted">Barème : 0 à {{ number_format($maxNote, 2, '.', '') }}</small>
     @endif
 
     @error('note')
