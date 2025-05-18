@@ -95,7 +95,7 @@ class BaseRealisationTacheController extends AdminController
            $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
         if(Auth::user()->hasRole('evaluateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
 
 
@@ -137,7 +137,7 @@ class BaseRealisationTacheController extends AdminController
            $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
         if(Auth::user()->hasRole('evaluateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
  
          $itemRealisationTache = $this->realisationTacheService->find($realisationTache_ids[0]);

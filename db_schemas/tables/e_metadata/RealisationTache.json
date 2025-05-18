@@ -314,7 +314,7 @@
             {
                 "role": "evaluateur",
                 "dataScope": "scope",
-                "userModelName": "Evaluateur",
+                "userModelName": "User",
                 "ownerRelationPath": "RealisationProjet.AffectationProjet.evaluateurs.user"
             }
         ],
