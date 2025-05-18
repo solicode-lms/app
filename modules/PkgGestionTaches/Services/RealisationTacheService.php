@@ -22,6 +22,7 @@ use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheSe
 use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheWorkflow;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -199,6 +200,45 @@ class RealisationTacheService extends BaseRealisationTacheService
                     ->get();
     }
 
+
+    /**
+     * Après la mise à jour d'une RealisationTache,
+     * on crée une EvaluationRealisationTache et on recalcule la moyenne.
+     *
+     * @param  RealisationTache  $entity  L'entité RealisationTache mise à jour
+     * @return void
+     */
+    public function afterUpdateRules(RealisationTache $entity): void
+    {
+
+        $user = Auth::user();
+        // Ne rien faire si l'utilisateur n'est pas evaluateur
+        if (! $user->hasRole(Role::EVALUATEUR_ROLE)) {
+            return;
+        }
+        $evaluateurId = $user()->evaluateur->id;
+
+
+        
+
+        // Insère une nouvelle évaluation avec la note saisie
+        (new EvaluationRealisationTacheService())->create([
+            'realisation_tache_id' => $entity->id,
+            'evaluateur_id'        => $evaluateurId,
+            'note'                 => $entity->note,
+            'message'              => $entity->remarques_formateur,
+        ]);
+
+        // Recalcule la moyenne de toutes les évaluations
+        $moyenne = $entity
+            ->evaluationRealisationTaches()
+            ->avg('note');
+
+        // Met à jour la note moyenne sur la RealisationTache
+        $entity->update([
+            'note' => round($moyenne, 2),
+        ]);
+    }
 
 
 }

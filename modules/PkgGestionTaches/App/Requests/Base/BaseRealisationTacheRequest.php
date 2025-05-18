@@ -71,9 +71,17 @@ class BaseRealisationTacheRequest extends FormRequest
             
             'realisation_projet_id' => "formateur,admin",
             
+            'dateDebut' => "apprenant,formateur,admin",
+            
+            'dateFin' => "apprenant,formateur,admin",
+            
+            'etat_realisation_tache_id' => "apprenant,formateur,admin",
+            
             'note' => "formateur,evaluateur",
             
             'remarques_formateur' => "formateur",
+            
+            'remarques_apprenant' => "apprenant,formateur,admin",
             
         ];
 

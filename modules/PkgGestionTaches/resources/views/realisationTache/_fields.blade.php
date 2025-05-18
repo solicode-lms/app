@@ -115,6 +115,7 @@
     
     <div class="row">
         <x-form-field :entity="$itemRealisationTache" field="dateDebut">
+      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -134,6 +135,7 @@
                 
                 
                 id="dateDebut"
+                {{ $canEditdateDebut ? '' : 'disabled' }}
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateDebut') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateDebut : old('dateDebut') }}">
 
@@ -145,6 +147,7 @@
 </x-form-field>
 
 <x-form-field :entity="$itemRealisationTache" field="dateFin">
+      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -164,6 +167,7 @@
                 
                 
                 id="dateFin"
+                {{ $canEditdateFin ? '' : 'disabled' }}
                 placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateFin : old('dateFin') }}">
 
@@ -185,6 +189,7 @@
     
     <div class="row">
         <x-form-field :entity="$itemRealisationTache" field="etat_realisation_tache_id">
+      @php $canEditetat_realisation_tache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -198,6 +203,7 @@
           </label>
                       <select 
             id="etat_realisation_tache_id" 
+            {{ $canEditetat_realisation_tache_id ? '' : 'disabled' }}
             
             
             
@@ -290,6 +296,7 @@
 </x-form-field>
 
 <x-form-field :entity="$itemRealisationTache" field="remarques_apprenant">
+      @php $canEditremarques_apprenant = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -304,6 +311,7 @@
                       <textarea rows="" cols=""
                 name="remarques_apprenant"
                 class="form-control richText"
+                {{ $canEditremarques_apprenant ? '' : 'disabled' }}
                 
                 
                 
@@ -325,6 +333,19 @@
     
     <div class="row">
         
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="EvaluationRealisationTache">
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgValidationProjets::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+
+
+
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">

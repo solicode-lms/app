@@ -14,8 +14,8 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
+use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 
 /**
@@ -122,18 +122,18 @@ class BaseRealisationTache extends BaseModel
      *
      * @return HasMany
      */
-    public function historiqueRealisationTaches(): HasMany
+    public function evaluationRealisationTaches(): HasMany
     {
-        return $this->hasMany(HistoriqueRealisationTache::class, 'realisation_tache_id', 'id');
+        return $this->hasMany(EvaluationRealisationTache::class, 'realisation_tache_id', 'id');
     }
     /**
      * Relation HasMany pour RealisationTaches.
      *
      * @return HasMany
      */
-    public function evaluationRealisationTaches(): HasMany
+    public function historiqueRealisationTaches(): HasMany
     {
-        return $this->hasMany(EvaluationRealisationTache::class, 'realisation_tache_id', 'id');
+        return $this->hasMany(HistoriqueRealisationTache::class, 'realisation_tache_id', 'id');
     }
     /**
      * Relation HasMany pour RealisationTaches.

@@ -14,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Modules\Core\Services\SessionState;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgValidationProjets\Models\Evaluateur;
 
 class User extends Authenticatable
 {
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function formateur(): HasOne
     {
         return $this->hasOne(Formateur::class);
+    }
+
+    public function evaluateur(): HasOne
+    {
+        return $this->hasOne(Evaluateur::class);
     }
 
     public function apprenant(): HasOne
