@@ -280,6 +280,18 @@
                 "dataScope": "scope",
                 "userModelName": "User",
                 "ownerRelationPath": "user"
+            },
+            {
+                "role": "evaluateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
+            },
+            {
+                "role": "gapp",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "user"
             }
         ],
         "e_model_reference": "widget_utilisateurs",
