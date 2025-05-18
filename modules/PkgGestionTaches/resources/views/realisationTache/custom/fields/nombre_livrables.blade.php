@@ -1,4 +1,5 @@
-<ul>
+<ul> 
+   
         @php
             $isFormateur = auth()->user()?->hasAnyRole(['formateur', 'admin']);
         @endphp

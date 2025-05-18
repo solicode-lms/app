@@ -123,7 +123,12 @@ class BaseRealisationTacheService extends BaseService
             [
                 'type'  => 'table',
                 'label' => 'Vue Tableau',
-                'icon'  => 'fa-table',
+                'icon'  => 'fas fa-table',
+            ],
+            [
+                'type'  => 'table-evaluation',
+                'label' => 'Vue évaluation',
+                'icon'  => 'fas fa-th-large',
             ],
         ];
     }
@@ -135,6 +140,7 @@ class BaseRealisationTacheService extends BaseService
     {
         return match ($viewType) {
             'table' => 'PkgGestionTaches::realisationTache._table',
+            'table-evaluation' => 'PkgGestionTaches::realisationTache._table-evaluation',
             default => 'PkgGestionTaches::realisationTache._table',
         };
     }
