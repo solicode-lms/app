@@ -1,3 +1,8 @@
-{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('PkgValidationProjets::evaluationRealisationTache._index')
+
+@section('evaluationRealisationTache-crud-filters')
+                <div class="card-header">
+                    
+                </div>
+@endsection

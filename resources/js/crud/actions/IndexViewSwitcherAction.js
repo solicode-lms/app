@@ -25,6 +25,10 @@ export class IndexViewSwitcherAction extends Action {
             e.preventDefault();
             const selectedType = $(e.currentTarget).data('view-type');
 
+            // ← récupère la classe d’icône stockée en data-icon
+            const iconClass = $(e.currentTarget).data('icon') || '';
+            $('#exportDropdown i').attr('class', iconClass);
+
             const view_type_variable = `${this.view_type_variable}`
             this.viewState.setVariable(view_type_variable,selectedType)
             this.highlightActiveView(selectedType);

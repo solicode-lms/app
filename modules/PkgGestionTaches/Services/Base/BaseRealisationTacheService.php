@@ -129,7 +129,7 @@ class BaseRealisationTacheService extends BaseService
             [
                 'type'  => 'table-evaluation',
                 'label' => 'Vue évaluation',
-                'icon'  => 'fas fa-th-large',
+                'icon'  => 'fas fa-clipboard-check',
             ],
         ];
     }
@@ -152,7 +152,7 @@ class BaseRealisationTacheService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('realisationTache_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('realisationTache_view_type', $default_view_type);
         $realisationTache_viewType = $this->viewState->get('realisationTache_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

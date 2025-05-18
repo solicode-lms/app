@@ -12,6 +12,13 @@ use Modules\PkgGestionTaches\Models\RealisationTache;
 
 class RealisationTacheController extends BaseRealisationTacheController
 {
+    public function index(Request $request){
 
+        $this->viewState->setContextKeyIfEmpty('realisationTache.index');
+        
+        $this->viewState->init('realisationTache_view_type', "table-evaluation");
+
+        return parent::index($request);
+    }
     
 }

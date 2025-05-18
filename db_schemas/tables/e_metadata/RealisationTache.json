@@ -1107,7 +1107,7 @@
                     "label": "Vue Tableau"
                 },
                 {
-                    "icon": "fas fa-th-large",
+                    "icon": "fas fa-clipboard-check",
                     "type": "table-evaluation",
                     "label": "Vue évaluation"
                 }
