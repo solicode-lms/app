@@ -236,7 +236,7 @@ class BaseEPackageController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->ePackageService->update($id, $data);
+                $this->ePackageService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

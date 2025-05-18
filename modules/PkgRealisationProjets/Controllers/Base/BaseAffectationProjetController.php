@@ -310,7 +310,7 @@ class BaseAffectationProjetController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->affectationProjetService->update($id, $data);
+                $this->affectationProjetService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -347,7 +347,7 @@ class BaseProjetController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->projetService->update($id, $data);
+                $this->projetService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -227,7 +227,7 @@ class BaseUserModelFilterController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->userModelFilterService->update($id, $data);
+                $this->userModelFilterService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

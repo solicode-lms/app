@@ -254,7 +254,7 @@ class BaseRealisationFormationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->realisationFormationService->update($id, $data);
+                $this->realisationFormationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

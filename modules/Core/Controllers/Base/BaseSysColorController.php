@@ -416,7 +416,7 @@ class BaseSysColorController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->sysColorService->update($id, $data);
+                $this->sysColorService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

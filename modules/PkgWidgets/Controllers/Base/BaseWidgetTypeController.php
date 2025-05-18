@@ -236,7 +236,7 @@ class BaseWidgetTypeController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->widgetTypeService->update($id, $data);
+                $this->widgetTypeService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

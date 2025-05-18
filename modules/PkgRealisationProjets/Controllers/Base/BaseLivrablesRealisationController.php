@@ -250,7 +250,7 @@ class BaseLivrablesRealisationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->livrablesRealisationService->update($id, $data);
+                $this->livrablesRealisationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

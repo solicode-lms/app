@@ -221,7 +221,7 @@ class BaseVilleController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->villeService->update($id, $data);
+                $this->villeService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

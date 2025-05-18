@@ -257,7 +257,7 @@ class BaseApprenantController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->apprenantService->update($id, $data);
+                $this->apprenantService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -236,7 +236,7 @@ class BaseNatureLivrableController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->natureLivrableService->update($id, $data);
+                $this->natureLivrableService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

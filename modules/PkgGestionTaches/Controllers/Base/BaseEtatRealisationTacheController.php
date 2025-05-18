@@ -256,7 +256,7 @@ class BaseEtatRealisationTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->etatRealisationTacheService->update($id, $data);
+                $this->etatRealisationTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

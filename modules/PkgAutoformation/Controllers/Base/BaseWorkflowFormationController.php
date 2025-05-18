@@ -242,7 +242,7 @@ class BaseWorkflowFormationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->workflowFormationService->update($id, $data);
+                $this->workflowFormationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

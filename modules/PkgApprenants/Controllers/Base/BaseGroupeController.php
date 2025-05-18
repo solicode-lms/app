@@ -260,7 +260,7 @@ class BaseGroupeController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->groupeService->update($id, $data);
+                $this->groupeService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

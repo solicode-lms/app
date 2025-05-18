@@ -236,7 +236,7 @@ class BaseWidgetOperationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->widgetOperationService->update($id, $data);
+                $this->widgetOperationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

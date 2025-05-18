@@ -241,7 +241,7 @@ class BaseEvaluateurController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->evaluateurService->update($id, $data);
+                $this->evaluateurService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

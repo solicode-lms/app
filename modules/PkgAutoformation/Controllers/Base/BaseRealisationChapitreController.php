@@ -239,7 +239,7 @@ class BaseRealisationChapitreController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->realisationChapitreService->update($id, $data);
+                $this->realisationChapitreService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

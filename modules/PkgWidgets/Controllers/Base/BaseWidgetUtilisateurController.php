@@ -292,7 +292,7 @@ class BaseWidgetUtilisateurController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->widgetUtilisateurService->update($id, $data);
+                $this->widgetUtilisateurService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

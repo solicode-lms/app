@@ -236,7 +236,7 @@ class BaseNiveauxScolaireController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->niveauxScolaireService->update($id, $data);
+                $this->niveauxScolaireService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

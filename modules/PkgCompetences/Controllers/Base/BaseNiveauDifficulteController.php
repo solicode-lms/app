@@ -244,7 +244,7 @@ class BaseNiveauDifficulteController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->niveauDifficulteService->update($id, $data);
+                $this->niveauDifficulteService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

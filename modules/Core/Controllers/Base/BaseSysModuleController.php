@@ -272,7 +272,7 @@ class BaseSysModuleController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->sysModuleService->update($id, $data);
+                $this->sysModuleService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -264,7 +264,7 @@ class BaseEtatFormationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->etatFormationService->update($id, $data);
+                $this->etatFormationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

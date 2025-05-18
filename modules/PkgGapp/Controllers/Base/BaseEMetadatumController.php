@@ -239,7 +239,7 @@ class BaseEMetadatumController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->eMetadatumService->update($id, $data);
+                $this->eMetadatumService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

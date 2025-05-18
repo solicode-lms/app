@@ -242,7 +242,7 @@ class BaseWorkflowChapitreController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->workflowChapitreService->update($id, $data);
+                $this->workflowChapitreService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

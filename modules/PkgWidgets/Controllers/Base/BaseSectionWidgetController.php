@@ -242,7 +242,7 @@ class BaseSectionWidgetController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->sectionWidgetService->update($id, $data);
+                $this->sectionWidgetService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -242,7 +242,7 @@ class BaseFeatureDomainController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->featureDomainService->update($id, $data);
+                $this->featureDomainService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

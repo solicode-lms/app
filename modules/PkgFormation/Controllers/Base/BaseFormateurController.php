@@ -362,7 +362,7 @@ class BaseFormateurController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->formateurService->update($id, $data);
+                $this->formateurService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

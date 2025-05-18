@@ -242,7 +242,7 @@ class BaseWorkflowProjetController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->workflowProjetService->update($id, $data);
+                $this->workflowProjetService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

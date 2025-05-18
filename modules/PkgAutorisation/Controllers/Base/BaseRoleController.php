@@ -239,7 +239,7 @@ class BaseRoleController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->roleService->update($id, $data);
+                $this->roleService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

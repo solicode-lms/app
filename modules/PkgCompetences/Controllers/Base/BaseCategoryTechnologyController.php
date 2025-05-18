@@ -236,7 +236,7 @@ class BaseCategoryTechnologyController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->categoryTechnologyService->update($id, $data);
+                $this->categoryTechnologyService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

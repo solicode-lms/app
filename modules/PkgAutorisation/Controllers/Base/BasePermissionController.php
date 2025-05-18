@@ -239,7 +239,7 @@ class BasePermissionController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->permissionService->update($id, $data);
+                $this->permissionService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

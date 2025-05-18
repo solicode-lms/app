@@ -250,7 +250,7 @@ class BaseLabelRealisationTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->labelRealisationTacheService->update($id, $data);
+                $this->labelRealisationTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

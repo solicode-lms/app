@@ -244,7 +244,7 @@ class BaseResourceController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->resourceService->update($id, $data);
+                $this->resourceService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

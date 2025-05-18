@@ -242,7 +242,7 @@ class BaseWorkflowTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->workflowTacheService->update($id, $data);
+                $this->workflowTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

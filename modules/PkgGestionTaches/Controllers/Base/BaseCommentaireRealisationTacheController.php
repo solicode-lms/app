@@ -239,7 +239,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->commentaireRealisationTacheService->update($id, $data);
+                $this->commentaireRealisationTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

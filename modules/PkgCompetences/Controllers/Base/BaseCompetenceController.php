@@ -263,7 +263,7 @@ class BaseCompetenceController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->competenceService->update($id, $data);
+                $this->competenceService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

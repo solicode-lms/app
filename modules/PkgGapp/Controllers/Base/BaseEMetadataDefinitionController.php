@@ -236,7 +236,7 @@ class BaseEMetadataDefinitionController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->eMetadataDefinitionService->update($id, $data);
+                $this->eMetadataDefinitionService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -244,7 +244,7 @@ class BasePrioriteTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->prioriteTacheService->update($id, $data);
+                $this->prioriteTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

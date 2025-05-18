@@ -221,7 +221,7 @@ class BaseApprenantKonosyController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->apprenantKonosyService->update($id, $data);
+                $this->apprenantKonosyService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

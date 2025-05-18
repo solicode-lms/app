@@ -227,7 +227,7 @@ class BaseNiveauCompetenceController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->niveauCompetenceService->update($id, $data);
+                $this->niveauCompetenceService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

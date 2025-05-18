@@ -251,7 +251,7 @@ class BaseAnneeFormationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->anneeFormationService->update($id, $data);
+                $this->anneeFormationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

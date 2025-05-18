@@ -266,7 +266,7 @@ class BaseFiliereController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->filiereService->update($id, $data);
+                $this->filiereService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

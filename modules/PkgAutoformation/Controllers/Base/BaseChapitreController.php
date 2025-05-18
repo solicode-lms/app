@@ -271,7 +271,7 @@ class BaseChapitreController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->chapitreService->update($id, $data);
+                $this->chapitreService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

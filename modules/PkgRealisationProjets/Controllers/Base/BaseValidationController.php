@@ -259,7 +259,7 @@ class BaseValidationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->validationService->update($id, $data);
+                $this->validationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -248,7 +248,7 @@ class BaseSysModelController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->sysModelService->update($id, $data);
+                $this->sysModelService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -227,7 +227,7 @@ class BaseSpecialiteController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->specialiteService->update($id, $data);
+                $this->specialiteService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

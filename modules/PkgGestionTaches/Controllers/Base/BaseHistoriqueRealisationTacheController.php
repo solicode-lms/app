@@ -233,7 +233,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->historiqueRealisationTacheService->update($id, $data);
+                $this->historiqueRealisationTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

@@ -338,7 +338,7 @@ class BaseRealisationProjetController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->realisationProjetService->update($id, $data);
+                $this->realisationProjetService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

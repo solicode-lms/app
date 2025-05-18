@@ -248,7 +248,7 @@ class BaseEDataFieldController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->eDataFieldService->update($id, $data);
+                $this->eDataFieldService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

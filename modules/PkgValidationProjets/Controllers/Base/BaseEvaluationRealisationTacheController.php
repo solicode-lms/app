@@ -233,7 +233,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->evaluationRealisationTacheService->update($id, $data);
+                $this->evaluationRealisationTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

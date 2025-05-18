@@ -276,7 +276,7 @@ class BaseLivrableController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->livrableService->update($id, $data);
+                $this->livrableService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

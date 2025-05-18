@@ -236,7 +236,7 @@ class BaseNationaliteController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->nationaliteService->update($id, $data);
+                $this->nationaliteService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

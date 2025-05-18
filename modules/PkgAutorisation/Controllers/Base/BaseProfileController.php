@@ -278,7 +278,7 @@ class BaseProfileController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->profileService->update($id, $data);
+                $this->profileService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

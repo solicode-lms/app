@@ -347,7 +347,7 @@ class BaseUserController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->userService->update($id, $data);
+                $this->userService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

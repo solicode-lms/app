@@ -270,7 +270,7 @@ class BaseTransfertCompetenceController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->transfertCompetenceService->update($id, $data);
+                $this->transfertCompetenceService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

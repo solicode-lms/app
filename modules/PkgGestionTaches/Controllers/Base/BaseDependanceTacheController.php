@@ -236,7 +236,7 @@ class BaseDependanceTacheController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->dependanceTacheService->update($id, $data);
+                $this->dependanceTacheService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

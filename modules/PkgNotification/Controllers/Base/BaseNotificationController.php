@@ -253,7 +253,7 @@ class BaseNotificationController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->notificationService->update($id, $data);
+                $this->notificationService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

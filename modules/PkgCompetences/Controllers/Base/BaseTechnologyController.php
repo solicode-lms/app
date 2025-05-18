@@ -245,7 +245,7 @@ class BaseTechnologyController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->technologyService->update($id, $data);
+                $this->technologyService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

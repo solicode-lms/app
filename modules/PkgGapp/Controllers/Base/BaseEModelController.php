@@ -272,7 +272,7 @@ class BaseEModelController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->eModelService->update($id, $data);
+                $this->eModelService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     

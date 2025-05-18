@@ -233,7 +233,7 @@ class BaseFeatureController extends AdminController
                 ->toArray();
     
             if (!empty($data)) {
-                $this->featureService->update($id, $data);
+                $this->featureService->updateOnlyExistanteAttribute($id, $data);
             }
         }
     
