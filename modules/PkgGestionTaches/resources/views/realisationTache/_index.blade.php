@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="realisationTache-data-container" class="data-container">
-                    @if($realisationTache_viewType == "table")
+                    @if($realisationTache_viewType != "widgets")
                     @include("PkgGestionTaches::realisationTache._$realisationTache_viewType")
                     @endif
                 </div>

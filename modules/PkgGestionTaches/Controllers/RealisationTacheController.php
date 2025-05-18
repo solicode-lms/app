@@ -16,8 +16,9 @@ class RealisationTacheController extends BaseRealisationTacheController
 
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
-        $this->viewState->init('realisationTache_view_type', "table-evaluation");
-
+        if(Auth::user()->hasRole('evaluateur')){
+            $this->viewState->init('realisationTache_view_type', "table-evaluation");
+        }
         return parent::index($request);
     }
     

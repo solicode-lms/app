@@ -420,19 +420,26 @@ export class FormUI  {
     }
     static initializeRichText(){
 
-
-    // Initialiser Summernote
-    // $(`.richText`).summernote({
-    //     height: 80, // Hauteur de la zone éditable
-    // }).on('summernote.change', function() {
-    //     // Déclencher l'événement `change` sur le textarea caché
-    //     $(this).trigger('change');
-    // });
-
-
         // Init sumernote
-        $(`.richText`).summernote({
-            height: 80, //set editable area's height
+        $('.richText').each(function () {
+            const $textarea = $(this);
+            const isDisabled = $textarea.prop('disabled');
+
+            $textarea.summernote({
+                height: 80,
+                // Si désactivé, masquer la toolbar et désactiver l’édition
+                toolbar: isDisabled ? false : undefined,
+                airMode: isDisabled ? false : undefined,
+                callbacks: isDisabled ? {
+                    onInit: function () {
+                        // Rendre le contenu non éditable
+                        $textarea
+                        .siblings('.note-editor')
+                        .find('.note-editable')
+                        .attr('contenteditable', false);
+                    }
+                } : {}
+            });
         });
 
 
