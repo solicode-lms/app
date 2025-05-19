@@ -2,6 +2,7 @@
 
 namespace Modules\PkgGestionTaches\Services\RealisationTacheService;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 
 trait RealisationTacheServiceCrud
 {
@@ -126,6 +128,63 @@ trait RealisationTacheServiceCrud
                 }
             }
         }
+
+
+        $user = Auth::user();
+        $entity = $this->find($id);
+        // Récupère les évaluateurs assignés au projet
+        $evaluateurs = $entity
+            ->realisationProjet
+            ->affectationProjet
+            ->evaluateurs
+            ->pluck('id');
+
+        // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
+        if ($evaluateurs->isNotEmpty() 
+            && $evaluateurs->doesntContain($user->evaluateur->id)
+        ) {
+            throw new Exception("Le formateur n'est pas parmi les évaluateurs de ce projet.");
+        }
+    }
+
+
+        /**
+     * Après la mise à jour d'une RealisationTache,
+     * on crée une EvaluationRealisationTache et on recalcule la moyenne
+     * *uniquement* si des évaluateurs existent pour le projet.
+     * 
+     * @param  RealisationTache  $entity
+     * @return void
+     */
+    public function afterUpdateRules(RealisationTache $entity): void
+    {
+        // Récupère les évaluateurs assignés au projet
+        $evaluateurs = $entity
+            ->realisationProjet
+            ->affectationProjet
+            ->evaluateurs
+            ->pluck('id');
+
+        // Si aucun évaluateur n'est défini, on ne fait rien (le formateur a déjà mis à jour la note)
+        if ($evaluateurs->isEmpty()) {
+            return;
+        }
+
+        $user = Auth::user();
+        $evaluateurId = $user->evaluateur->id;
+
+         // Crée ou met à jour la note de l'évaluateur sur cette tâche
+        (new EvaluationRealisationTacheService())->updateOrCreate(
+            ['realisation_tache_id' => $entity->id, 'evaluateur_id' => $evaluateurId],
+            ['note' => $entity->note, 'message' => $entity->remarque_evaluateur]
+        );
+
+        // Recalcule et met à jour la moyenne
+        $moyenne = $entity
+            ->evaluationRealisationTaches()
+            ->avg('note');
+
+        $entity->update(['note' => round($moyenne, 2)]);
     }
 
 }
