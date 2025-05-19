@@ -5,7 +5,7 @@
 
 
 ````bash
-sudo mysqldump -u root -p solicode_lms > sauvegarde_21_04_25.sql
+sudo mysqldump -u root -p solicode_lms > sauvegarde_19_05_25.sql
 ````
 
 

@@ -63,12 +63,10 @@ public function getRealisationLivrable()
         // Si le user est formateur MAIS qu'il est listé comme évaluateur sur ce projet
         if ($user->hasRole('formateur')) {
             $evaluateurs = $this
-                ->realisationProjet
-                ->affectationProjet
-                ->evaluateurs
+                ->realisationProjet?->affectationProjet?->evaluateurs
                 ->pluck('id');
 
-            if ($evaluateurs->contains($user->evaluateur?->id)) {
+            if ($evaluateurs != null && $evaluateurs->contains($user->evaluateur?->id)) {
                 return $user->evaluateur->id;
             }
         }
@@ -140,13 +138,10 @@ public function getRealisationLivrable()
     {
         // IDs des évaluateurs du projet
         $evaluateurs = $this
-            ->realisationProjet
-            ->affectationProjet
-            ->evaluateurs
-            ->pluck('id');
+            ->realisationProjet?->affectationProjet?->evaluateurs?->pluck('id');
 
         // S’il y a des évaluateurs
-        if ($evaluateurs->isNotEmpty()) {
+        if ($evaluateurs != null && $evaluateurs->isNotEmpty()) {
             // Tenter de récupérer la note perso
             if ($personal = $this->getPersonalNote()) {
                 return $personal;
@@ -183,13 +178,11 @@ public function getRealisationLivrable()
     {
         // Liste des évaluateurs de ce projet
         $evaluateurs = $this
-            ->realisationProjet
-            ->affectationProjet
-            ->evaluateurs
+            ->realisationProjet?->affectationProjet?->evaluateurs
             ->pluck('id');
 
         // Si des évaluateurs existent, on préfère le message perso ou vide
-        if ($evaluateurs->isNotEmpty()) {
+        if ($evaluateurs != null && $evaluateurs->isNotEmpty()) {
             // Si un message perso existe, on le retourne
             if ($msg = $this->getPersonalMessage()) {
                 return $msg;
