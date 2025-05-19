@@ -86,18 +86,52 @@ trait RealisationTacheServiceCrud
     public function beforeUpdateRules(array &$data, $id){
         
         $entity = $this->find($id);
-        $historiqueRealisationTacheService = new HistoriqueRealisationTacheService();
-        $historiqueRealisationTacheService->enregistrerChangement($entity,$data);
-        $this->mettreAJourEtatRevisionSiRemarqueModifiee($entity, $data);
+
+
         
-        // 🛡️ Si l'utilisateur  est  formateur, on sort sans rien faire
-        // pour ne pas appliquer la règle : Empêcher un apprenant d'affecter un état réservé aux formateurs
-        if (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
-            return;
+        // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
+        if (
+            isset($data["etat_realisation_tache_id"]) &&
+            ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
+        ) {
+            $etatCode = $etat->workflowTache?->code;
+            $etatsInterdits = ['EN_COURS', 'EN_VALIDATION', 'TERMINEE'];
+
+            $tache = $entity->tache;
+
+            if ($tache->livrables()->exists()) {
+                $livrables = $tache->livrables;
+                $idsLivrables = $livrables->pluck('id');
+
+                // Récupère les IDs des livrables déjà déposés
+                $idsLivrablesDeposes = $entity->realisationProjet
+                    ->livrablesRealisations()
+                    ->whereIn('livrable_id', $idsLivrables)
+                    ->pluck('livrable_id');
+
+                // Filtre les livrables non encore déposés
+                $livrablesManquants = $livrables->filter(function ($livrable) use ($idsLivrablesDeposes) {
+                    return !$idsLivrablesDeposes->contains($livrable->id);
+                });
+
+                if ($livrablesManquants->isNotEmpty() && in_array($etatCode, $etatsInterdits)) {
+                    $nomsLivrables = $livrablesManquants->pluck('titre')->filter()->map(function ($titre) {
+                        return "<li>" . e($titre) . "</li>";
+                    })->join('');
+
+                    $message = "<p>Impossible de passer à l’état « {$etat->nom} », </br> les livrables suivants sont requis mais non déposés :</p><ul>{$nomsLivrables}</ul>";
+
+                    throw ValidationException::withMessages([
+                        'etat_realisation_tache_id' => $message
+                    ]);
+                }
+            }
         }
-            
+
+
+
         // Empêcher un apprenant d'affecter un état réservé aux formateurs
-        if (!empty($data["etat_realisation_tache_id"])) {
+        if (!Auth::user()->hasRole(Role::FORMATEUR_ROLE) && !empty($data["etat_realisation_tache_id"])) {
             $etat_realisation_tache_id = $data["etat_realisation_tache_id"];
             $nouvelEtat = EtatRealisationTache::find($etat_realisation_tache_id);
 
@@ -129,22 +163,33 @@ trait RealisationTacheServiceCrud
             }
         }
 
+        if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
+                // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
+                $user = Auth::user();
+                $entity = $this->find($id);
+                // Récupère les évaluateurs assignés au projet
+                $evaluateurs = $entity
+                    ->realisationProjet
+                    ->affectationProjet
+                    ->evaluateurs
+                    ->pluck('id');
 
-        $user = Auth::user();
-        $entity = $this->find($id);
-        // Récupère les évaluateurs assignés au projet
-        $evaluateurs = $entity
-            ->realisationProjet
-            ->affectationProjet
-            ->evaluateurs
-            ->pluck('id');
-
-        // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
-        if ($evaluateurs->isNotEmpty() 
-            && $evaluateurs->doesntContain($user->evaluateur->id)
-        ) {
-            throw new Exception("Le formateur n'est pas parmi les évaluateurs de ce projet.");
+                
+                if ($evaluateurs->isNotEmpty() 
+                    && $evaluateurs->doesntContain($user->evaluateur->id)
+                ) {
+                    throw new Exception("Le formateur n'est pas parmi les évaluateurs de ce projet.");
+                }
         }
+       
+
+    
+           // Historique des modification
+        $historiqueRealisationTacheService = new HistoriqueRealisationTacheService();
+        $historiqueRealisationTacheService->enregistrerChangement($entity,$data);
+        $this->mettreAJourEtatRevisionSiRemarqueModifiee($entity, $data);
+        
+
     }
 
 
