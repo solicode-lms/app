@@ -163,7 +163,9 @@ class RealisationTacheService extends BaseRealisationTacheService
         $current = RealisationTache::with('tache.prioriteTache')->findOrFail($realisationTacheId);
         $projectId = $current->realisation_projet_id;
         $priorityOrdre = optional($current->tache->prioriteTache)->ordre;
-
+        if($priorityOrdre == null ) {
+            $priorityOrdre  = 0;
+        }
         return RealisationTache::query()
             ->where('realisation_projet_id', $projectId)
             ->where('id', '<>', $realisationTacheId)
