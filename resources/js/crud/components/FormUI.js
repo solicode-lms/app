@@ -129,7 +129,7 @@ export class FormUI  {
             }
         });
        
-        // Appliquer les valeurs des filtres et masquer si nécessaire
+        // Appliquer les valeurs des form : form et scope et masquer si nécessaire
         // Dans le cas de create seulement
         if(isCreate){
             Object.keys(formData).forEach((key) => {

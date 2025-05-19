@@ -137,7 +137,7 @@ export class ViewStateService {
     }
     
     getFormVariables() {
-        return this.getVariablesByType(['scope','scope_form', 'form','filter']);
+        return this.getVariablesByType(['scope','scope_form', 'form']);
     }
 
     getTableVariables() {
