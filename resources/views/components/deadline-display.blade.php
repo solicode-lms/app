@@ -21,8 +21,21 @@
             $diff = $value->diff($now);
             $jours = $diff->d;
             $heures = $diff->h;
+            $mois = $diff->m;
 
-            $display = "{$jours} jours {$heures} heures";
+            if ($mois > 0) {
+                $parts[] = $mois . ' ' . Str::plural('mois', $mois); // "mois" reste inchangé au pluriel
+            }
+            if ($jours > 0) {
+                $parts[] = $jours . ' ' . Str::plural('jour', $jours);
+            }
+            if ($heures > 0 || empty($parts)) {
+                $parts[] = $heures . ' ' . Str::plural('heure', $heures);
+            }
+
+            $display = implode(' ', $parts);
+
+           
         }
     }
 @endphp
