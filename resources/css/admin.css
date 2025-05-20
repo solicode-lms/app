@@ -395,3 +395,42 @@ ul.projet-taches {
 .show-has-many .card {
      box-shadow: 0 0 1px #00000020,0 0px 1px #0003 !important; 
 }
+
+/* RealisationTaches */
+
+ul.livrable {
+    padding-left: 0;
+    margin: 0;
+}
+
+ul.livrable li {
+    list-style: none;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+ 
+    transition: background-color 0.2s ease-in-out;
+}
+
+ul.livrable li:hover {
+    background-color: #e9ecef;
+}
+
+ul.livrable li i {
+    min-width: 1.2rem;
+    margin-top: 0.25rem;
+    color: #6c757d;
+}
+
+ul.livrable li a {
+    text-decoration: none;
+    color: #212529;
+}
+
+ul.livrable li a:hover {
+    text-decoration: underline;
+}
+
+ul.livrable li .text-muted {
+    font-size: 0.875rem;
+}
