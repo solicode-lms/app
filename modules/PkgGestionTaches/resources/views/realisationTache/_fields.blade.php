@@ -199,12 +199,12 @@
           @endif
           <label for="etat_realisation_tache_id">
             {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}
-            
+            <span class="text-danger">*</span>
           </label>
                       <select 
             id="etat_realisation_tache_id" 
             {{ $canEditetat_realisation_tache_id ? '' : 'disabled' }}
-            
+            required
             
             
             name="etat_realisation_tache_id" 

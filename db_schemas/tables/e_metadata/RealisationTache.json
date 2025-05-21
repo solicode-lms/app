@@ -1206,5 +1206,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationTache_remarque_evaluateur",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationTache_etat_realisation_tache_id_required",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
+        "e_metadata_definition_reference": "required"
     }
 ]
