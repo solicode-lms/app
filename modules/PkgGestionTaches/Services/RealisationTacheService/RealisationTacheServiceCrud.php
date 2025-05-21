@@ -215,7 +215,16 @@ trait RealisationTacheServiceCrud
             return;
         }
 
+       
+
         $user = Auth::user();
+
+         // Si l'utilisateur n'est pas un evaluateur ( Apprenant) on ne fait rien
+        if ( is_null($user->evaluateur )) {
+            return;
+        }
+
+
         $evaluateurId = $user->evaluateur->id;
 
          // Crée ou met à jour la note de l'évaluateur sur cette tâche
