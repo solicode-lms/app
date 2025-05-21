@@ -34,7 +34,7 @@ class BaseRealisationTacheRequest extends FormRequest
             'dateDebut' => 'required',
             'dateFin' => 'nullable',
             'remarque_evaluateur' => 'nullable|string',
-            'etat_realisation_tache_id' => 'nullable',
+            'etat_realisation_tache_id' => 'required',
             'note' => 'nullable',
             'remarques_formateur' => 'nullable|string',
             'remarques_apprenant' => 'nullable|string'

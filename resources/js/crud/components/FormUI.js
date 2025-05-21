@@ -349,9 +349,7 @@ export class FormUI  {
     initializeSelect2_in_modal() {
         
 
-        // Bug : Select2 ne peut pas initialiser deux select avec même id
-        // l'autre select exist dans filter
-        // Solution : changement de id de filter
+        //  TODO Il faut ajouter  allowClear: true si le champs nullable
         $(`.select2`).each(function () {
 
             const $el = $(this);
@@ -411,6 +409,7 @@ export class FormUI  {
 
             let placeholder = $(this).data('label') || "Sélectionnez une option"; // Récupérer data-label ou valeur par défaut
 
+            // TODO Il faut ajouter  allowClear: true si le champs nullable
             $(this).select2({
                 placeholder: placeholder, // Utiliser data-label comme placeholder
                 width: '100%',

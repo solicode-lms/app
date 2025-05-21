@@ -88,8 +88,8 @@ trait RealisationTacheServiceCrud
         $entity = $this->find($id);
 
 
-        
         // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
+        // Il test si $etat est null
         if (
             isset($data["etat_realisation_tache_id"]) &&
             ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
