@@ -23,48 +23,8 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 trait RealisationTacheServiceCrud
 {
 
-   
-
     /**
-     * affectation de dataDebut = now()
-     * @param int $id
-     */
-    public function afterEditRules($entity, $id)
-    {
-        if (is_null($entity->dateDebut)) {
-            $entity->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
-            $entity->save(); // il faut sauvegarder si tu veux que le changement soit persisté
-        }
-
-        // Déja appliquer par parrent
-        // $this->markNotificationsAsRead( $entity->id);
-    }
-
-  
-    
-
-    /**
-     * Trie pardéfaut
-     * 1️⃣ Trier par date de fin de l'affectation
-     * 2️⃣ Ensuite par ordre de tâche
-     * @param mixed $query
-     */
-    public function defaultSort($query)
-    {
-        return $query
-            ->with(['realisationProjet.affectationProjet']) // Charger affectationProjet
-            ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
-            ->join('affectation_projets', 'realisation_projets.affectation_projet_id', '=', 'affectation_projets.id')
-            ->join('taches', 'realisation_taches.tache_id', '=', 'taches.id')
-            ->orderBy('affectation_projets.date_fin', 'desc') // 1️⃣ Trier par date de fin de l'affectation
-            ->orderBy('taches.ordre', 'asc') // 2️⃣ Ensuite par ordre de tâche
-            ->select('realisation_taches.*'); // 🎯 Important pour éviter le problème de Model::hydrate
-    }
-
-
-
-    /**
-     * Méthode contient les règles métier qui sont appliquer pendant l'édition
+     * Méthode contient les règles métier qui sont appliquer avant l'édition
      * il est utilisée avec tous les méthode qui font update
      * @param mixed $entity
      * @param array $data
@@ -77,7 +37,9 @@ trait RealisationTacheServiceCrud
 
         // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
         // Il test si $etat est null
+        // Il ne d'applique pas au formateur
         if (
+            !Auth::user()->hasRole(Role::FORMATEUR_ROLE) &&
             isset($data["etat_realisation_tache_id"]) &&
             ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
         ) {
@@ -179,6 +141,46 @@ trait RealisationTacheServiceCrud
 
     }
 
+
+    /**
+     * affectation de dataDebut = now()
+     * @param int $id
+     */
+    public function afterEditRules($entity, $id)
+    {
+        if (is_null($entity->dateDebut)) {
+            $entity->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
+            $entity->save(); // il faut sauvegarder si tu veux que le changement soit persisté
+        }
+
+        // Déja appliquer par parrent
+        // $this->markNotificationsAsRead( $entity->id);
+    }
+
+  
+    
+
+    /**
+     * Trie pardéfaut
+     * 1️⃣ Trier par date de fin de l'affectation
+     * 2️⃣ Ensuite par ordre de tâche
+     * @param mixed $query
+     */
+    public function defaultSort($query)
+    {
+        return $query
+            ->with(['realisationProjet.affectationProjet']) // Charger affectationProjet
+            ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
+            ->join('affectation_projets', 'realisation_projets.affectation_projet_id', '=', 'affectation_projets.id')
+            ->join('taches', 'realisation_taches.tache_id', '=', 'taches.id')
+            ->orderBy('affectation_projets.date_fin', 'desc') // 1️⃣ Trier par date de fin de l'affectation
+            ->orderBy('taches.ordre', 'asc') // 2️⃣ Ensuite par ordre de tâche
+            ->select('realisation_taches.*'); // 🎯 Important pour éviter le problème de Model::hydrate
+    }
+
+
+
+   
 
         /**
      * Après la mise à jour d'une RealisationTache,
