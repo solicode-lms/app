@@ -23,20 +23,7 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 trait RealisationTacheServiceCrud
 {
 
-    /**
-     * Méthode utilisé pendant le calcule dynamique des champs pendant la l'édition et la création
-     * si le champs a le data : data-calcule
-     * @param mixed $realisationTache
-     */
-    public function dataCalcul($realisationTache)
-    {
-        // En Cas d'édit
-        if(isset($realisationTache->id)){
-          
-        }
-      
-        return $realisationTache;
-    }
+   
 
     /**
      * affectation de dataDebut = now()
@@ -239,6 +226,21 @@ trait RealisationTacheServiceCrud
             ->avg('note');
 
         $entity->update(['note' => round($moyenne, 2)]);
+    }
+
+     /**
+     * Méthode utilisé pendant le calcule dynamique des champs pendant la l'édition et la création
+     * si le champs a le data : data-calcule
+     * @param mixed $realisationTache
+     */
+    public function dataCalcul($realisationTache)
+    {
+        // En Cas d'édit
+        if(isset($realisationTache->id)){
+          
+        }
+      
+        return $realisationTache;
     }
 
 }
