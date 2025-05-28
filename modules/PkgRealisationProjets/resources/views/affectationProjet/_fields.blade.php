@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemAffectationProjet" field="projet_id">
+        <x-form-field :entity="$itemAffectationProjet" field="projet_id" bulkEdit="$bulkEdit">
       @php $canEditprojet_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin,formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -65,7 +65,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="groupe_id">
+<x-form-field :entity="$itemAffectationProjet" field="groupe_id" bulkEdit="$bulkEdit">
       @php $canEditgroupe_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
@@ -101,7 +101,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="annee_formation_id">
+<x-form-field :entity="$itemAffectationProjet" field="annee_formation_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -135,7 +135,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="date_debut">
+<x-form-field :entity="$itemAffectationProjet" field="date_debut" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -165,7 +165,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="date_fin">
+<x-form-field :entity="$itemAffectationProjet" field="date_fin" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -195,7 +195,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="evaluateurs">
+<x-form-field :entity="$itemAffectationProjet" field="evaluateurs" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -229,7 +229,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="description">
+<x-form-field :entity="$itemAffectationProjet" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))

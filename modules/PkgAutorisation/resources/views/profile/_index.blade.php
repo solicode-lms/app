@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="profile-data-container" class="data-container">
-                    @if($profile_viewType == "table")
+                    @if($profile_viewType != "widgets")
                     @include("PkgAutorisation::profile._$profile_viewType")
                     @endif
                 </div>

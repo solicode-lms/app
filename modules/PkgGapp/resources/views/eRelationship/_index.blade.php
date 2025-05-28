@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="eRelationship-data-container" class="data-container">
-                    @if($eRelationship_viewType == "table")
+                    @if($eRelationship_viewType != "widgets")
                     @include("PkgGapp::eRelationship._$eRelationship_viewType")
                     @endif
                 </div>

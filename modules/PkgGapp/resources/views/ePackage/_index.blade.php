@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="ePackage-data-container" class="data-container">
-                    @if($ePackage_viewType == "table")
+                    @if($ePackage_viewType != "widgets")
                     @include("PkgGapp::ePackage._$ePackage_viewType")
                     @endif
                 </div>

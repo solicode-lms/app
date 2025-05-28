@@ -114,7 +114,7 @@ class BaseNiveauxScolaireService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('niveauxScolaire_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('niveauxScolaire_view_type', $default_view_type);
         $niveauxScolaire_viewType = $this->viewState->get('niveauxScolaire_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

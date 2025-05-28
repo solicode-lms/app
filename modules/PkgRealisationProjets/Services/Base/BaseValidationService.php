@@ -138,7 +138,7 @@ class BaseValidationService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('validation_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('validation_view_type', $default_view_type);
         $validation_viewType = $this->viewState->get('validation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

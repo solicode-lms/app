@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="workflowFormation-data-container" class="data-container">
-                    @if($workflowFormation_viewType == "table")
+                    @if($workflowFormation_viewType != "widgets")
                     @include("PkgAutoformation::workflowFormation._$workflowFormation_viewType")
                     @endif
                 </div>

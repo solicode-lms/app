@@ -127,7 +127,7 @@ class BaseUserService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('user_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('user_view_type', $default_view_type);
         $user_viewType = $this->viewState->get('user_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

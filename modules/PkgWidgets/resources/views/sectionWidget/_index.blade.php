@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="sectionWidget-data-container" class="data-container">
-                    @if($sectionWidget_viewType == "table")
+                    @if($sectionWidget_viewType != "widgets")
                     @include("PkgWidgets::sectionWidget._$sectionWidget_viewType")
                     @endif
                 </div>

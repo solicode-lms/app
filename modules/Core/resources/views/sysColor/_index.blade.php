@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="sysColor-data-container" class="data-container">
-                    @if($sysColor_viewType == "table")
+                    @if($sysColor_viewType != "widgets")
                     @include("Core::sysColor._$sysColor_viewType")
                     @endif
                 </div>

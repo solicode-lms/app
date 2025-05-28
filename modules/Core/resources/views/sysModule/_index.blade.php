@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="sysModule-data-container" class="data-container">
-                    @if($sysModule_viewType == "table")
+                    @if($sysModule_viewType != "widgets")
                     @include("Core::sysModule._$sysModule_viewType")
                     @endif
                 </div>

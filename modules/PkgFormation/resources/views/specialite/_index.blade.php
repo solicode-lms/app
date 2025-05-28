@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="specialite-data-container" class="data-container">
-                    @if($specialite_viewType == "table")
+                    @if($specialite_viewType != "widgets")
                     @include("PkgFormation::specialite._$specialite_viewType")
                     @endif
                 </div>

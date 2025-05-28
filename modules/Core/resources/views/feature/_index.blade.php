@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="feature-data-container" class="data-container">
-                    @if($feature_viewType == "table")
+                    @if($feature_viewType != "widgets")
                     @include("Core::feature._$feature_viewType")
                     @endif
                 </div>

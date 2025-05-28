@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="eMetadataDefinition-data-container" class="data-container">
-                    @if($eMetadataDefinition_viewType == "table")
+                    @if($eMetadataDefinition_viewType != "widgets")
                     @include("PkgGapp::eMetadataDefinition._$eMetadataDefinition_viewType")
                     @endif
                 </div>

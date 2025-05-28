@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="module-data-container" class="data-container">
-                    @if($module_viewType == "table")
+                    @if($module_viewType != "widgets")
                     @include("PkgFormation::module._$module_viewType")
                     @endif
                 </div>

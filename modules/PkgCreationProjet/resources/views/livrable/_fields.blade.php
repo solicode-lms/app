@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemLivrable" field="nature_livrable_id">
+        <x-form-field :entity="$itemLivrable" field="nature_livrable_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrable" field="titre">
+<x-form-field :entity="$itemLivrable" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrable" field="projet_id">
+<x-form-field :entity="$itemLivrable" field="projet_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -126,7 +126,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrable" field="description">
+<x-form-field :entity="$itemLivrable" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -153,7 +153,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrable" field="is_affichable_seulement_par_formateur">
+<x-form-field :entity="$itemLivrable" field="is_affichable_seulement_par_formateur" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -183,7 +183,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrable" field="taches">
+<x-form-field :entity="$itemLivrable" field="taches" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

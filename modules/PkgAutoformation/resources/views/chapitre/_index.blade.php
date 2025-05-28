@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="chapitre-data-container" class="data-container">
-                    @if($chapitre_viewType == "table")
+                    @if($chapitre_viewType != "widgets")
                     @include("PkgAutoformation::chapitre._$chapitre_viewType")
                     @endif
                 </div>

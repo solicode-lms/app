@@ -117,7 +117,7 @@ class BaseSpecialiteService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('specialite_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('specialite_view_type', $default_view_type);
         $specialite_viewType = $this->viewState->get('specialite_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

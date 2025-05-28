@@ -127,7 +127,7 @@ class BaseTacheService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('tache_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('tache_view_type', $default_view_type);
         $tache_viewType = $this->viewState->get('tache_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

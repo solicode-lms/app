@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemAnneeFormation" field="titre">
+        <x-form-field :entity="$itemAnneeFormation" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAnneeFormation" field="date_debut">
+<x-form-field :entity="$itemAnneeFormation" field="date_debut" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -88,7 +88,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAnneeFormation" field="date_fin">
+<x-form-field :entity="$itemAnneeFormation" field="date_fin" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

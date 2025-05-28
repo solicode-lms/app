@@ -113,7 +113,7 @@ class BaseNatureLivrableService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('natureLivrable_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('natureLivrable_view_type', $default_view_type);
         $natureLivrable_viewType = $this->viewState->get('natureLivrable_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -113,7 +113,7 @@ class BaseRoleService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('role_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('role_view_type', $default_view_type);
         $role_viewType = $this->viewState->get('role_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

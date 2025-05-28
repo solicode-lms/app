@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemSysController" field="sys_module_id">
+        <x-form-field :entity="$itemSysController" field="sys_module_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysController" field="name">
+<x-form-field :entity="$itemSysController" field="name" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysController" field="slug">
+<x-form-field :entity="$itemSysController" field="slug" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysController" field="description">
+<x-form-field :entity="$itemSysController" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -148,7 +148,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysController" field="is_active">
+<x-form-field :entity="$itemSysController" field="is_active" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

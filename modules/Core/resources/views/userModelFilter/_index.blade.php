@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="userModelFilter-data-container" class="data-container">
-                    @if($userModelFilter_viewType == "table")
+                    @if($userModelFilter_viewType != "widgets")
                     @include("Core::userModelFilter._$userModelFilter_viewType")
                     @endif
                 </div>

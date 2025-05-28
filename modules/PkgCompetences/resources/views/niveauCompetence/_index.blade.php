@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="niveauCompetence-data-container" class="data-container">
-                    @if($niveauCompetence_viewType == "table")
+                    @if($niveauCompetence_viewType != "widgets")
                     @include("PkgCompetences::niveauCompetence._$niveauCompetence_viewType")
                     @endif
                 </div>

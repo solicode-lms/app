@@ -137,7 +137,7 @@ class BaseLabelRealisationTacheService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('labelRealisationTache_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('labelRealisationTache_view_type', $default_view_type);
         $labelRealisationTache_viewType = $this->viewState->get('labelRealisationTache_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

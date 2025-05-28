@@ -114,7 +114,7 @@ class BaseFiliereService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('filiere_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('filiere_view_type', $default_view_type);
         $filiere_viewType = $this->viewState->get('filiere_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

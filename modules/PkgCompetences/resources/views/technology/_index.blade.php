@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="technology-data-container" class="data-container">
-                    @if($technology_viewType == "table")
+                    @if($technology_viewType != "widgets")
                     @include("PkgCompetences::technology._$technology_viewType")
                     @endif
                 </div>

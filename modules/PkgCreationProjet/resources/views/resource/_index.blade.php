@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="resource-data-container" class="data-container">
-                    @if($resource_viewType == "table")
+                    @if($resource_viewType != "widgets")
                     @include("PkgCreationProjet::resource._$resource_viewType")
                     @endif
                 </div>

@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemUserModelFilter" field="user_id">
+        <x-form-field :entity="$itemUserModelFilter" field="user_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUserModelFilter" field="model_name">
+<x-form-field :entity="$itemUserModelFilter" field="model_name" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUserModelFilter" field="filters">
+<x-form-field :entity="$itemUserModelFilter" field="filters" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

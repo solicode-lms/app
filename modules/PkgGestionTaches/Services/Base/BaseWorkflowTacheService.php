@@ -120,7 +120,7 @@ class BaseWorkflowTacheService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('workflowTache_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('workflowTache_view_type', $default_view_type);
         $workflowTache_viewType = $this->viewState->get('workflowTache_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="apprenant-data-container" class="data-container">
-                    @if($apprenant_viewType == "table")
+                    @if($apprenant_viewType != "widgets")
                     @include("PkgApprenants::apprenant._$apprenant_viewType")
                     @endif
                 </div>

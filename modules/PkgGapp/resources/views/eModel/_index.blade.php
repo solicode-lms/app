@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="eModel-data-container" class="data-container">
-                    @if($eModel_viewType == "table")
+                    @if($eModel_viewType != "widgets")
                     @include("PkgGapp::eModel._$eModel_viewType")
                     @endif
                 </div>

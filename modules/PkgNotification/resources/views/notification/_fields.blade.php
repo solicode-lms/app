@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemNotification" field="title">
+        <x-form-field :entity="$itemNotification" field="title" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemNotification" field="message">
+<x-form-field :entity="$itemNotification" field="message" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -85,7 +85,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemNotification" field="sent_at">
+<x-form-field :entity="$itemNotification" field="sent_at" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -115,7 +115,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemNotification" field="is_read">
+<x-form-field :entity="$itemNotification" field="is_read" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -145,7 +145,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemNotification" field="user_id">
+<x-form-field :entity="$itemNotification" field="user_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

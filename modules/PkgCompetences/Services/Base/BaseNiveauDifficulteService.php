@@ -134,7 +134,7 @@ class BaseNiveauDifficulteService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('niveauDifficulte_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('niveauDifficulte_view_type', $default_view_type);
         $niveauDifficulte_viewType = $this->viewState->get('niveauDifficulte_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

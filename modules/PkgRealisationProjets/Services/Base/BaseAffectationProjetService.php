@@ -140,7 +140,7 @@ class BaseAffectationProjetService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('affectationProjet_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('affectationProjet_view_type', $default_view_type);
         $affectationProjet_viewType = $this->viewState->get('affectationProjet_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

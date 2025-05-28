@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemWorkflowTache" field="ordre">
+        <x-form-field :entity="$itemWorkflowTache" field="ordre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWorkflowTache" field="code">
+<x-form-field :entity="$itemWorkflowTache" field="code" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWorkflowTache" field="titre">
+<x-form-field :entity="$itemWorkflowTache" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWorkflowTache" field="description">
+<x-form-field :entity="$itemWorkflowTache" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -143,7 +143,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWorkflowTache" field="sys_color_id">
+<x-form-field :entity="$itemWorkflowTache" field="sys_color_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

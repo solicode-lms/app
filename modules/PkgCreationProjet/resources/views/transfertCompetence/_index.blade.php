@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="transfertCompetence-data-container" class="data-container">
-                    @if($transfertCompetence_viewType == "table")
+                    @if($transfertCompetence_viewType != "widgets")
                     @include("PkgCreationProjet::transfertCompetence._$transfertCompetence_viewType")
                     @endif
                 </div>

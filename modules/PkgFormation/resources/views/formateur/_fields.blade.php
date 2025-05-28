@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemFormateur" field="matricule">
+        <x-form-field :entity="$itemFormateur" field="matricule" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="nom">
+<x-form-field :entity="$itemFormateur" field="nom" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="prenom">
+<x-form-field :entity="$itemFormateur" field="prenom" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="specialites">
+<x-form-field :entity="$itemFormateur" field="specialites" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -150,7 +150,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="groupes">
+<x-form-field :entity="$itemFormateur" field="groupes" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -184,7 +184,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="email">
+<x-form-field :entity="$itemFormateur" field="email" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -213,7 +213,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="tele_num">
+<x-form-field :entity="$itemFormateur" field="tele_num" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -242,7 +242,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormateur" field="user_id">
+<x-form-field :entity="$itemFormateur" field="user_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemHistoriqueRealisationTache" field="dateModification">
+        <x-form-field :entity="$itemHistoriqueRealisationTache" field="dateModification" bulkEdit="$bulkEdit">
       @php $canEditdateModification = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -61,7 +61,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemHistoriqueRealisationTache" field="changement">
+<x-form-field :entity="$itemHistoriqueRealisationTache" field="changement" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -88,7 +88,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemHistoriqueRealisationTache" field="realisation_tache_id">
+<x-form-field :entity="$itemHistoriqueRealisationTache" field="realisation_tache_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -122,7 +122,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemHistoriqueRealisationTache" field="user_id">
+<x-form-field :entity="$itemHistoriqueRealisationTache" field="user_id" bulkEdit="$bulkEdit">
       @php $canEdituser_id = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -158,7 +158,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemHistoriqueRealisationTache" field="isFeedback">
+<x-form-field :entity="$itemHistoriqueRealisationTache" field="isFeedback" bulkEdit="$bulkEdit">
       @php $canEditisFeedback = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">

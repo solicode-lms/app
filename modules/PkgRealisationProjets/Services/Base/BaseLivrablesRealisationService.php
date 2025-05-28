@@ -138,7 +138,7 @@ class BaseLivrablesRealisationService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('livrablesRealisation_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('livrablesRealisation_view_type', $default_view_type);
         $livrablesRealisation_viewType = $this->viewState->get('livrablesRealisation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

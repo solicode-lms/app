@@ -131,7 +131,7 @@ class BaseEvaluateurService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('evaluateur_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('evaluateur_view_type', $default_view_type);
         $evaluateur_viewType = $this->viewState->get('evaluateur_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemVille" field="nom">
+        <x-form-field :entity="$itemVille" field="nom" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

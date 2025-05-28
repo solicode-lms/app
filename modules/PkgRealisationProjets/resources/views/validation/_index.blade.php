@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="validation-data-container" class="data-container">
-                    @if($validation_viewType == "table")
+                    @if($validation_viewType != "widgets")
                     @include("PkgRealisationProjets::validation._$validation_viewType")
                     @endif
                 </div>

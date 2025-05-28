@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemUser" field="name">
+        <x-form-field :entity="$itemUser" field="name" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="email">
+<x-form-field :entity="$itemUser" field="email" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="email_verified_at">
+<x-form-field :entity="$itemUser" field="email_verified_at" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -117,7 +117,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="password">
+<x-form-field :entity="$itemUser" field="password" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -146,7 +146,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="must_change_password">
+<x-form-field :entity="$itemUser" field="must_change_password" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -176,7 +176,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="remember_token">
+<x-form-field :entity="$itemUser" field="remember_token" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -205,7 +205,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUser" field="roles">
+<x-form-field :entity="$itemUser" field="roles" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

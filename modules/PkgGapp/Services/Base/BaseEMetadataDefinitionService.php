@@ -121,7 +121,7 @@ class BaseEMetadataDefinitionService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('eMetadataDefinition_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('eMetadataDefinition_view_type', $default_view_type);
         $eMetadataDefinition_viewType = $this->viewState->get('eMetadataDefinition_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -122,7 +122,7 @@ class BaseSysModuleService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('sysModule_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('sysModule_view_type', $default_view_type);
         $sysModule_viewType = $this->viewState->get('sysModule_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -113,7 +113,7 @@ class BaseWidgetOperationService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('widgetOperation_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('widgetOperation_view_type', $default_view_type);
         $widgetOperation_viewType = $this->viewState->get('widgetOperation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

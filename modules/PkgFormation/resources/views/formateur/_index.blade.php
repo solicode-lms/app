@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="formateur-data-container" class="data-container">
-                    @if($formateur_viewType == "table")
+                    @if($formateur_viewType != "widgets")
                     @include("PkgFormation::formateur._$formateur_viewType")
                     @endif
                 </div>

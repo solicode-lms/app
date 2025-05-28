@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="workflowProjet-data-container" class="data-container">
-                    @if($workflowProjet_viewType == "table")
+                    @if($workflowProjet_viewType != "widgets")
                     @include("PkgRealisationProjets::workflowProjet._$workflowProjet_viewType")
                     @endif
                 </div>

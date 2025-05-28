@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemTache" field="ordre">
+        <x-form-field :entity="$itemTache" field="ordre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="titre">
+<x-form-field :entity="$itemTache" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-8">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="priorite_tache_id">
+<x-form-field :entity="$itemTache" field="priorite_tache_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if (!empty($bulkEdit))
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="projet_id">
+<x-form-field :entity="$itemTache" field="projet_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-4">
           @if (!empty($bulkEdit))
@@ -155,7 +155,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="description">
+<x-form-field :entity="$itemTache" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -182,7 +182,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="dateDebut">
+<x-form-field :entity="$itemTache" field="dateDebut" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -212,7 +212,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="dateFin">
+<x-form-field :entity="$itemTache" field="dateFin" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -242,7 +242,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="note">
+<x-form-field :entity="$itemTache" field="note" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -272,7 +272,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="livrables">
+<x-form-field :entity="$itemTache" field="livrables" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

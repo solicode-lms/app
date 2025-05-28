@@ -155,7 +155,7 @@ class BaseWidgetUtilisateurService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'widgets';
-        $this->viewState->init('widgetUtilisateur_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('widgetUtilisateur_view_type', $default_view_type);
         $widgetUtilisateur_viewType = $this->viewState->get('widgetUtilisateur_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

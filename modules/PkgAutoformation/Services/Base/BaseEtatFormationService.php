@@ -143,7 +143,7 @@ class BaseEtatFormationService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('etatFormation_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('etatFormation_view_type', $default_view_type);
         $etatFormation_viewType = $this->viewState->get('etatFormation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

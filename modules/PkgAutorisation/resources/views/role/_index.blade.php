@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="role-data-container" class="data-container">
-                    @if($role_viewType == "table")
+                    @if($role_viewType != "widgets")
                     @include("PkgAutorisation::role._$role_viewType")
                     @endif
                 </div>

@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemTransfertCompetence" field="competence_id">
+        <x-form-field :entity="$itemTransfertCompetence" field="competence_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="niveau_difficulte_id">
+<x-form-field :entity="$itemTransfertCompetence" field="niveau_difficulte_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -97,7 +97,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="technologies">
+<x-form-field :entity="$itemTransfertCompetence" field="technologies" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -131,7 +131,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="note">
+<x-form-field :entity="$itemTransfertCompetence" field="note" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -161,7 +161,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="projet_id">
+<x-form-field :entity="$itemTransfertCompetence" field="projet_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -195,7 +195,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="question">
+<x-form-field :entity="$itemTransfertCompetence" field="question" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))

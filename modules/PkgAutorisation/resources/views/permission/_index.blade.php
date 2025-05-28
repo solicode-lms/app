@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="permission-data-container" class="data-container">
-                    @if($permission_viewType == "table")
+                    @if($permission_viewType != "widgets")
                     @include("PkgAutorisation::permission._$permission_viewType")
                     @endif
                 </div>

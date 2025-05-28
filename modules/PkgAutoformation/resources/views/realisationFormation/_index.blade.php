@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="realisationFormation-data-container" class="data-container">
-                    @if($realisationFormation_viewType == "table")
+                    @if($realisationFormation_viewType != "widgets")
                     @include("PkgAutoformation::realisationFormation._$realisationFormation_viewType")
                     @endif
                 </div>

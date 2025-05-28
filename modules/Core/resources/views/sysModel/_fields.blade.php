@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemSysModel" field="name">
+        <x-form-field :entity="$itemSysModel" field="name" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModel" field="model">
+<x-form-field :entity="$itemSysModel" field="model" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModel" field="sys_module_id">
+<x-form-field :entity="$itemSysModel" field="sys_module_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModel" field="sys_color_id">
+<x-form-field :entity="$itemSysModel" field="sys_color_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -155,7 +155,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModel" field="icone">
+<x-form-field :entity="$itemSysModel" field="icone" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -184,7 +184,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModel" field="description">
+<x-form-field :entity="$itemSysModel" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))

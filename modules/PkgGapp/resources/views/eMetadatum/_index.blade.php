@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="eMetadatum-data-container" class="data-container">
-                    @if($eMetadatum_viewType == "table")
+                    @if($eMetadatum_viewType != "widgets")
                     @include("PkgGapp::eMetadatum._$eMetadatum_viewType")
                     @endif
                 </div>

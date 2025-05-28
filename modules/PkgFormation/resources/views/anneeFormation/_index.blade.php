@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="anneeFormation-data-container" class="data-container">
-                    @if($anneeFormation_viewType == "table")
+                    @if($anneeFormation_viewType != "widgets")
                     @include("PkgFormation::anneeFormation._$anneeFormation_viewType")
                     @endif
                 </div>

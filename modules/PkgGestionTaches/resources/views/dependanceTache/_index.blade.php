@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="dependanceTache-data-container" class="data-container">
-                    @if($dependanceTache_viewType == "table")
+                    @if($dependanceTache_viewType != "widgets")
                     @include("PkgGestionTaches::dependanceTache._$dependanceTache_viewType")
                     @endif
                 </div>

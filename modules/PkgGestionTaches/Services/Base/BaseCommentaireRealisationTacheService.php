@@ -128,7 +128,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('commentaireRealisationTache_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('commentaireRealisationTache_view_type', $default_view_type);
         $commentaireRealisationTache_viewType = $this->viewState->get('commentaireRealisationTache_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

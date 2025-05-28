@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="widgetOperation-data-container" class="data-container">
-                    @if($widgetOperation_viewType == "table")
+                    @if($widgetOperation_viewType != "widgets")
                     @include("PkgWidgets::widgetOperation._$widgetOperation_viewType")
                     @endif
                 </div>

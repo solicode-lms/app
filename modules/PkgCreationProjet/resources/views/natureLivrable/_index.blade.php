@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="natureLivrable-data-container" class="data-container">
-                    @if($natureLivrable_viewType == "table")
+                    @if($natureLivrable_viewType != "widgets")
                     @include("PkgCreationProjet::natureLivrable._$natureLivrable_viewType")
                     @endif
                 </div>

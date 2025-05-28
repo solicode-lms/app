@@ -118,7 +118,7 @@ class BaseUserModelFilterService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('userModelFilter_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('userModelFilter_view_type', $default_view_type);
         $userModelFilter_viewType = $this->viewState->get('userModelFilter_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -143,7 +143,7 @@ class BaseRealisationProjetService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('realisationProjet_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('realisationProjet_view_type', $default_view_type);
         $realisationProjet_viewType = $this->viewState->get('realisationProjet_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

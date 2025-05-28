@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemFormation" field="nom">
+        <x-form-field :entity="$itemFormation" field="nom" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="lien">
+<x-form-field :entity="$itemFormation" field="lien" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="filiere_id">
+<x-form-field :entity="$itemFormation" field="filiere_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -124,7 +124,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="competence_id">
+<x-form-field :entity="$itemFormation" field="competence_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -158,7 +158,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="technologies">
+<x-form-field :entity="$itemFormation" field="technologies" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -192,7 +192,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="is_officiel">
+<x-form-field :entity="$itemFormation" field="is_officiel" bulkEdit="$bulkEdit">
       @php $canEditis_officiel = !$itemFormation || !$itemFormation->id || Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -224,7 +224,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="formateur_id">
+<x-form-field :entity="$itemFormation" field="formateur_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -258,7 +258,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="formation_officiel_id">
+<x-form-field :entity="$itemFormation" field="formation_officiel_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -292,7 +292,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="description">
+<x-form-field :entity="$itemFormation" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))

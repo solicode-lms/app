@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="niveauDifficulte-data-container" class="data-container">
-                    @if($niveauDifficulte_viewType == "table")
+                    @if($niveauDifficulte_viewType != "widgets")
                     @include("PkgCompetences::niveauDifficulte._$niveauDifficulte_viewType")
                     @endif
                 </div>

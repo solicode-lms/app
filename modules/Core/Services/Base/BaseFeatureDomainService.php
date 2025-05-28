@@ -119,7 +119,7 @@ class BaseFeatureDomainService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('featureDomain_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('featureDomain_view_type', $default_view_type);
         $featureDomain_viewType = $this->viewState->get('featureDomain_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

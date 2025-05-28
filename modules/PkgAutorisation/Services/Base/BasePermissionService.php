@@ -118,7 +118,7 @@ class BasePermissionService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('permission_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('permission_view_type', $default_view_type);
         $permission_viewType = $this->viewState->get('permission_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

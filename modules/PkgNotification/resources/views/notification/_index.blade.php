@@ -131,7 +131,7 @@
                 </div>
                 @show
                 <div id="notification-data-container" class="data-container">
-                    @if($notification_viewType == "table")
+                    @if($notification_viewType != "widgets")
                     @include("PkgNotification::notification._$notification_viewType")
                     @endif
                 </div>

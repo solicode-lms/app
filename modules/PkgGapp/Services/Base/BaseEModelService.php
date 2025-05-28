@@ -121,7 +121,7 @@ class BaseEModelService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('eModel_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('eModel_view_type', $default_view_type);
         $eModel_viewType = $this->viewState->get('eModel_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

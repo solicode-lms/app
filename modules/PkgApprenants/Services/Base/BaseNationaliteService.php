@@ -114,7 +114,7 @@ class BaseNationaliteService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('nationalite_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('nationalite_view_type', $default_view_type);
         $nationalite_viewType = $this->viewState->get('nationalite_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="filiere-data-container" class="data-container">
-                    @if($filiere_viewType == "table")
+                    @if($filiere_viewType != "widgets")
                     @include("PkgFormation::filiere._$filiere_viewType")
                     @endif
                 </div>

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="prioriteTache-data-container" class="data-container">
-                    @if($prioriteTache_viewType == "table")
+                    @if($prioriteTache_viewType != "widgets")
                     @include("PkgGestionTaches::prioriteTache._$prioriteTache_viewType")
                     @endif
                 </div>

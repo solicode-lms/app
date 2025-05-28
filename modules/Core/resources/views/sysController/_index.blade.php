@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="sysController-data-container" class="data-container">
-                    @if($sysController_viewType == "table")
+                    @if($sysController_viewType != "widgets")
                     @include("Core::sysController._$sysController_viewType")
                     @endif
                 </div>

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="commentaireRealisationTache-data-container" class="data-container">
-                    @if($commentaireRealisationTache_viewType == "table")
+                    @if($commentaireRealisationTache_viewType != "widgets")
                     @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
                     @endif
                 </div>

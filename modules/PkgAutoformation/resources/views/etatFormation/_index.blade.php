@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="etatFormation-data-container" class="data-container">
-                    @if($etatFormation_viewType == "table")
+                    @if($etatFormation_viewType != "widgets")
                     @include("PkgAutoformation::etatFormation._$etatFormation_viewType")
                     @endif
                 </div>

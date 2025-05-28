@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="realisationProjet-data-container" class="data-container">
-                    @if($realisationProjet_viewType == "table")
+                    @if($realisationProjet_viewType != "widgets")
                     @include("PkgRealisationProjets::realisationProjet._$realisationProjet_viewType")
                     @endif
                 </div>

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="user-data-container" class="data-container">
-                    @if($user_viewType == "table")
+                    @if($user_viewType != "widgets")
                     @include("PkgAutorisation::user._$user_viewType")
                     @endif
                 </div>

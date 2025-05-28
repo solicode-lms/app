@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEtatsRealisationProjet" field="formateur_id">
+        <x-form-field :entity="$itemEtatsRealisationProjet" field="formateur_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="titre">
+<x-form-field :entity="$itemEtatsRealisationProjet" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="description">
+<x-form-field :entity="$itemEtatsRealisationProjet" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -119,7 +119,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="sys_color_id">
+<x-form-field :entity="$itemEtatsRealisationProjet" field="sys_color_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -153,7 +153,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="workflow_projet_id">
+<x-form-field :entity="$itemEtatsRealisationProjet" field="workflow_projet_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -187,7 +187,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="is_editable_by_formateur">
+<x-form-field :entity="$itemEtatsRealisationProjet" field="is_editable_by_formateur" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

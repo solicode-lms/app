@@ -113,7 +113,7 @@ class BaseEPackageService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('ePackage_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('ePackage_view_type', $default_view_type);
         $ePackage_viewType = $this->viewState->get('ePackage_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

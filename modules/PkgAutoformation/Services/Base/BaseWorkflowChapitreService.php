@@ -119,7 +119,7 @@ class BaseWorkflowChapitreService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('workflowChapitre_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('workflowChapitre_view_type', $default_view_type);
         $workflowChapitre_viewType = $this->viewState->get('workflowChapitre_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

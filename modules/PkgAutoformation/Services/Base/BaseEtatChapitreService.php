@@ -143,7 +143,7 @@ class BaseEtatChapitreService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('etatChapitre_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('etatChapitre_view_type', $default_view_type);
         $etatChapitre_viewType = $this->viewState->get('etatChapitre_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

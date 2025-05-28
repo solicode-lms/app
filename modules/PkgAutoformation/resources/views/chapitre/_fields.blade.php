@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemChapitre" field="nom">
+        <x-form-field :entity="$itemChapitre" field="nom" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="lien">
+<x-form-field :entity="$itemChapitre" field="lien" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="coefficient">
+<x-form-field :entity="$itemChapitre" field="coefficient" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="description">
+<x-form-field :entity="$itemChapitre" field="description" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -143,7 +143,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="ordre">
+<x-form-field :entity="$itemChapitre" field="ordre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -172,7 +172,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="is_officiel">
+<x-form-field :entity="$itemChapitre" field="is_officiel" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -202,7 +202,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="formation_id">
+<x-form-field :entity="$itemChapitre" field="formation_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -236,7 +236,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="niveau_competence_id">
+<x-form-field :entity="$itemChapitre" field="niveau_competence_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -270,7 +270,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="formateur_id">
+<x-form-field :entity="$itemChapitre" field="formateur_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -304,7 +304,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="chapitre_officiel_id">
+<x-form-field :entity="$itemChapitre" field="chapitre_officiel_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))

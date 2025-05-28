@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="evaluationRealisationTache-data-container" class="data-container">
-                    @if($evaluationRealisationTache_viewType == "table")
+                    @if($evaluationRealisationTache_viewType != "widgets")
                     @include("PkgValidationProjets::evaluationRealisationTache._$evaluationRealisationTache_viewType")
                     @endif
                 </div>

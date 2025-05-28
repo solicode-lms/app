@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemProjet" field="titre">
+        <x-form-field :entity="$itemProjet" field="titre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProjet" field="travail_a_faire">
+<x-form-field :entity="$itemProjet" field="travail_a_faire" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -85,7 +85,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProjet" field="critere_de_travail">
+<x-form-field :entity="$itemProjet" field="critere_de_travail" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if (!empty($bulkEdit))
@@ -112,7 +112,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProjet" field="nombre_jour">
+<x-form-field :entity="$itemProjet" field="nombre_jour" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -141,7 +141,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProjet" field="filiere_id">
+<x-form-field :entity="$itemProjet" field="filiere_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -175,7 +175,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProjet" field="formateur_id">
+<x-form-field :entity="$itemProjet" field="formateur_id" bulkEdit="$bulkEdit">
       @php $canEditformateur_id = !$itemProjet || !$itemProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">

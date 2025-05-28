@@ -128,7 +128,7 @@ class BaseRealisationFormationService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('realisationFormation_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('realisationFormation_view_type', $default_view_type);
         $realisationFormation_viewType = $this->viewState->get('realisationFormation_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="eDataField-data-container" class="data-container">
-                    @if($eDataField_viewType == "table")
+                    @if($eDataField_viewType != "widgets")
                     @include("PkgGapp::eDataField._$eDataField_viewType")
                     @endif
                 </div>

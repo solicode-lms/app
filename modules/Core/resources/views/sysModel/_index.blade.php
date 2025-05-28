@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="sysModel-data-container" class="data-container">
-                    @if($sysModel_viewType == "table")
+                    @if($sysModel_viewType != "widgets")
                     @include("Core::sysModel._$sysModel_viewType")
                     @endif
                 </div>

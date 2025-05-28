@@ -134,7 +134,7 @@ class BaseProfileService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('profile_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('profile_view_type', $default_view_type);
         $profile_viewType = $this->viewState->get('profile_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

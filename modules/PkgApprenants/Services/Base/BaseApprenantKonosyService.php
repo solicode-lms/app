@@ -130,7 +130,7 @@ class BaseApprenantKonosyService extends BaseService
     {
         // Définir le type de vue par défaut
         $default_view_type = 'table';
-        $this->viewState->init('apprenantKonosy_view_type', $default_view_type);
+        $this->viewState->setIfEmpty('apprenantKonosy_view_type', $default_view_type);
         $apprenantKonosy_viewType = $this->viewState->get('apprenantKonosy_view_type', $default_view_type);
     
         // Si viewType = widgets, appliquer filtre visible = 1

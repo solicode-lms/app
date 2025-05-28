@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="niveauxScolaire-data-container" class="data-container">
-                    @if($niveauxScolaire_viewType == "table")
+                    @if($niveauxScolaire_viewType != "widgets")
                     @include("PkgApprenants::niveauxScolaire._$niveauxScolaire_viewType")
                     @endif
                 </div>

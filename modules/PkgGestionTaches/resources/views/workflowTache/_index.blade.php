@@ -126,7 +126,7 @@
                 </div>
                 @show
                 <div id="workflowTache-data-container" class="data-container">
-                    @if($workflowTache_viewType == "table")
+                    @if($workflowTache_viewType != "widgets")
                     @include("PkgGestionTaches::workflowTache._$workflowTache_viewType")
                     @endif
                 </div>

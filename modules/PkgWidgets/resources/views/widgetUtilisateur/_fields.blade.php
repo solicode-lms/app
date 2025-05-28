@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemWidgetUtilisateur" field="ordre">
+        <x-form-field :entity="$itemWidgetUtilisateur" field="ordre" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidgetUtilisateur" field="sys_module_id">
+<x-form-field :entity="$itemWidgetUtilisateur" field="sys_module_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -88,7 +88,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidgetUtilisateur" field="user_id">
+<x-form-field :entity="$itemWidgetUtilisateur" field="user_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -122,7 +122,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidgetUtilisateur" field="widget_id">
+<x-form-field :entity="$itemWidgetUtilisateur" field="widget_id" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -156,7 +156,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidgetUtilisateur" field="visible">
+<x-form-field :entity="$itemWidgetUtilisateur" field="visible" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
