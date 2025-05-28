@@ -28,8 +28,8 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
     {
      if($this->format == 'csv'){
         return [
-            'dateModification' => 'dateModification',
             'changement' => 'changement',
+            'dateModification' => 'dateModification',
             'realisation_tache_id' => 'realisation_tache_id',
             'user_id' => 'user_id',
             'reference' => 'reference',
@@ -37,8 +37,8 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
         ];
         }else{
         return [
-            'dateModification' => __('PkgGestionTaches::historiqueRealisationTache.dateModification'),
             'changement' => __('PkgGestionTaches::historiqueRealisationTache.changement'),
+            'dateModification' => __('PkgGestionTaches::historiqueRealisationTache.dateModification'),
             'realisation_tache_id' => __('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id'),
             'user_id' => __('PkgGestionTaches::historiqueRealisationTache.user_id'),
             'reference' => __('Core::msg.reference'),
@@ -53,8 +53,8 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
     {
         return $this->data->map(function ($historiqueRealisationTache) {
             return [
-                'dateModification' => $historiqueRealisationTache->dateModification,
                 'changement' => $historiqueRealisationTache->changement,
+                'dateModification' => $historiqueRealisationTache->dateModification,
                 'realisation_tache_id' => $historiqueRealisationTache->realisation_tache_id,
                 'user_id' => $historiqueRealisationTache->user_id,
                 'reference' => $historiqueRealisationTache->reference,

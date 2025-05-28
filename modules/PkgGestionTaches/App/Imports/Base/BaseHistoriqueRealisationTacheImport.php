@@ -56,8 +56,8 @@ class BaseHistoriqueRealisationTacheImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new HistoriqueRealisationTache([
-             'dateModification' => $values[0] ?? null,
-             'changement' => $values[1] ?? null,
+             'changement' => $values[0] ?? null,
+             'dateModification' => $values[1] ?? null,
              'realisation_tache_id' => $values[2] ?? null,
              'user_id' => $values[3] ?? null,
              'reference' => $reference,

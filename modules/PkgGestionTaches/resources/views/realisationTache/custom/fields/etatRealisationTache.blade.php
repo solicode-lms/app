@@ -3,6 +3,15 @@
 :background="$entity->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
 /> 
 
+@php
+    $last = $entity->historiqueRealisationTaches?->last();
+    $dateModification = $last?->dateModification ? \Carbon\Carbon::parse($last->dateModification) : null;
+@endphp
+@if($dateModification)
+<span class="d-block text-muted small" title="Date de dernière modification : {{$dateModification}}" data-toggle="tooltip">
+    — {{ $dateModification->diffForHumans() }}
+</span>
+@endif
 @if($entity->etatRealisationTache?->workflowTache->code == "EN_VALIDATION")
 @foreach($entity->getRevisionsBeforePriority() as $tacheEnRevision)
     <span class="d-block text-muted small" title="Révision : {{ $tacheEnRevision->tache?->titre }}" data-toggle="tooltip">

@@ -11,7 +11,8 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
                 <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
-                <x-sortable-column :sortable="true" width="32" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification'))}}" />
+                <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -28,7 +29,12 @@
                         {!! $historiqueRealisationTache->changement !!}
                     </x-field>
                     </td>   
-                    <td style="max-width: 32%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->dateModification }}" >
+                    <x-field :entity="$historiqueRealisationTache" field="dateModification">
+                        {{ $historiqueRealisationTache->dateModification }}
+                    </x-field>
+                    </td>
+                    <td style="max-width: 17%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
                     <x-field :entity="$historiqueRealisationTache" field="user">
                        
                          {{  $historiqueRealisationTache->user }}

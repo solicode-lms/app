@@ -74,8 +74,8 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $historiqueRealisationTacheData =[
-                    "dateModification" => $row["dateModification"] ?? null,
                     "changement" => $row["changement"] ?? null,
+                    "dateModification" => $row["dateModification"] ?? null,
                     "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
                     "user_id" => $row["user_id"] ?? null,
                     "isFeedback" => $row["isFeedback"] ?? null,

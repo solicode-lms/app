@@ -19,8 +19,8 @@ class BaseHistoriqueRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'dateModification',
         'changement',
+        'dateModification',
         'realisation_tache_id',
         'user_id',
         'isFeedback'

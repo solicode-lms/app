@@ -34,7 +34,7 @@ class BaseHistoriqueRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'dateModification', 'changement', 'realisation_tache_id', 'user_id', 'isFeedback'
+        'changement', 'dateModification', 'realisation_tache_id', 'user_id', 'isFeedback'
     ];
     public $manyToOne = [
         'RealisationTache' => [

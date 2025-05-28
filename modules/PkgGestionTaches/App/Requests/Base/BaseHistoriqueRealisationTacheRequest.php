@@ -29,8 +29,8 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dateModification' => 'required',
             'changement' => 'required|string',
+            'dateModification' => 'required',
             'realisation_tache_id' => 'required',
             'user_id' => 'nullable',
             'isFeedback' => 'nullable|boolean'
@@ -45,8 +45,8 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'dateModification.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.dateModification')]),
             'changement.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.changement')]),
+            'dateModification.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.dateModification')]),
             'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.realisation_tache_id')]),
             'user_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.user_id')]),
             'isFeedback.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.isFeedback')])

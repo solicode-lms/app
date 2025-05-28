@@ -29,7 +29,34 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemHistoriqueRealisationTache" field="dateModification" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemHistoriqueRealisationTache" field="changement" bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="changement" id="bulk_field_changement" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="changement">
+            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <textarea rows="" cols=""
+                name="changement"
+                class="form-control richText"
+                required
+                
+                
+                id="changement"
+                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
+          @error('changement')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemHistoriqueRealisationTache" field="dateModification" bulkEdit="$bulkEdit">
       @php $canEditdateModification = !$itemHistoriqueRealisationTache || !$itemHistoriqueRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -55,33 +82,6 @@
                 value="{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->dateModification : old('dateModification') }}">
 
           @error('dateModification')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemHistoriqueRealisationTache" field="changement" bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="changement" id="bulk_field_changement" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="changement">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <textarea rows="" cols=""
-                name="changement"
-                class="form-control richText"
-                required
-                
-                
-                id="changement"
-                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
-          @error('changement')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
