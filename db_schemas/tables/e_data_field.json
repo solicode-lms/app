@@ -11137,5 +11137,33 @@
         "calculable": 1,
         "calculable_sql": "SELECT wt.type\r\nFROM widgets w\r\nJOIN widget_types wt ON w.type_id = wt.id\r\nWHERE w.id = widget_utilisateurs.widget_id",
         "description": ""
+    },
+    {
+        "id": 856,
+        "reference": "RealisationProjet-note",
+        "name": "note",
+        "column_name": "note",
+        "data_type": "Float",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT SUM(note)\r\nFROM realisation_taches\r\nWHERE realisation_taches.realisation_projet_id = realisation_projets.id",
+        "description": ""
+    },
+    {
+        "id": 857,
+        "reference": "RealisationProjet-bareme_note",
+        "name": "bareme_note",
+        "column_name": "bareme_note",
+        "data_type": "Float",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT SUM(t.note)\r\n        FROM realisation_taches rt\r\n        JOIN taches t ON rt.tache_id = t.id\r\n        WHERE rt.realisation_projet_id = realisation_projets.id\r\n          AND rt.note IS NOT NULL\r\n          AND rt.note >= 0",
+        "description": ""
     }
 ]

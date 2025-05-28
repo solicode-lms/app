@@ -48,6 +48,19 @@ class BaseRealisationProjet extends BaseModel
             )
           , 0)";
         static::addDynamicAttribute('avancement_projet', $sql);
+        // Colonne dynamique : note
+        $sql = "SELECT SUM(note)
+        FROM realisation_taches
+        WHERE realisation_taches.realisation_projet_id = realisation_projets.id";
+        static::addDynamicAttribute('note', $sql);
+        // Colonne dynamique : bareme_note
+        $sql = "SELECT SUM(t.note)
+                FROM realisation_taches rt
+                JOIN taches t ON rt.tache_id = t.id
+                WHERE rt.realisation_projet_id = realisation_projets.id
+                  AND rt.note IS NOT NULL
+                  AND rt.note >= 0";
+        static::addDynamicAttribute('bareme_note', $sql);
     }
 
     

@@ -2,6 +2,7 @@
     {
         "reference": "EtatsRealisationProjet_id_required",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "EtatsRealisationProjet_id",
         "e_metadata_definition_reference": "required"
     },
