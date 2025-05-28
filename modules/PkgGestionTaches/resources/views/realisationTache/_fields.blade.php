@@ -223,10 +223,10 @@
       </div>
   
 </x-form-field>
-
+ {{$bulkEdit}}
 <x-form-field :entity="$itemRealisationTache" field="note">
       @php $canEditnote = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')); @endphp
-
+     
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
           <div class="bulk-check">

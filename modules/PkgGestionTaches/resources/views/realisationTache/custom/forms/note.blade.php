@@ -16,6 +16,7 @@
     // Placeholder basé sur le barème
     $inputPh = $maxNote !== null ? number_format($maxNote, 2, '.', '') : '';
 
+  
     // Valeur à afficher dans le champ
     $inputValue = old('note', $myNote !== null ? number_format($myNote, 2, '.', '') : '');
 @endphp

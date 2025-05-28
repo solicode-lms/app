@@ -10,6 +10,8 @@ class FormField extends Component
 {
     public Model $entity;
     public string $field;
+
+    public bool $bulkEdit;
     public ?string $partial;
 
     /**
@@ -17,11 +19,12 @@ class FormField extends Component
      * @param  string      $field    Le nom du champ (ex : "tache_id")
      * @param  string|null $partial  Un partial personnalisé (facultatif)
      */
-    public function __construct(Model $entity, string $field, string $partial = null)
+    public function __construct(Model $entity, string $field,$bulkEdit, string $partial = null)
     {
         $this->entity  = $entity;
         $this->field   = $field;
         $this->partial = $partial;
+        $this->bulkEdit = $bulkEdit;
     }
 
     /**
