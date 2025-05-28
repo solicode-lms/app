@@ -54,6 +54,7 @@ class FormField extends Component
             $context = [
                 'entity'  => $this->entity,
                 'default' => $default,
+                'bulkEdit' => $this->bulkEdit,
             ];
 
             if (View::exists($partial)) {
