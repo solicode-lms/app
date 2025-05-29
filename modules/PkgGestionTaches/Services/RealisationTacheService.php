@@ -4,7 +4,6 @@ namespace Modules\PkgGestionTaches\Services;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\PkgApprenants\Models\Apprenant;
@@ -24,6 +23,7 @@ use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheWo
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
+use Illuminate\Support\Collection;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -68,8 +68,6 @@ class RealisationTacheService extends BaseRealisationTacheService
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => $affectationProjetService->getAffectationProjetsByApprenantId($sessionState->get("apprenant_id")),
             default => AffectationProjet::all(),
         };
-        $a = route('taches.getData');
-        $b = route('etatRealisationTaches.getData');
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgRealisationProjets::affectationProjet.plural"), 
             'RealisationProjet.Affectation_projet_id', 
@@ -94,17 +92,17 @@ class RealisationTacheService extends BaseRealisationTacheService
             // Afficher les états de formateur pour ce projet
             $etats = $affectationProjet->projet->formateur->etatRealisationTaches;
         }
-        elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
-            // Cas 2 : Formateur sans projet sélectionné
-            // Afficher les états génériques du formateur
-            $etats = $etatService->getEtatRealisationTacheByFormateurId(
-               $this->sessionState->get("formateur_id")
-            );
-        }
+        // elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+        //     // Cas 2 : Formateur sans projet sélectionné
+        //     // Afficher les états génériques du formateur
+        //     $etats = $etatService->getEtatRealisationTacheByFormateurId(
+        //        $this->sessionState->get("formateur_id")
+        //     );
+        // }
         else {
             // Cas 3 : Apprenant ou autre rôle
             // Aucun état formateur -> liste vide pour masquer le filtre
-            $etats = null;
+           $etats =  collect();
         }
 
         // Génération du filtre ManyToOne pour l'état de réalisation de tâche
@@ -125,26 +123,19 @@ class RealisationTacheService extends BaseRealisationTacheService
             'filter.realisationTache.etatRealisationTache.WorkflowTache.Code'
         );
 
-        if (
-            // Filtre WorkflowTache explicitement sélectionné
-            !empty($workflowFilterCode)
-            // OU l'acteur n'est pas formateur (inclut apprenant)
-            || !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
-        ) {
-            $workflowService = new WorkflowTacheService();
-            $workflows = $workflowService->all();
-
-            // Génération du filtre Relation pour WorkflowTache
-            $this->fieldsFilterable[] = $this->generateRelationFilter(
+      
+        $workflowService = new WorkflowTacheService();
+        $workflows = $workflowService->all();
+    
+        // Génération du filtre Relation pour WorkflowTache
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
                 __('PkgGestionTaches::workflowTache.plural'),
                 'etatRealisationTache.WorkflowTache.Code',
                 \Modules\PkgGestionTaches\Models\WorkflowTache::class,
                 'code',
                 'code',
                 $workflows
-            );
-        }
-
+        );
         
 
 

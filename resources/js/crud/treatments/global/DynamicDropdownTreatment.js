@@ -123,6 +123,22 @@ export default class DynamicDropdownTreatment {
    */
   _populate(selectEl, items) {
     const prev = selectEl.value;
+    // const isSelect2 = selectEl.classList.contains('select2-hidden-accessible');
+    //  // Si pas d'items, masquer le select ou le parent du container Select2
+    // if (!items || items.length === 0) {
+    //   if (isSelect2) {
+    //     $(selectEl).parent().hide();
+    //   } else {
+    //     selectEl.style.display = 'none';
+    //   }
+    //   return;
+    // } else {
+    //   if (isSelect2) {
+    //     $(selectEl).parent().show();
+    //   } else {
+    //     selectEl.style.display = '';
+    //   }
+    // }
 
     // Option vide
     const empty = selectEl.querySelector('option[value=""]') || new Option('', '');
