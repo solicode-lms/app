@@ -184,6 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (wfEl.value !== '') {
       wfEl.selectedIndex = 0;
       if (wfEl.classList.contains('select2-hidden-accessible')) {
+
+        // TODO : cas : WorkFlow = Validation changeement de l'état : Encours 
+        // change n'est pas appliquer, aprés change il faut fresh table
         $(wfEl).val(null).trigger('change');
       }
     }
