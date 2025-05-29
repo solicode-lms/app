@@ -2,145 +2,141 @@ import { AjaxErrorHandler } from "../../components/AjaxErrorHandler";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
 import EventUtil from "../../utils/EventUtil";
 
-// TODO : Le cas de update : tiggerElementpeut avoir une valeur
+/**
+ * Gère un dropdown dynamique pouvant cibler plusieurs éléments,
+ * chacun avec son propre endpoint et paramètre de filtre.
+ */
 export default class DynamicDropdownTreatment {
-    /**
-     * Initialise la gestion du dropdown dynamique.
-     */
-    constructor(triggerElement, config) {
-        this.config = config;
-        this.triggerElement = triggerElement;
-        this.targetSelector = triggerElement.dataset.targetDynamicDropdown;
-        this.apiUrlTemplate = triggerElement.dataset.targetDynamicDropdownApiUrl;
-        this.targetDynamicDropdownFilter = triggerElement.dataset.targetDynamicDropdownFilter;
+  /**
+   * @param {HTMLElement} triggerElement élément déclencheur (select)
+   * @param {Object} config configuration optionnelle (formSelector, filterFormSelector)
+   */
+  constructor(triggerElement, config = {}) {
+    this.triggerElement = triggerElement;
+    this.config = config;
 
-        let containerSelector = '#card_crud';
-        if (this.config.formSelector && document.querySelector(this.config.formSelector)) {
-            containerSelector = this.config.formSelector;
-        } else if (this.config.filterFormSelector && document.querySelector(this.config.filterFormSelector)) {
-            containerSelector = this.config.filterFormSelector;
-        }
-        this.loader = new LoadingIndicator(containerSelector);
+    // Parser les listes CSV dans data-attributes
+    this.targets = this._parseCsv(
+      triggerElement.dataset.targetDynamicDropdown,
+      triggerElement.dataset.targetDynamicDropdownApiUrl,
+      triggerElement.dataset.targetDynamicDropdownFilter
+    );
 
-
-        if (!this.targetSelector || !this.apiUrlTemplate) {
-            console.warn("Attributs data-target ou data-api-url manquants pour DynamicDropdownTreatment.");
-            return;
-        }
-
-        this.targetElement = document.querySelector(this.targetSelector);
-
-     
-
-        if (!this.targetElement) {
-            console.warn(`Élément cible "${this.targetSelector}" introuvable.`);
-            return;
-        }
-
-        this.init();
+    if (!this.targets.length) {
+      console.warn(
+        'DynamicDropdownTreatment : attributs `data-target-dynamic-dropdown`, ' +
+        '`data-target-dynamic-dropdown-api-url` ou ' +
+        '`data-target-dynamic-dropdown-filter` manquants ou mal formés.'
+      );
+      return;
     }
 
-    /**
-     * Initialise l'écouteur d'événement sur le champ déclencheur.
-     */
-    init() {
-        let selector = `[name='${this.triggerElement.name}']`;
-        EventUtil.bindEvent("change", selector, async (event) => {
-            await this.updateTargetDropdown(event.target.value);
-        });
+    // Loader global
+    const container =
+      config.formSelector && document.querySelector(config.formSelector)
+        ? config.formSelector
+        : config.filterFormSelector && document.querySelector(config.filterFormSelector)
+        ? config.filterFormSelector
+        : '#card_crud';
+    this.loader = new LoadingIndicator(container);
 
-        // Cas de mise à jour : si le champ déclencheur a une valeur initiale, 
-        // id target element est vide : charger les options
-        if (this.triggerElement.value) {
- 
-             this.updateTargetDropdown(this.triggerElement.value);
-        }
+    this.init();
+  }
 
+  /**
+   * Transforme les chaînes CSV en tableau d'objets { selector, apiUrl, filterParam, cache }
+   */
+  _parseCsv(selectorsCsv, urlsCsv, filtersCsv) {
+    if (!selectorsCsv || !urlsCsv || !filtersCsv) return [];
+
+    const selectors = selectorsCsv.split(',').map(s => s.trim());
+    const urls = urlsCsv.split(',').map(u => u.trim());
+    const filters = filtersCsv.split(',').map(f => f.trim());
+
+    const length = Math.max(selectors.length, urls.length, filters.length);
+    return Array.from({ length }, (_, i) => ({
+      selector: selectors[i] || selectors[0],
+      apiUrl: urls[i] || urls[0],
+      filterParam: filters[i] || filters[0],
+      cache: new Map()
+    }));
+  }
+
+  /**
+   * Initialise l'écouteur et charge si valeur initiale
+   */
+  init() {
+    const name = this.triggerElement.name;
+    EventUtil.bindEvent('change', `[name='${name}']`, async e => {
+      await this.updateAll(e.target.value);
+    });
+
+    if (this.triggerElement.value) {
+      this.updateAll(this.triggerElement.value);
     }
+  }
 
-    /**
-     * Met à jour dynamiquement les options du champ cible.
-     * @param {string} selectedValue - Valeur sélectionnée dans le champ déclencheur.
-     */
-    async updateTargetDropdown(selectedValue) {
+  /**
+   * Met à jour toutes les cibles pour la valeur donnée
+   * @param {string} value valeur sélectionnée
+   */
+  async updateAll(value) {
+    if (!value) return;
 
-        if(!selectedValue){ return; }
+    for (const tgt of this.targets) {
+      const el = document.querySelector(tgt.selector);
+      if (!el) {
+        console.warn(`DynamicDropdownTreatment : cible introuvable "${tgt.selector}"`);
+        continue;
+      }
 
-        // Vérifier si la valeur est déjà chargée
-        const previouslyLoadedFor = this.targetElement.getAttribute("data-loaded-for");
-        if (previouslyLoadedFor === selectedValue) {
-            return; // Ne rien faire si les données sont déjà chargées
-        }
-        const apiUrl = `${this.apiUrlTemplate}?filter=${this.targetDynamicDropdownFilter}&value=${selectedValue}`;
-        const previousSelection = this.targetElement.value;
-        this.targetElement.value = "";
+      // Skip si déjà en cache
+      if (tgt.cache.has(value)) {
+        this._populate(el, tgt.cache.get(value));
+        continue;
+      }
 
+      // Chargement
+      this.loader.showNomBloquante();
+      try {
+        const url = `${tgt.apiUrl}?filter=${tgt.filterParam}&value=${encodeURIComponent(value)}`;
+      
 
-        this.loader.showNomBloquante();
-        $.get(apiUrl)
-        .done((html) => {
-            // Injecter le contenu du formulaire dans le modal
-          
-            const data =  html;
-            this.populateDropdown(data, previousSelection);
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
 
-            // 🔄 Marquer comme chargée pour cette valeur
-            this.targetElement.setAttribute("data-loaded-for", selectedValue);
-        })
-        .fail((xhr) => {
-            AjaxErrorHandler.handleError(xhr, 'Impossible de charger les options.');
-        })
-        .always(() => {
-            this.loader.hide();
-        });
-
-        // try {
-        
-        //     const response = await fetch(apiUrl);
-
-        //     if (!response.ok) {
-        //         throw new Error("Erreur lors du chargement des données.");
-        //     }
-
-        //     const data = await response.json();
-        //     this.populateDropdown(data, previousSelection);
-        // } catch (error) {
-        //     AjaxErrorHandler.handleError(error, "Impossible de charger les options.");
-        // } finally {
-        
-        // }
+        tgt.cache.set(value, data);
+        this._populate(el, data);
+      } catch (err) {
+        AjaxErrorHandler.handleError(err, err.message);
+      } finally {
+        this.loader.hide();
+      }
     }
+  }
 
-    /**
-     * Remplit le champ cible avec les nouvelles options.
-     * @param {Array} data - Liste des options récupérées via l'API.
-     * @param {string} previousSelection - Ancienne valeur sélectionnée.
-     */
-    populateDropdown(data, previousSelection) {
-        // Conserver l'option vide existante s'il y en a une
-        let emptyOption = this.targetElement.querySelector('option[value=""]');
-        if (!emptyOption) {
-            emptyOption = document.createElement("option");
-            emptyOption.value = "";
-            emptyOption.textContent = this.targetElement.options.length > 0 ? this.targetElement.options[0].textContent : ""; // Utilise le label existant
-        }
-    
-       this.targetElement.innerHTML = ""; // Vider les options existantes
-       this.targetElement.appendChild(emptyOption); // Ajouter l'option vide en premier
-    
-        data.forEach((item) => {
-            const option = document.createElement("option");
-            option.value = item.id;
-            option.textContent = item.toString;
-            this.targetElement.appendChild(option);
-        });
-    
-        // Restaurer la sélection précédente si encore valide, sinon sélectionner l'option vide
-        if ([...this.targetElement.options].some((opt) => opt.value == previousSelection)) {
-            this.targetElement.value = previousSelection;
-        } else {
-            this.targetElement.value = "";
-        }
-    }
-    
+  /**
+   * Remplit un <select> avec les données fournies
+   * @param {HTMLSelectElement} selectEl
+   * @param {Array<{id: string, label: string}>} items
+   */
+  _populate(selectEl, items) {
+    const prev = selectEl.value;
+
+    // Option vide
+    const empty = selectEl.querySelector('option[value=""]') || new Option('', '');
+    selectEl.innerHTML = '';
+    selectEl.appendChild(empty);
+
+    items.forEach(item => {
+      const opt = new Option(item.label ?? item.toString, item.id ?? item.value);
+      selectEl.appendChild(opt);
+    });
+
+    // Restaurer ou vide
+    selectEl.value = Array.from(selectEl.options).some(o => o.value == prev)
+      ? prev
+      : '';
+  }
 }

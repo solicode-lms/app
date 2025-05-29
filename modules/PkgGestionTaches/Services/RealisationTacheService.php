@@ -68,15 +68,17 @@ class RealisationTacheService extends BaseRealisationTacheService
             Auth::user()->hasRole(Role::APPRENANT_ROLE) => $affectationProjetService->getAffectationProjetsByApprenantId($sessionState->get("apprenant_id")),
             default => AffectationProjet::all(),
         };
+        $a = route('taches.getData');
+        $b = route('etatRealisationTaches.getData');
         $this->fieldsFilterable[] = $this->generateRelationFilter(
             __("PkgRealisationProjets::affectationProjet.plural"), 
             'RealisationProjet.Affectation_projet_id', 
             AffectationProjet::class, 
             "id","id",
             $affectationProjets, 
-             "[name='tache_id']",
-            route('taches.getData'),
-             "projet.affectationProjets.id"
+             "[name='tache_id'],[name='etat_realisation_tache_id']",
+            route('taches.getData') . "," . route('etatRealisationTaches.getData'),
+             "projet.affectationProjets.id,formateur.projets.affectationProjets.id"
         );
        
         // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
