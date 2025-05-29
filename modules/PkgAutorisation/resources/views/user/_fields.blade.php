@@ -156,14 +156,14 @@
           @endif
           <label for="must_change_password">
             {{ ucfirst(__('PkgAutorisation::user.must_change_password')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="must_change_password" value="0">
             <input
                 name="must_change_password"
                 type="checkbox"
                 class="form-control"
-                required
+                
                 
                 
                 id="must_change_password"

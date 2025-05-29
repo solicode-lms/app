@@ -33,7 +33,7 @@ class BaseUserRequest extends FormRequest
             'email' => 'required|string|max:255',
             'email_verified_at' => 'nullable',
             'password' => 'required|string|max:255',
-            'must_change_password' => 'required|boolean',
+            'must_change_password' => 'nullable|boolean',
             'remember_token' => 'nullable|string|max:255',
             'roles' => 'nullable|array'
         ];
