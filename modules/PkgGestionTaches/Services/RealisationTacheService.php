@@ -78,8 +78,11 @@ class RealisationTacheService extends BaseRealisationTacheService
              "projet.affectationProjets.id"
         );
        
-        // Etat - Solicode
-        // If formateur ou apprenant
+        // etatRealisationTache - Solicode
+        // If AffectationProjet selectionner : afficher les état de formateur de projet
+        // else If formateur : affiche ses état
+        // else If Apprenant : display : none, afficher seulement l'état de SoliCode : Workflow
+        // Afficher l'état de formateur
         if(Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE)){
             // Affichage des état de formateur
             // Etat
@@ -112,6 +115,51 @@ class RealisationTacheService extends BaseRealisationTacheService
             );
         }
         
+
+
+
+
+
+
+
+
+
+
+        // // --- Affichage conditionnel du filtre état de Solicode (workflowTache) ---
+        // if (empty($this->viewState->get("filter.realisationTache.RealisationProjet.Affectation_projet_id"))) {
+        //     // Afficher état de solicode (workflowTache) si AffectationProjet NON sélectionné
+        //     $workflowTacheService = new WorkflowTacheService();
+        //     $workflowTaches = $workflowTacheService->all();
+        //     $this->fieldsFilterable[] = $this->generateRelationFilter(
+        //         __("PkgGestionTaches::workflowTache.plural"),
+        //         'etatRealisationTache.WorkflowTache.Code',
+        //         WorkflowTache::class,
+        //         "code",
+        //         "code",
+        //         $workflowTaches
+        //     );
+        // } else {
+        //     // Si AffectationProjet sélectionné, afficher l'état du formateur RESPONSABLE DU PROJET (quel que soit le rôle utilisateur)
+        //     $affectationProjetId = $this->viewState->get("filter.realisationTache.RealisationProjet.Affectation_projet_id");
+        //     $affectationProjet = \Modules\PkgRealisationProjets\Models\AffectationProjet::find($affectationProjetId);
+        //     $formateurId = $affectationProjet?->formateur_id;
+        //     if ($formateurId) {
+        //         $etatRealisationTacheService = new EtatRealisationTacheService();
+        //         $etatRealisationTaches = $etatRealisationTacheService->getEtatRealisationTacheByFormateurId($formateurId);
+        //         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+        //             __("PkgGestionTaches::etatRealisationTache.plural"),
+        //             'etat_realisation_tache_id',
+        //             \Modules\PkgGestionTaches\Models\EtatRealisationTache::class,
+        //             'nom',
+        //             $etatRealisationTaches
+        //         );
+        //     }
+        // }
+
+
+
+
+
 
 
 

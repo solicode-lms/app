@@ -16,6 +16,6 @@ class AffectationProjet extends BaseAffectationProjet
         }
 
         // Sinon, afficher le projet + le groupe
-        return (string) $this->projet?->titre . " [" . ($this->groupe?->nom ?? "Groupe inconnu") . "]";
+        return (string) $this->projet?->titre . " [" . ($this->groupe?->code ?? "Groupe inconnu") . "]";
     }
 }
