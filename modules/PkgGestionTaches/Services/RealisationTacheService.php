@@ -13,6 +13,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
@@ -78,49 +79,71 @@ class RealisationTacheService extends BaseRealisationTacheService
              "projet.affectationProjets.id"
         );
        
-        // etatRealisationTache - Solicode
-        // If AffectationProjet selectionner : afficher les état de formateur de projet
-        // else If formateur : affiche ses état
-        // else If Apprenant : display : none, afficher seulement l'état de SoliCode : Workflow
-        // Afficher l'état de formateur
-        if(Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE)){
-            // Affichage des état de formateur
-            // Etat
-            $etatRealisationTacheService = new EtatRealisationTacheService();
-            $etatRealisationTaches = match (true) {
-                Auth::user()->hasRole(Role::FORMATEUR_ROLE) => $etatRealisationTacheService->getEtatRealisationTacheByFormateurId($sessionState->get("formateur_id")),
-                Auth::user()->hasRole(Role::APPRENANT_ROLE) => $etatRealisationTacheService->getEtatRealisationTacheByFormateurDApprenantId($sessionState->get("apprenant_id")),
-                default => $etatRealisationTacheService->all(),
-            };
-            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                __("PkgGestionTaches::etatRealisationTache.plural"), 
-                'etat_realisation_tache_id', 
-                \Modules\PkgGestionTaches\Models\EtatRealisationTache::class, 
-                'nom',
-                $etatRealisationTaches);
+        // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
+        $affectationProjetId = $this->viewState->get(
+            'filter.realisationTache.RealisationProjet.Affectation_projet_id'
+        );
+       
+        $etatService = new EtatRealisationTacheService();
+
+        if (!empty($affectationProjetId)) {
+            // Cas 1 : AffectationProjet sélectionnée
+            $affectationProjet = (new AffectationProjetService())->find($affectationProjetId);
+            // Afficher les états de formateur pour ce projet
+            $etats = $affectationProjet->projet->formateur->etatRealisationTaches;
         }
-        
-      
-        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.etatRealisationTache.WorkflowTache.Code") ) ) {
-            // Affichage de l'état de solicode
-            $workflowTacheService = new WorkflowTacheService();
-            $workflowTaches = $workflowTacheService->all();
-            $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgGestionTaches::workflowTache.plural"), 
-                'etatRealisationTache.WorkflowTache.Code', 
-                WorkflowTache::class, 
-                "code",
-                "code",
-                $workflowTaches
+        elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+            // Cas 2 : Formateur sans projet sélectionné
+            // Afficher les états génériques du formateur
+            $etats = $etatService->getEtatRealisationTacheByFormateurId(
+               $this->sessionState->get("formateur_id")
             );
         }
+        else {
+            // Cas 3 : Apprenant ou autre rôle
+            // Aucun état formateur -> liste vide pour masquer le filtre
+            $etats = null;
+        }
+
+        // Génération du filtre ManyToOne pour l'état de réalisation de tâche
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+            __('PkgGestionTaches::etatRealisationTache.plural'),
+            'etat_realisation_tache_id',
+            EtatRealisationTache::class,
+            'nom',
+            $etats
+        );
+      
+        // Affiche  WorkflowTache
+        // Afficher si le filtre est selectionné
+        // ou si le l'affectation de projet n'est pas selectionné et que l'acteur n'est pas formateur
+        // dans ce cas il faut afficher WorkflowTache
+        // --- WORKFLOW TACHE (état SoliCode) ---
+        $workflowFilterCode = $this->viewState->get(
+            'filter.realisationTache.etatRealisationTache.WorkflowTache.Code'
+        );
+
+        if (
+            // Filtre WorkflowTache explicitement sélectionné
+            !empty($workflowFilterCode)
+            // OU l'acteur n'est pas formateur (inclut apprenant)
+            || !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+        ) {
+            $workflowService = new WorkflowTacheService();
+            $workflows = $workflowService->all();
+
+            // Génération du filtre Relation pour WorkflowTache
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __('PkgGestionTaches::workflowTache.plural'),
+                'etatRealisationTache.WorkflowTache.Code',
+                \Modules\PkgGestionTaches\Models\WorkflowTache::class,
+                'code',
+                'code',
+                $workflows
+            );
+        }
+
         
-
-
-
-
-
-
 
 
 
