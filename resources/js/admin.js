@@ -111,7 +111,7 @@ $('.widget').sortable({
 
 
 
-
+// Code à mettre dans _index : realisationTache
 
 /**
  * Gère l’affichage/cachage du wrapper parent d’un <select> ou d’un Select2
@@ -179,18 +179,44 @@ document.addEventListener('DOMContentLoaded', () => {
     attributeFilter: ['value', 'label', 'disabled'] 
   });
 
-  // Sur changement de sélection dans l'état
-  etatEl.addEventListener('change', () => {
-    if (wfEl.value !== '') {
-      wfEl.selectedIndex = 0;
-      if (wfEl.classList.contains('select2-hidden-accessible')) {
-
-        // TODO : cas : WorkFlow = Validation changeement de l'état : Encours 
-        // change n'est pas appliquer, aprés change il faut fresh table
-        $(wfEl).val(null).trigger('change');
+  // Lorsqu'une nouvelle option est sélectionnée dans le champ Select2 (ETAT_ID),
+  // on réinitialise le champ WORKFLOW_ID si une valeur y est présente,
+  // afin d'assurer que les filtres restent cohérents entre eux.
+  // L'événement 'select2:select' est utilisé ici car l'événement natif 'change'
+  // peut être déclenché trop tard ou de manière imprévisible avec Select2.
+  // Ce traitement doit être effectué avant toute soumission automatique déclenchée ailleurs.
+  // $("#" + ETAT_ID).on('select2:select', () => {
+  //   if (wfEl.value !== '') {
+  //     wfEl.selectedIndex = 0;
+  //   }
+  //   manageSelectVisibility(ETAT_ID, WORKFLOW_ID);
+  // });
+    const $etat = $("#" + ETAT_ID);
+    // Fonction appelée "avant modification"
+    function handleEtatFocus() {
+      if (wfEl.value !== '') {
+        wfEl.selectedIndex = 0;
+        $(wfEl).trigger('change');
       }
+      manageSelectVisibility(ETAT_ID, WORKFLOW_ID);
     }
-    manageSelectVisibility(ETAT_ID, WORKFLOW_ID);
+    // ✅ Cas 1 : Select natif → focus
+    $etat.on('focus', handleEtatFocus);
+    // ✅ Cas 2 : Select2 → select2:opening (équivalent à focus)
+    if ($etat.hasClass('select2-hidden-accessible')) {
+      $etat.on('select2:select', handleEtatFocus);
+    }
+
+  $(etatEl).on('select2:select', function () {
+  // 1. Réinitialiser wfEl
+  if (wfEl.value !== '') {
+    $(wfEl).val(null).trigger('change'); // change déclenché ici
+  }
+
+  // 2. Gérer la visibilité ou autres logiques liées
+  manageSelectVisibility(ETAT_ID, WORKFLOW_ID);
+
+
   });
 
   // Sur changement de sélection dans le workflow
