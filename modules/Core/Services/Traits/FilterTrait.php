@@ -2,6 +2,8 @@
 
 namespace Modules\Core\Services\Traits;
 
+use Modules\Core\Services\UserModelFilterService;
+
 trait FilterTrait
 {
     public function getFieldsFilterable(): array
@@ -169,5 +171,37 @@ trait FilterTrait
     public function initFieldsFilterable()
     {
         // À implémenter selon le contexte d'application
+    }
+
+    public function loadLastFilterIfEmpty(){
+        
+         // TODO : il faut applique seulement les champs filtrable pour que l'utilisateur
+        // Il faut l'applique en création de filtre pour initialiser le filtre avec sa 
+        // dernière valeur
+        // Si vide, essayer de récupérer le filtre enregistré
+      
+        $filterVariables = $this->viewState->getFilterVariables($this->modelName);
+        $this->userHasSentFilter = (count($filterVariables) != 0);
+     
+        // voir le filtre dans la bar de recherche 
+        $userModelFilterService = new UserModelFilterService();
+        $isReset = $this->viewState->isResetRequested($this->modelName);
+        if ($isReset) {
+            // 🔄 Réinitialisation explicite demandée
+            $filterVariables = [];
+            $userModelFilterService->storeLastFilter($this->modelName, []); // optionnel : reset base
+            $this->viewState->removeIsResetRequested($this->modelName);
+        }
+        elseif (!$this->userHasSentFilter) {
+            // 📂 Pas de filtre envoyé = chargement auto
+            $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+            $filterVariables = array_merge($saved_filter,$filterVariables);
+            foreach ($filterVariables as $key => $value) {
+                $this->viewState->set("filter.{$this->modelName}.{$key}", $value);
+            }
+        } else {
+            // ✅ Filtre soumis → sauvegarder
+            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
+        }
     }
 }

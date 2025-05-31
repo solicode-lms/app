@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\Services\ContextState;
 use Modules\Core\Services\SessionState;
+use Modules\Core\Services\UserModelFilterService;
 use Modules\Core\Services\ViewStateService;
 use Modules\PkgApprenants\App\Requests\VilleRequest;
 use Str;
@@ -108,5 +109,8 @@ class AdminController extends AppController
     {
         return Str::studly($this->getControllerName()); // Ex: WidgetUtilisateur
     }
+
+
+  
 
 }

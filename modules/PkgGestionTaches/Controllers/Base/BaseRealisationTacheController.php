@@ -42,19 +42,18 @@ class BaseRealisationTacheController extends AdminController
         
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
-        $userHasSentFilter = $this->viewState->getFilterVariables('realisationTache');
-        $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
+        $this->service->loadLastFilterIfEmpty();
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
+        if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
            $this->viewState->init('orWhere.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
            $this->viewState->init('orWhere.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
+        if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
            $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
-        if(Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id') == null){
+        if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id') == null){
            $this->viewState->init('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
 

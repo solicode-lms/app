@@ -44,7 +44,7 @@ class RealisationTacheService extends BaseRealisationTacheService
         $sessionState = $this->sessionState;
 
         // Groupe 
-        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
+        if(Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
             // Affichage de l'état de solicode
             $groupeService = new GroupeService();
             $groupes = $groupeService->all();
