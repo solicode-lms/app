@@ -36,13 +36,13 @@ trait QueryBuilderTrait
         return $this->model->newQuery();
     }
 
-    // TODO : ajouter une recherche sur les relation ManyToOne,
-    // TODO : ajouter recherche par nom de filiere : Apprenant, ManyToOne/ManyToOne
     /**
-     * Construit une requête de récupération des données.
-     *
-     * @param array $params Critères de recherche.
-     * @return Builder
+     * Construit la requête "all". On y applique successivement :
+     * 1) recherche globale,
+     * 2) filter (AND),
+     * 3) where strict (AND),
+     * 4) orWhere groupé (OR),
+     * 5) tri multi-colonnes
      */
     public function allQuery(array $params = [],$query = null): Builder
     {
@@ -63,27 +63,33 @@ trait QueryBuilderTrait
 
         // 2) Récupérer / initialiser les variables de filtre (ViewState + UserModelFilterService)
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
-        // Si vide, essayer de récupérer le filtre enregistré
-        $userModelFilterService = new UserModelFilterService();
-        $isReset = $this->viewState->isResetRequested($this->modelName);
-        if ($isReset) {
-            // 🔄 Réinitialisation explicite demandée
-            $filterVariables = [];
-            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables); // optionnel : reset base
-            $this->viewState->removeIsResetRequested($this->modelName);
+        
 
-        }
-        elseif (!$this->userHasSentFilter) {
-            // 📂 Pas de filtre envoyé = chargement auto
-            $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
-            $filterVariables = array_merge($saved_filter,$filterVariables);
-            foreach ($filterVariables as $key => $value) {
-                $this->viewState->set("filter.{$this->modelName}.{$key}", $value);
-            }
-        } else {
-            // ✅ Filtre soumis → sauvegarder
-            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
-        }
+        // // TODO : il faut applique seulement les champs filtrable pour que l'utilisateur
+        // // Il faut l'applique en création de filtre pour initialiser le filtre avec sa 
+        // // dernière valeur
+        // // Si vide, essayer de récupérer le filtre enregistré
+      
+        // // voir le filtre dans la bar de recherche 
+        // $userModelFilterService = new UserModelFilterService();
+        // $isReset = $this->viewState->isResetRequested($this->modelName);
+        // if ($isReset) {
+        //     // 🔄 Réinitialisation explicite demandée
+        //     $filterVariables = [];
+        //     $userModelFilterService->storeLastFilter($this->modelName, $filterVariables); // optionnel : reset base
+        //     $this->viewState->removeIsResetRequested($this->modelName);
+        // }
+        // elseif (!$this->userHasSentFilter) {
+        //     // 📂 Pas de filtre envoyé = chargement auto
+        //     $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+        //     $filterVariables = array_merge($saved_filter,$filterVariables);
+        //     foreach ($filterVariables as $key => $value) {
+        //         $this->viewState->set("filter.{$this->modelName}.{$key}", $value);
+        //     }
+        // } else {
+        //     // ✅ Filtre soumis → sauvegarder
+        //     $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
+        // }
 
         // 3) Appliquer les filtres "filter" (AND)
         $this->filter($query, $this->model, $filterVariables);
@@ -92,9 +98,16 @@ trait QueryBuilderTrait
         $whereVariables = $this->viewState->getWhereVariables($this->modelName);
         $this->where($query, $this->model, $whereVariables);
 
-        // 5) Appliquer les conditions "orWhere" (OR) du ViewState
+        // 5) Appliquer les conditions "orWhere" (mode OR), MAIS regroupées dans un même groupe
         $orWhereVariables = $this->viewState->getOrWhereVariables($this->modelName);
-        $this->orWhere($query, $this->model, $orWhereVariables);
+        if (!empty($orWhereVariables)) {
+            // On crée une closure pour tout mettre entre parenthèses
+            $query->where(function (Builder $q) use ($orWhereVariables) {
+                // À l’intérieur, applyCondition(..., true) appliquera successivement
+                // tous les orWhere / orWhereHas pour chaque filtre
+                $this->applyCondition($q, $this->model, $orWhereVariables, true);
+            });
+        }
 
         // 6) Appliquer le tri multi-colonnes
         $sortVariables = $this->viewState->getSortVariables($this->modelName);
@@ -175,15 +188,15 @@ trait QueryBuilderTrait
         // Charger automatiquement les relations nécessaires
         $relationsToLoad = [];
 
+        // Choix dynamique des méthodes Eloquent : where vs orWhere
+        $methodWhere = $useOr ? 'orWhere' : 'where';
+        // Méthode pour les relations imbriquées
+        $methodHas   = $useOr ? 'OrWhereHas' : 'whereHas';
+
         foreach ($filterVariables as $key => $value) {
             if (is_null($value)) {
                 continue;
             }
-
-            // Choix dynamique des méthodes Eloquent : where vs orWhere
-            $methodWhere = $useOr ? 'orWhere' : 'where';
-            // Méthode pour les relations imbriquées
-            $methodHas   = $useOr ? 'WhereHas' : 'whereHas';
 
             // 1) Cas d’une relation imbriquée ("relation1.relation2.attribut")
             if (Str::contains($key, '.')) {
@@ -202,7 +215,10 @@ trait QueryBuilderTrait
                     
                     // Appliquer whereHas récursivement
                     $builder->{$methodHas}(implode('.', $relations), function ($query) use ($attribute, $value, $methodWhere) {
-                        $query->{$methodWhere}($attribute, $value);
+                        // À l’intérieur du callback, on utilise TOUT LE TEMPS ->where(...)
+                        // (même si $useOr = true), car l’opérateur OR global est pris en charge
+                        // par orWhereHas au niveau supérieur.
+                        $query->where($attribute, $value);
                     });
                 }
             // 2) Cas d’un attribut simple (colonne "fillable")
@@ -225,7 +241,7 @@ trait QueryBuilderTrait
                     $relationsToLoad[] = $relationName;
                     // Appliquer whereHas() dynamiquement
                     $builder->{$methodHas}($relationName, function ($query) use ($relationId, $methodWhere) {
-                        $query->{$methodWhere}('id', $relationId);
+                        $query->where('id', $relationId);
                     });
                 }
             }
