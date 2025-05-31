@@ -18,6 +18,8 @@ class RealisationTacheController extends BaseRealisationTacheController
         
         if(Auth::user()->hasRole('evaluateur')){
             $this->viewState->init('realisationTache_view_type', "table-evaluation");
+
+            // Il faut charger les realisationTache à evaluser si l'utilisateur est un formateur
         }
         return parent::index($request);
     }

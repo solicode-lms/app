@@ -1,30 +1,27 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+// On utilise ici le package "glob" pour récupérer dynamiquement la liste des fichiers
+import { globSync } from 'glob';
 
-// il bloc le hack 
-// import select2 from 'select2';
-// select2();
-// import inject from '@rollup/plugin-inject';
+function findAllIndexJs() {
+    // Cette fonction renvoie un tableau de chemins (chaînes) vers chaque fichier index.js trouvé
+    // dans l’arborescence "resources/js/"
+    return globSync('resources/js/**/index.js');
+}
 
 export default defineConfig({
 
     plugins: [
-        // inject({
-        //     $: 'jquery',
-        //     jQuery: 'jquery',
-        // }),
-
-   
       laravel({
             input: [
                 'resources/css/public.css',
                 'resources/js/public.js',
                 'resources/css/admin.css',
                 'resources/js/admin.js',
+                ...findAllIndexJs(),
             ],
             refresh: true,
         }),
-       
     ],
     resolve : {
         alias: {

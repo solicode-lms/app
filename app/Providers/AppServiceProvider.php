@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('accessiblePermissions', function ($expression) {
             return "<?php \$accessiblePermissions = collect($expression)->filter(fn(\$permission) => auth()->user()->can(\$permission)); ?>";
         });
-        
+
     }
 
     /**
