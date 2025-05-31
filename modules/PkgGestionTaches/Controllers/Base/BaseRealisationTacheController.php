@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ orFilter
 
 
 namespace Modules\PkgGestionTaches\Controllers\Base;
@@ -48,7 +48,8 @@ class BaseRealisationTacheController extends AdminController
 
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
-           $this->viewState->init('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('orWhere.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->init('orWhere.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
            $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
@@ -56,8 +57,6 @@ class BaseRealisationTacheController extends AdminController
         if(Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id') == null){
            $this->viewState->init('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
-
-
 
          // Extraire les paramètres de recherche, pagination, filtres
         $realisationTaches_params = array_merge(

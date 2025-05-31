@@ -14,6 +14,9 @@ class RealisationTacheController extends BaseRealisationTacheController
 {
     public function index(Request $request){
 
+        // Le formateur peut être un évaluateur mais il n'a pas de rôle évaluateur
+        // car l'évaluateur voi seulement les réalisation des tâches à évaluer
+
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
         if(Auth::user()->hasRole('evaluateur')){

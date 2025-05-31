@@ -138,6 +138,14 @@ class ViewStateService
     {
         return $this->extractVariables($modelName, ['filter']);
     }
+    public function getWhereVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['where']);
+    }
+    public function getOrWhereVariables(string $modelName): array
+    {
+        return $this->extractVariables($modelName, ['orWhere']);
+    }
     public function getSortVariables(string $modelName): array
     {
         return $this->extractVariables($modelName, ['sort']);

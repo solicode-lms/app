@@ -52,7 +52,7 @@ trait QueryBuilderTrait
      
         $table = $this->model->getTable();
 
-        // Appliquer la recherche globale
+        // 1) Appliquer la recherche globale
         if (!empty($params['search'])) {
             $query->where(function ($q) use ($params,$table) {
                 foreach ($this->getFieldsSearchable() as $field) {
@@ -61,8 +61,8 @@ trait QueryBuilderTrait
             });
         }
 
+        // 2) Récupérer / initialiser les variables de filtre (ViewState + UserModelFilterService)
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
-     
         // Si vide, essayer de récupérer le filtre enregistré
         $userModelFilterService = new UserModelFilterService();
         $isReset = $this->viewState->isResetRequested($this->modelName);
@@ -85,10 +85,18 @@ trait QueryBuilderTrait
             $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
         }
 
-        $this->filter($query,$this->model,$filterVariables);
-      
+        // 3) Appliquer les filtres "filter" (AND)
+        $this->filter($query, $this->model, $filterVariables);
 
-        // Appliquer le tri multi-colonnes
+        // 4) Appliquer les conditions "where" (AND strictes) du ViewState
+        $whereVariables = $this->viewState->getWhereVariables($this->modelName);
+        $this->where($query, $this->model, $whereVariables);
+
+        // 5) Appliquer les conditions "orWhere" (OR) du ViewState
+        $orWhereVariables = $this->viewState->getOrWhereVariables($this->modelName);
+        $this->orWhere($query, $this->model, $orWhereVariables);
+
+        // 6) Appliquer le tri multi-colonnes
         $sortVariables = $this->viewState->getSortVariables($this->modelName);
         if (!empty($sortVariables)) {
             $this->applySort($query,$sortVariables);
@@ -117,6 +125,40 @@ trait QueryBuilderTrait
      */
 
     
+    /**
+     * filter : wrapper pour applyCondition en mode "where" (AND),
+     * en utilisant les variables "filter" du ViewState.
+     *
+     * @param Builder       $builder
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param array         $filterVariables
+     */
+    public function filter(Builder $builder, $model, array $filterVariables): void
+    {
+        $this->applyCondition($builder, $model, $filterVariables, false);
+    }
+
+        /**
+     * where : applique strictement les variables "where" du ViewState (mode AND).
+     *
+     * @param Builder       $builder
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
+    public function where(Builder $builder, $model, array $whereVariables): void
+    {
+        $this->applyCondition($builder, $model, $whereVariables, false);
+    }
+
+    /**
+     * orWhere : applique strictement les variables "OrWhere" du ViewState (mode OR).
+     *
+     * @param Builder       $builder
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
+    public function orWhere(Builder $builder, $model, array $orWhereVariables): void
+    {
+        $this->applyCondition($builder, $model, $orWhereVariables, true);
+    }
 
     /**
      * Cette fonction est utilisé aussi Dans DynamiqueContextScope
@@ -124,9 +166,9 @@ trait QueryBuilderTrait
      * @param mixed $model
      * @return void
      */
-    public function filter(Builder $builder, $model, $filterVariables){
+    public function applyCondition(Builder $builder, $model, $filterVariables, bool $useOr = false){
    
-        // Obtenir les colonnes disponibles dans le modèle
+         // Liste des attributs "fillable" pour détecter les colonnes simples
         $modelAttributes = $model->getFillable();
         $table = $model->getTable(); // Récupérer dynamiquement le nom de la table
 
@@ -138,16 +180,18 @@ trait QueryBuilderTrait
                 continue;
             }
 
-            // Vérifier si la clé contient une relation imbriquée (ex: competence.module.ecole.filiere_id)
+            // Choix dynamique des méthodes Eloquent : where vs orWhere
+            $methodWhere = $useOr ? 'orWhere' : 'where';
+            // Méthode pour les relations imbriquées
+            $methodHas   = $useOr ? 'WhereHas' : 'whereHas';
+
+            // 1) Cas d’une relation imbriquée ("relation1.relation2.attribut")
             if (Str::contains($key, '.')) {
-
-
                 // Parfois le début de segment commence par une Lettre Majuscule dure à 
                 // une solution appliquer pour passer le key en params de laravel 
                 $relations = array_map(function ($segment) {
                     return lcfirst($segment);
                 }, explode('.', $key));
-
                 $attribute = array_pop($relations); // Récupère le dernier élément (filiere_id)
 
                 // Vérifier si la première relation existe sur le modèle
@@ -157,18 +201,18 @@ trait QueryBuilderTrait
                     $relationsToLoad[] = implode('.', $relations);
                     
                     // Appliquer whereHas récursivement
-                    $builder->whereHas(implode('.', $relations), function ($query) use ($attribute, $value) {
-                        $query->where($attribute, $value);
+                    $builder->{$methodHas}(implode('.', $relations), function ($query) use ($attribute, $value, $methodWhere) {
+                        $query->{$methodWhere}($attribute, $value);
                     });
                 }
+            // 2) Cas d’un attribut simple (colonne "fillable")
             } elseif (in_array($key, $modelAttributes)) {
                 // Correction : Ajout dynamique du préfixe de la table pour éviter les ambiguïtés SQL
-                $builder->where("{$table}.{$key}", $value);
+                $builder->{$methodWhere}("{$table}.{$key}", $value);
             }
         }
 
-
-        // Vérifier si le modèle a une propriété manyToMany définie
+        // 3) Cas d’une relation many-to-many si définie dans $model->manyToMany
         if (property_exists($model, 'manyToMany') && is_array($model->manyToMany)) {
             foreach ($model->manyToMany as $relationInfo) {
                 $relationName = $relationInfo['relation']; // ex: apprenants, formateurs
@@ -180,8 +224,8 @@ trait QueryBuilderTrait
                     // Ajouter la relation à charger
                     $relationsToLoad[] = $relationName;
                     // Appliquer whereHas() dynamiquement
-                    $builder->whereHas($relationName, function ($query) use ($relationId) {
-                        $query->where('id', $relationId);
+                    $builder->{$methodHas}($relationName, function ($query) use ($relationId, $methodWhere) {
+                        $query->{$methodWhere}('id', $relationId);
                     });
                 }
             }
