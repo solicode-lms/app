@@ -73,19 +73,39 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
     
     /**
-     * Trouver la liste des affectations de projets d'un formateur donné.
+     * - Trouver la liste des affectations de projets d'un formateur donné.
+     * - Le formateur peut être un évaluateur, il faut trouver aussi les affectation de projet 
+     * dont le formateur est un évaluateur
      *
      * @param int $formateur_id
      * @return \Illuminate\Database\Eloquent\Collection
      */
+    // public function getAffectationProjetsByFormateurId($formateur_id)
+    // {
+    //     return AffectationProjet::whereHas('projet', function ($query) use ($formateur_id) {
+    //     $query->where('formateur_id', $formateur_id);
+    //     })->get();
+    // }
     public function getAffectationProjetsByFormateurId($formateur_id)
     {
-        return AffectationProjet::whereHas('groupe', function ($query) use ($formateur_id) {
-            $query->whereHas('formateurs', function ($q) use ($formateur_id) {
-                $q->where('formateurs.id', $formateur_id);
+        return AffectationProjet::where(function ($query) use ($formateur_id) {
+            // Cas 1 : Le formateur est lié au projet via projets.formateur_id
+            $query->whereHas('projet', function ($q) use ($formateur_id) {
+                $q->where('formateur_id', $formateur_id);
+            })
+            // Cas 2 : Le formateur est un évaluateur via affectation_projet_evaluateur
+            ->orWhereHas('evaluateurs', function ($q) use ($formateur_id) {
+                $q->whereHas('user', function ($subQuery) use ($formateur_id) {
+                    $subQuery->whereIn('id', function ($innerQuery) use ($formateur_id) {
+                        $innerQuery->select('user_id')
+                                ->from('formateurs')
+                                ->where('id', $formateur_id);
+                    });
+                });
             });
         })->get();
     }
+
 
     /**
      * Trouver la liste des affectations de projets d'un apprenant donné.

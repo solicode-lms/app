@@ -525,5 +525,29 @@
         ],
         "e_model_reference": "evaluateurs",
         "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id_displayOrder",
+        "value_integer": 12,
+        "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "evaluateurs_hasMany_evaluation_realisation_projets_evaluateur_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

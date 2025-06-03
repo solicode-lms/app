@@ -136,7 +136,9 @@
     "tables": [
         "evaluateurs",
         "evaluation_realisation_taches",
-        "affectation_projet_evaluateur"
+        "affectation_projet_evaluateur",
+        "etat_evaluation_projets",
+        "evaluation_realisation_projets"
     ]
 },
 
