@@ -4,6 +4,7 @@
 namespace Modules\PkgValidationProjets\Services;
 
 use Illuminate\Support\Facades\DB;
+use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationProjetService;
@@ -56,7 +57,8 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
                 // 5.a) Ajouter les évaluateurs manquants
                 foreach ($evaluateursAssignes as $evalId) {
                     if (! isset($existingRecords[$evalId])) {
-                        EvaluationRealisationProjet::create([
+
+                        $this->create([
                             'realisation_projet_id'      => $realisationProjetId,
                             'evaluateur_id'              => $evalId,
                             'etat_evaluation_projet_id'  => $defaultEtatId,
@@ -78,6 +80,24 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         }
     }
 
+
+   public function afterCreateRules($evaluationRealisationProjet, $id)
+{
+    // 1) Récupérer toutes les RealisationTache liées au même project
+    $realisationTaches = RealisationTache::where('realisation_projet_id', $evaluationRealisationProjet->realisation_projet_id)
+                       ->get();
+
+    // 2) Pour chaque RealisationTache, créer un EvaluationRealisationTache avec note = null
+    foreach ($realisationTaches as $tache) {
+        (new EvaluationRealisationTacheService)->create([
+            'evaluation_realisation_projet_id' => $evaluationRealisationProjet->id,
+            'realisation_tache_id'             => $tache->id,
+            'evaluateur_id'                    => $evaluationRealisationProjet->evaluateur_id,
+            'note'                             => null,
+            'message'                          => null,
+        ]);
+    }
+}
 
 
 

@@ -10,10 +10,25 @@ ajouter le rôle "formateur" à l'utilisateur : admin-formateur
 sudo php artisan migrate
 sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EtatEvaluationProjetSeeder
 sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EvaluationRealisationProjetSeeder
+sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EvaluationRealisationTacheSeeder
+
 ````
  
 ````bash
 php artisan migrate
 php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EtatEvaluationProjetSeeder
 php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EvaluationRealisationProjetSeeder
+php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EvaluationRealisationTacheSeeder
 ````
+
+## Droit d'accès 
+
+### Formateur et evaluateur
+
+- EvaluationRealisationProjet
+  - Afficher sur tous les tables
+  - EvaluationRealisationProjet - Édition sans Ajouter 
+  - EvaluationRealisationProjet - Extraction
+
+- EvaluationRealisationTache
+  - Édition sans Ajouter 
