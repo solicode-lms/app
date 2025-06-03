@@ -414,5 +414,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "EvaluationRealisationProjet_updated_at",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
