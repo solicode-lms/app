@@ -3,23 +3,32 @@
 		{
 			"path": "./modules"
 		},
+		
 		{
-			"path": "E:/solicode-lms/docs"
-		},
-		{
-			"path": "./db_schemas/"
+			"path": "."
 		},
 		{
 			"path": "E:/laravel-builders/gapp3"
 		},
 		{
-			"path": "./docs/prompts"
-		},		
+			"path": "./db_schemas/",
+			"name":"soli-lms/db_schemas"
+		},
+		
 		{
-			"path": "E:/solicode-lms/modelisation"
+			"path": "./docs",
+			"name":"soli-lms/docs"
+		},	
+		
+		{
+			"path": "E:/solicode-lms/db_connaissances"
 		},
 		{
-			"path": "."
+			"path": "E:/solicode-lms/docs"
+		},
+		
+		{
+			"path": "E:/solicode-lms/modelisation"
 		}
 	],
 	"settings": {
