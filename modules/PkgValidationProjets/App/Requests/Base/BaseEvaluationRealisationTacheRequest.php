@@ -29,7 +29,7 @@ class BaseEvaluationRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'evaluation_realisation_projet_id' => 'nullable|integer',
+            'evaluation_realisation_projet_id' => 'nullable',
             'note' => 'required',
             'message' => 'nullable|string',
             'evaluateur_id' => 'required',

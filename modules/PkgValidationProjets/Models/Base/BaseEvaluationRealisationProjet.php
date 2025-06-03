@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 
 /**
  * Classe BaseEvaluationRealisationProjet
@@ -85,6 +86,15 @@ class BaseEvaluationRealisationProjet extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour EvaluationRealisationProjets.
+     *
+     * @return HasMany
+     */
+    public function evaluationRealisationTaches(): HasMany
+    {
+        return $this->hasMany(EvaluationRealisationTache::class, 'evaluation_realisation_projet_id', 'id');
+    }
 
 
 

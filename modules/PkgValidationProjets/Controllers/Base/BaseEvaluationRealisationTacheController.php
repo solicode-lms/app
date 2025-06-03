@@ -6,6 +6,7 @@ namespace Modules\PkgValidationProjets\Controllers\Base;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -22,13 +23,15 @@ class BaseEvaluationRealisationTacheController extends AdminController
     protected $evaluationRealisationTacheService;
     protected $evaluateurService;
     protected $realisationTacheService;
+    protected $evaluationRealisationProjetService;
 
-    public function __construct(EvaluationRealisationTacheService $evaluationRealisationTacheService, EvaluateurService $evaluateurService, RealisationTacheService $realisationTacheService) {
+    public function __construct(EvaluationRealisationTacheService $evaluationRealisationTacheService, EvaluateurService $evaluateurService, RealisationTacheService $realisationTacheService, EvaluationRealisationProjetService $evaluationRealisationProjetService) {
         parent::__construct();
         $this->service  =  $evaluationRealisationTacheService;
         $this->evaluationRealisationTacheService = $evaluationRealisationTacheService;
         $this->evaluateurService = $evaluateurService;
         $this->realisationTacheService = $realisationTacheService;
+        $this->evaluationRealisationProjetService = $evaluationRealisationProjetService;
     }
 
     /**
@@ -77,13 +80,14 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
         
 
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches'));
+            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
         }
-        return view('PkgValidationProjets::evaluationRealisationTache.create', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches'));
+        return view('PkgValidationProjets::evaluationRealisationTache.create', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -103,6 +107,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
          $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->find($evaluationRealisationTache_ids[0]);
          
  
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
 
@@ -112,9 +117,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches'));
+            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
         }
-        return view('PkgValidationProjets::evaluationRealisationTache.bulk-edit', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches'));
+        return view('PkgValidationProjets::evaluationRealisationTache.bulk-edit', compact('bulkEdit', 'evaluationRealisationTache_ids', 'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
     }
     /**
      */
@@ -167,15 +172,16 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->edit($id);
 
 
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
 
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationTache._fields', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches'),));
+            return view('PkgValidationProjets::evaluationRealisationTache._fields', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
         }
 
-        return view('PkgValidationProjets::evaluationRealisationTache.edit', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches'),));
+        return view('PkgValidationProjets::evaluationRealisationTache.edit', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
 
 
     }

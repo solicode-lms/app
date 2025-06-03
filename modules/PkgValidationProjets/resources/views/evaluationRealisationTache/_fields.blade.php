@@ -38,19 +38,24 @@
           </div>
           @endif
           <label for="evaluation_realisation_projet_id">
-            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id')) }}
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.singular')) }}
             
           </label>
-                      <input
-                name="evaluation_realisation_projet_id"
-                type="number"
-                class="form-control"
-                
-                
-                
-                id="evaluation_realisation_projet_id"
-                placeholder="{{ __('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id') }}"
-                value="{{ $itemEvaluationRealisationTache ? $itemEvaluationRealisationTache->evaluation_realisation_projet_id : old('evaluation_realisation_projet_id') }}">
+                      <select 
+            id="evaluation_realisation_projet_id" 
+            
+            
+            
+            name="evaluation_realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($evaluationRealisationProjets as $evaluationRealisationProjet)
+                    <option value="{{ $evaluationRealisationProjet->id }}"
+                        {{ (isset($itemEvaluationRealisationTache) && $itemEvaluationRealisationTache->evaluation_realisation_projet_id == $evaluationRealisationProjet->id) || (old('evaluation_realisation_projet_id>') == $evaluationRealisationProjet->id) ? 'selected' : '' }}>
+                        {{ $evaluationRealisationProjet }}
+                    </option>
+                @endforeach
+            </select>
           @error('evaluation_realisation_projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror

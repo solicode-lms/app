@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 
@@ -37,6 +38,11 @@ class BaseEvaluationRealisationTache extends BaseModel
         'evaluation_realisation_projet_id', 'note', 'message', 'evaluateur_id', 'realisation_tache_id'
     ];
     public $manyToOne = [
+        'EvaluationRealisationProjet' => [
+            'model' => "Modules\\PkgValidationProjets\\Models\\EvaluationRealisationProjet",
+            'relation' => 'evaluationRealisationProjets' , 
+            "foreign_key" => "evaluation_realisation_projet_id", 
+            ],
         'Evaluateur' => [
             'model' => "Modules\\PkgValidationProjets\\Models\\Evaluateur",
             'relation' => 'evaluateurs' , 
@@ -50,6 +56,15 @@ class BaseEvaluationRealisationTache extends BaseModel
     ];
 
 
+    /**
+     * Relation BelongsTo pour EvaluationRealisationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function evaluationRealisationProjet(): BelongsTo
+    {
+        return $this->belongsTo(EvaluationRealisationProjet::class, 'evaluation_realisation_projet_id', 'id');
+    }
     /**
      * Relation BelongsTo pour Evaluateur.
      *

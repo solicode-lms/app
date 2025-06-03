@@ -7,6 +7,7 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Modules\PkgValidationProjets\Services\EtatEvaluationProjetService;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -138,7 +139,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
             );
         }
 
-        return redirect()->route('evaluationRealisationProjets.index')->with(
+        return redirect()->route('evaluationRealisationProjets.edit',['evaluationRealisationProjet' => $evaluationRealisationProjet->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $evaluationRealisationProjet,
@@ -155,11 +156,18 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->edit($id);
 
 
+        $this->viewState->set('scope.evaluationRealisationTache.evaluation_realisation_projet_id', $id);
+        
+
+        $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
+        $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
+        extract($evaluationRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationProjet._show', array_merge(compact('itemEvaluationRealisationProjet'),));
+            return view('PkgValidationProjets::evaluationRealisationProjet._show', array_merge(compact('itemEvaluationRealisationProjet'),$evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluationRealisationProjet.show', array_merge(compact('itemEvaluationRealisationProjet'),));
+        return view('PkgValidationProjets::evaluationRealisationProjet.show', array_merge(compact('itemEvaluationRealisationProjet'),$evaluationRealisationTache_compact_value));
 
     }
     /**
@@ -177,11 +185,18 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
 
 
+        $this->viewState->set('scope.evaluationRealisationTache.evaluation_realisation_projet_id', $id);
+        
+
+        $evaluationRealisationTacheService =  new EvaluationRealisationTacheService();
+        $evaluationRealisationTaches_view_data = $evaluationRealisationTacheService->prepareDataForIndexView();
+        extract($evaluationRealisationTaches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationProjet._fields', array_merge(compact('itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),));
+            return view('PkgValidationProjets::evaluationRealisationProjet._edit', array_merge(compact('itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluationRealisationProjet.edit', array_merge(compact('itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),));
+        return view('PkgValidationProjets::evaluationRealisationProjet.edit', array_merge(compact('itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
 
 
     }

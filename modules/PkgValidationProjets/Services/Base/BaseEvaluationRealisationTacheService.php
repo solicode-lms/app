@@ -54,6 +54,10 @@ class BaseEvaluationRealisationTacheService extends BaseService
         $this->fieldsFilterable = [];
     
 
+        if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluationRealisationProjet.plural"), 'evaluation_realisation_projet_id', \Modules\PkgValidationProjets\Models\EvaluationRealisationProjet::class, 'id');
+        }
+
         if (!array_key_exists('evaluateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluateur.plural"), 'evaluateur_id', \Modules\PkgValidationProjets\Models\Evaluateur::class, 'nom');
         }
