@@ -46,6 +46,9 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModel" role="tab" aria-controls="sysColor-hasmany-tabs-sysModel" aria-selected="false">{{ucfirst(__('Core::sysModel.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatEvaluationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatEvaluationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatEvaluationProjet" aria-selected="false">{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatFormation" role="tab" aria-controls="sysColor-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -93,6 +96,9 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModel-tab">
                                 @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatEvaluationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatEvaluationProjet-tab">
+                                @include('PkgValidationProjets::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatFormation" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatFormation-tab">
                                 @include('PkgAutoformation::etatFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

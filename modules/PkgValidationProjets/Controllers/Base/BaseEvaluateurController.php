@@ -6,6 +6,7 @@ namespace Modules\PkgValidationProjets\Controllers\Base;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgAutorisation\Services\UserService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,7 +135,7 @@ class BaseEvaluateurController extends AdminController
             );
         }
 
-        return redirect()->route('evaluateurs.index')->with(
+        return redirect()->route('evaluateurs.edit',['evaluateur' => $evaluateur->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $evaluateur,
@@ -151,6 +152,13 @@ class BaseEvaluateurController extends AdminController
         $itemEvaluateur = $this->evaluateurService->edit($id);
 
 
+        $this->viewState->set('scope.evaluationRealisationProjet.evaluateur_id', $id);
+        
+
+        $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
+        $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
+        extract($evaluationRealisationProjets_view_data);
+
         $this->viewState->set('scope.evaluationRealisationTache.evaluateur_id', $id);
         
 
@@ -159,10 +167,10 @@ class BaseEvaluateurController extends AdminController
         extract($evaluationRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._show', array_merge(compact('itemEvaluateur'),$evaluationRealisationTache_compact_value));
+            return view('PkgValidationProjets::evaluateur._show', array_merge(compact('itemEvaluateur'),$evaluationRealisationProjet_compact_value, $evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluateur.show', array_merge(compact('itemEvaluateur'),$evaluationRealisationTache_compact_value));
+        return view('PkgValidationProjets::evaluateur.show', array_merge(compact('itemEvaluateur'),$evaluationRealisationProjet_compact_value, $evaluationRealisationTache_compact_value));
 
     }
     /**
@@ -179,11 +187,18 @@ class BaseEvaluateurController extends AdminController
         $affectationProjets = $this->affectationProjetService->all();
 
 
+        $this->viewState->set('scope.evaluationRealisationProjet.evaluateur_id', $id);
+        
+
+        $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
+        $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
+        extract($evaluationRealisationProjets_view_data);
+
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._fields', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),));
+            return view('PkgValidationProjets::evaluateur._edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),));
+        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
 
 
     }

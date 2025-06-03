@@ -1,0 +1,100 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgValidationProjets\Models\Base;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
+use App\Traits\HasDynamicContext;
+use Modules\Core\Models\BaseModel;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgValidationProjets\Models\Evaluateur;
+use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
+
+/**
+ * Classe BaseEvaluationRealisationProjet
+ * Cette classe sert de base pour le modèle EvaluationRealisationProjet.
+ */
+class BaseEvaluationRealisationProjet extends BaseModel
+{
+    use HasFactory, HasDynamicContext;
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        $this->isOwnedByUser =  false;
+    }
+
+    
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'date_evaluation', 'remarques', 'realisation_projet_id', 'evaluateur_id', 'etat_evaluation_projet_id'
+    ];
+    public $manyToOne = [
+        'RealisationProjet' => [
+            'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
+            'relation' => 'realisationProjets' , 
+            "foreign_key" => "realisation_projet_id", 
+            ],
+        'Evaluateur' => [
+            'model' => "Modules\\PkgValidationProjets\\Models\\Evaluateur",
+            'relation' => 'evaluateurs' , 
+            "foreign_key" => "evaluateur_id", 
+            ],
+        'EtatEvaluationProjet' => [
+            'model' => "Modules\\PkgValidationProjets\\Models\\EtatEvaluationProjet",
+            'relation' => 'etatEvaluationProjets' , 
+            "foreign_key" => "etat_evaluation_projet_id", 
+            ]
+    ];
+
+
+    /**
+     * Relation BelongsTo pour RealisationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function realisationProjet(): BelongsTo
+    {
+        return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Evaluateur.
+     *
+     * @return BelongsTo
+     */
+    public function evaluateur(): BelongsTo
+    {
+        return $this->belongsTo(Evaluateur::class, 'evaluateur_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour EtatEvaluationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function etatEvaluationProjet(): BelongsTo
+    {
+        return $this->belongsTo(EtatEvaluationProjet::class, 'etat_evaluation_projet_id', 'id');
+    }
+
+
+
+
+
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ?? "";
+    }
+}

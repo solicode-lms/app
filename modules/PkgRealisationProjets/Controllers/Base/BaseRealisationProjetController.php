@@ -9,6 +9,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Modules\PkgRealisationProjets\Services\ValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -206,6 +207,13 @@ class BaseRealisationProjetController extends AdminController
         $livrablesRealisations_view_data = $livrablesRealisationService->prepareDataForIndexView();
         extract($livrablesRealisations_view_data);
 
+        $this->viewState->set('scope.evaluationRealisationProjet.realisation_projet_id', $id);
+        
+
+        $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
+        $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
+        extract($evaluationRealisationProjets_view_data);
+
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
         
         // scopeDataInEditContext
@@ -218,10 +226,10 @@ class BaseRealisationProjetController extends AdminController
         extract($validations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
+            return view('PkgRealisationProjets::realisationProjet._show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.show', array_merge(compact('itemRealisationProjet'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
 
     }
     /**
@@ -262,6 +270,13 @@ class BaseRealisationProjetController extends AdminController
         $livrablesRealisations_view_data = $livrablesRealisationService->prepareDataForIndexView();
         extract($livrablesRealisations_view_data);
 
+        $this->viewState->set('scope.evaluationRealisationProjet.realisation_projet_id', $id);
+        
+
+        $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
+        $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
+        extract($evaluationRealisationProjets_view_data);
+
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
         
         // scopeDataInEditContext
@@ -274,10 +289,10 @@ class BaseRealisationProjetController extends AdminController
         extract($validations_view_data);
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
+            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
 
 
     }

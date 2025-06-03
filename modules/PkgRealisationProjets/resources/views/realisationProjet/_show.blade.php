@@ -124,6 +124,15 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgValidationProjets::evaluationRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::validation.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgRealisationProjets::validation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])

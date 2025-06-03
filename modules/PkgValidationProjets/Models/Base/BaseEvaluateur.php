@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 
 /**
@@ -69,6 +70,15 @@ class BaseEvaluateur extends BaseModel
         return $this->belongsToMany(AffectationProjet::class, 'affectation_projet_evaluateur');
     }
 
+    /**
+     * Relation HasMany pour Evaluateurs.
+     *
+     * @return HasMany
+     */
+    public function evaluationRealisationProjets(): HasMany
+    {
+        return $this->hasMany(EvaluationRealisationProjet::class, 'evaluateur_id', 'id');
+    }
     /**
      * Relation HasMany pour Evaluateurs.
      *

@@ -16,6 +16,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\PkgRealisationProjets\Models\Validation;
 
 /**
@@ -137,6 +138,15 @@ class BaseRealisationProjet extends BaseModel
     public function livrablesRealisations(): HasMany
     {
         return $this->hasMany(LivrablesRealisation::class, 'realisation_projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationProjets.
+     *
+     * @return HasMany
+     */
+    public function evaluationRealisationProjets(): HasMany
+    {
+        return $this->hasMany(EvaluationRealisationProjet::class, 'realisation_projet_id', 'id');
     }
     /**
      * Relation HasMany pour RealisationProjets.
