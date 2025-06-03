@@ -28,6 +28,7 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
     {
      if($this->format == 'csv'){
         return [
+            'evaluation_realisation_projet_id' => 'evaluation_realisation_projet_id',
             'reference' => 'reference',
             'note' => 'note',
             'message' => 'message',
@@ -36,6 +37,7 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
         ];
         }else{
         return [
+            'evaluation_realisation_projet_id' => __('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id'),
             'reference' => __('Core::msg.reference'),
             'note' => __('PkgValidationProjets::evaluationRealisationTache.note'),
             'message' => __('PkgValidationProjets::evaluationRealisationTache.message'),
@@ -51,6 +53,7 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
     {
         return $this->data->map(function ($evaluationRealisationTache) {
             return [
+                'evaluation_realisation_projet_id' => $evaluationRealisationTache->evaluation_realisation_projet_id,
                 'reference' => $evaluationRealisationTache->reference,
                 'note' => $evaluationRealisationTache->note,
                 'message' => $evaluationRealisationTache->message,

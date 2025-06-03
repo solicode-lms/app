@@ -24,7 +24,12 @@ class AddEvaluationProjetForeignToRealisationTachesTable extends Migration
                 $table->foreign('evaluation_realisation_projet_id',  'fk_evaltache_evalprojet')
                       ->references('id')
                       ->on('evaluation_realisation_projets')
+                      ->nullable()
                       ->onDelete('cascade');
+
+                $table->foreignId('realisation_tache_id')
+                  ->constrained('realisation_taches')
+                  ->onDelete('cascade');
             }
         });
     }

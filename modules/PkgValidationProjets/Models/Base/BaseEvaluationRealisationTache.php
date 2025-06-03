@@ -34,7 +34,7 @@ class BaseEvaluationRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'note', 'message', 'evaluateur_id', 'realisation_tache_id'
+        'evaluation_realisation_projet_id', 'note', 'message', 'evaluateur_id', 'realisation_tache_id'
     ];
     public $manyToOne = [
         'Evaluateur' => [

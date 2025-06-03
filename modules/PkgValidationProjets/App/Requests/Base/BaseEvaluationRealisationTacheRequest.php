@@ -29,6 +29,7 @@ class BaseEvaluationRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'evaluation_realisation_projet_id' => 'nullable|integer',
             'note' => 'required',
             'message' => 'nullable|string',
             'evaluateur_id' => 'required',
@@ -44,6 +45,7 @@ class BaseEvaluationRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'evaluation_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationTache.evaluation_realisation_projet_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationTache.note')]),
             'message.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationTache.message')]),
             'evaluateur_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationTache.evaluateur_id')]),

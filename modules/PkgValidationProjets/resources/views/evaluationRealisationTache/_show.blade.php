@@ -6,6 +6,21 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemEvaluationRealisationTache->evaluation_realisation_projet_id))
+          {{ $itemEvaluationRealisationTache->evaluation_realisation_projet_id }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.note')) }}</small>
                               
       <span>

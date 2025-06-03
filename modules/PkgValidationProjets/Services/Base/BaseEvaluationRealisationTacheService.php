@@ -19,6 +19,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'evaluation_realisation_projet_id',
         'note',
         'message',
         'evaluateur_id',

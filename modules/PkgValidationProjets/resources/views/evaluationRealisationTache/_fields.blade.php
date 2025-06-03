@@ -29,7 +29,36 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEvaluationRealisationTache" field="note" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemEvaluationRealisationTache" field="evaluation_realisation_projet_id" bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluation_realisation_projet_id" id="bulk_field_evaluation_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="evaluation_realisation_projet_id">
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id')) }}
+            
+          </label>
+                      <input
+                name="evaluation_realisation_projet_id"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="evaluation_realisation_projet_id"
+                placeholder="{{ __('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id') }}"
+                value="{{ $itemEvaluationRealisationTache ? $itemEvaluationRealisationTache->evaluation_realisation_projet_id : old('evaluation_realisation_projet_id') }}">
+          @error('evaluation_realisation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemEvaluationRealisationTache" field="note" bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
