@@ -5,6 +5,7 @@ namespace Modules\PkgRealisationProjets\Services;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 
 /**
  * Classe AffectationProjetService pour gérer la persistance de l'entité AffectationProjet.
@@ -21,28 +22,7 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
 
-    /**
-     * Affecter un projet à un groupe
-     * - ajouter une Réalisation de projet pour chaque apprenant
-     * @param mixed $data
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     */
-    public function create($data)
-    {
-        // Vérification des champs obligatoires
-        if (empty($data['groupe_id']) || empty($data['projet_id'])) {
-            throw new \InvalidArgumentException("Le groupe et le projet sont obligatoires.");
-        }
-    
-        // Vérification de la cohérence des dates
-        if (!empty($data['date_debut']) && !empty($data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
-            throw new \InvalidArgumentException("La date de début ne peut pas être après la date de fin.");
-        }
-    
-        // Création de l'affectation de projet
-        $affectationProjet = parent::create($data);
-    
+    public function afterCreateRules($affectationProjet , $id){
         // Récupération du service de gestion des groupes
         $groupeService = new GroupeService();
         $groupe = $groupeService->find($data['groupe_id']);
@@ -68,9 +48,39 @@ class AffectationProjetService extends BaseAffectationProjetService
                 'etats_realisation_projet_id' => null, // Peut être défini selon un état initial
             ]);
         }
-    
-        return $affectationProjet;
+
+        (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
     }
+
+    public function afterUpdateRules($affectationProjet , $id){
+
+        // sync : ajouter, supprimer EvaluationRealisationProjet
+        (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
+    }
+
+   
+
+    /**
+     * Affecter un projet à un groupe
+     * - ajouter une Réalisation de projet pour chaque apprenant
+     * @param mixed $data
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function beforCreateRules($data)
+    {
+        // Vérification des champs obligatoires
+        if (empty($data['groupe_id']) || empty($data['projet_id'])) {
+            throw new \InvalidArgumentException("Le groupe et le projet sont obligatoires.");
+        }
+    
+        // Vérification de la cohérence des dates
+        if (!empty($data['date_debut']) && !empty($data['date_fin']) && $data['date_debut'] > $data['date_fin']) {
+            throw new \InvalidArgumentException("La date de début ne peut pas être après la date de fin.");
+        }
+    }
+
+
     
     /**
      * - Trouver la liste des affectations de projets d'un formateur donné.

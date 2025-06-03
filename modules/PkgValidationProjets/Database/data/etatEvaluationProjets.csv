@@ -1,1 +1,6 @@
-ordre,code,titre,description,sys_color_id
+"ordre","code","titre","description","reference","sys_color_id"
+"1","A_FAIRE","À faire","","WF_A_FAIRE","2"
+"2","EN_COURS","En cours","La tâche est en cours de réalisation","WF_EN_COURS","3"
+"3","EN_VALIDATION","En validation","La tâche est terminée mais en attente de validation","WF_EN_VALIDATION","5"
+"4","TERMINEE","Terminée","La tâche a été validée et complétée","WF_TERMINEE","21"
+"5","EN_PAUSE","En pause","La tâche est temporairement suspendue","WF_EN_PAUSE","6"

@@ -83,6 +83,8 @@ class RealisationTacheService extends BaseRealisationTacheService
         $affectationProjetId = $this->viewState->get(
             'filter.realisationTache.RealisationProjet.Affectation_projet_id'
         );
+
+        $affectationProjetId = AffectationProjet::find($affectationProjetId) ? $affectationProjetId : null;
        
         $etatService = new EtatRealisationTacheService();
 

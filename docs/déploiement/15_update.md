@@ -1,5 +1,19 @@
 ## Ajouter le formateur admin
 
-le formateur admin permet de créer les examen finale avec des évaluateur
-- ajouter formateur avec le choix de l'utilisateur admin
-- ajouter l'utilisateur admin au rôle formateur
+
+## ajouter le formateur : admin-formateur
+
+ajouter un formateur pour l'utilisateur : admin-formateur
+ajouter le rôle "formateur" à l'utilisateur : admin-formateur
+
+````bash
+sudo php artisan migrate
+sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EtatEvaluationProjetSeeder
+sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EvaluationRealisationProjetSeeder
+````
+ 
+````bash
+php artisan migrate
+php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EtatEvaluationProjetSeeder
+php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EvaluationRealisationProjetSeeder
+````

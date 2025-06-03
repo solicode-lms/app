@@ -173,6 +173,11 @@ trait FilterTrait
         // À implémenter selon le contexte d'application
     }
 
+    /**
+     * TODO : il peut que le filtre contient des information supprimer de la base de 
+     * donnée
+     * @return void
+     */
     public function loadLastFilterIfEmpty(){
         
          // TODO : il faut applique seulement les champs filtrable pour que l'utilisateur
@@ -195,6 +200,10 @@ trait FilterTrait
         elseif (!$this->userHasSentFilter) {
             // 📂 Pas de filtre envoyé = chargement auto
             $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+            
+            // Il faut vérifier que les données existe encors ans la base de données
+            //  $this->checkIfDataExist($saved_filter);
+            
             $filterVariables = array_merge($saved_filter,$filterVariables);
             foreach ($filterVariables as $key => $value) {
                 $this->viewState->set("filter.{$this->modelName}.{$key}", $value);

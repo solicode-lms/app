@@ -1,13 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 return [
-    'singular' => 'EvaluationRealisationProjet',
-    'plural' => 'EvaluationRealisationProjets',
-    'date_evaluation' => 'date_evaluation',
-    'remarques' => 'remarques',
-    'realisation_projet_id' => 'realisation_projet_id',
-    'evaluateur_id' => 'evaluateur_id',
-    'etat_evaluation_projet_id' => 'etat_evaluation_projet_id',
+    'singular' => 'Évaluation Réalisation Projet',
+    'plural' => 'Évaluations Réalisations Projets',
+    'date_evaluation' => 'Date d\'Évaluation',
+    'remarques' => 'Remarques',
+    'realisation_projet_id' => 'Identifiant Réalisation Projet',
+    'evaluateur_id' => 'Identifiant Évaluateur',
+    'etat_evaluation_projet_id' => 'Identifiant État Évaluation Projet',
 ];

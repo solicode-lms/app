@@ -20,3 +20,12 @@ Profile : Profile - Édition sans Ajouter
 WidgetUtilisateur : WidgetUtilisateur - Édition sans Ajouter 
 RealisationTache : RealisationTache - Édition sans Ajouter 
 
+
+## Droit d'accès 
+
+### Formateur 
+
+- EvaluationRealisationProjet
+  - Afficher sur tous les tables
+  - EvaluationRealisationProjet - Édition sans Ajouter 
+  - EvaluationRealisationProjet - Extraction
