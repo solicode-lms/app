@@ -26,10 +26,6 @@ class AddEvaluationProjetForeignToRealisationTachesTable extends Migration
                       ->on('evaluation_realisation_projets')
                       ->nullable()
                       ->onDelete('cascade');
-
-                $table->foreignId('realisation_tache_id')
-                  ->constrained('realisation_taches')
-                  ->onDelete('cascade');
             }
         });
     }
@@ -42,14 +38,12 @@ class AddEvaluationProjetForeignToRealisationTachesTable extends Migration
     public function down()
     {
         Schema::table('evaluation_realisation_taches', function (Blueprint $table) {
-            // 1) Vérifier si la contrainte et la colonne existent
+            // 1) Vérifier si la colonne existe avant de la supprimer
             if (Schema::hasColumn('evaluation_realisation_taches', 'evaluation_realisation_projet_id')) {
-                // Retirer la contrainte FK avant de supprimer la colonne
-                $table->dropForeign([
-                    'evaluation_realisation_projet_id'
-                ]);
+                // 2) Retirer la contrainte FK en utilisant son nom explicite
+                 $table->dropForeign('fk_evaltache_evalprojet');
 
-                // Supprimer la colonne
+                // 3) Supprimer la colonne
                 $table->dropColumn('evaluation_realisation_projet_id');
             }
         });
