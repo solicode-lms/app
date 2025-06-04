@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgApprenants\Services;
 use Modules\PkgApprenants\Services\Base\BaseGroupeService;
@@ -10,6 +9,19 @@ use Modules\PkgApprenants\Services\Base\BaseGroupeService;
  */
 class GroupeService extends BaseGroupeService
 {
+
+
+    /**
+     * Récupère la liste des groupes ayant au moins une affectation de projet contenant des évaluateurs.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getGroupesAvecAffectationProjetEvaluateurs()
+    {
+        return $this->model::whereHas('affectationProjets.evaluateurs')->get();
+    }
+
+
     public function dataCalcul($groupe)
     {
         // En Cas d'édit
@@ -19,5 +31,7 @@ class GroupeService extends BaseGroupeService
       
         return $groupe;
     }
+
+
    
 }

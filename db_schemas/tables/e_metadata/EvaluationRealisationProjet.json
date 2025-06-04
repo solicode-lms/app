@@ -447,16 +447,10 @@
         "value_float": 0,
         "value_json": [
             {
-                "role": "formateur",
-                "dataScope": "scope",
-                "userModelName": "Formateur",
-                "ownerRelationPath": "RealisationProjet.AffectationProjet.Projet.Formateur.user"
-            },
-            {
                 "role": "evaluateur",
                 "dataScope": "scope",
                 "userModelName": "Evaluateur",
-                "ownerRelationPath": "RealisationProjet.AffectationProjet.Evaluateurs.user"
+                "ownerRelationPath": "evaluateur.user"
             }
         ],
         "e_model_reference": "evaluation_realisation_projets",

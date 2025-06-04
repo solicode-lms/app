@@ -46,11 +46,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
-           $this->viewState->init('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id') == null){
-           $this->viewState->init('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+        if(Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.evaluationRealisationProjet.evaluateur_id') == null){
+           $this->viewState->init('scope.evaluationRealisationProjet.evaluateur_id'  , $this->sessionState->get('evaluateur_id'));
         }
 
 
@@ -84,11 +81,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
      */
     public function create() {
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
         if(Auth::user()->hasRole('evaluateur')){
-           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+           $this->viewState->set('scope_form.evaluationRealisationProjet.evaluateur_id'  , $this->sessionState->get('evaluateur_id'));
         }
 
 
@@ -119,11 +113,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
         // Même traitement de create 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
         if(Auth::user()->hasRole('evaluateur')){
-           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+           $this->viewState->set('scope_form.evaluationRealisationProjet.evaluateur_id'  , $this->sessionState->get('evaluateur_id'));
         }
  
          $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->find($evaluationRealisationProjet_ids[0]);

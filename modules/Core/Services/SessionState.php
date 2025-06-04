@@ -86,6 +86,11 @@ class SessionState implements JsonSerializable
             if ($formateur) {
                 $this->set("formateur_id",$formateur->id);
             }
+
+            $evaluateur = $user->evaluateur;
+            if ($evaluateur) {
+                $this->set("evaluateur_id",$evaluateur->id);
+            }
            
             // TODO : captuer BLL Exception
             $apprenant = $user->apprenant;

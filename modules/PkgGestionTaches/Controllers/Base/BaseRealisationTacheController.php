@@ -45,6 +45,8 @@ class BaseRealisationTacheController extends AdminController
 
         $this->service->loadLastFilterIfEmpty();
 
+        // TODO : ne pas donner le droit au evaluateur de modifier 
+        // La réalisation des projet
         // ownedByUser
         if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
            $this->viewState->init('orWhere.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
@@ -53,7 +55,7 @@ class BaseRealisationTacheController extends AdminController
         if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
            $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
-        if(!Auth::user()->hasRole('admin') && Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id') == null){
+        if(!Auth::user()->hasRole('admin') && !Auth::user()->hasRole('formateur') && Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id') == null){
            $this->viewState->init('scope.realisationTache.RealisationProjet.AffectationProjet.evaluateurs.user_id'  , $this->sessionState->get('user_id'));
         }
 

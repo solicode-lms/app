@@ -3,8 +3,16 @@
 
 namespace Modules\PkgValidationProjets\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgApprenants\Services\ApprenantService;
+use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationProjetService;
@@ -15,6 +23,159 @@ use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationProjetSe
 class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjetService
 {
 
+
+    public function initFieldsFilterable()
+    {
+
+
+         // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('evaluationRealisationProjet');
+        $this->fieldsFilterable = [];
+        $sessionState = $this->sessionState;
+
+      
+
+
+        // Groupe 
+        if(Auth::user()->hasRole(Role::ADMIN_ROLE) || !Auth::user()->hasAnyRole(Role::EVALUATEUR_ROLE) || !empty($this->viewState->get("filter.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Groupe_id") ) ) {
+            // Affichage de l'état de solicode
+            $groupeService = new GroupeService();
+            $groupes = $groupeService->getGroupesAvecAffectationProjetEvaluateurs();
+            $this->fieldsFilterable[] = $this->generateRelationFilter(
+                __("PkgApprenants::Groupe.plural"), 
+                'RealisationProjet.AffectationProjet.Groupe_id', 
+                Groupe::class, 
+                "code",
+                "id",
+                $groupes,
+                "[name='RealisationProjet.Affectation_projet_id']",
+                route('affectationProjets.getDataHasEvaluateurs'),
+                "groupe_id"
+            );
+        }
+
+        // AffectationProjet
+        $affectationProjetService = new AffectationProjetService();
+        $affectationProjets = match (true) {
+            Auth::user()->hasRole(Role::EVALUATEUR_ROLE) => $affectationProjetService->getAffectationProjetsByEvaluateurId($sessionState->get("evaluateur_id")),
+            default =>  $affectationProjetService->getAffectationProjetsAvecEvaluateurs(),
+        };
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgRealisationProjets::affectationProjet.plural"), 
+            'RealisationProjet.Affectation_projet_id', 
+            AffectationProjet::class, 
+            "id","id",
+            $affectationProjets, 
+            "[name='RealisationProjet.Apprenant_id'],[name='etat_realisation_tache_id']",
+            route('apprenants.getData') . "," . route('etatRealisationTaches.getData'),
+            "groupes.affectationProjets.id,formateur.projets.affectationProjets.id"
+        );
+
+
+        // Apprenant
+        $apprenants = match (true) {
+            Auth::user()->hasRole(Role::EVALUATEUR_ROLE) => (new ApprenantService())->getApprenantsHasEvaluationRealisationProjetByEvaluateur($this->sessionState->get("evaluateur_id")),
+            default => Apprenant::all(),
+        };
+
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgApprenants::apprenant.plural"), 
+            'RealisationProjet.Apprenant_id', 
+            \Modules\PkgApprenants\Models\Apprenant::class,
+            "id","id",
+            $apprenants);
+
+       
+       
+        // // --- ETAT REALISATION TACHE : choix selon AffectationProjet, Formateur ou Apprenant ---
+        // $affectationProjetId = $this->viewState->get(
+        //     'filter.realisationTache.RealisationProjet.Affectation_projet_id'
+        // );
+
+        // $affectationProjetId = AffectationProjet::find($affectationProjetId) ? $affectationProjetId : null;
+       
+        // $etatService = new EtatRealisationTacheService();
+
+        // if (!empty($affectationProjetId)) {
+        //     // Cas 1 : AffectationProjet sélectionnée
+        //     $affectationProjet = (new AffectationProjetService())->find($affectationProjetId);
+        //     // Afficher les états de formateur pour ce projet
+        //     $etats = $affectationProjet->projet->formateur->etatRealisationTaches;
+        // }
+        // // elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+        // //     // Cas 2 : Formateur sans projet sélectionné
+        // //     // Afficher les états génériques du formateur
+        // //     $etats = $etatService->getEtatRealisationTacheByFormateurId(
+        // //        $this->sessionState->get("formateur_id")
+        // //     );
+        // // }
+        // else {
+        //     // Cas 3 : Apprenant ou autre rôle
+        //     // Aucun état formateur -> liste vide pour masquer le filtre
+        //    $etats =  collect();
+        // }
+
+        // // Génération du filtre ManyToOne pour l'état de réalisation de tâche
+        // $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+        //     __('PkgGestionTaches::etatRealisationTache.plural'),
+        //     'etat_realisation_tache_id',
+        //     EtatRealisationTache::class,
+        //     'nom',
+        //     $etats
+        // );
+      
+        // // Affiche  WorkflowTache
+        // // Afficher si le filtre est selectionné
+        // // ou si le l'affectation de projet n'est pas selectionné et que l'acteur n'est pas formateur
+        // // dans ce cas il faut afficher WorkflowTache
+        // // --- WORKFLOW TACHE (état SoliCode) ---
+        // $workflowFilterCode = $this->viewState->get(
+        //     'filter.realisationTache.etatRealisationTache.WorkflowTache.Code'
+        // );
+
+      
+        // $workflowService = new WorkflowTacheService();
+        // $workflows = $workflowService->all();
+    
+        // // Génération du filtre Relation pour WorkflowTache
+        // $this->fieldsFilterable[] = $this->generateRelationFilter(
+        //         __('PkgGestionTaches::workflowTache.plural'),
+        //         'etatRealisationTache.WorkflowTache.Code',
+        //         \Modules\PkgGestionTaches\Models\WorkflowTache::class,
+        //         'code',
+        //         'code',
+        //         $workflows
+        // );
+        
+
+
+        
+
+        // // Tâches
+        // $tacheService = new TacheService();
+        // $taches = match (true) {
+        //     Auth::user()->hasRole(Role::FORMATEUR_ROLE) => $tacheService->getTacheByFormateurId($sessionState->get("formateur_id")),
+        //     Auth::user()->hasRole(Role::APPRENANT_ROLE) => $tacheService->getTacheByApprenantId($sessionState->get("apprenant_id")),
+        //     default => Tache::all(),
+        // };
+        // $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+        //     __("PkgGestionTaches::tache.plural"),
+        //     'tache_id',
+        //     \Modules\PkgGestionTaches\Models\Tache::class,
+        //     'titre',
+        //     $taches
+        // );
+        
+    if (!array_key_exists('evaluateur_id', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluateur.plural"), 'evaluateur_id', \Modules\PkgValidationProjets\Models\Evaluateur::class, 'nom');
+            }
+
+            if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::etatEvaluationProjet.plural"), 'etat_evaluation_projet_id', \Modules\PkgValidationProjets\Models\EtatEvaluationProjet::class, 'code');
+            }
+
+        
+    }
 
     /**
      * Synchronise les enregistrements dans la table `evaluation_realisation_projets`

@@ -68,36 +68,6 @@ class ApprenantService extends BaseApprenantService
         return $this->model::withoutGlobalScope('inactif')->findOrFail($id);
     }
 
-    // public function initFieldsFilterable(){
-
-    //     // Initialiser les filtres configurables dynamiquement
-    //     $scopeVariables = $this->viewState->getScopeVariables('apprenant');
-    //     $this->fieldsFilterable = [];
-    
-     
-
-    //     // TODO Gapp : à générer depuis metaData : relationFilter
-    //     $this->fieldsFilterable[] = $this->generateRelationFilter(
-    //         __("PkgFormation::Filiere.plural"), 
-    //         'groupes.filiere_id', 
-    //         Filiere::class, 
-    //         "id",
-    //         null,
-    //         "[name='groupe_id']",
-    //         route('groupes.getData'),
-    //         "filiere_id"
-    //     );
-
-    //     if (!array_key_exists('groupes', $scopeVariables)) {
-    //         $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
-    //         }
-
-
-    //         if (!array_key_exists('niveaux_scolaire_id', $scopeVariables)) {
-    //             $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::niveauxScolaire.plural"), 'niveaux_scolaire_id', \Modules\PkgApprenants\Models\NiveauxScolaire::class, 'code');
-    //             }
-              
-    // }
 
     public function initPassword(int $apprenantId)
     {
@@ -128,6 +98,18 @@ public function getApprenantsDeGroupe($apprenantId)
 
 
 
-
+    /**
+     * Récupère les apprenants ayant au moins une réalisation de projet
+     * dont l'affectation de projet est associée à l'évaluateur donné.
+     *
+     * @param int $evaluateur_id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getApprenantsHasEvaluationRealisationProjetByEvaluateur($evaluateur_id)
+    {
+        return $this->model::whereHas('realisationProjets.affectationProjet.evaluateurs', function ($query) use ($evaluateur_id) {
+            $query->where('evaluateurs.id', $evaluateur_id);
+        })->get();
+    }
    
 }

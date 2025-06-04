@@ -81,6 +81,29 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
+    /**
+     * Récupère toutes les affectations de projet qui ont au moins un évaluateur.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAffectationProjetsAvecEvaluateurs()
+    {
+        return AffectationProjet::whereHas('evaluateurs')->get();
+    }
+
+
+    /**
+     * Trouver la liste des affectations de projets d'un évaluateur donné.
+     *
+     * @param int $evaluateur_id
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAffectationProjetsByEvaluateurId($evaluateur_id)
+    {
+        return AffectationProjet::whereHas('evaluateurs', function ($query) use ($evaluateur_id) {
+            $query->where('evaluateurs.id', $evaluateur_id);
+        })->get();
+    }
     
     /**
      * - Trouver la liste des affectations de projets d'un formateur donné.
@@ -175,6 +198,29 @@ class AffectationProjetService extends BaseAffectationProjetService
             })
             ->orderBy('date_debut', 'desc') // Trier par la date de début la plus récente
             ->first(); // Récupérer la dernière affectation active
+    }
+
+
+     
+     public function getDataHasEvaluateurs(string $filter, $value)
+    {
+
+    
+        //  TODO : $query = $this->newQuery();
+        $query = $this->allQuery(); // Créer une nouvelle requête
+
+
+        // Ajouter la condition : présence d’au moins un évaluateur
+        $query->whereHas('evaluateurs');
+
+
+        // Construire le tableau de filtres pour la méthode `filter()`
+        $filters = [$filter => $value];
+
+        // Appliquer le filtre existant du service
+        $this->filter($query, $this->model, $filters);
+
+        return $query->get();
     }
 
 }

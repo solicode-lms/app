@@ -31,5 +31,18 @@ php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\Evalua
      - EvaluationRealisationProjet - Extraction
    - EvaluationRealisationTache
      - Édition sans Ajouter 
-  
+
+
+
+## Donner le rôle "evaluateur" au utilisateurs formateur
+
+
+
 ## Ajouter les état par défaut de formateur : admin-formateur
+
+
+- Rôle évaluateur
+  - Supprimer le rôle de modifier la réalisation de projet pour le rôle évaluateur
+
+- Rôle admin 
+  - ajouter le droit pour voir et éditer les évaluation de réaisation de projet

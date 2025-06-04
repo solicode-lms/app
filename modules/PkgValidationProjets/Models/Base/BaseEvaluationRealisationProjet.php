@@ -27,7 +27,7 @@ class BaseEvaluationRealisationProjet extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "RealisationProjet.AffectationProjet.Projet.Formateur.user,RealisationProjet.AffectationProjet.Evaluateurs.user";
+        $this->ownerRelationPath = "evaluateur.user";
     }
 
     
