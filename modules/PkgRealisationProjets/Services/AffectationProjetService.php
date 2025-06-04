@@ -25,7 +25,7 @@ class AffectationProjetService extends BaseAffectationProjetService
     public function afterCreateRules($affectationProjet , $id){
         // Récupération du service de gestion des groupes
         $groupeService = new GroupeService();
-        $groupe = $groupeService->find($data['groupe_id']);
+        $groupe = $affectationProjet?->groupe;
     
         if (!$groupe) {
             throw new \Exception("Groupe non trouvé.");

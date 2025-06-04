@@ -13,7 +13,9 @@
     },
     {
         "reference": "evaluation_realisation_projets_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-check-square",
+        "value_float": 0,
         "e_model_reference": "evaluation_realisation_projets",
         "e_metadata_definition_reference": "iconModel"
     },
@@ -438,5 +440,26 @@
         "value_boolean": 1,
         "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "evaluation_realisation_projets_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "Formateur",
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.Projet.Formateur.user"
+            },
+            {
+                "role": "evaluateur",
+                "dataScope": "scope",
+                "userModelName": "Evaluateur",
+                "ownerRelationPath": "RealisationProjet.AffectationProjet.Evaluateurs.user"
+            }
+        ],
+        "e_model_reference": "evaluation_realisation_projets",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

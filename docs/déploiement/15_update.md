@@ -1,17 +1,10 @@
-## Ajouter le formateur admin
 
-
-## ajouter le formateur : admin-formateur
-
-ajouter un formateur pour l'utilisateur : admin-formateur
-ajouter le rôle "formateur" à l'utilisateur : admin-formateur
-
+## Mise à jour de la base de données 
 ````bash
 sudo php artisan migrate
 sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EtatEvaluationProjetSeeder
 sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EvaluationRealisationProjetSeeder
 sudo php artisan db:seed --class=Modules\\PkgValidationProjets\\Database\\Seeders\\EvaluationRealisationTacheSeeder
-
 ````
  
 ````bash
@@ -21,14 +14,22 @@ php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\Evalua
 php artisan db:seed --class=Modules\PkgValidationProjets\Database\Seeders\EvaluationRealisationTacheSeeder
 ````
 
+## Supprimer les formateur admin et admin 2 
+
+- s'il existe
+- Supprimer le rôle formateur de admin2
+
+## Ajouter le formateur admin
+- ajouter un formateur pour l'utilisateur : admin-formateur
+- ajouter le rôle "formateur" à l'utilisateur : admin-formateur
+
 ## Droit d'accès 
-
-### Formateur et evaluateur
-
-- EvaluationRealisationProjet
-  - Afficher sur tous les tables
-  - EvaluationRealisationProjet - Édition sans Ajouter 
-  - EvaluationRealisationProjet - Extraction
-
-- EvaluationRealisationTache
-  - Édition sans Ajouter 
+-  Formateur et evaluateur
+   - EvaluationRealisationProjet
+     - Afficher sur tous les tables
+     - EvaluationRealisationProjet - Édition sans Ajouter 
+     - EvaluationRealisationProjet - Extraction
+   - EvaluationRealisationTache
+     - Édition sans Ajouter 
+  
+## Ajouter les état par défaut de formateur : admin-formateur

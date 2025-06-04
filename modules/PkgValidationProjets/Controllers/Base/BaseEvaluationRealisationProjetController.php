@@ -45,6 +45,13 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
+           $this->viewState->init('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('evaluateur') && $this->viewState->get('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id') == null){
+           $this->viewState->init('scope.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+        }
 
 
 
@@ -76,6 +83,13 @@ class BaseEvaluationRealisationProjetController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('evaluateur')){
+           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+        }
 
 
         $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->createInstance();
@@ -104,6 +118,13 @@ class BaseEvaluationRealisationProjetController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('evaluateur')){
+           $this->viewState->set('scope_form.evaluationRealisationProjet.RealisationProjet.AffectationProjet.Evaluateurs_id'  , $this->sessionState->get('evaluateur_id'));
+        }
  
          $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->find($evaluationRealisationProjet_ids[0]);
          
@@ -154,6 +175,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $this->viewState->setContextKey('evaluationRealisationProjet.show_' . $id);
 
         $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->edit($id);
+        $this->authorize('view', $itemEvaluationRealisationProjet);
 
 
         $this->viewState->set('scope.evaluationRealisationTache.evaluation_realisation_projet_id', $id);
@@ -178,6 +200,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
 
 
         $itemEvaluationRealisationProjet = $this->evaluationRealisationProjetService->edit($id);
+        $this->authorize('edit', $itemEvaluationRealisationProjet);
 
 
         $realisationProjets = $this->realisationProjetService->all();
@@ -203,6 +226,9 @@ class BaseEvaluationRealisationProjetController extends AdminController
     /**
      */
     public function update(EvaluationRealisationProjetRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $evaluationRealisationProjet = $this->evaluationRealisationProjetService->find($id);
+        $this->authorize('update', $evaluationRealisationProjet);
 
         $validatedData = $request->validated();
         $evaluationRealisationProjet = $this->evaluationRealisationProjetService->update($id, $validatedData);
@@ -264,6 +290,9 @@ class BaseEvaluationRealisationProjetController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $evaluationRealisationProjet = $this->evaluationRealisationProjetService->find($id);
+        $this->authorize('delete', $evaluationRealisationProjet);
 
         $evaluationRealisationProjet = $this->evaluationRealisationProjetService->destroy($id);
 
@@ -298,6 +327,9 @@ class BaseEvaluationRealisationProjetController extends AdminController
         }
         foreach ($evaluationRealisationProjet_ids as $id) {
             $entity = $this->evaluationRealisationProjetService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $evaluationRealisationProjet = $this->evaluationRealisationProjetService->find($id);
+            $this->authorize('delete', $evaluationRealisationProjet);
             $this->evaluationRealisationProjetService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

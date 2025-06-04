@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'singular' => 'Évaluation Réalisation Projet',
-    'plural' => 'Évaluations Réalisations Projets',
+    'singular' => 'Évaluation de projet',
+    'plural' => 'Évaluations des Projets',
     'date_evaluation' => 'Date d\'Évaluation',
     'remarques' => 'Remarques',
     'realisation_projet_id' => 'Identifiant Réalisation Projet',

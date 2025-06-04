@@ -3489,7 +3489,7 @@
         "column_name": "note",
         "data_type": "Float",
         "field_order": 4,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
