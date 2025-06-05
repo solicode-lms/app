@@ -27,6 +27,7 @@
                     <x-checkbox-row :item="$evaluationRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->realisationTache }}" >
                     <x-field :entity="$evaluationRealisationTache" field="realisationTache">
+                       
                          {{  $evaluationRealisationTache->realisationTache }}
                     </x-field>
                     </td>

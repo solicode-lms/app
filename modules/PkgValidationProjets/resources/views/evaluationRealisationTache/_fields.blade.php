@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEvaluationRealisationTache" field="realisation_tache_id" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemEvaluationRealisationTache" field="realisation_tache_id" :bulkEdit="$bulkEdit">
       @php $canEditrealisation_tache_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -65,7 +65,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationTache" field="evaluateur_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationTache" field="evaluateur_id" :bulkEdit="$bulkEdit">
       @php $canEditevaluateur_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -131,7 +131,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationTache" field="message" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationTache" field="message" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -158,7 +158,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationTache" field="evaluation_realisation_projet_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationTache" field="evaluation_realisation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditevaluation_realisation_projet_id = !$itemEvaluationRealisationTache || !$itemEvaluationRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">

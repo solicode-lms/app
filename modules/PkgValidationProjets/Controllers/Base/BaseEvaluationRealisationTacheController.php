@@ -175,6 +175,8 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $realisationTaches = $this->realisationTacheService->all();
         $evaluateurs = $this->evaluateurService->all();
         $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
+
+
         $bulkEdit = false;
 
         if (request()->ajax()) {

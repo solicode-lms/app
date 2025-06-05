@@ -22,7 +22,7 @@
 @endphp
 
 <div class="form-group col-12 col-md-6">
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         <div class="bulk-check">
             <input type="checkbox"
                    class="check-input"
