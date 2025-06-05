@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
-use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgValidationProjets\Models\Evaluateur;
+use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 
 /**
  * Classe BaseEvaluationRealisationTache
@@ -35,35 +35,35 @@ class BaseEvaluationRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'evaluation_realisation_projet_id', 'note', 'message', 'evaluateur_id', 'realisation_tache_id'
+        'realisation_tache_id', 'evaluateur_id', 'note', 'message', 'evaluation_realisation_projet_id'
     ];
     public $manyToOne = [
-        'EvaluationRealisationProjet' => [
-            'model' => "Modules\\PkgValidationProjets\\Models\\EvaluationRealisationProjet",
-            'relation' => 'evaluationRealisationProjets' , 
-            "foreign_key" => "evaluation_realisation_projet_id", 
+        'RealisationTache' => [
+            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
+            'relation' => 'realisationTaches' , 
+            "foreign_key" => "realisation_tache_id", 
             ],
         'Evaluateur' => [
             'model' => "Modules\\PkgValidationProjets\\Models\\Evaluateur",
             'relation' => 'evaluateurs' , 
             "foreign_key" => "evaluateur_id", 
             ],
-        'RealisationTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
-            'relation' => 'realisationTaches' , 
-            "foreign_key" => "realisation_tache_id", 
+        'EvaluationRealisationProjet' => [
+            'model' => "Modules\\PkgValidationProjets\\Models\\EvaluationRealisationProjet",
+            'relation' => 'evaluationRealisationProjets' , 
+            "foreign_key" => "evaluation_realisation_projet_id", 
             ]
     ];
 
 
     /**
-     * Relation BelongsTo pour EvaluationRealisationProjet.
+     * Relation BelongsTo pour RealisationTache.
      *
      * @return BelongsTo
      */
-    public function evaluationRealisationProjet(): BelongsTo
+    public function realisationTache(): BelongsTo
     {
-        return $this->belongsTo(EvaluationRealisationProjet::class, 'evaluation_realisation_projet_id', 'id');
+        return $this->belongsTo(RealisationTache::class, 'realisation_tache_id', 'id');
     }
     /**
      * Relation BelongsTo pour Evaluateur.
@@ -75,13 +75,13 @@ class BaseEvaluationRealisationTache extends BaseModel
         return $this->belongsTo(Evaluateur::class, 'evaluateur_id', 'id');
     }
     /**
-     * Relation BelongsTo pour RealisationTache.
+     * Relation BelongsTo pour EvaluationRealisationProjet.
      *
      * @return BelongsTo
      */
-    public function realisationTache(): BelongsTo
+    public function evaluationRealisationProjet(): BelongsTo
     {
-        return $this->belongsTo(RealisationTache::class, 'realisation_tache_id', 'id');
+        return $this->belongsTo(EvaluationRealisationProjet::class, 'evaluation_realisation_projet_id', 'id');
     }
 
 

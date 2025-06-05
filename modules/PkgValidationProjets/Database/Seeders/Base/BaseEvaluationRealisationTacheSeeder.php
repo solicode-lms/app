@@ -74,11 +74,11 @@ class BaseEvaluationRealisationTacheSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $evaluationRealisationTacheData =[
-                    "evaluation_realisation_projet_id" => $row["evaluation_realisation_projet_id"] ?? null,
+                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
+                    "evaluateur_id" => $row["evaluateur_id"] ?? null,
                     "note" => $row["note"] ?? null,
                     "message" => $row["message"] ?? null,
-                    "evaluateur_id" => $row["evaluateur_id"] ?? null,
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
+                    "evaluation_realisation_projet_id" => $row["evaluation_realisation_projet_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

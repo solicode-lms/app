@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
-use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
+use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 
 /**
@@ -37,7 +37,7 @@ class BaseEvaluationRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_evaluation', 'remarques', 'realisation_projet_id', 'evaluateur_id', 'etat_evaluation_projet_id'
+        'realisation_projet_id', 'date_evaluation', 'etat_evaluation_projet_id', 'evaluateur_id', 'remarques'
     ];
     public $manyToOne = [
         'RealisationProjet' => [
@@ -45,15 +45,15 @@ class BaseEvaluationRealisationProjet extends BaseModel
             'relation' => 'realisationProjets' , 
             "foreign_key" => "realisation_projet_id", 
             ],
-        'Evaluateur' => [
-            'model' => "Modules\\PkgValidationProjets\\Models\\Evaluateur",
-            'relation' => 'evaluateurs' , 
-            "foreign_key" => "evaluateur_id", 
-            ],
         'EtatEvaluationProjet' => [
             'model' => "Modules\\PkgValidationProjets\\Models\\EtatEvaluationProjet",
             'relation' => 'etatEvaluationProjets' , 
             "foreign_key" => "etat_evaluation_projet_id", 
+            ],
+        'Evaluateur' => [
+            'model' => "Modules\\PkgValidationProjets\\Models\\Evaluateur",
+            'relation' => 'evaluateurs' , 
+            "foreign_key" => "evaluateur_id", 
             ]
     ];
 
@@ -68,15 +68,6 @@ class BaseEvaluationRealisationProjet extends BaseModel
         return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
     }
     /**
-     * Relation BelongsTo pour Evaluateur.
-     *
-     * @return BelongsTo
-     */
-    public function evaluateur(): BelongsTo
-    {
-        return $this->belongsTo(Evaluateur::class, 'evaluateur_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour EtatEvaluationProjet.
      *
      * @return BelongsTo
@@ -84,6 +75,15 @@ class BaseEvaluationRealisationProjet extends BaseModel
     public function etatEvaluationProjet(): BelongsTo
     {
         return $this->belongsTo(EtatEvaluationProjet::class, 'etat_evaluation_projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Evaluateur.
+     *
+     * @return BelongsTo
+     */
+    public function evaluateur(): BelongsTo
+    {
+        return $this->belongsTo(Evaluateur::class, 'evaluateur_id', 'id');
     }
 
 

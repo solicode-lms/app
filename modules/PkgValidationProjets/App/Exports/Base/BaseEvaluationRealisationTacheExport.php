@@ -28,21 +28,21 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
     {
      if($this->format == 'csv'){
         return [
-            'evaluation_realisation_projet_id' => 'evaluation_realisation_projet_id',
-            'reference' => 'reference',
+            'realisation_tache_id' => 'realisation_tache_id',
+            'evaluateur_id' => 'evaluateur_id',
             'note' => 'note',
             'message' => 'message',
-            'evaluateur_id' => 'evaluateur_id',
-            'realisation_tache_id' => 'realisation_tache_id',
+            'evaluation_realisation_projet_id' => 'evaluation_realisation_projet_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
-            'evaluation_realisation_projet_id' => __('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id'),
-            'reference' => __('Core::msg.reference'),
+            'realisation_tache_id' => __('PkgValidationProjets::evaluationRealisationTache.realisation_tache_id'),
+            'evaluateur_id' => __('PkgValidationProjets::evaluationRealisationTache.evaluateur_id'),
             'note' => __('PkgValidationProjets::evaluationRealisationTache.note'),
             'message' => __('PkgValidationProjets::evaluationRealisationTache.message'),
-            'evaluateur_id' => __('PkgValidationProjets::evaluationRealisationTache.evaluateur_id'),
-            'realisation_tache_id' => __('PkgValidationProjets::evaluationRealisationTache.realisation_tache_id'),
+            'evaluation_realisation_projet_id' => __('PkgValidationProjets::evaluationRealisationTache.evaluation_realisation_projet_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -53,12 +53,12 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
     {
         return $this->data->map(function ($evaluationRealisationTache) {
             return [
-                'evaluation_realisation_projet_id' => $evaluationRealisationTache->evaluation_realisation_projet_id,
-                'reference' => $evaluationRealisationTache->reference,
+                'realisation_tache_id' => $evaluationRealisationTache->realisation_tache_id,
+                'evaluateur_id' => $evaluationRealisationTache->evaluateur_id,
                 'note' => $evaluationRealisationTache->note,
                 'message' => $evaluationRealisationTache->message,
-                'evaluateur_id' => $evaluationRealisationTache->evaluateur_id,
-                'realisation_tache_id' => $evaluationRealisationTache->realisation_tache_id,
+                'evaluation_realisation_projet_id' => $evaluationRealisationTache->evaluation_realisation_projet_id,
+                'reference' => $evaluationRealisationTache->reference,
             ];
         });
     }

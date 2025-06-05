@@ -29,7 +29,44 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEvaluationRealisationProjet" field="date_evaluation" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemEvaluationRealisationProjet" field="realisation_projet_id" bulkEdit="$bulkEdit">
+      @php $canEditrealisation_projet_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_projet_id">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_projet_id" 
+            {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
+            required
+            
+            
+            name="realisation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationProjets as $realisationProjet)
+                    <option value="{{ $realisationProjet->id }}"
+                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
+                        {{ $realisationProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="date_evaluation" bulkEdit="$bulkEdit">
+      @php $canEditdate_evaluation = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if (!empty($bulkEdit))
@@ -49,6 +86,7 @@
                 
                 
                 id="date_evaluation"
+                {{ $canEditdate_evaluation ? '' : 'disabled' }}
                 placeholder="{{ __('PkgValidationProjets::evaluationRealisationProjet.date_evaluation') }}"
                 value="{{ $itemEvaluationRealisationProjet ? $itemEvaluationRealisationProjet->date_evaluation : old('date_evaluation') }}">
 
@@ -58,6 +96,91 @@
       </div>
   
 </x-form-field>
+
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="etat_evaluation_projet_id" bulkEdit="$bulkEdit">
+      @php $canEditetat_evaluation_projet_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_evaluation_projet_id" id="bulk_field_etat_evaluation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etat_evaluation_projet_id">
+            {{ ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular')) }}
+            
+          </label>
+                      <select 
+            id="etat_evaluation_projet_id" 
+            {{ $canEditetat_evaluation_projet_id ? '' : 'disabled' }}
+            
+            
+            
+            name="etat_evaluation_projet_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatEvaluationProjets as $etatEvaluationProjet)
+                    <option value="{{ $etatEvaluationProjet->id }}"
+                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->etat_evaluation_projet_id == $etatEvaluationProjet->id) || (old('etat_evaluation_projet_id>') == $etatEvaluationProjet->id) ? 'selected' : '' }}>
+                        {{ $etatEvaluationProjet }}
+                    </option>
+                @endforeach
+            </select>
+          @error('etat_evaluation_projet_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="evaluateur_id" bulkEdit="$bulkEdit">
+      @php $canEditevaluateur_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if (!empty($bulkEdit))
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="evaluateur_id">
+            {{ ucfirst(__('PkgValidationProjets::evaluateur.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="evaluateur_id" 
+            {{ $canEditevaluateur_id ? '' : 'disabled' }}
+            required
+            
+            
+            name="evaluateur_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($evaluateurs as $evaluateur)
+                    <option value="{{ $evaluateur->id }}"
+                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->evaluateur_id == $evaluateur->id) || (old('evaluateur_id>') == $evaluateur->id) ? 'selected' : '' }}>
+                        {{ $evaluateur }}
+                    </option>
+                @endforeach
+            </select>
+          @error('evaluateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="EvaluationRealisationTache">
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgValidationProjets::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
+</div>
+@endif
+
 
 <x-form-field :entity="$itemEvaluationRealisationProjet" field="remarques" bulkEdit="$bulkEdit">
 
@@ -80,108 +203,6 @@
                 id="remarques"
                 placeholder="{{ __('PkgValidationProjets::evaluationRealisationProjet.remarques') }}">{{ $itemEvaluationRealisationProjet ? $itemEvaluationRealisationProjet->remarques : old('remarques') }}</textarea>
           @error('remarques')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="realisation_projet_id" bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_projet_id">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_projet_id" 
-            required
-            
-            
-            name="realisation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationProjets as $realisationProjet)
-                    <option value="{{ $realisationProjet->id }}"
-                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
-                        {{ $realisationProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="evaluateur_id" bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="evaluateur_id">
-            {{ ucfirst(__('PkgValidationProjets::evaluateur.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="evaluateur_id" 
-            required
-            
-            
-            name="evaluateur_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($evaluateurs as $evaluateur)
-                    <option value="{{ $evaluateur->id }}"
-                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->evaluateur_id == $evaluateur->id) || (old('evaluateur_id>') == $evaluateur->id) ? 'selected' : '' }}>
-                        {{ $evaluateur }}
-                    </option>
-                @endforeach
-            </select>
-          @error('evaluateur_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="etat_evaluation_projet_id" bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_evaluation_projet_id" id="bulk_field_etat_evaluation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="etat_evaluation_projet_id">
-            {{ ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular')) }}
-            
-          </label>
-                      <select 
-            id="etat_evaluation_projet_id" 
-            
-            
-            
-            name="etat_evaluation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($etatEvaluationProjets as $etatEvaluationProjet)
-                    <option value="{{ $etatEvaluationProjet->id }}"
-                        {{ (isset($itemEvaluationRealisationProjet) && $itemEvaluationRealisationProjet->etat_evaluation_projet_id == $etatEvaluationProjet->id) || (old('etat_evaluation_projet_id>') == $etatEvaluationProjet->id) ? 'selected' : '' }}>
-                        {{ $etatEvaluationProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('etat_evaluation_projet_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

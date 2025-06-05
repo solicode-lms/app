@@ -19,11 +19,11 @@ class BaseEvaluationRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'evaluation_realisation_projet_id',
+        'realisation_tache_id',
+        'evaluateur_id',
         'note',
         'message',
-        'evaluateur_id',
-        'realisation_tache_id'
+        'evaluation_realisation_projet_id'
     ];
 
     /**
@@ -54,16 +54,16 @@ class BaseEvaluationRealisationTacheService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluationRealisationProjet.plural"), 'evaluation_realisation_projet_id', \Modules\PkgValidationProjets\Models\EvaluationRealisationProjet::class, 'id');
+        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
         }
 
         if (!array_key_exists('evaluateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluateur.plural"), 'evaluateur_id', \Modules\PkgValidationProjets\Models\Evaluateur::class, 'nom');
         }
 
-        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
+        if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluationRealisationProjet.plural"), 'evaluation_realisation_projet_id', \Modules\PkgValidationProjets\Models\EvaluationRealisationProjet::class, 'id');
         }
 
     }

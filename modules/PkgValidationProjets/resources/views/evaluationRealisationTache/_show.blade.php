@@ -6,10 +6,24 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}</small>
                               
-      @if($itemEvaluationRealisationTache->evaluationRealisationProjet)
-        {{ $itemEvaluationRealisationTache->evaluationRealisationProjet }}
+      @if($itemEvaluationRealisationTache->realisationTache)
+        {{ $itemEvaluationRealisationTache->realisationTache }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.singular')) }}</small>
+                              
+      @if($itemEvaluationRealisationTache->evaluateur)
+        {{ $itemEvaluationRealisationTache->evaluateur }}
       @else
         —
       @endif
@@ -48,24 +62,10 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluateur.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.singular')) }}</small>
                               
-      @if($itemEvaluationRealisationTache->evaluateur)
-        {{ $itemEvaluationRealisationTache->evaluateur }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}</small>
-                              
-      @if($itemEvaluationRealisationTache->realisationTache)
-        {{ $itemEvaluationRealisationTache->realisationTache }}
+      @if($itemEvaluationRealisationTache->evaluationRealisationProjet)
+        {{ $itemEvaluationRealisationTache->evaluationRealisationProjet }}
       @else
         —
       @endif

@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+// Ce fichier est maintenu par ESSARRAJ $bulkEdit
 
 
 namespace Modules\PkgValidationProjets\Controllers\Base;
@@ -80,9 +80,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance();
         
 
-        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
-        $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
+        $evaluateurs = $this->evaluateurService->all();
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
 
         if (request()->ajax()) {
             return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
@@ -107,9 +107,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
          $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->find($evaluationRealisationTache_ids[0]);
          
  
-        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
-        $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
+        $evaluateurs = $this->evaluateurService->all();
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
 
         $bulkEdit = true;
 
@@ -172,13 +172,13 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->edit($id);
 
 
-        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
-        $evaluateurs = $this->evaluateurService->all();
         $realisationTaches = $this->realisationTacheService->all();
-
+        $evaluateurs = $this->evaluateurService->all();
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
+        $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationTache._fields', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
+            return view('PkgValidationProjets::evaluationRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
         }
 
         return view('PkgValidationProjets::evaluationRealisationTache.edit', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));

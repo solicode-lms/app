@@ -28,7 +28,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 6,
         "e_data_field_reference": "EvaluationRealisationTache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -76,7 +76,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_note_displayOrder",
-        "value_integer": 2,
+        "value_integer": 3,
         "e_data_field_reference": "EvaluationRealisationTache_note",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -118,7 +118,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_message_displayOrder",
-        "value_integer": 3,
+        "value_integer": 4,
         "e_data_field_reference": "EvaluationRealisationTache_message",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -172,7 +172,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_evaluateur_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 2,
         "e_data_field_reference": "EvaluationRealisationTache_evaluateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -208,7 +208,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_realisation_tache_id_displayInTable",
-        "value_boolean": 0,
+        "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "EvaluationRealisationTache_realisation_tache_id",
         "e_metadata_definition_reference": "displayInTable"
@@ -227,7 +227,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_realisation_tache_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 1,
         "e_data_field_reference": "EvaluationRealisationTache_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -263,7 +263,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_created_at_displayOrder",
-        "value_integer": 6,
+        "value_integer": 9,
         "e_data_field_reference": "EvaluationRealisationTache_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -299,7 +299,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_updated_at_displayOrder",
-        "value_integer": 7,
+        "value_integer": 8,
         "e_data_field_reference": "EvaluationRealisationTache_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -341,7 +341,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 7,
         "e_data_field_reference": "EvaluationRealisationTache_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -377,7 +377,7 @@
     },
     {
         "reference": "EvaluationRealisationTache_evaluation_realisation_projet_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 5,
         "e_data_field_reference": "EvaluationRealisationTache_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -413,7 +413,8 @@
     },
     {
         "reference": "EvaluationRealisationTache_evaluation_realisation_projet_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EvaluationRealisationTache_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -422,5 +423,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "EvaluationRealisationTache_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "EvaluationRealisationTache_realisation_tache_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "EvaluationRealisationTache_realisation_tache_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "EvaluationRealisationTache_evaluateur_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "EvaluationRealisationTache_evaluateur_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "EvaluationRealisationTache_evaluation_realisation_projet_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "admin"
+        },
+        "e_data_field_reference": "EvaluationRealisationTache_evaluation_realisation_projet_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

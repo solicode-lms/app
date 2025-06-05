@@ -29,11 +29,11 @@ class BaseEvaluationRealisationProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_evaluation' => 'required',
-            'remarques' => 'nullable|string',
             'realisation_projet_id' => 'required',
+            'date_evaluation' => 'required',
+            'etat_evaluation_projet_id' => 'nullable',
             'evaluateur_id' => 'required',
-            'etat_evaluation_projet_id' => 'nullable'
+            'remarques' => 'nullable|string'
         ];
     }
 
@@ -45,13 +45,56 @@ class BaseEvaluationRealisationProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'date_evaluation.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.date_evaluation')]),
-            'remarques.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.remarques')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.realisation_projet_id')]),
+            'date_evaluation.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.date_evaluation')]),
+            'etat_evaluation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.etat_evaluation_projet_id')]),
             'evaluateur_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.evaluateur_id')]),
-            'etat_evaluation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.etat_evaluation_projet_id')])
+            'remarques.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.remarques')])
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'realisation_projet_id' => "admin",
+            
+            'date_evaluation' => "admin",
+            
+            'etat_evaluation_projet_id' => "admin",
+            
+            'evaluateur_id' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $evaluation_realisation_projet_id = $this->route('evaluationRealisationProjet'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (evaluationRealisationProjet existant dans l'URL)
+        if (!$evaluation_realisation_projet_id) {
+            return;
+        }
+        
+        $model = EvaluationRealisationProjet::find($evaluation_realisation_projet_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

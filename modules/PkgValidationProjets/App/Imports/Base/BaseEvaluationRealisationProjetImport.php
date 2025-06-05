@@ -56,12 +56,12 @@ class BaseEvaluationRealisationProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EvaluationRealisationProjet([
-             'date_evaluation' => $values[0] ?? null,
-             'remarques' => $values[1] ?? null,
+             'realisation_projet_id' => $values[0] ?? null,
+             'date_evaluation' => $values[1] ?? null,
+             'etat_evaluation_projet_id' => $values[2] ?? null,
+             'evaluateur_id' => $values[3] ?? null,
+             'remarques' => $values[4] ?? null,
              'reference' => $reference,
-             'realisation_projet_id' => $values[3] ?? null,
-             'evaluateur_id' => $values[4] ?? null,
-             'etat_evaluation_projet_id' => $values[5] ?? null,
         ]);
 
 
