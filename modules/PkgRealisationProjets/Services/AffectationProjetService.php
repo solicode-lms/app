@@ -125,17 +125,17 @@ class AffectationProjetService extends BaseAffectationProjetService
             // Cas 1 : Le formateur est lié au projet via projets.formateur_id
             $query->whereHas('projet', function ($q) use ($formateur_id) {
                 $q->where('formateur_id', $formateur_id);
-            })
-            // Cas 2 : Le formateur est un évaluateur via affectation_projet_evaluateur
-            ->orWhereHas('evaluateurs', function ($q) use ($formateur_id) {
-                $q->whereHas('user', function ($subQuery) use ($formateur_id) {
-                    $subQuery->whereIn('id', function ($innerQuery) use ($formateur_id) {
-                        $innerQuery->select('user_id')
-                                ->from('formateurs')
-                                ->where('id', $formateur_id);
-                    });
-                });
             });
+            // Cas 2 : Le formateur est un évaluateur via affectation_projet_evaluateur
+            // ->orWhereHas('evaluateurs', function ($q) use ($formateur_id) {
+            //     $q->whereHas('user', function ($subQuery) use ($formateur_id) {
+            //         $subQuery->whereIn('id', function ($innerQuery) use ($formateur_id) {
+            //             $innerQuery->select('user_id')
+            //                     ->from('formateurs')
+            //                     ->where('id', $formateur_id);
+            //         });
+            //     });
+            // });
         })->get();
     }
 
