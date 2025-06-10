@@ -47,7 +47,7 @@ export class LoadListAction extends BaseAction {
 
 
         // Requête AJAX pour charger les données
-        $.get(indexUrl)
+        return $.get(indexUrl)
             .done((html) => {
                 // TODO : à mettre dans this.config
                 const view_type = this.config.viewStateService.getVariable(this.config.view_type_variable) || "table";
