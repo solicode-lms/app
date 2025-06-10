@@ -48,9 +48,12 @@ trait SortTrait
      */
     public function defaultSort($query){
         $model = $query->getModel();
-        return Schema::hasColumn($model->getTable(), 'ordre')
-            ? $query->orderBy('ordre', 'asc')
-            : $query->orderBy('updated_at', 'desc');
+        return $query->orderBy('updated_at', 'desc');
+
+        // il ajoute une requêtre sur la table schema : 1.11 ms
+        // return Schema::hasColumn($model->getTable(), 'ordre')
+        //     ? $query->orderBy('ordre', 'asc')
+        //     : $query->orderBy('updated_at', 'desc');
     }
 
     /**

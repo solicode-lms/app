@@ -31,9 +31,18 @@ class BaseProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "formateur.user,affectationProjets.realisationProjets.apprenant.user";
+
+        // Initialiser $with à partir de $manyToOne
+        $this->with = array_map(function ($relation) {
+            return $relation['relation'];
+        }, $this->manyToOne);
+        
     }
 
     
+     protected $with = ['filiere', 'formateur'];
+
+
     /**
      * Les attributs remplissables pour le modèle.
      *

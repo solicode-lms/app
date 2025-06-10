@@ -23,8 +23,8 @@ trait PaginateTrait
                 }
             }
             // TODO : Gapp : EagerLoading Charger les relations nécessaires : DataFields de type ManyToOne, ManyToMany ayant DisplayInTable
-            $relationsToLoad = ["categoryTechnologie"];
-            $query->with(array_unique($relationsToLoad));
+            // $relationsToLoad = ["categoryTechnology"];
+            // $query->with(array_unique($relationsToLoad));
     
                     // Calcul du nombre total des résultats filtrés
             $this->totalFilteredCount = $query->count();

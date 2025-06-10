@@ -245,8 +245,10 @@ class BaseAffectationProjetController extends AdminController
         $realisationProjets_view_data = $realisationProjetService->prepareDataForIndexView();
         extract($realisationProjets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
         }
 
         return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));

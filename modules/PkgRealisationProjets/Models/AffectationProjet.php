@@ -6,6 +6,8 @@ use Modules\PkgRealisationProjets\Models\Base\BaseAffectationProjet;
 class AffectationProjet extends BaseAffectationProjet
 {
 
+
+
     public function __toString()
     {
         // Vérifier si le formateur a un seul groupe

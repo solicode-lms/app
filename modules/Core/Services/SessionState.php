@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use JsonSerializable;
 use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Services\AnneeFormationService;
 
 /**
@@ -58,7 +59,13 @@ class SessionState implements JsonSerializable
     public function loadUserSessionData()
     {
         $user = Auth::user();
-    
+            // $user = User::with([
+            //     'roles',
+            //     'permissions',
+            //     'formateur',
+            //     'evaluateur',
+            // ])->find(Auth::id());
+
         if ($user) {
             // Stocker le rôle de l'utilisateur
             $role = $user->roles->first()->name ?? 'Aucun rôle';

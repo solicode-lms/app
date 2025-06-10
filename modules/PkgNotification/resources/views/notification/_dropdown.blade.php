@@ -11,7 +11,7 @@
         </span>
         <div class="dropdown-divider"></div>
 
-        @forelse ($notifications as $notification)
+        @forelse ($notifications ?? [] as $notification)
         <a href="{{ $notification->data['lien'] ?? '#' }}" class="dropdown-item">
             <div>
                 <div class="mb-1" style="white-space: normal;">

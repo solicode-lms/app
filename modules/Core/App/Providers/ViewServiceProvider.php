@@ -17,21 +17,26 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            if (Auth::check()) {
-                /** @var NotificationService $notificationService */
-                $notificationService = app(NotificationService::class);
 
-                $userId = Auth::id();
+            // TODO : il faut une optimisation 
+            // Le problème ici, que il utilise la base de données pour chaque vue
+            // il faut convoquer la base de donnée pour cahque requêtre Http
+            
+            // if (Auth::check()) {
+            //     /** @var NotificationService $notificationService */
+            //     $notificationService = app(NotificationService::class);
 
-                // ✅ Utiliser les méthodes du Service au lieu de faire des query() manuelles
-                $notifications = $notificationService->getUnreadNotifications($userId, 5);
-                $unreadNotificationCount = $notificationService->countUnreadNotifications($userId);
+            //     $userId = Auth::id();
 
-                $view->with([
-                    'notifications' => $notifications,
-                    'unreadNotificationCount' => $unreadNotificationCount,
-                ]);
-            }
+            //     // ✅ Utiliser les méthodes du Service au lieu de faire des query() manuelles
+            //     $notifications = $notificationService->getUnreadNotifications($userId, 5);
+            //     $unreadNotificationCount = $notificationService->countUnreadNotifications($userId);
+
+            //     $view->with([
+            //         'notifications' => $notifications,
+            //         'unreadNotificationCount' => $unreadNotificationCount,
+            //     ]);
+            // }
         });
     }
 }
