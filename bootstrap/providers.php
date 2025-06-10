@@ -7,5 +7,5 @@ return [
     Modules\Core\App\Providers\DynamicMenuServiceProvider::class,
     Modules\Core\App\Providers\ModuleViewFallbackProvider::class,
     Modules\Core\App\Providers\ViewServiceProvider::class,
-    
+    Barryvdh\Debugbar\ServiceProvider::class,
 ];
