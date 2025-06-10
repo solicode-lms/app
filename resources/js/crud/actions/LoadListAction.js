@@ -58,7 +58,8 @@ export class LoadListAction extends BaseAction {
                     $(this.config.dataContainerSelector).html(html);
                     $(this.config.dataContainerOutSelector).html("");
                 }
-               
+                this.loader.hide();
+                
                 this.executeScripts(html);
                 this.tableUI.init();
                 this.tableUI.indexUI.filterUI.init();
@@ -66,13 +67,14 @@ export class LoadListAction extends BaseAction {
                 this.tableUI.indexUI.notificationUI.init();
                 // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
+                 
             })
             .fail((xhr) => {
                 AjaxErrorHandler.handleError(xhr, "Erreur lors du chargement des données.");
             })
             .always(() => {
                 // Masquer l'indicateur de chargement
-                this.loader.hide();
+               
             });
     }
     

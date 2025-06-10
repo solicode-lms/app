@@ -1,6 +1,7 @@
 import { Action } from "../../actions/Action";
 import EventUtil from "../../utils/EventUtil";
 import { FormUI } from "../FormUI";
+import { LoadingIndicator } from "../LoadingIndicator";
 import { NotificationHandler } from "../NotificationHandler";
 
 /**
@@ -20,6 +21,7 @@ export class InlineEdit extends Action {
      * Initialise les événements et gère un éventuel clic en attente.
      */
     init() {
+        this.loader = new LoadingIndicator(this.config.tableSelector);
         this._bindInlineEditEvents();
         this._openPendingClick();
     }
@@ -83,37 +85,59 @@ export class InlineEdit extends Action {
         const formUI = new FormUI(this.config, this.tableUI.indexUI, `#${rowId}`);
         const url = this.config.editUrl.replace(':id', id);
 
-        try {
-            this.loader.show();
-            const resp =  await $.get(url);
-            this.loader.hide();
+   
 
-            const $html = $('<div>').html(resp);
-            this.executeScripts($html);
-            const $grp = $html.find(`[name="${field}"]`).closest('.form-group');
-            if (!$grp.length) { console.warn(`Champ '${field}' introuvable.`); this.activeCell = null; return; }
+        this.loader.show();
+           
 
-            $cell.data('original', $cell.html()).empty().append($grp.contents());
-            $grp.find('label').hide();
-            formUI.init(() => {}, false);
-            const $input = $cell.find(`[name="${field}"]`);
-            $input.focus();
+            $.get(url)
+            .done((resp) => {
 
-            // key events
-            $input.on('keydown.inlineEdit', evt => {
-                if (evt.key === 'Escape') this._cancelEdit();
-                if (evt.key === 'Enter') this._submitActiveCell();
+                        const $html = $('<div>').html(resp);
+                        this.executeScripts($html);
+                        const $grp = $html.find(`[name="${field}"]`).closest('.form-group');
+                        if (!$grp.length) { console.warn(`Champ '${field}' introuvable.`); this.activeCell = null; return; }
+
+                        $cell.data('original', $cell.html()).empty().append($grp.contents());
+                        $grp.find('label').hide();
+                        formUI.init(() => {}, false);
+                        const $input = $cell.find(`[name="${field}"]`);
+                        $input.focus();
+
+                        this.loader.hide();
+                        // key events
+                        $input.on('keydown.inlineEdit', evt => {
+                            if (evt.key === 'Escape') this._cancelEdit();
+                            if (evt.key === 'Enter') this._submitActiveCell();
+                        });
+                        // change auto
+                        if ($input.is('select') || $input.is(':checkbox')) {
+                            $input.on('change.inlineEdit', () => this._submitActiveCell());
+                        }
+
+
+            
+            })
+            .fail((xhr) => {
+                console.error('Erreur chargement inline:', err);
+                NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
+                this.activeCell = null;
+            })
+            .always(() => {
+                // Masquer l'indicateur de chargement
+              
             });
-            // change auto
-            if ($input.is('select') || $input.is(':checkbox')) {
-                $input.on('change.inlineEdit', () => this._submitActiveCell());
-            }
-        } catch (err) {
-            this.loader.hide();
-            console.error('Erreur chargement inline:', err);
-            NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
-            this.activeCell = null;
-        }
+
+
+
+
+
+
+
+    
+
+           
+        
     }
 
     /**
