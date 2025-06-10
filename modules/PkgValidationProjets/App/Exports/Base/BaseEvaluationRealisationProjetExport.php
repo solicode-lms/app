@@ -29,18 +29,18 @@ class BaseEvaluationRealisationProjetExport implements FromCollection, WithHeadi
      if($this->format == 'csv'){
         return [
             'realisation_projet_id' => 'realisation_projet_id',
+            'evaluateur_id' => 'evaluateur_id',
             'date_evaluation' => 'date_evaluation',
             'etat_evaluation_projet_id' => 'etat_evaluation_projet_id',
-            'evaluateur_id' => 'evaluateur_id',
             'remarques' => 'remarques',
             'reference' => 'reference',
         ];
         }else{
         return [
             'realisation_projet_id' => __('PkgValidationProjets::evaluationRealisationProjet.realisation_projet_id'),
+            'evaluateur_id' => __('PkgValidationProjets::evaluationRealisationProjet.evaluateur_id'),
             'date_evaluation' => __('PkgValidationProjets::evaluationRealisationProjet.date_evaluation'),
             'etat_evaluation_projet_id' => __('PkgValidationProjets::evaluationRealisationProjet.etat_evaluation_projet_id'),
-            'evaluateur_id' => __('PkgValidationProjets::evaluationRealisationProjet.evaluateur_id'),
             'remarques' => __('PkgValidationProjets::evaluationRealisationProjet.remarques'),
             'reference' => __('Core::msg.reference'),
         ];
@@ -54,9 +54,9 @@ class BaseEvaluationRealisationProjetExport implements FromCollection, WithHeadi
         return $this->data->map(function ($evaluationRealisationProjet) {
             return [
                 'realisation_projet_id' => $evaluationRealisationProjet->realisation_projet_id,
+                'evaluateur_id' => $evaluationRealisationProjet->evaluateur_id,
                 'date_evaluation' => $evaluationRealisationProjet->date_evaluation,
                 'etat_evaluation_projet_id' => $evaluationRealisationProjet->etat_evaluation_projet_id,
-                'evaluateur_id' => $evaluationRealisationProjet->evaluateur_id,
                 'remarques' => $evaluationRealisationProjet->remarques,
                 'reference' => $evaluationRealisationProjet->reference,
             ];

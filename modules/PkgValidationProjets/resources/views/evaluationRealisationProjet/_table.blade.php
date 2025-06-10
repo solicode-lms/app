@@ -11,10 +11,10 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                
                 <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="NomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.NomApprenant'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.note'))}}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="Note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.Note'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -32,16 +32,6 @@
                          {{  $evaluationRealisationProjet->realisationProjet }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="etat_evaluation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->etatEvaluationProjet }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="etatEvaluationProjet">
-                        @if(!empty($evaluationRealisationProjet->etatEvaluationProjet))
-                        <x-badge 
-                        :text="$evaluationRealisationProjet->etatEvaluationProjet" 
-                        :background="$evaluationRealisationProjet->etatEvaluationProjet->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-                    </x-field>
-                    </td>
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="NomApprenant"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->NomApprenant }}" >
                     <x-field :entity="$evaluationRealisationProjet" field="NomApprenant">
                         {{ $evaluationRealisationProjet->NomApprenant }}
@@ -53,9 +43,19 @@
                          {{  $evaluationRealisationProjet->evaluateur }}
                     </x-field>
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->note }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="note">
-                        {{ dd($evaluationRealisationProjet->note) }}
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="etat_evaluation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->etatEvaluationProjet }}" >
+                    <x-field :entity="$evaluationRealisationProjet" field="etatEvaluationProjet">
+                        @if(!empty($evaluationRealisationProjet->etatEvaluationProjet))
+                        <x-badge 
+                        :text="$evaluationRealisationProjet->etatEvaluationProjet" 
+                        :background="$evaluationRealisationProjet->etatEvaluationProjet->sysColor->hex ?? '#6c757d'" 
+                        />
+                        @endif
+                    </x-field>
+                    </td>
+                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="Note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->Note }}" >
+                    <x-field :entity="$evaluationRealisationProjet" field="Note">
+                        {{ $evaluationRealisationProjet->Note }}
                     </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

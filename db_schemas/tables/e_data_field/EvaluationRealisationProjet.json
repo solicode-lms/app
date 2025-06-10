@@ -15,15 +15,29 @@
     },
     {
         "reference": "EvaluationRealisationProjet-note",
-        "name": "note",
-        "column_name": "note",
+        "name": "Note",
+        "column_name": "Note",
         "data_type": "Float",
         "field_order": 5,
         "db_nullable": 0,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
-        "calculable_sql": "SELECT COALESCE(SUM(ert.note), 0)\r\n        FROM evaluation_realisation_taches ert\r\n        WHERE ert.evaluation_realisation_projet_id = id",
+        "calculable_sql": "SELECT SUM(ert.note)\r\n                        FROM evaluation_realisation_taches ert\r\n                        WHERE ert.evaluation_realisation_projet_id = evaluation_realisation_projets.id",
+        "description": "",
+        "e_model_reference": "evaluation_realisation_projets"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-bareme_note",
+        "name": "bareme_note",
+        "column_name": "bareme_note",
+        "data_type": "Float",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT SUM(t.note)\r\n                FROM evaluation_realisation_taches ert\r\n                JOIN realisation_taches rt on ert.realisation_tache_id = rt.id\r\n                JOIN taches t ON rt.tache_id = t.id\r\n                WHERE ert.evaluation_realisation_projet_id = evaluation_realisation_projets.id\r\n                  AND ert.note IS NOT NULL",
         "description": "",
         "e_model_reference": "evaluation_realisation_projets"
     }

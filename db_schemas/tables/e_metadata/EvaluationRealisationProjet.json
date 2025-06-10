@@ -27,7 +27,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_id_displayOrder",
-        "value_integer": 8,
+        "value_integer": 11,
         "e_data_field_reference": "EvaluationRealisationProjet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_date_evaluation_displayOrder",
-        "value_integer": 2,
+        "value_integer": 4,
         "e_data_field_reference": "EvaluationRealisationProjet_date_evaluation",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -105,7 +105,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_remarques_displayOrder",
-        "value_integer": 6,
+        "value_integer": 9,
         "e_data_field_reference": "EvaluationRealisationProjet_remarques",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -147,7 +147,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_reference_displayOrder",
-        "value_integer": 7,
+        "value_integer": 10,
         "e_data_field_reference": "EvaluationRealisationProjet_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -255,7 +255,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_evaluateur_id_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "e_data_field_reference": "EvaluationRealisationProjet_evaluateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -303,7 +303,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_etat_evaluation_projet_id_displayOrder",
-        "value_integer": 3,
+        "value_integer": 5,
         "e_data_field_reference": "EvaluationRealisationProjet_etat_evaluation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -347,7 +347,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_created_at_displayOrder",
-        "value_integer": 9,
+        "value_integer": 12,
         "e_data_field_reference": "EvaluationRealisationProjet_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -383,7 +383,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet_updated_at_displayOrder",
-        "value_integer": 10,
+        "value_integer": 13,
         "e_data_field_reference": "EvaluationRealisationProjet_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -426,7 +426,7 @@
     },
     {
         "reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 6,
         "e_data_field_reference": "evaluation_realisation_projets_hasMany_evaluation_realisation_taches_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -521,7 +521,7 @@
     },
     {
         "reference": "EvaluationRealisationProjet-NomApprenant_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "EvaluationRealisationProjet-NomApprenant",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -553,21 +553,9 @@
     },
     {
         "reference": "EvaluationRealisationProjet-note_displayOrder",
-        "value_integer": 5,
+        "value_integer": 7,
         "e_data_field_reference": "EvaluationRealisationProjet-note",
         "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "EvaluationRealisationProjet-note_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "EvaluationRealisationProjet-note",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "EvaluationRealisationProjet-note_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "EvaluationRealisationProjet-note",
-        "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "EvaluationRealisationProjet-note_sortable",
@@ -576,15 +564,21 @@
         "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference": "EvaluationRealisationProjet-note_viewFormFieldVisible",
+        "reference": "EvaluationRealisationProjet-bareme_note_required",
         "value_boolean": 1,
-        "e_data_field_reference": "EvaluationRealisationProjet-note",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
+        "e_data_field_reference": "EvaluationRealisationProjet-bareme_note",
+        "e_metadata_definition_reference": "required"
     },
     {
-        "reference": "EvaluationRealisationProjet-note_viewShowFieldVisible",
+        "reference": "EvaluationRealisationProjet-bareme_note_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "EvaluationRealisationProjet-bareme_note",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-bareme_note_sortable",
         "value_boolean": 1,
-        "e_data_field_reference": "EvaluationRealisationProjet-note",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
+        "e_data_field_reference": "EvaluationRealisationProjet-bareme_note",
+        "e_metadata_definition_reference": "sortable"
     }
 ]

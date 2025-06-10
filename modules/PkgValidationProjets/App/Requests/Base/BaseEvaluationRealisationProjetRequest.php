@@ -30,9 +30,9 @@ class BaseEvaluationRealisationProjetRequest extends FormRequest
     {
         return [
             'realisation_projet_id' => 'required',
+            'evaluateur_id' => 'required',
             'date_evaluation' => 'required',
             'etat_evaluation_projet_id' => 'nullable',
-            'evaluateur_id' => 'required',
             'remarques' => 'nullable|string'
         ];
     }
@@ -46,9 +46,9 @@ class BaseEvaluationRealisationProjetRequest extends FormRequest
     {
         return [
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.realisation_projet_id')]),
+            'evaluateur_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.evaluateur_id')]),
             'date_evaluation.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.date_evaluation')]),
             'etat_evaluation_projet_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.etat_evaluation_projet_id')]),
-            'evaluateur_id.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.evaluateur_id')]),
             'remarques.required' => __('validation.required', ['attribute' => __('PkgValidationProjets::EvaluationRealisationProjet.remarques')])
         ];
     }
@@ -63,11 +63,11 @@ class BaseEvaluationRealisationProjetRequest extends FormRequest
             
             'realisation_projet_id' => "admin",
             
+            'evaluateur_id' => "admin",
+            
             'date_evaluation' => "admin",
             
             'etat_evaluation_projet_id' => "admin",
-            
-            'evaluateur_id' => "admin",
             
         ];
 

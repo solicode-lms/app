@@ -20,9 +20,9 @@ class BaseEvaluationRealisationProjetService extends BaseService
      */
     protected $fieldsSearchable = [
         'realisation_projet_id',
+        'evaluateur_id',
         'date_evaluation',
         'etat_evaluation_projet_id',
-        'evaluateur_id',
         'remarques'
     ];
 
@@ -58,12 +58,12 @@ class BaseEvaluationRealisationProjetService extends BaseService
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
         }
 
-        if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::etatEvaluationProjet.plural"), 'etat_evaluation_projet_id', \Modules\PkgValidationProjets\Models\EtatEvaluationProjet::class, 'code');
-        }
-
         if (!array_key_exists('evaluateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::evaluateur.plural"), 'evaluateur_id', \Modules\PkgValidationProjets\Models\Evaluateur::class, 'nom');
+        }
+
+        if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgValidationProjets::etatEvaluationProjet.plural"), 'etat_evaluation_projet_id', \Modules\PkgValidationProjets\Models\EtatEvaluationProjet::class, 'code');
         }
 
     }

@@ -90,8 +90,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
         
 
         $realisationProjets = $this->realisationProjetService->all();
-        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
+        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
 
         if (request()->ajax()) {
             return view('PkgValidationProjets::evaluationRealisationProjet._fields', compact('itemEvaluationRealisationProjet', 'etatEvaluationProjets', 'evaluateurs', 'realisationProjets'));
@@ -121,8 +121,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
          
  
         $realisationProjets = $this->realisationProjetService->all();
-        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
+        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
 
         $bulkEdit = true;
 
@@ -195,8 +195,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
 
 
         $realisationProjets = $this->realisationProjetService->all();
-        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
         $evaluateurs = $this->evaluateurService->all();
+        $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
 
 
         $this->viewState->set('scope.evaluationRealisationTache.evaluation_realisation_projet_id', $id);
