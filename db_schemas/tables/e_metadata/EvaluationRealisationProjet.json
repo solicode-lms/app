@@ -512,5 +512,79 @@
         "value_float": 0,
         "e_model_reference": "evaluation_realisation_projets",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-NomApprenant_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-NomApprenant",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-NomApprenant_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "EvaluationRealisationProjet-NomApprenant",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-NomApprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-NomApprenant",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-NomApprenant_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EvaluationRealisationProjet-NomApprenant",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationProjet-note",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -1,0 +1,30 @@
+[
+    {
+        "reference": "EvaluationRealisationProjet-NomApprenant",
+        "name": "NomApprenant",
+        "column_name": "NomApprenant",
+        "data_type": "String",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT CONCAT(a.nom, ' ', a.prenom)\r\n        FROM realisation_projets rp\r\n        JOIN apprenants a \r\n          ON rp.apprenant_id = a.id\r\n        WHERE rp.id = realisation_projet_id",
+        "description": "",
+        "e_model_reference": "evaluation_realisation_projets"
+    },
+    {
+        "reference": "EvaluationRealisationProjet-note",
+        "name": "note",
+        "column_name": "note",
+        "data_type": "Float",
+        "field_order": 5,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT COALESCE(SUM(ert.note), 0)\r\n        FROM evaluation_realisation_taches ert\r\n        WHERE ert.evaluation_realisation_projet_id = id",
+        "description": "",
+        "e_model_reference": "evaluation_realisation_projets"
+    }
+]

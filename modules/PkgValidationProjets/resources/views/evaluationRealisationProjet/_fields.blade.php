@@ -182,6 +182,36 @@
 @endif
 
 
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="note" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note">
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.note')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="note"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="note"
+        step="0.01"
+        placeholder="{{ __('PkgValidationProjets::evaluationRealisationProjet.note') }}"
+        value="{{ $itemEvaluationRealisationProjet ? number_format($itemEvaluationRealisationProjet->note, 2, '.', '') : old('note') }}">
+          @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemEvaluationRealisationProjet" field="remarques" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">

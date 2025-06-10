@@ -28,6 +28,18 @@ class BaseEvaluationRealisationProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "evaluateur.user";
+        // Colonne dynamique : NomApprenant
+        $sql = "SELECT CONCAT(a.nom, ' ', a.prenom)
+                FROM realisation_projets rp
+                JOIN apprenants a 
+                  ON rp.apprenant_id = a.id
+                WHERE rp.id = realisation_projet_id";
+        static::addDynamicAttribute('NomApprenant', $sql);
+        // Colonne dynamique : note
+        $sql = "SELECT SUM(ert.note)
+                FROM evaluation_realisation_taches ert
+                WHERE ert.evaluation_realisation_projet_id = id";
+        static::addDynamicAttribute('note', $sql);
     }
 
     
