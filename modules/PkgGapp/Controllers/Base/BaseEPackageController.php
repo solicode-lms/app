@@ -180,7 +180,7 @@ class BaseEPackageController extends AdminController
             return view('PkgGapp::ePackage._edit', array_merge(compact('bulkEdit' , 'itemEPackage',),$eModel_compact_value));
         }
 
-        return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
+        return view('PkgGapp::ePackage.edit', array_merge(compact('bulkEdit' ,'itemEPackage',),$eModel_compact_value));
 
 
     }

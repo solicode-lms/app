@@ -186,7 +186,7 @@ class BaseFeatureDomainController extends AdminController
             return view('Core::featureDomain._edit', array_merge(compact('bulkEdit' , 'itemFeatureDomain','sysModules'),$feature_compact_value));
         }
 
-        return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
+        return view('Core::featureDomain.edit', array_merge(compact('bulkEdit' ,'itemFeatureDomain','sysModules'),$feature_compact_value));
 
 
     }

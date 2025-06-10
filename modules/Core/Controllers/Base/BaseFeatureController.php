@@ -177,7 +177,7 @@ class BaseFeatureController extends AdminController
             return view('Core::feature._fields', array_merge(compact('bulkEdit' , 'itemFeature','permissions', 'featureDomains'),));
         }
 
-        return view('Core::feature.edit', array_merge(compact('itemFeature','permissions', 'featureDomains'),));
+        return view('Core::feature.edit', array_merge(compact('bulkEdit' ,'itemFeature','permissions', 'featureDomains'),));
 
 
     }

@@ -219,7 +219,7 @@ class BaseProfileController extends AdminController
             return view('PkgAutorisation::profile._fields', array_merge(compact('bulkEdit' , 'itemProfile','users'),));
         }
 
-        return view('PkgAutorisation::profile.edit', array_merge(compact('itemProfile','users'),));
+        return view('PkgAutorisation::profile.edit', array_merge(compact('bulkEdit' ,'itemProfile','users'),));
 
 
     }

@@ -186,7 +186,7 @@ class BaseEtatEvaluationProjetController extends AdminController
             return view('PkgValidationProjets::etatEvaluationProjet._edit', array_merge(compact('bulkEdit' , 'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
         }
 
-        return view('PkgValidationProjets::etatEvaluationProjet.edit', array_merge(compact('itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
+        return view('PkgValidationProjets::etatEvaluationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
 
 
     }

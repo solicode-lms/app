@@ -197,7 +197,7 @@ class BaseEtatsRealisationProjetController extends AdminController
             return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
 
 
     }

@@ -180,7 +180,7 @@ class BaseEMetadataDefinitionController extends AdminController
             return view('PkgGapp::eMetadataDefinition._edit', array_merge(compact('bulkEdit' , 'itemEMetadataDefinition',),$eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('itemEMetadataDefinition',),$eMetadatum_compact_value));
+        return view('PkgGapp::eMetadataDefinition.edit', array_merge(compact('bulkEdit' ,'itemEMetadataDefinition',),$eMetadatum_compact_value));
 
 
     }

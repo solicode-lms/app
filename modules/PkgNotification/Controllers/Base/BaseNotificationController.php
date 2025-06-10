@@ -194,7 +194,7 @@ class BaseNotificationController extends AdminController
             return view('PkgNotification::notification._fields', array_merge(compact('bulkEdit' , 'itemNotification','users'),));
         }
 
-        return view('PkgNotification::notification.edit', array_merge(compact('itemNotification','users'),));
+        return view('PkgNotification::notification.edit', array_merge(compact('bulkEdit' ,'itemNotification','users'),));
 
 
     }

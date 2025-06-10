@@ -191,7 +191,7 @@ class BaseLabelRealisationTacheController extends AdminController
             return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemLabelRealisationTache','formateurs', 'sysColors'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
+        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemLabelRealisationTache','formateurs', 'sysColors'),));
 
 
     }

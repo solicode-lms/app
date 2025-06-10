@@ -207,7 +207,7 @@ class BaseCompetenceController extends AdminController
             return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
 
 
     }

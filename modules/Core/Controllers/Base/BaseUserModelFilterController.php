@@ -171,7 +171,7 @@ class BaseUserModelFilterController extends AdminController
             return view('Core::userModelFilter._fields', array_merge(compact('bulkEdit' , 'itemUserModelFilter','users'),));
         }
 
-        return view('Core::userModelFilter.edit', array_merge(compact('itemUserModelFilter','users'),));
+        return view('Core::userModelFilter.edit', array_merge(compact('bulkEdit' ,'itemUserModelFilter','users'),));
 
 
     }

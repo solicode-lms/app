@@ -294,7 +294,7 @@ class BaseRealisationProjetController extends AdminController
             return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('bulkEdit' , 'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('bulkEdit' ,'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
 
 
     }

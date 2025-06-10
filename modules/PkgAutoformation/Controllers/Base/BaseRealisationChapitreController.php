@@ -183,7 +183,7 @@ class BaseRealisationChapitreController extends AdminController
             return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
         }
 
-        return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
+        return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
 
 
     }

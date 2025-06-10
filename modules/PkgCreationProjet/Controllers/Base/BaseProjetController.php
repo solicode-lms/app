@@ -288,7 +288,7 @@ class BaseProjetController extends AdminController
             return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }

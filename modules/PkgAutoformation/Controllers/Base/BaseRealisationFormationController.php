@@ -198,7 +198,7 @@ class BaseRealisationFormationController extends AdminController
             return view('PkgAutoformation::realisationFormation._edit', array_merge(compact('bulkEdit' , 'itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
+        return view('PkgAutoformation::realisationFormation.edit', array_merge(compact('bulkEdit' ,'itemRealisationFormation','apprenants', 'etatFormations', 'formations'),$realisationChapitre_compact_value));
 
 
     }

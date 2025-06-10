@@ -233,7 +233,7 @@ class BaseWidgetUtilisateurController extends AdminController
             return view('PkgWidgets::widgetUtilisateur._fields', array_merge(compact('bulkEdit' , 'itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
         }
 
-        return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
+        return view('PkgWidgets::widgetUtilisateur.edit', array_merge(compact('bulkEdit' ,'itemWidgetUtilisateur','users', 'widgets', 'sysModules'),));
 
 
     }

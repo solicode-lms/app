@@ -58,10 +58,8 @@ class SessionState implements JsonSerializable
      */
     public function loadUserSessionData()
     {
-        $user = Auth::user();
+         $user = Auth::user();
             // $user = User::with([
-            //     'roles',
-            //     'permissions',
             //     'formateur',
             //     'evaluateur',
             // ])->find(Auth::id());

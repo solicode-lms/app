@@ -186,7 +186,7 @@ class BaseSectionWidgetController extends AdminController
             return view('PkgWidgets::sectionWidget._edit', array_merge(compact('bulkEdit' , 'itemSectionWidget','sysColors'),$widget_compact_value));
         }
 
-        return view('PkgWidgets::sectionWidget.edit', array_merge(compact('itemSectionWidget','sysColors'),$widget_compact_value));
+        return view('PkgWidgets::sectionWidget.edit', array_merge(compact('bulkEdit' ,'itemSectionWidget','sysColors'),$widget_compact_value));
 
 
     }

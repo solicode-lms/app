@@ -192,7 +192,7 @@ class BaseSysModelController extends AdminController
             return view('Core::sysModel._edit', array_merge(compact('bulkEdit' , 'itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
         }
 
-        return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+        return view('Core::sysModel.edit', array_merge(compact('bulkEdit' ,'itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
 
 
     }

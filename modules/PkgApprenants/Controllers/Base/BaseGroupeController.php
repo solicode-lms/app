@@ -204,7 +204,7 @@ class BaseGroupeController extends AdminController
             return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
 
 
     }

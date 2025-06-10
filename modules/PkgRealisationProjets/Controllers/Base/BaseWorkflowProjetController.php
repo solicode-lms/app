@@ -186,7 +186,7 @@ class BaseWorkflowProjetController extends AdminController
             return view('PkgRealisationProjets::workflowProjet._edit', array_merge(compact('bulkEdit' , 'itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::workflowProjet.edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
+        return view('PkgRealisationProjets::workflowProjet.edit', array_merge(compact('bulkEdit' ,'itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
 
 
     }

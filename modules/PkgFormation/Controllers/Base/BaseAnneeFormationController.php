@@ -195,7 +195,7 @@ class BaseAnneeFormationController extends AdminController
             return view('PkgFormation::anneeFormation._edit', array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+        return view('PkgFormation::anneeFormation.edit', array_merge(compact('bulkEdit' ,'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
 
 
     }

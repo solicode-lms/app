@@ -215,7 +215,7 @@ class BaseChapitreController extends AdminController
             return view('PkgAutoformation::chapitre._edit', array_merge(compact('bulkEdit' , 'itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
+        return view('PkgAutoformation::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
 
 
     }

@@ -185,7 +185,7 @@ class BaseResourceController extends AdminController
             return view('PkgCreationProjet::resource._fields', array_merge(compact('bulkEdit' , 'itemResource','projets'),));
         }
 
-        return view('PkgCreationProjet::resource.edit', array_merge(compact('itemResource','projets'),));
+        return view('PkgCreationProjet::resource.edit', array_merge(compact('bulkEdit' ,'itemResource','projets'),));
 
 
     }

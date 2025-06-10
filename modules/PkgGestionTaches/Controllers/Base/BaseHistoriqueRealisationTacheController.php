@@ -177,7 +177,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
             return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
 
 
     }

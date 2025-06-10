@@ -186,7 +186,7 @@ class BaseWorkflowChapitreController extends AdminController
             return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('bulkEdit' , 'itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
         }
 
-        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
+        return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('bulkEdit' ,'itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
 
 
     }

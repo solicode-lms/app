@@ -248,7 +248,7 @@ class BaseRealisationTacheController extends AdminController
             return view('PkgGestionTaches::realisationTache._fields', array_merge(compact('bulkEdit' , 'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
+        return view('PkgGestionTaches::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
 
 
     }

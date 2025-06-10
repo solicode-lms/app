@@ -211,7 +211,7 @@ class BaseTransfertCompetenceController extends AdminController
             return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('bulkEdit' , 'itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
         }
 
-        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
+        return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('bulkEdit' ,'itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
 
 
     }

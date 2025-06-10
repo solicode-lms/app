@@ -183,7 +183,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
             return view('PkgValidationProjets::evaluationRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
         }
 
-        return view('PkgValidationProjets::evaluationRealisationTache.edit', array_merge(compact('itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
+        return view('PkgValidationProjets::evaluationRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEvaluationRealisationTache','evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'),));
 
 
     }

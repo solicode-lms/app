@@ -216,7 +216,7 @@ class BaseEModelController extends AdminController
             return view('PkgGapp::eModel._edit', array_merge(compact('bulkEdit' , 'itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
         }
 
-        return view('PkgGapp::eModel.edit', array_merge(compact('itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
+        return view('PkgGapp::eModel.edit', array_merge(compact('bulkEdit' ,'itemEModel','ePackages'),$eDataField_compact_value, $eMetadatum_compact_value));
 
 
     }

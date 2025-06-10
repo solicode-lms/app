@@ -183,7 +183,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
             return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
 
 
     }

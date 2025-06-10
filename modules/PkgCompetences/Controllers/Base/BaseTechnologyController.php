@@ -189,7 +189,7 @@ class BaseTechnologyController extends AdminController
             return view('PkgCompetences::technology._fields', array_merge(compact('bulkEdit' , 'itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
         }
 
-        return view('PkgCompetences::technology.edit', array_merge(compact('itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
+        return view('PkgCompetences::technology.edit', array_merge(compact('bulkEdit' ,'itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
 
 
     }

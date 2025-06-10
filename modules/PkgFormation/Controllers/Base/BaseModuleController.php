@@ -186,7 +186,7 @@ class BaseModuleController extends AdminController
             return view('PkgFormation::module._edit', array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value));
         }
 
-        return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
+        return view('PkgFormation::module.edit', array_merge(compact('bulkEdit' ,'itemModule','filieres'),$competence_compact_value));
 
 
     }

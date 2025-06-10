@@ -180,7 +180,7 @@ class BaseCategoryTechnologyController extends AdminController
             return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('bulkEdit' , 'itemCategoryTechnology',),$technology_compact_value));
         }
 
-        return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
+        return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('bulkEdit' ,'itemCategoryTechnology',),$technology_compact_value));
 
 
     }

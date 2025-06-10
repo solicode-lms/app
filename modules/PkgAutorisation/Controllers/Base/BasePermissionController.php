@@ -183,7 +183,7 @@ class BasePermissionController extends AdminController
             return view('PkgAutorisation::permission._fields', array_merge(compact('bulkEdit' , 'itemPermission','features', 'roles', 'sysControllers'),));
         }
 
-        return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
+        return view('PkgAutorisation::permission.edit', array_merge(compact('bulkEdit' ,'itemPermission','features', 'roles', 'sysControllers'),));
 
 
     }

@@ -183,7 +183,7 @@ class BaseEMetadatumController extends AdminController
             return view('PkgGapp::eMetadatum._fields', array_merge(compact('bulkEdit' , 'itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
         }
 
-        return view('PkgGapp::eMetadatum.edit', array_merge(compact('itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
+        return view('PkgGapp::eMetadatum.edit', array_merge(compact('bulkEdit' ,'itemEMetadatum','eDataFields', 'eMetadataDefinitions', 'eModels'),));
 
 
     }

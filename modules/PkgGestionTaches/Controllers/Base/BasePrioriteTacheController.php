@@ -185,7 +185,7 @@ class BasePrioriteTacheController extends AdminController
             return view('PkgGestionTaches::prioriteTache._fields', array_merge(compact('bulkEdit' , 'itemPrioriteTache','formateurs'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('itemPrioriteTache','formateurs'),));
+        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('bulkEdit' ,'itemPrioriteTache','formateurs'),));
 
 
     }

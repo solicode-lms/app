@@ -180,7 +180,7 @@ class BaseWidgetTypeController extends AdminController
             return view('PkgWidgets::widgetType._edit', array_merge(compact('bulkEdit' , 'itemWidgetType',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetType.edit', array_merge(compact('itemWidgetType',),$widget_compact_value));
+        return view('PkgWidgets::widgetType.edit', array_merge(compact('bulkEdit' ,'itemWidgetType',),$widget_compact_value));
 
 
     }

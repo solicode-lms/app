@@ -180,7 +180,7 @@ class BaseTypeDependanceTacheController extends AdminController
             return view('PkgGestionTaches::typeDependanceTache._edit', array_merge(compact('bulkEdit' , 'itemTypeDependanceTache',),$dependanceTache_compact_value));
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('itemTypeDependanceTache',),$dependanceTache_compact_value));
+        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('bulkEdit' ,'itemTypeDependanceTache',),$dependanceTache_compact_value));
 
 
     }

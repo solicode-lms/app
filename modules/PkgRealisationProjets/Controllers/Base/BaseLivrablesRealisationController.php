@@ -191,7 +191,7 @@ class BaseLivrablesRealisationController extends AdminController
             return view('PkgRealisationProjets::livrablesRealisation._fields', array_merge(compact('bulkEdit' , 'itemLivrablesRealisation','livrables', 'realisationProjets'),));
         }
 
-        return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('itemLivrablesRealisation','livrables', 'realisationProjets'),));
+        return view('PkgRealisationProjets::livrablesRealisation.edit', array_merge(compact('bulkEdit' ,'itemLivrablesRealisation','livrables', 'realisationProjets'),));
 
 
     }

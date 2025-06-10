@@ -209,7 +209,7 @@ class BaseWidgetController extends AdminController
             return view('PkgWidgets::widget._fields', array_merge(compact('bulkEdit' , 'itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
         }
 
-        return view('PkgWidgets::widget.edit', array_merge(compact('itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
+        return view('PkgWidgets::widget.edit', array_merge(compact('bulkEdit' ,'itemWidget','roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'),));
 
 
     }

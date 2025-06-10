@@ -180,7 +180,7 @@ class BaseNationaliteController extends AdminController
             return view('PkgApprenants::nationalite._edit', array_merge(compact('bulkEdit' , 'itemNationalite',),$apprenant_compact_value));
         }
 
-        return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
+        return view('PkgApprenants::nationalite.edit', array_merge(compact('bulkEdit' ,'itemNationalite',),$apprenant_compact_value));
 
 
     }

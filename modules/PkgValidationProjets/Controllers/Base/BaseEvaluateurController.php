@@ -200,7 +200,7 @@ class BaseEvaluateurController extends AdminController
             return view('PkgValidationProjets::evaluateur._edit', array_merge(compact('bulkEdit' , 'itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
+        return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('bulkEdit' ,'itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
 
 
     }

@@ -180,7 +180,7 @@ class BaseWidgetOperationController extends AdminController
             return view('PkgWidgets::widgetOperation._edit', array_merge(compact('bulkEdit' , 'itemWidgetOperation',),$widget_compact_value));
         }
 
-        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
+        return view('PkgWidgets::widgetOperation.edit', array_merge(compact('bulkEdit' ,'itemWidgetOperation',),$widget_compact_value));
 
 
     }

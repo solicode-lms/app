@@ -217,7 +217,7 @@ class BaseLivrableController extends AdminController
             return view('PkgCreationProjet::livrable._fields', array_merge(compact('bulkEdit' , 'itemLivrable','taches', 'natureLivrables', 'projets'),));
         }
 
-        return view('PkgCreationProjet::livrable.edit', array_merge(compact('itemLivrable','taches', 'natureLivrables', 'projets'),));
+        return view('PkgCreationProjet::livrable.edit', array_merge(compact('bulkEdit' ,'itemLivrable','taches', 'natureLivrables', 'projets'),));
 
 
     }

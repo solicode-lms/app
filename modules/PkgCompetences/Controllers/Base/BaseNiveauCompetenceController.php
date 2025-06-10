@@ -171,7 +171,7 @@ class BaseNiveauCompetenceController extends AdminController
             return view('PkgCompetences::niveauCompetence._fields', array_merge(compact('bulkEdit' , 'itemNiveauCompetence','competences'),));
         }
 
-        return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('itemNiveauCompetence','competences'),));
+        return view('PkgCompetences::niveauCompetence.edit', array_merge(compact('bulkEdit' ,'itemNiveauCompetence','competences'),));
 
 
     }

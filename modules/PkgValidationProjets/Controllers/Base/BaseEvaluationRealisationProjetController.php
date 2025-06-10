@@ -212,7 +212,7 @@ class BaseEvaluationRealisationProjetController extends AdminController
             return view('PkgValidationProjets::evaluationRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
         }
 
-        return view('PkgValidationProjets::evaluationRealisationProjet.edit', array_merge(compact('itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
+        return view('PkgValidationProjets::evaluationRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEvaluationRealisationProjet','etatEvaluationProjets', 'evaluateurs', 'realisationProjets'),$evaluationRealisationTache_compact_value));
 
 
     }

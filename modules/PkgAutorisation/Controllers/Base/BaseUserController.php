@@ -291,7 +291,7 @@ class BaseUserController extends AdminController
             return view('PkgAutorisation::user._edit', array_merge(compact('bulkEdit' , 'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
         }
 
-        return view('PkgAutorisation::user.edit', array_merge(compact('itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
+        return view('PkgAutorisation::user.edit', array_merge(compact('bulkEdit' ,'itemUser','roles'),$apprenant_compact_value, $formateur_compact_value, $evaluateur_compact_value, $profile_compact_value, $historiqueRealisationTache_compact_value, $notification_compact_value, $userModelFilter_compact_value, $widgetUtilisateur_compact_value));
 
 
     }

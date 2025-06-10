@@ -223,7 +223,7 @@ class BaseTacheController extends AdminController
             return view('PkgGestionTaches::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::tache.edit', array_merge(compact('itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+        return view('PkgGestionTaches::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
 
 
     }
