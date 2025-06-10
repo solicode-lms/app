@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemTransfertCompetence" field="competence_id" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemTransfertCompetence" field="competence_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -63,10 +63,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="niveau_difficulte_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemTransfertCompetence" field="niveau_difficulte_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="niveau_difficulte_id" id="bulk_field_niveau_difficulte_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -97,10 +97,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="technologies" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemTransfertCompetence" field="technologies" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="technologies" id="bulk_field_technologies" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -131,10 +131,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="note" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemTransfertCompetence" field="note" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note" id="bulk_field_note" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -161,10 +161,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="projet_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemTransfertCompetence" field="projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="projet_id" id="bulk_field_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -195,10 +195,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTransfertCompetence" field="question" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemTransfertCompetence" field="question" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="question" id="bulk_field_question" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -242,7 +242,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgCreationProjet::transfertCompetence.singular") }} : {{$itemTransfertCompetence}}'

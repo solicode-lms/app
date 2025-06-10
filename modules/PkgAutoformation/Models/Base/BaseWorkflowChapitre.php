@@ -22,6 +22,16 @@ class BaseWorkflowChapitre extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+        'sysColor'
+    ];
+
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;

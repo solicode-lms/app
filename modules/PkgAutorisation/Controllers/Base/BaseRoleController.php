@@ -177,8 +177,10 @@ class BaseRoleController extends AdminController
         $users = $this->userService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::role._fields', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));
+            return view('PkgAutorisation::role._fields', array_merge(compact('bulkEdit' , 'itemRole','permissions', 'widgets', 'users'),));
         }
 
         return view('PkgAutorisation::role.edit', array_merge(compact('itemRole','permissions', 'widgets', 'users'),));

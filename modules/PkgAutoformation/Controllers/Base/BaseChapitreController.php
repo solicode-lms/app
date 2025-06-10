@@ -209,8 +209,10 @@ class BaseChapitreController extends AdminController
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::chapitre._edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
+            return view('PkgAutoformation::chapitre._edit', array_merge(compact('bulkEdit' , 'itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));
         }
 
         return view('PkgAutoformation::chapitre.edit', array_merge(compact('itemChapitre','chapitres', 'formateurs', 'formations', 'niveauCompetences'),$chapitre_compact_value, $realisationChapitre_compact_value));

@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemDependanceTache" field="tache_id" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemDependanceTache" field="tache_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_id" id="bulk_field_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -63,10 +63,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemDependanceTache" field="type_dependance_tache_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemDependanceTache" field="type_dependance_tache_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="type_dependance_tache_id" id="bulk_field_type_dependance_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -97,10 +97,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemDependanceTache" field="tache_cible_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemDependanceTache" field="tache_cible_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_cible_id" id="bulk_field_tache_cible_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -151,7 +151,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{$itemDependanceTache}}'

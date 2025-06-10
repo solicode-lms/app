@@ -198,8 +198,10 @@ class BaseGroupeController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
         }
 
         return view('PkgApprenants::groupe.edit', array_merge(compact('itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));

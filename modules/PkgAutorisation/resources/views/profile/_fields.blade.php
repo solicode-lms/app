@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemProfile" field="old_password" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemProfile" field="old_password" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="old_password" id="bulk_field_old_password" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -97,11 +97,11 @@
             @enderror
 </div>
 
-<x-form-field :entity="$itemProfile" field="user_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemProfile" field="user_id" :bulkEdit="$bulkEdit">
       @php $canEdituser_id = !$itemProfile || !$itemProfile->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="user_id" id="bulk_field_user_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -133,10 +133,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemProfile" field="phone" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemProfile" field="phone" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="phone" id="bulk_field_phone" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -182,7 +182,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgAutorisation::profile.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgAutorisation::profile.singular") }} : {{$itemProfile}}'

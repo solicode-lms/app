@@ -180,8 +180,10 @@ class BaseModuleController extends AdminController
         $competences_view_data = $competenceService->prepareDataForIndexView();
         extract($competences_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));
+            return view('PkgFormation::module._edit', array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value));
         }
 
         return view('PkgFormation::module.edit', array_merge(compact('itemModule','filieres'),$competence_compact_value));

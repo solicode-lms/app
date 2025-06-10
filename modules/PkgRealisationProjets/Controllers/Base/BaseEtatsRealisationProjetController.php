@@ -191,8 +191,10 @@ class BaseEtatsRealisationProjetController extends AdminController
         $workflowProjets = $this->workflowProjetService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));
         }
 
         return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('itemEtatsRealisationProjet','formateurs', 'sysColors', 'workflowProjets'),));

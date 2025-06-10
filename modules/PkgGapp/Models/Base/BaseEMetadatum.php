@@ -23,6 +23,18 @@ class BaseEMetadatum extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+        'eModel',
+        'eDataField',
+        'eMetadataDefinition'
+    ];
+
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;

@@ -205,8 +205,10 @@ class BaseTransfertCompetenceController extends AdminController
         $projets = $this->projetService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
+            return view('PkgCreationProjet::transfertCompetence._fields', array_merge(compact('bulkEdit' , 'itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));
         }
 
         return view('PkgCreationProjet::transfertCompetence.edit', array_merge(compact('itemTransfertCompetence','technologies', 'competences', 'niveauDifficultes', 'projets'),));

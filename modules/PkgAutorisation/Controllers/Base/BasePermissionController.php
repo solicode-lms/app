@@ -177,8 +177,10 @@ class BasePermissionController extends AdminController
         $roles = $this->roleService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutorisation::permission._fields', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));
+            return view('PkgAutorisation::permission._fields', array_merge(compact('bulkEdit' , 'itemPermission','features', 'roles', 'sysControllers'),));
         }
 
         return view('PkgAutorisation::permission.edit', array_merge(compact('itemPermission','features', 'roles', 'sysControllers'),));

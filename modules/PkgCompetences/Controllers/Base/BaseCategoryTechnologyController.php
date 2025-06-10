@@ -174,8 +174,10 @@ class BaseCategoryTechnologyController extends AdminController
         $technologies_view_data = $technologyService->prepareDataForIndexView();
         extract($technologies_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));
+            return view('PkgCompetences::categoryTechnology._edit', array_merge(compact('bulkEdit' , 'itemCategoryTechnology',),$technology_compact_value));
         }
 
         return view('PkgCompetences::categoryTechnology.edit', array_merge(compact('itemCategoryTechnology',),$technology_compact_value));

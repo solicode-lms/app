@@ -179,8 +179,10 @@ class BaseResourceController extends AdminController
         $projets = $this->projetService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::resource._fields', array_merge(compact('itemResource','projets'),));
+            return view('PkgCreationProjet::resource._fields', array_merge(compact('bulkEdit' , 'itemResource','projets'),));
         }
 
         return view('PkgCreationProjet::resource.edit', array_merge(compact('itemResource','projets'),));

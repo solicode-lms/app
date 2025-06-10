@@ -180,8 +180,10 @@ class BaseWorkflowChapitreController extends AdminController
         $etatChapitres_view_data = $etatChapitreService->prepareDataForIndexView();
         extract($etatChapitres_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
+            return view('PkgAutoformation::workflowChapitre._edit', array_merge(compact('bulkEdit' , 'itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));
         }
 
         return view('PkgAutoformation::workflowChapitre.edit', array_merge(compact('itemWorkflowChapitre','sysColors'),$etatChapitre_compact_value));

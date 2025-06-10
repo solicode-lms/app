@@ -180,8 +180,10 @@ class BaseWorkflowTacheController extends AdminController
         $etatRealisationTaches_view_data = $etatRealisationTacheService->prepareDataForIndexView();
         extract($etatRealisationTaches_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('bulkEdit' , 'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
         }
 
         return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));

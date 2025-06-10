@@ -264,8 +264,10 @@ class BaseFormationController extends AdminController
         $realisationFormations_view_data = $realisationFormationService->prepareDataForIndexView();
         extract($realisationFormations_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
+            return view('PkgAutoformation::formation._edit', array_merge(compact('bulkEdit' , 'itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));
         }
 
         return view('PkgAutoformation::formation.edit', array_merge(compact('itemFormation','technologies', 'competences', 'formateurs', 'formations', 'filieres'),$formation_compact_value, $chapitre_compact_value, $realisationFormation_compact_value));

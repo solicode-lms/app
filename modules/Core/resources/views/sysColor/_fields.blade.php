@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemSysColor" field="name" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemSysColor" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="name" id="bulk_field_name" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -58,10 +58,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysColor" field="hex" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemSysColor" field="hex" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="hex" id="bulk_field_hex" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -107,7 +107,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("Core::sysColor.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("Core::sysColor.singular") }} : {{$itemSysColor}}'

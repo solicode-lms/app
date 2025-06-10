@@ -188,8 +188,10 @@ class BaseNotificationController extends AdminController
         $users = $this->userService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgNotification::notification._fields', array_merge(compact('itemNotification','users'),));
+            return view('PkgNotification::notification._fields', array_merge(compact('bulkEdit' , 'itemNotification','users'),));
         }
 
         return view('PkgNotification::notification.edit', array_merge(compact('itemNotification','users'),));

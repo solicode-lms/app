@@ -159,8 +159,10 @@ class BaseVilleController extends AdminController
 
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', array_merge(compact('itemVille',),));
+            return view('PkgApprenants::ville._fields', array_merge(compact('bulkEdit' , 'itemVille',),));
         }
 
         return view('PkgApprenants::ville.edit', array_merge(compact('itemVille',),));

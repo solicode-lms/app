@@ -180,8 +180,10 @@ class BaseWorkflowProjetController extends AdminController
         $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
         extract($etatsRealisationProjets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::workflowProjet._edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
+            return view('PkgRealisationProjets::workflowProjet._edit', array_merge(compact('bulkEdit' , 'itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));
         }
 
         return view('PkgRealisationProjets::workflowProjet.edit', array_merge(compact('itemWorkflowProjet','sysColors'),$etatsRealisationProjet_compact_value));

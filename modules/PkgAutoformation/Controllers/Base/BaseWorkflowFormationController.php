@@ -180,8 +180,10 @@ class BaseWorkflowFormationController extends AdminController
         $etatFormations_view_data = $etatFormationService->prepareDataForIndexView();
         extract($etatFormations_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
+            return view('PkgAutoformation::workflowFormation._edit', array_merge(compact('bulkEdit' , 'itemWorkflowFormation','sysColors'),$etatFormation_compact_value));
         }
 
         return view('PkgAutoformation::workflowFormation.edit', array_merge(compact('itemWorkflowFormation','sysColors'),$etatFormation_compact_value));

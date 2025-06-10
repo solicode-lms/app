@@ -22,6 +22,17 @@ class BaseValidation extends BaseModel
 {
     use HasFactory, HasDynamicContext, OwnedByUser;
 
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+        'transfertCompetence',
+        'realisationProjet'
+    ];
+
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;

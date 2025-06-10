@@ -177,8 +177,10 @@ class BaseRealisationChapitreController extends AdminController
         $etatChapitres = $this->etatChapitreService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
+            return view('PkgAutoformation::realisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));
         }
 
         return view('PkgAutoformation::realisationChapitre.edit', array_merge(compact('itemRealisationChapitre','chapitres', 'etatChapitres', 'realisationFormations'),));

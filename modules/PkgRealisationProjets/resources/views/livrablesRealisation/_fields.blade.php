@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemLivrablesRealisation" field="livrable_id" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemLivrablesRealisation" field="livrable_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="livrable_id" id="bulk_field_livrable_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -63,10 +63,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrablesRealisation" field="lien" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemLivrablesRealisation" field="lien" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -92,10 +92,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrablesRealisation" field="titre" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemLivrablesRealisation" field="titre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -121,10 +121,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrablesRealisation" field="description" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemLivrablesRealisation" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -148,10 +148,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemLivrablesRealisation" field="realisation_projet_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemLivrablesRealisation" field="realisation_projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -202,7 +202,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgRealisationProjets::livrablesRealisation.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgRealisationProjets::livrablesRealisation.singular") }} : {{$itemLivrablesRealisation}}'

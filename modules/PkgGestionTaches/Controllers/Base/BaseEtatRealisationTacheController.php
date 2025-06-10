@@ -191,8 +191,10 @@ class BaseEtatRealisationTacheController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
         }
 
         return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));

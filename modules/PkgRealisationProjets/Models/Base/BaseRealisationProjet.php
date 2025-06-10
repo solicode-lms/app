@@ -27,6 +27,18 @@ class BaseRealisationProjet extends BaseModel
 {
     use HasFactory, HasDynamicContext, OwnedByUser;
 
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+        'affectationProjet',
+        'apprenant',
+        'etatsRealisationProjet'
+    ];
+
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;

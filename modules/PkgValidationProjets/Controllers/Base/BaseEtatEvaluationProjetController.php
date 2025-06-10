@@ -180,8 +180,10 @@ class BaseEtatEvaluationProjetController extends AdminController
         $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
         extract($evaluationRealisationProjets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgValidationProjets::etatEvaluationProjet._edit', array_merge(compact('itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
+            return view('PkgValidationProjets::etatEvaluationProjet._edit', array_merge(compact('bulkEdit' , 'itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));
         }
 
         return view('PkgValidationProjets::etatEvaluationProjet.edit', array_merge(compact('itemEtatEvaluationProjet','sysColors'),$evaluationRealisationProjet_compact_value));

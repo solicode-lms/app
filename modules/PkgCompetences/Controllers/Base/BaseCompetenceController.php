@@ -201,8 +201,10 @@ class BaseCompetenceController extends AdminController
         $formations_view_data = $formationService->prepareDataForIndexView();
         extract($formations_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
         }
 
         return view('PkgCompetences::competence.edit', array_merge(compact('itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));

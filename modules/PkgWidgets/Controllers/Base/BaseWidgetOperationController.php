@@ -174,8 +174,10 @@ class BaseWidgetOperationController extends AdminController
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));
+            return view('PkgWidgets::widgetOperation._edit', array_merge(compact('bulkEdit' , 'itemWidgetOperation',),$widget_compact_value));
         }
 
         return view('PkgWidgets::widgetOperation.edit', array_merge(compact('itemWidgetOperation',),$widget_compact_value));

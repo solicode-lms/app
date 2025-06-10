@@ -177,8 +177,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $apprenants = $this->apprenantService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
         }
 
         return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));

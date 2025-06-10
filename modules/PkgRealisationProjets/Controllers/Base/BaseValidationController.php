@@ -194,8 +194,10 @@ class BaseValidationController extends AdminController
         $realisationProjets = $this->realisationProjetService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));
+            return view('PkgRealisationProjets::validation._fields', array_merge(compact('bulkEdit' , 'itemValidation','realisationProjets', 'transfertCompetences'),));
         }
 
         return view('PkgRealisationProjets::validation.edit', array_merge(compact('itemValidation','realisationProjets', 'transfertCompetences'),));

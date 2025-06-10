@@ -179,8 +179,10 @@ class BaseNiveauDifficulteController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('itemNiveauDifficulte','formateurs'),));
+            return view('PkgCompetences::niveauDifficulte._fields', array_merge(compact('bulkEdit' , 'itemNiveauDifficulte','formateurs'),));
         }
 
         return view('PkgCompetences::niveauDifficulte.edit', array_merge(compact('itemNiveauDifficulte','formateurs'),));

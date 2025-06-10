@@ -186,8 +186,10 @@ class BaseSysModelController extends AdminController
         $widgets_view_data = $widgetService->prepareDataForIndexView();
         extract($widgets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('Core::sysModel._edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
+            return view('Core::sysModel._edit', array_merge(compact('bulkEdit' , 'itemSysModel','sysColors', 'sysModules'),$widget_compact_value));
         }
 
         return view('Core::sysModel.edit', array_merge(compact('itemSysModel','sysColors', 'sysModules'),$widget_compact_value));

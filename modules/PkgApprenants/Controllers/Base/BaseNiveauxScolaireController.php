@@ -174,8 +174,10 @@ class BaseNiveauxScolaireController extends AdminController
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));
+            return view('PkgApprenants::niveauxScolaire._edit', array_merge(compact('bulkEdit' , 'itemNiveauxScolaire',),$apprenant_compact_value));
         }
 
         return view('PkgApprenants::niveauxScolaire.edit', array_merge(compact('itemNiveauxScolaire',),$apprenant_compact_value));

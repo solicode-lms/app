@@ -174,8 +174,10 @@ class BaseNatureLivrableController extends AdminController
         $livrables_view_data = $livrableService->prepareDataForIndexView();
         extract($livrables_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));
+            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('bulkEdit' , 'itemNatureLivrable',),$livrable_compact_value));
         }
 
         return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('itemNatureLivrable',),$livrable_compact_value));

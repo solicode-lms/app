@@ -194,8 +194,10 @@ class BaseEvaluateurController extends AdminController
         $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
         extract($evaluationRealisationProjets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
+            return view('PkgValidationProjets::evaluateur._edit', array_merge(compact('bulkEdit' , 'itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));
         }
 
         return view('PkgValidationProjets::evaluateur.edit', array_merge(compact('itemEvaluateur','affectationProjets', 'users'),$evaluationRealisationProjet_compact_value));

@@ -174,8 +174,10 @@ class BaseEPackageController extends AdminController
         $eModels_view_data = $eModelService->prepareDataForIndexView();
         extract($eModels_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgGapp::ePackage._edit', array_merge(compact('itemEPackage',),$eModel_compact_value));
+            return view('PkgGapp::ePackage._edit', array_merge(compact('bulkEdit' , 'itemEPackage',),$eModel_compact_value));
         }
 
         return view('PkgGapp::ePackage.edit', array_merge(compact('itemEPackage',),$eModel_compact_value));

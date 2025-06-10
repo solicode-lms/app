@@ -180,8 +180,10 @@ class BaseFeatureDomainController extends AdminController
         $features_view_data = $featureService->prepareDataForIndexView();
         extract($features_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('Core::featureDomain._edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));
+            return view('Core::featureDomain._edit', array_merge(compact('bulkEdit' , 'itemFeatureDomain','sysModules'),$feature_compact_value));
         }
 
         return view('Core::featureDomain.edit', array_merge(compact('itemFeatureDomain','sysModules'),$feature_compact_value));

@@ -204,8 +204,10 @@ class BaseFiliereController extends AdminController
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+            return view('PkgFormation::filiere._edit', array_merge(compact('bulkEdit' , 'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
         }
 
         return view('PkgFormation::filiere.edit', array_merge(compact('itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));

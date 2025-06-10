@@ -189,8 +189,10 @@ class BaseAnneeFormationController extends AdminController
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+            return view('PkgFormation::anneeFormation._edit', array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
         }
 
         return view('PkgFormation::anneeFormation.edit', array_merge(compact('itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));

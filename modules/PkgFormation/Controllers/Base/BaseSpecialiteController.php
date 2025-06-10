@@ -165,8 +165,10 @@ class BaseSpecialiteController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgFormation::specialite._fields', array_merge(compact('itemSpecialite','formateurs'),));
+            return view('PkgFormation::specialite._fields', array_merge(compact('bulkEdit' , 'itemSpecialite','formateurs'),));
         }
 
         return view('PkgFormation::specialite.edit', array_merge(compact('itemSpecialite','formateurs'),));

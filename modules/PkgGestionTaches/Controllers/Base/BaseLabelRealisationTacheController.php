@@ -185,8 +185,10 @@ class BaseLabelRealisationTacheController extends AdminController
         $sysColors = $this->sysColorService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));
+            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemLabelRealisationTache','formateurs', 'sysColors'),));
         }
 
         return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('itemLabelRealisationTache','formateurs', 'sysColors'),));

@@ -300,8 +300,10 @@ class BaseFormateurController extends AdminController
         $prioriteTaches_view_data = $prioriteTacheService->prepareDataForIndexView();
         extract($prioriteTaches_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $formation_compact_value, $prioriteTache_compact_value));
+            return view('PkgFormation::formateur._edit', array_merge(compact('bulkEdit' , 'itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $formation_compact_value, $prioriteTache_compact_value));
         }
 
         return view('PkgFormation::formateur.edit', array_merge(compact('itemFormateur','groupes', 'specialites', 'users'),$etatRealisationTache_compact_value, $etatChapitre_compact_value, $etatFormation_compact_value, $formation_compact_value, $prioriteTache_compact_value));

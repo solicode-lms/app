@@ -29,10 +29,10 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemFormation" field="nom" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemFormation" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nom" id="bulk_field_nom" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -58,10 +58,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="lien" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="lien" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -87,10 +87,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="filiere_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="filiere_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -124,10 +124,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="competence_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="competence_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -158,10 +158,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="technologies" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="technologies" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="technologies" id="bulk_field_technologies" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -192,11 +192,11 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="is_officiel" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="is_officiel" :bulkEdit="$bulkEdit">
       @php $canEditis_officiel = !$itemFormation || !$itemFormation->id || Auth::user()->hasAnyRole(explode(',', 'admin,admin-formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_officiel" id="bulk_field_is_officiel" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -224,10 +224,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="formateur_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="formateur_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -258,10 +258,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="formation_officiel_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="formation_officiel_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formation_officiel_id" id="bulk_field_formation_officiel_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -292,10 +292,10 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemFormation" field="description" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemFormation" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -339,7 +339,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgAutoformation::formation.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgAutoformation::formation.singular") }} : {{$itemFormation}}'

@@ -23,6 +23,7 @@ class BaseFiliere extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;

@@ -174,8 +174,10 @@ class BaseNationaliteController extends AdminController
         $apprenants_view_data = $apprenantService->prepareDataForIndexView();
         extract($apprenants_view_data);
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));
+            return view('PkgApprenants::nationalite._edit', array_merge(compact('bulkEdit' , 'itemNationalite',),$apprenant_compact_value));
         }
 
         return view('PkgApprenants::nationalite.edit', array_merge(compact('itemNationalite',),$apprenant_compact_value));

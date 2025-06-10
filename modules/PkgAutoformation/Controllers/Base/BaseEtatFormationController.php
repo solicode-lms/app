@@ -199,8 +199,10 @@ class BaseEtatFormationController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._fields', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
+            return view('PkgAutoformation::etatFormation._fields', array_merge(compact('bulkEdit' , 'itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));
         }
 
         return view('PkgAutoformation::etatFormation.edit', array_merge(compact('itemEtatFormation','formateurs', 'sysColors', 'workflowFormations'),));

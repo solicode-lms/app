@@ -195,8 +195,10 @@ class BaseApprenantController extends AdminController
         $groupes = $this->groupeService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
+            return view('PkgApprenants::apprenant._fields', array_merge(compact('bulkEdit' , 'itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
         }
 
         return view('PkgApprenants::apprenant.edit', array_merge(compact('itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));

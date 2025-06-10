@@ -22,6 +22,17 @@ class BaseERelationship extends BaseModel
 {
     use HasFactory, HasDynamicContext;
 
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+        'sourceEModel',
+        'targetEModel'
+    ];
+
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;

@@ -199,8 +199,10 @@ class BaseEtatChapitreController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $bulkEdit = false;
+
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
+            return view('PkgAutoformation::etatChapitre._fields', array_merge(compact('bulkEdit' , 'itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
         }
 
         return view('PkgAutoformation::etatChapitre.edit', array_merge(compact('itemEtatChapitre','formateurs', 'sysColors', 'workflowChapitres'),));
