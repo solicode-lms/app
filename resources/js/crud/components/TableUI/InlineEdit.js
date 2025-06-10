@@ -26,7 +26,7 @@ export class InlineEdit extends Action {
      */
     bindInlineEditEvents() {
         const selector = `${this.config.tableSelector} .editable-cell`;
-        EventUtil.bindEvent('dblclick', selector, (e) => this.handleInlineEdit(e));
+        EventUtil.bindEvent('click', selector, (e) => this.handleInlineEdit(e));
 
         // 🔹 Ajouter un curseur pointer + surlignage léger au survol
         EventUtil.bindEvent('mouseover', `${this.config.tableSelector} .editable-cell`, (e) => {
@@ -53,7 +53,21 @@ export class InlineEdit extends Action {
      * @param {Event} e - L'événement déclenché par le double-clic.
      */
     async handleInlineEdit(e) {
+
+
+       
+      
+
+
         const $cell = $(e.currentTarget);
+
+        // si on est déjà en édition (original est stocké), on sort
+        if ($cell.data('original') !== undefined) {
+            return;
+        }
+
+
+
         const field = $cell.data('field');
         const id = $cell.data('id');
 

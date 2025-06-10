@@ -3,6 +3,7 @@
 namespace Modules\PkgValidationProjets\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
 use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationTacheService;
@@ -83,6 +84,17 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
 
 
 
+    public function defaultSort($query)
+    {
+        $model = $query->getModel();
+        $table = $model->getTable();
+
+        return $query
+            ->select("{$table}.*")
+            ->join('realisation_taches as rt', 'rt.id', '=', "{$table}.realisation_tache_id")
+            ->join('taches as t', 't.id', '=', 'rt.tache_id')
+            ->orderBy('t.ordre', 'asc');
+    }
 
     public function dataCalcul($evaluationRealisationTache)
     {
