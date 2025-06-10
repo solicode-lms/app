@@ -12,18 +12,16 @@ export class InlineEdit extends Action {
         this.config = config;
         this.tableUI = tableUI;
         this.entityEditor = tableUI.entityEditor;
-        this.loader = tableUI.loader;       // Utilisation correcte du loader
-        this.activeCell = null;             // Cellule actuellement en édition
-        this._eventsBound = false;          // Pour n'attacher les handlers qu'une fois
+        this.activeCell = null;
+       
     }
 
     /**
-     * Initialise les événements nécessaires pour l'édition inline.
+     * Initialise les événements et gère un éventuel clic en attente.
      */
     init() {
-        if (this._eventsBound) return;
-        this._eventsBound = true;
         this._bindInlineEditEvents();
+        this._openPendingClick();
     }
 
     /**
@@ -33,30 +31,35 @@ export class InlineEdit extends Action {
     _bindInlineEditEvents() {
         const selector = `${this.config.tableSelector} .editable-cell`;
 
-        // 1) Clic sur une cellule éditable
+        // Clic sur cellule
         EventUtil.bindEvent('click', selector, e => {
             const $cell = $(e.currentTarget);
             e.preventDefault();
-            // Si une autre cellule est en cours d'édition, on la valide
+
+            // si une autre cellule est en édition
             if (this.activeCell && !this.activeCell.is($cell)) {
+                // enregistrer le clic en attente
+                const pending = { field: $cell.data('field'), id: $cell.data('id') };
+                localStorage.setItem('inlineEditPending', JSON.stringify(pending));
+                // valider la cellule active (restart init + reload)
                 this._submitActiveCell();
+                return;
             }
-            // Démarre ou ré-ouvre l'édition de la cellule cliquée
+
+            // sinon ouvrir l'éditeur
             this._openEditor($cell);
         });
 
-        // 2) Clic en-dehors pour valider l'édition en cours
+        // Clic en dehors
         EventUtil.bindEvent('click', 'body', e => {
             if (!this.activeCell) return;
-            const $target = $(e.target);
-            // si on clique ni dans activeCell ni dans son formulaire, on soumet
-            if (!$target.closest(this.activeCell).length &&
-                !$target.closest(`${this.config.tableSelector}`).length) {
+            const $t = $(e.target);
+            if (!$t.closest(this.activeCell).length && !$t.closest(this.config.tableSelector).length) {
                 this._submitActiveCell();
             }
         });
 
-        // 3) Curseur et surlignage au survol
+        // survol
         EventUtil.bindEvent('mouseenter', selector, e => {
             $(e.currentTarget).css({ cursor: 'pointer', backgroundColor: '#e9ecef' });
         });
@@ -67,64 +70,48 @@ export class InlineEdit extends Action {
 
     /**
      * Ouvre l'éditeur inline pour la cellule donnée.
-     * @param {jQuery} $cell 
      */
     async _openEditor($cell) {
-        // déjà en édition ?
         if ($cell.data('original') !== undefined) return;
-
         const field = $cell.data('field');
         const id    = $cell.data('id');
         if (!field || !id) return;
 
-        // annule l'édition précédente
         this._cancelEdit();
-
         this.activeCell = $cell;
         const rowId = $cell.attr('id') || $cell.closest('tr').attr('id');
         const formUI = new FormUI(this.config, this.tableUI.indexUI, `#${rowId}`);
-
         const url = this.config.editUrl.replace(':id', id);
+
         try {
             this.loader.show();
-            const response = await $.get(url);
+            const resp = await $.get(url);
             this.loader.hide();
 
-            const $html = $('<div>').html(response);
+            const $html = $('<div>').html(resp);
             this.executeScripts($html);
-            const $formGroup = $html.find(`[name="${field}"]`).closest('.form-group');
-            if (!$formGroup.length) {
-                console.warn(`Champ '${field}' introuvable.`);
-                this.activeCell = null;
-                return;
-            }
+            const $grp = $html.find(`[name="${field}"]`).closest('.form-group');
+            if (!$grp.length) { console.warn(`Champ '${field}' introuvable.`); this.activeCell = null; return; }
 
-            // garde l'ancien contenu
-            $cell.data('original', $cell.html());
-            $cell.empty().append($formGroup.contents());
-            $formGroup.find('label').hide();
-
-            // init formUI pour ce champ seulement
+            $cell.data('original', $cell.html()).empty().append($grp.contents());
+            $grp.find('label').hide();
             formUI.init(() => {}, false);
-
             const $input = $cell.find(`[name="${field}"]`);
             $input.focus();
 
-            // soumission sur Enter / Escape
+            // key events
             $input.on('keydown.inlineEdit', evt => {
                 if (evt.key === 'Escape') this._cancelEdit();
                 if (evt.key === 'Enter') this._submitActiveCell();
             });
-
-            // change auto pour select et checkbox
+            // change auto
             if ($input.is('select') || $input.is(':checkbox')) {
                 $input.on('change.inlineEdit', () => this._submitActiveCell());
             }
-
         } catch (err) {
             this.loader.hide();
-            console.error('Erreur chargement form inline:', err);
-            NotificationHandler.showError("Impossible d'ouvrir l'éditeur inline.");
+            console.error('Erreur chargement inline:', err);
+            NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
             this.activeCell = null;
         }
     }
@@ -134,7 +121,6 @@ export class InlineEdit extends Action {
      */
     _submitActiveCell() {
         if (!this.activeCell) return;
-
         const $cell = this.activeCell;
         const field = $cell.data('field');
         const id    = $cell.data('id');
@@ -142,38 +128,45 @@ export class InlineEdit extends Action {
 
         const rowId = $cell.attr('id') || $cell.closest('tr').attr('id');
         const formUI = new FormUI(this.config, this.tableUI.indexUI, `#${rowId}`);
+        if (!formUI.validateForm()) { this._cancelEdit(); return; }
 
-        // validation du formulaire
-        if (!formUI.validateForm()) {
-            this._cancelEdit();
-            return;
-        }
-
-        const data = { id, [field]: $input.val() };
-        this.entityEditor.update_attributes(data, () => {
-            NotificationHandler.showSuccess('Champ mis à jour avec succès.');
-            // recharge uniquement la liste
+        const payload = { id, [field]: $input.val() };
+        this.entityEditor.update_attributes(payload, () => {
+            NotificationHandler.showSuccess('Champ mis à jour.');
             this.tableUI.entityLoader.loadEntities().done(() => {
-                this._cancelEdit(); // remet l'état à zéro
+                // après reload, on ré-init pour gérer le pending
+               // this.init();
             });
         });
-
-        // on retire la cellule active pour éviter double-soumission
         this.activeCell = null;
     }
 
     /**
-     * Annule l'édition de la cellule courante et restaure son contenu.
+     * Annule l'édition courante et restaure la cellule.
      */
     _cancelEdit() {
         if (!this.activeCell) return;
         const $cell = this.activeCell;
-        const original = $cell.data('original');
-        if (original !== undefined) {
-            $cell.off('.inlineEdit');     // retire tous les events spécifiques
-            $cell.empty().html(original);
+        const orig = $cell.data('original');
+        if (orig !== undefined) {
+            $cell.off('.inlineEdit').empty().html(orig);
             $cell.removeData('original');
         }
         this.activeCell = null;
+    }
+
+    /**
+     * Ouvre l'éditeur sur le clic stocké en attente.
+     */
+    _openPendingClick() {
+        const raw = localStorage.getItem('inlineEditPending');
+        if (!raw) return;
+        let pending;
+        try { pending = JSON.parse(raw); } catch { return; }
+        localStorage.removeItem('inlineEditPending');
+
+        const selector = `${this.config.tableSelector} .editable-cell[data-field=\"${pending.field}\"][data-id=\"${pending.id}\"]`;
+        const $cell = $(selector).first();
+        if ($cell.length) this._openEditor($cell);
     }
 }
