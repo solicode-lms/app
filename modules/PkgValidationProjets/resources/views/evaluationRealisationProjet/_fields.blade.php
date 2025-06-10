@@ -29,11 +29,11 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEvaluationRealisationProjet" field="realisation_projet_id" bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemEvaluationRealisationProjet" field="realisation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditrealisation_projet_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -65,11 +65,11 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="date_evaluation" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="date_evaluation" :bulkEdit="$bulkEdit">
       @php $canEditdate_evaluation = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_evaluation" id="bulk_field_date_evaluation" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -97,11 +97,11 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="etat_evaluation_projet_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="etat_evaluation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditetat_evaluation_projet_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_evaluation_projet_id" id="bulk_field_etat_evaluation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -133,11 +133,11 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="evaluateur_id" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="evaluateur_id" :bulkEdit="$bulkEdit">
       @php $canEditevaluateur_id = !$itemEvaluationRealisationProjet || !$itemEvaluationRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateur_id" id="bulk_field_evaluateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -182,10 +182,10 @@
 @endif
 
 
-<x-form-field :entity="$itemEvaluationRealisationProjet" field="remarques" bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemEvaluationRealisationProjet" field="remarques" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
-          @if (!empty($bulkEdit))
+          @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques" id="bulk_field_remarques" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
@@ -229,7 +229,7 @@
 </script>
 <script>
     
-    @if (!empty($bulkEdit))
+    @if ($bulkEdit)
         window.modalTitle = '{{__("PkgValidationProjets::evaluationRealisationProjet.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
         window.modalTitle = '{{__("PkgValidationProjets::evaluationRealisationProjet.singular") }} : {{$itemEvaluationRealisationProjet}}'

@@ -227,7 +227,10 @@ trait RealisationTacheServiceCrud
             ->evaluationRealisationTaches()
             ->avg('note');
 
-        $entity->update(['note' => round($moyenne, 2)]);
+       // Mettre à jour le champ 'note' : arrondi à 2 décimales si existe, sinon null
+        $entity->update([
+            'note' => $moyenne !== null ? round($moyenne, 2) : null
+        ]);
     }
 
      /**

@@ -31,7 +31,7 @@ class BaseEvaluationRealisationTacheRequest extends FormRequest
         return [
             'realisation_tache_id' => 'required',
             'evaluateur_id' => 'required',
-            'note' => 'required',
+            'note' => 'nullable',
             'message' => 'nullable|string',
             'evaluation_realisation_projet_id' => 'nullable'
         ];
