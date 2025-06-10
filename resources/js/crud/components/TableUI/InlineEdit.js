@@ -85,7 +85,7 @@ export class InlineEdit extends Action {
 
         try {
             this.loader.show();
-            const resp = await $.get(url);
+            const resp =  await $.get(url);
             this.loader.hide();
 
             const $html = $('<div>').html(resp);
