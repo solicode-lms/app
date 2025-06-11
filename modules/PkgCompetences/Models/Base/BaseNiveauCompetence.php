@@ -28,7 +28,7 @@ class BaseNiveauCompetence extends BaseModel
      * @var array
      */
     protected $with = [
-        'competence'
+      //  'competence'
     ];
 
 

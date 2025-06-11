@@ -28,8 +28,8 @@ class BaseValidation extends BaseModel
      * @var array
      */
     protected $with = [
-        'transfertCompetence',
-        'realisationProjet'
+      //  'transfertCompetence',
+      //  'realisationProjet'
     ];
 
 

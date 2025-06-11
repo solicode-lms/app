@@ -28,7 +28,7 @@ class BaseNiveauDifficulte extends BaseModel
      * @var array
      */
     protected $with = [
-        'formateur'
+      //  'formateur'
     ];
 
 

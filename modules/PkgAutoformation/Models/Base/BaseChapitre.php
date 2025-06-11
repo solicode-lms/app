@@ -31,10 +31,10 @@ class BaseChapitre extends BaseModel
      * @var array
      */
     protected $with = [
-        'formation',
-        'niveauCompetence',
-        'formateur',
-        'chapitreOfficiel'
+      //  'formation',
+      //  'niveauCompetence',
+      //  'formateur',
+      //  'chapitreOfficiel'
     ];
 
 

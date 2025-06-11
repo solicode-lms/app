@@ -30,9 +30,9 @@ class BaseEtatChapitre extends BaseModel
      * @var array
      */
     protected $with = [
-        'workflowChapitre',
-        'sysColor',
-        'formateur'
+      //  'workflowChapitre',
+      //  'sysColor',
+      //  'formateur'
     ];
 
 

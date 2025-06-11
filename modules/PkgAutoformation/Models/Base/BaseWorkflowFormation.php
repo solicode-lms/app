@@ -28,7 +28,7 @@ class BaseWorkflowFormation extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysColor'
+      //  'sysColor'
     ];
 
 

@@ -30,8 +30,8 @@ class BaseLivrable extends BaseModel
      * @var array
      */
     protected $with = [
-        'natureLivrable',
-        'projet'
+      //  'natureLivrable',
+      //  'projet'
     ];
 
 

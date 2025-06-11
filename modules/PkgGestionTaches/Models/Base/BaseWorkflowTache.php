@@ -28,7 +28,7 @@ class BaseWorkflowTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysColor'
+      //  'sysColor'
     ];
 
 

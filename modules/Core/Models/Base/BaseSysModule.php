@@ -30,7 +30,7 @@ class BaseSysModule extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysColor'
+      //  'sysColor'
     ];
 
 

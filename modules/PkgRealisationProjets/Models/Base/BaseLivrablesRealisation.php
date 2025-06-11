@@ -28,8 +28,8 @@ class BaseLivrablesRealisation extends BaseModel
      * @var array
      */
     protected $with = [
-        'livrable',
-        'realisationProjet'
+      //  'livrable',
+      //  'realisationProjet'
     ];
 
 

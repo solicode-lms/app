@@ -32,9 +32,9 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'tache',
-        'realisationProjet',
-        'etatRealisationTache'
+      //  'tache',
+      //  'realisationProjet',
+      //  'etatRealisationTache'
     ];
 
 

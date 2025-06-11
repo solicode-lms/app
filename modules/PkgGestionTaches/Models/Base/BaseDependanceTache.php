@@ -28,9 +28,9 @@ class BaseDependanceTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'tache',
-        'typeDependanceTache',
-        'tacheCible'
+      //  'tache',
+      //  'typeDependanceTache',
+      //  'tacheCible'
     ];
 
 

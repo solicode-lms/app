@@ -28,7 +28,7 @@ class BaseSysController extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysModule'
+      //  'sysModule'
     ];
 
 

@@ -40,7 +40,7 @@ class BaseFormateur extends BaseModel
      * @var array
      */
     protected $with = [
-        'user'
+      //  'user'
     ];
 
 

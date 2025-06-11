@@ -31,7 +31,7 @@ class BaseCompetence extends BaseModel
      * @var array
      */
     protected $with = [
-        'module'
+      //  'module'
     ];
 
 

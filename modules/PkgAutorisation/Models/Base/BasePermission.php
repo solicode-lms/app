@@ -29,7 +29,7 @@ class BasePermission extends BaseModel
      * @var array
      */
     protected $with = [
-        'controller'
+      //  'controller'
     ];
 
 

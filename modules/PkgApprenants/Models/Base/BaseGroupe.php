@@ -31,8 +31,8 @@ class BaseGroupe extends BaseModel
      * @var array
      */
     protected $with = [
-        'filiere',
-        'anneeFormation'
+      //  'filiere',
+      //  'anneeFormation'
     ];
 
 

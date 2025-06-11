@@ -31,9 +31,9 @@ class BaseTransfertCompetence extends BaseModel
      * @var array
      */
     protected $with = [
-        'competence',
-        'niveauDifficulte',
-        'projet'
+      //  'competence',
+      //  'niveauDifficulte',
+      //  'projet'
     ];
 
 

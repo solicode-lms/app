@@ -29,8 +29,8 @@ class BaseEDataField extends BaseModel
      * @var array
      */
     protected $with = [
-        'eModel',
-        'eRelationship'
+      //  'eModel',
+      //  'eRelationship'
     ];
 
 

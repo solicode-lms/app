@@ -30,9 +30,9 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'formateur',
-        'sysColor',
-        'workflowProjet'
+      //  'formateur',
+      //  'sysColor',
+      //  'workflowProjet'
     ];
 
 

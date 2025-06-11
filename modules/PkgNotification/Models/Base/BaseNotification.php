@@ -27,7 +27,7 @@ class BaseNotification extends BaseModel
      * @var array
      */
     protected $with = [
-        'user'
+      //  'user'
     ];
 
 

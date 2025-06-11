@@ -28,7 +28,7 @@ class BaseFeature extends BaseModel
      * @var array
      */
     protected $with = [
-        'featureDomain'
+      //  'featureDomain'
     ];
 
 

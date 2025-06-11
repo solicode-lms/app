@@ -30,9 +30,9 @@ class BaseEvaluationRealisationProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'realisationProjet',
-        'evaluateur',
-        'etatEvaluationProjet'
+      //  'realisationProjet',
+      //  'evaluateur',
+      //  'etatEvaluationProjet'
     ];
 
 

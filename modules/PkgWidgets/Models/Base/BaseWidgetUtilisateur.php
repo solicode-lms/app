@@ -28,8 +28,8 @@ class BaseWidgetUtilisateur extends BaseModel
      * @var array
      */
     protected $with = [
-        'user',
-        'widget'
+      //  'user',
+      //  'widget'
     ];
 
 

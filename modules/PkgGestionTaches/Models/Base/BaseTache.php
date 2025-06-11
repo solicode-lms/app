@@ -31,8 +31,8 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'prioriteTache',
-        'projet'
+      //  'prioriteTache',
+      //  'projet'
     ];
 
 

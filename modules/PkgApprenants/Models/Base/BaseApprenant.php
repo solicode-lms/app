@@ -33,9 +33,9 @@ class BaseApprenant extends BaseModel
      * @var array
      */
     protected $with = [
-        'nationalite',
-        'niveauxScolaire',
-        'user'
+      //  'nationalite',
+      //  'niveauxScolaire',
+      //  'user'
     ];
 
 

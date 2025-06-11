@@ -28,7 +28,7 @@ class BaseEtatEvaluationProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysColor'
+      //  'sysColor'
     ];
 
 

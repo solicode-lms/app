@@ -30,7 +30,7 @@ class BaseEModel extends BaseModel
      * @var array
      */
     protected $with = [
-        'ePackage'
+      //  'ePackage'
     ];
 
 

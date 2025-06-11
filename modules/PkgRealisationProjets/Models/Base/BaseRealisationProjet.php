@@ -33,9 +33,9 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'affectationProjet',
-        'apprenant',
-        'etatsRealisationProjet'
+      //  'affectationProjet',
+      //  'apprenant',
+      //  'etatsRealisationProjet'
     ];
 
 

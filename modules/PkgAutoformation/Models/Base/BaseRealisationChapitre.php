@@ -29,9 +29,9 @@ class BaseRealisationChapitre extends BaseModel
      * @var array
      */
     protected $with = [
-        'chapitre',
-        'realisationFormation',
-        'etatChapitre'
+      //  'chapitre',
+      //  'realisationFormation',
+      //  'etatChapitre'
     ];
 
 

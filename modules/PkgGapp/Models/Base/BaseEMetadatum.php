@@ -29,9 +29,9 @@ class BaseEMetadatum extends BaseModel
      * @var array
      */
     protected $with = [
-        'eModel',
-        'eDataField',
-        'eMetadataDefinition'
+      //  'eModel',
+      //  'eDataField',
+      //  'eMetadataDefinition'
     ];
 
 

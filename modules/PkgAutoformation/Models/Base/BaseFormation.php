@@ -32,9 +32,9 @@ class BaseFormation extends BaseModel
      * @var array
      */
     protected $with = [
-        'competence',
-        'formateur',
-        'formationOfficiel'
+      //  'competence',
+      //  'formateur',
+      //  'formationOfficiel'
     ];
 
 

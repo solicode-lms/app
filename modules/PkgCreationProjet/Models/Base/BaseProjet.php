@@ -33,8 +33,8 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'filiere',
-        'formateur'
+      //  'filiere',
+      //  'formateur'
     ];
 
 

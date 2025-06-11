@@ -28,7 +28,7 @@ class BaseModule extends BaseModel
      * @var array
      */
     protected $with = [
-        'filiere'
+      //  'filiere'
     ];
 
 

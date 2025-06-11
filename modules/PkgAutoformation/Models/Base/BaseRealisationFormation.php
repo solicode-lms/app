@@ -30,9 +30,9 @@ class BaseRealisationFormation extends BaseModel
      * @var array
      */
     protected $with = [
-        'formation',
-        'apprenant',
-        'etatFormation'
+      //  'formation',
+      //  'apprenant',
+      //  'etatFormation'
     ];
 
 

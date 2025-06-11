@@ -28,8 +28,8 @@ class BaseLabelRealisationTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'formateur',
-        'sysColor'
+      //  'formateur',
+      //  'sysColor'
     ];
 
 

@@ -28,8 +28,8 @@ class BaseHistoriqueRealisationTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'realisationTache',
-        'user'
+      //  'realisationTache',
+      //  'user'
     ];
 
 

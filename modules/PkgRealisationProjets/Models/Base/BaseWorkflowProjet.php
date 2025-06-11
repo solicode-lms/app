@@ -28,7 +28,7 @@ class BaseWorkflowProjet extends BaseModel
      * @var array
      */
     protected $with = [
-        'sysColor'
+      //  'sysColor'
     ];
 
 

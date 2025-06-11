@@ -28,7 +28,7 @@ class BasePrioriteTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'formateur'
+      //  'formateur'
     ];
 
 

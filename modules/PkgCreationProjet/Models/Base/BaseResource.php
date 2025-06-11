@@ -27,7 +27,7 @@ class BaseResource extends BaseModel
      * @var array
      */
     protected $with = [
-        'projet'
+      //  'projet'
     ];
 
 

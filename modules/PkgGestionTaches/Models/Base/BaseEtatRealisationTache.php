@@ -30,9 +30,9 @@ class BaseEtatRealisationTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'workflowTache',
-        'sysColor',
-        'formateur'
+      //  'workflowTache',
+      //  'sysColor',
+      //  'formateur'
     ];
 
 

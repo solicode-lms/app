@@ -30,7 +30,7 @@ class BaseTechnology extends BaseModel
      * @var array
      */
     protected $with = [
-        'categoryTechnology'
+      //  'categoryTechnology'
     ];
 
 

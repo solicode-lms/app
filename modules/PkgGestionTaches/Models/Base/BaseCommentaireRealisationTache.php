@@ -29,9 +29,9 @@ class BaseCommentaireRealisationTache extends BaseModel
      * @var array
      */
     protected $with = [
-        'realisationTache',
-        'formateur',
-        'apprenant'
+      //  'realisationTache',
+      //  'formateur',
+      //  'apprenant'
     ];
 
 

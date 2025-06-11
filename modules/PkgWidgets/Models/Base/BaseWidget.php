@@ -33,11 +33,11 @@ class BaseWidget extends BaseModel
      * @var array
      */
     protected $with = [
-        'type',
-        'model',
-        'operation',
-        'sysColor',
-        'sectionWidget'
+      //  'type',
+      //  'model',
+      //  'operation',
+      //  'sysColor',
+      //  'sectionWidget'
     ];
 
 
