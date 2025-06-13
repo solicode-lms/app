@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('projets/data-calcul', [ProjetController::class, 'dataCalcul'])->name('projets.dataCalcul');
         Route::post('projets/update-attributes', [ProjetController::class, 'updateAttributes'])->name('projets.updateAttributes');
-
+        Route::get('projets/clonerProjet/{id}', [ProjetController::class, 'clonerProjet'])->name('projets.clonerProjet');
+    
     
 
     });

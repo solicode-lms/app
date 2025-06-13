@@ -468,7 +468,20 @@ class BaseProjetController extends AdminController
         ]);
     }
     
-
+    public function clonerProjet(Request $request, string $id) {
+        $projet = $this->projetService->clonerProjet($id);
+        if ($request->ajax()) {
+            $message = "Le projet a été cloné avec succès.";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('Projet.index')->with(
+            'success',
+            "Le projet a été cloné avec succès."
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

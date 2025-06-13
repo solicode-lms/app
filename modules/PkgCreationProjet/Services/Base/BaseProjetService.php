@@ -107,7 +107,17 @@ class BaseProjetService extends BaseService
         ];
     }
 
-
+    public function clonerProjet(int $projetId)
+    {
+        $projet = $this->find($projetId);
+        if (!$projet) {
+            return false; 
+        }
+        $value =  $projet->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)

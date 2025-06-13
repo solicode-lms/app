@@ -793,5 +793,21 @@
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_taches_projet_id",
         "e_metadata_definition_reference": "viewShowFieldOrder"
+    },
+    {
+        "reference": "projets_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fa-clone",
+                "title": "Cloner le projet",
+                "methode": "clonerProjet",
+                "actionType": "confirm",
+                "successMessage": "Le projet a été cloné avec succès."
+            }
+        ],
+        "e_model_reference": "projets",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

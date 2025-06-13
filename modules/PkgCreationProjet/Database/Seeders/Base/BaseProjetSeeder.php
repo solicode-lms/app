@@ -31,7 +31,8 @@ class BaseProjetSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
             'Extraction' => ['import', 'export'],
-
+            'clonerProjet' => ['clonerProjet'],
+            
         ];
 
     public function run(): void

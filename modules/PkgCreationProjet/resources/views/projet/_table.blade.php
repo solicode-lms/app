@@ -50,7 +50,19 @@
                     </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-
+                       @can('clonerProjet-projet')
+                        <a 
+                        data-toggle="tooltip" 
+                        title="Cloner le projet" 
+                        href="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                        data-id="{{$projet->id}}" 
+                        data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                        data-action-type="confirm"
+                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            <i class="fa-clone"></i>
+                        </a>
+                        @endcan
+                        
 
                        
 
