@@ -6,7 +6,11 @@ use Modules\PkgRealisationProjets\Models\Base\BaseAffectationProjet;
 class AffectationProjet extends BaseAffectationProjet
 {
 
-
+   protected $with = [
+       'projet',
+       'groupe',
+       'anneeFormation'
+    ];
 
     public function __toString()
     {

@@ -62,6 +62,12 @@ class User extends Authenticatable
         ];
     }
 
+    // protected $with = [
+    //    'formateur',
+    //    'apprenant',
+    //    'evaluateur'
+    // ];
+
     // Relation HasOne avec Formateur
     public function formateur(): HasOne
     {

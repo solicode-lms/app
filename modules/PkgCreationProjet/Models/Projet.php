@@ -10,7 +10,10 @@ use Modules\PkgGestionTaches\Models\Tache;
 class Projet extends BaseProjet
 {
 
-
+    protected $with = [
+       'filiere',
+       'formateur'
+    ];
         /**
      * Relation HasMany pour Projets.
      *
