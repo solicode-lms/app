@@ -71,11 +71,11 @@ class BaseVilleController extends AdminController
         $itemVille = $this->villeService->createInstance();
         
 
-
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::ville._fields', compact('itemVille'));
+            return view('PkgApprenants::ville._fields', compact('bulkEdit' , 'itemVille'));
         }
-        return view('PkgApprenants::ville.create', compact('itemVille'));
+        return view('PkgApprenants::ville.create', compact('bulkEdit' ,'itemVille'));
     }
     /**
      * @DynamicPermissionIgnore

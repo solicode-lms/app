@@ -58,6 +58,7 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-projet-tabContent">
                             <div class="tab-pane fade show active" id="projet-hasmany-tabs-home" role="tabpanel" aria-labelledby="projet-hasmany-tabs-home-tab">
+                                {{}}
                                 @include('PkgCreationProjet::projet._fields')
                             </div>
 
