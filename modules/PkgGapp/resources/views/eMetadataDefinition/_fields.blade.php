@@ -13,7 +13,7 @@
     @if ($itemEMetadataDefinition->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($eMetadataDefinition_ids))
+    @if ($bulkEdit && !empty($eMetadataDefinition_ids))
         @foreach ($eMetadataDefinition_ids as $id)
             <input type="hidden" name="eMetadataDefinition_ids[]" value="{{ $id }}">
         @endforeach

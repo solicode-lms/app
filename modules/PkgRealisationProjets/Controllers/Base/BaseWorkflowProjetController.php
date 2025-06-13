@@ -77,10 +77,11 @@ class BaseWorkflowProjetController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::workflowProjet._fields', compact('itemWorkflowProjet', 'sysColors'));
+            return view('PkgRealisationProjets::workflowProjet._fields', compact('bulkEdit' ,'itemWorkflowProjet', 'sysColors'));
         }
-        return view('PkgRealisationProjets::workflowProjet.create', compact('itemWorkflowProjet', 'sysColors'));
+        return view('PkgRealisationProjets::workflowProjet.create', compact('bulkEdit' ,'itemWorkflowProjet', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

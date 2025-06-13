@@ -73,10 +73,11 @@ class BaseNatureLivrableController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._fields', compact('itemNatureLivrable'));
+            return view('PkgCreationProjet::natureLivrable._fields', compact('bulkEdit' ,'itemNatureLivrable'));
         }
-        return view('PkgCreationProjet::natureLivrable.create', compact('itemNatureLivrable'));
+        return view('PkgCreationProjet::natureLivrable.create', compact('bulkEdit' ,'itemNatureLivrable'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -93,10 +93,11 @@ class BaseEtatFormationController extends AdminController
         $sysColors = $this->sysColorService->all();
         $formateurs = $this->formateurService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::etatFormation._fields', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+            return view('PkgAutoformation::etatFormation._fields', compact('bulkEdit' ,'itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
         }
-        return view('PkgAutoformation::etatFormation.create', compact('itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
+        return view('PkgAutoformation::etatFormation.create', compact('bulkEdit' ,'itemEtatFormation', 'formateurs', 'sysColors', 'workflowFormations'));
     }
     /**
      * @DynamicPermissionIgnore

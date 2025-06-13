@@ -13,7 +13,7 @@
     @if ($itemTransfertCompetence->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($transfertCompetence_ids))
+    @if ($bulkEdit && !empty($transfertCompetence_ids))
         @foreach ($transfertCompetence_ids as $id)
             <input type="hidden" name="transfertCompetence_ids[]" value="{{ $id }}">
         @endforeach

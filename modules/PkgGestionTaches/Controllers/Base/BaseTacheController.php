@@ -94,10 +94,11 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->all();
         $livrables = $this->livrableService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::tache._fields', compact('itemTache', 'livrables', 'prioriteTaches', 'projets'));
+            return view('PkgGestionTaches::tache._fields', compact('bulkEdit' ,'itemTache', 'livrables', 'prioriteTaches', 'projets'));
         }
-        return view('PkgGestionTaches::tache.create', compact('itemTache', 'livrables', 'prioriteTaches', 'projets'));
+        return view('PkgGestionTaches::tache.create', compact('bulkEdit' ,'itemTache', 'livrables', 'prioriteTaches', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore

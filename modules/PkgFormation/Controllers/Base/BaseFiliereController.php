@@ -75,10 +75,11 @@ class BaseFiliereController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._fields', compact('itemFiliere'));
+            return view('PkgFormation::filiere._fields', compact('bulkEdit' ,'itemFiliere'));
         }
-        return view('PkgFormation::filiere.create', compact('itemFiliere'));
+        return view('PkgFormation::filiere.create', compact('bulkEdit' ,'itemFiliere'));
     }
     /**
      * @DynamicPermissionIgnore

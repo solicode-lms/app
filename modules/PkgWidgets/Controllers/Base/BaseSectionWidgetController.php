@@ -77,10 +77,11 @@ class BaseSectionWidgetController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::sectionWidget._fields', compact('itemSectionWidget', 'sysColors'));
+            return view('PkgWidgets::sectionWidget._fields', compact('bulkEdit' ,'itemSectionWidget', 'sysColors'));
         }
-        return view('PkgWidgets::sectionWidget.create', compact('itemSectionWidget', 'sysColors'));
+        return view('PkgWidgets::sectionWidget.create', compact('bulkEdit' ,'itemSectionWidget', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

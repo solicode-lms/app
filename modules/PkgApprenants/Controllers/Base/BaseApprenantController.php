@@ -93,10 +93,11 @@ class BaseApprenantController extends AdminController
         $users = $this->userService->all();
         $groupes = $this->groupeService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
-        return view('PkgApprenants::apprenant.create', compact('itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

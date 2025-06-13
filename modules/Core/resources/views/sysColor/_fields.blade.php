@@ -13,7 +13,7 @@
     @if ($itemSysColor->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($sysColor_ids))
+    @if ($bulkEdit && !empty($sysColor_ids))
         @foreach ($sysColor_ids as $id)
             <input type="hidden" name="sysColor_ids[]" value="{{ $id }}">
         @endforeach

@@ -82,10 +82,11 @@ class BaseEvaluateurController extends AdminController
         $users = $this->userService->all();
         $affectationProjets = $this->affectationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluateur._fields', compact('itemEvaluateur', 'affectationProjets', 'users'));
+            return view('PkgValidationProjets::evaluateur._fields', compact('bulkEdit' ,'itemEvaluateur', 'affectationProjets', 'users'));
         }
-        return view('PkgValidationProjets::evaluateur.create', compact('itemEvaluateur', 'affectationProjets', 'users'));
+        return view('PkgValidationProjets::evaluateur.create', compact('bulkEdit' ,'itemEvaluateur', 'affectationProjets', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

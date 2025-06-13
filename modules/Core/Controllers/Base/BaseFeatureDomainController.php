@@ -77,10 +77,11 @@ class BaseFeatureDomainController extends AdminController
 
         $sysModules = $this->sysModuleService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::featureDomain._fields', compact('itemFeatureDomain', 'sysModules'));
+            return view('Core::featureDomain._fields', compact('bulkEdit' ,'itemFeatureDomain', 'sysModules'));
         }
-        return view('Core::featureDomain.create', compact('itemFeatureDomain', 'sysModules'));
+        return view('Core::featureDomain.create', compact('bulkEdit' ,'itemFeatureDomain', 'sysModules'));
     }
     /**
      * @DynamicPermissionIgnore

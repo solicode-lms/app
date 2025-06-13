@@ -84,10 +84,11 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $formateurs = $this->formateurService->all();
         $apprenants = $this->apprenantService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
         }
-        return view('PkgGestionTaches::commentaireRealisationTache.create', compact('itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+        return view('PkgGestionTaches::commentaireRealisationTache.create', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
     }
     /**
      * @DynamicPermissionIgnore

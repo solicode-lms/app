@@ -85,10 +85,11 @@ class BaseRealisationFormationController extends AdminController
         $apprenants = $this->apprenantService->all();
         $etatFormations = $this->etatFormationService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationFormation._fields', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
+            return view('PkgAutoformation::realisationFormation._fields', compact('bulkEdit' ,'itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
         }
-        return view('PkgAutoformation::realisationFormation.create', compact('itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
+        return view('PkgAutoformation::realisationFormation.create', compact('bulkEdit' ,'itemRealisationFormation', 'apprenants', 'etatFormations', 'formations'));
     }
     /**
      * @DynamicPermissionIgnore

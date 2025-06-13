@@ -13,7 +13,7 @@
     @if ($itemPrioriteTache->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($prioriteTache_ids))
+    @if ($bulkEdit && !empty($prioriteTache_ids))
         @foreach ($prioriteTache_ids as $id)
             <input type="hidden" name="prioriteTache_ids[]" value="{{ $id }}">
         @endforeach

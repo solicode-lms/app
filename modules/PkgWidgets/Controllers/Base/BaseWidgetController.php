@@ -97,10 +97,11 @@ class BaseWidgetController extends AdminController
         $roles = $this->roleService->all();
         $sectionWidgets = $this->sectionWidgetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::widget._fields', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+            return view('PkgWidgets::widget._fields', compact('bulkEdit' ,'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
         }
-        return view('PkgWidgets::widget.create', compact('itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
+        return view('PkgWidgets::widget.create', compact('bulkEdit' ,'itemWidget', 'roles', 'sysModels', 'widgetOperations', 'sectionWidgets', 'sysColors', 'widgetTypes'));
     }
     /**
      * @DynamicPermissionIgnore

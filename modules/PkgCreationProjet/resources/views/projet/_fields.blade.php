@@ -13,7 +13,7 @@
     @if ($itemProjet->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($projet_ids))
+    @if ($bulkEdit && !empty($projet_ids))
         @foreach ($projet_ids as $id)
             <input type="hidden" name="projet_ids[]" value="{{ $id }}">
         @endforeach

@@ -82,10 +82,11 @@ class BaseCompetenceController extends AdminController
         $modules = $this->moduleService->all();
         $technologies = $this->technologyService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('itemCompetence', 'technologies', 'modules'));
+            return view('PkgCompetences::competence._fields', compact('bulkEdit' ,'itemCompetence', 'technologies', 'modules'));
         }
-        return view('PkgCompetences::competence.create', compact('itemCompetence', 'technologies', 'modules'));
+        return view('PkgCompetences::competence.create', compact('bulkEdit' ,'itemCompetence', 'technologies', 'modules'));
     }
     /**
      * @DynamicPermissionIgnore

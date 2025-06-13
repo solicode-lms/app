@@ -13,7 +13,7 @@
     @if ($itemGroupe->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($groupe_ids))
+    @if ($bulkEdit && !empty($groupe_ids))
         @foreach ($groupe_ids as $id)
             <input type="hidden" name="groupe_ids[]" value="{{ $id }}">
         @endforeach

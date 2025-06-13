@@ -84,10 +84,11 @@ class BaseEMetadatumController extends AdminController
         $eDataFields = $this->eDataFieldService->all();
         $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadatum._fields', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+            return view('PkgGapp::eMetadatum._fields', compact('bulkEdit' ,'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
         }
-        return view('PkgGapp::eMetadatum.create', compact('itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
+        return view('PkgGapp::eMetadatum.create', compact('bulkEdit' ,'itemEMetadatum', 'eDataFields', 'eMetadataDefinitions', 'eModels'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -73,10 +73,11 @@ class BaseTypeDependanceTacheController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._fields', compact('itemTypeDependanceTache'));
+            return view('PkgGestionTaches::typeDependanceTache._fields', compact('bulkEdit' ,'itemTypeDependanceTache'));
         }
-        return view('PkgGestionTaches::typeDependanceTache.create', compact('itemTypeDependanceTache'));
+        return view('PkgGestionTaches::typeDependanceTache.create', compact('bulkEdit' ,'itemTypeDependanceTache'));
     }
     /**
      * @DynamicPermissionIgnore

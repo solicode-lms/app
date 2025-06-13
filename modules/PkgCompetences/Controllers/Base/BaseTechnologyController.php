@@ -88,10 +88,11 @@ class BaseTechnologyController extends AdminController
         $formations = $this->formationService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', compact('bulkEdit' ,'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
         }
-        return view('PkgCompetences::technology.create', compact('itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        return view('PkgCompetences::technology.create', compact('bulkEdit' ,'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -81,10 +81,11 @@ class BaseEDataFieldController extends AdminController
         $eModels = $this->eModelService->all();
         $eRelationships = $this->eRelationshipService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGapp::eDataField._fields', compact('itemEDataField', 'eModels', 'eRelationships'));
+            return view('PkgGapp::eDataField._fields', compact('bulkEdit' ,'itemEDataField', 'eModels', 'eRelationships'));
         }
-        return view('PkgGapp::eDataField.create', compact('itemEDataField', 'eModels', 'eRelationships'));
+        return view('PkgGapp::eDataField.create', compact('bulkEdit' ,'itemEDataField', 'eModels', 'eRelationships'));
     }
     /**
      * @DynamicPermissionIgnore

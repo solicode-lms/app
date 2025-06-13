@@ -104,10 +104,11 @@ class BaseRealisationTacheController extends AdminController
         $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::realisationTache._fields', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+            return view('PkgGestionTaches::realisationTache._fields', compact('bulkEdit' ,'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
         }
-        return view('PkgGestionTaches::realisationTache.create', compact('itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
+        return view('PkgGestionTaches::realisationTache.create', compact('bulkEdit' ,'itemRealisationTache', 'etatRealisationTaches', 'realisationProjets', 'taches'));
     }
     /**
      * @DynamicPermissionIgnore

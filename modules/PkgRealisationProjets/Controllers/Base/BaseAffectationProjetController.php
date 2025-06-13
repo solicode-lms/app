@@ -110,10 +110,11 @@ class BaseAffectationProjetController extends AdminController
         $anneeFormations = $this->anneeFormationService->all();
         $evaluateurs = $this->evaluateurService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
         }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore

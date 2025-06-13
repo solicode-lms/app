@@ -77,10 +77,11 @@ class BaseEtatEvaluationProjetController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgValidationProjets::etatEvaluationProjet._fields', compact('itemEtatEvaluationProjet', 'sysColors'));
+            return view('PkgValidationProjets::etatEvaluationProjet._fields', compact('bulkEdit' ,'itemEtatEvaluationProjet', 'sysColors'));
         }
-        return view('PkgValidationProjets::etatEvaluationProjet.create', compact('itemEtatEvaluationProjet', 'sysColors'));
+        return view('PkgValidationProjets::etatEvaluationProjet.create', compact('bulkEdit' ,'itemEtatEvaluationProjet', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

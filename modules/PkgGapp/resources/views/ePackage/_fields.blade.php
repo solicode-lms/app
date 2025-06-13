@@ -13,7 +13,7 @@
     @if ($itemEPackage->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($ePackage_ids))
+    @if ($bulkEdit && !empty($ePackage_ids))
         @foreach ($ePackage_ids as $id)
             <input type="hidden" name="ePackage_ids[]" value="{{ $id }}">
         @endforeach

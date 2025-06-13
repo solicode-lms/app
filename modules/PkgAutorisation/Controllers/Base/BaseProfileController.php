@@ -103,10 +103,11 @@ class BaseProfileController extends AdminController
 
         $users = $this->userService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutorisation::profile._fields', compact('itemProfile', 'users'));
+            return view('PkgAutorisation::profile._fields', compact('bulkEdit' ,'itemProfile', 'users'));
         }
-        return view('PkgAutorisation::profile.create', compact('itemProfile', 'users'));
+        return view('PkgAutorisation::profile.create', compact('bulkEdit' ,'itemProfile', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

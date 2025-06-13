@@ -72,10 +72,11 @@ class BaseApprenantKonosyController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenantKonosy._fields', compact('itemApprenantKonosy'));
+            return view('PkgApprenants::apprenantKonosy._fields', compact('bulkEdit' ,'itemApprenantKonosy'));
         }
-        return view('PkgApprenants::apprenantKonosy.create', compact('itemApprenantKonosy'));
+        return view('PkgApprenants::apprenantKonosy.create', compact('bulkEdit' ,'itemApprenantKonosy'));
     }
     /**
      * @DynamicPermissionIgnore

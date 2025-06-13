@@ -13,7 +13,7 @@
     @if ($itemProfile->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($profile_ids))
+    @if ($bulkEdit && !empty($profile_ids))
         @foreach ($profile_ids as $id)
             <input type="hidden" name="profile_ids[]" value="{{ $id }}">
         @endforeach

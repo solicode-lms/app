@@ -13,7 +13,7 @@
     @if ($itemPermission->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($permission_ids))
+    @if ($bulkEdit && !empty($permission_ids))
         @foreach ($permission_ids as $id)
             <input type="hidden" name="permission_ids[]" value="{{ $id }}">
         @endforeach

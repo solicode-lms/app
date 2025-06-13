@@ -81,10 +81,11 @@ class BaseSysModelController extends AdminController
         $sysModules = $this->sysModuleService->all();
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::sysModel._fields', compact('itemSysModel', 'sysColors', 'sysModules'));
+            return view('Core::sysModel._fields', compact('bulkEdit' ,'itemSysModel', 'sysColors', 'sysModules'));
         }
-        return view('Core::sysModel.create', compact('itemSysModel', 'sysColors', 'sysModules'));
+        return view('Core::sysModel.create', compact('bulkEdit' ,'itemSysModel', 'sysColors', 'sysModules'));
     }
     /**
      * @DynamicPermissionIgnore

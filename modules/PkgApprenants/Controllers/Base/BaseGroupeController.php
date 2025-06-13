@@ -89,10 +89,11 @@ class BaseGroupeController extends AdminController
         $apprenants = $this->apprenantService->all();
         $formateurs = $this->formateurService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._fields', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+            return view('PkgApprenants::groupe._fields', compact('bulkEdit' ,'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
         }
-        return view('PkgApprenants::groupe.create', compact('itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
+        return view('PkgApprenants::groupe.create', compact('bulkEdit' ,'itemGroupe', 'apprenants', 'formateurs', 'anneeFormations', 'filieres'));
     }
     /**
      * @DynamicPermissionIgnore

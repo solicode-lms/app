@@ -97,10 +97,11 @@ class BaseLivrableController extends AdminController
         $projets = $this->projetService->all();
         $taches = $this->tacheService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::livrable._fields', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+            return view('PkgCreationProjet::livrable._fields', compact('bulkEdit' ,'itemLivrable', 'taches', 'natureLivrables', 'projets'));
         }
-        return view('PkgCreationProjet::livrable.create', compact('itemLivrable', 'taches', 'natureLivrables', 'projets'));
+        return view('PkgCreationProjet::livrable.create', compact('bulkEdit' ,'itemLivrable', 'taches', 'natureLivrables', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore

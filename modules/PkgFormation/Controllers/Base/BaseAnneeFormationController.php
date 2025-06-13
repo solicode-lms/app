@@ -74,10 +74,11 @@ class BaseAnneeFormationController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._fields', compact('itemAnneeFormation'));
+            return view('PkgFormation::anneeFormation._fields', compact('bulkEdit' ,'itemAnneeFormation'));
         }
-        return view('PkgFormation::anneeFormation.create', compact('itemAnneeFormation'));
+        return view('PkgFormation::anneeFormation.create', compact('bulkEdit' ,'itemAnneeFormation'));
     }
     /**
      * @DynamicPermissionIgnore

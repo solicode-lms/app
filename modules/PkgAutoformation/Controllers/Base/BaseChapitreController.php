@@ -86,10 +86,11 @@ class BaseChapitreController extends AdminController
         $formateurs = $this->formateurService->all();
         $chapitres = $this->chapitreService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::chapitre._fields', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
+            return view('PkgAutoformation::chapitre._fields', compact('bulkEdit' ,'itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
         }
-        return view('PkgAutoformation::chapitre.create', compact('itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
+        return view('PkgAutoformation::chapitre.create', compact('bulkEdit' ,'itemChapitre', 'chapitres', 'formateurs', 'formations', 'niveauCompetences'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -13,7 +13,7 @@
     @if ($itemSysController->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($sysController_ids))
+    @if ($bulkEdit && !empty($sysController_ids))
         @foreach ($sysController_ids as $id)
             <input type="hidden" name="sysController_ids[]" value="{{ $id }}">
         @endforeach

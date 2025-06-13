@@ -93,10 +93,11 @@ class BaseEvaluationRealisationProjetController extends AdminController
         $evaluateurs = $this->evaluateurService->all();
         $etatEvaluationProjets = $this->etatEvaluationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationProjet._fields', compact('itemEvaluationRealisationProjet', 'etatEvaluationProjets', 'evaluateurs', 'realisationProjets'));
+            return view('PkgValidationProjets::evaluationRealisationProjet._fields', compact('bulkEdit' ,'itemEvaluationRealisationProjet', 'etatEvaluationProjets', 'evaluateurs', 'realisationProjets'));
         }
-        return view('PkgValidationProjets::evaluationRealisationProjet.create', compact('itemEvaluationRealisationProjet', 'etatEvaluationProjets', 'evaluateurs', 'realisationProjets'));
+        return view('PkgValidationProjets::evaluationRealisationProjet.create', compact('bulkEdit' ,'itemEvaluationRealisationProjet', 'etatEvaluationProjets', 'evaluateurs', 'realisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore

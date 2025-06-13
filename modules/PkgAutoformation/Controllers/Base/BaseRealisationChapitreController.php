@@ -84,10 +84,11 @@ class BaseRealisationChapitreController extends AdminController
         $realisationFormations = $this->realisationFormationService->all();
         $etatChapitres = $this->etatChapitreService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::realisationChapitre._fields', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+            return view('PkgAutoformation::realisationChapitre._fields', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
         }
-        return view('PkgAutoformation::realisationChapitre.create', compact('itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
+        return view('PkgAutoformation::realisationChapitre.create', compact('bulkEdit' ,'itemRealisationChapitre', 'chapitres', 'etatChapitres', 'realisationFormations'));
     }
     /**
      * @DynamicPermissionIgnore

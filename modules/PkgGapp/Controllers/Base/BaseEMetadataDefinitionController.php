@@ -73,10 +73,11 @@ class BaseEMetadataDefinitionController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGapp::eMetadataDefinition._fields', compact('itemEMetadataDefinition'));
+            return view('PkgGapp::eMetadataDefinition._fields', compact('bulkEdit' ,'itemEMetadataDefinition'));
         }
-        return view('PkgGapp::eMetadataDefinition.create', compact('itemEMetadataDefinition'));
+        return view('PkgGapp::eMetadataDefinition.create', compact('bulkEdit' ,'itemEMetadataDefinition'));
     }
     /**
      * @DynamicPermissionIgnore

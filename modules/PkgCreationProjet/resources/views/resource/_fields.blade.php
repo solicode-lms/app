@@ -13,7 +13,7 @@
     @if ($itemResource->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($resource_ids))
+    @if ($bulkEdit && !empty($resource_ids))
         @foreach ($resource_ids as $id)
             <input type="hidden" name="resource_ids[]" value="{{ $id }}">
         @endforeach

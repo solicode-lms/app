@@ -84,10 +84,11 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $evaluateurs = $this->evaluateurService->all();
         $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+            return view('PkgValidationProjets::evaluationRealisationTache._fields', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
         }
-        return view('PkgValidationProjets::evaluationRealisationTache.create', compact('itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
+        return view('PkgValidationProjets::evaluationRealisationTache.create', compact('bulkEdit' ,'itemEvaluationRealisationTache', 'evaluateurs', 'realisationTaches', 'evaluationRealisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore

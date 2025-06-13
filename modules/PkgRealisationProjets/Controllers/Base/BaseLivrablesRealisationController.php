@@ -88,10 +88,11 @@ class BaseLivrablesRealisationController extends AdminController
         $livrables = $this->livrableService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+            return view('PkgRealisationProjets::livrablesRealisation._fields', compact('bulkEdit' ,'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
         }
-        return view('PkgRealisationProjets::livrablesRealisation.create', compact('itemLivrablesRealisation', 'livrables', 'realisationProjets'));
+        return view('PkgRealisationProjets::livrablesRealisation.create', compact('bulkEdit' ,'itemLivrablesRealisation', 'livrables', 'realisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -13,7 +13,7 @@
     @if ($itemEDataField->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($eDataField_ids))
+    @if ($bulkEdit && !empty($eDataField_ids))
         @foreach ($eDataField_ids as $id)
             <input type="hidden" name="eDataField_ids[]" value="{{ $id }}">
         @endforeach

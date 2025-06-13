@@ -116,10 +116,11 @@ class BaseWidgetUtilisateurController extends AdminController
         $widgets = $this->widgetService->all();
         $sysModules = $this->sysModuleService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetUtilisateur._fields', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
+            return view('PkgWidgets::widgetUtilisateur._fields', compact('bulkEdit' ,'itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
         }
-        return view('PkgWidgets::widgetUtilisateur.create', compact('itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
+        return view('PkgWidgets::widgetUtilisateur.create', compact('bulkEdit' ,'itemWidgetUtilisateur', 'users', 'widgets', 'sysModules'));
     }
     /**
      * @DynamicPermissionIgnore

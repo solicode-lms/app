@@ -13,7 +13,7 @@
     @if ($itemUserModelFilter->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($userModelFilter_ids))
+    @if ($bulkEdit && !empty($userModelFilter_ids))
         @foreach ($userModelFilter_ids as $id)
             <input type="hidden" name="userModelFilter_ids[]" value="{{ $id }}">
         @endforeach

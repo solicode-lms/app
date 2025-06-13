@@ -80,10 +80,11 @@ class BaseFeatureController extends AdminController
         $featureDomains = $this->featureDomainService->all();
         $permissions = $this->permissionService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::feature._fields', compact('itemFeature', 'permissions', 'featureDomains'));
+            return view('Core::feature._fields', compact('bulkEdit' ,'itemFeature', 'permissions', 'featureDomains'));
         }
-        return view('Core::feature.create', compact('itemFeature', 'permissions', 'featureDomains'));
+        return view('Core::feature.create', compact('bulkEdit' ,'itemFeature', 'permissions', 'featureDomains'));
     }
     /**
      * @DynamicPermissionIgnore

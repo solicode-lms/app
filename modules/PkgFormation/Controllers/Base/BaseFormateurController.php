@@ -95,10 +95,11 @@ class BaseFormateurController extends AdminController
         $groupes = $this->groupeService->all();
         $users = $this->userService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgFormation::formateur._fields', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+            return view('PkgFormation::formateur._fields', compact('bulkEdit' ,'itemFormateur', 'groupes', 'specialites', 'users'));
         }
-        return view('PkgFormation::formateur.create', compact('itemFormateur', 'groupes', 'specialites', 'users'));
+        return view('PkgFormation::formateur.create', compact('bulkEdit' ,'itemFormateur', 'groupes', 'specialites', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

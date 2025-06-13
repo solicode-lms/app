@@ -86,10 +86,11 @@ class BaseSysColorController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::sysColor._fields', compact('itemSysColor'));
+            return view('Core::sysColor._fields', compact('bulkEdit' ,'itemSysColor'));
         }
-        return view('Core::sysColor.create', compact('itemSysColor'));
+        return view('Core::sysColor.create', compact('bulkEdit' ,'itemSysColor'));
     }
     /**
      * @DynamicPermissionIgnore

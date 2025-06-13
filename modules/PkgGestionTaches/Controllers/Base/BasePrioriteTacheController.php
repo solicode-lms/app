@@ -84,10 +84,11 @@ class BasePrioriteTacheController extends AdminController
 
         $formateurs = $this->formateurService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', compact('itemPrioriteTache', 'formateurs'));
+            return view('PkgGestionTaches::prioriteTache._fields', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
         }
-        return view('PkgGestionTaches::prioriteTache.create', compact('itemPrioriteTache', 'formateurs'));
+        return view('PkgGestionTaches::prioriteTache.create', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore

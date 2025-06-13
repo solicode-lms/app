@@ -13,7 +13,7 @@
     @if ($itemEMetadatum->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($eMetadatum_ids))
+    @if ($bulkEdit && !empty($eMetadatum_ids))
         @foreach ($eMetadatum_ids as $id)
             <input type="hidden" name="eMetadatum_ids[]" value="{{ $id }}">
         @endforeach

@@ -106,10 +106,11 @@ class BaseRealisationProjetController extends AdminController
         $apprenants = $this->apprenantService->all();
         $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._fields', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
+            return view('PkgRealisationProjets::realisationProjet._fields', compact('bulkEdit' ,'itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
         }
-        return view('PkgRealisationProjets::realisationProjet.create', compact('itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
+        return view('PkgRealisationProjets::realisationProjet.create', compact('bulkEdit' ,'itemRealisationProjet', 'affectationProjets', 'apprenants', 'etatsRealisationProjets'));
     }
     /**
      * @DynamicPermissionIgnore

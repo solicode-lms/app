@@ -77,10 +77,11 @@ class BaseWorkflowChapitreController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowChapitre._fields', compact('itemWorkflowChapitre', 'sysColors'));
+            return view('PkgAutoformation::workflowChapitre._fields', compact('bulkEdit' ,'itemWorkflowChapitre', 'sysColors'));
         }
-        return view('PkgAutoformation::workflowChapitre.create', compact('itemWorkflowChapitre', 'sysColors'));
+        return view('PkgAutoformation::workflowChapitre.create', compact('bulkEdit' ,'itemWorkflowChapitre', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

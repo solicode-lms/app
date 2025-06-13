@@ -76,10 +76,11 @@ class BaseNiveauCompetenceController extends AdminController
 
         $competences = $this->competenceService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::niveauCompetence._fields', compact('itemNiveauCompetence', 'competences'));
+            return view('PkgCompetences::niveauCompetence._fields', compact('bulkEdit' ,'itemNiveauCompetence', 'competences'));
         }
-        return view('PkgCompetences::niveauCompetence.create', compact('itemNiveauCompetence', 'competences'));
+        return view('PkgCompetences::niveauCompetence.create', compact('bulkEdit' ,'itemNiveauCompetence', 'competences'));
     }
     /**
      * @DynamicPermissionIgnore

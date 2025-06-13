@@ -94,10 +94,11 @@ class BaseValidationController extends AdminController
         $transfertCompetences = $this->transfertCompetenceService->all();
         $realisationProjets = $this->realisationProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::validation._fields', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+            return view('PkgRealisationProjets::validation._fields', compact('bulkEdit' ,'itemValidation', 'realisationProjets', 'transfertCompetences'));
         }
-        return view('PkgRealisationProjets::validation.create', compact('itemValidation', 'realisationProjets', 'transfertCompetences'));
+        return view('PkgRealisationProjets::validation.create', compact('bulkEdit' ,'itemValidation', 'realisationProjets', 'transfertCompetences'));
     }
     /**
      * @DynamicPermissionIgnore

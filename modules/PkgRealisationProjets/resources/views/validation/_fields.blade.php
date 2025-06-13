@@ -13,7 +13,7 @@
     @if ($itemValidation->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($validation_ids))
+    @if ($bulkEdit && !empty($validation_ids))
         @foreach ($validation_ids as $id)
             <input type="hidden" name="validation_ids[]" value="{{ $id }}">
         @endforeach

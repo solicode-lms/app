@@ -13,7 +13,7 @@
     @if ($itemWidget->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($widget_ids))
+    @if ($bulkEdit && !empty($widget_ids))
         @foreach ($widget_ids as $id)
             <input type="hidden" name="widget_ids[]" value="{{ $id }}">
         @endforeach

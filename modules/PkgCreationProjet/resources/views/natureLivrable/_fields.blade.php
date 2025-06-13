@@ -13,7 +13,7 @@
     @if ($itemNatureLivrable->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($natureLivrable_ids))
+    @if ($bulkEdit && !empty($natureLivrable_ids))
         @foreach ($natureLivrable_ids as $id)
             <input type="hidden" name="natureLivrable_ids[]" value="{{ $id }}">
         @endforeach

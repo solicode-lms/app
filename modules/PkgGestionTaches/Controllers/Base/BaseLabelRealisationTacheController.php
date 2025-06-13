@@ -88,10 +88,11 @@ class BaseLabelRealisationTacheController extends AdminController
         $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgGestionTaches::labelRealisationTache._fields', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
         }
-        return view('PkgGestionTaches::labelRealisationTache.create', compact('itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgGestionTaches::labelRealisationTache.create', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

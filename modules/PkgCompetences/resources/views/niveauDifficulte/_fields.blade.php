@@ -13,7 +13,7 @@
     @if ($itemNiveauDifficulte->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($niveauDifficulte_ids))
+    @if ($bulkEdit && !empty($niveauDifficulte_ids))
         @foreach ($niveauDifficulte_ids as $id)
             <input type="hidden" name="niveauDifficulte_ids[]" value="{{ $id }}">
         @endforeach

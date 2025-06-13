@@ -73,10 +73,11 @@ class BaseNationaliteController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::nationalite._fields', compact('itemNationalite'));
+            return view('PkgApprenants::nationalite._fields', compact('bulkEdit' ,'itemNationalite'));
         }
-        return view('PkgApprenants::nationalite.create', compact('itemNationalite'));
+        return view('PkgApprenants::nationalite.create', compact('bulkEdit' ,'itemNationalite'));
     }
     /**
      * @DynamicPermissionIgnore

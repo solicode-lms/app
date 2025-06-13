@@ -92,10 +92,11 @@ class BaseEtatsRealisationProjetController extends AdminController
         $sysColors = $this->sysColorService->all();
         $workflowProjets = $this->workflowProjetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'formateurs', 'sysColors', 'workflowProjets'));
     }
     /**
      * @DynamicPermissionIgnore

@@ -77,10 +77,11 @@ class BaseWorkflowFormationController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::workflowFormation._fields', compact('itemWorkflowFormation', 'sysColors'));
+            return view('PkgAutoformation::workflowFormation._fields', compact('bulkEdit' ,'itemWorkflowFormation', 'sysColors'));
         }
-        return view('PkgAutoformation::workflowFormation.create', compact('itemWorkflowFormation', 'sysColors'));
+        return view('PkgAutoformation::workflowFormation.create', compact('bulkEdit' ,'itemWorkflowFormation', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

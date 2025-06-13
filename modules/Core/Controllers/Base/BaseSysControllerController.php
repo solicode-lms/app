@@ -77,10 +77,11 @@ class BaseSysControllerController extends AdminController
 
         $sysModules = $this->sysModuleService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::sysController._fields', compact('itemSysController', 'sysModules'));
+            return view('Core::sysController._fields', compact('bulkEdit' ,'itemSysController', 'sysModules'));
         }
-        return view('Core::sysController.create', compact('itemSysController', 'sysModules'));
+        return view('Core::sysController.create', compact('bulkEdit' ,'itemSysController', 'sysModules'));
     }
     /**
      * @DynamicPermissionIgnore

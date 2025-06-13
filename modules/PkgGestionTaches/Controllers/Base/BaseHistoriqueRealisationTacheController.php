@@ -80,10 +80,11 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $realisationTaches = $this->realisationTacheService->all();
         $users = $this->userService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
         }
-        return view('PkgGestionTaches::historiqueRealisationTache.create', compact('itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+        return view('PkgGestionTaches::historiqueRealisationTache.create', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

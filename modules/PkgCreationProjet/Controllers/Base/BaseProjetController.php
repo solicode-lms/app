@@ -99,10 +99,11 @@ class BaseProjetController extends AdminController
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('itemProjet', 'filieres', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs'));
         }
-        return view('PkgCreationProjet::projet.create', compact('itemProjet', 'filieres', 'formateurs'));
+        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore

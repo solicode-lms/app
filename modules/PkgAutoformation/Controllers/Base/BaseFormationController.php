@@ -103,10 +103,11 @@ class BaseFormationController extends AdminController
         $formations = $this->formationService->all();
         $filieres = $this->filiereService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgAutoformation::formation._fields', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
+            return view('PkgAutoformation::formation._fields', compact('bulkEdit' ,'itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
         }
-        return view('PkgAutoformation::formation.create', compact('itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
+        return view('PkgAutoformation::formation.create', compact('bulkEdit' ,'itemFormation', 'technologies', 'competences', 'formateurs', 'formations', 'filieres'));
     }
     /**
      * @DynamicPermissionIgnore

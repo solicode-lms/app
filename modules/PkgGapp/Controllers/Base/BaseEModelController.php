@@ -79,10 +79,11 @@ class BaseEModelController extends AdminController
 
         $ePackages = $this->ePackageService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGapp::eModel._fields', compact('itemEModel', 'ePackages'));
+            return view('PkgGapp::eModel._fields', compact('bulkEdit' ,'itemEModel', 'ePackages'));
         }
-        return view('PkgGapp::eModel.create', compact('itemEModel', 'ePackages'));
+        return view('PkgGapp::eModel.create', compact('bulkEdit' ,'itemEModel', 'ePackages'));
     }
     /**
      * @DynamicPermissionIgnore

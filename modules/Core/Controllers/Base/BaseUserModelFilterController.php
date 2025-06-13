@@ -76,10 +76,11 @@ class BaseUserModelFilterController extends AdminController
 
         $users = $this->userService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('Core::userModelFilter._fields', compact('itemUserModelFilter', 'users'));
+            return view('Core::userModelFilter._fields', compact('bulkEdit' ,'itemUserModelFilter', 'users'));
         }
-        return view('Core::userModelFilter.create', compact('itemUserModelFilter', 'users'));
+        return view('Core::userModelFilter.create', compact('bulkEdit' ,'itemUserModelFilter', 'users'));
     }
     /**
      * @DynamicPermissionIgnore

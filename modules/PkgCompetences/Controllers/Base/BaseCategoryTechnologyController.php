@@ -73,10 +73,11 @@ class BaseCategoryTechnologyController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::categoryTechnology._fields', compact('itemCategoryTechnology'));
+            return view('PkgCompetences::categoryTechnology._fields', compact('bulkEdit' ,'itemCategoryTechnology'));
         }
-        return view('PkgCompetences::categoryTechnology.create', compact('itemCategoryTechnology'));
+        return view('PkgCompetences::categoryTechnology.create', compact('bulkEdit' ,'itemCategoryTechnology'));
     }
     /**
      * @DynamicPermissionIgnore

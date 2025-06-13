@@ -97,10 +97,11 @@ class BaseTransfertCompetenceController extends AdminController
         $technologies = $this->technologyService->all();
         $projets = $this->projetService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::transfertCompetence._fields', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+            return view('PkgCreationProjet::transfertCompetence._fields', compact('bulkEdit' ,'itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
         }
-        return view('PkgCreationProjet::transfertCompetence.create', compact('itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
+        return view('PkgCreationProjet::transfertCompetence.create', compact('bulkEdit' ,'itemTransfertCompetence', 'technologies', 'competences', 'niveauDifficultes', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore

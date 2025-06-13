@@ -73,10 +73,11 @@ class BaseWidgetOperationController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetOperation._fields', compact('itemWidgetOperation'));
+            return view('PkgWidgets::widgetOperation._fields', compact('bulkEdit' ,'itemWidgetOperation'));
         }
-        return view('PkgWidgets::widgetOperation.create', compact('itemWidgetOperation'));
+        return view('PkgWidgets::widgetOperation.create', compact('bulkEdit' ,'itemWidgetOperation'));
     }
     /**
      * @DynamicPermissionIgnore

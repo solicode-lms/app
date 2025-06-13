@@ -77,10 +77,11 @@ class BaseWorkflowTacheController extends AdminController
 
         $sysColors = $this->sysColorService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._fields', compact('itemWorkflowTache', 'sysColors'));
+            return view('PkgGestionTaches::workflowTache._fields', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
         }
-        return view('PkgGestionTaches::workflowTache.create', compact('itemWorkflowTache', 'sysColors'));
+        return view('PkgGestionTaches::workflowTache.create', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore

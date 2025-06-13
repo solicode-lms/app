@@ -73,10 +73,11 @@ class BaseWidgetTypeController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgWidgets::widgetType._fields', compact('itemWidgetType'));
+            return view('PkgWidgets::widgetType._fields', compact('bulkEdit' ,'itemWidgetType'));
         }
-        return view('PkgWidgets::widgetType.create', compact('itemWidgetType'));
+        return view('PkgWidgets::widgetType.create', compact('bulkEdit' ,'itemWidgetType'));
     }
     /**
      * @DynamicPermissionIgnore

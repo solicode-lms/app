@@ -13,7 +13,7 @@
     @if ($itemCategoryTechnology->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($categoryTechnology_ids))
+    @if ($bulkEdit && !empty($categoryTechnology_ids))
         @foreach ($categoryTechnology_ids as $id)
             <input type="hidden" name="categoryTechnology_ids[]" value="{{ $id }}">
         @endforeach

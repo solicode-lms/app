@@ -77,10 +77,11 @@ class BaseModuleController extends AdminController
 
         $filieres = $this->filiereService->all();
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgFormation::module._fields', compact('itemModule', 'filieres'));
+            return view('PkgFormation::module._fields', compact('bulkEdit' ,'itemModule', 'filieres'));
         }
-        return view('PkgFormation::module.create', compact('itemModule', 'filieres'));
+        return view('PkgFormation::module.create', compact('bulkEdit' ,'itemModule', 'filieres'));
     }
     /**
      * @DynamicPermissionIgnore

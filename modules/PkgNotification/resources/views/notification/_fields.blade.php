@@ -13,7 +13,7 @@
     @if ($itemNotification->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($notification_ids))
+    @if ($bulkEdit && !empty($notification_ids))
         @foreach ($notification_ids as $id)
             <input type="hidden" name="notification_ids[]" value="{{ $id }}">
         @endforeach

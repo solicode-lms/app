@@ -73,10 +73,11 @@ class BaseNiveauxScolaireController extends AdminController
         
 
 
+        $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::niveauxScolaire._fields', compact('itemNiveauxScolaire'));
+            return view('PkgApprenants::niveauxScolaire._fields', compact('bulkEdit' ,'itemNiveauxScolaire'));
         }
-        return view('PkgApprenants::niveauxScolaire.create', compact('itemNiveauxScolaire'));
+        return view('PkgApprenants::niveauxScolaire.create', compact('bulkEdit' ,'itemNiveauxScolaire'));
     }
     /**
      * @DynamicPermissionIgnore

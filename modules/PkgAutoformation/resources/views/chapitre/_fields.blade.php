@@ -13,7 +13,7 @@
     @if ($itemChapitre->id)
         @method('PUT')
     @endif
-    @if (!empty($bulkEdit) && !empty($chapitre_ids))
+    @if ($bulkEdit && !empty($chapitre_ids))
         @foreach ($chapitre_ids as $id)
             <input type="hidden" name="chapitre_ids[]" value="{{ $id }}">
         @endforeach
