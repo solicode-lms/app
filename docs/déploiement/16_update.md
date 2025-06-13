@@ -1,6 +1,10 @@
 ## Sur server 
 
-composer install --no-dev --optimize-autoloader
+
+sudo php artisan migrate
+sudo composer install 
+
+sudo composer install --no-dev --optimize-autoloader
 
 ## Post dev 
 

@@ -182,55 +182,53 @@ trait RealisationTacheServiceCrud
 
    
 
-        /**
-     * Après la mise à jour d'une RealisationTache,
-     * on crée une EvaluationRealisationTache et on recalcule la moyenne
-     * *uniquement* si des évaluateurs existent pour le projet.
-     * 
+    /**
+     * maintenant, l'évaluation s'effectuer dans EvaluationRealisationTacheService
      * @param  RealisationTache  $entity
      * @return void
      */
     public function afterUpdateRules(RealisationTache $entity): void
     {
-        // Récupère les évaluateurs assignés au projet
-        $evaluateurs = $entity
-            ->realisationProjet
-            ->affectationProjet
-            ->evaluateurs
-            ->pluck('id');
+    //   maintenant, l'évaluation s'effectuer dans EvaluationRealisationTacheService
+    //     // Récupère les évaluateurs assignés au projet
+    //     $evaluateurs = $entity
+    //         ->realisationProjet
+    //         ->affectationProjet
+    //         ->evaluateurs
+    //         ->pluck('id');
 
-        // Si aucun évaluateur n'est défini, on ne fait rien (le formateur a déjà mis à jour la note)
-        if ($evaluateurs->isEmpty()) {
-            return;
-        }
+    //     // Si aucun évaluateur n'est défini, on ne fait rien (le formateur a déjà mis à jour la note)
+    //     if ($evaluateurs->isEmpty()) {
+    //         return;
+    //     }
 
        
 
-        $user = Auth::user();
+    //     $user = Auth::user();
 
-         // Si l'utilisateur n'est pas un evaluateur ( Apprenant) on ne fait rien
-        if ( is_null($user->evaluateur )) {
-            return;
-        }
+    //      // Si l'utilisateur n'est pas un evaluateur ( Apprenant) on ne fait rien
+    //     if ( is_null($user->evaluateur )) {
+    //         return;
+    //     }
 
 
-        $evaluateurId = $user->evaluateur->id;
+    //     $evaluateurId = $user->evaluateur->id;
 
-         // Crée ou met à jour la note de l'évaluateur sur cette tâche
-        (new EvaluationRealisationTacheService())->updateOrCreate(
-            ['realisation_tache_id' => $entity->id, 'evaluateur_id' => $evaluateurId],
-            ['note' => $entity->note, 'message' => $entity->remarque_evaluateur]
-        );
+    //      // Crée ou met à jour la note de l'évaluateur sur cette tâche
+    //     (new EvaluationRealisationTacheService())->updateOrCreate(
+    //         ['realisation_tache_id' => $entity->id, 'evaluateur_id' => $evaluateurId],
+    //         ['note' => $entity->note, 'message' => $entity->remarque_evaluateur]
+    //     );
 
-        // Recalcule et met à jour la moyenne
-        $moyenne = $entity
-            ->evaluationRealisationTaches()
-            ->avg('note');
+    //     // Recalcule et met à jour la moyenne
+    //     $moyenne = $entity
+    //         ->evaluationRealisationTaches()
+    //         ->avg('note');
 
-       // Mettre à jour le champ 'note' : arrondi à 2 décimales si existe, sinon null
-        $entity->update([
-            'note' => $moyenne !== null ? round($moyenne, 2) : null
-        ]);
+    //    // Mettre à jour le champ 'note' : arrondi à 2 décimales si existe, sinon null
+    //     $entity->update([
+    //         'note' => $moyenne !== null ? round($moyenne, 2) : null
+    //     ]);
     }
 
      /**
