@@ -800,7 +800,7 @@
         "value_float": 0,
         "value_json": [
             {
-                "icon": "fa-clone",
+                "icon": "fas fa-clone",
                 "title": "Cloner le projet",
                 "methode": "clonerProjet",
                 "actionType": "confirm",

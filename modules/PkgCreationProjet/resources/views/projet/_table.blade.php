@@ -59,7 +59,7 @@
                         data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
                         data-action-type="confirm"
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
-                            <i class="fa-clone"></i>
+                            <i class="fas fa-clone"></i>
                         </a>
                         @endcan
                         
