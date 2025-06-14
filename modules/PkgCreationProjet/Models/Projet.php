@@ -12,7 +12,12 @@ class Projet extends BaseProjet
 
     protected $with = [
        'filiere',
-       'formateur'
+       'formateur',
+    //    'transfertCompetences',
+    //    'affectationProjets',
+    //    'taches',
+       'livrables',
+       'resources',
     ];
         /**
      * Relation HasMany pour Projets.

@@ -3,7 +3,9 @@
 
 namespace Modules\PkgAutorisation\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\PkgAutorisation\Models\User;
 use Modules\PkgAutorisation\Services\Base\BaseUserService;
 
 /**
@@ -43,5 +45,19 @@ class UserService extends BaseUserService
         $value =  $user->save();
         $this->pushServiceMessage("info","Initialisation de mot de passe", "à sa valeur initial : 12345678");
         return $value;
+    }
+
+    public static function getUserContext(): ?User
+    {
+        static $user = null;
+
+        if (!$user) {
+            $authUser = Auth::user();
+            if (!$authUser) return null;
+
+            $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($authUser->id);
+        }
+
+        return $user;
     }
 }

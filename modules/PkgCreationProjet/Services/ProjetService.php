@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
  */
 class ProjetService extends BaseProjetService
 {
+
+    protected array $query_all_with_relations = ['filiere', 'formateur', 'livrables', 'resources', 'taches'];
+
     public function dataCalcul($projet)
     {
         // En Cas d'édit

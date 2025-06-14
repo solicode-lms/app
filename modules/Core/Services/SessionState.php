@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use JsonSerializable;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 
 /**
@@ -17,6 +18,8 @@ use Modules\PkgFormation\Services\AnneeFormationService;
 class SessionState implements JsonSerializable
 {
     protected $sessionData = [];
+
+    protected static $cachedUser = null;
 
     /**
      * Ajouter une variable à la session.
@@ -58,57 +61,60 @@ class SessionState implements JsonSerializable
      */
     public function loadUserSessionData()
     {
-         $user = Auth::user();
-            // $user = User::with([
-            //     'formateur',
-            //     'evaluateur',
-            // ])->find(Auth::id());
+        $user = UserService::getUserContext();
+        
+        
+
+
+        
+        // Recharger l'utilisateur avec les relations nécessaires S'IL MANQUE les relations
+        if (!$user->relationLoaded('formateur') || !$user->relationLoaded('evaluateur') || !$user->relationLoaded('apprenant')) {
+            $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($user->id);
+        }
 
         if ($user) {
-            // Stocker le rôle de l'utilisateur
+            // Rôle
             $role = $user->roles->first()->name ?? 'Aucun rôle';
             $this->set('user_role', $role);
-    
-            // Récupérer l'année de formation si l'utilisateur est un apprenant
+
+            // Année formation
             $user_anneeFormation = $this->get("user_annee_formation");
             $annee_formation_id = $this->get("annee_formation_id");
 
-            // Si l'année de formation n'existe pas, récupérer l'année en cours
             if ($user_anneeFormation == null || $annee_formation_id == null) {
                 $anneeFormation = (new AnneeFormationService())->getCurrentAnneeFormation();
-                 // Stocker l'année de formation
                 $this->set('user_annee_formation', $anneeFormation->reference);
                 $this->set('annee_formation_id', $anneeFormation->id);
-            }else{
+            } else {
                 $this->set('user_annee_formation', $user_anneeFormation);
                 $this->set('annee_formation_id', $annee_formation_id);
-                
-            }  
-
-            // ajouter l'id de user dans la session
-            $this->set("user_id",$user->id);
-            $formateur = $user->formateur;
-            if ($formateur) {
-                $this->set("formateur_id",$formateur->id);
             }
 
-            $evaluateur = $user->evaluateur;
-            if ($evaluateur) {
-                $this->set("evaluateur_id",$evaluateur->id);
+            // ID de l'utilisateur
+            $this->set("user_id", $user->id);
+
+            // Formateur
+            if ($user->formateur) {
+                $this->set("formateur_id", $user->formateur->id);
             }
-           
-            // TODO : captuer BLL Exception
-            $apprenant = $user->apprenant;
-            if ($apprenant) {
-                $this->set("apprenant_id",$apprenant->id);
-            }else{
-                if($role == Role::APPRENANT_ROLE){
+
+            // Évaluateur
+            if ($user->evaluateur) {
+                $this->set("evaluateur_id", $user->evaluateur->id);
+            }
+
+            // Apprenant
+            if ($user->apprenant) {
+                $this->set("apprenant_id", $user->apprenant->id);
+            } else {
+                if ($role === Role::APPRENANT_ROLE) {
                     Auth::logout();
                     throw new Exception("L'apprenant est en état inactive");
                 }
             }
         }
     }
+
 
 
     /**

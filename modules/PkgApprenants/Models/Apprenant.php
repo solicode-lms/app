@@ -20,10 +20,10 @@ class Apprenant extends BaseApprenant
     ];
 
     protected $with = [
-       'groupes'
-      //  'nationalite',
-      //  'niveauxScolaire',
-      //  'user'
+       'groupes',
+       'nationalite',
+       'niveauxScolaire',
+       'user'
     ];
 
     protected static function booted()

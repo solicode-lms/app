@@ -22,11 +22,14 @@ trait PaginateTrait
                     $query->orderBy('ordre');
                 }
             }
-            // TODO : Gapp : EagerLoading Charger les relations nécessaires : DataFields de type ManyToOne, ManyToMany ayant DisplayInTable
-            // $relationsToLoad = ["categoryTechnology"];
-            // $query->with(array_unique($relationsToLoad));
+
+            
+            if(!empty($this->query_all_with_relations)){
+                $query->with(array_unique($this->query_all_with_relations));
+            }
+            
     
-                    // Calcul du nombre total des résultats filtrés
+            // Calcul du nombre total des résultats filtrés
             $this->totalFilteredCount = $query->count();
 
             return $query->paginate($perPage, $columns);
