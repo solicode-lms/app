@@ -14,7 +14,16 @@ use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationTacheSer
 class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheService
 {
 
-
+    protected array $query_all_with_relations = [
+        'evaluateur',
+        'realisationTache', // relation directe avec realisation_taches
+        'realisationTache.tache', // pour avoir dateFin, note, ordre, etc.
+        'realisationTache.realisationProjet', // pour accéder au projet et apprenant
+        'realisationTache.realisationProjet.apprenant', // pour CONCAT nom + prénom
+        'realisationTache.realisationProjet.apprenant.groupes', // pour récupérer le groupe
+        'realisationTache.realisationProjet.apprenant.groupes.filiere', // pour nom_filiere
+      
+    ];
    /**
      * Met à jour la note de la réalisation de tâche et l'état de la réalisation du projet
      * après la modification d'une évaluation de tâche.
@@ -25,63 +34,52 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
     public function afterUpdateRules($evaluationRealisationTache)
     {
         DB::transaction(function () use ($evaluationRealisationTache) {
-            // Récupérer l'ID de la réalisation de tâche associée
-            $realisationTacheId = $evaluationRealisationTache->realisation_tache_id;
 
-            // Calculer la moyenne des notes des évaluations liées à la réalisation de tâche
-            $averageNote = $this->model::where('realisation_tache_id', $realisationTacheId)
-                ->avg('note');
+            // Charger toutes les relations nécessaires d’un seul coup
+            $evaluationRealisationTache->loadMissing([
+                'realisationTache.evaluationRealisationTaches',
+                'evaluationRealisationProjet.evaluationRealisationTaches'
+            ]);
 
-            // Instancier le service RealisationTacheService
-            $realisationTacheService = new RealisationTacheService();
-            
-            // Mettre à jour la note de la réalisation de tâche
-            $realisationTacheService->update($realisationTacheId, [
+            $realisationTache = $evaluationRealisationTache->realisationTache;
+
+            // Calcul de la moyenne des notes des évaluations liées à la tâche
+            $averageNote = $realisationTache->evaluationRealisationTaches->avg('note');
+
+            // Mise à jour directe de la note de la tâche
+            $realisationTache->update([
                 'note' => $averageNote,
             ]);
 
-            // Récupérer la réalisation de tâche mise à jour
-            $realisationTache = $realisationTacheService->find($realisationTacheId);
+            // Récupération du projet via les relations chargées
+            $evaluationRealisationProjet = $evaluationRealisationTache->evaluationRealisationProjet;
 
-            // Instancier le service EvaluationRealisationProjetService
-            $evaluationRealisationProjetService = new EvaluationRealisationProjetService();
-            
-            // Récupérer la réalisation de projet associée
-            $evaluationRealisationProjet = $evaluationRealisationProjetService->find(
-                $evaluationRealisationTache->evaluation_realisation_projet_id
-            );
+            // Récupération des évaluations liées au projet
+            $evaluationRealisationTaches = $evaluationRealisationProjet->evaluationRealisationTaches;
 
-            // Récupérer toutes les évaluations des tâches liées au projet
-            $evaluationRealisationTaches = $this->model::where('evaluation_realisation_projet_id', $evaluationRealisationProjet->id)
-                ->get();
+            // Vérifications des états
+            $allNotesNull = $evaluationRealisationTaches->every(fn($t) => is_null($t->note));
+            $allEvaluated = $evaluationRealisationTaches->every(fn($t) => !is_null($t->note));
 
-            // Déterminer l'état du projet en fonction des notes des tâches
-            $allNotesNull = $evaluationRealisationTaches->every(function ($tache) {
-                return is_null($tache->note);
-            });
+            // Détermination du nouvel état
+            $newEtatCode = $allNotesNull ? 'A_FAIRE' : ($allEvaluated ? 'TERMINEE' : 'EN_COURS');
 
-            $allEvaluated = $evaluationRealisationTaches->every(function ($tache) {
-                return !is_null($tache->note);
-            });
-
-            // Définir le nouvel état du projet
-            $newEtatCode = 'EN_COURS'; // État par défaut après modification
-            if ($allNotesNull) {
-                $newEtatCode = 'A_FAIRE';
-            } elseif ($allEvaluated) {
-                $newEtatCode = 'TERMINEE';
-            }
-
-            // Trouver l'état correspondant dans la table etats_realisation_projets
-            $etatEvaluationProjet = EtatEvaluationProjet::where('code', $newEtatCode)->firstOrFail();
-
-            // Mettre à jour l'état de la réalisation du projet
-            $evaluationRealisationProjetService->update($evaluationRealisationProjet->id, [
-                'etat_evaluation_projet_id' => $etatEvaluationProjet->id,
+            // Mise à jour de l’état du projet
+            $evaluationRealisationProjet->update([
+                'etat_evaluation_projet_id' => $this->getEtatEvaluationProjetByCode($newEtatCode)->id,
             ]);
         });
     }
 
+    /**
+     * Méthode utilitaire pour éviter de refaire la requête à chaque fois
+     */
+    protected function getEtatEvaluationProjetByCode(string $code)
+    {
+        static $cache = [];
+
+        return $cache[$code] ??= EtatEvaluationProjet::where('code', $code)->firstOrFail();
+    }
 
 
     public function defaultSort($query)

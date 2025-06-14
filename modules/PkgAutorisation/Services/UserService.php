@@ -55,7 +55,7 @@ class UserService extends BaseUserService
             $authUser = Auth::user();
             if (!$authUser) return null;
 
-            $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($authUser->id);
+            $user = User::with(['formateur', 'evaluateur', 'apprenant', 'roles','permissions'])->find($authUser->id);
         }
 
         return $user;

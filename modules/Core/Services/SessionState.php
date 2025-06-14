@@ -67,12 +67,15 @@ class SessionState implements JsonSerializable
 
 
         
-        // Recharger l'utilisateur avec les relations nécessaires S'IL MANQUE les relations
-        if (!$user->relationLoaded('formateur') || !$user->relationLoaded('evaluateur') || !$user->relationLoaded('apprenant')) {
-            $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($user->id);
-        }
+       
 
         if ($user) {
+
+            // Recharger l'utilisateur avec les relations nécessaires S'IL MANQUE les relations
+            if (!$user->relationLoaded('formateur') || !$user->relationLoaded('evaluateur') || !$user->relationLoaded('apprenant')) {
+                $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($user->id);
+            }
+
             // Rôle
             $role = $user->roles->first()->name ?? 'Aucun rôle';
             $this->set('user_role', $role);

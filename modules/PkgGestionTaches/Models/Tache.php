@@ -7,10 +7,10 @@ use Modules\PkgGestionTaches\Models\Base\BaseTache;
 class Tache extends BaseTache
 { 
 
-     protected $with = [
-       'prioriteTache',
-       'projet'
-    ];
+    //  protected $with = [
+    //    'prioriteTache',
+    //    'projet'
+    // ];
 
     public function __toString()
     {

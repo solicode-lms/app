@@ -6,7 +6,7 @@ use Modules\PkgCompetences\Models\Base\BaseNiveauDifficulte;
 
 class NiveauDifficulte extends BaseNiveauDifficulte
 {
-    protected $with = [
-        'formateur'
-    ];
+    // protected $with = [
+    //     'formateur'
+    // ];
 }

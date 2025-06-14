@@ -7,9 +7,9 @@ use Modules\PkgCompetences\Models\Base\BaseCompetence;
 class Competence extends BaseCompetence
 {
 
-    protected $with = [
-        'module'
-    ];
+    // protected $with = [
+    //     'module'
+    // ];
 
 
     public function __toString()

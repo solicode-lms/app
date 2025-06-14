@@ -19,12 +19,12 @@ class Apprenant extends BaseApprenant
         'date_naissance' => 'date', // ou 'date' si vous n’avez pas besoin de l’heure
     ];
 
-    protected $with = [
-       'groupes',
-       'nationalite',
-       'niveauxScolaire',
-       'user'
-    ];
+    // protected $with = [
+    //    'groupes',
+    //    'nationalite',
+    //    'niveauxScolaire',
+    //    'user'
+    // ];
 
     protected static function booted()
     {

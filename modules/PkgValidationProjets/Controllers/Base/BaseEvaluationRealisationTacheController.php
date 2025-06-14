@@ -363,7 +363,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
     public function updateAttributes(Request $request)
     {
         // Autorisation dynamique basée sur le nom du contrôleur
-        $this->authorizeAction('update');
+         $this->authorizeAction('update');
     
         $updatableFields = $this->service->getFieldsEditable();
         $evaluationRealisationTacheRequest = new EvaluationRealisationTacheRequest();
@@ -386,7 +386,7 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
         return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
+            'entity_id' => 1
         ]);
     }
 }

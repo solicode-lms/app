@@ -6,11 +6,13 @@ use Modules\PkgRealisationProjets\Models\Base\BaseAffectationProjet;
 class AffectationProjet extends BaseAffectationProjet
 {
 
-   protected $with = [
-       'projet',
-       'groupe',
-       'anneeFormation'
-    ];
+//    protected $with = [
+//        'projet',
+//        'projet.formateur',
+//        'projet.formateur.groupes',
+//        'groupe',
+//        'anneeFormation'
+//     ];
 
     public function __toString()
     {

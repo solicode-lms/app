@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgValidationProjets\Models;
@@ -7,5 +6,10 @@ use Modules\PkgValidationProjets\Models\Base\BaseEvaluationRealisationProjet;
 
 class EvaluationRealisationProjet extends BaseEvaluationRealisationProjet
 {
+    //  protected $with = [
+    //    'realisationProjet',
+    //    'evaluateur',
+    //    'etatEvaluationProjet'
+    // ];
 
 }

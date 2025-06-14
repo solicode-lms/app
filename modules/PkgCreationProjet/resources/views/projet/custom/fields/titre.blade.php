@@ -8,7 +8,7 @@
         <ul class="projet-affectations">
             @foreach ($entity->affectationProjets as $affectationProjet)
                 <li>
-                    <strong>Groupe :</strong> {{ $affectationProjet->groupe }}
+                    <strong>Groupe :</strong> {{ $affectationProjet->groupe->code }}
                     (<small>Du {{ $affectationProjet->date_debut }} au {{ $affectationProjet->date_fin }}</small>)
                 </li>
             @endforeach
@@ -19,7 +19,7 @@
         <h3>Ressources</h3>
         <ul class="projet-ressources">
             @foreach ($entity->resources as $resource)
-                <li>{{ $resource }}</li>
+                <li>{{ $resource->nom }}</li>
             @endforeach
         </ul>
     </section>

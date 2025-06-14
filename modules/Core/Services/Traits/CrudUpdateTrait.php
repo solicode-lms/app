@@ -34,7 +34,7 @@ trait CrudUpdateTrait
 
 
        $entity->update($data);
-       $this->executeRules('after', 'update', $entity, $id);
+      // $this->executeRules('after', 'update', $entity, $id);
        return $entity;
     }
 

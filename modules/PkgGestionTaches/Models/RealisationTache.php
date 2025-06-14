@@ -11,6 +11,12 @@ use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 class RealisationTache extends BaseRealisationTache
 {
+
+    // protected $with = [
+    //    'tache',
+    //    'realisationProjet',
+    //    'etatRealisationTache'
+    // ];
    
    /**
  * Récupérer les réalisations des livrables associés à la tâche de cette réalisation,

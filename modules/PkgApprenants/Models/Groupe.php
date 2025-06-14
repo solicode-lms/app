@@ -8,10 +8,10 @@ use Modules\PkgFormation\Models\AnneeFormation;
 class Groupe extends BaseGroupe
 {
 
-    protected $with = [
-       'filiere',
-       'anneeFormation'
-    ];
+    // protected $with = [
+    //    'filiere',
+    //    'anneeFormation'
+    // ];
 
     public function generateReference(): string
     {

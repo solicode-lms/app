@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // Charger dynamiquement tous les ServiceProviders des modules.
         $this->loadModuleServiceProviders();
+        // dd(app()->isProduction());
+        Model::preventLazyLoading(! app()->isProduction());
     }
 
     /**

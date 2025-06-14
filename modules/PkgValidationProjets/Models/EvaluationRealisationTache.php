@@ -5,6 +5,12 @@ use Modules\PkgValidationProjets\Models\Base\BaseEvaluationRealisationTache;
 
 class EvaluationRealisationTache extends BaseEvaluationRealisationTache
 {
+    // protected $with = [
+    //    'realisationTache',
+    //    'evaluateur',
+    //    'evaluationRealisationProjet'
+    // ];
+
 
         /**
      * Barème max pour la note = note de la tâche liée.
