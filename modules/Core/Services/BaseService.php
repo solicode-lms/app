@@ -46,7 +46,8 @@ abstract class BaseService implements ServiceInterface
         StatsTrait;
 
     // EagerLoading Charger les relations nécessaires : il est utilisé dans PaginateTrait
-    protected array $query_all_with_relations = [];
+    protected array $index_with_relations = [];
+    protected array $toString_with_relations = [];
 
     protected array $fieldsFilterable;
 

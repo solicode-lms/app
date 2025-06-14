@@ -35,16 +35,16 @@ class RealisationTacheService extends BaseRealisationTacheService
         RealisationTacheServiceWidgets,  
         RealisationTacheWorkflow;
 
-        protected array $query_all_with_relations = [
+        protected array $index_with_relations = [
             'tache',
-            'tache.projet',
-            'tache.projet.filiere',
-            'tache.projet.formateur',
-            'tache.projet.resources',
-            'tache.projet.livrables',
-            'realisationProjet',
-            'realisationProjet.apprenant',
-            'etatRealisationTache.workflowTache'
+            'tache.livrables',
+            'etatRealisationTache',
+            'etatRealisationTache.workflowTache',
+            'etatRealisationTache.sysColor',
+            'historiqueRealisationTaches',
+            'RealisationProjet',
+            'RealisationProjet.Apprenant',
+            'RealisationProjet.AffectationProjet',
         ];
 
     public function initFieldsFilterable()

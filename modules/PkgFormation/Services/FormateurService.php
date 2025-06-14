@@ -16,6 +16,9 @@ use Modules\PkgCompetences\Models\NiveauDifficulte;
  */
 class FormateurService extends BaseFormateurService
 {
+    protected array $index_with_relations = ['specialites','groupes'];
+
+
     /**
      * Crée un formateur et initialise ses dépendances.
      *

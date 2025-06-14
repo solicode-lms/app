@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgFormation\Services;
 use Modules\PkgFormation\Services\Base\BaseSpecialiteService;
@@ -10,6 +9,9 @@ use Modules\PkgFormation\Services\Base\BaseSpecialiteService;
  */
 class SpecialiteService extends BaseSpecialiteService
 {
+     protected array $index_with_relations = ['formateurs'];
+
+
     public function dataCalcul($specialite)
     {
         // En Cas d'édit

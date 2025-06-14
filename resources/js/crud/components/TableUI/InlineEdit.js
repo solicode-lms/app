@@ -119,7 +119,7 @@ export class InlineEdit extends Action {
             
             })
             .fail((xhr) => {
-                console.error('Erreur chargement inline:', err);
+                console.error('Erreur chargement inline:', xhr);
                 NotificationHandler.showError("Erreur lors de l'ouverture de l'éditeur inline.");
                 this.activeCell = null;
             })

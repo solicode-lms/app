@@ -11,6 +11,9 @@ use Modules\PkgGestionTaches\Services\Base\BaseEtatRealisationTacheService;
  */
 class EtatRealisationTacheService extends BaseEtatRealisationTacheService
 {
+
+    protected array $index_with_relations = ['sysColor','workflowTache','formateur'];
+    
     public function dataCalcul($etatRealisationTache)
     {
         // En Cas d'édit

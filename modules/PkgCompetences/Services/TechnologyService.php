@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCompetences\Services;
 use Modules\PkgCompetences\Services\Base\BaseTechnologyService;
@@ -10,6 +8,8 @@ use Modules\PkgCompetences\Services\Base\BaseTechnologyService;
  */
 class TechnologyService extends BaseTechnologyService
 {
+    protected array $index_with_relations = ['categoryTechnology'];
+
     public function dataCalcul($technology)
     {
         // En Cas d'édit

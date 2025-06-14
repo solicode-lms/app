@@ -13,6 +13,9 @@ use Modules\PkgAutorisation\Services\Base\BaseUserService;
  */
 class UserService extends BaseUserService
 {
+
+    protected array $index_with_relations = ['roles'];
+
     public function dataCalcul($user)
     {
         // En Cas d'édit

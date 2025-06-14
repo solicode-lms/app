@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgGestionTaches\Services;
 use Modules\PkgGestionTaches\Services\Base\BasePrioriteTacheService;
@@ -10,6 +9,9 @@ use Modules\PkgGestionTaches\Services\Base\BasePrioriteTacheService;
  */
 class PrioriteTacheService extends BasePrioriteTacheService
 {
+    protected array $index_with_relations = ['formateur'];
+    
+
     public function dataCalcul($prioriteTache)
     {
         // En Cas d'édit

@@ -20,6 +20,8 @@ class ApprenantService extends BaseApprenantService
 {
     use ApprenantServiceWidgets;
 
+     protected array $index_with_relations = ['groupes'];
+
     protected $dataSources = [
         "apprenantSansTacheEnCours" => [
             "title" => "Apprenants qui n'ont pas de tâches en cours",

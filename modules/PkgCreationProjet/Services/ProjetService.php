@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\DB;
 class ProjetService extends BaseProjetService
 {
 
-    protected array $query_all_with_relations = ['filiere', 'formateur', 'livrables', 'resources', 'taches','affectationProjets'];
+    protected array $index_with_relations = [
+        'filiere', 
+        'formateur', 
+        'livrables', 
+        'resources', 
+        'taches',
+        'taches.prioriteTache',
+        'affectationProjets',
+        'affectationProjets.groupe'
+    ];
 
     public function dataCalcul($projet)
     {

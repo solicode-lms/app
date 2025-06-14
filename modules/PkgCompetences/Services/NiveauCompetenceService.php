@@ -1,6 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
 
 namespace Modules\PkgCompetences\Services;
 use Modules\PkgCompetences\Services\Base\BaseNiveauCompetenceService;
@@ -10,6 +8,9 @@ use Modules\PkgCompetences\Services\Base\BaseNiveauCompetenceService;
  */
 class NiveauCompetenceService extends BaseNiveauCompetenceService
 {
+     protected array $index_with_relations = ['competence'];
+
+
     public function dataCalcul($niveauCompetence)
     {
         // En Cas d'édit

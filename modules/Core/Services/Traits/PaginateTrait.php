@@ -24,8 +24,8 @@ trait PaginateTrait
             }
 
             
-            if(!empty($this->query_all_with_relations)){
-                $query->with(array_unique($this->query_all_with_relations));
+            if(!empty($this->index_with_relations)){
+                $query->with(array_unique($this->index_with_relations));
             }
             
     

@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgFormation\Services;
@@ -10,6 +9,8 @@ use Modules\PkgFormation\Services\Base\BaseModuleService;
  */
 class ModuleService extends BaseModuleService
 {
+    protected array $index_with_relations = ['filiere','competences'];
+
     public function dataCalcul($module)
     {
         // En Cas d'édit

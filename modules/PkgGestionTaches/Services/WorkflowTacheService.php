@@ -11,6 +11,9 @@ use Modules\PkgGestionTaches\Services\Base\BaseWorkflowTacheService;
  */
 class WorkflowTacheService extends BaseWorkflowTacheService
 {
+    protected array $index_with_relations = ['sysColor'];
+    
+
     public function dataCalcul($workflowTache)
     {
         // En Cas d'édit

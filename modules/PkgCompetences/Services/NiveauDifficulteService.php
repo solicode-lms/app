@@ -1,5 +1,4 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 namespace Modules\PkgCompetences\Services;
@@ -10,6 +9,8 @@ use Modules\PkgCompetences\Services\Base\BaseNiveauDifficulteService;
  */
 class NiveauDifficulteService extends BaseNiveauDifficulteService
 {
+    protected array $index_with_relations = ['formateur'];
+
     public function dataCalcul($niveauDifficulte)
     {
         // En Cas d'édit

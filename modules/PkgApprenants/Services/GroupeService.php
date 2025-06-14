@@ -10,6 +10,7 @@ use Modules\PkgApprenants\Services\Base\BaseGroupeService;
 class GroupeService extends BaseGroupeService
 {
 
+    protected array $index_with_relations = ['filiere','formateurs'];
 
     /**
      * Récupère la liste des groupes ayant au moins une affectation de projet contenant des évaluateurs.

@@ -14,7 +14,7 @@ use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationTacheSer
 class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheService
 {
 
-    protected array $query_all_with_relations = [
+    protected array $index_with_relations = [
         'evaluateur',
         'realisationTache', // relation directe avec realisation_taches
         'realisationTache.tache', // pour avoir dateFin, note, ordre, etc.
