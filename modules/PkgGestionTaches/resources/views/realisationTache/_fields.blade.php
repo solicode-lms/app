@@ -360,6 +360,8 @@
 </x-form-field>
 
 
+
+@if($itemRealisationTache->id)
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
@@ -370,9 +372,12 @@
   @include('PkgValidationProjets::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
+@endif
 
 
 
+
+@if($itemRealisationTache->id)
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">
@@ -382,6 +387,7 @@
 
   @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
+@endif
 @endif
 
 
