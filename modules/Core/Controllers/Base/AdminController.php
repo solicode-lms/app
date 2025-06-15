@@ -73,12 +73,12 @@ class AdminController extends AppController
         }
     
         // Récupération des tâches filtrées
-        $taches = $this->service->getData($filter, $value);
+        $entities = $this->service->getData($filter, $value);
     
         // Retourner tous les champs avec un champ `toString`
-        return response()->json($taches->map(fn($tache) => array_merge(
-            $tache->toArray(), // Convertir l'objet en tableau avec tous les champs
-            ['toString' => $tache->__toString()] // Ajouter le champ `toString`
+        return response()->json($entities->map(fn($entity) => array_merge(
+            $entity->toArray(), // Convertir l'objet en tableau avec tous les champs
+            ['toString' => $entity->__toString()] // Ajouter le champ `toString`
         )));
     }
 

@@ -170,15 +170,16 @@
 </x-form-field>
 
 
+@if($itemEvaluationRealisationProjet->id)
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
             {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.plural')) }}
             
     </label>
-
   @include('PkgValidationProjets::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
 </div>
+@endif
 @endif
 
 

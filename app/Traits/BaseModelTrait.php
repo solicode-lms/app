@@ -56,4 +56,36 @@ trait BaseModelTrait
         return $value;
     }
 
+
+    /**
+     * Convertit le modèle Eloquent en tableau associatif
+     * sans déclencher de requêtes SQL supplémentaires.
+     *
+     * Cette méthode ne retourne que :
+     * - les attributs du modèle (`attributesToArray`)
+     * - les relations déjà chargées explicitement via `with()` ou `load()`
+     *
+     * ❌ Les relations non chargées ne sont pas accédées, ce qui évite le lazy loading.
+     *
+     * 🔐 Utile dans les environnements où `Model::preventLazyLoading(true)` est activé.
+     *
+     * @return array Représentation du modèle et de ses relations chargées sous forme de tableau.
+     */
+    public function toArrayWithoutLazyLoading(): array
+    {
+        // Récupère les attributs du modèle (colonnes de la table)
+        $array = $this->attributesToArray();
+
+        // Ajoute uniquement les relations déjà chargées (chargées via `with()` par exemple)
+        foreach ($this->getRelations() as $relation => $value) {
+            // Si c'est une relation multiple (hasMany, etc.), utiliser toArray sur la collection
+            // Sinon, sur le modèle unique ou null-safe
+            $array[$relation] = $value instanceof \Illuminate\Support\Collection
+                ? $value->toArray()
+                : $value?->toArray();
+        }
+
+        return $array;
+    }
+
 }

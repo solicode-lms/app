@@ -220,10 +220,12 @@ trait QueryBuilderTrait
             }
         }
 
+        // il faut par charger les relation : il sont charger dans 
+        // paginate
         // Appliquer le eager loading si des relations doivent être chargées
-        if (!empty($relationsToLoad)) {
-            $builder->with(array_unique($relationsToLoad));
-        }
+        // if (!empty($relationsToLoad)) {
+        //     $builder->with(array_unique($relationsToLoad));
+        // }
     }
     
 }

@@ -7,11 +7,11 @@ use Modules\PkgRealisationProjets\Models\Base\BaseRealisationProjet;
 class RealisationProjet extends BaseRealisationProjet
 {
 
-    // protected $with = [
-    //    'affectationProjet',
-    //    'apprenant',
-    //    'etatsRealisationProjet'
-    // ];
+    protected $with = [
+       'affectationProjet',
+       'apprenant',
+       'etatsRealisationProjet'
+    ];
 
     public function __toString()
     {

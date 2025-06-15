@@ -9,18 +9,20 @@ use Modules\PkgApprenants\Models\Base\BaseApprenant;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Modules\Core\Services\ViewStateService;
 
 class Apprenant extends BaseApprenant
 {
-    protected $appends = ['derniere_tache_terminee_ou_validation'];
-
     protected $casts = [
         'date_naissance' => 'date', // ou 'date' si vous n’avez pas besoin de l’heure
     ];
 
+   
+
     protected $with = [
-       'user', // composition
+    'user', // composition
+    'groupes', // chargement minimal sans sous-relations
     ];
 
     protected static function booted()
@@ -47,85 +49,37 @@ class Apprenant extends BaseApprenant
     }
     
 
-    public function getFormateurId()
-    {
-        return optional($this->realisationProjets->first()?->affectationProjet?->projet?->formateur)->id;
-    }
 
     public function __toString()
     {
         return ($this->nom ?? "") . " " . $this->prenom ?? "";
     }
 
-    /**
-     * Obtenir le nombre de réalisations de tâches en cours pour cet apprenant.
-     *
-     * @return int
-     */
-    // public function getNombreRealisationTachesEnCoursAttribute(): int
+
+    //    /**
+    //  * Récupère le groupe en cours pour l'année de formation actuelle.
+    //  *
+    //  * @return \Modules\PkgApprenants\Models\Groupe|null
+    //  */
+    // public function groupeEnCours()
     // {
-    //     return $this->queryRealisationTachesEnCours()->count();
-    // }
+    //    // Mettre en cache l'année de formation actuelle pendant 1 heure
+    //     $anneeActuelle = Cache::remember('annee_formation_active', now()->addHour(), function () {
+    //         return \Modules\PkgFormation\Models\AnneeFormation::query()
+    //             ->whereYear('date_debut', '<=', now()->year)
+    //             ->whereYear('date_fin', '>=', now()->year)
+    //             ->first();
+    //     });
 
-    /**
-     * Construire la requête pour récupérer les tâches en cours
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    // public function queryRealisationTachesEnCours()
+    //     if (!$anneeActuelle) return null;
+
+    //     return $this->groupes()
+    //         ->where('annee_formation_id', $anneeActuelle->id)
+    //         ->first();
+    // }
+    // public function getGroupeAttribute()
     // {
-    //     return RealisationTache::whereHas('realisationProjet', function ($query) {
-    //             $query->where('apprenant_id', $this->id);
-    //         })
-    //         ->whereHas('etatRealisationTache', function ($q) {
-    //             $q->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
-    //         });
-
-
-    //         // $subQuery->whereHas('realisationTaches', function ($q) {
-    //         //     $q->whereHas('etatRealisationTache', function ($etat) {
-    //         //         $etat->where('nom', 'En cours'); // Filtrer uniquement les tâches en cours
-    //         //     });
-    //         // });
+    //     return $this->groupeEnCours();
     // }
-
-
-       /**
-     * Récupère le groupe en cours pour l'année de formation actuelle.
-     *
-     * @return \Modules\PkgApprenants\Models\Groupe|null
-     */
-    public function groupeEnCours()
-    {
-        $anneeActuelle = AnneeFormation::query()
-            ->whereYear('date_debut', '<=', Carbon::now()->year)
-            ->whereYear('date_fin', '>=', Carbon::now()->year)
-            ->first();
-
-        if (!$anneeActuelle) return null;
-
-        return $this->groupes()
-            ->where('annee_formation_id', $anneeActuelle->id)
-            ->first();
-    }
-    public function getGroupeAttribute()
-    {
-        return $this->groupeEnCours();
-    }
-
-
-   
-
-    public function getDerniereTacheTermineeOuValidationAttribute()
-    {
-        $taches = $this->realisationProjets
-            ->flatMap->realisationTaches
-            ->filter(function ($tache) {
-                $ref = $tache->etatRealisationTache?->workflowTache?->code;
-                return in_array($ref, ['TERMINEE', 'EN_VALIDATION']);
-            });
-
-        return $taches->sortByDesc('updated_at')->first();
-    }
 
 }

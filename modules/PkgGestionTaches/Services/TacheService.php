@@ -18,6 +18,11 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
  */
 class TacheService extends BaseTacheService
 {
+
+    protected array $index_with_relations = [
+        'projet', 
+        'livrables'
+    ];
     protected $ordreGroupColumn = "projet_id";
 
     public function dataCalcul($tache)
@@ -31,20 +36,20 @@ class TacheService extends BaseTacheService
     }
 
 
-    public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
-    {
-        $perPage = $perPage ?: $this->paginationLimit;
+    // public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
+    // {
+    //     $perPage = $perPage ?: $this->paginationLimit;
     
-        return $this->model::withScope(function () use ($params, $perPage, $columns) {
-            $query = $this->allQuery($params);
+    //     return $this->model::withScope(function () use ($params, $perPage, $columns) {
+    //         $query = $this->allQuery($params);
     
         
-            // Calcul du nombre total des résultats filtrés
-            $this->totalFilteredCount = $query->count();
+    //         // Calcul du nombre total des résultats filtrés
+    //         $this->totalFilteredCount = $query->count();
     
-            return $query->paginate($perPage, $columns);
-        });
-    }
+    //         return $query->paginate($perPage, $columns);
+    //     });
+    // }
 
 
 

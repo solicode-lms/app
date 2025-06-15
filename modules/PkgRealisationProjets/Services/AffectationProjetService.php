@@ -12,7 +12,9 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
  */
 class AffectationProjetService extends BaseAffectationProjetService
 {
-    protected array $toString_with_relations = ['projet','projet.formateur','groupe'];
+    protected array $index_with_relations = [
+        'evaluateurs'
+    ];
 
     public function dataCalcul($affectationProjet)
     {
