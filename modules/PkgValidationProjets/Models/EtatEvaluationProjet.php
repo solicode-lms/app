@@ -6,7 +6,7 @@ use Modules\PkgValidationProjets\Models\Base\BaseEtatEvaluationProjet;
 
 class EtatEvaluationProjet extends BaseEtatEvaluationProjet
 {
-    // protected $with = [
-    //     'sysColor'
-    // ];
+    protected $with = [
+        'sysColor'
+    ];
 }

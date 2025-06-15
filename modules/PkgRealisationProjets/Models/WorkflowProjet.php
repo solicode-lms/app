@@ -7,5 +7,7 @@ use Modules\PkgRealisationProjets\Models\Base\BaseWorkflowProjet;
 
 class WorkflowProjet extends BaseWorkflowProjet
 {
-
+    protected $with = [
+        'sysColor'
+    ];
 }

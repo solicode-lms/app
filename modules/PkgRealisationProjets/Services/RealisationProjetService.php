@@ -32,6 +32,14 @@ use Modules\PkgRealisationProjets\Models\WorkflowProjet;
  */
 class RealisationProjetService extends BaseRealisationProjetService
 {
+     protected array $index_with_relations = [
+        'affectationProjet',
+        'affectationProjet.projet',
+        'affectationProjet.projet.livrables',
+        'apprenant',
+        'livrablesRealisations',
+        'etatsRealisationProjet',
+    ];
 
     public function initFieldsFilterable(){
 
@@ -164,9 +172,8 @@ class RealisationProjetService extends BaseRealisationProjetService
                 });
             }
 
-          
-            $relationsToLoad = ["affectationProjet","apprenant","etatsRealisationProjet","livrablesRealisations","validations"];
-            $query->with(array_unique($relationsToLoad));
+
+            $query->with(array_unique($this->index_with_relations));
 
             // Calcul du nombre total des résultats filtrés
             $this->totalFilteredCount = $query->count();

@@ -22,7 +22,13 @@ use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationProjetSe
  */
 class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjetService
 {
-
+   protected array $index_with_relations = [
+        'realisationProjet',
+        'realisationProjet.apprenant',
+        'realisationProjet.affectationProjet',
+        'evaluateur',
+        'etatEvaluationProjet',
+    ];
 
     public function initFieldsFilterable()
     {

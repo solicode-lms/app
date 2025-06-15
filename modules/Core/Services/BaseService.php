@@ -47,7 +47,7 @@ abstract class BaseService implements ServiceInterface
 
     // EagerLoading Charger les relations nécessaires : il est utilisé dans PaginateTrait
     protected array $index_with_relations = [];
-    protected array $toString_with_relations = [];
+
 
     protected array $fieldsFilterable;
 

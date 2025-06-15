@@ -20,7 +20,7 @@ class Apprenant extends BaseApprenant
     ];
 
     protected $with = [
-       'user'
+       'user', // composition
     ];
 
     protected static function booted()

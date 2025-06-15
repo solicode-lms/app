@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Charger dynamiquement tous les ServiceProviders des modules.
         $this->loadModuleServiceProviders();
+        
         // dd(app()->isProduction());
         Model::preventLazyLoading(! app()->isProduction());
     }
