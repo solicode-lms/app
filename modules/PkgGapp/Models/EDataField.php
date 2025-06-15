@@ -7,6 +7,11 @@ use Modules\PkgGapp\Models\Base\BaseEDataField;
 class EDataField extends BaseEDataField
 {
 
+    protected $with = [
+       'eModel',
+       'eRelationship'
+    ];
+
     public function getOrder(){
 
         return $this->eMetadata()

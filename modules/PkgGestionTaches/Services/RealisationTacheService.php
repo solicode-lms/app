@@ -39,8 +39,6 @@ class RealisationTacheService extends BaseRealisationTacheService
             'tache',
             'tache.livrables',
             'etatRealisationTache',
-            'etatRealisationTache.workflowTache',
-            'etatRealisationTache.sysColor',
             'historiqueRealisationTaches',
             'RealisationProjet',
             'RealisationProjet.Apprenant',

@@ -10,6 +10,12 @@ use Modules\PkgGestionTaches\Models\Tache;
 class Projet extends BaseProjet
 {
 
+     protected $with = [
+       'filiere',
+       'formateur'
+    ];
+
+
     // protected $with = [
     //    'filiere',
     //    'formateur',

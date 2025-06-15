@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgRealisationProjets\Services;
 use Modules\PkgRealisationProjets\Services\Base\BaseLivrablesRealisationService;
@@ -10,6 +9,10 @@ use Modules\PkgRealisationProjets\Services\Base\BaseLivrablesRealisationService;
  */
 class LivrablesRealisationService extends BaseLivrablesRealisationService
 {
+
+     protected array $index_with_relations = ['realisationProjet'];
+
+
     public function dataCalcul($livrablesRealisation)
     {
         // En Cas d'édit

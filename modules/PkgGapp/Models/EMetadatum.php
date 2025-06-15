@@ -9,7 +9,11 @@ use Modules\PkgGapp\Models\Base\BaseEMetadatum;
 class EMetadatum extends BaseEMetadatum
 {
 
-
+    protected $with = [
+       'eModel',
+       'eDataField',
+       'eMetadataDefinition'
+    ];
     public function generateReference(): string
     {
         $objet_reference = "";

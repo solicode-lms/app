@@ -94,12 +94,6 @@
                 "dataScope": "filter",
                 "userModelName": "Formateur",
                 "ownerRelationPath": "formateur.user"
-            },
-            {
-                "role": "apprenant",
-                "dataScope": "scope",
-                "userModelName": "Apprenant",
-                "ownerRelationPath": "affectationProjets.realisationProjets.apprenant.user"
             }
         ],
         "e_model_reference": "projets",

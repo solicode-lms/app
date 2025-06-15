@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgCreationProjet\Services;
 use Modules\PkgCreationProjet\Services\Base\BaseResourceService;
@@ -10,6 +9,10 @@ use Modules\PkgCreationProjet\Services\Base\BaseResourceService;
  */
 class ResourceService extends BaseResourceService
 {
+
+      protected array $index_with_relations = ['projet'];
+
+
     public function dataCalcul($resource)
     {
         // En Cas d'édit

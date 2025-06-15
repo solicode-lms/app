@@ -13,6 +13,9 @@ use Modules\Core\Services\BaseService;
  */
 class BaseEModelService extends BaseService
 {
+
+    protected array $index_with_relations = ['ePackage'];
+
     /**
      * Les champs de recherche disponibles pour eModels.
      *

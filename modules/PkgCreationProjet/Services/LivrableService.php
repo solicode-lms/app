@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgCreationProjet\Services;
 use Modules\PkgCreationProjet\Services\Base\BaseLivrableService;
@@ -10,6 +9,9 @@ use Modules\PkgCreationProjet\Services\Base\BaseLivrableService;
  */
 class LivrableService extends BaseLivrableService
 {
+
+     protected array $index_with_relations = ['projet'];
+
     public function dataCalcul($livrable)
     {
         // En Cas d'édit

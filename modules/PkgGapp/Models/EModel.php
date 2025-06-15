@@ -6,6 +6,11 @@ use Modules\PkgGapp\Models\Base\BaseEModel;
 
 class EModel extends BaseEModel
 {
+
+     protected $with = [
+       'ePackage'
+    ];
+
     public function getIcone()
     {
         // Recherche de la metadata qui correspond à "IconModel"

@@ -13,6 +13,15 @@ use Modules\PkgWidgets\Services\Base\BaseWidgetUtilisateurService;
  */
 class WidgetUtilisateurService extends BaseWidgetUtilisateurService
 {
+
+     protected array $index_with_relations = [
+        'widget',
+        'widget.operation',
+        'widget.model',
+        'widget.type',
+    ];
+
+
     /**
      * Pré-remplit les données lors de la création d'un widget utilisateur.
      */

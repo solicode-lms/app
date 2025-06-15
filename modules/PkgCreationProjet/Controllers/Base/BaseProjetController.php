@@ -50,9 +50,6 @@ class BaseProjetController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.projet.formateur_id') == null){
            $this->viewState->init('filter.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.projet.affectationProjets.realisationProjets.apprenant_id') == null){
-           $this->viewState->init('scope.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
-        }
 
 
 
@@ -88,9 +85,6 @@ class BaseProjetController extends AdminController
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
-        }
 
 
         $itemProjet = $this->projetService->createInstance();
@@ -122,9 +116,6 @@ class BaseProjetController extends AdminController
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
            $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
-        if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.projet.affectationProjets.realisationProjets.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
  
          $itemProjet = $this->projetService->find($projet_ids[0]);

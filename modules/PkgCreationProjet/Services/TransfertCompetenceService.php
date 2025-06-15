@@ -10,6 +10,10 @@ use Modules\PkgCreationProjet\Services\Base\BaseTransfertCompetenceService;
  */
 class TransfertCompetenceService extends BaseTransfertCompetenceService
 {
+
+     protected array $index_with_relations = ['niveauDifficulte','projet'];
+
+   
     public function dataCalcul($transfertCompetence)
     {
         // Récupérer la question et extraire les nouvelles technologies

@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\Core\Models;
 use Modules\Core\Models\Base\BaseSysModel;
@@ -8,4 +7,8 @@ use Modules\Core\Models\Base\BaseSysModel;
 class SysModel extends BaseSysModel
 {
 
+     protected $with = [
+       'sysModule',
+       'sysColor'
+    ];
 }
