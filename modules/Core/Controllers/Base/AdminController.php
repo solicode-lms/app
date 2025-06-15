@@ -35,28 +35,30 @@ class AdminController extends AppController
      */
     public function __construct()
     {
-        $this->middleware('auth'); // Applique 'auth' à toutes les méthodes.
-        // Exemple : Appliquer uniquement à certaines méthodes
-        // $this->middleware('auth')->only(['index', 'store']);
-        // Exemple : Exclure certaines méthodes
-        // $this->middleware('auth')->except(['help']);
-
-        // Middleware appliqué à toutes les méthodes
+        // Middleware globaux
+        $this->middleware('auth');
+       
+        $this->middleware(SessionStateMiddleware::class); // Doit précéder ContextState
+        $this->middleware(ContextStateMiddleware::class);
+        $this->middleware(SetViewStateMiddleware::class);
         $this->middleware(CheckDynamicPermission::class);
 
-        // SessionState doit être charger avant ContextState
-        $this->middleware(SessionStateMiddleware::class);
-
-        // Middleware appliqué à toutes les méthodes
-        $this->middleware(ContextStateMiddleware::class);
-
-        $this->middleware(SetViewStateMiddleware::class);
-
-
-        // Scrop management
+        // Chargement des états partagés
         $this->contextState = app(ContextState::class);
         $this->sessionState = app(SessionState::class);
         $this->viewState = app(ViewStateService::class);
+    }
+
+    /**
+     * Partage les états globaux aux vues.
+     */
+    protected function shareStates(): void
+    {
+        view()->share([
+            'contextState' => $this->contextState,
+            'sessionState' => $this->sessionState,
+            'viewState' => $this->viewState?->getViewStateData(),
+        ]);
     }
 
     protected function getService() {
@@ -111,6 +113,6 @@ class AdminController extends AppController
     }
 
 
-  
+ 
 
 }

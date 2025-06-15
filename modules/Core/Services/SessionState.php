@@ -19,6 +19,8 @@ class SessionState implements JsonSerializable
 {
     protected $sessionData = [];
 
+    protected bool $loaded = false;
+
     protected static $cachedUser = null;
 
     /**
@@ -61,7 +63,13 @@ class SessionState implements JsonSerializable
      */
     public function loadUserSessionData()
     {
-        $user = UserService::getUserContext();
+
+        // loadUserSessionData un seul fois
+        if ($this->loaded){return;} 
+        $this->loaded = true;
+
+
+        $user = Auth::user();
         
         
 
@@ -72,9 +80,7 @@ class SessionState implements JsonSerializable
         if ($user) {
 
             // Recharger l'utilisateur avec les relations nécessaires S'IL MANQUE les relations
-            if (!$user->relationLoaded('formateur') || !$user->relationLoaded('evaluateur') || !$user->relationLoaded('apprenant')) {
-                $user = User::with(['formateur', 'evaluateur', 'apprenant'])->find($user->id);
-            }
+            $user->loadMissing(['formateur', 'evaluateur', 'apprenant','roles']);
 
             // Rôle
             $role = $user->roles->first()->name ?? 'Aucun rôle';
@@ -130,5 +136,10 @@ class SessionState implements JsonSerializable
         return [
             'session_data' => $this->all(),
         ];
+    }
+
+    public function isLoaded(): bool
+    {
+        return $this->loaded;
     }
 }

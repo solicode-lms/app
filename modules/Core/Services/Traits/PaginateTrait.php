@@ -29,10 +29,12 @@ trait PaginateTrait
             }
             
     
-            // Calcul du nombre total des résultats filtrés
-            $this->totalFilteredCount = $query->count();
+            $results = $query->paginate($perPage, $columns);
 
-            return $query->paginate($perPage, $columns);
+            // Calcul du nombre total des résultats filtrés
+            $this->totalFilteredCount = $results->total(); 
+
+            return  $results;
         });
     }
 }

@@ -7,9 +7,9 @@ use Modules\PkgFormation\Models\Base\BaseFormateur;
 class Formateur extends BaseFormateur
 {
 
-    protected $with = [
-        'user'
-    ];
+    // protected $with = [
+    //     'user'
+    // ];
 
     public function __toString()
     {

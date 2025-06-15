@@ -15,7 +15,7 @@ class RealisationTache extends BaseRealisationTache
     protected $with = [
        'tache',
        'realisationProjet',
-        'realisationProjet.apprenant',
+       'realisationProjet.apprenant',
        'etatRealisationTache'
     ];
    

@@ -41,7 +41,7 @@ class BaseRealisationTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "RealisationProjet.AffectationProjet.Projet.Formateur.user,RealisationProjet.Apprenant.user";
+        $this->ownerRelationPath = "realisationProjet.affectationProjet.projet.formateur.user,realisationProjet.apprenant.user";
         // Colonne dynamique : projet_title
         $sql = "SELECT p.titre
         FROM realisation_projets rp

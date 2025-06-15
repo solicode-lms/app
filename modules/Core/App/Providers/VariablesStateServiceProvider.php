@@ -29,18 +29,18 @@ class VariablesStateServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Partager les états avec toutes les vues
-        view()->composer('*', function ($view) {
-            $viewData = [];
+        // view()->composer('*', function ($view) {
+        //     $viewData = [];
 
-            if (app()->bound(ViewStateService::class)) {
-                $viewState = app(ViewStateService::class);
-                $viewData['viewState'] = $viewState->getViewStateData();
-            }
+        //     if (app()->bound(ViewStateService::class)) {
+        //         $viewState = app(ViewStateService::class);
+        //         $viewData['viewState'] = $viewState->getViewStateData();
+        //     }
 
-            $view->with(array_merge($viewData, [
-                'contextState' => app(ContextState::class),
-                'sessionState' => tap(app(SessionState::class), fn($s) => $s->loadUserSessionData()),
-            ]));
-        });
+        //     $view->with(array_merge($viewData, [
+        //         'contextState' => app(ContextState::class),
+        //         'sessionState' => tap(app(SessionState::class), fn($s) => $s->loadUserSessionData()),
+        //     ]));
+        // });
     }
 }

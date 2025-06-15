@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Core\Services\SessionState;
 
@@ -18,13 +19,12 @@ class SessionStateMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $sessionState = app(SessionState::class);
         
-        // Charger les données de session pour l'utilisateur
-        $sessionState->loadUserSessionData();
+        $sessionState = app(SessionState::class);
 
-        // Partager les données avec toutes les vues Blade
-        View::share('sessionState', $sessionState);
+        if (!$sessionState->isLoaded()) {
+            $sessionState->loadUserSessionData();
+        }
 
         return $next($request);
     }

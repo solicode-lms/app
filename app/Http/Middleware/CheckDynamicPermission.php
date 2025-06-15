@@ -20,6 +20,8 @@ class CheckDynamicPermission
     public function handle($request, Closure $next)
     {
 
+
+        
         // Récupérer l'action actuelle (Contrôleur@Méthode)
         $action = $request->route()->getActionName();
         [$controllerClass, $method] = explode('@', $action);

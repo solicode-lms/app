@@ -40,9 +40,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             'tache.livrables',
             'etatRealisationTache',
             'historiqueRealisationTaches',
-            'RealisationProjet',
-            'RealisationProjet.Apprenant',
-            'RealisationProjet.AffectationProjet',
+            'realisationProjet',
+            'realisationProjet.apprenant',
+            'realisationProjet.affectationProjet',
         ];
 
     public function initFieldsFilterable()
@@ -148,49 +148,6 @@ class RealisationTacheService extends BaseRealisationTacheService
                 $workflows
         );
         
-
-
-
-
-        // // --- Affichage conditionnel du filtre état de Solicode (workflowTache) ---
-        // if (empty($this->viewState->get("filter.realisationTache.RealisationProjet.Affectation_projet_id"))) {
-        //     // Afficher état de solicode (workflowTache) si AffectationProjet NON sélectionné
-        //     $workflowTacheService = new WorkflowTacheService();
-        //     $workflowTaches = $workflowTacheService->all();
-        //     $this->fieldsFilterable[] = $this->generateRelationFilter(
-        //         __("PkgGestionTaches::workflowTache.plural"),
-        //         'etatRealisationTache.WorkflowTache.Code',
-        //         WorkflowTache::class,
-        //         "code",
-        //         "code",
-        //         $workflowTaches
-        //     );
-        // } else {
-        //     // Si AffectationProjet sélectionné, afficher l'état du formateur RESPONSABLE DU PROJET (quel que soit le rôle utilisateur)
-        //     $affectationProjetId = $this->viewState->get("filter.realisationTache.RealisationProjet.Affectation_projet_id");
-        //     $affectationProjet = \Modules\PkgRealisationProjets\Models\AffectationProjet::find($affectationProjetId);
-        //     $formateurId = $affectationProjet?->formateur_id;
-        //     if ($formateurId) {
-        //         $etatRealisationTacheService = new EtatRealisationTacheService();
-        //         $etatRealisationTaches = $etatRealisationTacheService->getEtatRealisationTacheByFormateurId($formateurId);
-        //         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-        //             __("PkgGestionTaches::etatRealisationTache.plural"),
-        //             'etat_realisation_tache_id',
-        //             \Modules\PkgGestionTaches\Models\EtatRealisationTache::class,
-        //             'nom',
-        //             $etatRealisationTaches
-        //         );
-        //     }
-        // }
-
-
-
-
-
-
-
-
-       
 
         // Apprenant
         // TODO : Gapp add MetaData relationFilter

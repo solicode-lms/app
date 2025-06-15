@@ -169,7 +169,7 @@ trait RealisationTacheServiceCrud
     public function defaultSort($query)
     {
         return $query
-            ->with(['realisationProjet.affectationProjet']) // Charger affectationProjet
+            // ->with(['realisationProjet.affectationProjet']) // Charger affectationProjet
             ->join('realisation_projets', 'realisation_taches.realisation_projet_id', '=', 'realisation_projets.id')
             ->join('affectation_projets', 'realisation_projets.affectation_projet_id', '=', 'affectation_projets.id')
             ->join('taches', 'realisation_taches.tache_id', '=', 'taches.id')
