@@ -6,6 +6,11 @@ use Modules\PkgFormation\Models\Base\BaseFormateur;
 
 class Formateur extends BaseFormateur
 {
+
+    protected $with = [
+        'user'
+    ];
+
     public function __toString()
     {
         return ($this->nom ?? "") . " " . $this->prenom ?? "" ;

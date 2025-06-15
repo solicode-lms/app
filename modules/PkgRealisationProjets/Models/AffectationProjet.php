@@ -10,7 +10,7 @@ class AffectationProjet extends BaseAffectationProjet
        'projet',
        'projet.formateur',
        'projet.formateur.groupes',
-       'groupe'
+       'groupe',
     ];
 
     public function __toString()

@@ -33,15 +33,15 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'filiere',
-      //  'formateur'
+       'filiere',
+       'formateur'
     ];
 
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "formateur.user,affectationProjets.realisationProjets.apprenant.user";
+        $this->ownerRelationPath = "formateur.user";
     }
 
     
