@@ -41,7 +41,7 @@ class BaseRealisationTacheController extends AdminController
     public function index(Request $request) {
         
         $this->shareStates();
-
+        
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationTache');
@@ -49,11 +49,11 @@ class BaseRealisationTacheController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.formateur_id') == null){
            $this->viewState->init('filter.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
-           $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.realisationProjet.apprenant_id') == null){
+           $this->viewState->init('filter.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
@@ -88,10 +88,10 @@ class BaseRealisationTacheController extends AdminController
     public function create() {
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 
@@ -128,10 +128,10 @@ class BaseRealisationTacheController extends AdminController
 
         // ownedByUser
         if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.affectationProjet.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
         if(Auth::user()->hasRole('apprenant')){
-           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+           $this->viewState->set('scope_form.realisationTache.realisationProjet.apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
  
          $itemRealisationTache = $this->realisationTacheService->find($realisationTache_ids[0]);

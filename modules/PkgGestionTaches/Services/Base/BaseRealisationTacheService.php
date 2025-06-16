@@ -176,10 +176,10 @@ class BaseRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationTache.stats', $realisationTaches_stats);
     
-
         $realisationTaches_permissions = [
             'index-livrablesRealisation' => Auth::user()->can('index-livrablesRealisation'),
             'show-projet' => Auth::user()->can('show-projet'),
+
             'edit-realisationTache' => Auth::user()->can('edit-realisationTache'),
             'destroy-realisationTache' => Auth::user()->can('destroy-realisationTache'),
             'show-realisationTache' => Auth::user()->can('show-realisationTache'),
@@ -194,7 +194,7 @@ class BaseRealisationTacheService extends BaseService
                 $realisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
             }
         }
- 
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationTache_viewTypes',

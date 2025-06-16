@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-realisationTache') || Auth::user()->can('destroy-realisationTache');
+                    $bulkEdit = $realisationTaches_permissions['edit-realisationTache'] || $devrealisationTaches_permissions['destroy-realisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="12"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
                 <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
@@ -28,29 +27,22 @@
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 12%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
-                    <dev :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
 
-                    </dev>
                     </td>
                     <td style="max-width: 20%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
-                    <dev :entity="$realisationTache" field="tache">
-                       
-                         {{  $realisationTache->tache }}
-                    </dev>
+                        {{  $realisationTache->tache }}
+
                     </td>
                     <td style="max-width: 12%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                         @include('PkgGestionTaches::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
                     </td>
                     <td style="max-width: 14%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
-                    <dev :entity="$realisationTache" field="nom_prenom_apprenant">
                         {{ $realisationTache->nom_prenom_apprenant }}
-                    </dev>
+
                     </td>
                     <td style="max-width: 9%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="deadline"  data-toggle="tooltip" title="{{ $realisationTache->deadline }}" >
-                    <dev :entity="$realisationTache" field="deadline">
                         <x-deadline-display :value="$realisationTache->deadline" />
-                    </dev>
                     </td>
                     <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                         @include('PkgGestionTaches::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
@@ -71,7 +63,7 @@
                                 <i class="fas fa-file-alt"></i>
                             </a>
                         @endif
-                       @if($realisationTaches_permissions['show-projet'])
+                        @if($realisationTaches_permissions['show-projet'])
                             <a
                                 data-toggle="tooltip"
                                 title="Projet"
@@ -89,22 +81,22 @@
 
                        
 
-                       @if($realisationTaches_permissions['edit-realisationTache'])
+                        @if($realisationTaches_permissions['edit-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="edit">
-                      
+                        @if($realisationTaches_permissionsByItem['update'][$realisationTache->id])
                             <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                       
+                        @endif
                         </x-action-button>
                         @endif
                         @if($realisationTaches_permissions['show-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="show">
-                       @if($realisationTaches_permissionsByItem['view'][$realisationTache->id])
+                        @if($realisationTaches_permissionsByItem['view'][$realisationTache->id])
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                       @endif
+                        @endif
                         </x-action-button>
                         @endif
 
@@ -118,7 +110,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                       @endif
+                        @endif
                         @endif
                         </x-action-button>
                     </td>
