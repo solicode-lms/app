@@ -5,6 +5,7 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -174,6 +175,15 @@ class BaseRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationTache.stats', $realisationTaches_stats);
     
+
+        $realisationTaches_permissions = [
+            'index-livrablesRealisation' => Auth::user()->can('index-livrablesRealisation'),
+            'show-projet' => Auth::user()->can('show-projet'),
+            'edit-realisationTache' => Auth::user()->can('edit-realisationTache'),
+            'destroy-realisationTache' => Auth::user()->can('destroy-realisationTache'),
+            'show-realisationTache' => Auth::user()->can('show-realisationTache'),
+        ];
+ 
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationTache_viewTypes',
@@ -183,7 +193,8 @@ class BaseRealisationTacheService extends BaseService
             'realisationTaches_filters',
             'realisationTache_instance',
             'realisationTache_title',
-            'contextKey'
+            'contextKey',
+            'realisationTaches_permissions'
         );
     
         return [
@@ -195,7 +206,8 @@ class BaseRealisationTacheService extends BaseService
             'realisationTache_viewTypes' => $realisationTache_viewTypes,
             'realisationTache_partialViewName' => $realisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'realisationTache_compact_value' => $compact_value
+            'realisationTache_compact_value' => $compact_value,
+            'realisationTaches_permissions' => $realisationTaches_permissions
         ];
     }
 

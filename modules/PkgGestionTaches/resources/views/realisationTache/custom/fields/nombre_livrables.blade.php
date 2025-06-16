@@ -32,11 +32,16 @@
 
     @php
         $livrablesAttendus = $entity->tache?->livrables ?? collect();
-        
-        $livrablesRealises = $entity->getRealisationLivrable()->pluck('livrable_id')->toArray();
-        $livrablesManquants = $livrablesAttendus->filter(function ($livrableTache) use ($livrablesRealises) {
-            return !in_array($livrableTache->id, $livrablesRealises);
-        });
+        // dd($entity->tache_id);
+         // ⚡ Optimisation : utiliser la relation eager loaded
+        $realises = $entity->livrablesRealisations ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
+         ?? collect();
+     
+        $livrablesRealises = $realises->pluck('livrable_id')->toArray();
+
+        $livrablesManquants = $livrablesAttendus->filter(
+            fn($l) => !in_array($l->id, $livrablesRealises)
+        );
     @endphp
 
  
@@ -44,7 +49,7 @@
         <li class="text-muted text-truncate">Aucun livrable attendu pour cette tâche.</li>
     @else
         {{-- 🌟 Livrables Réalisés --}}
-        @foreach ($entity->getRealisationLivrable() as $realisation)
+        @foreach ($realises as $realisation)
             @php
                 $titre1 = normalize($realisation->livrable?->titre ?? '');
                 $titre2 = normalize($realisation->titre ?? '');

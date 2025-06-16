@@ -40,9 +40,10 @@ class RealisationTacheService extends BaseRealisationTacheService
             'tache.livrables',
             'etatRealisationTache',
             'historiqueRealisationTaches',
-            'realisationProjet',
             'realisationProjet.apprenant',
             'realisationProjet.affectationProjet',
+            'tache.livrables.natureLivrable',
+            'livrablesRealisations.livrable.taches',
         ];
 
     public function initFieldsFilterable()

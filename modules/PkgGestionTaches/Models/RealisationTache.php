@@ -3,23 +3,26 @@
 
 namespace Modules\PkgGestionTaches\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgGestionTaches\Models\Base\BaseRealisationTache;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 class RealisationTache extends BaseRealisationTache
 {
 
     protected $with = [
-       'tache',
-       'realisationProjet',
+       'tache.livrables',
        'realisationProjet.apprenant',
-       'etatRealisationTache'
+       'etatRealisationTache',
+       'livrablesRealisations'
     ];
    
-   /**
+/**
+ *  Remplacé par livrablesRealisations pour optimisation
  * Récupérer les réalisations des livrables associés à la tâche de cette réalisation,
  * uniquement pour l'apprenant lié à cette RealisationTache.
  *
@@ -38,6 +41,21 @@ public function getRealisationLivrable()
         ->get();
 }
 
+    public function livrablesRealisations():HasManyThrough
+    {
+        // dd($this->id);
+        $resultat =  $this->hasManyThrough(
+            LivrablesRealisation::class,
+            RealisationProjet::class,
+            'id', // foreign key on RealisationProjet
+            'realisation_projet_id', // foreign key on LivrablesRealisation
+            'realisation_projet_id', // local key on RealisationTache
+            'id' // local key on RealisationProjet
+        );
+    //    dd($resultat);
+        return $resultat;
+    }
+
     public function __toString()
     {
         return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
@@ -46,7 +64,7 @@ public function getRealisationLivrable()
     public function getRevisionsBeforePriority(): \Illuminate\Database\Eloquent\Collection
     {
         return (new RealisationTacheService)
-            ->getRevisionsNecessairesBeforePriority($this->id);
+            ->getRevisionsNecessairesBeforePriority(realisationTacheId: $this->id);
     }
 
 

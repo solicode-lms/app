@@ -64,7 +64,7 @@
                     </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                        @can('index-livrablesRealisation')
+                        @if($realisationTaches_permissions['index-livrablesRealisation'])
                             <a
                                 data-toggle="tooltip"
                                 title="Livrables"
@@ -78,8 +78,8 @@
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-file-alt"></i>
                             </a>
-                        @endcan
-                        @can('show-projet')
+                        @endif
+                       @if($realisationTaches_permissions['show-projet'])
                             <a
                                 data-toggle="tooltip"
                                 title="Projet"
@@ -92,12 +92,12 @@
                                 data-id="{{ $realisationTache->id }}">
                                 <i class="fas fa-laptop"></i>
                             </a>
-                        @endcan
+                        @endif
 
 
                        
 
-                        @can('edit-realisationTache')
+                       @if($realisationTaches_permissions['edit-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="edit">
                         @can('update', $realisationTache)
                             <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
@@ -105,8 +105,8 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @endcan
-                        @can('show-realisationTache')
+                        @endif
+                        @if($realisationTaches_permissions['show-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="show">
                         @can('view', $realisationTache)
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
@@ -114,10 +114,10 @@
                             </a>
                         @endcan
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$realisationTache" actionName="delete">
-                        @can('destroy-realisationTache')
+                        @if($realisationTaches_permissions['destroy-realisationTache'])
                         @can('delete', $realisationTache)
                             <form class="context-state" action="{{ route('realisationTaches.destroy',['realisationTache' => $realisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
@@ -127,7 +127,7 @@
                                 </button>
                             </form>
                         @endcan
-                        @endcan
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>
