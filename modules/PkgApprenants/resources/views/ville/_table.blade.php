@@ -9,7 +9,7 @@
                 $bulkEdit = Auth::user()->can('edit-ville') || Auth::user()->can('destroy-ville');
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
+
                 <x-sortable-column :sortable="true" width="82"  field="nom" modelname="ville" label="{{ucfirst(__('PkgApprenants::ville.nom'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -22,11 +22,12 @@
                 @endphp
                 <tr id="ville-row-{{$ville->id}}" data-id="{{$ville->id}}">
                     <x-checkbox-row :item="$ville" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
-                    <x-field :entity="$ville" field="nom">
+
+        <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
                         {{ $ville->nom }}
-                    </x-field>
-                    </td>
+    </td>
+
+
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 

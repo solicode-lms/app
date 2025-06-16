@@ -28,40 +28,32 @@
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 12%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
-                    <x-field :entity="$realisationTache" field="projet_title">
+                    <dev :entity="$realisationTache" field="projet_title">
                         {{ $realisationTache->projet_title }}
-                    </x-field>
+
+                    </dev>
                     </td>
                     <td style="max-width: 20%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
-                    <x-field :entity="$realisationTache" field="tache">
+                    <dev :entity="$realisationTache" field="tache">
                        
                          {{  $realisationTache->tache }}
-                    </x-field>
+                    </dev>
                     </td>
                     <td style="max-width: 12%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
-                    <x-field :entity="$realisationTache" field="etatRealisationTache">
-                        @if(!empty($realisationTache->etatRealisationTache))
-                        <x-badge 
-                        :text="$realisationTache->etatRealisationTache" 
-                        :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-                    </x-field>
+                        @include('PkgGestionTaches::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
                     </td>
                     <td style="max-width: 14%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
-                    <x-field :entity="$realisationTache" field="nom_prenom_apprenant">
+                    <dev :entity="$realisationTache" field="nom_prenom_apprenant">
                         {{ $realisationTache->nom_prenom_apprenant }}
-                    </x-field>
+                    </dev>
                     </td>
                     <td style="max-width: 9%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="deadline"  data-toggle="tooltip" title="{{ $realisationTache->deadline }}" >
-                    <x-field :entity="$realisationTache" field="deadline">
+                    <dev :entity="$realisationTache" field="deadline">
                         <x-deadline-display :value="$realisationTache->deadline" />
-                    </x-field>
+                    </dev>
                     </td>
                     <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
-                    <x-field :entity="$realisationTache" field="nombre_livrables">
-                        {{ $realisationTache->nombre_livrables }}
-                    </x-field>
+                        @include('PkgGestionTaches::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($realisationTaches_permissions['index-livrablesRealisation'])
