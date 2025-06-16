@@ -43,7 +43,7 @@ export class LoadListAction extends BaseAction {
         );
 
         // Afficher l'indicateur de chargement
-        this.loader.show();
+        this.loader.showNomBloquante();
 
 
         // Requête AJAX pour charger les données

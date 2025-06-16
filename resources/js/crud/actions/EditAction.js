@@ -137,7 +137,7 @@ export class EditAction extends Action {
      * @param {Function} onSuccess - Callback appelé après succès.
      */
     update_attributes(data, onSuccess) {
-        this.loader.showNomBloquante();
+        this.loader.showNomBloquante("Mise à jour");
         const url = this.config.updateAttributesUrl 
         const finalUrl = this.appendParamsToUrl(
             url,

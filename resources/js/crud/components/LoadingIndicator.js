@@ -56,8 +56,10 @@ export class LoadingIndicator {
      * Affiche un indicateur de chargement non bloquant sous forme de rectangle en haut à droite du formulaire.
      * À utiliser pendant le calcul des champs de formulaire.
      */
-    showNomBloquante() {
+    showNomBloquante(message) {
         const container = document.querySelector(this.containerSelector);
+
+        const msg = message ? message : "Chargement" 
 
         if (!container) {
             console.error('Conteneur de chargement introuvable.');
@@ -86,8 +88,8 @@ export class LoadingIndicator {
 
             // Contenu de l'indicateur
             loadingDiv.innerHTML = `
-                <span class="spinner-border spinner-border-sm text-danger me-2"></span>
-                Calcul en cours...
+                <span class="spinner-border spinner-border-sm text-danger me-2"> </span>
+                <span style="padding:2px">${msg} ...</span>
             `;
 
             container.appendChild(loadingDiv);

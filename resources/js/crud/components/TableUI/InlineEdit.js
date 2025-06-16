@@ -87,7 +87,7 @@ export class InlineEdit extends Action {
 
    
 
-        this.loader.show();
+        this.loader.showNomBloquante("Chargement de formulaire");
            
 
             $.get(url)
