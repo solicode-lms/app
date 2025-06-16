@@ -29,7 +29,7 @@ class BaseEMetadataDefinitionController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('eMetadataDefinition.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('eMetadataDefinition');

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -165,6 +167,23 @@ class BaseEtatRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatRealisationTache.stats', $etatRealisationTaches_stats);
     
+        $etatRealisationTaches_permissions = [
+
+            'edit-etatRealisationTache' => Auth::user()->can('edit-etatRealisationTache'),
+            'destroy-etatRealisationTache' => Auth::user()->can('destroy-etatRealisationTache'),
+            'show-etatRealisationTache' => Auth::user()->can('show-etatRealisationTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $etatRealisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($etatRealisationTaches_data as $item) {
+                $etatRealisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'etatRealisationTache_viewTypes',
@@ -174,7 +193,9 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTaches_filters',
             'etatRealisationTache_instance',
             'etatRealisationTache_title',
-            'contextKey'
+            'contextKey',
+            'etatRealisationTaches_permissions',
+            'etatRealisationTaches_permissionsByItem'
         );
     
         return [
@@ -186,7 +207,9 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTache_viewTypes' => $etatRealisationTache_viewTypes,
             'etatRealisationTache_partialViewName' => $etatRealisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'etatRealisationTache_compact_value' => $compact_value
+            'etatRealisationTache_compact_value' => $compact_value,
+            'etatRealisationTaches_permissions' => $etatRealisationTaches_permissions,
+            'etatRealisationTaches_permissionsByItem' => $etatRealisationTaches_permissionsByItem
         ];
     }
 

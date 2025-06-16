@@ -39,7 +39,7 @@ class BaseRealisationTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationTache');

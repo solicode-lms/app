@@ -32,7 +32,7 @@ class BaseModuleController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('module.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('module');

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\Core\Services\BaseService;
 
@@ -149,6 +151,23 @@ class BaseTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.tache.stats', $taches_stats);
     
+        $taches_permissions = [
+
+            'edit-tache' => Auth::user()->can('edit-tache'),
+            'destroy-tache' => Auth::user()->can('destroy-tache'),
+            'show-tache' => Auth::user()->can('show-tache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $taches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($taches_data as $item) {
+                $taches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'tache_viewTypes',
@@ -158,7 +177,9 @@ class BaseTacheService extends BaseService
             'taches_filters',
             'tache_instance',
             'tache_title',
-            'contextKey'
+            'contextKey',
+            'taches_permissions',
+            'taches_permissionsByItem'
         );
     
         return [
@@ -170,7 +191,9 @@ class BaseTacheService extends BaseService
             'tache_viewTypes' => $tache_viewTypes,
             'tache_partialViewName' => $tache_partialViewName,
             'contextKey' => $contextKey,
-            'tache_compact_value' => $compact_value
+            'tache_compact_value' => $compact_value,
+            'taches_permissions' => $taches_permissions,
+            'taches_permissionsByItem' => $taches_permissionsByItem
         ];
     }
 

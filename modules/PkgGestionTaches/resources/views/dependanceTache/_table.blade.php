@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-dependanceTache') || Auth::user()->can('destroy-dependanceTache');
+                    $bulkEdit = $dependanceTaches_permissions['edit-dependanceTache'] || $devdependanceTaches_permissions['destroy-dependanceTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgGestionTaches::typeDependanceTache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
@@ -20,55 +19,49 @@
             @section('dependanceTache-table-tbody')
             @foreach ($dependanceTaches_data as $dependanceTache)
                 @php
-                    $isEditable = Auth::user()->can('edit-dependanceTache') && Auth::user()->can('update', $dependanceTache);
+                    $isEditable = $dependanceTaches_permissions['edit-dependanceTache'] && $dependanceTaches_permissionsByItem['update'][$dependanceTache->id];
                 @endphp
                 <tr id="dependanceTache-row-{{$dependanceTache->id}}" data-id="{{$dependanceTache->id}}">
                     <x-checkbox-row :item="$dependanceTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$dependanceTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $dependanceTache->tache }}" >
-                    <x-field :entity="$dependanceTache" field="tache">
-                       
-                         {{  $dependanceTache->tache }}
-                    </x-field>
+                        {{  $dependanceTache->tache }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$dependanceTache->id}}" data-field="type_dependance_tache_id"  data-toggle="tooltip" title="{{ $dependanceTache->typeDependanceTache }}" >
-                    <x-field :entity="$dependanceTache" field="typeDependanceTache">
-                       
-                         {{  $dependanceTache->typeDependanceTache }}
-                    </x-field>
+                        {{  $dependanceTache->typeDependanceTache }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$dependanceTache->id}}" data-field="tache_cible_id"  data-toggle="tooltip" title="{{ $dependanceTache->tacheCible }}" >
-                    <x-field :entity="$dependanceTache" field="tacheCible">
-                       
-                         {{  $dependanceTache->tacheCible }}
-                    </x-field>
+                        {{  $dependanceTache->tacheCible }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-dependanceTache')
+                        @if($dependanceTaches_permissions['edit-dependanceTache'])
                         <x-action-button :entity="$dependanceTache" actionName="edit">
-                        @can('update', $dependanceTache)
+                        @if($dependanceTaches_permissionsByItem['update'][$dependanceTache->id])
                             <a href="{{ route('dependanceTaches.edit', ['dependanceTache' => $dependanceTache->id]) }}" data-id="{{$dependanceTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-dependanceTache')
+                        @endif
+                        @if($dependanceTaches_permissions['show-dependanceTache'])
                         <x-action-button :entity="$dependanceTache" actionName="show">
-                        @can('view', $dependanceTache)
+                        @if($dependanceTaches_permissionsByItem['view'][$dependanceTache->id])
                             <a href="{{ route('dependanceTaches.show', ['dependanceTache' => $dependanceTache->id]) }}" data-id="{{$dependanceTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$dependanceTache" actionName="delete">
-                        @can('destroy-dependanceTache')
-                        @can('delete', $dependanceTache)
+                        @if($dependanceTaches_permissions['destroy-dependanceTache'])
+                        @if($dependanceTaches_permissionsByItem['delete'][$dependanceTache->id])
                             <form class="context-state" action="{{ route('dependanceTaches.destroy',['dependanceTache' => $dependanceTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -76,8 +69,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

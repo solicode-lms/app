@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-workflowProjet') || Auth::user()->can('destroy-workflowProjet');
+                    $bulkEdit = $workflowProjets_permissions['edit-workflowProjet'] || $devworkflowProjets_permissions['destroy-workflowProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="workflowProjet" label="{{ucfirst(__('PkgRealisationProjets::workflowProjet.ordre'))}}" />
                 <x-sortable-column :sortable="true" width="25.666666666666668"  field="code" modelname="workflowProjet" label="{{ucfirst(__('PkgRealisationProjets::workflowProjet.code'))}}" />
                 <x-sortable-column :sortable="true" width="25.666666666666668"  field="titre" modelname="workflowProjet" label="{{ucfirst(__('PkgRealisationProjets::workflowProjet.titre'))}}" />
@@ -21,62 +20,58 @@
             @section('workflowProjet-table-tbody')
             @foreach ($workflowProjets_data as $workflowProjet)
                 @php
-                    $isEditable = Auth::user()->can('edit-workflowProjet') && Auth::user()->can('update', $workflowProjet);
+                    $isEditable = $workflowProjets_permissions['edit-workflowProjet'] && $workflowProjets_permissionsByItem['update'][$workflowProjet->id];
                 @endphp
                 <tr id="workflowProjet-row-{{$workflowProjet->id}}" data-id="{{$workflowProjet->id}}">
                     <x-checkbox-row :item="$workflowProjet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowProjet->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $workflowProjet->ordre }}" >
-                    <x-field :entity="$workflowProjet" field="ordre">
-                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $workflowProjet->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowProjet->id}}" data-field="code"  data-toggle="tooltip" title="{{ $workflowProjet->code }}" >
-                    <x-field :entity="$workflowProjet" field="code">
                         {{ $workflowProjet->code }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowProjet->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $workflowProjet->titre }}" >
-                    <x-field :entity="$workflowProjet" field="titre">
                         {{ $workflowProjet->titre }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 25.666666666666668%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$workflowProjet->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $workflowProjet->sysColor }}" >
-                    <x-field :entity="$workflowProjet" field="sysColor">
                         <x-badge 
                         :text="$workflowProjet->sysColor->name ?? ''" 
                         :background="$workflowProjet->sysColor->hex ?? '#6c757d'" 
                         />
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-workflowProjet')
+                        @if($workflowProjets_permissions['edit-workflowProjet'])
                         <x-action-button :entity="$workflowProjet" actionName="edit">
-                        @can('update', $workflowProjet)
+                        @if($workflowProjets_permissionsByItem['update'][$workflowProjet->id])
                             <a href="{{ route('workflowProjets.edit', ['workflowProjet' => $workflowProjet->id]) }}" data-id="{{$workflowProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-workflowProjet')
+                        @endif
+                        @if($workflowProjets_permissions['show-workflowProjet'])
                         <x-action-button :entity="$workflowProjet" actionName="show">
-                        @can('view', $workflowProjet)
+                        @if($workflowProjets_permissionsByItem['view'][$workflowProjet->id])
                             <a href="{{ route('workflowProjets.show', ['workflowProjet' => $workflowProjet->id]) }}" data-id="{{$workflowProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$workflowProjet" actionName="delete">
-                        @can('destroy-workflowProjet')
-                        @can('delete', $workflowProjet)
+                        @if($workflowProjets_permissions['destroy-workflowProjet'])
+                        @if($workflowProjets_permissionsByItem['delete'][$workflowProjet->id])
                             <form class="context-state" action="{{ route('workflowProjets.destroy',['workflowProjet' => $workflowProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -84,8 +79,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

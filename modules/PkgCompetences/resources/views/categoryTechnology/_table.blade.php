@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-categoryTechnology') || Auth::user()->can('destroy-categoryTechnology');
+                    $bulkEdit = $categoryTechnologies_permissions['edit-categoryTechnology'] || $devcategoryTechnologies_permissions['destroy-categoryTechnology'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="82"  field="nom" modelname="categoryTechnology" label="{{ucfirst(__('PkgCompetences::categoryTechnology.nom'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,42 +17,41 @@
             @section('categoryTechnology-table-tbody')
             @foreach ($categoryTechnologies_data as $categoryTechnology)
                 @php
-                    $isEditable = Auth::user()->can('edit-categoryTechnology') && Auth::user()->can('update', $categoryTechnology);
+                    $isEditable = $categoryTechnologies_permissions['edit-categoryTechnology'] && $categoryTechnologies_permissionsByItem['update'][$categoryTechnology->id];
                 @endphp
                 <tr id="categoryTechnology-row-{{$categoryTechnology->id}}" data-id="{{$categoryTechnology->id}}">
                     <x-checkbox-row :item="$categoryTechnology" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$categoryTechnology->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $categoryTechnology->nom }}" >
-                    <x-field :entity="$categoryTechnology" field="nom">
                         {{ $categoryTechnology->nom }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-categoryTechnology')
+                        @if($categoryTechnologies_permissions['edit-categoryTechnology'])
                         <x-action-button :entity="$categoryTechnology" actionName="edit">
-                        @can('update', $categoryTechnology)
+                        @if($categoryTechnologies_permissionsByItem['update'][$categoryTechnology->id])
                             <a href="{{ route('categoryTechnologies.edit', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-categoryTechnology')
+                        @endif
+                        @if($categoryTechnologies_permissions['show-categoryTechnology'])
                         <x-action-button :entity="$categoryTechnology" actionName="show">
-                        @can('view', $categoryTechnology)
+                        @if($categoryTechnologies_permissionsByItem['view'][$categoryTechnology->id])
                             <a href="{{ route('categoryTechnologies.show', ['categoryTechnology' => $categoryTechnology->id]) }}" data-id="{{$categoryTechnology->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$categoryTechnology" actionName="delete">
-                        @can('destroy-categoryTechnology')
-                        @can('delete', $categoryTechnology)
+                        @if($categoryTechnologies_permissions['destroy-categoryTechnology'])
+                        @if($categoryTechnologies_permissionsByItem['delete'][$categoryTechnology->id])
                             <form class="context-state" action="{{ route('categoryTechnologies.destroy',['categoryTechnology' => $categoryTechnology->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -61,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

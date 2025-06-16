@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-sysColor') || Auth::user()->can('destroy-sysColor');
+                    $bulkEdit = $sysColors_permissions['edit-sysColor'] || $devsysColors_permissions['destroy-sysColor'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="sysColor" label="{{ucfirst(__('Core::sysColor.name'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,42 +17,41 @@
             @section('sysColor-table-tbody')
             @foreach ($sysColors_data as $sysColor)
                 @php
-                    $isEditable = Auth::user()->can('edit-sysColor') && Auth::user()->can('update', $sysColor);
+                    $isEditable = $sysColors_permissions['edit-sysColor'] && $sysColors_permissionsByItem['update'][$sysColor->id];
                 @endphp
                 <tr id="sysColor-row-{{$sysColor->id}}" data-id="{{$sysColor->id}}">
                     <x-checkbox-row :item="$sysColor" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysColor->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysColor->name }}" >
-                    <x-field :entity="$sysColor" field="name">
                         {{ $sysColor->name }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-sysColor')
+                        @if($sysColors_permissions['edit-sysColor'])
                         <x-action-button :entity="$sysColor" actionName="edit">
-                        @can('update', $sysColor)
+                        @if($sysColors_permissionsByItem['update'][$sysColor->id])
                             <a href="{{ route('sysColors.edit', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-sysColor')
+                        @endif
+                        @if($sysColors_permissions['show-sysColor'])
                         <x-action-button :entity="$sysColor" actionName="show">
-                        @can('view', $sysColor)
+                        @if($sysColors_permissionsByItem['view'][$sysColor->id])
                             <a href="{{ route('sysColors.show', ['sysColor' => $sysColor->id]) }}" data-id="{{$sysColor->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$sysColor" actionName="delete">
-                        @can('destroy-sysColor')
-                        @can('delete', $sysColor)
+                        @if($sysColors_permissions['destroy-sysColor'])
+                        @if($sysColors_permissionsByItem['delete'][$sysColor->id])
                             <form class="context-state" action="{{ route('sysColors.destroy',['sysColor' => $sysColor->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -61,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

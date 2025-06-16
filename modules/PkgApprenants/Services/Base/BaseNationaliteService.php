@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\Core\Services\BaseService;
 
@@ -136,6 +138,23 @@ class BaseNationaliteService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.nationalite.stats', $nationalites_stats);
     
+        $nationalites_permissions = [
+
+            'edit-nationalite' => Auth::user()->can('edit-nationalite'),
+            'destroy-nationalite' => Auth::user()->can('destroy-nationalite'),
+            'show-nationalite' => Auth::user()->can('show-nationalite'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $nationalites_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($nationalites_data as $item) {
+                $nationalites_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'nationalite_viewTypes',
@@ -145,7 +164,9 @@ class BaseNationaliteService extends BaseService
             'nationalites_filters',
             'nationalite_instance',
             'nationalite_title',
-            'contextKey'
+            'contextKey',
+            'nationalites_permissions',
+            'nationalites_permissionsByItem'
         );
     
         return [
@@ -157,7 +178,9 @@ class BaseNationaliteService extends BaseService
             'nationalite_viewTypes' => $nationalite_viewTypes,
             'nationalite_partialViewName' => $nationalite_partialViewName,
             'contextKey' => $contextKey,
-            'nationalite_compact_value' => $compact_value
+            'nationalite_compact_value' => $compact_value,
+            'nationalites_permissions' => $nationalites_permissions,
+            'nationalites_permissionsByItem' => $nationalites_permissionsByItem
         ];
     }
 

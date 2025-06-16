@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-formateur') || Auth::user()->can('destroy-formateur');
+                    $bulkEdit = $formateurs_permissions['edit-formateur'] || $devformateurs_permissions['destroy-formateur'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formateur" label="{{ucfirst(__('PkgFormation::formateur.nom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="formateur" label="{{ucfirst(__('PkgFormation::formateur.prenom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="specialites" modelname="formateur" label="{{ucfirst(__('PkgFormation::specialite.plural'))}}" />
@@ -21,40 +20,34 @@
             @section('formateur-table-tbody')
             @foreach ($formateurs_data as $formateur)
                 @php
-                    $isEditable = Auth::user()->can('edit-formateur') && Auth::user()->can('update', $formateur);
+                    $isEditable = $formateurs_permissions['edit-formateur'] && $formateurs_permissionsByItem['update'][$formateur->id];
                 @endphp
                 <tr id="formateur-row-{{$formateur->id}}" data-id="{{$formateur->id}}">
                     <x-checkbox-row :item="$formateur" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formateur->nom }}" >
-                    <x-field :entity="$formateur" field="nom">
                         {{ $formateur->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $formateur->prenom }}" >
-                    <x-field :entity="$formateur" field="prenom">
                         {{ $formateur->prenom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="specialites"  data-toggle="tooltip" title="{{ $formateur->specialites }}" >
-                    <x-field :entity="$formateur" field="specialites">
                         <ul>
                             @foreach ($formateur->specialites as $specialite)
                                 <li @if(strlen($specialite) > 30) data-toggle="tooltip" title="{{$specialite}}"  @endif>@limit($specialite, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formateur->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $formateur->groupes }}" >
-                    <x-field :entity="$formateur" field="groupes">
                         <ul>
                             @foreach ($formateur->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                       @can('initPassword-formateur')
+                        @if($formateurs_permissions['initPassword-formateur'])
                         <a 
                         data-toggle="tooltip" 
                         title="Initialiser le mot de passe" 
@@ -65,33 +58,33 @@
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fas fa-unlock-alt"></i>
                         </a>
-                        @endcan
+                        @endif
                         
 
                        
 
-                        @can('edit-formateur')
+                        @if($formateurs_permissions['edit-formateur'])
                         <x-action-button :entity="$formateur" actionName="edit">
-                        @can('update', $formateur)
+                        @if($formateurs_permissionsByItem['update'][$formateur->id])
                             <a href="{{ route('formateurs.edit', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-formateur')
+                        @endif
+                        @if($formateurs_permissions['show-formateur'])
                         <x-action-button :entity="$formateur" actionName="show">
-                        @can('view', $formateur)
+                        @if($formateurs_permissionsByItem['view'][$formateur->id])
                             <a href="{{ route('formateurs.show', ['formateur' => $formateur->id]) }}" data-id="{{$formateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$formateur" actionName="delete">
-                        @can('destroy-formateur')
-                        @can('delete', $formateur)
+                        @if($formateurs_permissions['destroy-formateur'])
+                        @if($formateurs_permissionsByItem['delete'][$formateur->id])
                             <form class="context-state" action="{{ route('formateurs.destroy',['formateur' => $formateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -99,8 +92,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

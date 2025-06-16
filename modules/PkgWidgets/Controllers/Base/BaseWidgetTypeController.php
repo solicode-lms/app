@@ -29,7 +29,7 @@ class BaseWidgetTypeController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetType');

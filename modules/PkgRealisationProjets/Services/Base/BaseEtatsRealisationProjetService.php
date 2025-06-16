@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -165,6 +167,23 @@ class BaseEtatsRealisationProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatsRealisationProjet.stats', $etatsRealisationProjets_stats);
     
+        $etatsRealisationProjets_permissions = [
+
+            'edit-etatsRealisationProjet' => Auth::user()->can('edit-etatsRealisationProjet'),
+            'destroy-etatsRealisationProjet' => Auth::user()->can('destroy-etatsRealisationProjet'),
+            'show-etatsRealisationProjet' => Auth::user()->can('show-etatsRealisationProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $etatsRealisationProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($etatsRealisationProjets_data as $item) {
+                $etatsRealisationProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'etatsRealisationProjet_viewTypes',
@@ -174,7 +193,9 @@ class BaseEtatsRealisationProjetService extends BaseService
             'etatsRealisationProjets_filters',
             'etatsRealisationProjet_instance',
             'etatsRealisationProjet_title',
-            'contextKey'
+            'contextKey',
+            'etatsRealisationProjets_permissions',
+            'etatsRealisationProjets_permissionsByItem'
         );
     
         return [
@@ -186,7 +207,9 @@ class BaseEtatsRealisationProjetService extends BaseService
             'etatsRealisationProjet_viewTypes' => $etatsRealisationProjet_viewTypes,
             'etatsRealisationProjet_partialViewName' => $etatsRealisationProjet_partialViewName,
             'contextKey' => $contextKey,
-            'etatsRealisationProjet_compact_value' => $compact_value
+            'etatsRealisationProjet_compact_value' => $compact_value,
+            'etatsRealisationProjets_permissions' => $etatsRealisationProjets_permissions,
+            'etatsRealisationProjets_permissionsByItem' => $etatsRealisationProjets_permissionsByItem
         ];
     }
 

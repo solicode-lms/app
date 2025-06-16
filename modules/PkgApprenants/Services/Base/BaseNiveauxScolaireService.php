@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\Core\Services\BaseService;
 
@@ -136,6 +138,23 @@ class BaseNiveauxScolaireService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauxScolaire.stats', $niveauxScolaires_stats);
     
+        $niveauxScolaires_permissions = [
+
+            'edit-niveauxScolaire' => Auth::user()->can('edit-niveauxScolaire'),
+            'destroy-niveauxScolaire' => Auth::user()->can('destroy-niveauxScolaire'),
+            'show-niveauxScolaire' => Auth::user()->can('show-niveauxScolaire'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $niveauxScolaires_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($niveauxScolaires_data as $item) {
+                $niveauxScolaires_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'niveauxScolaire_viewTypes',
@@ -145,7 +164,9 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaires_filters',
             'niveauxScolaire_instance',
             'niveauxScolaire_title',
-            'contextKey'
+            'contextKey',
+            'niveauxScolaires_permissions',
+            'niveauxScolaires_permissionsByItem'
         );
     
         return [
@@ -157,7 +178,9 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaire_viewTypes' => $niveauxScolaire_viewTypes,
             'niveauxScolaire_partialViewName' => $niveauxScolaire_partialViewName,
             'contextKey' => $contextKey,
-            'niveauxScolaire_compact_value' => $compact_value
+            'niveauxScolaire_compact_value' => $compact_value,
+            'niveauxScolaires_permissions' => $niveauxScolaires_permissions,
+            'niveauxScolaires_permissionsByItem' => $niveauxScolaires_permissionsByItem
         ];
     }
 

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\Chapitre;
 use Modules\Core\Services\BaseService;
 
@@ -159,6 +161,23 @@ class BaseChapitreService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.chapitre.stats', $chapitres_stats);
     
+        $chapitres_permissions = [
+
+            'edit-chapitre' => Auth::user()->can('edit-chapitre'),
+            'destroy-chapitre' => Auth::user()->can('destroy-chapitre'),
+            'show-chapitre' => Auth::user()->can('show-chapitre'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $chapitres_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($chapitres_data as $item) {
+                $chapitres_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'chapitre_viewTypes',
@@ -168,7 +187,9 @@ class BaseChapitreService extends BaseService
             'chapitres_filters',
             'chapitre_instance',
             'chapitre_title',
-            'contextKey'
+            'contextKey',
+            'chapitres_permissions',
+            'chapitres_permissionsByItem'
         );
     
         return [
@@ -180,7 +201,9 @@ class BaseChapitreService extends BaseService
             'chapitre_viewTypes' => $chapitre_viewTypes,
             'chapitre_partialViewName' => $chapitre_partialViewName,
             'contextKey' => $contextKey,
-            'chapitre_compact_value' => $compact_value
+            'chapitre_compact_value' => $compact_value,
+            'chapitres_permissions' => $chapitres_permissions,
+            'chapitres_permissionsByItem' => $chapitres_permissionsByItem
         ];
     }
 

@@ -31,7 +31,7 @@ class BaseNiveauDifficulteController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('niveauDifficulte.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('niveauDifficulte');

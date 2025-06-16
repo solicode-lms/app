@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-user') || Auth::user()->can('destroy-user');
+                    $bulkEdit = $users_permissions['edit-user'] || $devusers_permissions['destroy-user'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="user" label="{{ucfirst(__('PkgAutorisation::user.name'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="email" modelname="user" label="{{ucfirst(__('PkgAutorisation::user.email'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="roles" modelname="user" label="{{ucfirst(__('PkgAutorisation::role.plural'))}}" />
@@ -20,31 +19,27 @@
             @section('user-table-tbody')
             @foreach ($users_data as $user)
                 @php
-                    $isEditable = Auth::user()->can('edit-user') && Auth::user()->can('update', $user);
+                    $isEditable = $users_permissions['edit-user'] && $users_permissionsByItem['update'][$user->id];
                 @endphp
                 <tr id="user-row-{{$user->id}}" data-id="{{$user->id}}">
                     <x-checkbox-row :item="$user" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="name"  data-toggle="tooltip" title="{{ $user->name }}" >
-                    <x-field :entity="$user" field="name">
                         {{ $user->name }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="email"  data-toggle="tooltip" title="{{ $user->email }}" >
-                    <x-field :entity="$user" field="email">
                         {{ $user->email }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$user->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $user->roles }}" >
-                    <x-field :entity="$user" field="roles">
                         <ul>
                             @foreach ($user->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                       @can('initPassword-user')
+                        @if($users_permissions['initPassword-user'])
                         <a 
                         data-toggle="tooltip" 
                         title="Initialiser le mot de passe" 
@@ -55,33 +50,33 @@
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fa-unlock-alt"></i>
                         </a>
-                        @endcan
+                        @endif
                         
 
                        
 
-                        @can('edit-user')
+                        @if($users_permissions['edit-user'])
                         <x-action-button :entity="$user" actionName="edit">
-                        @can('update', $user)
+                        @if($users_permissionsByItem['update'][$user->id])
                             <a href="{{ route('users.edit', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-user')
+                        @endif
+                        @if($users_permissions['show-user'])
                         <x-action-button :entity="$user" actionName="show">
-                        @can('view', $user)
+                        @if($users_permissionsByItem['view'][$user->id])
                             <a href="{{ route('users.show', ['user' => $user->id]) }}" data-id="{{$user->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$user" actionName="delete">
-                        @can('destroy-user')
-                        @can('delete', $user)
+                        @if($users_permissions['destroy-user'])
+                        @if($users_permissionsByItem['delete'][$user->id])
                             <form class="context-state" action="{{ route('users.destroy',['user' => $user->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -89,8 +84,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-etatChapitre') || Auth::user()->can('destroy-etatChapitre');
+                    $bulkEdit = $etatChapitres_permissions['edit-etatChapitre'] || $devetatChapitres_permissions['destroy-etatChapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="etatChapitre" label="{{ucfirst(__('PkgAutoformation::etatChapitre.nom'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatChapitre" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="etatChapitre" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
@@ -20,56 +19,52 @@
             @section('etatChapitre-table-tbody')
             @foreach ($etatChapitres_data as $etatChapitre)
                 @php
-                    $isEditable = Auth::user()->can('edit-etatChapitre') && Auth::user()->can('update', $etatChapitre);
+                    $isEditable = $etatChapitres_permissions['edit-etatChapitre'] && $etatChapitres_permissionsByItem['update'][$etatChapitre->id];
                 @endphp
                 <tr id="etatChapitre-row-{{$etatChapitre->id}}" data-id="{{$etatChapitre->id}}">
                     <x-checkbox-row :item="$etatChapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatChapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatChapitre->nom }}" >
-                    <x-field :entity="$etatChapitre" field="nom">
                         {{ $etatChapitre->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatChapitre->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatChapitre->sysColor }}" >
-                    <x-field :entity="$etatChapitre" field="sysColor">
                         <x-badge 
                         :text="$etatChapitre->sysColor->name ?? ''" 
                         :background="$etatChapitre->sysColor->hex ?? '#6c757d'" 
                         />
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatChapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatChapitre->formateur }}" >
-                    <x-field :entity="$etatChapitre" field="formateur">
-                       
-                         {{  $etatChapitre->formateur }}
-                    </x-field>
+                        {{  $etatChapitre->formateur }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-etatChapitre')
+                        @if($etatChapitres_permissions['edit-etatChapitre'])
                         <x-action-button :entity="$etatChapitre" actionName="edit">
-                        @can('update', $etatChapitre)
+                        @if($etatChapitres_permissionsByItem['update'][$etatChapitre->id])
                             <a href="{{ route('etatChapitres.edit', ['etatChapitre' => $etatChapitre->id]) }}" data-id="{{$etatChapitre->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-etatChapitre')
+                        @endif
+                        @if($etatChapitres_permissions['show-etatChapitre'])
                         <x-action-button :entity="$etatChapitre" actionName="show">
-                        @can('view', $etatChapitre)
+                        @if($etatChapitres_permissionsByItem['view'][$etatChapitre->id])
                             <a href="{{ route('etatChapitres.show', ['etatChapitre' => $etatChapitre->id]) }}" data-id="{{$etatChapitre->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$etatChapitre" actionName="delete">
-                        @can('destroy-etatChapitre')
-                        @can('delete', $etatChapitre)
+                        @if($etatChapitres_permissions['destroy-etatChapitre'])
+                        @if($etatChapitres_permissionsByItem['delete'][$etatChapitre->id])
                             <form class="context-state" action="{{ route('etatChapitres.destroy',['etatChapitre' => $etatChapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -77,8 +72,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

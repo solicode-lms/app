@@ -32,7 +32,7 @@ class BaseWorkflowFormationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('workflowFormation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('workflowFormation');

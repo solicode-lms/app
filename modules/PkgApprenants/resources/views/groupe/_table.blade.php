@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-groupe') || Auth::user()->can('destroy-groupe');
+                    $bulkEdit = $groupes_permissions['edit-groupe'] || $devgroupes_permissions['destroy-groupe'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="groupe" label="{{ucfirst(__('PkgApprenants::groupe.code'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="filiere_id" modelname="groupe" label="{{ucfirst(__('PkgFormation::filiere.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="formateurs" modelname="groupe" label="{{ucfirst(__('PkgFormation::formateur.plural'))}}" />
@@ -20,57 +19,52 @@
             @section('groupe-table-tbody')
             @foreach ($groupes_data as $groupe)
                 @php
-                    $isEditable = Auth::user()->can('edit-groupe') && Auth::user()->can('update', $groupe);
+                    $isEditable = $groupes_permissions['edit-groupe'] && $groupes_permissionsByItem['update'][$groupe->id];
                 @endphp
                 <tr id="groupe-row-{{$groupe->id}}" data-id="{{$groupe->id}}">
                     <x-checkbox-row :item="$groupe" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="code"  data-toggle="tooltip" title="{{ $groupe->code }}" >
-                    <x-field :entity="$groupe" field="code">
                         {{ $groupe->code }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $groupe->filiere }}" >
-                    <x-field :entity="$groupe" field="filiere">
-                       
-                         {{  $groupe->filiere }}
-                    </x-field>
+                        {{  $groupe->filiere }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$groupe->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $groupe->formateurs }}" >
-                    <x-field :entity="$groupe" field="formateurs">
                         <ul>
                             @foreach ($groupe->formateurs as $formateur)
                                 <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-groupe')
+                        @if($groupes_permissions['edit-groupe'])
                         <x-action-button :entity="$groupe" actionName="edit">
-                        @can('update', $groupe)
+                        @if($groupes_permissionsByItem['update'][$groupe->id])
                             <a href="{{ route('groupes.edit', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-groupe')
+                        @endif
+                        @if($groupes_permissions['show-groupe'])
                         <x-action-button :entity="$groupe" actionName="show">
-                        @can('view', $groupe)
+                        @if($groupes_permissionsByItem['view'][$groupe->id])
                             <a href="{{ route('groupes.show', ['groupe' => $groupe->id]) }}" data-id="{{$groupe->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$groupe" actionName="delete">
-                        @can('destroy-groupe')
-                        @can('delete', $groupe)
+                        @if($groupes_permissions['destroy-groupe'])
+                        @if($groupes_permissionsByItem['delete'][$groupe->id])
                             <form class="context-state" action="{{ route('groupes.destroy',['groupe' => $groupe->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -78,8 +72,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

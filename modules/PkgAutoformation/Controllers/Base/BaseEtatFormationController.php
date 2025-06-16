@@ -38,7 +38,7 @@ class BaseEtatFormationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('etatFormation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('etatFormation');

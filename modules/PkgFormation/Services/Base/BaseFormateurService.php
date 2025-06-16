@@ -5,6 +5,8 @@
 
 namespace Modules\PkgFormation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\Core\Services\BaseService;
 
@@ -170,6 +172,24 @@ class BaseFormateurService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formateur.stats', $formateurs_stats);
     
+        $formateurs_permissions = [
+            'initPassword-formateur' => Auth::user()->can('initPassword-formateur'),           
+            
+            'edit-formateur' => Auth::user()->can('edit-formateur'),
+            'destroy-formateur' => Auth::user()->can('destroy-formateur'),
+            'show-formateur' => Auth::user()->can('show-formateur'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $formateurs_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($formateurs_data as $item) {
+                $formateurs_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'formateur_viewTypes',
@@ -179,7 +199,9 @@ class BaseFormateurService extends BaseService
             'formateurs_filters',
             'formateur_instance',
             'formateur_title',
-            'contextKey'
+            'contextKey',
+            'formateurs_permissions',
+            'formateurs_permissionsByItem'
         );
     
         return [
@@ -191,7 +213,9 @@ class BaseFormateurService extends BaseService
             'formateur_viewTypes' => $formateur_viewTypes,
             'formateur_partialViewName' => $formateur_partialViewName,
             'contextKey' => $contextKey,
-            'formateur_compact_value' => $compact_value
+            'formateur_compact_value' => $compact_value,
+            'formateurs_permissions' => $formateurs_permissions,
+            'formateurs_permissionsByItem' => $formateurs_permissionsByItem
         ];
     }
 

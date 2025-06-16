@@ -5,6 +5,8 @@
 
 namespace Modules\PkgNotification\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgNotification\Models\Notification;
 use Modules\Core\Services\BaseService;
 
@@ -162,6 +164,23 @@ class BaseNotificationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.notification.stats', $notifications_stats);
     
+        $notifications_permissions = [
+
+            'edit-notification' => Auth::user()->can('edit-notification'),
+            'destroy-notification' => Auth::user()->can('destroy-notification'),
+            'show-notification' => Auth::user()->can('show-notification'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $notifications_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($notifications_data as $item) {
+                $notifications_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'notification_viewTypes',
@@ -171,7 +190,9 @@ class BaseNotificationService extends BaseService
             'notifications_filters',
             'notification_instance',
             'notification_title',
-            'contextKey'
+            'contextKey',
+            'notifications_permissions',
+            'notifications_permissionsByItem'
         );
     
         return [
@@ -183,7 +204,9 @@ class BaseNotificationService extends BaseService
             'notification_viewTypes' => $notification_viewTypes,
             'notification_partialViewName' => $notification_partialViewName,
             'contextKey' => $contextKey,
-            'notification_compact_value' => $compact_value
+            'notification_compact_value' => $compact_value,
+            'notifications_permissions' => $notifications_permissions,
+            'notifications_permissionsByItem' => $notifications_permissionsByItem
         ];
     }
 

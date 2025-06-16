@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-labelRealisationTache') || Auth::user()->can('destroy-labelRealisationTache');
+                    $bulkEdit = $labelRealisationTaches_permissions['edit-labelRealisationTache'] || $devlabelRealisationTaches_permissions['destroy-labelRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="labelRealisationTache" label="{{ucfirst(__('PkgGestionTaches::labelRealisationTache.nom'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="labelRealisationTache" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="labelRealisationTache" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
@@ -20,56 +19,52 @@
             @section('labelRealisationTache-table-tbody')
             @foreach ($labelRealisationTaches_data as $labelRealisationTache)
                 @php
-                    $isEditable = Auth::user()->can('edit-labelRealisationTache') && Auth::user()->can('update', $labelRealisationTache);
+                    $isEditable = $labelRealisationTaches_permissions['edit-labelRealisationTache'] && $labelRealisationTaches_permissionsByItem['update'][$labelRealisationTache->id];
                 @endphp
                 <tr id="labelRealisationTache-row-{{$labelRealisationTache->id}}" data-id="{{$labelRealisationTache->id}}">
                     <x-checkbox-row :item="$labelRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $labelRealisationTache->nom }}" >
-                    <x-field :entity="$labelRealisationTache" field="nom">
                         {{ $labelRealisationTache->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $labelRealisationTache->formateur }}" >
-                    <x-field :entity="$labelRealisationTache" field="formateur">
-                       
-                         {{  $labelRealisationTache->formateur }}
-                    </x-field>
+                        {{  $labelRealisationTache->formateur }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$labelRealisationTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $labelRealisationTache->sysColor }}" >
-                    <x-field :entity="$labelRealisationTache" field="sysColor">
                         <x-badge 
                         :text="$labelRealisationTache->sysColor->name ?? ''" 
                         :background="$labelRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-labelRealisationTache')
+                        @if($labelRealisationTaches_permissions['edit-labelRealisationTache'])
                         <x-action-button :entity="$labelRealisationTache" actionName="edit">
-                        @can('update', $labelRealisationTache)
+                        @if($labelRealisationTaches_permissionsByItem['update'][$labelRealisationTache->id])
                             <a href="{{ route('labelRealisationTaches.edit', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-labelRealisationTache')
+                        @endif
+                        @if($labelRealisationTaches_permissions['show-labelRealisationTache'])
                         <x-action-button :entity="$labelRealisationTache" actionName="show">
-                        @can('view', $labelRealisationTache)
+                        @if($labelRealisationTaches_permissionsByItem['view'][$labelRealisationTache->id])
                             <a href="{{ route('labelRealisationTaches.show', ['labelRealisationTache' => $labelRealisationTache->id]) }}" data-id="{{$labelRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$labelRealisationTache" actionName="delete">
-                        @can('destroy-labelRealisationTache')
-                        @can('delete', $labelRealisationTache)
+                        @if($labelRealisationTaches_permissions['destroy-labelRealisationTache'])
+                        @if($labelRealisationTaches_permissionsByItem['delete'][$labelRealisationTache->id])
                             <form class="context-state" action="{{ route('labelRealisationTaches.destroy',['labelRealisationTache' => $labelRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -77,8 +72,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

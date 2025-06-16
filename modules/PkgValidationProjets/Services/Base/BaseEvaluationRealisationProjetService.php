@@ -5,6 +5,8 @@
 
 namespace Modules\PkgValidationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -164,6 +166,23 @@ class BaseEvaluationRealisationProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.evaluationRealisationProjet.stats', $evaluationRealisationProjets_stats);
     
+        $evaluationRealisationProjets_permissions = [
+
+            'edit-evaluationRealisationProjet' => Auth::user()->can('edit-evaluationRealisationProjet'),
+            'destroy-evaluationRealisationProjet' => Auth::user()->can('destroy-evaluationRealisationProjet'),
+            'show-evaluationRealisationProjet' => Auth::user()->can('show-evaluationRealisationProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $evaluationRealisationProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($evaluationRealisationProjets_data as $item) {
+                $evaluationRealisationProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'evaluationRealisationProjet_viewTypes',
@@ -173,7 +192,9 @@ class BaseEvaluationRealisationProjetService extends BaseService
             'evaluationRealisationProjets_filters',
             'evaluationRealisationProjet_instance',
             'evaluationRealisationProjet_title',
-            'contextKey'
+            'contextKey',
+            'evaluationRealisationProjets_permissions',
+            'evaluationRealisationProjets_permissionsByItem'
         );
     
         return [
@@ -185,7 +206,9 @@ class BaseEvaluationRealisationProjetService extends BaseService
             'evaluationRealisationProjet_viewTypes' => $evaluationRealisationProjet_viewTypes,
             'evaluationRealisationProjet_partialViewName' => $evaluationRealisationProjet_partialViewName,
             'contextKey' => $contextKey,
-            'evaluationRealisationProjet_compact_value' => $compact_value
+            'evaluationRealisationProjet_compact_value' => $compact_value,
+            'evaluationRealisationProjets_permissions' => $evaluationRealisationProjets_permissions,
+            'evaluationRealisationProjets_permissionsByItem' => $evaluationRealisationProjets_permissionsByItem
         ];
     }
 

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-livrable') || Auth::user()->can('destroy-livrable');
+                    $bulkEdit = $livrables_permissions['edit-livrable'] || $devlivrables_permissions['destroy-livrable'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41" field="nature_livrable_id" modelname="livrable" label="{{ucfirst(__('PkgCreationProjet::natureLivrable.singular'))}}" />
                 <x-sortable-column :sortable="true" width="41"  field="titre" modelname="livrable" label="{{ucfirst(__('PkgCreationProjet::livrable.titre'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,48 +18,45 @@
             @section('livrable-table-tbody')
             @foreach ($livrables_data as $livrable)
                 @php
-                    $isEditable = Auth::user()->can('edit-livrable') && Auth::user()->can('update', $livrable);
+                    $isEditable = $livrables_permissions['edit-livrable'] && $livrables_permissionsByItem['update'][$livrable->id];
                 @endphp
                 <tr id="livrable-row-{{$livrable->id}}" data-id="{{$livrable->id}}">
                     <x-checkbox-row :item="$livrable" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="nature_livrable_id"  data-toggle="tooltip" title="{{ $livrable->natureLivrable }}" >
-                    <x-field :entity="$livrable" field="natureLivrable">
-                       
-                         {{  $livrable->natureLivrable }}
-                    </x-field>
+                        {{  $livrable->natureLivrable }}
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrable->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrable->titre }}" >
-                    <x-field :entity="$livrable" field="titre">
                         {{ $livrable->titre }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-livrable')
+                        @if($livrables_permissions['edit-livrable'])
                         <x-action-button :entity="$livrable" actionName="edit">
-                        @can('update', $livrable)
+                        @if($livrables_permissionsByItem['update'][$livrable->id])
                             <a href="{{ route('livrables.edit', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-livrable')
+                        @endif
+                        @if($livrables_permissions['show-livrable'])
                         <x-action-button :entity="$livrable" actionName="show">
-                        @can('view', $livrable)
+                        @if($livrables_permissionsByItem['view'][$livrable->id])
                             <a href="{{ route('livrables.show', ['livrable' => $livrable->id]) }}" data-id="{{$livrable->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$livrable" actionName="delete">
-                        @can('destroy-livrable')
-                        @can('delete', $livrable)
+                        @if($livrables_permissions['destroy-livrable'])
+                        @if($livrables_permissionsByItem['delete'][$livrable->id])
                             <form class="context-state" action="{{ route('livrables.destroy',['livrable' => $livrable->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -68,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

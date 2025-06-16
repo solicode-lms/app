@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-widgetType') || Auth::user()->can('destroy-widgetType');
+                    $bulkEdit = $widgetTypes_permissions['edit-widgetType'] || $devwidgetTypes_permissions['destroy-widgetType'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="type" modelname="widgetType" label="{{ucfirst(__('PkgWidgets::widgetType.type'))}}" />
                 <x-sortable-column :sortable="true" width="41"  field="description" modelname="widgetType" label="{{ucfirst(__('PkgWidgets::widgetType.description'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,47 +18,47 @@
             @section('widgetType-table-tbody')
             @foreach ($widgetTypes_data as $widgetType)
                 @php
-                    $isEditable = Auth::user()->can('edit-widgetType') && Auth::user()->can('update', $widgetType);
+                    $isEditable = $widgetTypes_permissions['edit-widgetType'] && $widgetTypes_permissionsByItem['update'][$widgetType->id];
                 @endphp
                 <tr id="widgetType-row-{{$widgetType->id}}" data-id="{{$widgetType->id}}">
                     <x-checkbox-row :item="$widgetType" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="type"  data-toggle="tooltip" title="{{ $widgetType->type }}" >
-                    <x-field :entity="$widgetType" field="type">
                         {{ $widgetType->type }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
-                    <x-field :entity="$widgetType" field="description">
+                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 30) !!}
-                    </x-field>
+                    </td>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-widgetType')
+                        @if($widgetTypes_permissions['edit-widgetType'])
                         <x-action-button :entity="$widgetType" actionName="edit">
-                        @can('update', $widgetType)
+                        @if($widgetTypes_permissionsByItem['update'][$widgetType->id])
                             <a href="{{ route('widgetTypes.edit', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-widgetType')
+                        @endif
+                        @if($widgetTypes_permissions['show-widgetType'])
                         <x-action-button :entity="$widgetType" actionName="show">
-                        @can('view', $widgetType)
+                        @if($widgetTypes_permissionsByItem['view'][$widgetType->id])
                             <a href="{{ route('widgetTypes.show', ['widgetType' => $widgetType->id]) }}" data-id="{{$widgetType->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$widgetType" actionName="delete">
-                        @can('destroy-widgetType')
-                        @can('delete', $widgetType)
+                        @if($widgetTypes_permissions['destroy-widgetType'])
+                        @if($widgetTypes_permissionsByItem['delete'][$widgetType->id])
                             <form class="context-state" action="{{ route('widgetTypes.destroy',['widgetType' => $widgetType->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -67,8 +66,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

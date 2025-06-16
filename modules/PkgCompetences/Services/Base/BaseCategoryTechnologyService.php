@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCompetences\Models\CategoryTechnology;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseCategoryTechnologyService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.categoryTechnology.stats', $categoryTechnologies_stats);
     
+        $categoryTechnologies_permissions = [
+
+            'edit-categoryTechnology' => Auth::user()->can('edit-categoryTechnology'),
+            'destroy-categoryTechnology' => Auth::user()->can('destroy-categoryTechnology'),
+            'show-categoryTechnology' => Auth::user()->can('show-categoryTechnology'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $categoryTechnologies_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($categoryTechnologies_data as $item) {
+                $categoryTechnologies_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'categoryTechnology_viewTypes',
@@ -144,7 +163,9 @@ class BaseCategoryTechnologyService extends BaseService
             'categoryTechnologies_filters',
             'categoryTechnology_instance',
             'categoryTechnology_title',
-            'contextKey'
+            'contextKey',
+            'categoryTechnologies_permissions',
+            'categoryTechnologies_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseCategoryTechnologyService extends BaseService
             'categoryTechnology_viewTypes' => $categoryTechnology_viewTypes,
             'categoryTechnology_partialViewName' => $categoryTechnology_partialViewName,
             'contextKey' => $contextKey,
-            'categoryTechnology_compact_value' => $compact_value
+            'categoryTechnology_compact_value' => $compact_value,
+            'categoryTechnologies_permissions' => $categoryTechnologies_permissions,
+            'categoryTechnologies_permissionsByItem' => $categoryTechnologies_permissionsByItem
         ];
     }
 

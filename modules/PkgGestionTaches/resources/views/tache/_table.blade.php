@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-tache') || Auth::user()->can('destroy-tache');
+                    $bulkEdit = $taches_permissions['edit-tache'] || $devtaches_permissions['destroy-tache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.ordre'))}}" />
                 <x-sortable-column :sortable="true" width="20"  field="titre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.titre'))}}" />
                 <x-sortable-column :sortable="true" width="8" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.priorite_tache_id'))}}" />
@@ -24,80 +23,68 @@
             @section('tache-table-tbody')
             @foreach ($taches_data as $tache)
                 @php
-                    $isEditable = Auth::user()->can('edit-tache') && Auth::user()->can('update', $tache);
+                    $isEditable = $taches_permissions['edit-tache'] && $taches_permissionsByItem['update'][$tache->id];
                 @endphp
                 <tr id="tache-row-{{$tache->id}}" data-id="{{$tache->id}}">
                     <x-checkbox-row :item="$tache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $tache->ordre }}" >
-                    <x-field :entity="$tache" field="ordre">
-                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $tache->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
-                    <x-field :entity="$tache" field="titre">
                         {{ $tache->titre }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite_tache_id"  data-toggle="tooltip" title="{{ $tache->prioriteTache }}" >
-                    <x-field :entity="$tache" field="prioriteTache">
-                       
-                         {{  $tache->prioriteTache }}
-                    </x-field>
+                        {{  $tache->prioriteTache }}
+
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $tache->projet }}" >
-                    <x-field :entity="$tache" field="projet">
-                       
-                         {{  $tache->projet }}
-                    </x-field>
+                        {{  $tache->projet }}
+
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="dateFin"  data-toggle="tooltip" title="{{ $tache->dateFin }}" >
-                    <x-field :entity="$tache" field="dateFin">
                         <x-deadline-display :value="$tache->dateFin" />
-                    </x-field>
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
-                    <x-field :entity="$tache" field="note">
-                        {{ $tache->note }}
-                    </x-field>
+                        @include('PkgGestionTaches::tache.custom.fields.note', ['entity' => $tache])
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
-                    <x-field :entity="$tache" field="livrables">
                         <ul>
                             @foreach ($tache->livrables as $livrable)
                                 <li @if(strlen($livrable) > 30) data-toggle="tooltip" title="{{$livrable}}"  @endif>@limit($livrable, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-tache')
+                        @if($taches_permissions['edit-tache'])
                         <x-action-button :entity="$tache" actionName="edit">
-                        @can('update', $tache)
+                        @if($taches_permissionsByItem['update'][$tache->id])
                             <a href="{{ route('taches.edit', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-tache')
+                        @endif
+                        @if($taches_permissions['show-tache'])
                         <x-action-button :entity="$tache" actionName="show">
-                        @can('view', $tache)
+                        @if($taches_permissionsByItem['view'][$tache->id])
                             <a href="{{ route('taches.show', ['tache' => $tache->id]) }}" data-id="{{$tache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$tache" actionName="delete">
-                        @can('destroy-tache')
-                        @can('delete', $tache)
+                        @if($taches_permissions['destroy-tache'])
+                        @if($taches_permissionsByItem['delete'][$tache->id])
                             <form class="context-state" action="{{ route('taches.destroy',['tache' => $tache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -105,8 +92,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

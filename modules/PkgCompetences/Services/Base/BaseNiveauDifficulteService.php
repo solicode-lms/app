@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\Core\Services\BaseService;
 
@@ -156,6 +158,23 @@ class BaseNiveauDifficulteService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauDifficulte.stats', $niveauDifficultes_stats);
     
+        $niveauDifficultes_permissions = [
+
+            'edit-niveauDifficulte' => Auth::user()->can('edit-niveauDifficulte'),
+            'destroy-niveauDifficulte' => Auth::user()->can('destroy-niveauDifficulte'),
+            'show-niveauDifficulte' => Auth::user()->can('show-niveauDifficulte'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $niveauDifficultes_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($niveauDifficultes_data as $item) {
+                $niveauDifficultes_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'niveauDifficulte_viewTypes',
@@ -165,7 +184,9 @@ class BaseNiveauDifficulteService extends BaseService
             'niveauDifficultes_filters',
             'niveauDifficulte_instance',
             'niveauDifficulte_title',
-            'contextKey'
+            'contextKey',
+            'niveauDifficultes_permissions',
+            'niveauDifficultes_permissionsByItem'
         );
     
         return [
@@ -177,7 +198,9 @@ class BaseNiveauDifficulteService extends BaseService
             'niveauDifficulte_viewTypes' => $niveauDifficulte_viewTypes,
             'niveauDifficulte_partialViewName' => $niveauDifficulte_partialViewName,
             'contextKey' => $contextKey,
-            'niveauDifficulte_compact_value' => $compact_value
+            'niveauDifficulte_compact_value' => $compact_value,
+            'niveauDifficultes_permissions' => $niveauDifficultes_permissions,
+            'niveauDifficultes_permissionsByItem' => $niveauDifficultes_permissionsByItem
         ];
     }
 

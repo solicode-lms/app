@@ -38,7 +38,7 @@ class BaseRealisationFormationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('realisationFormation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationFormation');

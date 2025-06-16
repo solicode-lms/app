@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
 use Modules\Core\Services\BaseService;
 
@@ -142,6 +144,23 @@ class BaseWorkflowTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowTache.stats', $workflowTaches_stats);
     
+        $workflowTaches_permissions = [
+
+            'edit-workflowTache' => Auth::user()->can('edit-workflowTache'),
+            'destroy-workflowTache' => Auth::user()->can('destroy-workflowTache'),
+            'show-workflowTache' => Auth::user()->can('show-workflowTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $workflowTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($workflowTaches_data as $item) {
+                $workflowTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'workflowTache_viewTypes',
@@ -151,7 +170,9 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTaches_filters',
             'workflowTache_instance',
             'workflowTache_title',
-            'contextKey'
+            'contextKey',
+            'workflowTaches_permissions',
+            'workflowTaches_permissionsByItem'
         );
     
         return [
@@ -163,7 +184,9 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTache_viewTypes' => $workflowTache_viewTypes,
             'workflowTache_partialViewName' => $workflowTache_partialViewName,
             'contextKey' => $contextKey,
-            'workflowTache_compact_value' => $compact_value
+            'workflowTache_compact_value' => $compact_value,
+            'workflowTaches_permissions' => $workflowTaches_permissions,
+            'workflowTaches_permissionsByItem' => $workflowTaches_permissionsByItem
         ];
     }
 

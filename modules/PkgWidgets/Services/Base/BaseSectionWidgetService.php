@@ -5,6 +5,8 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\Core\Services\BaseService;
 
@@ -142,6 +144,23 @@ class BaseSectionWidgetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sectionWidget.stats', $sectionWidgets_stats);
     
+        $sectionWidgets_permissions = [
+
+            'edit-sectionWidget' => Auth::user()->can('edit-sectionWidget'),
+            'destroy-sectionWidget' => Auth::user()->can('destroy-sectionWidget'),
+            'show-sectionWidget' => Auth::user()->can('show-sectionWidget'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $sectionWidgets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($sectionWidgets_data as $item) {
+                $sectionWidgets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sectionWidget_viewTypes',
@@ -151,7 +170,9 @@ class BaseSectionWidgetService extends BaseService
             'sectionWidgets_filters',
             'sectionWidget_instance',
             'sectionWidget_title',
-            'contextKey'
+            'contextKey',
+            'sectionWidgets_permissions',
+            'sectionWidgets_permissionsByItem'
         );
     
         return [
@@ -163,7 +184,9 @@ class BaseSectionWidgetService extends BaseService
             'sectionWidget_viewTypes' => $sectionWidget_viewTypes,
             'sectionWidget_partialViewName' => $sectionWidget_partialViewName,
             'contextKey' => $contextKey,
-            'sectionWidget_compact_value' => $compact_value
+            'sectionWidget_compact_value' => $compact_value,
+            'sectionWidgets_permissions' => $sectionWidgets_permissions,
+            'sectionWidgets_permissionsByItem' => $sectionWidgets_permissionsByItem
         ];
     }
 

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgWidgets\Models\WidgetOperation;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseWidgetOperationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetOperation.stats', $widgetOperations_stats);
     
+        $widgetOperations_permissions = [
+
+            'edit-widgetOperation' => Auth::user()->can('edit-widgetOperation'),
+            'destroy-widgetOperation' => Auth::user()->can('destroy-widgetOperation'),
+            'show-widgetOperation' => Auth::user()->can('show-widgetOperation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $widgetOperations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($widgetOperations_data as $item) {
+                $widgetOperations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widgetOperation_viewTypes',
@@ -144,7 +163,9 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperations_filters',
             'widgetOperation_instance',
             'widgetOperation_title',
-            'contextKey'
+            'contextKey',
+            'widgetOperations_permissions',
+            'widgetOperations_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseWidgetOperationService extends BaseService
             'widgetOperation_viewTypes' => $widgetOperation_viewTypes,
             'widgetOperation_partialViewName' => $widgetOperation_partialViewName,
             'contextKey' => $contextKey,
-            'widgetOperation_compact_value' => $compact_value
+            'widgetOperation_compact_value' => $compact_value,
+            'widgetOperations_permissions' => $widgetOperations_permissions,
+            'widgetOperations_permissionsByItem' => $widgetOperations_permissionsByItem
         ];
     }
 

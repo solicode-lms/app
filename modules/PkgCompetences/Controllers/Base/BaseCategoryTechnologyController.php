@@ -29,7 +29,7 @@ class BaseCategoryTechnologyController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('categoryTechnology.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('categoryTechnology');

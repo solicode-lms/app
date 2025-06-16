@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-apprenant') || Auth::user()->can('destroy-apprenant');
+                    $bulkEdit = $apprenants_permissions['edit-apprenant'] || $devapprenants_permissions['destroy-apprenant'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.nom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.prenom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="duree_sans_terminer_tache" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))}}" />
@@ -21,36 +20,31 @@
             @section('apprenant-table-tbody')
             @foreach ($apprenants_data as $apprenant)
                 @php
-                    $isEditable = Auth::user()->can('edit-apprenant') && Auth::user()->can('update', $apprenant);
+                    $isEditable = $apprenants_permissions['edit-apprenant'] && $apprenants_permissionsByItem['update'][$apprenant->id];
                 @endphp
                 <tr id="apprenant-row-{{$apprenant->id}}" data-id="{{$apprenant->id}}">
                     <x-checkbox-row :item="$apprenant" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $apprenant->nom }}" >
-                    <x-field :entity="$apprenant" field="nom">
                         {{ $apprenant->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $apprenant->prenom }}" >
-                    <x-field :entity="$apprenant" field="prenom">
                         {{ $apprenant->prenom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$apprenant->id}}" data-field="duree_sans_terminer_tache"  data-toggle="tooltip" title="{{ $apprenant->duree_sans_terminer_tache }}" >
-                    <x-field :entity="$apprenant" field="duree_sans_terminer_tache">
-                        <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
-                    </x-field>
+                            <x-duree-affichage :heures="$apprenant->duree_sans_terminer_tache" />
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$apprenant->id}}" data-field="groupes"  data-toggle="tooltip" title="{{ $apprenant->groupes }}" >
-                    <x-field :entity="$apprenant" field="groupes">
                         <ul>
                             @foreach ($apprenant->groupes as $groupe)
                                 <li @if(strlen($groupe) > 30) data-toggle="tooltip" title="{{$groupe}}"  @endif>@limit($groupe, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                       @can('initPassword-apprenant')
+                        @if($apprenants_permissions['initPassword-apprenant'])
                         <a 
                         data-toggle="tooltip" 
                         title="Initialiser le mot de passe" 
@@ -61,33 +55,33 @@
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fas fa-unlock-alt"></i>
                         </a>
-                        @endcan
+                        @endif
                         
 
                        
 
-                        @can('edit-apprenant')
+                        @if($apprenants_permissions['edit-apprenant'])
                         <x-action-button :entity="$apprenant" actionName="edit">
-                        @can('update', $apprenant)
+                        @if($apprenants_permissionsByItem['update'][$apprenant->id])
                             <a href="{{ route('apprenants.edit', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-apprenant')
+                        @endif
+                        @if($apprenants_permissions['show-apprenant'])
                         <x-action-button :entity="$apprenant" actionName="show">
-                        @can('view', $apprenant)
+                        @if($apprenants_permissionsByItem['view'][$apprenant->id])
                             <a href="{{ route('apprenants.show', ['apprenant' => $apprenant->id]) }}" data-id="{{$apprenant->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$apprenant" actionName="delete">
-                        @can('destroy-apprenant')
-                        @can('delete', $apprenant)
+                        @if($apprenants_permissions['destroy-apprenant'])
+                        @if($apprenants_permissionsByItem['delete'][$apprenant->id])
                             <form class="context-state" action="{{ route('apprenants.destroy',['apprenant' => $apprenant->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -95,8 +89,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

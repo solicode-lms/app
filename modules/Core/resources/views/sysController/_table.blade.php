@@ -6,15 +6,13 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-sysController') || Auth::user()->can('destroy-sysController');
+                    $bulkEdit = $sysControllers_permissions['edit-sysController'] || $devsysControllers_permissions['destroy-sysController'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="20.5" field="sys_module_id" modelname="sysController" label="{{ucfirst(__('Core::sysModule.singular'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="sysController" label="{{ucfirst(__('Core::sysController.name'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="is_active" modelname="sysController" label="{{ucfirst(__('Core::sysController.is_active'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="Permission" modelname="sysController" label="{{ucfirst(__('PkgAutorisation::permission.plural'))}}" />
-
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,64 +20,59 @@
             @section('sysController-table-tbody')
             @foreach ($sysControllers_data as $sysController)
                 @php
-                    $isEditable = Auth::user()->can('edit-sysController') && Auth::user()->can('update', $sysController);
+                    $isEditable = $sysControllers_permissions['edit-sysController'] && $sysControllers_permissionsByItem['update'][$sysController->id];
                 @endphp
                 <tr id="sysController-row-{{$sysController->id}}" data-id="{{$sysController->id}}">
                     <x-checkbox-row :item="$sysController" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $sysController->sysModule }}" >
-                    <x-field :entity="$sysController" field="sysModule">
-                       
-                         {{  $sysController->sysModule }}
-                    </x-field>
+                        {{  $sysController->sysModule }}
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysController->name }}" >
-                    <x-field :entity="$sysController" field="name">
                         {{ $sysController->name }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysController->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysController->is_active }}" >
-                    <x-field :entity="$sysController" field="is_active">
                         <span class="{{ $sysController->is_active ? 'text-success' : 'text-danger' }}">
                             {{ $sysController->is_active ? 'Oui' : 'Non' }}
                         </span>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$sysController->id}}" data-field="Permission"  data-toggle="tooltip" title="{{ $sysController->controllerIdPermissions }}" >
-                    <x-field :entity="$sysController" field="controllerIdPermissions">
                         <ul>
                             @foreach ($sysController->controllerIdPermissions as $permission)
                                 <li>{{$permission}} </li>
                             @endforeach
                         </ul>
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-sysController')
+                        @if($sysControllers_permissions['edit-sysController'])
                         <x-action-button :entity="$sysController" actionName="edit">
-                        @can('update', $sysController)
+                        @if($sysControllers_permissionsByItem['update'][$sysController->id])
                             <a href="{{ route('sysControllers.edit', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-sysController')
+                        @endif
+                        @if($sysControllers_permissions['show-sysController'])
                         <x-action-button :entity="$sysController" actionName="show">
-                        @can('view', $sysController)
+                        @if($sysControllers_permissionsByItem['view'][$sysController->id])
                             <a href="{{ route('sysControllers.show', ['sysController' => $sysController->id]) }}" data-id="{{$sysController->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$sysController" actionName="delete">
-                        @can('destroy-sysController')
-                        @can('delete', $sysController)
+                        @if($sysControllers_permissions['destroy-sysController'])
+                        @if($sysControllers_permissionsByItem['delete'][$sysController->id])
                             <form class="context-state" action="{{ route('sysControllers.destroy',['sysController' => $sysController->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -87,8 +80,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

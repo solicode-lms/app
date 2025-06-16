@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\WorkflowChapitre;
 use Modules\Core\Services\BaseService;
 
@@ -141,6 +143,23 @@ class BaseWorkflowChapitreService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowChapitre.stats', $workflowChapitres_stats);
     
+        $workflowChapitres_permissions = [
+
+            'edit-workflowChapitre' => Auth::user()->can('edit-workflowChapitre'),
+            'destroy-workflowChapitre' => Auth::user()->can('destroy-workflowChapitre'),
+            'show-workflowChapitre' => Auth::user()->can('show-workflowChapitre'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $workflowChapitres_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($workflowChapitres_data as $item) {
+                $workflowChapitres_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'workflowChapitre_viewTypes',
@@ -150,7 +169,9 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitres_filters',
             'workflowChapitre_instance',
             'workflowChapitre_title',
-            'contextKey'
+            'contextKey',
+            'workflowChapitres_permissions',
+            'workflowChapitres_permissionsByItem'
         );
     
         return [
@@ -162,7 +183,9 @@ class BaseWorkflowChapitreService extends BaseService
             'workflowChapitre_viewTypes' => $workflowChapitre_viewTypes,
             'workflowChapitre_partialViewName' => $workflowChapitre_partialViewName,
             'contextKey' => $contextKey,
-            'workflowChapitre_compact_value' => $compact_value
+            'workflowChapitre_compact_value' => $compact_value,
+            'workflowChapitres_permissions' => $workflowChapitres_permissions,
+            'workflowChapitres_permissionsByItem' => $workflowChapitres_permissionsByItem
         ];
     }
 

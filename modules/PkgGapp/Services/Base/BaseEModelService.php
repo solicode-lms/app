@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\EModel;
 use Modules\Core\Services\BaseService;
 
@@ -13,9 +15,6 @@ use Modules\Core\Services\BaseService;
  */
 class BaseEModelService extends BaseService
 {
-
-    protected array $index_with_relations = ['ePackage'];
-
     /**
      * Les champs de recherche disponibles pour eModels.
      *
@@ -146,6 +145,23 @@ class BaseEModelService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eModel.stats', $eModels_stats);
     
+        $eModels_permissions = [
+
+            'edit-eModel' => Auth::user()->can('edit-eModel'),
+            'destroy-eModel' => Auth::user()->can('destroy-eModel'),
+            'show-eModel' => Auth::user()->can('show-eModel'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $eModels_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($eModels_data as $item) {
+                $eModels_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eModel_viewTypes',
@@ -155,7 +171,9 @@ class BaseEModelService extends BaseService
             'eModels_filters',
             'eModel_instance',
             'eModel_title',
-            'contextKey'
+            'contextKey',
+            'eModels_permissions',
+            'eModels_permissionsByItem'
         );
     
         return [
@@ -167,7 +185,9 @@ class BaseEModelService extends BaseService
             'eModel_viewTypes' => $eModel_viewTypes,
             'eModel_partialViewName' => $eModel_partialViewName,
             'contextKey' => $contextKey,
-            'eModel_compact_value' => $compact_value
+            'eModel_compact_value' => $compact_value,
+            'eModels_permissions' => $eModels_permissions,
+            'eModels_permissionsByItem' => $eModels_permissionsByItem
         ];
     }
 

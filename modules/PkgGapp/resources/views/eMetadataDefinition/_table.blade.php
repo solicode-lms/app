@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-eMetadataDefinition') || Auth::user()->can('destroy-eMetadataDefinition');
+                    $bulkEdit = $eMetadataDefinitions_permissions['edit-eMetadataDefinition'] || $deveMetadataDefinitions_permissions['destroy-eMetadataDefinition'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.name'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="groupe" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.groupe'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="description" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.description'))}}" />
@@ -20,52 +19,51 @@
             @section('eMetadataDefinition-table-tbody')
             @foreach ($eMetadataDefinitions_data as $eMetadataDefinition)
                 @php
-                    $isEditable = Auth::user()->can('edit-eMetadataDefinition') && Auth::user()->can('update', $eMetadataDefinition);
+                    $isEditable = $eMetadataDefinitions_permissions['edit-eMetadataDefinition'] && $eMetadataDefinitions_permissionsByItem['update'][$eMetadataDefinition->id];
                 @endphp
                 <tr id="eMetadataDefinition-row-{{$eMetadataDefinition->id}}" data-id="{{$eMetadataDefinition->id}}">
                     <x-checkbox-row :item="$eMetadataDefinition" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eMetadataDefinition->name }}" >
-                    <x-field :entity="$eMetadataDefinition" field="name">
                         {{ $eMetadataDefinition->name }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="groupe"  data-toggle="tooltip" title="{{ $eMetadataDefinition->groupe }}" >
-                    <x-field :entity="$eMetadataDefinition" field="groupe">
                         {{ $eMetadataDefinition->groupe }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
-                    <x-field :entity="$eMetadataDefinition" field="description">
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
-                    </x-field>
+                    </td>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-eMetadataDefinition')
+                        @if($eMetadataDefinitions_permissions['edit-eMetadataDefinition'])
                         <x-action-button :entity="$eMetadataDefinition" actionName="edit">
-                        @can('update', $eMetadataDefinition)
+                        @if($eMetadataDefinitions_permissionsByItem['update'][$eMetadataDefinition->id])
                             <a href="{{ route('eMetadataDefinitions.edit', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-eMetadataDefinition')
+                        @endif
+                        @if($eMetadataDefinitions_permissions['show-eMetadataDefinition'])
                         <x-action-button :entity="$eMetadataDefinition" actionName="show">
-                        @can('view', $eMetadataDefinition)
+                        @if($eMetadataDefinitions_permissionsByItem['view'][$eMetadataDefinition->id])
                             <a href="{{ route('eMetadataDefinitions.show', ['eMetadataDefinition' => $eMetadataDefinition->id]) }}" data-id="{{$eMetadataDefinition->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$eMetadataDefinition" actionName="delete">
-                        @can('destroy-eMetadataDefinition')
-                        @can('delete', $eMetadataDefinition)
+                        @if($eMetadataDefinitions_permissions['destroy-eMetadataDefinition'])
+                        @if($eMetadataDefinitions_permissionsByItem['delete'][$eMetadataDefinition->id])
                             <form class="context-state" action="{{ route('eMetadataDefinitions.destroy',['eMetadataDefinition' => $eMetadataDefinition->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -73,8 +71,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

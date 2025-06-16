@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\EMetadatum;
 use Modules\Core\Services\BaseService;
 
@@ -157,6 +159,23 @@ class BaseEMetadatumService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eMetadatum.stats', $eMetadata_stats);
     
+        $eMetadata_permissions = [
+
+            'edit-eMetadatum' => Auth::user()->can('edit-eMetadatum'),
+            'destroy-eMetadatum' => Auth::user()->can('destroy-eMetadatum'),
+            'show-eMetadatum' => Auth::user()->can('show-eMetadatum'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $eMetadata_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($eMetadata_data as $item) {
+                $eMetadata_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eMetadatum_viewTypes',
@@ -166,7 +185,9 @@ class BaseEMetadatumService extends BaseService
             'eMetadata_filters',
             'eMetadatum_instance',
             'eMetadatum_title',
-            'contextKey'
+            'contextKey',
+            'eMetadata_permissions',
+            'eMetadata_permissionsByItem'
         );
     
         return [
@@ -178,7 +199,9 @@ class BaseEMetadatumService extends BaseService
             'eMetadatum_viewTypes' => $eMetadatum_viewTypes,
             'eMetadatum_partialViewName' => $eMetadatum_partialViewName,
             'contextKey' => $contextKey,
-            'eMetadatum_compact_value' => $compact_value
+            'eMetadatum_compact_value' => $compact_value,
+            'eMetadata_permissions' => $eMetadata_permissions,
+            'eMetadata_permissionsByItem' => $eMetadata_permissionsByItem
         ];
     }
 

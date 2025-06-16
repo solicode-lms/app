@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\Ville;
 use Modules\Core\Services\BaseService;
 
@@ -134,6 +136,23 @@ class BaseVilleService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.ville.stats', $villes_stats);
     
+        $villes_permissions = [
+
+            'edit-ville' => Auth::user()->can('edit-ville'),
+            'destroy-ville' => Auth::user()->can('destroy-ville'),
+            'show-ville' => Auth::user()->can('show-ville'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $villes_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($villes_data as $item) {
+                $villes_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'ville_viewTypes',
@@ -143,7 +162,9 @@ class BaseVilleService extends BaseService
             'villes_filters',
             'ville_instance',
             'ville_title',
-            'contextKey'
+            'contextKey',
+            'villes_permissions',
+            'villes_permissionsByItem'
         );
     
         return [
@@ -155,7 +176,9 @@ class BaseVilleService extends BaseService
             'ville_viewTypes' => $ville_viewTypes,
             'ville_partialViewName' => $ville_partialViewName,
             'contextKey' => $contextKey,
-            'ville_compact_value' => $compact_value
+            'ville_compact_value' => $compact_value,
+            'villes_permissions' => $villes_permissions,
+            'villes_permissionsByItem' => $villes_permissionsByItem
         ];
     }
 

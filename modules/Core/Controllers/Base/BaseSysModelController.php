@@ -35,7 +35,7 @@ class BaseSysModelController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('sysModel');

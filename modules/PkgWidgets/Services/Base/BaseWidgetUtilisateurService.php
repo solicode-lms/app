@@ -5,6 +5,8 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 use Modules\Core\Services\BaseService;
 
@@ -177,6 +179,23 @@ class BaseWidgetUtilisateurService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetUtilisateur.stats', $widgetUtilisateurs_stats);
     
+        $widgetUtilisateurs_permissions = [
+
+            'edit-widgetUtilisateur' => Auth::user()->can('edit-widgetUtilisateur'),
+            'destroy-widgetUtilisateur' => Auth::user()->can('destroy-widgetUtilisateur'),
+            'show-widgetUtilisateur' => Auth::user()->can('show-widgetUtilisateur'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $widgetUtilisateurs_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($widgetUtilisateurs_data as $item) {
+                $widgetUtilisateurs_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widgetUtilisateur_viewTypes',
@@ -186,7 +205,9 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateurs_filters',
             'widgetUtilisateur_instance',
             'widgetUtilisateur_title',
-            'contextKey'
+            'contextKey',
+            'widgetUtilisateurs_permissions',
+            'widgetUtilisateurs_permissionsByItem'
         );
     
         return [
@@ -198,7 +219,9 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateur_viewTypes' => $widgetUtilisateur_viewTypes,
             'widgetUtilisateur_partialViewName' => $widgetUtilisateur_partialViewName,
             'contextKey' => $contextKey,
-            'widgetUtilisateur_compact_value' => $compact_value
+            'widgetUtilisateur_compact_value' => $compact_value,
+            'widgetUtilisateurs_permissions' => $widgetUtilisateurs_permissions,
+            'widgetUtilisateurs_permissionsByItem' => $widgetUtilisateurs_permissionsByItem
         ];
     }
 

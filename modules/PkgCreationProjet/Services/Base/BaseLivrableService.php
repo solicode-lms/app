@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCreationProjet\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\Core\Services\BaseService;
 
@@ -160,6 +162,23 @@ class BaseLivrableService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.livrable.stats', $livrables_stats);
     
+        $livrables_permissions = [
+
+            'edit-livrable' => Auth::user()->can('edit-livrable'),
+            'destroy-livrable' => Auth::user()->can('destroy-livrable'),
+            'show-livrable' => Auth::user()->can('show-livrable'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $livrables_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($livrables_data as $item) {
+                $livrables_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'livrable_viewTypes',
@@ -169,7 +188,9 @@ class BaseLivrableService extends BaseService
             'livrables_filters',
             'livrable_instance',
             'livrable_title',
-            'contextKey'
+            'contextKey',
+            'livrables_permissions',
+            'livrables_permissionsByItem'
         );
     
         return [
@@ -181,7 +202,9 @@ class BaseLivrableService extends BaseService
             'livrable_viewTypes' => $livrable_viewTypes,
             'livrable_partialViewName' => $livrable_partialViewName,
             'contextKey' => $contextKey,
-            'livrable_compact_value' => $compact_value
+            'livrable_compact_value' => $compact_value,
+            'livrables_permissions' => $livrables_permissions,
+            'livrables_permissionsByItem' => $livrables_permissionsByItem
         ];
     }
 

@@ -31,7 +31,7 @@ class BaseProfileController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('profile.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('profile');

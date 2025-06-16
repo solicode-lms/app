@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-evaluationRealisationTache') || Auth::user()->can('destroy-evaluationRealisationTache');
+                    $bulkEdit = $evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'] || $devevaluationRealisationTaches_permissions['destroy-evaluationRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="evaluateur_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="note" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationTache.note'))}}" />
@@ -20,54 +19,48 @@
             @section('evaluationRealisationTache-table-tbody')
             @foreach ($evaluationRealisationTaches_data as $evaluationRealisationTache)
                 @php
-                    $isEditable = Auth::user()->can('edit-evaluationRealisationTache') && Auth::user()->can('update', $evaluationRealisationTache);
+                    $isEditable = $evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'] && $evaluationRealisationTaches_permissionsByItem['update'][$evaluationRealisationTache->id];
                 @endphp
                 <tr id="evaluationRealisationTache-row-{{$evaluationRealisationTache->id}}" data-id="{{$evaluationRealisationTache->id}}">
                     <x-checkbox-row :item="$evaluationRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->realisationTache }}" >
-                    <x-field :entity="$evaluationRealisationTache" field="realisationTache">
-                       
-                         {{  $evaluationRealisationTache->realisationTache }}
-                    </x-field>
+                        {{  $evaluationRealisationTache->realisationTache }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->evaluateur }}" >
-                    <x-field :entity="$evaluationRealisationTache" field="evaluateur">
-                       
-                         {{  $evaluationRealisationTache->evaluateur }}
-                    </x-field>
+                        {{  $evaluationRealisationTache->evaluateur }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->note }}" >
-                    <x-field :entity="$evaluationRealisationTache" field="note">
-                        {{ $evaluationRealisationTache->note }}
-                    </x-field>
+                        @include('PkgValidationProjets::evaluationRealisationTache.custom.fields.note', ['entity' => $evaluationRealisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-evaluationRealisationTache')
+                        @if($evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'])
                         <x-action-button :entity="$evaluationRealisationTache" actionName="edit">
-                        @can('update', $evaluationRealisationTache)
+                        @if($evaluationRealisationTaches_permissionsByItem['update'][$evaluationRealisationTache->id])
                             <a href="{{ route('evaluationRealisationTaches.edit', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-evaluationRealisationTache')
+                        @endif
+                        @if($evaluationRealisationTaches_permissions['show-evaluationRealisationTache'])
                         <x-action-button :entity="$evaluationRealisationTache" actionName="show">
-                        @can('view', $evaluationRealisationTache)
+                        @if($evaluationRealisationTaches_permissionsByItem['view'][$evaluationRealisationTache->id])
                             <a href="{{ route('evaluationRealisationTaches.show', ['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" data-id="{{$evaluationRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$evaluationRealisationTache" actionName="delete">
-                        @can('destroy-evaluationRealisationTache')
-                        @can('delete', $evaluationRealisationTache)
+                        @if($evaluationRealisationTaches_permissions['destroy-evaluationRealisationTache'])
+                        @if($evaluationRealisationTaches_permissionsByItem['delete'][$evaluationRealisationTache->id])
                             <form class="context-state" action="{{ route('evaluationRealisationTaches.destroy',['evaluationRealisationTache' => $evaluationRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -75,8 +68,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

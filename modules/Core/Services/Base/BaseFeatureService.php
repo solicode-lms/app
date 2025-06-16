@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\Feature;
 use Modules\Core\Services\BaseService;
 
@@ -140,6 +142,23 @@ class BaseFeatureService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.feature.stats', $features_stats);
     
+        $features_permissions = [
+
+            'edit-feature' => Auth::user()->can('edit-feature'),
+            'destroy-feature' => Auth::user()->can('destroy-feature'),
+            'show-feature' => Auth::user()->can('show-feature'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $features_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($features_data as $item) {
+                $features_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'feature_viewTypes',
@@ -149,7 +168,9 @@ class BaseFeatureService extends BaseService
             'features_filters',
             'feature_instance',
             'feature_title',
-            'contextKey'
+            'contextKey',
+            'features_permissions',
+            'features_permissionsByItem'
         );
     
         return [
@@ -161,7 +182,9 @@ class BaseFeatureService extends BaseService
             'feature_viewTypes' => $feature_viewTypes,
             'feature_partialViewName' => $feature_partialViewName,
             'contextKey' => $contextKey,
-            'feature_compact_value' => $compact_value
+            'feature_compact_value' => $compact_value,
+            'features_permissions' => $features_permissions,
+            'features_permissionsByItem' => $features_permissionsByItem
         ];
     }
 

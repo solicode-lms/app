@@ -5,6 +5,8 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\Core\Services\BaseService;
 
@@ -156,6 +158,23 @@ class BaseWidgetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widget.stats', $widgets_stats);
     
+        $widgets_permissions = [
+
+            'edit-widget' => Auth::user()->can('edit-widget'),
+            'destroy-widget' => Auth::user()->can('destroy-widget'),
+            'show-widget' => Auth::user()->can('show-widget'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $widgets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($widgets_data as $item) {
+                $widgets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widget_viewTypes',
@@ -165,7 +184,9 @@ class BaseWidgetService extends BaseService
             'widgets_filters',
             'widget_instance',
             'widget_title',
-            'contextKey'
+            'contextKey',
+            'widgets_permissions',
+            'widgets_permissionsByItem'
         );
     
         return [
@@ -177,7 +198,9 @@ class BaseWidgetService extends BaseService
             'widget_viewTypes' => $widget_viewTypes,
             'widget_partialViewName' => $widget_partialViewName,
             'contextKey' => $contextKey,
-            'widget_compact_value' => $compact_value
+            'widget_compact_value' => $compact_value,
+            'widgets_permissions' => $widgets_permissions,
+            'widgets_permissionsByItem' => $widgets_permissionsByItem
         ];
     }
 

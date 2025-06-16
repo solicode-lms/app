@@ -35,7 +35,7 @@ class BaseEDataFieldController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('eDataField');

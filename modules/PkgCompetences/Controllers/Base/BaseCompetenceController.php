@@ -36,7 +36,7 @@ class BaseCompetenceController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('competence.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('competence');

@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Services\BaseService;
 
@@ -141,6 +143,23 @@ class BaseFeatureDomainService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.featureDomain.stats', $featureDomains_stats);
     
+        $featureDomains_permissions = [
+
+            'edit-featureDomain' => Auth::user()->can('edit-featureDomain'),
+            'destroy-featureDomain' => Auth::user()->can('destroy-featureDomain'),
+            'show-featureDomain' => Auth::user()->can('show-featureDomain'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $featureDomains_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($featureDomains_data as $item) {
+                $featureDomains_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'featureDomain_viewTypes',
@@ -150,7 +169,9 @@ class BaseFeatureDomainService extends BaseService
             'featureDomains_filters',
             'featureDomain_instance',
             'featureDomain_title',
-            'contextKey'
+            'contextKey',
+            'featureDomains_permissions',
+            'featureDomains_permissionsByItem'
         );
     
         return [
@@ -162,7 +183,9 @@ class BaseFeatureDomainService extends BaseService
             'featureDomain_viewTypes' => $featureDomain_viewTypes,
             'featureDomain_partialViewName' => $featureDomain_partialViewName,
             'contextKey' => $contextKey,
-            'featureDomain_compact_value' => $compact_value
+            'featureDomain_compact_value' => $compact_value,
+            'featureDomains_permissions' => $featureDomains_permissions,
+            'featureDomains_permissionsByItem' => $featureDomains_permissionsByItem
         ];
     }
 

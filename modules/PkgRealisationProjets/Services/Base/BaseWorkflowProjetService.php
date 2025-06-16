@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Modules\Core\Services\BaseService;
 
@@ -142,6 +144,23 @@ class BaseWorkflowProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowProjet.stats', $workflowProjets_stats);
     
+        $workflowProjets_permissions = [
+
+            'edit-workflowProjet' => Auth::user()->can('edit-workflowProjet'),
+            'destroy-workflowProjet' => Auth::user()->can('destroy-workflowProjet'),
+            'show-workflowProjet' => Auth::user()->can('show-workflowProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $workflowProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($workflowProjets_data as $item) {
+                $workflowProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'workflowProjet_viewTypes',
@@ -151,7 +170,9 @@ class BaseWorkflowProjetService extends BaseService
             'workflowProjets_filters',
             'workflowProjet_instance',
             'workflowProjet_title',
-            'contextKey'
+            'contextKey',
+            'workflowProjets_permissions',
+            'workflowProjets_permissionsByItem'
         );
     
         return [
@@ -163,7 +184,9 @@ class BaseWorkflowProjetService extends BaseService
             'workflowProjet_viewTypes' => $workflowProjet_viewTypes,
             'workflowProjet_partialViewName' => $workflowProjet_partialViewName,
             'contextKey' => $contextKey,
-            'workflowProjet_compact_value' => $compact_value
+            'workflowProjet_compact_value' => $compact_value,
+            'workflowProjets_permissions' => $workflowProjets_permissions,
+            'workflowProjets_permissionsByItem' => $workflowProjets_permissionsByItem
         ];
     }
 

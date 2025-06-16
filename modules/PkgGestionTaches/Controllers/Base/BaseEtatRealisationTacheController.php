@@ -37,7 +37,7 @@ class BaseEtatRealisationTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('etatRealisationTache');

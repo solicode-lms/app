@@ -32,7 +32,7 @@ class BaseFeatureDomainController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('featureDomain');

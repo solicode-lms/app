@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutorisation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutorisation\Models\Profile;
 use Modules\Core\Services\BaseService;
 
@@ -156,6 +158,23 @@ class BaseProfileService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.profile.stats', $profiles_stats);
     
+        $profiles_permissions = [
+
+            'edit-profile' => Auth::user()->can('edit-profile'),
+            'destroy-profile' => Auth::user()->can('destroy-profile'),
+            'show-profile' => Auth::user()->can('show-profile'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $profiles_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($profiles_data as $item) {
+                $profiles_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'profile_viewTypes',
@@ -165,7 +184,9 @@ class BaseProfileService extends BaseService
             'profiles_filters',
             'profile_instance',
             'profile_title',
-            'contextKey'
+            'contextKey',
+            'profiles_permissions',
+            'profiles_permissionsByItem'
         );
     
         return [
@@ -177,7 +198,9 @@ class BaseProfileService extends BaseService
             'profile_viewTypes' => $profile_viewTypes,
             'profile_partialViewName' => $profile_partialViewName,
             'contextKey' => $contextKey,
-            'profile_compact_value' => $compact_value
+            'profile_compact_value' => $compact_value,
+            'profiles_permissions' => $profiles_permissions,
+            'profiles_permissionsByItem' => $profiles_permissionsByItem
         ];
     }
 

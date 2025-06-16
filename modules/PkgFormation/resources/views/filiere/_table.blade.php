@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-filiere') || Auth::user()->can('destroy-filiere');
+                    $bulkEdit = $filieres_permissions['edit-filiere'] || $devfilieres_permissions['destroy-filiere'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="code" modelname="filiere" label="{{ucfirst(__('PkgFormation::filiere.code'))}}" />
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="filiere" label="{{ucfirst(__('PkgFormation::filiere.nom'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,47 +18,45 @@
             @section('filiere-table-tbody')
             @foreach ($filieres_data as $filiere)
                 @php
-                    $isEditable = Auth::user()->can('edit-filiere') && Auth::user()->can('update', $filiere);
+                    $isEditable = $filieres_permissions['edit-filiere'] && $filieres_permissionsByItem['update'][$filiere->id];
                 @endphp
                 <tr id="filiere-row-{{$filiere->id}}" data-id="{{$filiere->id}}">
                     <x-checkbox-row :item="$filiere" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$filiere->id}}" data-field="code"  data-toggle="tooltip" title="{{ $filiere->code }}" >
-                    <x-field :entity="$filiere" field="code">
                         {{ $filiere->code }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$filiere->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $filiere->nom }}" >
-                    <x-field :entity="$filiere" field="nom">
                         {{ $filiere->nom }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-filiere')
+                        @if($filieres_permissions['edit-filiere'])
                         <x-action-button :entity="$filiere" actionName="edit">
-                        @can('update', $filiere)
+                        @if($filieres_permissionsByItem['update'][$filiere->id])
                             <a href="{{ route('filieres.edit', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-filiere')
+                        @endif
+                        @if($filieres_permissions['show-filiere'])
                         <x-action-button :entity="$filiere" actionName="show">
-                        @can('view', $filiere)
+                        @if($filieres_permissionsByItem['view'][$filiere->id])
                             <a href="{{ route('filieres.show', ['filiere' => $filiere->id]) }}" data-id="{{$filiere->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$filiere" actionName="delete">
-                        @can('destroy-filiere')
-                        @can('delete', $filiere)
+                        @if($filieres_permissions['destroy-filiere'])
+                        @if($filieres_permissionsByItem['delete'][$filiere->id])
                             <form class="context-state" action="{{ route('filieres.destroy',['filiere' => $filiere->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -67,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

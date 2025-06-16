@@ -41,7 +41,7 @@ class BaseApprenantController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('apprenant');

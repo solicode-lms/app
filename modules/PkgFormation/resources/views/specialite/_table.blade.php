@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-specialite') || Auth::user()->can('destroy-specialite');
+                    $bulkEdit = $specialites_permissions['edit-specialite'] || $devspecialites_permissions['destroy-specialite'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="specialite" label="{{ucfirst(__('PkgFormation::specialite.nom'))}}" />
                 <x-sortable-column :sortable="true" width="41"  field="formateurs" modelname="specialite" label="{{ucfirst(__('PkgFormation::formateur.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,51 +18,48 @@
             @section('specialite-table-tbody')
             @foreach ($specialites_data as $specialite)
                 @php
-                    $isEditable = Auth::user()->can('edit-specialite') && Auth::user()->can('update', $specialite);
+                    $isEditable = $specialites_permissions['edit-specialite'] && $specialites_permissionsByItem['update'][$specialite->id];
                 @endphp
                 <tr id="specialite-row-{{$specialite->id}}" data-id="{{$specialite->id}}">
                     <x-checkbox-row :item="$specialite" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $specialite->nom }}" >
-                    <x-field :entity="$specialite" field="nom">
                         {{ $specialite->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$specialite->id}}" data-field="formateurs"  data-toggle="tooltip" title="{{ $specialite->formateurs }}" >
-                    <x-field :entity="$specialite" field="formateurs">
                         <ul>
                             @foreach ($specialite->formateurs as $formateur)
                                 <li @if(strlen($formateur) > 30) data-toggle="tooltip" title="{{$formateur}}"  @endif>@limit($formateur, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-specialite')
+                        @if($specialites_permissions['edit-specialite'])
                         <x-action-button :entity="$specialite" actionName="edit">
-                        @can('update', $specialite)
+                        @if($specialites_permissionsByItem['update'][$specialite->id])
                             <a href="{{ route('specialites.edit', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-specialite')
+                        @endif
+                        @if($specialites_permissions['show-specialite'])
                         <x-action-button :entity="$specialite" actionName="show">
-                        @can('view', $specialite)
+                        @if($specialites_permissionsByItem['view'][$specialite->id])
                             <a href="{{ route('specialites.show', ['specialite' => $specialite->id]) }}" data-id="{{$specialite->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$specialite" actionName="delete">
-                        @can('destroy-specialite')
-                        @can('delete', $specialite)
+                        @if($specialites_permissions['destroy-specialite'])
+                        @if($specialites_permissionsByItem['delete'][$specialite->id])
                             <form class="context-state" action="{{ route('specialites.destroy',['specialite' => $specialite->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -71,8 +67,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

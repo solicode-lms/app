@@ -42,7 +42,7 @@ class BaseSysColorController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('sysColor');

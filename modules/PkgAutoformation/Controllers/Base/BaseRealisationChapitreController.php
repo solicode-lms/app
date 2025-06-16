@@ -37,7 +37,7 @@ class BaseRealisationChapitreController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('realisationChapitre.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationChapitre');

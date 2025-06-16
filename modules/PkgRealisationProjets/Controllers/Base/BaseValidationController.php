@@ -34,7 +34,7 @@ class BaseValidationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('validation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('validation');

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-resource') || Auth::user()->can('destroy-resource');
+                    $bulkEdit = $resources_permissions['edit-resource'] || $devresources_permissions['destroy-resource'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="resource" label="{{ucfirst(__('PkgCreationProjet::resource.nom'))}}" />
                 <x-sortable-column :sortable="true" width="41"  field="lien" modelname="resource" label="{{ucfirst(__('PkgCreationProjet::resource.lien'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,47 +18,45 @@
             @section('resource-table-tbody')
             @foreach ($resources_data as $resource)
                 @php
-                    $isEditable = Auth::user()->can('edit-resource') && Auth::user()->can('update', $resource);
+                    $isEditable = $resources_permissions['edit-resource'] && $resources_permissionsByItem['update'][$resource->id];
                 @endphp
                 <tr id="resource-row-{{$resource->id}}" data-id="{{$resource->id}}">
                     <x-checkbox-row :item="$resource" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $resource->nom }}" >
-                    <x-field :entity="$resource" field="nom">
                         {{ $resource->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$resource->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $resource->lien }}" >
-                    <x-field :entity="$resource" field="lien">
                         {{ $resource->lien }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-resource')
+                        @if($resources_permissions['edit-resource'])
                         <x-action-button :entity="$resource" actionName="edit">
-                        @can('update', $resource)
+                        @if($resources_permissionsByItem['update'][$resource->id])
                             <a href="{{ route('resources.edit', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-resource')
+                        @endif
+                        @if($resources_permissions['show-resource'])
                         <x-action-button :entity="$resource" actionName="show">
-                        @can('view', $resource)
+                        @if($resources_permissionsByItem['view'][$resource->id])
                             <a href="{{ route('resources.show', ['resource' => $resource->id]) }}" data-id="{{$resource->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$resource" actionName="delete">
-                        @can('destroy-resource')
-                        @can('delete', $resource)
+                        @if($resources_permissions['destroy-resource'])
+                        @if($resources_permissionsByItem['delete'][$resource->id])
                             <form class="context-state" action="{{ route('resources.destroy',['resource' => $resource->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -67,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

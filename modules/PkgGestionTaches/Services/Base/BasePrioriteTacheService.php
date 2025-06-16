@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
 use Modules\Core\Services\BaseService;
 
@@ -155,6 +157,23 @@ class BasePrioriteTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.prioriteTache.stats', $prioriteTaches_stats);
     
+        $prioriteTaches_permissions = [
+
+            'edit-prioriteTache' => Auth::user()->can('edit-prioriteTache'),
+            'destroy-prioriteTache' => Auth::user()->can('destroy-prioriteTache'),
+            'show-prioriteTache' => Auth::user()->can('show-prioriteTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $prioriteTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($prioriteTaches_data as $item) {
+                $prioriteTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'prioriteTache_viewTypes',
@@ -164,7 +183,9 @@ class BasePrioriteTacheService extends BaseService
             'prioriteTaches_filters',
             'prioriteTache_instance',
             'prioriteTache_title',
-            'contextKey'
+            'contextKey',
+            'prioriteTaches_permissions',
+            'prioriteTaches_permissionsByItem'
         );
     
         return [
@@ -176,7 +197,9 @@ class BasePrioriteTacheService extends BaseService
             'prioriteTache_viewTypes' => $prioriteTache_viewTypes,
             'prioriteTache_partialViewName' => $prioriteTache_partialViewName,
             'contextKey' => $contextKey,
-            'prioriteTache_compact_value' => $compact_value
+            'prioriteTache_compact_value' => $compact_value,
+            'prioriteTaches_permissions' => $prioriteTaches_permissions,
+            'prioriteTaches_permissionsByItem' => $prioriteTaches_permissionsByItem
         ];
     }
 

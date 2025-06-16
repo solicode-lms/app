@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\TypeDependanceTache;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseTypeDependanceTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.typeDependanceTache.stats', $typeDependanceTaches_stats);
     
+        $typeDependanceTaches_permissions = [
+
+            'edit-typeDependanceTache' => Auth::user()->can('edit-typeDependanceTache'),
+            'destroy-typeDependanceTache' => Auth::user()->can('destroy-typeDependanceTache'),
+            'show-typeDependanceTache' => Auth::user()->can('show-typeDependanceTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $typeDependanceTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($typeDependanceTaches_data as $item) {
+                $typeDependanceTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'typeDependanceTache_viewTypes',
@@ -144,7 +163,9 @@ class BaseTypeDependanceTacheService extends BaseService
             'typeDependanceTaches_filters',
             'typeDependanceTache_instance',
             'typeDependanceTache_title',
-            'contextKey'
+            'contextKey',
+            'typeDependanceTaches_permissions',
+            'typeDependanceTaches_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseTypeDependanceTacheService extends BaseService
             'typeDependanceTache_viewTypes' => $typeDependanceTache_viewTypes,
             'typeDependanceTache_partialViewName' => $typeDependanceTache_partialViewName,
             'contextKey' => $contextKey,
-            'typeDependanceTache_compact_value' => $compact_value
+            'typeDependanceTache_compact_value' => $compact_value,
+            'typeDependanceTaches_permissions' => $typeDependanceTaches_permissions,
+            'typeDependanceTaches_permissionsByItem' => $typeDependanceTaches_permissionsByItem
         ];
     }
 

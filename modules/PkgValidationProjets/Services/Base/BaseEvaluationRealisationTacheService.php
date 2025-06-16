@@ -5,6 +5,8 @@
 
 namespace Modules\PkgValidationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -150,6 +152,23 @@ class BaseEvaluationRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.evaluationRealisationTache.stats', $evaluationRealisationTaches_stats);
     
+        $evaluationRealisationTaches_permissions = [
+
+            'edit-evaluationRealisationTache' => Auth::user()->can('edit-evaluationRealisationTache'),
+            'destroy-evaluationRealisationTache' => Auth::user()->can('destroy-evaluationRealisationTache'),
+            'show-evaluationRealisationTache' => Auth::user()->can('show-evaluationRealisationTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $evaluationRealisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($evaluationRealisationTaches_data as $item) {
+                $evaluationRealisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'evaluationRealisationTache_viewTypes',
@@ -159,7 +178,9 @@ class BaseEvaluationRealisationTacheService extends BaseService
             'evaluationRealisationTaches_filters',
             'evaluationRealisationTache_instance',
             'evaluationRealisationTache_title',
-            'contextKey'
+            'contextKey',
+            'evaluationRealisationTaches_permissions',
+            'evaluationRealisationTaches_permissionsByItem'
         );
     
         return [
@@ -171,7 +192,9 @@ class BaseEvaluationRealisationTacheService extends BaseService
             'evaluationRealisationTache_viewTypes' => $evaluationRealisationTache_viewTypes,
             'evaluationRealisationTache_partialViewName' => $evaluationRealisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'evaluationRealisationTache_compact_value' => $compact_value
+            'evaluationRealisationTache_compact_value' => $compact_value,
+            'evaluationRealisationTaches_permissions' => $evaluationRealisationTaches_permissions,
+            'evaluationRealisationTaches_permissionsByItem' => $evaluationRealisationTaches_permissionsByItem
         ];
     }
 

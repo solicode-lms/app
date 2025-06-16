@@ -38,7 +38,7 @@ class BaseLivrableController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('livrable.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('livrable');

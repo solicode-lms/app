@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\EPackage;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseEPackageService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.ePackage.stats', $ePackages_stats);
     
+        $ePackages_permissions = [
+
+            'edit-ePackage' => Auth::user()->can('edit-ePackage'),
+            'destroy-ePackage' => Auth::user()->can('destroy-ePackage'),
+            'show-ePackage' => Auth::user()->can('show-ePackage'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $ePackages_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($ePackages_data as $item) {
+                $ePackages_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'ePackage_viewTypes',
@@ -144,7 +163,9 @@ class BaseEPackageService extends BaseService
             'ePackages_filters',
             'ePackage_instance',
             'ePackage_title',
-            'contextKey'
+            'contextKey',
+            'ePackages_permissions',
+            'ePackages_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseEPackageService extends BaseService
             'ePackage_viewTypes' => $ePackage_viewTypes,
             'ePackage_partialViewName' => $ePackage_partialViewName,
             'contextKey' => $contextKey,
-            'ePackage_compact_value' => $compact_value
+            'ePackage_compact_value' => $compact_value,
+            'ePackages_permissions' => $ePackages_permissions,
+            'ePackages_permissionsByItem' => $ePackages_permissionsByItem
         ];
     }
 

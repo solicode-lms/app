@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\WorkflowFormation;
 use Modules\Core\Services\BaseService;
 
@@ -141,6 +143,23 @@ class BaseWorkflowFormationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.workflowFormation.stats', $workflowFormations_stats);
     
+        $workflowFormations_permissions = [
+
+            'edit-workflowFormation' => Auth::user()->can('edit-workflowFormation'),
+            'destroy-workflowFormation' => Auth::user()->can('destroy-workflowFormation'),
+            'show-workflowFormation' => Auth::user()->can('show-workflowFormation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $workflowFormations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($workflowFormations_data as $item) {
+                $workflowFormations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'workflowFormation_viewTypes',
@@ -150,7 +169,9 @@ class BaseWorkflowFormationService extends BaseService
             'workflowFormations_filters',
             'workflowFormation_instance',
             'workflowFormation_title',
-            'contextKey'
+            'contextKey',
+            'workflowFormations_permissions',
+            'workflowFormations_permissionsByItem'
         );
     
         return [
@@ -162,7 +183,9 @@ class BaseWorkflowFormationService extends BaseService
             'workflowFormation_viewTypes' => $workflowFormation_viewTypes,
             'workflowFormation_partialViewName' => $workflowFormation_partialViewName,
             'contextKey' => $contextKey,
-            'workflowFormation_compact_value' => $compact_value
+            'workflowFormation_compact_value' => $compact_value,
+            'workflowFormations_permissions' => $workflowFormations_permissions,
+            'workflowFormations_permissionsByItem' => $workflowFormations_permissionsByItem
         ];
     }
 

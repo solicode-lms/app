@@ -32,7 +32,7 @@ class BaseEtatEvaluationProjetController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('etatEvaluationProjet.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('etatEvaluationProjet');

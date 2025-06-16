@@ -42,7 +42,7 @@ class BaseFormationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('formation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('formation');

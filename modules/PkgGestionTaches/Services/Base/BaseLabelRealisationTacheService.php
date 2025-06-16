@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -159,6 +161,23 @@ class BaseLabelRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.labelRealisationTache.stats', $labelRealisationTaches_stats);
     
+        $labelRealisationTaches_permissions = [
+
+            'edit-labelRealisationTache' => Auth::user()->can('edit-labelRealisationTache'),
+            'destroy-labelRealisationTache' => Auth::user()->can('destroy-labelRealisationTache'),
+            'show-labelRealisationTache' => Auth::user()->can('show-labelRealisationTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $labelRealisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($labelRealisationTaches_data as $item) {
+                $labelRealisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'labelRealisationTache_viewTypes',
@@ -168,7 +187,9 @@ class BaseLabelRealisationTacheService extends BaseService
             'labelRealisationTaches_filters',
             'labelRealisationTache_instance',
             'labelRealisationTache_title',
-            'contextKey'
+            'contextKey',
+            'labelRealisationTaches_permissions',
+            'labelRealisationTaches_permissionsByItem'
         );
     
         return [
@@ -180,7 +201,9 @@ class BaseLabelRealisationTacheService extends BaseService
             'labelRealisationTache_viewTypes' => $labelRealisationTache_viewTypes,
             'labelRealisationTache_partialViewName' => $labelRealisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'labelRealisationTache_compact_value' => $compact_value
+            'labelRealisationTache_compact_value' => $compact_value,
+            'labelRealisationTaches_permissions' => $labelRealisationTaches_permissions,
+            'labelRealisationTaches_permissionsByItem' => $labelRealisationTaches_permissionsByItem
         ];
     }
 

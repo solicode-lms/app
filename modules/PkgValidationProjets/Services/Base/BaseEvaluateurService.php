@@ -5,6 +5,8 @@
 
 namespace Modules\PkgValidationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\Core\Services\BaseService;
 
@@ -153,6 +155,24 @@ class BaseEvaluateurService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.evaluateur.stats', $evaluateurs_stats);
     
+        $evaluateurs_permissions = [
+            'initPassword-evaluateur' => Auth::user()->can('initPassword-evaluateur'),           
+            
+            'edit-evaluateur' => Auth::user()->can('edit-evaluateur'),
+            'destroy-evaluateur' => Auth::user()->can('destroy-evaluateur'),
+            'show-evaluateur' => Auth::user()->can('show-evaluateur'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $evaluateurs_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($evaluateurs_data as $item) {
+                $evaluateurs_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'evaluateur_viewTypes',
@@ -162,7 +182,9 @@ class BaseEvaluateurService extends BaseService
             'evaluateurs_filters',
             'evaluateur_instance',
             'evaluateur_title',
-            'contextKey'
+            'contextKey',
+            'evaluateurs_permissions',
+            'evaluateurs_permissionsByItem'
         );
     
         return [
@@ -174,7 +196,9 @@ class BaseEvaluateurService extends BaseService
             'evaluateur_viewTypes' => $evaluateur_viewTypes,
             'evaluateur_partialViewName' => $evaluateur_partialViewName,
             'contextKey' => $contextKey,
-            'evaluateur_compact_value' => $compact_value
+            'evaluateur_compact_value' => $compact_value,
+            'evaluateurs_permissions' => $evaluateurs_permissions,
+            'evaluateurs_permissionsByItem' => $evaluateurs_permissionsByItem
         ];
     }
 

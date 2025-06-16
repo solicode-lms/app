@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -146,6 +148,23 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.historiqueRealisationTache.stats', $historiqueRealisationTaches_stats);
     
+        $historiqueRealisationTaches_permissions = [
+
+            'edit-historiqueRealisationTache' => Auth::user()->can('edit-historiqueRealisationTache'),
+            'destroy-historiqueRealisationTache' => Auth::user()->can('destroy-historiqueRealisationTache'),
+            'show-historiqueRealisationTache' => Auth::user()->can('show-historiqueRealisationTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $historiqueRealisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($historiqueRealisationTaches_data as $item) {
+                $historiqueRealisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'historiqueRealisationTache_viewTypes',
@@ -155,7 +174,9 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTaches_filters',
             'historiqueRealisationTache_instance',
             'historiqueRealisationTache_title',
-            'contextKey'
+            'contextKey',
+            'historiqueRealisationTaches_permissions',
+            'historiqueRealisationTaches_permissionsByItem'
         );
     
         return [
@@ -167,7 +188,9 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTache_viewTypes' => $historiqueRealisationTache_viewTypes,
             'historiqueRealisationTache_partialViewName' => $historiqueRealisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'historiqueRealisationTache_compact_value' => $compact_value
+            'historiqueRealisationTache_compact_value' => $compact_value,
+            'historiqueRealisationTaches_permissions' => $historiqueRealisationTaches_permissions,
+            'historiqueRealisationTaches_permissionsByItem' => $historiqueRealisationTaches_permissionsByItem
         ];
     }
 

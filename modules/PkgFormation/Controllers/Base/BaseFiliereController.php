@@ -31,7 +31,7 @@ class BaseFiliereController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('filiere.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('filiere');

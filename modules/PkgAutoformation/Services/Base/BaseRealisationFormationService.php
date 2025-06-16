@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\RealisationFormation;
 use Modules\Core\Services\BaseService;
 
@@ -150,6 +152,23 @@ class BaseRealisationFormationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationFormation.stats', $realisationFormations_stats);
     
+        $realisationFormations_permissions = [
+
+            'edit-realisationFormation' => Auth::user()->can('edit-realisationFormation'),
+            'destroy-realisationFormation' => Auth::user()->can('destroy-realisationFormation'),
+            'show-realisationFormation' => Auth::user()->can('show-realisationFormation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $realisationFormations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($realisationFormations_data as $item) {
+                $realisationFormations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationFormation_viewTypes',
@@ -159,7 +178,9 @@ class BaseRealisationFormationService extends BaseService
             'realisationFormations_filters',
             'realisationFormation_instance',
             'realisationFormation_title',
-            'contextKey'
+            'contextKey',
+            'realisationFormations_permissions',
+            'realisationFormations_permissionsByItem'
         );
     
         return [
@@ -171,7 +192,9 @@ class BaseRealisationFormationService extends BaseService
             'realisationFormation_viewTypes' => $realisationFormation_viewTypes,
             'realisationFormation_partialViewName' => $realisationFormation_partialViewName,
             'contextKey' => $contextKey,
-            'realisationFormation_compact_value' => $compact_value
+            'realisationFormation_compact_value' => $compact_value,
+            'realisationFormations_permissions' => $realisationFormations_permissions,
+            'realisationFormations_permissionsByItem' => $realisationFormations_permissionsByItem
         ];
     }
 

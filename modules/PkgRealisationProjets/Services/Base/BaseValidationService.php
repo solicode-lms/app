@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\Validation;
 use Modules\Core\Services\BaseService;
 
@@ -160,6 +162,23 @@ class BaseValidationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.validation.stats', $validations_stats);
     
+        $validations_permissions = [
+
+            'edit-validation' => Auth::user()->can('edit-validation'),
+            'destroy-validation' => Auth::user()->can('destroy-validation'),
+            'show-validation' => Auth::user()->can('show-validation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $validations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($validations_data as $item) {
+                $validations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'validation_viewTypes',
@@ -169,7 +188,9 @@ class BaseValidationService extends BaseService
             'validations_filters',
             'validation_instance',
             'validation_title',
-            'contextKey'
+            'contextKey',
+            'validations_permissions',
+            'validations_permissionsByItem'
         );
     
         return [
@@ -181,7 +202,9 @@ class BaseValidationService extends BaseService
             'validation_viewTypes' => $validation_viewTypes,
             'validation_partialViewName' => $validation_partialViewName,
             'contextKey' => $contextKey,
-            'validation_compact_value' => $compact_value
+            'validation_compact_value' => $compact_value,
+            'validations_permissions' => $validations_permissions,
+            'validations_permissionsByItem' => $validations_permissionsByItem
         ];
     }
 

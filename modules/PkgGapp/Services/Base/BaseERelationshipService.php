@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\ERelationship;
 use Modules\Core\Services\BaseService;
 
@@ -158,6 +160,23 @@ class BaseERelationshipService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eRelationship.stats', $eRelationships_stats);
     
+        $eRelationships_permissions = [
+
+            'edit-eRelationship' => Auth::user()->can('edit-eRelationship'),
+            'destroy-eRelationship' => Auth::user()->can('destroy-eRelationship'),
+            'show-eRelationship' => Auth::user()->can('show-eRelationship'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $eRelationships_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($eRelationships_data as $item) {
+                $eRelationships_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eRelationship_viewTypes',
@@ -167,7 +186,9 @@ class BaseERelationshipService extends BaseService
             'eRelationships_filters',
             'eRelationship_instance',
             'eRelationship_title',
-            'contextKey'
+            'contextKey',
+            'eRelationships_permissions',
+            'eRelationships_permissionsByItem'
         );
     
         return [
@@ -179,7 +200,9 @@ class BaseERelationshipService extends BaseService
             'eRelationship_viewTypes' => $eRelationship_viewTypes,
             'eRelationship_partialViewName' => $eRelationship_partialViewName,
             'contextKey' => $contextKey,
-            'eRelationship_compact_value' => $compact_value
+            'eRelationship_compact_value' => $compact_value,
+            'eRelationships_permissions' => $eRelationships_permissions,
+            'eRelationships_permissionsByItem' => $eRelationships_permissionsByItem
         ];
     }
 

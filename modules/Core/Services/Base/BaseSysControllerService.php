@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\SysController;
 use Modules\Core\Services\BaseService;
 
@@ -142,6 +144,23 @@ class BaseSysControllerService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysController.stats', $sysControllers_stats);
     
+        $sysControllers_permissions = [
+
+            'edit-sysController' => Auth::user()->can('edit-sysController'),
+            'destroy-sysController' => Auth::user()->can('destroy-sysController'),
+            'show-sysController' => Auth::user()->can('show-sysController'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $sysControllers_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($sysControllers_data as $item) {
+                $sysControllers_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysController_viewTypes',
@@ -151,7 +170,9 @@ class BaseSysControllerService extends BaseService
             'sysControllers_filters',
             'sysController_instance',
             'sysController_title',
-            'contextKey'
+            'contextKey',
+            'sysControllers_permissions',
+            'sysControllers_permissionsByItem'
         );
     
         return [
@@ -163,7 +184,9 @@ class BaseSysControllerService extends BaseService
             'sysController_viewTypes' => $sysController_viewTypes,
             'sysController_partialViewName' => $sysController_partialViewName,
             'contextKey' => $contextKey,
-            'sysController_compact_value' => $compact_value
+            'sysController_compact_value' => $compact_value,
+            'sysControllers_permissions' => $sysControllers_permissions,
+            'sysControllers_permissionsByItem' => $sysControllers_permissionsByItem
         ];
     }
 

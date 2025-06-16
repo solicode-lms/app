@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\Core\Services\BaseService;
 
@@ -152,6 +154,23 @@ class BaseGroupeService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.groupe.stats', $groupes_stats);
     
+        $groupes_permissions = [
+
+            'edit-groupe' => Auth::user()->can('edit-groupe'),
+            'destroy-groupe' => Auth::user()->can('destroy-groupe'),
+            'show-groupe' => Auth::user()->can('show-groupe'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $groupes_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($groupes_data as $item) {
+                $groupes_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'groupe_viewTypes',
@@ -161,7 +180,9 @@ class BaseGroupeService extends BaseService
             'groupes_filters',
             'groupe_instance',
             'groupe_title',
-            'contextKey'
+            'contextKey',
+            'groupes_permissions',
+            'groupes_permissionsByItem'
         );
     
         return [
@@ -173,7 +194,9 @@ class BaseGroupeService extends BaseService
             'groupe_viewTypes' => $groupe_viewTypes,
             'groupe_partialViewName' => $groupe_partialViewName,
             'contextKey' => $contextKey,
-            'groupe_compact_value' => $compact_value
+            'groupe_compact_value' => $compact_value,
+            'groupes_permissions' => $groupes_permissions,
+            'groupes_permissionsByItem' => $groupes_permissionsByItem
         ];
     }
 

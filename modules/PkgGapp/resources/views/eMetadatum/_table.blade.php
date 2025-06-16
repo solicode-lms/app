@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-eMetadatum') || Auth::user()->can('destroy-eMetadatum');
+                    $bulkEdit = $eMetadata_permissions['edit-eMetadatum'] || $deveMetadata_permissions['destroy-eMetadatum'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_model_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eModel.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eDataField.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.singular'))}}" />
@@ -20,55 +19,48 @@
             @section('eMetadatum-table-tbody')
             @foreach ($eMetadata_data as $eMetadatum)
                 @php
-                    $isEditable = Auth::user()->can('edit-eMetadatum') && Auth::user()->can('update', $eMetadatum);
+                    $isEditable = $eMetadata_permissions['edit-eMetadatum'] && $eMetadata_permissionsByItem['update'][$eMetadatum->id];
                 @endphp
                 <tr id="eMetadatum-row-{{$eMetadatum->id}}" data-id="{{$eMetadatum->id}}">
                     <x-checkbox-row :item="$eMetadatum" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eMetadatum->eModel }}" >
-                    <x-field :entity="$eMetadatum" field="eModel">
-                       
-                         {{  $eMetadatum->eModel }}
-                    </x-field>
+                        {{  $eMetadatum->eModel }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_data_field_id"  data-toggle="tooltip" title="{{ $eMetadatum->eDataField }}" >
-                    <x-field :entity="$eMetadatum" field="eDataField">
-                       
-                         {{  $eMetadatum->eDataField }}
-                    </x-field>
+                        {{  $eMetadatum->eDataField }}
+
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadatum->id}}" data-field="e_metadata_definition_id"  data-toggle="tooltip" title="{{ $eMetadatum->eMetadataDefinition }}" >
-                    <x-field :entity="$eMetadatum" field="eMetadataDefinition">
-                       
-                         {{  $eMetadatum->eMetadataDefinition }}
-                    </x-field>
+                        @include('PkgGapp::eMetadatum.custom.fields.eMetadataDefinition', ['entity' => $eMetadatum])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-eMetadatum')
+                        @if($eMetadata_permissions['edit-eMetadatum'])
                         <x-action-button :entity="$eMetadatum" actionName="edit">
-                        @can('update', $eMetadatum)
+                        @if($eMetadata_permissionsByItem['update'][$eMetadatum->id])
                             <a href="{{ route('eMetadata.edit', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-eMetadatum')
+                        @endif
+                        @if($eMetadata_permissions['show-eMetadatum'])
                         <x-action-button :entity="$eMetadatum" actionName="show">
-                        @can('view', $eMetadatum)
+                        @if($eMetadata_permissionsByItem['view'][$eMetadatum->id])
                             <a href="{{ route('eMetadata.show', ['eMetadatum' => $eMetadatum->id]) }}" data-id="{{$eMetadatum->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$eMetadatum" actionName="delete">
-                        @can('destroy-eMetadatum')
-                        @can('delete', $eMetadatum)
+                        @if($eMetadata_permissions['destroy-eMetadatum'])
+                        @if($eMetadata_permissionsByItem['delete'][$eMetadatum->id])
                             <form class="context-state" action="{{ route('eMetadata.destroy',['eMetadatum' => $eMetadatum->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -76,8 +68,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

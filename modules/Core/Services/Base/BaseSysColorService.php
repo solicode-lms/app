@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\SysColor;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseSysColorService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysColor.stats', $sysColors_stats);
     
+        $sysColors_permissions = [
+
+            'edit-sysColor' => Auth::user()->can('edit-sysColor'),
+            'destroy-sysColor' => Auth::user()->can('destroy-sysColor'),
+            'show-sysColor' => Auth::user()->can('show-sysColor'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $sysColors_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($sysColors_data as $item) {
+                $sysColors_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysColor_viewTypes',
@@ -144,7 +163,9 @@ class BaseSysColorService extends BaseService
             'sysColors_filters',
             'sysColor_instance',
             'sysColor_title',
-            'contextKey'
+            'contextKey',
+            'sysColors_permissions',
+            'sysColors_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseSysColorService extends BaseService
             'sysColor_viewTypes' => $sysColor_viewTypes,
             'sysColor_partialViewName' => $sysColor_partialViewName,
             'contextKey' => $contextKey,
-            'sysColor_compact_value' => $compact_value
+            'sysColor_compact_value' => $compact_value,
+            'sysColors_permissions' => $sysColors_permissions,
+            'sysColors_permissionsByItem' => $sysColors_permissionsByItem
         ];
     }
 

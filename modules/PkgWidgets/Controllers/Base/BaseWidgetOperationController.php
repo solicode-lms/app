@@ -29,7 +29,7 @@ class BaseWidgetOperationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('widgetOperation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetOperation');

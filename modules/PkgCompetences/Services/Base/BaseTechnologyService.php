@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCompetences\Models\Technology;
 use Modules\Core\Services\BaseService;
 
@@ -140,6 +142,23 @@ class BaseTechnologyService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.technology.stats', $technologies_stats);
     
+        $technologies_permissions = [
+
+            'edit-technology' => Auth::user()->can('edit-technology'),
+            'destroy-technology' => Auth::user()->can('destroy-technology'),
+            'show-technology' => Auth::user()->can('show-technology'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $technologies_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($technologies_data as $item) {
+                $technologies_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'technology_viewTypes',
@@ -149,7 +168,9 @@ class BaseTechnologyService extends BaseService
             'technologies_filters',
             'technology_instance',
             'technology_title',
-            'contextKey'
+            'contextKey',
+            'technologies_permissions',
+            'technologies_permissionsByItem'
         );
     
         return [
@@ -161,7 +182,9 @@ class BaseTechnologyService extends BaseService
             'technology_viewTypes' => $technology_viewTypes,
             'technology_partialViewName' => $technology_partialViewName,
             'contextKey' => $contextKey,
-            'technology_compact_value' => $compact_value
+            'technology_compact_value' => $compact_value,
+            'technologies_permissions' => $technologies_permissions,
+            'technologies_permissionsByItem' => $technologies_permissionsByItem
         ];
     }
 

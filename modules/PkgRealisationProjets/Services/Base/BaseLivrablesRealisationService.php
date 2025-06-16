@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\Core\Services\BaseService;
 
@@ -160,6 +162,23 @@ class BaseLivrablesRealisationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.livrablesRealisation.stats', $livrablesRealisations_stats);
     
+        $livrablesRealisations_permissions = [
+
+            'edit-livrablesRealisation' => Auth::user()->can('edit-livrablesRealisation'),
+            'destroy-livrablesRealisation' => Auth::user()->can('destroy-livrablesRealisation'),
+            'show-livrablesRealisation' => Auth::user()->can('show-livrablesRealisation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $livrablesRealisations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($livrablesRealisations_data as $item) {
+                $livrablesRealisations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'livrablesRealisation_viewTypes',
@@ -169,7 +188,9 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisations_filters',
             'livrablesRealisation_instance',
             'livrablesRealisation_title',
-            'contextKey'
+            'contextKey',
+            'livrablesRealisations_permissions',
+            'livrablesRealisations_permissionsByItem'
         );
     
         return [
@@ -181,7 +202,9 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisation_viewTypes' => $livrablesRealisation_viewTypes,
             'livrablesRealisation_partialViewName' => $livrablesRealisation_partialViewName,
             'contextKey' => $contextKey,
-            'livrablesRealisation_compact_value' => $compact_value
+            'livrablesRealisation_compact_value' => $compact_value,
+            'livrablesRealisations_permissions' => $livrablesRealisations_permissions,
+            'livrablesRealisations_permissionsByItem' => $livrablesRealisations_permissionsByItem
         ];
     }
 

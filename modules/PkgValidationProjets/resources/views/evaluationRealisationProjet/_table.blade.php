@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-evaluationRealisationProjet') || Auth::user()->can('destroy-evaluationRealisationProjet');
+                    $bulkEdit = $evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'] || $devevaluationRealisationProjets_permissions['destroy-evaluationRealisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="NomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.NomApprenant'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
@@ -22,69 +21,61 @@
             @section('evaluationRealisationProjet-table-tbody')
             @foreach ($evaluationRealisationProjets_data as $evaluationRealisationProjet)
                 @php
-                    $isEditable = Auth::user()->can('edit-evaluationRealisationProjet') && Auth::user()->can('update', $evaluationRealisationProjet);
+                    $isEditable = $evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'] && $evaluationRealisationProjets_permissionsByItem['update'][$evaluationRealisationProjet->id];
                 @endphp
                 <tr id="evaluationRealisationProjet-row-{{$evaluationRealisationProjet->id}}" data-id="{{$evaluationRealisationProjet->id}}">
                     <x-checkbox-row :item="$evaluationRealisationProjet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="realisation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->realisationProjet }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="realisationProjet">
-                       
-                         {{  $evaluationRealisationProjet->realisationProjet }}
-                    </x-field>
+                        {{  $evaluationRealisationProjet->realisationProjet }}
+
                     </td>
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="NomApprenant"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->NomApprenant }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="NomApprenant">
                         {{ $evaluationRealisationProjet->NomApprenant }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->evaluateur }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="evaluateur">
-                       
-                         {{  $evaluationRealisationProjet->evaluateur }}
-                    </x-field>
+                        {{  $evaluationRealisationProjet->evaluateur }}
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="etat_evaluation_projet_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->etatEvaluationProjet }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="etatEvaluationProjet">
                         @if(!empty($evaluationRealisationProjet->etatEvaluationProjet))
                         <x-badge 
                         :text="$evaluationRealisationProjet->etatEvaluationProjet" 
                         :background="$evaluationRealisationProjet->etatEvaluationProjet->sysColor->hex ?? '#6c757d'" 
                         />
                         @endif
-                    </x-field>
+
                     </td>
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="Note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->Note }}" >
-                    <x-field :entity="$evaluationRealisationProjet" field="Note">
-                        {{ $evaluationRealisationProjet->Note }}
-                    </x-field>
+                        @include('PkgValidationProjets::evaluationRealisationProjet.custom.fields.Note', ['entity' => $evaluationRealisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-evaluationRealisationProjet')
+                        @if($evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'])
                         <x-action-button :entity="$evaluationRealisationProjet" actionName="edit">
-                        @can('update', $evaluationRealisationProjet)
+                        @if($evaluationRealisationProjets_permissionsByItem['update'][$evaluationRealisationProjet->id])
                             <a href="{{ route('evaluationRealisationProjets.edit', ['evaluationRealisationProjet' => $evaluationRealisationProjet->id]) }}" data-id="{{$evaluationRealisationProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-evaluationRealisationProjet')
+                        @endif
+                        @if($evaluationRealisationProjets_permissions['show-evaluationRealisationProjet'])
                         <x-action-button :entity="$evaluationRealisationProjet" actionName="show">
-                        @can('view', $evaluationRealisationProjet)
+                        @if($evaluationRealisationProjets_permissionsByItem['view'][$evaluationRealisationProjet->id])
                             <a href="{{ route('evaluationRealisationProjets.show', ['evaluationRealisationProjet' => $evaluationRealisationProjet->id]) }}" data-id="{{$evaluationRealisationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$evaluationRealisationProjet" actionName="delete">
-                        @can('destroy-evaluationRealisationProjet')
-                        @can('delete', $evaluationRealisationProjet)
+                        @if($evaluationRealisationProjets_permissions['destroy-evaluationRealisationProjet'])
+                        @if($evaluationRealisationProjets_permissionsByItem['delete'][$evaluationRealisationProjet->id])
                             <form class="context-state" action="{{ route('evaluationRealisationProjets.destroy',['evaluationRealisationProjet' => $evaluationRealisationProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -92,8 +83,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

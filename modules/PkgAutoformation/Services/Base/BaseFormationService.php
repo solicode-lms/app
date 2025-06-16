@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\Formation;
 use Modules\Core\Services\BaseService;
 
@@ -166,6 +168,23 @@ class BaseFormationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.formation.stats', $formations_stats);
     
+        $formations_permissions = [
+
+            'edit-formation' => Auth::user()->can('edit-formation'),
+            'destroy-formation' => Auth::user()->can('destroy-formation'),
+            'show-formation' => Auth::user()->can('show-formation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $formations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($formations_data as $item) {
+                $formations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'formation_viewTypes',
@@ -175,7 +194,9 @@ class BaseFormationService extends BaseService
             'formations_filters',
             'formation_instance',
             'formation_title',
-            'contextKey'
+            'contextKey',
+            'formations_permissions',
+            'formations_permissionsByItem'
         );
     
         return [
@@ -187,7 +208,9 @@ class BaseFormationService extends BaseService
             'formation_viewTypes' => $formation_viewTypes,
             'formation_partialViewName' => $formation_partialViewName,
             'contextKey' => $contextKey,
-            'formation_compact_value' => $compact_value
+            'formation_compact_value' => $compact_value,
+            'formations_permissions' => $formations_permissions,
+            'formations_permissionsByItem' => $formations_permissionsByItem
         ];
     }
 

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgFormation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\Core\Services\BaseService;
 
@@ -139,6 +141,23 @@ class BaseSpecialiteService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.specialite.stats', $specialites_stats);
     
+        $specialites_permissions = [
+
+            'edit-specialite' => Auth::user()->can('edit-specialite'),
+            'destroy-specialite' => Auth::user()->can('destroy-specialite'),
+            'show-specialite' => Auth::user()->can('show-specialite'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $specialites_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($specialites_data as $item) {
+                $specialites_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'specialite_viewTypes',
@@ -148,7 +167,9 @@ class BaseSpecialiteService extends BaseService
             'specialites_filters',
             'specialite_instance',
             'specialite_title',
-            'contextKey'
+            'contextKey',
+            'specialites_permissions',
+            'specialites_permissionsByItem'
         );
     
         return [
@@ -160,7 +181,9 @@ class BaseSpecialiteService extends BaseService
             'specialite_viewTypes' => $specialite_viewTypes,
             'specialite_partialViewName' => $specialite_partialViewName,
             'contextKey' => $contextKey,
-            'specialite_compact_value' => $compact_value
+            'specialite_compact_value' => $compact_value,
+            'specialites_permissions' => $specialites_permissions,
+            'specialites_permissionsByItem' => $specialites_permissionsByItem
         ];
     }
 

@@ -31,7 +31,7 @@ class BaseNiveauCompetenceController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('niveauCompetence.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('niveauCompetence');

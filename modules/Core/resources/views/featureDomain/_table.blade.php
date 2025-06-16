@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-featureDomain') || Auth::user()->can('destroy-featureDomain');
+                    $bulkEdit = $featureDomains_permissions['edit-featureDomain'] || $devfeatureDomains_permissions['destroy-featureDomain'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="name" modelname="featureDomain" label="{{ucfirst(__('Core::featureDomain.name'))}}" />
                 <x-sortable-column :sortable="true" width="41" field="sys_module_id" modelname="featureDomain" label="{{ucfirst(__('Core::sysModule.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,48 +18,45 @@
             @section('featureDomain-table-tbody')
             @foreach ($featureDomains_data as $featureDomain)
                 @php
-                    $isEditable = Auth::user()->can('edit-featureDomain') && Auth::user()->can('update', $featureDomain);
+                    $isEditable = $featureDomains_permissions['edit-featureDomain'] && $featureDomains_permissionsByItem['update'][$featureDomain->id];
                 @endphp
                 <tr id="featureDomain-row-{{$featureDomain->id}}" data-id="{{$featureDomain->id}}">
                     <x-checkbox-row :item="$featureDomain" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$featureDomain->id}}" data-field="name"  data-toggle="tooltip" title="{{ $featureDomain->name }}" >
-                    <x-field :entity="$featureDomain" field="name">
                         {{ $featureDomain->name }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$featureDomain->id}}" data-field="sys_module_id"  data-toggle="tooltip" title="{{ $featureDomain->sysModule }}" >
-                    <x-field :entity="$featureDomain" field="sysModule">
-                       
-                         {{  $featureDomain->sysModule }}
-                    </x-field>
+                        {{  $featureDomain->sysModule }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-featureDomain')
+                        @if($featureDomains_permissions['edit-featureDomain'])
                         <x-action-button :entity="$featureDomain" actionName="edit">
-                        @can('update', $featureDomain)
+                        @if($featureDomains_permissionsByItem['update'][$featureDomain->id])
                             <a href="{{ route('featureDomains.edit', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-featureDomain')
+                        @endif
+                        @if($featureDomains_permissions['show-featureDomain'])
                         <x-action-button :entity="$featureDomain" actionName="show">
-                        @can('view', $featureDomain)
+                        @if($featureDomains_permissionsByItem['view'][$featureDomain->id])
                             <a href="{{ route('featureDomains.show', ['featureDomain' => $featureDomain->id]) }}" data-id="{{$featureDomain->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$featureDomain" actionName="delete">
-                        @can('destroy-featureDomain')
-                        @can('delete', $featureDomain)
+                        @if($featureDomains_permissions['destroy-featureDomain'])
+                        @if($featureDomains_permissionsByItem['delete'][$featureDomain->id])
                             <form class="context-state" action="{{ route('featureDomains.destroy',['featureDomain' => $featureDomain->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -68,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

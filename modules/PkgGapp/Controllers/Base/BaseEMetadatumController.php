@@ -37,7 +37,7 @@ class BaseEMetadatumController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('eMetadatum');

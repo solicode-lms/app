@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutorisation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseRoleService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.role.stats', $roles_stats);
     
+        $roles_permissions = [
+
+            'edit-role' => Auth::user()->can('edit-role'),
+            'destroy-role' => Auth::user()->can('destroy-role'),
+            'show-role' => Auth::user()->can('show-role'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $roles_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($roles_data as $item) {
+                $roles_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'role_viewTypes',
@@ -144,7 +163,9 @@ class BaseRoleService extends BaseService
             'roles_filters',
             'role_instance',
             'role_title',
-            'contextKey'
+            'contextKey',
+            'roles_permissions',
+            'roles_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseRoleService extends BaseService
             'role_viewTypes' => $role_viewTypes,
             'role_partialViewName' => $role_partialViewName,
             'contextKey' => $contextKey,
-            'role_compact_value' => $compact_value
+            'role_compact_value' => $compact_value,
+            'roles_permissions' => $roles_permissions,
+            'roles_permissionsByItem' => $roles_permissionsByItem
         ];
     }
 

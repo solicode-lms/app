@@ -37,7 +37,7 @@ class BaseWidgetUtilisateurController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetUtilisateur');

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-historiqueRealisationTache') || Auth::user()->can('destroy-historiqueRealisationTache');
+                    $bulkEdit = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] || $devhistoriqueRealisationTaches_permissions['destroy-historiqueRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification'))}}" />
                 <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
@@ -20,53 +19,50 @@
             @section('historiqueRealisationTache-table-tbody')
             @foreach ($historiqueRealisationTaches_data as $historiqueRealisationTache)
                 @php
-                    $isEditable = Auth::user()->can('edit-historiqueRealisationTache') && Auth::user()->can('update', $historiqueRealisationTache);
+                    $isEditable = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] && $historiqueRealisationTaches_permissionsByItem['update'][$historiqueRealisationTache->id];
                 @endphp
                 <tr id="historiqueRealisationTache-row-{{$historiqueRealisationTache->id}}" data-id="{{$historiqueRealisationTache->id}}">
                     <x-checkbox-row :item="$historiqueRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 50%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
-                    <x-field :entity="$historiqueRealisationTache" field="changement">
+                    <td style="max-width: 50%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="changement"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->changement }}" >
                         {!! $historiqueRealisationTache->changement !!}
-                    </x-field>
                     </td>   
+
+                    </td>
                     <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->dateModification }}" >
-                    <x-field :entity="$historiqueRealisationTache" field="dateModification">
-                        {{ $historiqueRealisationTache->dateModification }}
-                    </x-field>
+                        @include('PkgGestionTaches::historiqueRealisationTache.custom.fields.dateModification', ['entity' => $historiqueRealisationTache])
                     </td>
                     <td style="max-width: 17%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
-                    <x-field :entity="$historiqueRealisationTache" field="user">
-                       
-                         {{  $historiqueRealisationTache->user }}
-                    </x-field>
+                        {{  $historiqueRealisationTache->user }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-historiqueRealisationTache')
+                        @if($historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'])
                         <x-action-button :entity="$historiqueRealisationTache" actionName="edit">
-                        @can('update', $historiqueRealisationTache)
+                        @if($historiqueRealisationTaches_permissionsByItem['update'][$historiqueRealisationTache->id])
                             <a href="{{ route('historiqueRealisationTaches.edit', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-historiqueRealisationTache')
+                        @endif
+                        @if($historiqueRealisationTaches_permissions['show-historiqueRealisationTache'])
                         <x-action-button :entity="$historiqueRealisationTache" actionName="show">
-                        @can('view', $historiqueRealisationTache)
+                        @if($historiqueRealisationTaches_permissionsByItem['view'][$historiqueRealisationTache->id])
                             <a href="{{ route('historiqueRealisationTaches.show', ['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" data-id="{{$historiqueRealisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$historiqueRealisationTache" actionName="delete">
-                        @can('destroy-historiqueRealisationTache')
-                        @can('delete', $historiqueRealisationTache)
+                        @if($historiqueRealisationTaches_permissions['destroy-historiqueRealisationTache'])
+                        @if($historiqueRealisationTaches_permissionsByItem['delete'][$historiqueRealisationTache->id])
                             <form class="context-state" action="{{ route('historiqueRealisationTaches.destroy',['historiqueRealisationTache' => $historiqueRealisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -74,8 +70,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

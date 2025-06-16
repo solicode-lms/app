@@ -31,7 +31,7 @@ class BasePrioriteTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('prioriteTache');

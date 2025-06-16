@@ -41,7 +41,7 @@ class BaseAffectationProjetController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('affectationProjet');

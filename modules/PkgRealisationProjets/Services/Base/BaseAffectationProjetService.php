@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -162,6 +164,23 @@ class BaseAffectationProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.affectationProjet.stats', $affectationProjets_stats);
     
+        $affectationProjets_permissions = [
+
+            'edit-affectationProjet' => Auth::user()->can('edit-affectationProjet'),
+            'destroy-affectationProjet' => Auth::user()->can('destroy-affectationProjet'),
+            'show-affectationProjet' => Auth::user()->can('show-affectationProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $affectationProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($affectationProjets_data as $item) {
+                $affectationProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'affectationProjet_viewTypes',
@@ -171,7 +190,9 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjets_filters',
             'affectationProjet_instance',
             'affectationProjet_title',
-            'contextKey'
+            'contextKey',
+            'affectationProjets_permissions',
+            'affectationProjets_permissionsByItem'
         );
     
         return [
@@ -183,7 +204,9 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjet_viewTypes' => $affectationProjet_viewTypes,
             'affectationProjet_partialViewName' => $affectationProjet_partialViewName,
             'contextKey' => $contextKey,
-            'affectationProjet_compact_value' => $compact_value
+            'affectationProjet_compact_value' => $compact_value,
+            'affectationProjets_permissions' => $affectationProjets_permissions,
+            'affectationProjets_permissionsByItem' => $affectationProjets_permissionsByItem
         ];
     }
 

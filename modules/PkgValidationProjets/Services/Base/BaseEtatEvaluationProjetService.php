@@ -5,6 +5,8 @@
 
 namespace Modules\PkgValidationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -142,6 +144,23 @@ class BaseEtatEvaluationProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatEvaluationProjet.stats', $etatEvaluationProjets_stats);
     
+        $etatEvaluationProjets_permissions = [
+
+            'edit-etatEvaluationProjet' => Auth::user()->can('edit-etatEvaluationProjet'),
+            'destroy-etatEvaluationProjet' => Auth::user()->can('destroy-etatEvaluationProjet'),
+            'show-etatEvaluationProjet' => Auth::user()->can('show-etatEvaluationProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $etatEvaluationProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($etatEvaluationProjets_data as $item) {
+                $etatEvaluationProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'etatEvaluationProjet_viewTypes',
@@ -151,7 +170,9 @@ class BaseEtatEvaluationProjetService extends BaseService
             'etatEvaluationProjets_filters',
             'etatEvaluationProjet_instance',
             'etatEvaluationProjet_title',
-            'contextKey'
+            'contextKey',
+            'etatEvaluationProjets_permissions',
+            'etatEvaluationProjets_permissionsByItem'
         );
     
         return [
@@ -163,7 +184,9 @@ class BaseEtatEvaluationProjetService extends BaseService
             'etatEvaluationProjet_viewTypes' => $etatEvaluationProjet_viewTypes,
             'etatEvaluationProjet_partialViewName' => $etatEvaluationProjet_partialViewName,
             'contextKey' => $contextKey,
-            'etatEvaluationProjet_compact_value' => $compact_value
+            'etatEvaluationProjet_compact_value' => $compact_value,
+            'etatEvaluationProjets_permissions' => $etatEvaluationProjets_permissions,
+            'etatEvaluationProjets_permissionsByItem' => $etatEvaluationProjets_permissionsByItem
         ];
     }
 

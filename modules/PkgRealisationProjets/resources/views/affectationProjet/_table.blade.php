@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-affectationProjet') || Auth::user()->can('destroy-affectationProjet');
+                    $bulkEdit = $affectationProjets_permissions['edit-affectationProjet'] || $devaffectationProjets_permissions['destroy-affectationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="16.4" field="projet_id" modelname="affectationProjet" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="groupe_id" modelname="affectationProjet" label="{{ucfirst(__('PkgApprenants::groupe.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="affectationProjet" label="{{ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))}}" />
@@ -22,68 +21,58 @@
             @section('affectationProjet-table-tbody')
             @foreach ($affectationProjets_data as $affectationProjet)
                 @php
-                    $isEditable = Auth::user()->can('edit-affectationProjet') && Auth::user()->can('update', $affectationProjet);
+                    $isEditable = $affectationProjets_permissions['edit-affectationProjet'] && $affectationProjets_permissionsByItem['update'][$affectationProjet->id];
                 @endphp
                 <tr id="affectationProjet-row-{{$affectationProjet->id}}" data-id="{{$affectationProjet->id}}">
                     <x-checkbox-row :item="$affectationProjet" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="projet_id"  data-toggle="tooltip" title="{{ $affectationProjet->projet }}" >
-                    <x-field :entity="$affectationProjet" field="projet">
-                       
-                         {{  $affectationProjet->projet }}
-                    </x-field>
+                        {{  $affectationProjet->projet }}
+
                     </td>
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->groupe }}" >
-                    <x-field :entity="$affectationProjet" field="groupe">
-                       
-                         {{  $affectationProjet->groupe }}
-                    </x-field>
+                        {{  $affectationProjet->groupe }}
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
-                    <x-field :entity="$affectationProjet" field="date_debut">
-                        {{ $affectationProjet->date_debut }}
-                    </x-field>
+                        <x-deadline-display :value="$affectationProjet->date_debut" />
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
-                    <x-field :entity="$affectationProjet" field="date_fin">
-                        {{ $affectationProjet->date_fin }}
-                    </x-field>
+                        <x-deadline-display :value="$affectationProjet->date_fin" />
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs"  data-toggle="tooltip" title="{{ $affectationProjet->evaluateurs }}" >
-                    <x-field :entity="$affectationProjet" field="evaluateurs">
                         <ul>
                             @foreach ($affectationProjet->evaluateurs as $evaluateur)
                                 <li @if(strlen($evaluateur) > 30) data-toggle="tooltip" title="{{$evaluateur}}"  @endif>@limit($evaluateur, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-affectationProjet')
+                        @if($affectationProjets_permissions['edit-affectationProjet'])
                         <x-action-button :entity="$affectationProjet" actionName="edit">
-                        @can('update', $affectationProjet)
+                        @if($affectationProjets_permissionsByItem['update'][$affectationProjet->id])
                             <a href="{{ route('affectationProjets.edit', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-affectationProjet')
+                        @endif
+                        @if($affectationProjets_permissions['show-affectationProjet'])
                         <x-action-button :entity="$affectationProjet" actionName="show">
-                        @can('view', $affectationProjet)
+                        @if($affectationProjets_permissionsByItem['view'][$affectationProjet->id])
                             <a href="{{ route('affectationProjets.show', ['affectationProjet' => $affectationProjet->id]) }}" data-id="{{$affectationProjet->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$affectationProjet" actionName="delete">
-                        @can('destroy-affectationProjet')
-                        @can('delete', $affectationProjet)
+                        @if($affectationProjets_permissions['destroy-affectationProjet'])
+                        @if($affectationProjets_permissionsByItem['delete'][$affectationProjet->id])
                             <form class="context-state" action="{{ route('affectationProjets.destroy',['affectationProjet' => $affectationProjet->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -91,8 +80,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

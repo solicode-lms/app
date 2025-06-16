@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\Core\Services\BaseService;
 
@@ -165,6 +167,23 @@ class BaseEtatFormationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatFormation.stats', $etatFormations_stats);
     
+        $etatFormations_permissions = [
+
+            'edit-etatFormation' => Auth::user()->can('edit-etatFormation'),
+            'destroy-etatFormation' => Auth::user()->can('destroy-etatFormation'),
+            'show-etatFormation' => Auth::user()->can('show-etatFormation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $etatFormations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($etatFormations_data as $item) {
+                $etatFormations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'etatFormation_viewTypes',
@@ -174,7 +193,9 @@ class BaseEtatFormationService extends BaseService
             'etatFormations_filters',
             'etatFormation_instance',
             'etatFormation_title',
-            'contextKey'
+            'contextKey',
+            'etatFormations_permissions',
+            'etatFormations_permissionsByItem'
         );
     
         return [
@@ -186,7 +207,9 @@ class BaseEtatFormationService extends BaseService
             'etatFormation_viewTypes' => $etatFormation_viewTypes,
             'etatFormation_partialViewName' => $etatFormation_partialViewName,
             'contextKey' => $contextKey,
-            'etatFormation_compact_value' => $compact_value
+            'etatFormation_compact_value' => $compact_value,
+            'etatFormations_permissions' => $etatFormations_permissions,
+            'etatFormations_permissionsByItem' => $etatFormations_permissionsByItem
         ];
     }
 

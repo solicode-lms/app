@@ -6,16 +6,14 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-module') || Auth::user()->can('destroy-module');
+                    $bulkEdit = $modules_permissions['edit-module'] || $devmodules_permissions['destroy-module'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="16.4"  field="code" modelname="module" label="{{ucfirst(__('PkgFormation::module.code'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="nom" modelname="module" label="{{ucfirst(__('PkgFormation::module.nom'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="masse_horaire" modelname="module" label="{{ucfirst(__('PkgFormation::module.masse_horaire'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="filiere_id" modelname="module" label="{{ucfirst(__('PkgFormation::filiere.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="Competence" modelname="module" label="{{ucfirst(__('PkgCompetences::competence.plural'))}}" />
-
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,67 +21,61 @@
             @section('module-table-tbody')
             @foreach ($modules_data as $module)
                 @php
-                    $isEditable = Auth::user()->can('edit-module') && Auth::user()->can('update', $module);
+                    $isEditable = $modules_permissions['edit-module'] && $modules_permissionsByItem['update'][$module->id];
                 @endphp
                 <tr id="module-row-{{$module->id}}" data-id="{{$module->id}}">
                     <x-checkbox-row :item="$module" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="code"  data-toggle="tooltip" title="{{ $module->code }}" >
-                    <x-field :entity="$module" field="code">
                         {{ $module->code }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $module->nom }}" >
-                    <x-field :entity="$module" field="nom">
                         {{ $module->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="masse_horaire"  data-toggle="tooltip" title="{{ $module->masse_horaire }}" >
-                    <x-field :entity="$module" field="masse_horaire">
                         {{ $module->masse_horaire }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$module->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $module->filiere }}" >
-                    <x-field :entity="$module" field="filiere">
-                       
-                         {{  $module->filiere }}
-                    </x-field>
+                        {{  $module->filiere }}
+
                     </td>
                     <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$module->id}}" data-field="Competence"  data-toggle="tooltip" title="{{ $module->competences }}" >
-                    <x-field :entity="$module" field="competences">
                         <ul>
                             @foreach ($module->competences as $competence)
                                 <li>{{$competence}} </li>
                             @endforeach
                         </ul>
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-module')
+                        @if($modules_permissions['edit-module'])
                         <x-action-button :entity="$module" actionName="edit">
-                        @can('update', $module)
+                        @if($modules_permissionsByItem['update'][$module->id])
                             <a href="{{ route('modules.edit', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-module')
+                        @endif
+                        @if($modules_permissions['show-module'])
                         <x-action-button :entity="$module" actionName="show">
-                        @can('view', $module)
+                        @if($modules_permissionsByItem['view'][$module->id])
                             <a href="{{ route('modules.show', ['module' => $module->id]) }}" data-id="{{$module->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$module" actionName="delete">
-                        @can('destroy-module')
-                        @can('delete', $module)
+                        @if($modules_permissions['destroy-module'])
+                        @if($modules_permissionsByItem['delete'][$module->id])
                             <form class="context-state" action="{{ route('modules.destroy',['module' => $module->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -91,8 +83,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

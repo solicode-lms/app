@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
 
@@ -152,6 +154,23 @@ class BaseApprenantKonosyService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.apprenantKonosy.stats', $apprenantKonosies_stats);
     
+        $apprenantKonosies_permissions = [
+
+            'edit-apprenantKonosy' => Auth::user()->can('edit-apprenantKonosy'),
+            'destroy-apprenantKonosy' => Auth::user()->can('destroy-apprenantKonosy'),
+            'show-apprenantKonosy' => Auth::user()->can('show-apprenantKonosy'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $apprenantKonosies_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($apprenantKonosies_data as $item) {
+                $apprenantKonosies_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'apprenantKonosy_viewTypes',
@@ -161,7 +180,9 @@ class BaseApprenantKonosyService extends BaseService
             'apprenantKonosies_filters',
             'apprenantKonosy_instance',
             'apprenantKonosy_title',
-            'contextKey'
+            'contextKey',
+            'apprenantKonosies_permissions',
+            'apprenantKonosies_permissionsByItem'
         );
     
         return [
@@ -173,7 +194,9 @@ class BaseApprenantKonosyService extends BaseService
             'apprenantKonosy_viewTypes' => $apprenantKonosy_viewTypes,
             'apprenantKonosy_partialViewName' => $apprenantKonosy_partialViewName,
             'contextKey' => $contextKey,
-            'apprenantKonosy_compact_value' => $compact_value
+            'apprenantKonosy_compact_value' => $compact_value,
+            'apprenantKonosies_permissions' => $apprenantKonosies_permissions,
+            'apprenantKonosies_permissionsByItem' => $apprenantKonosies_permissionsByItem
         ];
     }
 

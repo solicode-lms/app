@@ -29,7 +29,7 @@ class BaseTypeDependanceTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('typeDependanceTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('typeDependanceTache');

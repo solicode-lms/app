@@ -5,6 +5,8 @@
 
 namespace Modules\PkgFormation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\Core\Services\BaseService;
 
@@ -136,6 +138,23 @@ class BaseFiliereService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.filiere.stats', $filieres_stats);
     
+        $filieres_permissions = [
+
+            'edit-filiere' => Auth::user()->can('edit-filiere'),
+            'destroy-filiere' => Auth::user()->can('destroy-filiere'),
+            'show-filiere' => Auth::user()->can('show-filiere'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $filieres_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($filieres_data as $item) {
+                $filieres_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'filiere_viewTypes',
@@ -145,7 +164,9 @@ class BaseFiliereService extends BaseService
             'filieres_filters',
             'filiere_instance',
             'filiere_title',
-            'contextKey'
+            'contextKey',
+            'filieres_permissions',
+            'filieres_permissionsByItem'
         );
     
         return [
@@ -157,7 +178,9 @@ class BaseFiliereService extends BaseService
             'filiere_viewTypes' => $filiere_viewTypes,
             'filiere_partialViewName' => $filiere_partialViewName,
             'contextKey' => $contextKey,
-            'filiere_compact_value' => $compact_value
+            'filiere_compact_value' => $compact_value,
+            'filieres_permissions' => $filieres_permissions,
+            'filieres_permissionsByItem' => $filieres_permissionsByItem
         ];
     }
 

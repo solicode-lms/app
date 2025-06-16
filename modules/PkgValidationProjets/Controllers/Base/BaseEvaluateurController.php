@@ -36,7 +36,7 @@ class BaseEvaluateurController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('evaluateur.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('evaluateur');

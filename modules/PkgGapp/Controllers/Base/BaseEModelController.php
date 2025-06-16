@@ -34,7 +34,7 @@ class BaseEModelController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('eModel.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('eModel');

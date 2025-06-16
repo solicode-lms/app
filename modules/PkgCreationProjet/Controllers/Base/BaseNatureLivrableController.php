@@ -29,7 +29,7 @@ class BaseNatureLivrableController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('natureLivrable');

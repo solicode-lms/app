@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\Core\Services\BaseService;
 
@@ -148,6 +150,23 @@ class BaseCompetenceService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.competence.stats', $competences_stats);
     
+        $competences_permissions = [
+
+            'edit-competence' => Auth::user()->can('edit-competence'),
+            'destroy-competence' => Auth::user()->can('destroy-competence'),
+            'show-competence' => Auth::user()->can('show-competence'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $competences_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($competences_data as $item) {
+                $competences_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'competence_viewTypes',
@@ -157,7 +176,9 @@ class BaseCompetenceService extends BaseService
             'competences_filters',
             'competence_instance',
             'competence_title',
-            'contextKey'
+            'contextKey',
+            'competences_permissions',
+            'competences_permissionsByItem'
         );
     
         return [
@@ -169,7 +190,9 @@ class BaseCompetenceService extends BaseService
             'competence_viewTypes' => $competence_viewTypes,
             'competence_partialViewName' => $competence_partialViewName,
             'contextKey' => $contextKey,
-            'competence_compact_value' => $compact_value
+            'competence_compact_value' => $compact_value,
+            'competences_permissions' => $competences_permissions,
+            'competences_permissionsByItem' => $competences_permissionsByItem
         ];
     }
 

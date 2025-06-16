@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\EtatChapitre;
 use Modules\Core\Services\BaseService;
 
@@ -165,6 +167,23 @@ class BaseEtatChapitreService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.etatChapitre.stats', $etatChapitres_stats);
     
+        $etatChapitres_permissions = [
+
+            'edit-etatChapitre' => Auth::user()->can('edit-etatChapitre'),
+            'destroy-etatChapitre' => Auth::user()->can('destroy-etatChapitre'),
+            'show-etatChapitre' => Auth::user()->can('show-etatChapitre'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $etatChapitres_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($etatChapitres_data as $item) {
+                $etatChapitres_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'etatChapitre_viewTypes',
@@ -174,7 +193,9 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitres_filters',
             'etatChapitre_instance',
             'etatChapitre_title',
-            'contextKey'
+            'contextKey',
+            'etatChapitres_permissions',
+            'etatChapitres_permissionsByItem'
         );
     
         return [
@@ -186,7 +207,9 @@ class BaseEtatChapitreService extends BaseService
             'etatChapitre_viewTypes' => $etatChapitre_viewTypes,
             'etatChapitre_partialViewName' => $etatChapitre_partialViewName,
             'contextKey' => $contextKey,
-            'etatChapitre_compact_value' => $compact_value
+            'etatChapitre_compact_value' => $compact_value,
+            'etatChapitres_permissions' => $etatChapitres_permissions,
+            'etatChapitres_permissionsByItem' => $etatChapitres_permissionsByItem
         ];
     }
 

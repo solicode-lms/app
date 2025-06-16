@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCreationProjet\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseNatureLivrableService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.natureLivrable.stats', $natureLivrables_stats);
     
+        $natureLivrables_permissions = [
+
+            'edit-natureLivrable' => Auth::user()->can('edit-natureLivrable'),
+            'destroy-natureLivrable' => Auth::user()->can('destroy-natureLivrable'),
+            'show-natureLivrable' => Auth::user()->can('show-natureLivrable'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $natureLivrables_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($natureLivrables_data as $item) {
+                $natureLivrables_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'natureLivrable_viewTypes',
@@ -144,7 +163,9 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrables_filters',
             'natureLivrable_instance',
             'natureLivrable_title',
-            'contextKey'
+            'contextKey',
+            'natureLivrables_permissions',
+            'natureLivrables_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrable_viewTypes' => $natureLivrable_viewTypes,
             'natureLivrable_partialViewName' => $natureLivrable_partialViewName,
             'contextKey' => $contextKey,
-            'natureLivrable_compact_value' => $compact_value
+            'natureLivrable_compact_value' => $compact_value,
+            'natureLivrables_permissions' => $natureLivrables_permissions,
+            'natureLivrables_permissionsByItem' => $natureLivrables_permissionsByItem
         ];
     }
 

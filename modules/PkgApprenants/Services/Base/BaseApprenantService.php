@@ -5,6 +5,8 @@
 
 namespace Modules\PkgApprenants\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\Core\Services\BaseService;
 
@@ -169,6 +171,24 @@ class BaseApprenantService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.apprenant.stats', $apprenants_stats);
     
+        $apprenants_permissions = [
+            'initPassword-apprenant' => Auth::user()->can('initPassword-apprenant'),           
+            
+            'edit-apprenant' => Auth::user()->can('edit-apprenant'),
+            'destroy-apprenant' => Auth::user()->can('destroy-apprenant'),
+            'show-apprenant' => Auth::user()->can('show-apprenant'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $apprenants_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($apprenants_data as $item) {
+                $apprenants_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'apprenant_viewTypes',
@@ -178,7 +198,9 @@ class BaseApprenantService extends BaseService
             'apprenants_filters',
             'apprenant_instance',
             'apprenant_title',
-            'contextKey'
+            'contextKey',
+            'apprenants_permissions',
+            'apprenants_permissionsByItem'
         );
     
         return [
@@ -190,7 +212,9 @@ class BaseApprenantService extends BaseService
             'apprenant_viewTypes' => $apprenant_viewTypes,
             'apprenant_partialViewName' => $apprenant_partialViewName,
             'contextKey' => $contextKey,
-            'apprenant_compact_value' => $compact_value
+            'apprenant_compact_value' => $compact_value,
+            'apprenants_permissions' => $apprenants_permissions,
+            'apprenants_permissionsByItem' => $apprenants_permissionsByItem
         ];
     }
 

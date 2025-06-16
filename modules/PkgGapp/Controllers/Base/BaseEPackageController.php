@@ -29,7 +29,7 @@ class BaseEPackageController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('ePackage');

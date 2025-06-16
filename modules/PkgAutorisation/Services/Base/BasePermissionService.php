@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutorisation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\Core\Services\BaseService;
 
@@ -140,6 +142,23 @@ class BasePermissionService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.permission.stats', $permissions_stats);
     
+        $permissions_permissions = [
+
+            'edit-permission' => Auth::user()->can('edit-permission'),
+            'destroy-permission' => Auth::user()->can('destroy-permission'),
+            'show-permission' => Auth::user()->can('show-permission'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $permissions_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($permissions_data as $item) {
+                $permissions_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'permission_viewTypes',
@@ -149,7 +168,9 @@ class BasePermissionService extends BaseService
             'permissions_filters',
             'permission_instance',
             'permission_title',
-            'contextKey'
+            'contextKey',
+            'permissions_permissions',
+            'permissions_permissionsByItem'
         );
     
         return [
@@ -161,7 +182,9 @@ class BasePermissionService extends BaseService
             'permission_viewTypes' => $permission_viewTypes,
             'permission_partialViewName' => $permission_partialViewName,
             'contextKey' => $contextKey,
-            'permission_compact_value' => $compact_value
+            'permission_compact_value' => $compact_value,
+            'permissions_permissions' => $permissions_permissions,
+            'permissions_permissionsByItem' => $permissions_permissionsByItem
         ];
     }
 

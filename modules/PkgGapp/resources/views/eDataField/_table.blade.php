@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-eDataField') || Auth::user()->can('destroy-eDataField');
+                    $bulkEdit = $eDataFields_permissions['edit-eDataField'] || $deveDataFields_permissions['destroy-eDataField'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="5"  field="displayOrder" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.displayOrder'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="name" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.name'))}}" />
                 <x-sortable-column :sortable="true" width="15" field="e_model_id" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eModel.singular'))}}" />
@@ -22,67 +21,60 @@
             @section('eDataField-table-tbody')
             @foreach ($eDataFields_data as $eDataField)
                 @php
-                    $isEditable = Auth::user()->can('edit-eDataField') && Auth::user()->can('update', $eDataField);
+                    $isEditable = $eDataFields_permissions['edit-eDataField'] && $eDataFields_permissionsByItem['update'][$eDataField->id];
                 @endphp
                 <tr id="eDataField-row-{{$eDataField->id}}" data-id="{{$eDataField->id}}">
                     <x-checkbox-row :item="$eDataField" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 5%;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="displayOrder"  data-toggle="tooltip" title="{{ $eDataField->displayOrder }}" >
-                    <x-field :entity="$eDataField" field="displayOrder">
-                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $eDataField->displayOrder }}"  data-toggle="tooltip" ></i>  
                         </div>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="name"  data-toggle="tooltip" title="{{ $eDataField->name }}" >
-                    <x-field :entity="$eDataField" field="name">
-                        {{ $eDataField->name }}
-                    </x-field>
+                        @include('PkgGapp::eDataField.custom.fields.name', ['entity' => $eDataField])
                     </td>
                     <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="e_model_id"  data-toggle="tooltip" title="{{ $eDataField->eModel }}" >
-                    <x-field :entity="$eDataField" field="eModel">
-                       
-                         {{  $eDataField->eModel }}
-                    </x-field>
+                        {{  $eDataField->eModel }}
+
                     </td>
                     <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eDataField->id}}" data-field="data_type"  data-toggle="tooltip" title="{{ $eDataField->data_type }}" >
-                    <x-field :entity="$eDataField" field="data_type">
                         {{ $eDataField->data_type }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 8%;" class=" text-truncate" data-id="{{$eDataField->id}}" data-field="displayInTable"  data-toggle="tooltip" title="{{ $eDataField->displayInTable }}" >
-                    <x-field :entity="$eDataField" field="displayInTable">
                         <span class="{{ $eDataField->displayInTable ? 'text-success' : 'text-danger' }}">
                             {{ $eDataField->displayInTable ? 'Oui' : 'Non' }}
                         </span>
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-eDataField')
+                        @if($eDataFields_permissions['edit-eDataField'])
                         <x-action-button :entity="$eDataField" actionName="edit">
-                        @can('update', $eDataField)
+                        @if($eDataFields_permissionsByItem['update'][$eDataField->id])
                             <a href="{{ route('eDataFields.edit', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-eDataField')
+                        @endif
+                        @if($eDataFields_permissions['show-eDataField'])
                         <x-action-button :entity="$eDataField" actionName="show">
-                        @can('view', $eDataField)
+                        @if($eDataFields_permissionsByItem['view'][$eDataField->id])
                             <a href="{{ route('eDataFields.show', ['eDataField' => $eDataField->id]) }}" data-id="{{$eDataField->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$eDataField" actionName="delete">
-                        @can('destroy-eDataField')
-                        @can('delete', $eDataField)
+                        @if($eDataFields_permissions['destroy-eDataField'])
+                        @if($eDataFields_permissionsByItem['delete'][$eDataField->id])
                             <form class="context-state" action="{{ route('eDataFields.destroy',['eDataField' => $eDataField->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -90,8 +82,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

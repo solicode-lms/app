@@ -34,7 +34,7 @@ class BaseLivrablesRealisationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('livrablesRealisation');

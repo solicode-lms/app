@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-userModelFilter') || Auth::user()->can('destroy-userModelFilter');
+                    $bulkEdit = $userModelFilters_permissions['edit-userModelFilter'] || $devuserModelFilters_permissions['destroy-userModelFilter'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="82" field="user_id" modelname="userModelFilter" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,43 +17,41 @@
             @section('userModelFilter-table-tbody')
             @foreach ($userModelFilters_data as $userModelFilter)
                 @php
-                    $isEditable = Auth::user()->can('edit-userModelFilter') && Auth::user()->can('update', $userModelFilter);
+                    $isEditable = $userModelFilters_permissions['edit-userModelFilter'] && $userModelFilters_permissionsByItem['update'][$userModelFilter->id];
                 @endphp
                 <tr id="userModelFilter-row-{{$userModelFilter->id}}" data-id="{{$userModelFilter->id}}">
                     <x-checkbox-row :item="$userModelFilter" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$userModelFilter->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $userModelFilter->user }}" >
-                    <x-field :entity="$userModelFilter" field="user">
-                       
-                         {{  $userModelFilter->user }}
-                    </x-field>
+                        {{  $userModelFilter->user }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-userModelFilter')
+                        @if($userModelFilters_permissions['edit-userModelFilter'])
                         <x-action-button :entity="$userModelFilter" actionName="edit">
-                        @can('update', $userModelFilter)
+                        @if($userModelFilters_permissionsByItem['update'][$userModelFilter->id])
                             <a href="{{ route('userModelFilters.edit', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-userModelFilter')
+                        @endif
+                        @if($userModelFilters_permissions['show-userModelFilter'])
                         <x-action-button :entity="$userModelFilter" actionName="show">
-                        @can('view', $userModelFilter)
+                        @if($userModelFilters_permissionsByItem['view'][$userModelFilter->id])
                             <a href="{{ route('userModelFilters.show', ['userModelFilter' => $userModelFilter->id]) }}" data-id="{{$userModelFilter->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$userModelFilter" actionName="delete">
-                        @can('destroy-userModelFilter')
-                        @can('delete', $userModelFilter)
+                        @if($userModelFilters_permissions['destroy-userModelFilter'])
+                        @if($userModelFilters_permissionsByItem['delete'][$userModelFilter->id])
                             <form class="context-state" action="{{ route('userModelFilters.destroy',['userModelFilter' => $userModelFilter->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -62,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

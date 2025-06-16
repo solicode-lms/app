@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCreationProjet\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\Core\Services\BaseService;
 
@@ -164,6 +166,23 @@ class BaseTransfertCompetenceService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.transfertCompetence.stats', $transfertCompetences_stats);
     
+        $transfertCompetences_permissions = [
+
+            'edit-transfertCompetence' => Auth::user()->can('edit-transfertCompetence'),
+            'destroy-transfertCompetence' => Auth::user()->can('destroy-transfertCompetence'),
+            'show-transfertCompetence' => Auth::user()->can('show-transfertCompetence'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $transfertCompetences_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($transfertCompetences_data as $item) {
+                $transfertCompetences_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'transfertCompetence_viewTypes',
@@ -173,7 +192,9 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetences_filters',
             'transfertCompetence_instance',
             'transfertCompetence_title',
-            'contextKey'
+            'contextKey',
+            'transfertCompetences_permissions',
+            'transfertCompetences_permissionsByItem'
         );
     
         return [
@@ -185,7 +206,9 @@ class BaseTransfertCompetenceService extends BaseService
             'transfertCompetence_viewTypes' => $transfertCompetence_viewTypes,
             'transfertCompetence_partialViewName' => $transfertCompetence_partialViewName,
             'contextKey' => $contextKey,
-            'transfertCompetence_compact_value' => $compact_value
+            'transfertCompetence_compact_value' => $compact_value,
+            'transfertCompetences_permissions' => $transfertCompetences_permissions,
+            'transfertCompetences_permissionsByItem' => $transfertCompetences_permissionsByItem
         ];
     }
 

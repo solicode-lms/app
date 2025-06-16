@@ -30,7 +30,7 @@ class BaseAnneeFormationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('anneeFormation');

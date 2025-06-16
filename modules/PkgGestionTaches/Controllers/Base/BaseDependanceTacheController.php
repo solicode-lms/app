@@ -34,7 +34,7 @@ class BaseDependanceTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('dependanceTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('dependanceTache');

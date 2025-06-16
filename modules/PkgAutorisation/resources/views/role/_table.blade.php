@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-role') || Auth::user()->can('destroy-role');
+                    $bulkEdit = $roles_permissions['edit-role'] || $devroles_permissions['destroy-role'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="role" label="{{ucfirst(__('PkgAutorisation::role.name'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,42 +17,41 @@
             @section('role-table-tbody')
             @foreach ($roles_data as $role)
                 @php
-                    $isEditable = Auth::user()->can('edit-role') && Auth::user()->can('update', $role);
+                    $isEditable = $roles_permissions['edit-role'] && $roles_permissionsByItem['update'][$role->id];
                 @endphp
                 <tr id="role-row-{{$role->id}}" data-id="{{$role->id}}">
                     <x-checkbox-row :item="$role" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$role->id}}" data-field="name"  data-toggle="tooltip" title="{{ $role->name }}" >
-                    <x-field :entity="$role" field="name">
                         {{ $role->name }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-role')
+                        @if($roles_permissions['edit-role'])
                         <x-action-button :entity="$role" actionName="edit">
-                        @can('update', $role)
+                        @if($roles_permissionsByItem['update'][$role->id])
                             <a href="{{ route('roles.edit', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-role')
+                        @endif
+                        @if($roles_permissions['show-role'])
                         <x-action-button :entity="$role" actionName="show">
-                        @can('view', $role)
+                        @if($roles_permissionsByItem['view'][$role->id])
                             <a href="{{ route('roles.show', ['role' => $role->id]) }}" data-id="{{$role->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$role" actionName="delete">
-                        @can('destroy-role')
-                        @can('delete', $role)
+                        @if($roles_permissions['destroy-role'])
+                        @if($roles_permissionsByItem['delete'][$role->id])
                             <form class="context-state" action="{{ route('roles.destroy',['role' => $role->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -61,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

@@ -34,7 +34,7 @@ class BaseFeatureController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('feature.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('feature');

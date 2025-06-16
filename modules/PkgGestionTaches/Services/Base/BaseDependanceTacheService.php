@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\DependanceTache;
 use Modules\Core\Services\BaseService;
 
@@ -148,6 +150,23 @@ class BaseDependanceTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.dependanceTache.stats', $dependanceTaches_stats);
     
+        $dependanceTaches_permissions = [
+
+            'edit-dependanceTache' => Auth::user()->can('edit-dependanceTache'),
+            'destroy-dependanceTache' => Auth::user()->can('destroy-dependanceTache'),
+            'show-dependanceTache' => Auth::user()->can('show-dependanceTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $dependanceTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($dependanceTaches_data as $item) {
+                $dependanceTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'dependanceTache_viewTypes',
@@ -157,7 +176,9 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTaches_filters',
             'dependanceTache_instance',
             'dependanceTache_title',
-            'contextKey'
+            'contextKey',
+            'dependanceTaches_permissions',
+            'dependanceTaches_permissionsByItem'
         );
     
         return [
@@ -169,7 +190,9 @@ class BaseDependanceTacheService extends BaseService
             'dependanceTache_viewTypes' => $dependanceTache_viewTypes,
             'dependanceTache_partialViewName' => $dependanceTache_partialViewName,
             'contextKey' => $contextKey,
-            'dependanceTache_compact_value' => $compact_value
+            'dependanceTache_compact_value' => $compact_value,
+            'dependanceTaches_permissions' => $dependanceTaches_permissions,
+            'dependanceTaches_permissionsByItem' => $dependanceTaches_permissionsByItem
         ];
     }
 

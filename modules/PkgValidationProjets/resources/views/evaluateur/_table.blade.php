@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-evaluateur') || Auth::user()->can('destroy-evaluateur');
+                    $bulkEdit = $evaluateurs_permissions['edit-evaluateur'] || $devevaluateurs_permissions['destroy-evaluateur'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.nom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.prenom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.organism'))}}" />
@@ -21,33 +20,28 @@
             @section('evaluateur-table-tbody')
             @foreach ($evaluateurs_data as $evaluateur)
                 @php
-                    $isEditable = Auth::user()->can('edit-evaluateur') && Auth::user()->can('update', $evaluateur);
+                    $isEditable = $evaluateurs_permissions['edit-evaluateur'] && $evaluateurs_permissionsByItem['update'][$evaluateur->id];
                 @endphp
                 <tr id="evaluateur-row-{{$evaluateur->id}}" data-id="{{$evaluateur->id}}">
                     <x-checkbox-row :item="$evaluateur" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $evaluateur->nom }}" >
-                    <x-field :entity="$evaluateur" field="nom">
                         {{ $evaluateur->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="prenom"  data-toggle="tooltip" title="{{ $evaluateur->prenom }}" >
-                    <x-field :entity="$evaluateur" field="prenom">
                         {{ $evaluateur->prenom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="organism"  data-toggle="tooltip" title="{{ $evaluateur->organism }}" >
-                    <x-field :entity="$evaluateur" field="organism">
                         {{ $evaluateur->organism }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluateur->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $evaluateur->user }}" >
-                    <x-field :entity="$evaluateur" field="user">
-                       
-                         {{  $evaluateur->user }}
-                    </x-field>
+                        {{  $evaluateur->user }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-                       @can('initPassword-evaluateur')
+                        @if($evaluateurs_permissions['initPassword-evaluateur'])
                         <a 
                         data-toggle="tooltip" 
                         title="Initialiser le mot de passe" 
@@ -58,33 +52,33 @@
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fas fa-unlock-alt"></i>
                         </a>
-                        @endcan
+                        @endif
                         
 
                        
 
-                        @can('edit-evaluateur')
+                        @if($evaluateurs_permissions['edit-evaluateur'])
                         <x-action-button :entity="$evaluateur" actionName="edit">
-                        @can('update', $evaluateur)
+                        @if($evaluateurs_permissionsByItem['update'][$evaluateur->id])
                             <a href="{{ route('evaluateurs.edit', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-evaluateur')
+                        @endif
+                        @if($evaluateurs_permissions['show-evaluateur'])
                         <x-action-button :entity="$evaluateur" actionName="show">
-                        @can('view', $evaluateur)
+                        @if($evaluateurs_permissionsByItem['view'][$evaluateur->id])
                             <a href="{{ route('evaluateurs.show', ['evaluateur' => $evaluateur->id]) }}" data-id="{{$evaluateur->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$evaluateur" actionName="delete">
-                        @can('destroy-evaluateur')
-                        @can('delete', $evaluateur)
+                        @if($evaluateurs_permissions['destroy-evaluateur'])
+                        @if($evaluateurs_permissionsByItem['delete'][$evaluateur->id])
                             <form class="context-state" action="{{ route('evaluateurs.destroy',['evaluateur' => $evaluateur->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -92,8 +86,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

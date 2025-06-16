@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-formation') || Auth::user()->can('destroy-formation');
+                    $bulkEdit = $formations_permissions['edit-formation'] || $devformations_permissions['destroy-formation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formation" label="{{ucfirst(__('PkgAutoformation::formation.nom'))}}" />
                 <x-sortable-column :sortable="true" width="20.5" field="competence_id" modelname="formation" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
                 <x-sortable-column :sortable="true" width="20.5"  field="is_officiel" modelname="formation" label="{{ucfirst(__('PkgAutoformation::formation.is_officiel'))}}" />
@@ -21,61 +20,55 @@
             @section('formation-table-tbody')
             @foreach ($formations_data as $formation)
                 @php
-                    $isEditable = Auth::user()->can('edit-formation') && Auth::user()->can('update', $formation);
+                    $isEditable = $formations_permissions['edit-formation'] && $formations_permissionsByItem['update'][$formation->id];
                 @endphp
                 <tr id="formation-row-{{$formation->id}}" data-id="{{$formation->id}}">
                     <x-checkbox-row :item="$formation" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $formation->nom }}" >
-                    <x-field :entity="$formation" field="nom">
                         {{ $formation->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $formation->competence }}" >
-                    <x-field :entity="$formation" field="competence">
-                       
-                         {{  $formation->competence }}
-                    </x-field>
+                        {{  $formation->competence }}
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="is_officiel"  data-toggle="tooltip" title="{{ $formation->is_officiel }}" >
-                    <x-field :entity="$formation" field="is_officiel">
                         <span class="{{ $formation->is_officiel ? 'text-success' : 'text-danger' }}">
                             {{ $formation->is_officiel ? 'Oui' : 'Non' }}
                         </span>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$formation->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $formation->formateur }}" >
-                    <x-field :entity="$formation" field="formateur">
-                       
-                         {{  $formation->formateur }}
-                    </x-field>
+                        {{  $formation->formateur }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-formation')
+                        @if($formations_permissions['edit-formation'])
                         <x-action-button :entity="$formation" actionName="edit">
-                        @can('update', $formation)
+                        @if($formations_permissionsByItem['update'][$formation->id])
                             <a href="{{ route('formations.edit', ['formation' => $formation->id]) }}" data-id="{{$formation->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-formation')
+                        @endif
+                        @if($formations_permissions['show-formation'])
                         <x-action-button :entity="$formation" actionName="show">
-                        @can('view', $formation)
+                        @if($formations_permissionsByItem['view'][$formation->id])
                             <a href="{{ route('formations.show', ['formation' => $formation->id]) }}" data-id="{{$formation->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$formation" actionName="delete">
-                        @can('destroy-formation')
-                        @can('delete', $formation)
+                        @if($formations_permissions['destroy-formation'])
+                        @if($formations_permissionsByItem['delete'][$formation->id])
                             <form class="context-state" action="{{ route('formations.destroy',['formation' => $formation->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -83,8 +76,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

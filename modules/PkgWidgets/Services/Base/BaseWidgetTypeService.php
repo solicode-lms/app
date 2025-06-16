@@ -5,6 +5,8 @@
 
 namespace Modules\PkgWidgets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgWidgets\Models\WidgetType;
 use Modules\Core\Services\BaseService;
 
@@ -135,6 +137,23 @@ class BaseWidgetTypeService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.widgetType.stats', $widgetTypes_stats);
     
+        $widgetTypes_permissions = [
+
+            'edit-widgetType' => Auth::user()->can('edit-widgetType'),
+            'destroy-widgetType' => Auth::user()->can('destroy-widgetType'),
+            'show-widgetType' => Auth::user()->can('show-widgetType'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $widgetTypes_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($widgetTypes_data as $item) {
+                $widgetTypes_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'widgetType_viewTypes',
@@ -144,7 +163,9 @@ class BaseWidgetTypeService extends BaseService
             'widgetTypes_filters',
             'widgetType_instance',
             'widgetType_title',
-            'contextKey'
+            'contextKey',
+            'widgetTypes_permissions',
+            'widgetTypes_permissionsByItem'
         );
     
         return [
@@ -156,7 +177,9 @@ class BaseWidgetTypeService extends BaseService
             'widgetType_viewTypes' => $widgetType_viewTypes,
             'widgetType_partialViewName' => $widgetType_partialViewName,
             'contextKey' => $contextKey,
-            'widgetType_compact_value' => $compact_value
+            'widgetType_compact_value' => $compact_value,
+            'widgetTypes_permissions' => $widgetTypes_permissions,
+            'widgetTypes_permissionsByItem' => $widgetTypes_permissionsByItem
         ];
     }
 

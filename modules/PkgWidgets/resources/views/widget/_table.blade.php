@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-widget') || Auth::user()->can('destroy-widget');
+                    $bulkEdit = $widgets_permissions['edit-widget'] || $devwidgets_permissions['destroy-widget'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.ordre'))}}" />
                 <x-sortable-column :sortable="true" width="4"  field="icon" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.icon'))}}" />
                 <x-sortable-column :sortable="true" width="19"  field="name" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.name'))}}" />
@@ -24,87 +23,75 @@
             @section('widget-table-tbody')
             @foreach ($widgets_data as $widget)
                 @php
-                    $isEditable = Auth::user()->can('edit-widget') && Auth::user()->can('update', $widget);
+                    $isEditable = $widgets_permissions['edit-widget'] && $widgets_permissionsByItem['update'][$widget->id];
                 @endphp
                 <tr id="widget-row-{{$widget->id}}" data-id="{{$widget->id}}">
                     <x-checkbox-row :item="$widget" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $widget->ordre }}" >
-                    <x-field :entity="$widget" field="ordre">
-                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $widget->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="icon"  data-toggle="tooltip" title="{{ $widget->icon }}" >
-                    <x-field :entity="$widget" field="icon">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                             <i class="{{ $widget->icon }}" ></i>
                         </div>
-                    </x-field>
-                    </td>
 
+                    </td>
                     <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="name"  data-toggle="tooltip" title="{{ $widget->name }}" >
-                    <x-field :entity="$widget" field="name">
-                         <x-badge 
+                    <x-badge 
                         :text="$widget->name ?? ''" 
                         :background="$widget->sysColor->hex ?? '#6c757d'" 
                         />
 
-                    </x-field>
-                    </td> 
+                    </td>
                     <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="label"  data-toggle="tooltip" title="{{ $widget->label }}" >
-                    <x-field :entity="$widget" field="label">
                         {{ $widget->label }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="type_id"  data-toggle="tooltip" title="{{ $widget->type }}" >
-                    <x-field :entity="$widget" field="type">
-                       
-                         {{  $widget->type }}
-                    </x-field>
+                        {{  $widget->type }}
+
                     </td>
                     <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="roles"  data-toggle="tooltip" title="{{ $widget->roles }}" >
-                    <x-field :entity="$widget" field="roles">
                         <ul>
                             @foreach ($widget->roles as $role)
                                 <li @if(strlen($role) > 30) data-toggle="tooltip" title="{{$role}}"  @endif>@limit($role, 30)</li>
                             @endforeach
                         </ul>
-                    </x-field>
                     </td>
                     <td style="max-width: 19%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widget->id}}" data-field="section_widget_id"  data-toggle="tooltip" title="{{ $widget->sectionWidget }}" >
-                    <x-field :entity="$widget" field="sectionWidget">
-                       
-                         {{  $widget->sectionWidget }}
-                    </x-field>
+                        {{  $widget->sectionWidget }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-widget')
+                        @if($widgets_permissions['edit-widget'])
                         <x-action-button :entity="$widget" actionName="edit">
-                        @can('update', $widget)
+                        @if($widgets_permissionsByItem['update'][$widget->id])
                             <a href="{{ route('widgets.edit', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-widget')
+                        @endif
+                        @if($widgets_permissions['show-widget'])
                         <x-action-button :entity="$widget" actionName="show">
-                        @can('view', $widget)
+                        @if($widgets_permissionsByItem['view'][$widget->id])
                             <a href="{{ route('widgets.show', ['widget' => $widget->id]) }}" data-id="{{$widget->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$widget" actionName="delete">
-                        @can('destroy-widget')
-                        @can('delete', $widget)
+                        @if($widgets_permissions['destroy-widget'])
+                        @if($widgets_permissionsByItem['delete'][$widget->id])
                             <form class="context-state" action="{{ route('widgets.destroy',['widget' => $widget->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -112,8 +99,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

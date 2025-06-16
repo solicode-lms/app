@@ -31,7 +31,7 @@ class BaseNotificationController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('notification.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('notification');

@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\UserModelFilter;
 use Modules\Core\Services\BaseService;
 
@@ -140,6 +142,23 @@ class BaseUserModelFilterService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.userModelFilter.stats', $userModelFilters_stats);
     
+        $userModelFilters_permissions = [
+
+            'edit-userModelFilter' => Auth::user()->can('edit-userModelFilter'),
+            'destroy-userModelFilter' => Auth::user()->can('destroy-userModelFilter'),
+            'show-userModelFilter' => Auth::user()->can('show-userModelFilter'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $userModelFilters_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($userModelFilters_data as $item) {
+                $userModelFilters_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'userModelFilter_viewTypes',
@@ -149,7 +168,9 @@ class BaseUserModelFilterService extends BaseService
             'userModelFilters_filters',
             'userModelFilter_instance',
             'userModelFilter_title',
-            'contextKey'
+            'contextKey',
+            'userModelFilters_permissions',
+            'userModelFilters_permissionsByItem'
         );
     
         return [
@@ -161,7 +182,9 @@ class BaseUserModelFilterService extends BaseService
             'userModelFilter_viewTypes' => $userModelFilter_viewTypes,
             'userModelFilter_partialViewName' => $userModelFilter_partialViewName,
             'contextKey' => $contextKey,
-            'userModelFilter_compact_value' => $compact_value
+            'userModelFilter_compact_value' => $compact_value,
+            'userModelFilters_permissions' => $userModelFilters_permissions,
+            'userModelFilters_permissionsByItem' => $userModelFilters_permissionsByItem
         ];
     }
 

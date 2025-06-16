@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-transfertCompetence') || Auth::user()->can('destroy-transfertCompetence');
+                    $bulkEdit = $transfertCompetences_permissions['edit-transfertCompetence'] || $devtransfertCompetences_permissions['destroy-transfertCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41" field="competence_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
                 <x-sortable-column :sortable="true" width="41" field="niveau_difficulte_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::niveauDifficulte.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,49 +18,45 @@
             @section('transfertCompetence-table-tbody')
             @foreach ($transfertCompetences_data as $transfertCompetence)
                 @php
-                    $isEditable = Auth::user()->can('edit-transfertCompetence') && Auth::user()->can('update', $transfertCompetence);
+                    $isEditable = $transfertCompetences_permissions['edit-transfertCompetence'] && $transfertCompetences_permissionsByItem['update'][$transfertCompetence->id];
                 @endphp
                 <tr id="transfertCompetence-row-{{$transfertCompetence->id}}" data-id="{{$transfertCompetence->id}}">
                     <x-checkbox-row :item="$transfertCompetence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $transfertCompetence->competence }}" >
-                    <x-field :entity="$transfertCompetence" field="competence">
-                       
-                         {{  $transfertCompetence->competence }}
-                    </x-field>
+                        {{  $transfertCompetence->competence }}
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$transfertCompetence->id}}" data-field="niveau_difficulte_id"  data-toggle="tooltip" title="{{ $transfertCompetence->niveauDifficulte }}" >
-                    <x-field :entity="$transfertCompetence" field="niveauDifficulte">
-                       
-                         {{  $transfertCompetence->niveauDifficulte }}
-                    </x-field>
+                        {{  $transfertCompetence->niveauDifficulte }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-transfertCompetence')
+                        @if($transfertCompetences_permissions['edit-transfertCompetence'])
                         <x-action-button :entity="$transfertCompetence" actionName="edit">
-                        @can('update', $transfertCompetence)
+                        @if($transfertCompetences_permissionsByItem['update'][$transfertCompetence->id])
                             <a href="{{ route('transfertCompetences.edit', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-transfertCompetence')
+                        @endif
+                        @if($transfertCompetences_permissions['show-transfertCompetence'])
                         <x-action-button :entity="$transfertCompetence" actionName="show">
-                        @can('view', $transfertCompetence)
+                        @if($transfertCompetences_permissionsByItem['view'][$transfertCompetence->id])
                             <a href="{{ route('transfertCompetences.show', ['transfertCompetence' => $transfertCompetence->id]) }}" data-id="{{$transfertCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$transfertCompetence" actionName="delete">
-                        @can('destroy-transfertCompetence')
-                        @can('delete', $transfertCompetence)
+                        @if($transfertCompetences_permissions['destroy-transfertCompetence'])
+                        @if($transfertCompetences_permissionsByItem['delete'][$transfertCompetence->id])
                             <form class="context-state" action="{{ route('transfertCompetences.destroy',['transfertCompetence' => $transfertCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -69,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

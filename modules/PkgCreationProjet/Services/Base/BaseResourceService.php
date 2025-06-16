@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCreationProjet\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCreationProjet\Models\Resource;
 use Modules\Core\Services\BaseService;
 
@@ -155,6 +157,23 @@ class BaseResourceService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.resource.stats', $resources_stats);
     
+        $resources_permissions = [
+
+            'edit-resource' => Auth::user()->can('edit-resource'),
+            'destroy-resource' => Auth::user()->can('destroy-resource'),
+            'show-resource' => Auth::user()->can('show-resource'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $resources_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($resources_data as $item) {
+                $resources_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'resource_viewTypes',
@@ -164,7 +183,9 @@ class BaseResourceService extends BaseService
             'resources_filters',
             'resource_instance',
             'resource_title',
-            'contextKey'
+            'contextKey',
+            'resources_permissions',
+            'resources_permissionsByItem'
         );
     
         return [
@@ -176,7 +197,9 @@ class BaseResourceService extends BaseService
             'resource_viewTypes' => $resource_viewTypes,
             'resource_partialViewName' => $resource_partialViewName,
             'contextKey' => $contextKey,
-            'resource_compact_value' => $compact_value
+            'resource_compact_value' => $compact_value,
+            'resources_permissions' => $resources_permissions,
+            'resources_permissionsByItem' => $resources_permissionsByItem
         ];
     }
 

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-chapitre') || Auth::user()->can('destroy-chapitre');
+                    $bulkEdit = $chapitres_permissions['edit-chapitre'] || $devchapitres_permissions['destroy-chapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="12.833333333333334"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.nom'))}}" />
                 <x-sortable-column :sortable="true" width="12.833333333333334"  field="lien" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.lien'))}}" />
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.ordre'))}}" />
@@ -24,78 +23,67 @@
             @section('chapitre-table-tbody')
             @foreach ($chapitres_data as $chapitre)
                 @php
-                    $isEditable = Auth::user()->can('edit-chapitre') && Auth::user()->can('update', $chapitre);
+                    $isEditable = $chapitres_permissions['edit-chapitre'] && $chapitres_permissionsByItem['update'][$chapitre->id];
                 @endphp
                 <tr id="chapitre-row-{{$chapitre->id}}" data-id="{{$chapitre->id}}">
                     <x-checkbox-row :item="$chapitre" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
-                    <x-field :entity="$chapitre" field="nom">
                         {{ $chapitre->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
-                    <x-field :entity="$chapitre" field="lien">
                         {{ $chapitre->lien }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $chapitre->ordre }}" >
-                    <x-field :entity="$chapitre" field="ordre">
-                         <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
                             <i class="fas fa-th-list" title="{{ $chapitre->ordre }}"  data-toggle="tooltip" ></i>  
                         </div>
-                    </x-field>
+
                     </td>
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formation_id"  data-toggle="tooltip" title="{{ $chapitre->formation }}" >
-                    <x-field :entity="$chapitre" field="formation">
-                       
-                         {{  $chapitre->formation }}
-                    </x-field>
+                        {{  $chapitre->formation }}
+
                     </td>
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="niveau_competence_id"  data-toggle="tooltip" title="{{ $chapitre->niveauCompetence }}" >
-                    <x-field :entity="$chapitre" field="niveauCompetence">
-                       
-                         {{  $chapitre->niveauCompetence }}
-                    </x-field>
+                        {{  $chapitre->niveauCompetence }}
+
                     </td>
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
-                    <x-field :entity="$chapitre" field="formateur">
-                       
-                         {{  $chapitre->formateur }}
-                    </x-field>
+                        {{  $chapitre->formateur }}
+
                     </td>
                     <td style="max-width: 12.833333333333334%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="chapitre_officiel_id"  data-toggle="tooltip" title="{{ $chapitre->chapitreOfficiel }}" >
-                    <x-field :entity="$chapitre" field="chapitreOfficiel">
-                       
-                         {{  $chapitre->chapitreOfficiel }}
-                    </x-field>
+                        {{  $chapitre->chapitreOfficiel }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-chapitre')
+                        @if($chapitres_permissions['edit-chapitre'])
                         <x-action-button :entity="$chapitre" actionName="edit">
-                        @can('update', $chapitre)
+                        @if($chapitres_permissionsByItem['update'][$chapitre->id])
                             <a href="{{ route('chapitres.edit', ['chapitre' => $chapitre->id]) }}" data-id="{{$chapitre->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-chapitre')
+                        @endif
+                        @if($chapitres_permissions['show-chapitre'])
                         <x-action-button :entity="$chapitre" actionName="show">
-                        @can('view', $chapitre)
+                        @if($chapitres_permissionsByItem['view'][$chapitre->id])
                             <a href="{{ route('chapitres.show', ['chapitre' => $chapitre->id]) }}" data-id="{{$chapitre->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$chapitre" actionName="delete">
-                        @can('destroy-chapitre')
-                        @can('delete', $chapitre)
+                        @if($chapitres_permissions['destroy-chapitre'])
+                        @if($chapitres_permissionsByItem['delete'][$chapitre->id])
                             <form class="context-state" action="{{ route('chapitres.destroy',['chapitre' => $chapitre->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -103,8 +91,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCompetences\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCompetences\Models\NiveauCompetence;
 use Modules\Core\Services\BaseService;
 
@@ -140,6 +142,23 @@ class BaseNiveauCompetenceService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.niveauCompetence.stats', $niveauCompetences_stats);
     
+        $niveauCompetences_permissions = [
+
+            'edit-niveauCompetence' => Auth::user()->can('edit-niveauCompetence'),
+            'destroy-niveauCompetence' => Auth::user()->can('destroy-niveauCompetence'),
+            'show-niveauCompetence' => Auth::user()->can('show-niveauCompetence'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $niveauCompetences_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($niveauCompetences_data as $item) {
+                $niveauCompetences_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'niveauCompetence_viewTypes',
@@ -149,7 +168,9 @@ class BaseNiveauCompetenceService extends BaseService
             'niveauCompetences_filters',
             'niveauCompetence_instance',
             'niveauCompetence_title',
-            'contextKey'
+            'contextKey',
+            'niveauCompetences_permissions',
+            'niveauCompetences_permissionsByItem'
         );
     
         return [
@@ -161,7 +182,9 @@ class BaseNiveauCompetenceService extends BaseService
             'niveauCompetence_viewTypes' => $niveauCompetence_viewTypes,
             'niveauCompetence_partialViewName' => $niveauCompetence_partialViewName,
             'contextKey' => $contextKey,
-            'niveauCompetence_compact_value' => $compact_value
+            'niveauCompetence_compact_value' => $compact_value,
+            'niveauCompetences_permissions' => $niveauCompetences_permissions,
+            'niveauCompetences_permissionsByItem' => $niveauCompetences_permissionsByItem
         ];
     }
 

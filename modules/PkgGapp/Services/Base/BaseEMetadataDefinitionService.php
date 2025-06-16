@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\EMetadataDefinition;
 use Modules\Core\Services\BaseService;
 
@@ -143,6 +145,23 @@ class BaseEMetadataDefinitionService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eMetadataDefinition.stats', $eMetadataDefinitions_stats);
     
+        $eMetadataDefinitions_permissions = [
+
+            'edit-eMetadataDefinition' => Auth::user()->can('edit-eMetadataDefinition'),
+            'destroy-eMetadataDefinition' => Auth::user()->can('destroy-eMetadataDefinition'),
+            'show-eMetadataDefinition' => Auth::user()->can('show-eMetadataDefinition'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $eMetadataDefinitions_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($eMetadataDefinitions_data as $item) {
+                $eMetadataDefinitions_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eMetadataDefinition_viewTypes',
@@ -152,7 +171,9 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinitions_filters',
             'eMetadataDefinition_instance',
             'eMetadataDefinition_title',
-            'contextKey'
+            'contextKey',
+            'eMetadataDefinitions_permissions',
+            'eMetadataDefinitions_permissionsByItem'
         );
     
         return [
@@ -164,7 +185,9 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinition_viewTypes' => $eMetadataDefinition_viewTypes,
             'eMetadataDefinition_partialViewName' => $eMetadataDefinition_partialViewName,
             'contextKey' => $contextKey,
-            'eMetadataDefinition_compact_value' => $compact_value
+            'eMetadataDefinition_compact_value' => $compact_value,
+            'eMetadataDefinitions_permissions' => $eMetadataDefinitions_permissions,
+            'eMetadataDefinitions_permissionsByItem' => $eMetadataDefinitions_permissionsByItem
         ];
     }
 

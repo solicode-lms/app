@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutorisation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutorisation\Models\User;
 use Modules\Core\Services\BaseService;
 
@@ -149,6 +151,24 @@ class BaseUserService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.user.stats', $users_stats);
     
+        $users_permissions = [
+            'initPassword-user' => Auth::user()->can('initPassword-user'),           
+            
+            'edit-user' => Auth::user()->can('edit-user'),
+            'destroy-user' => Auth::user()->can('destroy-user'),
+            'show-user' => Auth::user()->can('show-user'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $users_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($users_data as $item) {
+                $users_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'user_viewTypes',
@@ -158,7 +178,9 @@ class BaseUserService extends BaseService
             'users_filters',
             'user_instance',
             'user_title',
-            'contextKey'
+            'contextKey',
+            'users_permissions',
+            'users_permissionsByItem'
         );
     
         return [
@@ -170,7 +192,9 @@ class BaseUserService extends BaseService
             'user_viewTypes' => $user_viewTypes,
             'user_partialViewName' => $user_partialViewName,
             'contextKey' => $contextKey,
-            'user_compact_value' => $compact_value
+            'user_compact_value' => $compact_value,
+            'users_permissions' => $users_permissions,
+            'users_permissionsByItem' => $users_permissionsByItem
         ];
     }
 

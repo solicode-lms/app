@@ -5,6 +5,8 @@
 
 namespace Modules\PkgRealisationProjets\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -165,6 +167,23 @@ class BaseRealisationProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationProjet.stats', $realisationProjets_stats);
     
+        $realisationProjets_permissions = [
+
+            'edit-realisationProjet' => Auth::user()->can('edit-realisationProjet'),
+            'destroy-realisationProjet' => Auth::user()->can('destroy-realisationProjet'),
+            'show-realisationProjet' => Auth::user()->can('show-realisationProjet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $realisationProjets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($realisationProjets_data as $item) {
+                $realisationProjets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationProjet_viewTypes',
@@ -174,7 +193,9 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjets_filters',
             'realisationProjet_instance',
             'realisationProjet_title',
-            'contextKey'
+            'contextKey',
+            'realisationProjets_permissions',
+            'realisationProjets_permissionsByItem'
         );
     
         return [
@@ -186,7 +207,9 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjet_viewTypes' => $realisationProjet_viewTypes,
             'realisationProjet_partialViewName' => $realisationProjet_partialViewName,
             'contextKey' => $contextKey,
-            'realisationProjet_compact_value' => $compact_value
+            'realisationProjet_compact_value' => $compact_value,
+            'realisationProjets_permissions' => $realisationProjets_permissions,
+            'realisationProjets_permissionsByItem' => $realisationProjets_permissionsByItem
         ];
     }
 

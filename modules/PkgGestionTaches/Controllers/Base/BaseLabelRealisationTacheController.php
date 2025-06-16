@@ -34,7 +34,7 @@ class BaseLabelRealisationTacheController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('labelRealisationTache.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('labelRealisationTache');

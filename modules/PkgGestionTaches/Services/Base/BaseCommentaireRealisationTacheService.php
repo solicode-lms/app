@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGestionTaches\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -150,6 +152,23 @@ class BaseCommentaireRealisationTacheService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.commentaireRealisationTache.stats', $commentaireRealisationTaches_stats);
     
+        $commentaireRealisationTaches_permissions = [
+
+            'edit-commentaireRealisationTache' => Auth::user()->can('edit-commentaireRealisationTache'),
+            'destroy-commentaireRealisationTache' => Auth::user()->can('destroy-commentaireRealisationTache'),
+            'show-commentaireRealisationTache' => Auth::user()->can('show-commentaireRealisationTache'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $commentaireRealisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($commentaireRealisationTaches_data as $item) {
+                $commentaireRealisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'commentaireRealisationTache_viewTypes',
@@ -159,7 +178,9 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTaches_filters',
             'commentaireRealisationTache_instance',
             'commentaireRealisationTache_title',
-            'contextKey'
+            'contextKey',
+            'commentaireRealisationTaches_permissions',
+            'commentaireRealisationTaches_permissionsByItem'
         );
     
         return [
@@ -171,7 +192,9 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTache_viewTypes' => $commentaireRealisationTache_viewTypes,
             'commentaireRealisationTache_partialViewName' => $commentaireRealisationTache_partialViewName,
             'contextKey' => $contextKey,
-            'commentaireRealisationTache_compact_value' => $compact_value
+            'commentaireRealisationTache_compact_value' => $compact_value,
+            'commentaireRealisationTaches_permissions' => $commentaireRealisationTaches_permissions,
+            'commentaireRealisationTaches_permissionsByItem' => $commentaireRealisationTaches_permissionsByItem
         ];
     }
 

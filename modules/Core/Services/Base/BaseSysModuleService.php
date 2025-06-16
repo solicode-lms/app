@@ -5,6 +5,8 @@
 
 namespace Modules\Core\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Models\SysModule;
 use Modules\Core\Services\BaseService;
 
@@ -144,6 +146,23 @@ class BaseSysModuleService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.sysModule.stats', $sysModules_stats);
     
+        $sysModules_permissions = [
+
+            'edit-sysModule' => Auth::user()->can('edit-sysModule'),
+            'destroy-sysModule' => Auth::user()->can('destroy-sysModule'),
+            'show-sysModule' => Auth::user()->can('show-sysModule'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $sysModules_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($sysModules_data as $item) {
+                $sysModules_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'sysModule_viewTypes',
@@ -153,7 +172,9 @@ class BaseSysModuleService extends BaseService
             'sysModules_filters',
             'sysModule_instance',
             'sysModule_title',
-            'contextKey'
+            'contextKey',
+            'sysModules_permissions',
+            'sysModules_permissionsByItem'
         );
     
         return [
@@ -165,7 +186,9 @@ class BaseSysModuleService extends BaseService
             'sysModule_viewTypes' => $sysModule_viewTypes,
             'sysModule_partialViewName' => $sysModule_partialViewName,
             'contextKey' => $contextKey,
-            'sysModule_compact_value' => $compact_value
+            'sysModule_compact_value' => $compact_value,
+            'sysModules_permissions' => $sysModules_permissions,
+            'sysModules_permissionsByItem' => $sysModules_permissionsByItem
         ];
     }
 

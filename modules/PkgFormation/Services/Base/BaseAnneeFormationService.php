@@ -5,6 +5,8 @@
 
 namespace Modules\PkgFormation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\Core\Services\BaseService;
 
@@ -136,6 +138,23 @@ class BaseAnneeFormationService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.anneeFormation.stats', $anneeFormations_stats);
     
+        $anneeFormations_permissions = [
+
+            'edit-anneeFormation' => Auth::user()->can('edit-anneeFormation'),
+            'destroy-anneeFormation' => Auth::user()->can('destroy-anneeFormation'),
+            'show-anneeFormation' => Auth::user()->can('show-anneeFormation'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $anneeFormations_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($anneeFormations_data as $item) {
+                $anneeFormations_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'anneeFormation_viewTypes',
@@ -145,7 +164,9 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormations_filters',
             'anneeFormation_instance',
             'anneeFormation_title',
-            'contextKey'
+            'contextKey',
+            'anneeFormations_permissions',
+            'anneeFormations_permissionsByItem'
         );
     
         return [
@@ -157,7 +178,9 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormation_viewTypes' => $anneeFormation_viewTypes,
             'anneeFormation_partialViewName' => $anneeFormation_partialViewName,
             'contextKey' => $contextKey,
-            'anneeFormation_compact_value' => $compact_value
+            'anneeFormation_compact_value' => $compact_value,
+            'anneeFormations_permissions' => $anneeFormations_permissions,
+            'anneeFormations_permissionsByItem' => $anneeFormations_permissionsByItem
         ];
     }
 

@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-ville') || Auth::user()->can('destroy-ville');
+                    $bulkEdit = $villes_permissions['edit-ville'] || $devvilles_permissions['destroy-ville'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-
                 <x-sortable-column :sortable="true" width="82"  field="nom" modelname="ville" label="{{ucfirst(__('PkgApprenants::ville.nom'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,43 +17,41 @@
             @section('ville-table-tbody')
             @foreach ($villes_data as $ville)
                 @php
-                    $isEditable = Auth::user()->can('edit-ville') && Auth::user()->can('update', $ville);
+                    $isEditable = $villes_permissions['edit-ville'] && $villes_permissionsByItem['update'][$ville->id];
                 @endphp
                 <tr id="ville-row-{{$ville->id}}" data-id="{{$ville->id}}">
                     <x-checkbox-row :item="$ville" :bulkEdit="$bulkEdit" />
-
-        <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
+                    <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ville->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $ville->nom }}" >
                         {{ $ville->nom }}
-    </td>
 
-
+                    </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-ville')
+                        @if($villes_permissions['edit-ville'])
                         <x-action-button :entity="$ville" actionName="edit">
-                        @can('update', $ville)
+                        @if($villes_permissionsByItem['update'][$ville->id])
                             <a href="{{ route('villes.edit', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-ville')
+                        @endif
+                        @if($villes_permissions['show-ville'])
                         <x-action-button :entity="$ville" actionName="show">
-                        @can('view', $ville)
+                        @if($villes_permissionsByItem['view'][$ville->id])
                             <a href="{{ route('villes.show', ['ville' => $ville->id]) }}" data-id="{{$ville->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$ville" actionName="delete">
-                        @can('destroy-ville')
-                        @can('delete', $ville)
+                        @if($villes_permissions['destroy-ville'])
+                        @if($villes_permissionsByItem['delete'][$ville->id])
                             <form class="context-state" action="{{ route('villes.destroy',['ville' => $ville->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -62,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

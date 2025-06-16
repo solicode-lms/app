@@ -5,6 +5,8 @@
 
 namespace Modules\PkgGapp\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGapp\Models\EDataField;
 use Modules\Core\Services\BaseService;
 
@@ -158,6 +160,23 @@ class BaseEDataFieldService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.eDataField.stats', $eDataFields_stats);
     
+        $eDataFields_permissions = [
+
+            'edit-eDataField' => Auth::user()->can('edit-eDataField'),
+            'destroy-eDataField' => Auth::user()->can('destroy-eDataField'),
+            'show-eDataField' => Auth::user()->can('show-eDataField'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $eDataFields_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($eDataFields_data as $item) {
+                $eDataFields_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'eDataField_viewTypes',
@@ -167,7 +186,9 @@ class BaseEDataFieldService extends BaseService
             'eDataFields_filters',
             'eDataField_instance',
             'eDataField_title',
-            'contextKey'
+            'contextKey',
+            'eDataFields_permissions',
+            'eDataFields_permissionsByItem'
         );
     
         return [
@@ -179,7 +200,9 @@ class BaseEDataFieldService extends BaseService
             'eDataField_viewTypes' => $eDataField_viewTypes,
             'eDataField_partialViewName' => $eDataField_partialViewName,
             'contextKey' => $contextKey,
-            'eDataField_compact_value' => $compact_value
+            'eDataField_compact_value' => $compact_value,
+            'eDataFields_permissions' => $eDataFields_permissions,
+            'eDataFields_permissionsByItem' => $eDataFields_permissionsByItem
         ];
     }
 

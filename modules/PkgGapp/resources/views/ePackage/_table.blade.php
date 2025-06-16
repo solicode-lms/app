@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-ePackage') || Auth::user()->can('destroy-ePackage');
+                    $bulkEdit = $ePackages_permissions['edit-ePackage'] || $devePackages_permissions['destroy-ePackage'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="ePackage" label="{{ucfirst(__('PkgGapp::ePackage.name'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -18,42 +17,41 @@
             @section('ePackage-table-tbody')
             @foreach ($ePackages_data as $ePackage)
                 @php
-                    $isEditable = Auth::user()->can('edit-ePackage') && Auth::user()->can('update', $ePackage);
+                    $isEditable = $ePackages_permissions['edit-ePackage'] && $ePackages_permissionsByItem['update'][$ePackage->id];
                 @endphp
                 <tr id="ePackage-row-{{$ePackage->id}}" data-id="{{$ePackage->id}}">
                     <x-checkbox-row :item="$ePackage" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 82%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$ePackage->id}}" data-field="name"  data-toggle="tooltip" title="{{ $ePackage->name }}" >
-                    <x-field :entity="$ePackage" field="name">
                         {{ $ePackage->name }}
-                    </x-field>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-ePackage')
+                        @if($ePackages_permissions['edit-ePackage'])
                         <x-action-button :entity="$ePackage" actionName="edit">
-                        @can('update', $ePackage)
+                        @if($ePackages_permissionsByItem['update'][$ePackage->id])
                             <a href="{{ route('ePackages.edit', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-ePackage')
+                        @endif
+                        @if($ePackages_permissions['show-ePackage'])
                         <x-action-button :entity="$ePackage" actionName="show">
-                        @can('view', $ePackage)
+                        @if($ePackages_permissionsByItem['view'][$ePackage->id])
                             <a href="{{ route('ePackages.show', ['ePackage' => $ePackage->id]) }}" data-id="{{$ePackage->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$ePackage" actionName="delete">
-                        @can('destroy-ePackage')
-                        @can('delete', $ePackage)
+                        @if($ePackages_permissions['destroy-ePackage'])
+                        @if($ePackages_permissionsByItem['delete'][$ePackage->id])
                             <form class="context-state" action="{{ route('ePackages.destroy',['ePackage' => $ePackage->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -61,8 +59,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

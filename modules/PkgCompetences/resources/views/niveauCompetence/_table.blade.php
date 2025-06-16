@@ -6,10 +6,9 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                $bulkEdit = Auth::user()->can('edit-niveauCompetence') || Auth::user()->can('destroy-niveauCompetence');
+                    $bulkEdit = $niveauCompetences_permissions['edit-niveauCompetence'] || $devniveauCompetences_permissions['destroy-niveauCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-               
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="niveauCompetence" label="{{ucfirst(__('PkgCompetences::niveauCompetence.nom'))}}" />
                 <x-sortable-column :sortable="true" width="41" field="competence_id" modelname="niveauCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -19,48 +18,45 @@
             @section('niveauCompetence-table-tbody')
             @foreach ($niveauCompetences_data as $niveauCompetence)
                 @php
-                    $isEditable = Auth::user()->can('edit-niveauCompetence') && Auth::user()->can('update', $niveauCompetence);
+                    $isEditable = $niveauCompetences_permissions['edit-niveauCompetence'] && $niveauCompetences_permissionsByItem['update'][$niveauCompetence->id];
                 @endphp
                 <tr id="niveauCompetence-row-{{$niveauCompetence->id}}" data-id="{{$niveauCompetence->id}}">
                     <x-checkbox-row :item="$niveauCompetence" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $niveauCompetence->nom }}" >
-                    <x-field :entity="$niveauCompetence" field="nom">
                         {{ $niveauCompetence->nom }}
-                    </x-field>
+
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$niveauCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $niveauCompetence->competence }}" >
-                    <x-field :entity="$niveauCompetence" field="competence">
-                       
-                         {{  $niveauCompetence->competence }}
-                    </x-field>
+                        {{  $niveauCompetence->competence }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
 
                        
 
-                        @can('edit-niveauCompetence')
+                        @if($niveauCompetences_permissions['edit-niveauCompetence'])
                         <x-action-button :entity="$niveauCompetence" actionName="edit">
-                        @can('update', $niveauCompetence)
+                        @if($niveauCompetences_permissionsByItem['update'][$niveauCompetence->id])
                             <a href="{{ route('niveauCompetences.edit', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
-                        @can('show-niveauCompetence')
+                        @endif
+                        @if($niveauCompetences_permissions['show-niveauCompetence'])
                         <x-action-button :entity="$niveauCompetence" actionName="show">
-                        @can('view', $niveauCompetence)
+                        @if($niveauCompetences_permissionsByItem['view'][$niveauCompetence->id])
                             <a href="{{ route('niveauCompetences.show', ['niveauCompetence' => $niveauCompetence->id]) }}" data-id="{{$niveauCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                        @endif
                         </x-action-button>
-                        @endcan
+                        @endif
 
                         <x-action-button :entity="$niveauCompetence" actionName="delete">
-                        @can('destroy-niveauCompetence')
-                        @can('delete', $niveauCompetence)
+                        @if($niveauCompetences_permissions['destroy-niveauCompetence'])
+                        @if($niveauCompetences_permissionsByItem['delete'][$niveauCompetence->id])
                             <form class="context-state" action="{{ route('niveauCompetences.destroy',['niveauCompetence' => $niveauCompetence->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -68,8 +64,8 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
-                        @endcan
+                        @endif
+                        @endif
                         </x-action-button>
                     </td>
                 </tr>

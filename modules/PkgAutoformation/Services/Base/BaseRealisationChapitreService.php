@@ -5,6 +5,8 @@
 
 namespace Modules\PkgAutoformation\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgAutoformation\Models\RealisationChapitre;
 use Modules\Core\Services\BaseService;
 
@@ -150,6 +152,23 @@ class BaseRealisationChapitreService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.realisationChapitre.stats', $realisationChapitres_stats);
     
+        $realisationChapitres_permissions = [
+
+            'edit-realisationChapitre' => Auth::user()->can('edit-realisationChapitre'),
+            'destroy-realisationChapitre' => Auth::user()->can('destroy-realisationChapitre'),
+            'show-realisationChapitre' => Auth::user()->can('show-realisationChapitre'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $realisationChapitres_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($realisationChapitres_data as $item) {
+                $realisationChapitres_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'realisationChapitre_viewTypes',
@@ -159,7 +178,9 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitres_filters',
             'realisationChapitre_instance',
             'realisationChapitre_title',
-            'contextKey'
+            'contextKey',
+            'realisationChapitres_permissions',
+            'realisationChapitres_permissionsByItem'
         );
     
         return [
@@ -171,7 +192,9 @@ class BaseRealisationChapitreService extends BaseService
             'realisationChapitre_viewTypes' => $realisationChapitre_viewTypes,
             'realisationChapitre_partialViewName' => $realisationChapitre_partialViewName,
             'contextKey' => $contextKey,
-            'realisationChapitre_compact_value' => $compact_value
+            'realisationChapitre_compact_value' => $compact_value,
+            'realisationChapitres_permissions' => $realisationChapitres_permissions,
+            'realisationChapitres_permissionsByItem' => $realisationChapitres_permissionsByItem
         ];
     }
 

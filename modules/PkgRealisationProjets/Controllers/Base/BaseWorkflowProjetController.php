@@ -32,7 +32,7 @@ class BaseWorkflowProjetController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('workflowProjet.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('workflowProjet');
