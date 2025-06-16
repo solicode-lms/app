@@ -185,7 +185,6 @@ class BaseRealisationTacheService extends BaseService
             'show-realisationTache' => Auth::user()->can('show-realisationTache'),
         ];
 
-
         $abilities = ['update', 'delete', 'view'];
         $realisationTaches_permissionsByItem = [];
         $userId = Auth::id();
