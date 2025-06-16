@@ -48,11 +48,8 @@ class AdminController extends AppController
         $this->sessionState = app(SessionState::class);
         $this->viewState = app(ViewStateService::class);
 
-        // Middleware local exécuté avant chaque méthode publique
-        $this->middleware(function ($request, $next) {
-            $this->shareStates();
-            return $next($request);
-        });
+       
+     
     }
 
     /**
@@ -60,11 +57,16 @@ class AdminController extends AppController
      */
     protected function shareStates(): void
     {
-        view()->share([
-            'contextState' => $this->contextState,
-            'sessionState' => $this->sessionState,
-            'viewState' => $this->viewState?->getViewStateData(),
-        ]);
+ 
+        view()->composer('*', function ($view) {
+                view()->share([
+                'contextState' => $this->contextState,
+                'sessionState' => $this->sessionState,
+                'viewState' => $this->viewState?->getViewStateData(),
+                ]);
+        });
+
+       
     }
 
     protected function getService() {
@@ -119,6 +121,30 @@ class AdminController extends AppController
     }
 
 
+    public function callAction($method, $parameters)
+    {
+
+        // Appeler shareStates() **après** l'action, avant de renvoyer la réponse
+        if (method_exists($this, 'shareStates')) {
+            $this->shareStates();
+        }
+
+
+        // Exécuter l'action du contrôleur (méthode réelle) 
+        $response = parent::callAction($method, $parameters);
+
+        
+        // Si la réponse est une vue Blade, on y injecte nos états
+        if ($response instanceof View) {
+            $response->with([
+                'contextState' => $this->contextState,
+                'sessionState' => $this->sessionState,
+                'viewState'    => $this->viewState->getViewStateData(),
+            ]);
+        }
+
+        return $response;
+    }
  
 
 }
