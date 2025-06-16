@@ -6,6 +6,7 @@
 namespace Modules\PkgGestionTaches\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgGestionTaches\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -183,6 +184,17 @@ class BaseRealisationTacheService extends BaseService
             'destroy-realisationTache' => Auth::user()->can('destroy-realisationTache'),
             'show-realisationTache' => Auth::user()->can('show-realisationTache'),
         ];
+
+
+        $abilities = ['update', 'delete', 'view'];
+        $realisationTaches_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($realisationTaches_data as $item) {
+                $realisationTaches_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
  
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
@@ -194,7 +206,8 @@ class BaseRealisationTacheService extends BaseService
             'realisationTache_instance',
             'realisationTache_title',
             'contextKey',
-            'realisationTaches_permissions'
+            'realisationTaches_permissions',
+            'realisationTaches_permissionsByItem'
         );
     
         return [
@@ -207,7 +220,8 @@ class BaseRealisationTacheService extends BaseService
             'realisationTache_partialViewName' => $realisationTache_partialViewName,
             'contextKey' => $contextKey,
             'realisationTache_compact_value' => $compact_value,
-            'realisationTaches_permissions' => $realisationTaches_permissions
+            'realisationTaches_permissions' => $realisationTaches_permissions,
+            'realisationTaches_permissionsByItem' => $realisationTaches_permissionsByItem
         ];
     }
 

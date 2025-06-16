@@ -23,7 +23,7 @@
             @section('realisationTache-table-tbody')
             @foreach ($realisationTaches_data as $realisationTache)
                 @php
-                    $isEditable = Auth::user()->can('edit-realisationTache') && Auth::user()->can('update', $realisationTache);
+                    $isEditable = $realisationTaches_permissions['edit-realisationTache'] && $realisationTaches_permissionsByItem['update'][$realisationTache->id];
                 @endphp
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
@@ -99,26 +99,26 @@
 
                        @if($realisationTaches_permissions['edit-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="edit">
-                        @can('update', $realisationTache)
+                      
                             <a href="{{ route('realisationTaches.edit', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-sm btn-default context-state editEntity">
                                 <i class="fas fa-pen-square"></i>
                             </a>
-                        @endcan
+                       
                         </x-action-button>
                         @endif
                         @if($realisationTaches_permissions['show-realisationTache'])
                         <x-action-button :entity="$realisationTache" actionName="show">
-                        @can('view', $realisationTache)
+                       @if($realisationTaches_permissionsByItem['view'][$realisationTache->id])
                             <a href="{{ route('realisationTaches.show', ['realisationTache' => $realisationTache->id]) }}" data-id="{{$realisationTache->id}}" class="btn btn-default btn-sm context-state showEntity">
                                 <i class="far fa-eye"></i>
                             </a>
-                        @endcan
+                       @endif
                         </x-action-button>
                         @endif
 
                         <x-action-button :entity="$realisationTache" actionName="delete">
                         @if($realisationTaches_permissions['destroy-realisationTache'])
-                        @can('delete', $realisationTache)
+                        @if($realisationTaches_permissionsByItem['delete'][$realisationTache->id])
                             <form class="context-state" action="{{ route('realisationTaches.destroy',['realisationTache' => $realisationTache->id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -126,7 +126,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
-                        @endcan
+                       @endif
                         @endif
                         </x-action-button>
                     </td>

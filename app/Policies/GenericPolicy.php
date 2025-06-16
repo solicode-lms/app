@@ -67,7 +67,7 @@ class GenericPolicy
      */
     protected function hasOwnership(User $user, $model): bool
     {
-        if ($this->hasTrait($model, 'App\Traits\OwnedByUser')) {
+        if ($model->isOwnedByUser) {
             $owners = $model->getUserOwners();
             return in_array($user->id, array_map(fn($owner) => $owner->id, $owners));
         }
