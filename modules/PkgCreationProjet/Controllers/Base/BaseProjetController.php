@@ -39,7 +39,7 @@ class BaseProjetController extends AdminController
     /**
      */
     public function index(Request $request) {
-        
+             
         $this->viewState->setContextKeyIfEmpty('projet.index');
         
         $userHasSentFilter = $this->viewState->getFilterVariables('projet');

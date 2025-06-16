@@ -5,6 +5,8 @@
 
 namespace Modules\PkgCreationProjet\Services\Base;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\Core\Services\BaseService;
 
@@ -172,6 +174,24 @@ class BaseProjetService extends BaseService
         // Enregistrer les stats dans le ViewState
         $this->viewState->set('stats.projet.stats', $projets_stats);
     
+        $projets_permissions = [
+            'clonerProjet-projet' => Auth::user()->can('clonerProjet-projet'),           
+            
+            'edit-projet' => Auth::user()->can('edit-projet'),
+            'destroy-projet' => Auth::user()->can('destroy-projet'),
+            'show-projet' => Auth::user()->can('show-projet'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $projets_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($projets_data as $item) {
+                $projets_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
         // Préparer les variables à injecter dans compact()
         $compact_value = compact(
             'projet_viewTypes',
@@ -181,7 +201,9 @@ class BaseProjetService extends BaseService
             'projets_filters',
             'projet_instance',
             'projet_title',
-            'contextKey'
+            'contextKey',
+            'projets_permissions',
+            'projets_permissionsByItem'
         );
     
         return [
@@ -193,7 +215,9 @@ class BaseProjetService extends BaseService
             'projet_viewTypes' => $projet_viewTypes,
             'projet_partialViewName' => $projet_partialViewName,
             'contextKey' => $contextKey,
-            'projet_compact_value' => $compact_value
+            'projet_compact_value' => $compact_value,
+            'projets_permissions' => $projets_permissions,
+            'projets_permissionsByItem' => $projets_permissionsByItem
         ];
     }
 
