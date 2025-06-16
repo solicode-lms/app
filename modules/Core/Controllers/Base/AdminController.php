@@ -47,6 +47,12 @@ class AdminController extends AppController
         $this->contextState = app(ContextState::class);
         $this->sessionState = app(SessionState::class);
         $this->viewState = app(ViewStateService::class);
+
+        // Middleware local exécuté avant chaque méthode publique
+        $this->middleware(function ($request, $next) {
+            $this->shareStates();
+            return $next($request);
+        });
     }
 
     /**

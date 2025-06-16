@@ -7,8 +7,8 @@ use Modules\PkgGestionTaches\Models\Base\BaseHistoriqueRealisationTache;
 
 class HistoriqueRealisationTache extends BaseHistoriqueRealisationTache
 {
-    // protected $with = [
+    protected $with = [
     //    'realisationTache',
-    //    'user'
-    // ];
+       'user'
+    ];
 }
