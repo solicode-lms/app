@@ -34,7 +34,7 @@
         $livrablesAttendus = $entity->realisationTache->tache?->livrables ?? collect();
 
          // ⚡ Optimisation : utiliser la relation eager loaded
-        $realises = $entity->realisationTache->livrablesRealisations ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
+        $realises = $entity->realisationTache->livrablesRealisations ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->realisationTache->tache_id))
          ?? collect();
      
         $livrablesRealises = $realises->pluck('livrable_id')->toArray();

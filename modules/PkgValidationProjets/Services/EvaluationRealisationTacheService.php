@@ -17,12 +17,12 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
     protected array $index_with_relations = [
         'evaluateur',
         'realisationTache', // relation directe avec realisation_taches
-        'realisationTache.tache', // pour avoir dateFin, note, ordre, etc.
+        'realisationTache.tache.livrables', // pour avoir dateFin, note, ordre, etc.
         'realisationTache.realisationProjet', // pour accéder au projet et apprenant
         'realisationTache.realisationProjet.apprenant', // pour CONCAT nom + prénom
         'realisationTache.realisationProjet.apprenant.groupes', // pour récupérer le groupe
         'realisationTache.realisationProjet.apprenant.groupes.filiere', // pour nom_filiere
-      
+        'realisationTache.livrablesRealisations.livrable.taches'
     ];
    /**
      * Met à jour la note de la réalisation de tâche et l'état de la réalisation du projet
