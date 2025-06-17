@@ -15,8 +15,8 @@
     },
     {
         "reference": "EvaluationRealisationProjet-note",
-        "name": "Note",
-        "column_name": "Note",
+        "name": "note",
+        "column_name": "note",
         "data_type": "Float",
         "field_order": 5,
         "db_nullable": 0,

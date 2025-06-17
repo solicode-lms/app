@@ -13,7 +13,7 @@
                 <x-sortable-column :sortable="true" width="16.4"  field="NomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.NomApprenant'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="Note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.Note'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.note'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -46,8 +46,8 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="Note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->Note }}" >
-                        @include('PkgValidationProjets::evaluationRealisationProjet.custom.fields.Note', ['entity' => $evaluationRealisationProjet])
+                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->note }}" >
+                        @include('PkgValidationProjets::evaluationRealisationProjet.custom.fields.note', ['entity' => $evaluationRealisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

@@ -47,11 +47,11 @@ class BaseEvaluationRealisationProjet extends BaseModel
                   ON rp.apprenant_id = a.id
                 WHERE rp.id = realisation_projet_id";
         static::addDynamicAttribute('NomApprenant', $sql);
-        // Colonne dynamique : Note
+        // Colonne dynamique : note
         $sql = "SELECT SUM(ert.note)
                                 FROM evaluation_realisation_taches ert
                                 WHERE ert.evaluation_realisation_projet_id = evaluation_realisation_projets.id";
-        static::addDynamicAttribute('Note', $sql);
+        static::addDynamicAttribute('note', $sql);
         // Colonne dynamique : bareme_note
         $sql = "SELECT SUM(t.note)
                         FROM evaluation_realisation_taches ert
