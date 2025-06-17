@@ -35,6 +35,9 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
     {
         DB::transaction(function () use ($evaluationRealisationTache) {
 
+
+            $realisationTacheService = new RealisationTacheService();
+            $evaluationRealisationProjetService = new EvaluationRealisationProjetService();
             // Charger toutes les relations nécessaires d’un seul coup
             $evaluationRealisationTache->loadMissing([
                 'realisationTache.evaluationRealisationTaches',
@@ -47,9 +50,11 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             $averageNote = $realisationTache->evaluationRealisationTaches->avg('note');
 
             // Mise à jour directe de la note de la tâche
-            $realisationTache->update([
+
+            $realisationTacheService->update($realisationTache,[
                 'note' => $averageNote,
-            ]);
+            ] );
+           
 
             // Récupération du projet via les relations chargées
             $evaluationRealisationProjet = $evaluationRealisationTache->evaluationRealisationProjet;
@@ -65,7 +70,7 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             $newEtatCode = $allNotesNull ? 'A_FAIRE' : ($allEvaluated ? 'TERMINEE' : 'EN_COURS');
 
             // Mise à jour de l’état du projet
-            $evaluationRealisationProjet->update([
+            $evaluationRealisationProjetService->update($evaluationRealisationProjet,[
                 'etat_evaluation_projet_id' => $this->getEtatEvaluationProjetByCode($newEtatCode)->id,
             ]);
         });

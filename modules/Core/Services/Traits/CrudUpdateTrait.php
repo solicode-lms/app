@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Collection;
 trait CrudUpdateTrait
 {
 
-    public function updateOnlyExistanteAttribute($id, array $data)
+    public function updateOnlyExistanteAttribute($idOrItem, array $data)
     {
+
+        $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
+        $id = $entity->id;
+
+
         $this->executeRules('before', 'update', $data, $id);
-
-        $entity = $this->find($id);
-
+ 
         if (!$entity) {
             return false;
         }
@@ -34,7 +37,7 @@ trait CrudUpdateTrait
 
 
        $entity->update($data);
-      // $this->executeRules('after', 'update', $entity, $id);
+       $this->executeRules('after', 'update', $entity, $id);
        return $entity;
     }
 
@@ -46,11 +49,14 @@ trait CrudUpdateTrait
      * @param array $data Données à mettre à jour.
      * @return Entity modifié
      */
-    public function update($id, array $data)
+    public function update($idOrItem, array $data)
     {
+       
+        $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
+        $id = $entity->id;
+
         $this->executeRules('before', 'update', $data, $id);
 
-        $entity = $this->find($id);
 
         if (!$entity) {
             return false;
