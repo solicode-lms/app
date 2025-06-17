@@ -52,7 +52,6 @@ public function getRealisationLivrable()
             'realisation_projet_id', // local key on RealisationTache
             'id' // local key on RealisationProjet
         );
-    //    dd($resultat);
         return $resultat;
     }
 

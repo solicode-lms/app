@@ -36,8 +36,7 @@
                         @include('PkgValidationProjets::evaluationRealisationTache.custom.fields.note', ['entity' => $evaluationRealisationTache])
                     </td>
                     <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->nombre_livrables }}" >
-                        {{ $evaluationRealisationTache->nombre_livrables }}
-
+                        @include('PkgValidationProjets::evaluationRealisationTache.custom.fields.nombre_livrables', ['entity' => $evaluationRealisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 
