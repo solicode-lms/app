@@ -38,6 +38,12 @@ class BaseEvaluationRealisationTache extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : nombre_livrables
+        $sql = "SELECT COUNT(*)
+        FROM livrable_tache lt
+        JOIN realisation_taches rt ON rt.tache_id = lt.tache_id
+        WHERE rt.id = evaluation_realisation_taches.realisation_tache_id";
+        static::addDynamicAttribute('nombre_livrables', $sql);
     }
 
     

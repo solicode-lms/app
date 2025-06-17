@@ -8,4 +8,6 @@ return [
     'message'                => 'Message',
     'evaluateur_id'          => 'Évaluateur',
     'realisation_tache_id'   => 'Réalisation de tâche',
+    'deadline' => 'deadline',
+    'nombre_livrables' => 'livrables',
 ];

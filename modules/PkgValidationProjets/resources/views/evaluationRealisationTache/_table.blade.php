@@ -9,9 +9,10 @@
                     $bulkEdit = $evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'] || $evaluationRealisationTaches_permissions['destroy-evaluationRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="evaluateur_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="note" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationTache.note'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5" field="evaluateur_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="note" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationTache.note'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nombre_livrables" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationTache.nombre_livrables'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,16 +24,20 @@
                 @endphp
                 <tr id="evaluationRealisationTache-row-{{$evaluationRealisationTache->id}}" data-id="{{$evaluationRealisationTache->id}}">
                     <x-checkbox-row :item="$evaluationRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->realisationTache }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->realisationTache }}" >
                         {{  $evaluationRealisationTache->realisationTache }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->evaluateur }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->evaluateur }}" >
                         {{  $evaluationRealisationTache->evaluateur }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->note }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->note }}" >
                         @include('PkgValidationProjets::evaluationRealisationTache.custom.fields.note', ['entity' => $evaluationRealisationTache])
+                    </td>
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$evaluationRealisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $evaluationRealisationTache->nombre_livrables }}" >
+                        {{ $evaluationRealisationTache->nombre_livrables }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

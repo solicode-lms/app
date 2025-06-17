@@ -455,5 +455,30 @@
         },
         "e_data_field_reference": "EvaluationRealisationTache_evaluation_realisation_projet_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "EvaluationRealisationTache-nombre_livrables_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EvaluationRealisationTache-nombre_livrables_displayOrder",
+        "value_integer": 10,
+        "e_data_field_reference": "EvaluationRealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EvaluationRealisationTache-nombre_livrables_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EvaluationRealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EvaluationRealisationTache-nombre_livrables_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EvaluationRealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

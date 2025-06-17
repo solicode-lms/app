@@ -42,6 +42,8 @@
           </a>
         </li>
         @endcan
+
+       
        
        
 
@@ -49,6 +51,15 @@
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'apprenants.index') }}" data-toggle="tooltip" title="Apprenants" class="nav-link">
             <i class="fas fa-id-card"></i>
+          </a>
+        </li>
+        @endcan
+
+
+        @can('index-evaluationRealisationProjet')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('evaluationRealisationProjets.index') }}" data-toggle="tooltip" title="Évaluations des Projets" class="nav-link">
+           <i class="fas fa-check-square"></i>
           </a>
         </li>
         @endcan

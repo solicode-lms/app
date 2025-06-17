@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "EvaluationRealisationTache-nombre_livrables",
+        "name": "nombre_livrables",
+        "column_name": "nombre_livrables",
+        "data_type": "Integer",
+        "field_order": 10,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT COUNT(*)\r\nFROM livrable_tache lt\r\nJOIN realisation_taches rt ON rt.tache_id = lt.tache_id\r\nWHERE rt.id = evaluation_realisation_taches.realisation_tache_id",
+        "description": "",
+        "e_model_reference": "evaluation_realisation_taches"
+    }
+]
