@@ -39,7 +39,7 @@
           </div>
           @endif
           <label for="realisation_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
+            {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.realisation_tache_id')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 

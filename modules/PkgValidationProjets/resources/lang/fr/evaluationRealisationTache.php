@@ -7,7 +7,7 @@ return [
     'note'                   => 'Note',
     'message'                => 'Message',
     'evaluateur_id'          => 'Évaluateur',
-    'realisation_tache_id'   => 'Réalisation de tâche',
+    'realisation_tache_id'   => 'Tâche à évaluer',
     'deadline' => 'deadline',
     'nombre_livrables' => 'livrables',
 ];

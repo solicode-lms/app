@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.realisation_tache_id')) }}</small>
                               
       @if($itemEvaluationRealisationTache->realisationTache)
         {{ $itemEvaluationRealisationTache->realisationTache }}
