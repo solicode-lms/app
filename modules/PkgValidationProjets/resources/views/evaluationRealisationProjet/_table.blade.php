@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="NomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.NomApprenant'))}}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="nomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.nomApprenant'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluateur.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.singular'))}}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgValidationProjets::evaluationRealisationProjet.note'))}}" />
@@ -29,8 +29,8 @@
                         {{  $evaluationRealisationProjet->realisationProjet }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="NomApprenant"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->NomApprenant }}" >
-                        {{ $evaluationRealisationProjet->NomApprenant }}
+                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="nomApprenant"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->nomApprenant }}" >
+                        {{ $evaluationRealisationProjet->nomApprenant }}
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$evaluationRealisationProjet->id}}" data-field="evaluateur_id"  data-toggle="tooltip" title="{{ $evaluationRealisationProjet->evaluateur }}" >

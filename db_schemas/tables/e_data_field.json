@@ -11314,8 +11314,8 @@
     {
         "id": 869,
         "reference": "EvaluationRealisationProjet-NomApprenant",
-        "name": "NomApprenant",
-        "column_name": "NomApprenant",
+        "name": "nomApprenant",
+        "column_name": "nomApprenant",
         "data_type": "String",
         "field_order": 3,
         "db_nullable": 0,
