@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $formations_permissions['edit-formation'] || $devformations_permissions['destroy-formation'];
+                    $bulkEdit = $formations_permissions['edit-formation'] || $formations_permissions['destroy-formation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="formation" label="{{ucfirst(__('PkgAutoformation::formation.nom'))}}" />

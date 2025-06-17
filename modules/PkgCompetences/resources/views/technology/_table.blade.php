@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $technologies_permissions['edit-technology'] || $devtechnologies_permissions['destroy-technology'];
+                    $bulkEdit = $technologies_permissions['edit-technology'] || $technologies_permissions['destroy-technology'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="technology" label="{{ucfirst(__('PkgCompetences::technology.nom'))}}" />

@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $featureDomains_permissions['edit-featureDomain'] || $devfeatureDomains_permissions['destroy-featureDomain'];
+                    $bulkEdit = $featureDomains_permissions['edit-featureDomain'] || $featureDomains_permissions['destroy-featureDomain'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="name" modelname="featureDomain" label="{{ucfirst(__('Core::featureDomain.name'))}}" />

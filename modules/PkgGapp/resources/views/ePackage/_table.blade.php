@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $ePackages_permissions['edit-ePackage'] || $devePackages_permissions['destroy-ePackage'];
+                    $bulkEdit = $ePackages_permissions['edit-ePackage'] || $ePackages_permissions['destroy-ePackage'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="ePackage" label="{{ucfirst(__('PkgGapp::ePackage.name'))}}" />

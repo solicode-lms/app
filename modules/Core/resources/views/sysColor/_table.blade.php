@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $sysColors_permissions['edit-sysColor'] || $devsysColors_permissions['destroy-sysColor'];
+                    $bulkEdit = $sysColors_permissions['edit-sysColor'] || $sysColors_permissions['destroy-sysColor'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="name" modelname="sysColor" label="{{ucfirst(__('Core::sysColor.name'))}}" />

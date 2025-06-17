@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $profiles_permissions['edit-profile'] || $devprofiles_permissions['destroy-profile'];
+                    $bulkEdit = $profiles_permissions['edit-profile'] || $profiles_permissions['destroy-profile'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82" field="user_id" modelname="profile" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />

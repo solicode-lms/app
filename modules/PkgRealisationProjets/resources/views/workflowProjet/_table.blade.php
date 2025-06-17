@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $workflowProjets_permissions['edit-workflowProjet'] || $devworkflowProjets_permissions['destroy-workflowProjet'];
+                    $bulkEdit = $workflowProjets_permissions['edit-workflowProjet'] || $workflowProjets_permissions['destroy-workflowProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="workflowProjet" label="{{ucfirst(__('PkgRealisationProjets::workflowProjet.ordre'))}}" />

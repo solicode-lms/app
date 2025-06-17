@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $chapitres_permissions['edit-chapitre'] || $devchapitres_permissions['destroy-chapitre'];
+                    $bulkEdit = $chapitres_permissions['edit-chapitre'] || $chapitres_permissions['destroy-chapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="12.833333333333334"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgAutoformation::chapitre.nom'))}}" />

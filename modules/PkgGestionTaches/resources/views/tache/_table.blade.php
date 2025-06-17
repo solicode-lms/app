@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $taches_permissions['edit-tache'] || $devtaches_permissions['destroy-tache'];
+                    $bulkEdit = $taches_permissions['edit-tache'] || $taches_permissions['destroy-tache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgGestionTaches::tache.ordre'))}}" />

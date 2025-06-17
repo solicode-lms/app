@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $widgetOperations_permissions['edit-widgetOperation'] || $devwidgetOperations_permissions['destroy-widgetOperation'];
+                    $bulkEdit = $widgetOperations_permissions['edit-widgetOperation'] || $widgetOperations_permissions['destroy-widgetOperation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="operation" modelname="widgetOperation" label="{{ucfirst(__('PkgWidgets::widgetOperation.operation'))}}" />

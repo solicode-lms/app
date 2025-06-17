@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $validations_permissions['edit-validation'] || $devvalidations_permissions['destroy-validation'];
+                    $bulkEdit = $validations_permissions['edit-validation'] || $validations_permissions['destroy-validation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="transfert_competence_id" modelname="validation" label="{{ucfirst(__('PkgCreationProjet::transfertCompetence.singular'))}}" />

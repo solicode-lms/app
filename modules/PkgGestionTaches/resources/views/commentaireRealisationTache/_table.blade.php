@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $commentaireRealisationTaches_permissions['edit-commentaireRealisationTache'] || $devcommentaireRealisationTaches_permissions['destroy-commentaireRealisationTache'];
+                    $bulkEdit = $commentaireRealisationTaches_permissions['edit-commentaireRealisationTache'] || $commentaireRealisationTaches_permissions['destroy-commentaireRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="20.5"  field="commentaire" modelname="commentaireRealisationTache" label="{{ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire'))}}" />

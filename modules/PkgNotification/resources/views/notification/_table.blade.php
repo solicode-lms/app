@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $notifications_permissions['edit-notification'] || $devnotifications_permissions['destroy-notification'];
+                    $bulkEdit = $notifications_permissions['edit-notification'] || $notifications_permissions['destroy-notification'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="title" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.title'))}}" />

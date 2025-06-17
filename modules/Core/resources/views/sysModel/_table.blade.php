@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $sysModels_permissions['edit-sysModel'] || $devsysModels_permissions['destroy-sysModel'];
+                    $bulkEdit = $sysModels_permissions['edit-sysModel'] || $sysModels_permissions['destroy-sysModel'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="sysModel" label="{{ucfirst(__('Core::sysModel.name'))}}" />

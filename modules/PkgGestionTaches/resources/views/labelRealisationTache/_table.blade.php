@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $labelRealisationTaches_permissions['edit-labelRealisationTache'] || $devlabelRealisationTaches_permissions['destroy-labelRealisationTache'];
+                    $bulkEdit = $labelRealisationTaches_permissions['edit-labelRealisationTache'] || $labelRealisationTaches_permissions['destroy-labelRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="labelRealisationTache" label="{{ucfirst(__('PkgGestionTaches::labelRealisationTache.nom'))}}" />

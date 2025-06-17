@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $niveauDifficultes_permissions['edit-niveauDifficulte'] || $devniveauDifficultes_permissions['destroy-niveauDifficulte'];
+                    $bulkEdit = $niveauDifficultes_permissions['edit-niveauDifficulte'] || $niveauDifficultes_permissions['destroy-niveauDifficulte'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="niveauDifficulte" label="{{ucfirst(__('PkgCompetences::niveauDifficulte.nom'))}}" />

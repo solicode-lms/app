@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $nationalites_permissions['edit-nationalite'] || $devnationalites_permissions['destroy-nationalite'];
+                    $bulkEdit = $nationalites_permissions['edit-nationalite'] || $nationalites_permissions['destroy-nationalite'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="code" modelname="nationalite" label="{{ucfirst(__('PkgApprenants::nationalite.code'))}}" />

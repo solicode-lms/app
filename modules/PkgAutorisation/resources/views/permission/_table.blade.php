@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $permissions_permissions['edit-permission'] || $devpermissions_permissions['destroy-permission'];
+                    $bulkEdit = $permissions_permissions['edit-permission'] || $permissions_permissions['destroy-permission'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="permission" label="{{ucfirst(__('PkgAutorisation::permission.name'))}}" />

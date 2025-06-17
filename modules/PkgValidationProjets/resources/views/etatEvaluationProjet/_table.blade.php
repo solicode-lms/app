@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $etatEvaluationProjets_permissions['edit-etatEvaluationProjet'] || $devetatEvaluationProjets_permissions['destroy-etatEvaluationProjet'];
+                    $bulkEdit = $etatEvaluationProjets_permissions['edit-etatEvaluationProjet'] || $etatEvaluationProjets_permissions['destroy-etatEvaluationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatEvaluationProjet" label="{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.ordre'))}}" />

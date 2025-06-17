@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $eDataFields_permissions['edit-eDataField'] || $deveDataFields_permissions['destroy-eDataField'];
+                    $bulkEdit = $eDataFields_permissions['edit-eDataField'] || $eDataFields_permissions['destroy-eDataField'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="5"  field="displayOrder" modelname="eDataField" label="{{ucfirst(__('PkgGapp::eDataField.displayOrder'))}}" />

@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $typeDependanceTaches_permissions['edit-typeDependanceTache'] || $devtypeDependanceTaches_permissions['destroy-typeDependanceTache'];
+                    $bulkEdit = $typeDependanceTaches_permissions['edit-typeDependanceTache'] || $typeDependanceTaches_permissions['destroy-typeDependanceTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="titre" modelname="typeDependanceTache" label="{{ucfirst(__('PkgGestionTaches::typeDependanceTache.titre'))}}" />

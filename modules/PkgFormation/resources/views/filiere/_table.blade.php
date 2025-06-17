@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $filieres_permissions['edit-filiere'] || $devfilieres_permissions['destroy-filiere'];
+                    $bulkEdit = $filieres_permissions['edit-filiere'] || $filieres_permissions['destroy-filiere'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="code" modelname="filiere" label="{{ucfirst(__('PkgFormation::filiere.code'))}}" />

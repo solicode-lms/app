@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $eMetadataDefinitions_permissions['edit-eMetadataDefinition'] || $deveMetadataDefinitions_permissions['destroy-eMetadataDefinition'];
+                    $bulkEdit = $eMetadataDefinitions_permissions['edit-eMetadataDefinition'] || $eMetadataDefinitions_permissions['destroy-eMetadataDefinition'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="eMetadataDefinition" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.name'))}}" />

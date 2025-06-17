@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'] || $devevaluationRealisationProjets_permissions['destroy-evaluationRealisationProjet'];
+                    $bulkEdit = $evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'] || $evaluationRealisationProjets_permissions['destroy-evaluationRealisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))}}" />

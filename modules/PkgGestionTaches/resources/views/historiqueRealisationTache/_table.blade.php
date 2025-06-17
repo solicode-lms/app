@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] || $devhistoriqueRealisationTaches_permissions['destroy-historiqueRealisationTache'];
+                    $bulkEdit = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] || $historiqueRealisationTaches_permissions['destroy-historiqueRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />

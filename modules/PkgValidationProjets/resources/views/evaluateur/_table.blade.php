@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $evaluateurs_permissions['edit-evaluateur'] || $devevaluateurs_permissions['destroy-evaluateur'];
+                    $bulkEdit = $evaluateurs_permissions['edit-evaluateur'] || $evaluateurs_permissions['destroy-evaluateur'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgValidationProjets::evaluateur.nom'))}}" />

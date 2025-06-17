@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $anneeFormations_permissions['edit-anneeFormation'] || $devanneeFormations_permissions['destroy-anneeFormation'];
+                    $bulkEdit = $anneeFormations_permissions['edit-anneeFormation'] || $anneeFormations_permissions['destroy-anneeFormation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="anneeFormation" label="{{ucfirst(__('PkgFormation::anneeFormation.titre'))}}" />

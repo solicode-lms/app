@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $modules_permissions['edit-module'] || $devmodules_permissions['destroy-module'];
+                    $bulkEdit = $modules_permissions['edit-module'] || $modules_permissions['destroy-module'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4"  field="code" modelname="module" label="{{ucfirst(__('PkgFormation::module.code'))}}" />

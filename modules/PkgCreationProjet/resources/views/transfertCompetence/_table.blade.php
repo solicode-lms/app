@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $transfertCompetences_permissions['edit-transfertCompetence'] || $devtransfertCompetences_permissions['destroy-transfertCompetence'];
+                    $bulkEdit = $transfertCompetences_permissions['edit-transfertCompetence'] || $transfertCompetences_permissions['destroy-transfertCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41" field="competence_id" modelname="transfertCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />

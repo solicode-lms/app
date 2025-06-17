@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $livrables_permissions['edit-livrable'] || $devlivrables_permissions['destroy-livrable'];
+                    $bulkEdit = $livrables_permissions['edit-livrable'] || $livrables_permissions['destroy-livrable'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41" field="nature_livrable_id" modelname="livrable" label="{{ucfirst(__('PkgCreationProjet::natureLivrable.singular'))}}" />

@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $dependanceTaches_permissions['edit-dependanceTache'] || $devdependanceTaches_permissions['destroy-dependanceTache'];
+                    $bulkEdit = $dependanceTaches_permissions['edit-dependanceTache'] || $dependanceTaches_permissions['destroy-dependanceTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />

@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $eRelationships_permissions['edit-eRelationship'] || $deveRelationships_permissions['destroy-eRelationship'];
+                    $bulkEdit = $eRelationships_permissions['edit-eRelationship'] || $eRelationships_permissions['destroy-eRelationship'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="20.5"  field="name" modelname="eRelationship" label="{{ucfirst(__('PkgGapp::eRelationship.name'))}}" />

@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $villes_permissions['edit-ville'] || $devvilles_permissions['destroy-ville'];
+                    $bulkEdit = $villes_permissions['edit-ville'] || $villes_permissions['destroy-ville'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="82"  field="nom" modelname="ville" label="{{ucfirst(__('PkgApprenants::ville.nom'))}}" />

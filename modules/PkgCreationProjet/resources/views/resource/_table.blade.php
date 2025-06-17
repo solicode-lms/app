@@ -6,7 +6,7 @@
         <thead style="width: 100%">
             <tr>
                 @php
-                    $bulkEdit = $resources_permissions['edit-resource'] || $devresources_permissions['destroy-resource'];
+                    $bulkEdit = $resources_permissions['edit-resource'] || $resources_permissions['destroy-resource'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="41"  field="nom" modelname="resource" label="{{ucfirst(__('PkgCreationProjet::resource.nom'))}}" />
