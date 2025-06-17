@@ -8,6 +8,6 @@ return [
     'realisation_projet_id' => 'Identifiant Réalisation Projet',
     'evaluateur_id' => 'Identifiant Évaluateur',
     'etat_evaluation_projet_id' => 'Identifiant État Évaluation Projet',
-    'NomApprenant' => 'Apprenant',
-     'Note' => 'Note'
+    'nomApprenant' => 'Apprenant',
+    'note' => 'note'
 ];
