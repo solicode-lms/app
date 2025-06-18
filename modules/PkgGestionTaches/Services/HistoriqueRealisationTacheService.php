@@ -37,6 +37,12 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
         $champsModifies = [];
 
         foreach ($nouveauxChamps as $champ => $nouvelleValeur) {
+
+            // ❌ Ne pas historiser la note
+            if ($champ === 'note') {
+                continue;
+            }
+
             $ancienneValeur = $realisationTache->$champ ?? null;
 
             // 🔍 Si l'ancien OU le nouveau est une date / datetime, on formate avant comparaison

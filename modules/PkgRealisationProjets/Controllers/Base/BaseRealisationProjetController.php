@@ -9,8 +9,8 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgGestionTaches\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Modules\PkgRealisationProjets\Services\ValidationService;
+use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -271,13 +271,6 @@ class BaseRealisationProjetController extends AdminController
         $livrablesRealisations_view_data = $livrablesRealisationService->prepareDataForIndexView();
         extract($livrablesRealisations_view_data);
 
-        $this->viewState->set('scope.evaluationRealisationProjet.realisation_projet_id', $id);
-        
-
-        $evaluationRealisationProjetService =  new EvaluationRealisationProjetService();
-        $evaluationRealisationProjets_view_data = $evaluationRealisationProjetService->prepareDataForIndexView();
-        extract($evaluationRealisationProjets_view_data);
-
         $this->viewState->set('scope.validation.realisation_projet_id', $id);
         
         // scopeDataInEditContext
@@ -292,10 +285,10 @@ class BaseRealisationProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('bulkEdit' , 'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
+            return view('PkgRealisationProjets::realisationProjet._edit', array_merge(compact('bulkEdit' , 'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
         }
 
-        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('bulkEdit' ,'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $evaluationRealisationProjet_compact_value, $validation_compact_value));
+        return view('PkgRealisationProjets::realisationProjet.edit', array_merge(compact('bulkEdit' ,'itemRealisationProjet','affectationProjets', 'apprenants', 'etatsRealisationProjets'),$realisationTache_compact_value, $livrablesRealisation_compact_value, $validation_compact_value));
 
 
     }
