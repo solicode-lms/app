@@ -1428,5 +1428,35 @@
         "value_float": 0,
         "e_model_reference": "apprenants",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m_displayOrder",
+        "value_integer": 24,
+        "e_data_field_reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "apprenants_sous_groupes_apprenant_sous_groupe_m2m_m2m",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

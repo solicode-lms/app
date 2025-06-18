@@ -533,5 +533,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "groupes_formateurs_formateur_groupe_m2m_m2m",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "groupes_hasMany_sous_groupes_groupe_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "groupes_hasMany_sous_groupes_groupe_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "groupes_hasMany_sous_groupes_groupe_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "groupes_hasMany_sous_groupes_groupe_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "groupes_hasMany_sous_groupes_groupe_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "groupes_hasMany_sous_groupes_groupe_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "groupes_hasMany_sous_groupes_groupe_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "groupes_hasMany_sous_groupes_groupe_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
