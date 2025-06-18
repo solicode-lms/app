@@ -8,6 +8,7 @@ use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgApprenants\Services\SousGroupeService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,9 @@ class BaseAffectationProjetController extends AdminController
     protected $anneeFormationService;
     protected $groupeService;
     protected $projetService;
+    protected $sousGroupeService;
 
-    public function __construct(AffectationProjetService $affectationProjetService, EvaluateurService $evaluateurService, AnneeFormationService $anneeFormationService, GroupeService $groupeService, ProjetService $projetService) {
+    public function __construct(AffectationProjetService $affectationProjetService, EvaluateurService $evaluateurService, AnneeFormationService $anneeFormationService, GroupeService $groupeService, ProjetService $projetService, SousGroupeService $sousGroupeService) {
         parent::__construct();
         $this->service  =  $affectationProjetService;
         $this->affectationProjetService = $affectationProjetService;
@@ -36,6 +38,7 @@ class BaseAffectationProjetController extends AdminController
         $this->anneeFormationService = $anneeFormationService;
         $this->groupeService = $groupeService;
         $this->projetService = $projetService;
+        $this->sousGroupeService = $sousGroupeService;
     }
 
     /**
@@ -108,13 +111,14 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
         }
-        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+        return view('PkgRealisationProjets::affectationProjet.create', compact('bulkEdit' ,'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -147,6 +151,7 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = true;
@@ -155,9 +160,9 @@ class BaseAffectationProjetController extends AdminController
         $itemAffectationProjet = $this->affectationProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+            return view('PkgRealisationProjets::affectationProjet._fields', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
         }
-        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets'));
+        return view('PkgRealisationProjets::affectationProjet.bulk-edit', compact('bulkEdit', 'affectationProjet_ids', 'itemAffectationProjet', 'evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'));
     }
     /**
      */
@@ -232,6 +237,7 @@ class BaseAffectationProjetController extends AdminController
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
         $anneeFormations = $this->anneeFormationService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $evaluateurs = $this->evaluateurService->all();
 
 
@@ -249,10 +255,10 @@ class BaseAffectationProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+            return view('PkgRealisationProjets::affectationProjet._edit', array_merge(compact('bulkEdit' , 'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'),$realisationProjet_compact_value));
         }
 
-        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('bulkEdit' ,'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets'),$realisationProjet_compact_value));
+        return view('PkgRealisationProjets::affectationProjet.edit', array_merge(compact('bulkEdit' ,'itemAffectationProjet','evaluateurs', 'anneeFormations', 'groupes', 'projets', 'sousGroupes'),$realisationProjet_compact_value));
 
 
     }

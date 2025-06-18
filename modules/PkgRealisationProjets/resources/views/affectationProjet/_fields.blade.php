@@ -195,6 +195,40 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemAffectationProjet" field="sous_groupe_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sous_groupe_id" id="bulk_field_sous_groupe_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="sous_groupe_id">
+            {{ ucfirst(__('PkgApprenants::sousGroupe.singular')) }}
+            
+          </label>
+                      <select 
+            id="sous_groupe_id" 
+            
+            
+            
+            name="sous_groupe_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sousGroupes as $sousGroupe)
+                    <option value="{{ $sousGroupe->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->sous_groupe_id == $sousGroupe->id) || (old('sous_groupe_id>') == $sousGroupe->id) ? 'selected' : '' }}>
+                        {{ $sousGroupe }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sous_groupe_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

@@ -9,6 +9,7 @@ use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgApprenants\Services\SousGroupeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -169,11 +170,18 @@ class BaseGroupeController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.sousGroupe.groupe_id', $id);
+        
+
+        $sousGroupeService =  new SousGroupeService();
+        $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
+        extract($sousGroupes_view_data);
+
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value));
+            return view('PkgApprenants::groupe._show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $sousGroupe_compact_value));
         }
 
-        return view('PkgApprenants::groupe.show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value));
+        return view('PkgApprenants::groupe.show', array_merge(compact('itemGroupe'),$affectationProjet_compact_value, $sousGroupe_compact_value));
 
     }
     /**
@@ -199,13 +207,20 @@ class BaseGroupeController extends AdminController
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
 
+        $this->viewState->set('scope.sousGroupe.groupe_id', $id);
+        
+
+        $sousGroupeService =  new SousGroupeService();
+        $sousGroupes_view_data = $sousGroupeService->prepareDataForIndexView();
+        extract($sousGroupes_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+            return view('PkgApprenants::groupe._edit', array_merge(compact('bulkEdit' , 'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value, $sousGroupe_compact_value));
         }
 
-        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value));
+        return view('PkgApprenants::groupe.edit', array_merge(compact('bulkEdit' ,'itemGroupe','apprenants', 'formateurs', 'anneeFormations', 'filieres'),$affectationProjet_compact_value, $sousGroupe_compact_value));
 
 
     }

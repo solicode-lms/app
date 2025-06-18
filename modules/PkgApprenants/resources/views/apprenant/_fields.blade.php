@@ -544,6 +544,46 @@
   
     
 
+    
+    <div class="row">
+        <x-form-field :entity="$itemApprenant" field="sousGroupes" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sousGroupes" id="bulk_field_sousGroupes" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="sousGroupes">
+            {{ ucfirst(__('PkgApprenants::sousGroupe.plural')) }}
+            
+          </label>
+                      <select
+                id="sousGroupes"
+                name="sousGroupes[]"
+                class="form-control select2"
+                
+                
+                multiple="multiple">
+               
+                @foreach ($sousGroupes as $sousGroupe)
+                    <option value="{{ $sousGroupe->id }}"
+                        {{ (isset($itemApprenant) && $itemApprenant->sousGroupes && $itemApprenant->sousGroupes->contains('id', $sousGroupe->id)) || (is_array(old('sousGroupes')) && in_array($sousGroupe->id, old('sousGroupes'))) ? 'selected' : '' }}>
+                        {{ $sousGroupe }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sousGroupes')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+
+    </div>
+  
+
 
     </div>
 

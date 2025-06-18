@@ -3,32 +3,32 @@
 
 
 
-namespace Modules\PkgRealisationProjets\App\Imports\Base;
+namespace Modules\PkgApprenants\App\Imports\Base;
 
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgApprenants\Models\SousGroupe;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseAffectationProjetImport implements ToModel, WithHeadingRow
+class BaseSousGroupeImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return AffectationProjet|null
+     * @return SousGroupe|null
      */
-    private function findExistingRecord($reference): ?AffectationProjet
+    private function findExistingRecord($reference): ?SousGroupe
     {
         if($reference == null) return null;
-        return AffectationProjet::where('reference', $reference)->first();
+        return SousGroupe::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return AffectationProjet|null
+     * @return SousGroupe|null
      */
     public function model(array $row)
     {
@@ -55,16 +55,11 @@ class BaseAffectationProjetImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new AffectationProjet([
-             'projet_id' => $values[0] ?? null,
-             'groupe_id' => $values[1] ?? null,
-             'annee_formation_id' => $values[2] ?? null,
-             'date_debut' => $values[3] ?? null,
-             'date_fin' => $values[4] ?? null,
-             'sous_groupe_id' => $values[5] ?? null,
-             'is_formateur_evaluateur' => $values[6] ?? null,
+        return new SousGroupe([
              'reference' => $reference,
-             'description' => $values[8] ?? null,
+             'nom' => $values[1] ?? null,
+             'description' => $values[2] ?? null,
+             'groupe_id' => $values[3] ?? null,
         ]);
 
 

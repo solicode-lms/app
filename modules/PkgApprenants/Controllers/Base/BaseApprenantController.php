@@ -5,6 +5,7 @@
 namespace Modules\PkgApprenants\Controllers\Base;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgApprenants\Services\SousGroupeService;
 use Modules\PkgApprenants\Services\NationaliteService;
 use Modules\PkgApprenants\Services\NiveauxScolaireService;
 use Modules\PkgAutorisation\Services\UserService;
@@ -24,15 +25,17 @@ class BaseApprenantController extends AdminController
 {
     protected $apprenantService;
     protected $groupeService;
+    protected $sousGroupeService;
     protected $nationaliteService;
     protected $niveauxScolaireService;
     protected $userService;
 
-    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
+    public function __construct(ApprenantService $apprenantService, GroupeService $groupeService, SousGroupeService $sousGroupeService, NationaliteService $nationaliteService, NiveauxScolaireService $niveauxScolaireService, UserService $userService) {
         parent::__construct();
         $this->service  =  $apprenantService;
         $this->apprenantService = $apprenantService;
         $this->groupeService = $groupeService;
+        $this->sousGroupeService = $sousGroupeService;
         $this->nationaliteService = $nationaliteService;
         $this->niveauxScolaireService = $niveauxScolaireService;
         $this->userService = $userService;
@@ -91,13 +94,14 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $groupes = $this->groupeService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
-        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.create', compact('bulkEdit' ,'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -120,6 +124,7 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $groupes = $this->groupeService->all();
 
         $bulkEdit = true;
@@ -128,9 +133,9 @@ class BaseApprenantController extends AdminController
         $itemApprenant = $this->apprenantService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+            return view('PkgApprenants::apprenant._fields', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
         }
-        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'nationalites', 'niveauxScolaires', 'users'));
+        return view('PkgApprenants::apprenant.bulk-edit', compact('bulkEdit', 'apprenant_ids', 'itemApprenant', 'groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'));
     }
     /**
      */
@@ -193,16 +198,17 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->all();
         $niveauxScolaires = $this->niveauxScolaireService->all();
         $users = $this->userService->all();
+        $sousGroupes = $this->sousGroupeService->all();
         $groupes = $this->groupeService->all();
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprenants::apprenant._fields', array_merge(compact('bulkEdit' , 'itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
+            return view('PkgApprenants::apprenant._fields', array_merge(compact('bulkEdit' , 'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),));
         }
 
-        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','groupes', 'nationalites', 'niveauxScolaires', 'users'),));
+        return view('PkgApprenants::apprenant.edit', array_merge(compact('bulkEdit' ,'itemApprenant','groupes', 'sousGroupes', 'nationalites', 'niveauxScolaires', 'users'),));
 
 
     }

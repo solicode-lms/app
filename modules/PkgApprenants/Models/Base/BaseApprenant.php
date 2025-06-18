@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Nationalite;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
+use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
@@ -77,6 +78,7 @@ class BaseApprenant extends BaseModel
         'nom', 'nom_arab', 'prenom', 'prenom_arab', 'profile_image', 'cin', 'date_naissance', 'sexe', 'nationalite_id', 'lieu_naissance', 'diplome', 'adresse', 'niveaux_scolaire_id', 'tele_num', 'user_id', 'matricule', 'date_inscription', 'actif'
     ];
     public $manyToMany = [
+        'SousGroupe' => ['relation' => 'sousGroupes' , "foreign_key" => "sous_groupe_id" ],
         'Groupe' => ['relation' => 'groupes' , "foreign_key" => "groupe_id" ]
     ];
     public $manyToOne = [
@@ -126,6 +128,15 @@ class BaseApprenant extends BaseModel
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Relation ManyToMany pour SousGroupes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sousGroupes()
+    {
+        return $this->belongsToMany(SousGroupe::class, 'apprenant_sous_groupe');
+    }
     /**
      * Relation ManyToMany pour Groupes.
      *

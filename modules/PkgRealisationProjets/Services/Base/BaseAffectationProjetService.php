@@ -26,6 +26,7 @@ class BaseAffectationProjetService extends BaseService
         'annee_formation_id',
         'date_debut',
         'date_fin',
+        'sous_groupe_id',
         'is_formateur_evaluateur',
         'description'
     ];
@@ -64,6 +65,10 @@ class BaseAffectationProjetService extends BaseService
 
         if (!array_key_exists('groupe_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
+        }
+
+        if (!array_key_exists('sous_groupe_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::sousGroupe.plural"), 'sous_groupe_id', \Modules\PkgApprenants\Models\SousGroupe::class, 'nom');
         }
 
     }

@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\AnneeFormation;
+use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
@@ -33,7 +34,8 @@ class BaseAffectationProjet extends BaseModel
     protected $with = [
       //  'projet',
       //  'groupe',
-      //  'anneeFormation'
+      //  'anneeFormation',
+      //  'sousGroupe'
     ];
 
 
@@ -50,7 +52,7 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'is_formateur_evaluateur', 'description'
+        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'sous_groupe_id', 'is_formateur_evaluateur', 'description'
     ];
     public $manyToMany = [
         'Evaluateur' => ['relation' => 'evaluateurs' , "foreign_key" => "evaluateur_id" ]
@@ -70,6 +72,11 @@ class BaseAffectationProjet extends BaseModel
             'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
             'relation' => 'anneeFormations' , 
             "foreign_key" => "annee_formation_id", 
+            ],
+        'SousGroupe' => [
+            'model' => "Modules\\PkgApprenants\\Models\\SousGroupe",
+            'relation' => 'sousGroupes' , 
+            "foreign_key" => "sous_groupe_id", 
             ]
     ];
 
@@ -100,6 +107,15 @@ class BaseAffectationProjet extends BaseModel
     public function anneeFormation(): BelongsTo
     {
         return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SousGroupe.
+     *
+     * @return BelongsTo
+     */
+    public function sousGroupe(): BelongsTo
+    {
+        return $this->belongsTo(SousGroupe::class, 'sous_groupe_id', 'id');
     }
 
     /**

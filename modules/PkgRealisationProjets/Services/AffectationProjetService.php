@@ -26,39 +26,55 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $affectationProjet;
     }
 
-    public function afterCreateRules($affectationProjet , $id){
-        // Récupération du service de gestion des groupes
-        $groupeService = new GroupeService();
-        $groupe = $affectationProjet?->groupe;
-    
-        if (!$groupe) {
-            throw new \Exception("Groupe non trouvé.");
-        }
-    
-        // Récupération des apprenants du groupe via le service
-        $apprenants = $groupe->apprenants;
-    
-        // Récupération du service de gestion des réalisations de projets
+    public function afterCreateRules($affectationProjet, $id)
+    {
         $realisationProjetService = new RealisationProjetService();
-    
-        // Créer une réalisation de projet pour chaque apprenant
+
+        // Priorité au sous-groupe si présent
+        $apprenants = collect();
+
+        if ($affectationProjet?->sousGroupe) {
+            $apprenants = $affectationProjet->sousGroupe->apprenants;
+        } elseif ($affectationProjet?->groupe) {
+            $apprenants = $affectationProjet->groupe->apprenants;
+        }
+
+        if ($apprenants->isEmpty()) {
+            throw new \Exception("Aucun apprenant trouvé pour cette affectation.");
+        }
+
         foreach ($apprenants as $apprenant) {
             $realisationProjetService->create([
                 'apprenant_id' => $apprenant->id,
                 'affectation_projet_id' => $affectationProjet->id,
                 'date_debut' => $affectationProjet->date_debut,
                 'date_fin' => $affectationProjet->date_fin,
-                'rapport' => null, // Peut être rempli plus tard
-                'etats_realisation_projet_id' => null, // Peut être défini selon un état initial
+                'rapport' => null,
+                'etats_realisation_projet_id' => null,
             ]);
         }
 
         (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
     }
 
-    public function afterUpdateRules($affectationProjet , $id){
+ public function afterUpdateRules($affectationProjet, $id)
+    {
+        $realisationProjetService = new RealisationProjetService();
 
-        // sync : ajouter, supprimer EvaluationRealisationProjet
+        $nouveauxApprenants = collect();
+
+        if ($affectationProjet->sousGroupe) {
+            $nouveauxApprenants = $affectationProjet->sousGroupe->apprenants;
+        } elseif ($affectationProjet->groupe) {
+            $nouveauxApprenants = $affectationProjet->groupe->apprenants;
+        }
+
+        // Récupération des réalisations existantes
+        $realisationProjetService->syncApprenantsAvecRealisationProjets(
+            $affectationProjet,
+            $nouveauxApprenants
+        );
+
         (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
     }
 

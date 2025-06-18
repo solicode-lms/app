@@ -269,6 +269,25 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::sousGroupe.plural')) }}</small>
+                              <!-- Valeurs many-to-many -->
+        @if($itemApprenant->sousGroupes->isNotEmpty())
+          <div>
+            @foreach($itemApprenant->sousGroupes as $sousGroupe)
+              <span class="badge badge-info mr-1">
+                {{ $sousGroupe }}
+              </span>
+            @endforeach
+          </div>
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>

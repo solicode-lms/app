@@ -3,7 +3,7 @@
 
 
 
-namespace Modules\PkgRealisationProjets\Database\Seeders\Base;
+namespace Modules\PkgApprenants\Database\Seeders\Base;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -13,16 +13,16 @@ use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\PkgApprenants\Models\SousGroupe;
+use Modules\PkgApprenants\Services\SousGroupeService;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
-use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 
 
-class BaseAffectationProjetSeeder extends Seeder
+class BaseSousGroupeSeeder extends Seeder
 {
-    public static int $order = 52;
+    public static int $order = 94;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -49,7 +49,7 @@ class BaseAffectationProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgRealisationProjets/Database/data/affectationProjets.csv");
+        $filePath = base_path("modules/PkgApprenants/Database/data/sousGroupes.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -67,27 +67,22 @@ class BaseAffectationProjetSeeder extends Seeder
             return;
         }
 
-        $affectationProjetService = new AffectationProjetService();
+        $sousGroupeService = new SousGroupeService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
-                $affectationProjetData =[
-                    "projet_id" => $row["projet_id"] ?? null,
-                    "groupe_id" => $row["groupe_id"] ?? null,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
-                    "date_debut" => $row["date_debut"] ?? null,
-                    "date_fin" => $row["date_fin"] ?? null,
-                    "sous_groupe_id" => $row["sous_groupe_id"] ?? null,
-                    "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
+                $sousGroupeData =[
+                    "nom" => $row["nom"] ?? null,
                     "description" => $row["description"] ?? null,
+                    "groupe_id" => $row["groupe_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $affectationProjetService->updateOrCreate(["reference" => $row["reference"]], $affectationProjetData);
+                    $sousGroupeService->updateOrCreate(["reference" => $row["reference"]], $sousGroupeData);
                 } else {
-                    $affectationProjetService->create($affectationProjetData);
+                    $sousGroupeService->create($sousGroupeData);
                 }
             }
         }
@@ -99,7 +94,7 @@ class BaseAffectationProjetSeeder extends Seeder
     public function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
-        $moduleSlug = 'PkgRealisationProjets'; // Slug du module
+        $moduleSlug = 'PkgApprenants'; // Slug du module
         $sysModule = SysModule::where('slug', $moduleSlug)->first();
 
         if (!$sysModule) {
@@ -110,9 +105,9 @@ class BaseAffectationProjetSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'AffectationProjetController';
-        $controllerBaseName = 'affectationProjet';
-        $domainName = 'AffectationProjet';
+        $controllerName = 'SousGroupeController';
+        $controllerBaseName = 'sousGroupe';
+        $domainName = 'SousGroupe';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(

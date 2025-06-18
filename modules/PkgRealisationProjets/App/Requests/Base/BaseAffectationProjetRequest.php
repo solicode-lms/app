@@ -34,6 +34,7 @@ class BaseAffectationProjetRequest extends FormRequest
             'annee_formation_id' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
+            'sous_groupe_id' => 'nullable',
             'is_formateur_evaluateur' => 'nullable|boolean',
             'evaluateurs' => 'nullable|array',
             'description' => 'nullable|string'
@@ -53,6 +54,7 @@ class BaseAffectationProjetRequest extends FormRequest
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_fin')]),
+            'sous_groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.sous_groupe_id')]),
             'is_formateur_evaluateur.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.is_formateur_evaluateur')]),
             'evaluateurs.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.evaluateurs')]),
             'evaluateurs.array' => __('validation.array', ['attribute' => __('PkgRealisationProjets::AffectationProjet.evaluateurs')]),

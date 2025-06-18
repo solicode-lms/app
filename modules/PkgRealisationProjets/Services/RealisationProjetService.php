@@ -328,4 +328,33 @@ class RealisationProjetService extends BaseRealisationProjetService
     }
     
     
+
+    public function syncApprenantsAvecRealisationProjets($affectationProjet, $nouveauxApprenants)
+    {
+        $apprenantsExistants = $affectationProjet->realisationProjets->pluck('apprenant_id');
+
+        $apprenantsAJouter = $nouveauxApprenants->whereNotIn('id', $apprenantsExistants);
+        $apprenantsASupprimer = $apprenantsExistants->diff($nouveauxApprenants->pluck('id'));
+
+        // Suppression des réalisations obsolètes
+        if ($apprenantsASupprimer->isNotEmpty()) {
+            $this->query()
+                ->where('affectation_projet_id', $affectationProjet->id)
+                ->whereIn('apprenant_id', $apprenantsASupprimer)
+                ->delete();
+        }
+
+        // Ajout des nouvelles réalisations
+        foreach ($apprenantsAJouter as $apprenant) {
+            $this->create([
+                'apprenant_id' => $apprenant->id,
+                'affectation_projet_id' => $affectationProjet->id,
+                'date_debut' => $affectationProjet->date_debut,
+                'date_fin' => $affectationProjet->date_fin,
+                'rapport' => null,
+                'etats_realisation_projet_id' => null,
+            ]);
+        }
+    }
+
 }

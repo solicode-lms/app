@@ -16,6 +16,7 @@ use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgApprenants\Models\SousGroupe;
 
 /**
  * Classe BaseGroupe
@@ -114,6 +115,15 @@ class BaseGroupe extends BaseModel
     public function affectationProjets(): HasMany
     {
         return $this->hasMany(AffectationProjet::class, 'groupe_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Groupes.
+     *
+     * @return HasMany
+     */
+    public function sousGroupes(): HasMany
+    {
+        return $this->hasMany(SousGroupe::class, 'groupe_id', 'id');
     }
 
 

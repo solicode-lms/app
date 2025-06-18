@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationProjets\App\Exports\Base;
+namespace Modules\PkgApprenants\App\Exports\Base;
 
-use Modules\PkgRealisationProjets\Models\AffectationProjet;
+use Modules\PkgApprenants\Models\SousGroupe;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseAffectationProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseSousGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
 
@@ -28,27 +28,17 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
     {
      if($this->format == 'csv'){
         return [
-            'projet_id' => 'projet_id',
-            'groupe_id' => 'groupe_id',
-            'annee_formation_id' => 'annee_formation_id',
-            'date_debut' => 'date_debut',
-            'date_fin' => 'date_fin',
-            'sous_groupe_id' => 'sous_groupe_id',
-            'is_formateur_evaluateur' => 'is_formateur_evaluateur',
             'reference' => 'reference',
+            'nom' => 'nom',
             'description' => 'description',
+            'groupe_id' => 'groupe_id',
         ];
         }else{
         return [
-            'projet_id' => __('PkgRealisationProjets::affectationProjet.projet_id'),
-            'groupe_id' => __('PkgRealisationProjets::affectationProjet.groupe_id'),
-            'annee_formation_id' => __('PkgRealisationProjets::affectationProjet.annee_formation_id'),
-            'date_debut' => __('PkgRealisationProjets::affectationProjet.date_debut'),
-            'date_fin' => __('PkgRealisationProjets::affectationProjet.date_fin'),
-            'sous_groupe_id' => __('PkgRealisationProjets::affectationProjet.sous_groupe_id'),
-            'is_formateur_evaluateur' => __('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur'),
             'reference' => __('Core::msg.reference'),
-            'description' => __('PkgRealisationProjets::affectationProjet.description'),
+            'nom' => __('PkgApprenants::sousGroupe.nom'),
+            'description' => __('PkgApprenants::sousGroupe.description'),
+            'groupe_id' => __('PkgApprenants::sousGroupe.groupe_id'),
         ];
 
         }
@@ -57,17 +47,12 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
 
     public function collection()
     {
-        return $this->data->map(function ($affectationProjet) {
+        return $this->data->map(function ($sousGroupe) {
             return [
-                'projet_id' => $affectationProjet->projet_id,
-                'groupe_id' => $affectationProjet->groupe_id,
-                'annee_formation_id' => $affectationProjet->annee_formation_id,
-                'date_debut' => $affectationProjet->date_debut,
-                'date_fin' => $affectationProjet->date_fin,
-                'sous_groupe_id' => $affectationProjet->sous_groupe_id,
-                'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur,
-                'reference' => $affectationProjet->reference,
-                'description' => $affectationProjet->description,
+                'reference' => $sousGroupe->reference,
+                'nom' => $sousGroupe->nom,
+                'description' => $sousGroupe->description,
+                'groupe_id' => $sousGroupe->groupe_id,
             ];
         });
     }

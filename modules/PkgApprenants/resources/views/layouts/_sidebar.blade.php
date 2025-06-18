@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-apprenantKonosy', 'index-niveauxScolaire', 'index-ville', 'index-nationalite', 'index-groupe', 'index-apprenant'])
+@accessiblePermissions(['index-apprenantKonosy', 'index-niveauxScolaire', 'index-ville', 'index-nationalite', 'index-groupe', 'index-apprenant', 'index-sousGroupe'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgApprenants" class="nav-item has-treeview  {{ Request::is('admin/PkgApprenants*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgApprenants*') ? 'active' : '' }}">
@@ -57,6 +57,14 @@
             <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-id-card"></i>
                 {{__('PkgApprenants::apprenant.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-sousGroupe') 
+        <li class="nav-item" id="menu-sousGroupes">
+            <a href="{{ route('sousGroupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/sousGroupes') ? 'active' : '' }}">
+                <i class="nav-icon fa-table"></i>
+                {{__('PkgApprenants::sousGroupe.plural')}}
             </a>
         </li>
         @endcan
