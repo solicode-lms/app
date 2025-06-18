@@ -67,7 +67,8 @@
         "apprenant_groupe",
         "apprenants",
         "nationalites",
-        "apprenant_konosies"
+        "apprenant_konosies",
+        "sous_groupes"
     ]
 },
 
