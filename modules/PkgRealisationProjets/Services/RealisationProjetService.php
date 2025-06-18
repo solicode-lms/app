@@ -338,7 +338,7 @@ class RealisationProjetService extends BaseRealisationProjetService
 
         // Suppression des réalisations obsolètes
         if ($apprenantsASupprimer->isNotEmpty()) {
-            $this->query()
+            $this->model->query()
                 ->where('affectation_projet_id', $affectationProjet->id)
                 ->whereIn('apprenant_id', $apprenantsASupprimer)
                 ->delete();
