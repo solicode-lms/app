@@ -14,7 +14,7 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', true),
+    'enabled' => env('DEBUGBAR_ENABLED', null),
     'hide_empty_tabs' => true, // Hide tabs until they have content
     'except' => [
         'telescope*',
