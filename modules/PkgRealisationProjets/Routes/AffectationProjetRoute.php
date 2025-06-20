@@ -9,11 +9,7 @@ use Modules\PkgRealisationProjets\Controllers\AffectationProjetController;
 // routes for affectationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
-        
         Route::get('affectationProjets/getData', [AffectationProjetController::class, 'getData'])->name('affectationProjets.getData');
-        
-        
-        
         // bulk - edit and delete
         Route::post('affectationProjets/bulk-delete', [AffectationProjetController::class, 'bulkDelete'])
         ->name('affectationProjets.bulkDelete');
@@ -35,7 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('affectationProjets/data-calcul', [AffectationProjetController::class, 'dataCalcul'])->name('affectationProjets.dataCalcul');
         Route::post('affectationProjets/update-attributes', [AffectationProjetController::class, 'updateAttributes'])->name('affectationProjets.updateAttributes');
-
+        Route::get('affectationProjets/exportPV/{id}', [AffectationProjetController::class, 'exportPV'])->name('affectationProjets.exportPV');
+    
     
 
     });

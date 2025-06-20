@@ -57,18 +57,18 @@ export class EntityAction extends Action {
             this.loadForm(actionUrl);
             
         } else if (actionType === 'redirect') {
-                    NotificationHandler.showToast('info', 'Action en cours...');
-                    $.ajax({
-                        url: actionUrl,
-                        method: 'GET',
-                        data: { _token: this.config.csrfToken }
-                    }).done((data) => {
-                        NotificationHandler.show(data.type,data.title,data.message);
-                        this.tableUI.entityLoader.loadEntities();
-                    }).fail((xhr) => {
-                        AjaxErrorHandler.handleError(xhr, "Erreur lors de l'exécution de l'action sur l'entité.");
-                    });
-           
+            NotificationHandler.showToast('info', 'Téléchargement en cours...');
+            
+            // Générer l'URL avec les paramètres de contexte
+            const finalUrl = this.appendParamsToUrl(actionUrl, this.viewStateService.getContextParams());
+
+            // ✅ Créer un lien temporaire et déclencher le téléchargement
+            const link = document.createElement('a');
+            link.href = finalUrl;
+            link.setAttribute('download', ''); // Facultatif : permet d’indiquer que c’est un fichier
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         } else {
             console.error("Type d'action inconnu :", actionType);
         }

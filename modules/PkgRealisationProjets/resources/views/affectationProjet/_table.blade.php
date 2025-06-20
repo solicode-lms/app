@@ -59,7 +59,7 @@
                         href="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
                         data-id="{{$affectationProjet->id}}" 
                         data-url="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
-                        data-action-type="redirect"
+                        data-action-type="downloadMode"
                         class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
                             <i class="fas fa-file-excel"></i>
                         </a>

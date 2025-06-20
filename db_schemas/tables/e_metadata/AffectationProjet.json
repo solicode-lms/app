@@ -755,7 +755,7 @@
                 "icon": "fas fa-file-excel",
                 "title": "Exporter PV en Excel",
                 "methode": "exportPV",
-                "actionType": "redirect",
+                "actionType": "downloadMode",
                 "successMessage": "Le fichier Excel a été généré avec succès"
             }
         ],

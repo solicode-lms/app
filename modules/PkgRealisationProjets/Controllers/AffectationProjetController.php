@@ -4,7 +4,10 @@
 namespace Modules\PkgRealisationProjets\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\Controllers\Base\BaseAffectationProjetController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AffectationProjetController extends BaseAffectationProjetController
 {
@@ -33,5 +36,29 @@ class AffectationProjetController extends BaseAffectationProjetController
             $tache->toArray(), // Convertir l'objet en tableau avec tous les champs
             ['toString' => $tache->__toString()] // Ajouter le champ `toString`
         )));
+    }
+
+
+    public function exportPV(Request $request, string $id, $format = 'xlsx')
+    {
+        $affectationProjets_data = $this->affectationProjetService->all();
+        
+        // Sélection du format de téléchargement
+        if ($format === 'csv') {
+            return Excel::download(
+                new AffectationProjetExport($affectationProjets_data, 'csv'),
+                'pv_affectation_projet_' . $id . '.csv',
+                \Maatwebsite\Excel\Excel::CSV,
+                ['Content-Type' => 'text/csv']
+            );
+        } elseif ($format === 'xlsx') {
+            return Excel::download(
+                new AffectationProjetExport($affectationProjets_data, 'xlsx'),
+                'pv_affectation_projet_' . $id . '.xlsx',
+                \Maatwebsite\Excel\Excel::XLSX
+            );
+        } else {
+            return response()->json(['error' => 'Format non supporté'], 400);
+        }
     }
 }
