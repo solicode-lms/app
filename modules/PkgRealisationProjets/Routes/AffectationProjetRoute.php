@@ -1,5 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ add : getDataHasEvaluateurs
+// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 
@@ -9,8 +9,8 @@ use Modules\PkgRealisationProjets\Controllers\AffectationProjetController;
 // routes for affectationProjet management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
+        
         Route::get('affectationProjets/getData', [AffectationProjetController::class, 'getData'])->name('affectationProjets.getData');
-         Route::get('affectationProjets/getDataHasEvaluateurs', [AffectationProjetController::class, 'getDataHasEvaluateurs'])->name('affectationProjets.getDataHasEvaluateurs');
         
         
         

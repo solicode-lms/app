@@ -25,6 +25,7 @@ class TacheService extends BaseTacheService
     ];
     protected $ordreGroupColumn = "projet_id";
 
+
     public function dataCalcul($tache)
     {
         // En Cas d'édit
@@ -148,10 +149,10 @@ class TacheService extends BaseTacheService
      * @param array $data Données à mettre à jour.
      * @return Entity modifié
      */
-    public function update($id, array $data)
-    {
-        return parent::update($id,$data);
-    }
+    // public function update($id, array $data)
+    // {
+    //     return parent::update($id,$data);
+    // }
 
    /**
      * Récupérer les tâches associées aux projets d'un formateur donné.
@@ -207,7 +208,7 @@ class TacheService extends BaseTacheService
                 ->orderByRaw('COALESCE(priorite_taches.ordre, 9999) ASC') // Trier par priorité (les NULL en dernier)
                 ->select('taches.*'); // Sélectionner les colonnes de la table principale
 
-          return  $query;
+        return  $query;
     }
 
 }

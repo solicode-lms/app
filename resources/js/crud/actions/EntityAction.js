@@ -55,6 +55,20 @@ export class EntityAction extends Action {
             );
         } else if (actionType === 'form') {
             this.loadForm(actionUrl);
+            
+        } else if (actionType === 'redirect') {
+                    NotificationHandler.showToast('info', 'Action en cours...');
+                    $.ajax({
+                        url: actionUrl,
+                        method: 'GET',
+                        data: { _token: this.config.csrfToken }
+                    }).done((data) => {
+                        NotificationHandler.show(data.type,data.title,data.message);
+                        this.tableUI.entityLoader.loadEntities();
+                    }).fail((xhr) => {
+                        AjaxErrorHandler.handleError(xhr, "Erreur lors de l'exécution de l'action sur l'entité.");
+                    });
+           
         } else {
             console.error("Type d'action inconnu :", actionType);
         }

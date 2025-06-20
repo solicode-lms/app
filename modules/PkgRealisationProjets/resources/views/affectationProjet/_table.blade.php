@@ -52,7 +52,19 @@
                         </ul>
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-
+                        @if($affectationProjets_permissions['exportPV-affectationProjet'])
+                        <a 
+                        data-toggle="tooltip" 
+                        title="Exporter PV en Excel" 
+                        href="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
+                        data-id="{{$affectationProjet->id}}" 
+                        data-url="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
+                        data-action-type="redirect"
+                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            <i class="fas fa-file-excel"></i>
+                        </a>
+                        @endif
+                        
 
                        
 

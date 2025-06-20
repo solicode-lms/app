@@ -437,7 +437,20 @@ class BaseAffectationProjetController extends AdminController
         ]);
     }
     
-
+    public function exportPV(Request $request, string $id) {
+        $affectationProjet = $this->affectationProjetService->exportPV($id);
+        if ($request->ajax()) {
+            $message = "Le fichier Excel a été généré avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('AffectationProjet.index')->with(
+            'success',
+            "Le fichier Excel a été généré avec succès"
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

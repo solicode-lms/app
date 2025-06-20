@@ -745,5 +745,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "AffectationProjet_sous_groupe_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "affectation_projets_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-file-excel",
+                "title": "Exporter PV en Excel",
+                "methode": "exportPV",
+                "actionType": "redirect",
+                "successMessage": "Le fichier Excel a été généré avec succès"
+            }
+        ],
+        "e_model_reference": "affectation_projets",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

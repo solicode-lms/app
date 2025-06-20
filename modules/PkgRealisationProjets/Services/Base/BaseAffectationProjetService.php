@@ -114,7 +114,17 @@ class BaseAffectationProjetService extends BaseService
         ];
     }
 
-
+    public function exportPV(int $affectationProjetId)
+    {
+        $affectationProjet = $this->find($affectationProjetId);
+        if (!$affectationProjet) {
+            return false; 
+        }
+        $value =  $affectationProjet->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
@@ -170,7 +180,8 @@ class BaseAffectationProjetService extends BaseService
         $this->viewState->set('stats.affectationProjet.stats', $affectationProjets_stats);
     
         $affectationProjets_permissions = [
-
+            'exportPV-affectationProjet' => Auth::user()->can('exportPV-affectationProjet'),           
+            
             'edit-affectationProjet' => Auth::user()->can('edit-affectationProjet'),
             'destroy-affectationProjet' => Auth::user()->can('destroy-affectationProjet'),
             'show-affectationProjet' => Auth::user()->can('show-affectationProjet'),
