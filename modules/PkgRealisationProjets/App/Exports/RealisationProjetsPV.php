@@ -1,5 +1,5 @@
 <?php
- namespace Modules\PkgRealisationProjets\App\Exports;
+namespace Modules\PkgRealisationProjets\App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -22,35 +22,38 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $this->data = $data;
         $this->format = $format;
 
-        // Déduire les tâches depuis tous les projets
         $this->taches = collect($this->data)
             ->flatMap(fn($rp) => $rp->realisationTaches)
             ->pluck('tache')
             ->unique('id')
             ->values();
 
-        // Déduire les évaluateurs depuis toutes les évaluations
         $this->evaluateurs = collect($this->data)
             ->flatMap(fn($rp) => $rp->evaluationRealisationProjets)
             ->pluck('evaluateur')
             ->unique('id')
             ->values();
 
-        // Récupérer le groupe depuis le premier projet
         $this->groupe = optional($this->data->first()?->affectationProjet?->groupe);
     }
 
+
     public function headings(): array
     {
-        $base = ['Nom', 'Prénom'];
+        return [
+        ];
+   
+    }
+    public function titles(): array
+    {
+        $base = ['',''];
         $questions = [];
-
         $number = 1;
         foreach ($this->taches as $tache) {
-            $questions[] = $tache->code ?? ('Q' . $number); // Utilise le code si disponible, sinon fallback
+            $questions[] = 'Q' . $number;
             $number++;
         }
-
+        $questions[] = 'Total';
         return array_merge($base, $questions);
     }
 
@@ -58,58 +61,115 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
     {
         $rows = [];
 
-
-        // Ajout des évaluateurs
-        $rows[] = ['']; // Ligne vide 
-
-
-         // Ajout du groupe avec style
+        // === MÉTADONNÉES ===
+        $rows[] = [''];
         $rows[] = ['Groupe :', $this->groupe->code ?? ''];
+        $rows[] = ['Filière :', $this->groupe->filiere->code ?? ''];
+        $rows[] = [''];
 
+        // === BARÈME ===
+        $rows[] = $this->titles();
+        $barre = ['Nom', 'Prénom'];
+        foreach ($this->taches as $tache) {
+            $barre[] = number_format($tache->note ?? 0, 2, '.', '');
+        }
+        $barre[] = '';
+        $rows[] = $barre;
+       
+
+        // === NOTES PAR APPRENANT ===
         foreach ($this->data as $realisationProjet) {
-
             $row = [];
             $row[] = $realisationProjet->apprenant->nom ?? '';
             $row[] = $realisationProjet->apprenant->prenom ?? '';
 
-            foreach ($realisationProjet->realisationTaches as $rt) {
-              
-
-               
-                foreach ($this->taches as $tache) {
-                    if($rt->tache_id === $tache->id ){
-                        $note =  $rt->note ?? '';
-                        $row[] = number_format($rt->note, 2, '.', '');
-                    }
+            $total = 0;
+            foreach ($this->taches as $tache) {
+                $rt = $realisationProjet->realisationTaches->firstWhere('tache_id', $tache->id);
+                $note = $rt?->note !== null ? number_format($rt->note, 2, '.', '') : '';
+                $row[] = $note;
+                if ($note !== '') {
+                    $total += (float) $note;
                 }
             }
 
+            $row[] = number_format($total, 2, '.', '');
             $rows[] = $row;
         }
 
+        // === SÉPARATEUR ===
+        $rows[] = [''];
 
-        $rows[] = ['']; // Ligne sna style
-        $rows[] = ['']; // Ligne sna style
-
-        // Ligne sna style avec style 
+        // === ÉVALUATEURS ===
         $rows[] = ['Évaluateurs :'];
         foreach ($this->evaluateurs as $e) {
-            $rows[] = [($e->nom ?? '') . ' ' . ($e->prenom ?? '')];
+            $rows[] = [$e->nom,$e->prenom];
         }
-       
 
         return $rows;
     }
 
     public function styles(Worksheet $sheet)
     {
-        $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les styles uniquement sur la zone contenant des notes et en-têtes
-        $styleRangeEndRow = $this->getDataSectionEndRow($sheet);
+        // === Style des métadonnées (1 à 2) ===
+        $sheet->getStyle("A2:B3")->applyFromArray([
+            'font' => ['bold' => true],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+            ]
+        ]);
+         // Définir la hauteur des lignes de métadonnées
+        $sheet->getRowDimension(2)->setRowHeight(20);
+        $sheet->getRowDimension(3)->setRowHeight(20);
 
-        $sheet->getStyle("A1:{$lastColumn}{$styleRangeEndRow}")->applyFromArray([
+        // === Style des entêtes de note (ligne 5) ===
+        $headerRow_1 = 5;
+        $last_headerRow_1 = 5;
+        $headerRow_2 = 6;
+        $last_headerRow_2 = 6;
+        $sheet->getStyle("C{$headerRow_1}:{$lastColumn}{$last_headerRow_1}")->applyFromArray([
+            'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
+             'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ]);
+         $sheet->getStyle("A{$headerRow_2}:{$lastColumn}{$last_headerRow_2}")->applyFromArray([
+            'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
+             'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ]);
+
+        // === Style des données de notes (barème + lignes apprenants) ===
+        $noteStartRow = 7; // barème
+        $noteEndRow = $noteStartRow + $this->data->count() - 1;
+        $sheet->getStyle("A{$noteStartRow}:B{$noteEndRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -117,27 +177,39 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
                 ],
             ],
         ]);
-
-        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
-            'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4F81BD']],
-            'alignment' => [
+         $sheet->getStyle("C{$noteStartRow}:{$lastColumn}{$noteEndRow}")->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ], 'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ]);
-    }
 
-    private function getDataSectionEndRow(Worksheet $sheet)
-    {
-        // Trouve la première ligne vide après les notes (pour ne pas appliquer de style sur les évaluateurs/groupe)
-        $highestRow = $sheet->getHighestRow();
-        for ($row = 2; $row <= $highestRow; $row++) {
-            $value = $sheet->getCell("A$row")->getValue();
-            if ($value === null || trim($value) === '') {
-                return $row - 1;
-            }
-        }
-        return $highestRow;
+        // === Style des évaluateurs ===
+        $evaluateurStart = $noteEndRow + 3;
+        $evaluateurEnd = $evaluateurStart + count($this->evaluateurs) -1;
+        $sheet->getStyle("A{$evaluateurStart}:F{$evaluateurEnd}")->applyFromArray([
+            'font' => ['italic' => true],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+        ]);
+        // Définir la hauteur pour chaque ligne d'évaluateur
+        // Définir la hauteur et fusionner les colonnes pour chaque ligne d'évaluateur
+                for ($i = $evaluateurStart; $i <= $evaluateurEnd; $i++) {
+                    $sheet->getRowDimension($i)->setRowHeight(20);
+                    $sheet->mergeCells("C{$i}:F{$i}"); // Espace signature
+                }
+        // === Configuration de la page pour impression paysage et ajustement à une page ===
+        $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $sheet->getPageSetup()->setFitToWidth(1);
+        $sheet->getPageSetup()->setFitToHeight(0); // 0 = automatique (ne force pas sur une seule page en hauteur)
     }
 }
