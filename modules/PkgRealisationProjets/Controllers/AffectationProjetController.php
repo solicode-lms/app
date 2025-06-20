@@ -6,6 +6,8 @@ namespace Modules\PkgRealisationProjets\Controllers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
+use Modules\PkgRealisationProjets\App\Exports\RealisationProjetsPV;
+use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;
 use Modules\PkgRealisationProjets\Controllers\Base\BaseAffectationProjetController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -41,19 +43,23 @@ class AffectationProjetController extends BaseAffectationProjetController
 
     public function exportPV(Request $request, string $id, $format = 'xlsx')
     {
-        $affectationProjets_data = $this->affectationProjetService->all();
-        
+        $affectationProjet = $this->service->find($id);
+
+        $realisationProjets_data = $affectationProjet->realisationProjets;
+
+
+       
         // Sélection du format de téléchargement
         if ($format === 'csv') {
             return Excel::download(
-                new AffectationProjetExport($affectationProjets_data, 'csv'),
+                new RealisationProjetsPV ($realisationProjets_data, 'csv'),
                 'pv_affectation_projet_' . $id . '.csv',
                 \Maatwebsite\Excel\Excel::CSV,
                 ['Content-Type' => 'text/csv']
             );
         } elseif ($format === 'xlsx') {
             return Excel::download(
-                new AffectationProjetExport($affectationProjets_data, 'xlsx'),
+                new RealisationProjetsPV($realisationProjets_data, 'xlsx'),
                 'pv_affectation_projet_' . $id . '.xlsx',
                 \Maatwebsite\Excel\Excel::XLSX
             );

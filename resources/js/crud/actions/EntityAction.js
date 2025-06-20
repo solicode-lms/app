@@ -56,7 +56,7 @@ export class EntityAction extends Action {
         } else if (actionType === 'form') {
             this.loadForm(actionUrl);
             
-        } else if (actionType === 'redirect') {
+        } else if (actionType === 'downloadMode') {
             NotificationHandler.showToast('info', 'Téléchargement en cours...');
             
             // Générer l'URL avec les paramètres de contexte
