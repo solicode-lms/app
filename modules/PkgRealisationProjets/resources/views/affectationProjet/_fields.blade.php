@@ -229,29 +229,29 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="bareme_arrondi" :bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemAffectationProjet" field="echelle_note_cible" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_arrondi" id="bulk_field_bareme_arrondi" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="echelle_note_cible" id="bulk_field_echelle_note_cible" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="bareme_arrondi">
-            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.bareme_arrondi')) }}
+          <label for="echelle_note_cible">
+            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.echelle_note_cible')) }}
             
           </label>
                       <input
-                name="bareme_arrondi"
+                name="echelle_note_cible"
                 type="number"
                 class="form-control"
                 
                 
                 
-                id="bareme_arrondi"
-                placeholder="{{ __('PkgRealisationProjets::affectationProjet.bareme_arrondi') }}"
-                value="{{ $itemAffectationProjet ? $itemAffectationProjet->bareme_arrondi : old('bareme_arrondi') }}">
-          @error('bareme_arrondi')
+                id="echelle_note_cible"
+                placeholder="{{ __('PkgRealisationProjets::affectationProjet.echelle_note_cible') }}"
+                value="{{ $itemAffectationProjet ? $itemAffectationProjet->echelle_note_cible : old('echelle_note_cible') }}">
+          @error('echelle_note_cible')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

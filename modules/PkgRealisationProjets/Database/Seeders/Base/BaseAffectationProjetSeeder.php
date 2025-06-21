@@ -82,7 +82,7 @@ class BaseAffectationProjetSeeder extends Seeder
                     "date_fin" => $row["date_fin"] ?? null,
                     "sous_groupe_id" => $row["sous_groupe_id"] ?? null,
                     "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
-                    "bareme_arrondi" => $row["bareme_arrondi"] ?? null,
+                    "echelle_note_cible" => $row["echelle_note_cible"] ?? null,
                     "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];

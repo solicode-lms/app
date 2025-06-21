@@ -52,7 +52,7 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'sous_groupe_id', 'is_formateur_evaluateur', 'bareme_arrondi', 'description'
+        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'sous_groupe_id', 'is_formateur_evaluateur', 'echelle_note_cible', 'description'
     ];
     public $manyToMany = [
         'Evaluateur' => ['relation' => 'evaluateurs' , "foreign_key" => "evaluateur_id" ]

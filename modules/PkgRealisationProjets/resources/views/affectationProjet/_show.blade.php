@@ -92,11 +92,11 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.bareme_arrondi')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.echelle_note_cible')) }}</small>
                               
       <span>
-        @if(! is_null($itemAffectationProjet->bareme_arrondi))
-          {{ $itemAffectationProjet->bareme_arrondi }}
+        @if(! is_null($itemAffectationProjet->echelle_note_cible))
+          {{ $itemAffectationProjet->echelle_note_cible }}
         @else
           —
         @endif
