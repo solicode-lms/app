@@ -86,7 +86,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function buildTitlesRow(): array
     {
-        $cols = ['Nom', 'Prénom'];
+        $cols = ['', ''];
         foreach ($this->taches as $index => $tache) {
             $cols[] = 'Q' . ($index + 1);
         }
@@ -97,11 +97,17 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function buildBaremeRow(): array
     {
+        // Deux premières colonnes vides pour éviter la répétition
         $row = ['Nom', 'Prénom'];
         foreach ($this->taches as $tache) {
             $row[] = number_format($tache->note ?? 0, 2, '.', '');
         }
-        $row[] = '';
+
+        // Calcul de la somme des barèmes
+        $totalBareme = $this->taches
+        ->reduce(fn($carry, $tache) => $carry + ($tache->note ?? 0), 0);
+         // Ajout du total formaté
+        $row[] = number_format($totalBareme, 2, '.', '');
 
         return $row;
     }
@@ -156,11 +162,16 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
     protected function styleHeaders(Worksheet $sheet): void
     {
         $lastCol = $sheet->getHighestColumn();
-        foreach (['C5:' . $lastCol . '5', 'A6:' . $lastCol . '6'] as $range) {
+        $headerRanges = ['C5:' . $lastCol . '5', 'A6:' . $lastCol . '6'];
+        foreach ($headerRanges as $range) {
             $sheet->getStyle($range)
                   ->applyFromArray($this->commonStyle([
                       'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
                       'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
+                      'alignment' => [
+                          'horizontal' => Alignment::HORIZONTAL_CENTER,
+                          'vertical'   => Alignment::VERTICAL_CENTER,
+                      ],
                   ]));
         }
     }
@@ -172,7 +183,11 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $lastCol = $sheet->getHighestColumn();
 
         $sheet->getStyle("A{$start}:B{$end}")
-              ->applyFromArray($this->commonStyle());
+              ->applyFromArray($this->commonStyle([    
+                  'alignment' => [
+                      'vertical'   => Alignment::VERTICAL_CENTER,
+                  ],
+              ]));
 
         $sheet->getStyle("C{$start}:{$lastCol}{$end}")
               ->applyFromArray($this->commonStyle([
