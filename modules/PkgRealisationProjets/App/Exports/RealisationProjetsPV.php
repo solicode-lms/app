@@ -56,6 +56,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     public function headings(): array
     {
+        // On conserve vide comme demandé
         return [];
     }
 
@@ -68,27 +69,21 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $rows[] = ['Groupe :', $this->groupe->code ?? ''];
         $rows[] = ['Filière :', $this->groupe->filiere->code ?? ''];
 
-        // ÉVALUATEURS/FORMATEUR fusionné
+        // ÉVALUATEURS / FORMATEUR
         if ($this->evaluateurs->isNotEmpty()) {
             $names = $this->evaluateurs->map(fn($e) => trim($e->nom . ' ' . $e->prenom))->join(', ');
             $label = 'Évaluateurs :';
-            $text = $names;
+            $text  = $names;
         } else {
             $names = trim($this->formateur->nom . ' ' . $this->formateur->prenom);
             $label = 'Formateur :';
-            $text = $names;
+            $text  = $names;
         }
-
-        // Calcul adaptatif de la fusion selon la longueur du texte
-        $length = mb_strlen($text);
+        $length      = mb_strlen($text);
         $charsPerCol = 8;
-        $span = max(2, (int) ceil($length / $charsPerCol));
+        $span        = max(2, (int) ceil($length / $charsPerCol));
         $this->metadataSpan = $span;
-        $rows[] = array_merge([
-            $label,
-            $text
-        ], array_fill(0, $span - 2, ''));
-
+        $rows[] = array_merge([$label, $text], array_fill(0, $span - 2, ''));
         $rows[] = [''];
 
         // TITRES ET BARÈME
@@ -105,7 +100,10 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         if ($this->evaluateurs->isNotEmpty()) {
             $rows[] = ['Évaluateurs :'];
             foreach ($this->evaluateurs as $e) {
-                $rows[] = array_merge([$e->nom, $e->prenom], array_fill(0, count($this->taches) + 1, ''));
+                $rows[] = array_merge(
+                    [$e->nom, $e->prenom],
+                    array_fill(0, count($this->taches) + 2, '') // +2 pour Total et échelle
+                );
             }
         } else {
             $rows[] = ['Formateur :'];
@@ -122,6 +120,13 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $cols[] = 'Q' . ($i + 1);
         }
         $cols[] = 'Total';
+
+        // Si échelle définie, on ajoute le titre de colonne
+        $echelle = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
+        if ($echelle && $echelle > 0) {
+            $cols[] = "Note recalée / {$echelle}";
+        }
+
         return $cols;
     }
 
@@ -133,20 +138,32 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         }
         $sum = $this->taches->reduce(fn($carry, $t) => $carry + ($t->note ?? 0), 0);
         $row[] = number_format($sum, 2, '.', '');
+
+        // Valeur de l’échelle cible
+        $echelle = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
+        $row[] = ($echelle && $echelle > 0) ? number_format($echelle, 0, '', '') : '';
+
         return $row;
     }
 
     protected function buildApprenantRow($rp): array
     {
-        $row = [$rp->apprenant->nom ?? '', $rp->apprenant->prenom ?? ''];
+        $row   = [$rp->apprenant->nom ?? '', $rp->apprenant->prenom ?? ''];
         $total = 0;
         foreach ($this->taches as $tache) {
-            $rt = $rp->realisationTaches->firstWhere('tache_id', $tache->id);
+            $rt   = $rp->realisationTaches->firstWhere('tache_id', $tache->id);
             $note = $rt?->note ?? 0;
             $row[] = $note !== 0 ? number_format($note, 2, '.', '') : '';
             $total += $note;
         }
         $row[] = number_format($total, 2, '.', '');
+
+        // Note recalée si échelle définie
+        $echelle = $rp->affectationProjet->echelle_note_cible ?? null;
+        if ($echelle && $echelle > 0) {
+            $row[] = number_format($rp->calculerNoteAvecEchelle(), 2, '.', '');
+        }
+
         return $row;
     }
 
@@ -166,11 +183,9 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleMetadata(Worksheet $sheet): void
     {
-        // Détermination de la colonne de fin à partir de metadataSpan
         $endColIndex = 1 + $this->metadataSpan;
         $endColumn   = Coordinate::stringFromColumnIndex($endColIndex);
 
-        // Fusionner uniformément les lignes Groupe et Filière
         $sheet->mergeCells("B2:{$endColumn}2");
         $sheet->mergeCells("B3:{$endColumn}3");
         $sheet->getStyle("A2:{$endColumn}3")->applyFromArray($this->commonStyle([
@@ -181,7 +196,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $sheet->getRowDimension(2)->setRowHeight(20);
         $sheet->getRowDimension(3)->setRowHeight(20);
 
-        // Fusion adaptative pour Évaluateurs/Formateur
         $evalEndIndex = 1 + $this->metadataSpan;
         $evalEndCol   = Coordinate::stringFromColumnIndex($evalEndIndex);
         $sheet->mergeCells("B4:{$evalEndCol}4");
@@ -195,7 +209,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleHeaders(Worksheet $sheet): void
     {
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 1);
+        // +2 pour Total + échelle éventuelle
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
         foreach ([
             'C6:' . $lastCol . '6',
             'A7:' . $lastCol . '7'
@@ -210,9 +225,9 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleNotes(Worksheet $sheet): void
     {
-        $start = 8;
-        $end   = $start + $this->data->count() - 1;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 1);
+        $start   = 8;
+        $end     = $start + $this->data->count() - 1;
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
         for ($r = $start; $r <= $end; $r++) {
             if ($r % 2 === 0) {
                 $sheet->getStyle("A{$r}:{$lastCol}{$r}")
@@ -222,28 +237,27 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
                       ->setARGB('F9FBFD');
             }
         }
-        $sheet->getStyle("A{$start}:B{$end}")->applyFromArray($this->commonStyle(['alignment' => ['vertical' => Alignment::VERTICAL_CENTER]]));
-        $sheet->getStyle("C{$start}:{$lastCol}{$end}")->applyFromArray($this->commonStyle(['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER]]));
+        $sheet->getStyle("A{$start}:B{$end}")->applyFromArray($this->commonStyle([
+            'alignment' => ['vertical' => Alignment::VERTICAL_CENTER]
+        ]));
+        $sheet->getStyle("C{$start}:{$lastCol}{$end}")->applyFromArray($this->commonStyle([
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER]
+        ]));
     }
 
-   protected function styleEvaluateurs(Worksheet $sheet): void
+    protected function styleEvaluateurs(Worksheet $sheet): void
     {
-        $start = 9 + $this->data->count() + 1;
-        // Assurer au moins une ligne (formateur) si aucun évaluateur
-        $end = $start + max(1, $this->evaluateurs->count()) - 1;
-        $lastCol = 'G';
+        $start   = 9 + $this->data->count() + 1;
+        $end     = $start + max(1, $this->evaluateurs->count()) - 1;
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
 
-        // Style italique et hauteur de ligne
         $sheet->getStyle("A{$start}:{$lastCol}{$end}")
               ->applyFromArray($this->commonStyle(['font' => ['italic' => true]]));
         for ($i = $start; $i <= $end; $i++) {
             $sheet->getRowDimension($i)->setRowHeight(20);
-            // Deux colonnes pour Nom et Prénom restent individuelles (A et B)
-            // Fusionner les 5 colonnes suivantes (C à G) pour la zone de signature
-            $sheet->mergeCells("C{$i}:G{$i}");
+            $sheet->mergeCells("C{$i}:{$lastCol}{$i}");
         }
     }
-
 
     protected function commonStyle(array $extra = []): array
     {
