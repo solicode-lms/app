@@ -9,18 +9,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('affectation_projets', function (Blueprint $table) {
-            // barème à utiliser pour arrondir la note finale ; nullable par défaut
-            $table->unsignedInteger('bareme_arrondi')
+            // Échelle cible pour recalculer la note (nullable par défaut)
+            $table->unsignedInteger('echelle_note_cible')
                   ->nullable()
                   ->after('description')
-                  ->comment('Barème pour arrondir la note finale des réalisations de projet');
+                  ->comment('Échelle cible (ex: 50) pour recalculer la note brute');
         });
     }
 
     public function down(): void
     {
         Schema::table('affectation_projets', function (Blueprint $table) {
-            $table->dropColumn('bareme_arrondi');
+            $table->dropColumn('echelle_note_cible');
         });
     }
 };

@@ -28,6 +28,7 @@ class BaseAffectationProjetService extends BaseService
         'date_fin',
         'sous_groupe_id',
         'is_formateur_evaluateur',
+        'bareme_arrondi',
         'description'
     ];
 

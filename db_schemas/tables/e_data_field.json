@@ -171,16 +171,16 @@
     },
     {
         "id": 14,
-        "reference": "AffectationProjet_bareme_arrondi",
-        "name": "bareme_arrondi",
-        "column_name": "bareme_arrondi",
+        "reference": "AffectationProjet_echelle_note_cible",
+        "name": "echelle_note_cible",
+        "column_name": "echelle_note_cible",
         "data_type": "Integer",
         "field_order": 10,
         "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "description": "Barème pour arrondir la note finale des réalisations de projet"
+        "description": "Échelle cible (ex: 50) pour recalculer la note brute"
     },
     {
         "id": 15,

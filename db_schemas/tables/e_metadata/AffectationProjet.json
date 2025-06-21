@@ -763,39 +763,39 @@
         "e_metadata_definition_reference": "entityActions"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_displayOrder",
+        "reference": "AffectationProjet_echelle_note_cible_displayOrder",
         "value_integer": 10,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_displayInForm",
+        "reference": "AffectationProjet_echelle_note_cible_displayInForm",
         "value_boolean": 1,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_inputMdWidth",
+        "reference": "AffectationProjet_echelle_note_cible_inputMdWidth",
         "value_integer": 6,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_sortable",
+        "reference": "AffectationProjet_echelle_note_cible_sortable",
         "value_boolean": 1,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_viewFormFieldVisible",
+        "reference": "AffectationProjet_echelle_note_cible_viewFormFieldVisible",
         "value_boolean": 1,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
-        "reference": "AffectationProjet_bareme_arrondi_viewShowFieldVisible",
+        "reference": "AffectationProjet_echelle_note_cible_viewShowFieldVisible",
         "value_boolean": 1,
-        "e_data_field_reference": "AffectationProjet_bareme_arrondi",
+        "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

@@ -36,6 +36,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'sous_groupe_id' => 'sous_groupe_id',
             'is_formateur_evaluateur' => 'is_formateur_evaluateur',
             'reference' => 'reference',
+            'bareme_arrondi' => 'bareme_arrondi',
             'description' => 'description',
         ];
         }else{
@@ -48,6 +49,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
             'sous_groupe_id' => __('PkgRealisationProjets::affectationProjet.sous_groupe_id'),
             'is_formateur_evaluateur' => __('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur'),
             'reference' => __('Core::msg.reference'),
+            'bareme_arrondi' => __('PkgRealisationProjets::affectationProjet.bareme_arrondi'),
             'description' => __('PkgRealisationProjets::affectationProjet.description'),
         ];
 
@@ -67,6 +69,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'sous_groupe_id' => $affectationProjet->sous_groupe_id,
                 'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur,
                 'reference' => $affectationProjet->reference,
+                'bareme_arrondi' => $affectationProjet->bareme_arrondi,
                 'description' => $affectationProjet->description,
             ];
         });

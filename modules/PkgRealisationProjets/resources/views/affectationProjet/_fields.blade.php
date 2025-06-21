@@ -229,6 +229,35 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemAffectationProjet" field="bareme_arrondi" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_arrondi" id="bulk_field_bareme_arrondi" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_arrondi">
+            {{ ucfirst(__('PkgRealisationProjets::affectationProjet.bareme_arrondi')) }}
+            
+          </label>
+                      <input
+                name="bareme_arrondi"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="bareme_arrondi"
+                placeholder="{{ __('PkgRealisationProjets::affectationProjet.bareme_arrondi') }}"
+                value="{{ $itemAffectationProjet ? $itemAffectationProjet->bareme_arrondi : old('bareme_arrondi') }}">
+          @error('bareme_arrondi')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
