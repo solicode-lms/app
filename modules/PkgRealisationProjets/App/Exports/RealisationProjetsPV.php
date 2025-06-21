@@ -56,7 +56,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     public function headings(): array
     {
-        // On conserve vide comme demandé
         return [];
     }
 
@@ -102,7 +101,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             foreach ($this->evaluateurs as $e) {
                 $rows[] = array_merge(
                     [$e->nom, $e->prenom],
-                    array_fill(0, count($this->taches) + 2, '') // +2 pour Total et échelle
+                    array_fill(0, count($this->taches) + 2, '')
                 );
             }
         } else {
@@ -120,13 +119,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $cols[] = 'Q' . ($i + 1);
         }
         $cols[] = 'Total';
-
-        // Si échelle définie, on ajoute le titre de colonne
-        $echelle = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
-        if ($echelle && $echelle > 0) {
-            $cols[] = "Note recalée / {$echelle}";
-        }
-
+        // colonne échelle, vide si pas d’échelle
+        $cols[] = $this->hasEchelle() ? 'Note recalée / ' . $this->data->first()->affectationProjet->echelle_note_cible : '';
         return $cols;
     }
 
@@ -139,10 +133,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $sum = $this->taches->reduce(fn($carry, $t) => $carry + ($t->note ?? 0), 0);
         $row[] = number_format($sum, 2, '.', '');
 
-        // Valeur de l’échelle cible
-        $echelle = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
-        $row[] = ($echelle && $echelle > 0) ? number_format($echelle, 0, '', '') : '';
-
+        // valeur échelle ou vide
+        $row[] = $this->hasEchelle() ? number_format($this->data->first()->affectationProjet->echelle_note_cible, 0, '', '') : '';
         return $row;
     }
 
@@ -158,12 +150,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         }
         $row[] = number_format($total, 2, '.', '');
 
-        // Note recalée si échelle définie
-        $echelle = $rp->affectationProjet->echelle_note_cible ?? null;
-        if ($echelle && $echelle > 0) {
-            $row[] = number_format($rp->calculerNoteAvecEchelle(), 2, '.', '');
-        }
-
+        // note recalée ou vide
+        $row[] = $this->hasEchelle() ? number_format($rp->calculerNoteAvecEchelle(), 2, '.', '') : '';
         return $row;
     }
 
@@ -181,14 +169,24 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
               ->setFitToHeight(0);
     }
 
+    /**
+     * Indique si l’échelle est définie et valide.
+     *
+     * @return bool
+     */
+    protected function hasEchelle(): bool
+    {
+        $e = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
+        return is_numeric($e) && $e > 0;
+    }
+
     protected function styleMetadata(Worksheet $sheet): void
     {
-        $endColIndex = 1 + $this->metadataSpan;
-        $endColumn   = Coordinate::stringFromColumnIndex($endColIndex);
+        $endCol = Coordinate::stringFromColumnIndex(1 + $this->metadataSpan);
 
-        $sheet->mergeCells("B2:{$endColumn}2");
-        $sheet->mergeCells("B3:{$endColumn}3");
-        $sheet->getStyle("A2:{$endColumn}3")->applyFromArray($this->commonStyle([
+        $sheet->mergeCells("B2:{$endCol}2");
+        $sheet->mergeCells("B3:{$endCol}3");
+        $sheet->getStyle("A2:{$endCol}3")->applyFromArray($this->commonStyle([
             'font'      => ['bold' => true],
             'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'vertical' => Alignment::VERTICAL_CENTER],
@@ -196,10 +194,9 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $sheet->getRowDimension(2)->setRowHeight(20);
         $sheet->getRowDimension(3)->setRowHeight(20);
 
-        $evalEndIndex = 1 + $this->metadataSpan;
-        $evalEndCol   = Coordinate::stringFromColumnIndex($evalEndIndex);
-        $sheet->mergeCells("B4:{$evalEndCol}4");
-        $sheet->getStyle("A4:{$evalEndCol}4")->applyFromArray($this->commonStyle([
+        $evalEnd = Coordinate::stringFromColumnIndex(1 + $this->metadataSpan);
+        $sheet->mergeCells("B4:{$evalEnd}4");
+        $sheet->getStyle("A4:{$evalEnd}4")->applyFromArray($this->commonStyle([
             'font'      => ['bold' => true],
             'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'vertical' => Alignment::VERTICAL_CENTER],
@@ -209,12 +206,9 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleHeaders(Worksheet $sheet): void
     {
-        // +2 pour Total + échelle éventuelle
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
-        foreach ([
-            'C6:' . $lastCol . '6',
-            'A7:' . $lastCol . '7'
-        ] as $range) {
+        $extra = $this->hasEchelle() ? 1 : 0;
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
+        foreach (['C6:'.$lastCol.'6', 'A7:'.$lastCol.'7'] as $range) {
             $sheet->getStyle($range)->applyFromArray($this->commonStyle([
                 'font'      => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
                 'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
@@ -225,9 +219,10 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleNotes(Worksheet $sheet): void
     {
-        $start   = 8;
-        $end     = $start + $this->data->count() - 1;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
+        $extra = $this->hasEchelle() ? 1 : 0;
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
+        $start = 8;
+        $end   = $start + $this->data->count() - 1;
         for ($r = $start; $r <= $end; $r++) {
             if ($r % 2 === 0) {
                 $sheet->getStyle("A{$r}:{$lastCol}{$r}")
@@ -247,9 +242,10 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleEvaluateurs(Worksheet $sheet): void
     {
+        $extra = $this->hasEchelle() ? 1 : 0;
+        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
         $start   = 9 + $this->data->count() + 1;
         $end     = $start + max(1, $this->evaluateurs->count()) - 1;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + 2);
 
         $sheet->getStyle("A{$start}:{$lastCol}{$end}")
               ->applyFromArray($this->commonStyle(['font' => ['italic' => true]]));
