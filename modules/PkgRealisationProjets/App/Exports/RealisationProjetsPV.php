@@ -4,6 +4,7 @@ namespace Modules\PkgRealisationProjets\App\Exports;
 
 use Maatwebsite\Excel\Concerns\{FromArray, WithHeadings, ShouldAutoSize, WithStyles};
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Style\{Border, Fill, Alignment};
 
 class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, WithStyles
@@ -64,16 +65,15 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $rows[] = [''];
         $rows[] = ['Groupe :', $this->groupe->code ?? ''];
         $rows[] = ['Filière :', $this->groupe->filiere->code ?? ''];
-        $rows[] = ['']; // ligne vide
 
-        // Affichage des évaluateurs ou formateur dans métadonnées
+        // Évaluateurs ou Formateur sur une seule cellule
+        $totalCols = 2 + count($this->taches) + 1; // nom, prénom + Qn + Total
         if ($this->evaluateurs->isNotEmpty()) {
-            $evalRow = ['Évaluateurs :'];
-            foreach ($this->evaluateurs as $e) {
-                $evalRow[] = $e->nom . ' ' . $e->prenom;
-            }
+            $names = $this->evaluateurs->map(fn($e) => trim($e->nom . ' ' . $e->prenom))->join(', ');
+            $evalRow = array_merge([$names], array_fill(0, $totalCols - 1, ''));
         } else {
-            $evalRow = ['Formateur :', trim($this->formateur->nom . ' ' . $this->formateur->prenom)];
+            $name = trim($this->formateur->nom . ' ' . $this->formateur->prenom);
+            $evalRow = array_merge(["Formateur : {$name}"], array_fill(0, $totalCols - 1, ''));
         }
         $rows[] = $evalRow;
 
@@ -91,7 +91,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         if ($this->evaluateurs->isNotEmpty()) {
             $rows[] = ['Évaluateurs :'];
             foreach ($this->evaluateurs as $e) {
-                $rows[] = [$e->nom, $e->prenom] + array_fill(0, $this->taches->count() + 1, '');
+                $rows[] = array_merge([$e->nom, $e->prenom], array_fill(0, count($this->taches) + 1, ''));
             }
         } else {
             $rows[] = ['Formateur :', $this->formateur->nom ?? '', $this->formateur->prenom ?? ''];
@@ -107,7 +107,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $cols[] = 'Q' . ($index + 1);
         }
         $cols[] = 'Total';
-
         return $cols;
     }
 
@@ -117,30 +116,21 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         foreach ($this->taches as $tache) {
             $row[] = number_format($tache->note ?? 0, 2, '.', '');
         }
-
-        $totalBareme = $this->taches
-            ->reduce(fn($carry, $tache) => $carry + ($tache->note ?? 0), 0);
-
-        $row[] = number_format($totalBareme, 2, '.', '');
-
+        $total = $this->taches->reduce(fn($carry, $t) => $carry + ($t->note ?? 0), 0);
+        $row[] = number_format($total, 2, '.', '');
         return $row;
     }
 
     protected function buildApprenantRow($rp): array
     {
-        $row = [
-            $rp->apprenant->nom ?? '',
-            $rp->apprenant->prenom ?? '',
-        ];
-
+        $row = [$rp->apprenant->nom ?? '', $rp->apprenant->prenom ?? ''];
         $total = 0;
         foreach ($this->taches as $tache) {
-            $rt   = $rp->realisationTaches->firstWhere('tache_id', $tache->id);
+            $rt = $rp->realisationTaches->firstWhere('tache_id', $tache->id);
             $note = $rt?->note !== null ? (float) $rt->note : 0;
             $row[] = $note !== 0 ? number_format($note, 2, '.', '') : '';
             $total += $note;
         }
-
         $row[] = number_format($total, 2, '.', '');
         return $row;
     }
@@ -153,13 +143,14 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $this->styleEvaluateurs($sheet);
 
         $sheet->getPageSetup()
-              ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE)
+              ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
               ->setFitToWidth(1)
               ->setFitToHeight(0);
     }
 
     protected function styleMetadata(Worksheet $sheet): void
     {
+        // Style pour Groupe, Filière et Évaluateurs/Formateur
         $sheet->getStyle('A2:B3')
               ->applyFromArray($this->commonStyle([
                   'font' => ['bold' => true],
@@ -168,32 +159,33 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         foreach ([2, 3] as $row) {
             $sheet->getRowDimension($row)->setRowHeight(20);
         }
-
+        // Fusion et style de la ligne Évaluateurs/Formateur (ligne 4)
         $lastCol = $sheet->getHighestColumn();
-        $sheet->mergeCells("A5:{$lastCol}5");
-        $sheet->getStyle("A5:{$lastCol}5")
+        $sheet->mergeCells("A4:{$lastCol}4");
+        $sheet->getStyle("A4:{$lastCol}4")
               ->applyFromArray($this->commonStyle([
-                  'font' => ['italic' => true],
+                  'font' => ['bold' => true],
+                  'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
                   'alignment' => [
                       'horizontal' => Alignment::HORIZONTAL_LEFT,
                       'vertical'   => Alignment::VERTICAL_CENTER,
                   ],
               ]));
-        $sheet->getRowDimension(5)->setRowHeight(18);
+        $sheet->getRowDimension(4)->setRowHeight(20);
     }
 
     protected function styleHeaders(Worksheet $sheet): void
     {
         $lastCol = $sheet->getHighestColumn();
-        $headerRanges = ['C6:' . $lastCol . '6', 'A7:' . $lastCol . '7'];
-        foreach ($headerRanges as $range) {
+        $ranges = ['C5:' . $lastCol . '5', 'A6:' . $lastCol . '6'];
+        foreach ($ranges as $range) {
             $sheet->getStyle($range)
                   ->applyFromArray($this->commonStyle([
                       'font' => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
                       'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => '4472C4']],
                       'alignment' => [
                           'horizontal' => Alignment::HORIZONTAL_CENTER,
-                          'vertical'   => Alignment::VERTICAL_CENTER,
+                          'vertical'   => Alignment::VERTICAL_CENTER
                       ],
                   ]));
         }
@@ -201,34 +193,21 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleNotes(Worksheet $sheet): void
     {
-        $start  = 8;
-        $end    = $start + $this->data->count() - 1;
+        $start = 7;
+        $end   = $start + $this->data->count() - 1;
         $lastCol = $sheet->getHighestColumn();
-
         $sheet->getStyle("A{$start}:B{$end}")
-              ->applyFromArray($this->commonStyle([
-                  'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
-              ]));
-
+              ->applyFromArray($this->commonStyle(['alignment' => ['vertical' => Alignment::VERTICAL_CENTER]]));
         $sheet->getStyle("C{$start}:{$lastCol}{$end}")
-              ->applyFromArray($this->commonStyle([
-                  'alignment' => [
-                      'horizontal' => Alignment::HORIZONTAL_CENTER,
-                      'vertical'   => Alignment::VERTICAL_CENTER,
-                  ],
-              ]));
+              ->applyFromArray($this->commonStyle(['alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER,'vertical' => Alignment::VERTICAL_CENTER]]));
     }
 
     protected function styleEvaluateurs(Worksheet $sheet): void
     {
-        $start   = 8 + $this->data->count() + 2;
-        $end     = $start + $this->evaluateurs->count() - 1;
-
+        $start = 7 + $this->data->count() + 1;
+        $end   = $start + $this->evaluateurs->count() - 1;
         $sheet->getStyle("A{$start}:F{$end}")
-              ->applyFromArray($this->commonStyle([
-                  'font' => ['italic' => true],
-              ]));
-
+              ->applyFromArray($this->commonStyle(['font' => ['italic' => true]]));
         for ($i = $start; $i <= $end; $i++) {
             $sheet->getRowDimension($i)->setRowHeight(20);
             $sheet->mergeCells("C{$i}:F{$i}");
@@ -241,11 +220,10 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
-                    'color'       => ['argb' => '000000'],
-                ],
-            ],
+                    'color'       => ['argb' => '000000']
+                ]
+            ]
         ];
-
         return array_merge_recursive($base, $extra);
     }
 }
