@@ -101,7 +101,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             foreach ($this->evaluateurs as $e) {
                 $rows[] = array_merge(
                     [$e->nom, $e->prenom],
-                    array_fill(0, count($this->taches) + 2, '')
+                    array_fill(0, count($this->taches) + 1 + ($this->hasEchelle() ? 1 : 0), '')
                 );
             }
         } else {
@@ -119,8 +119,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $cols[] = 'Q' . ($i + 1);
         }
         $cols[] = 'Total';
-        // colonne échelle, vide si pas d’échelle
-        $cols[] = $this->hasEchelle() ? 'Note recalée / ' . $this->data->first()->affectationProjet->echelle_note_cible : '';
+        $cols[] = $this->hasEchelle() ? 'Note'  : '';
         return $cols;
     }
 
@@ -132,8 +131,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         }
         $sum = $this->taches->reduce(fn($carry, $t) => $carry + ($t->note ?? 0), 0);
         $row[] = number_format($sum, 2, '.', '');
-
-        // valeur échelle ou vide
         $row[] = $this->hasEchelle() ? number_format($this->data->first()->affectationProjet->echelle_note_cible, 0, '', '') : '';
         return $row;
     }
@@ -149,8 +146,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $total += $note;
         }
         $row[] = number_format($total, 2, '.', '');
-
-        // note recalée ou vide
         $row[] = $this->hasEchelle() ? number_format($rp->calculerNoteAvecEchelle(), 2, '.', '') : '';
         return $row;
     }
@@ -169,11 +164,6 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
               ->setFitToHeight(0);
     }
 
-    /**
-     * Indique si l’échelle est définie et valide.
-     *
-     * @return bool
-     */
     protected function hasEchelle(): bool
     {
         $e = $this->data->first()?->affectationProjet->echelle_note_cible ?? null;
@@ -183,12 +173,11 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
     protected function styleMetadata(Worksheet $sheet): void
     {
         $endCol = Coordinate::stringFromColumnIndex(1 + $this->metadataSpan);
-
         $sheet->mergeCells("B2:{$endCol}2");
         $sheet->mergeCells("B3:{$endCol}3");
         $sheet->getStyle("A2:{$endCol}3")->applyFromArray($this->commonStyle([
-            'font'      => ['bold' => true],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
+            'font' => ['bold' => true],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'vertical' => Alignment::VERTICAL_CENTER],
         ]));
         $sheet->getRowDimension(2)->setRowHeight(20);
@@ -197,8 +186,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
         $evalEnd = Coordinate::stringFromColumnIndex(1 + $this->metadataSpan);
         $sheet->mergeCells("B4:{$evalEnd}4");
         $sheet->getStyle("A4:{$evalEnd}4")->applyFromArray($this->commonStyle([
-            'font'      => ['bold' => true],
-            'fill'      => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
+            'font' => ['bold' => true],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => 'F2F2F2']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT, 'vertical' => Alignment::VERTICAL_CENTER],
         ]));
         $sheet->getRowDimension(4)->setRowHeight(20);
@@ -206,8 +195,8 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleHeaders(Worksheet $sheet): void
     {
-        $extra = $this->hasEchelle() ? 1 : 0;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
+        $totalCols = count($this->taches) + 1 + ($this->hasEchelle() ? 1 : 0);
+        $lastCol   = Coordinate::stringFromColumnIndex(2 + $totalCols);
         foreach (['C6:'.$lastCol.'6', 'A7:'.$lastCol.'7'] as $range) {
             $sheet->getStyle($range)->applyFromArray($this->commonStyle([
                 'font'      => ['bold' => true, 'size' => 12, 'color' => ['argb' => 'FFFFFF']],
@@ -219,10 +208,10 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleNotes(Worksheet $sheet): void
     {
-        $extra = $this->hasEchelle() ? 1 : 0;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
-        $start = 8;
-        $end   = $start + $this->data->count() - 1;
+        $totalCols = count($this->taches) + 1 + ($this->hasEchelle() ? 1 : 0);
+        $lastCol   = Coordinate::stringFromColumnIndex(2 + $totalCols);
+        $start     = 8;
+        $end       = $start + $this->data->count() - 1;
         for ($r = $start; $r <= $end; $r++) {
             if ($r % 2 === 0) {
                 $sheet->getStyle("A{$r}:{$lastCol}{$r}")
@@ -242,16 +231,19 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     protected function styleEvaluateurs(Worksheet $sheet): void
     {
-        $extra = $this->hasEchelle() ? 1 : 0;
-        $lastCol = Coordinate::stringFromColumnIndex(2 + count($this->taches) + $extra);
-        $start   = 9 + $this->data->count() + 1;
-        $end     = $start + max(1, $this->evaluateurs->count()) - 1;
+        $start = 9 + $this->data->count() + 1;
+        // Assurer au moins une ligne (formateur) si aucun évaluateur
+        $end = $start + max(1, $this->evaluateurs->count()) - 1;
+        $lastCol = 'G';
 
+        // Style italique et hauteur de ligne
         $sheet->getStyle("A{$start}:{$lastCol}{$end}")
               ->applyFromArray($this->commonStyle(['font' => ['italic' => true]]));
         for ($i = $start; $i <= $end; $i++) {
             $sheet->getRowDimension($i)->setRowHeight(20);
-            $sheet->mergeCells("C{$i}:{$lastCol}{$i}");
+            // Deux colonnes pour Nom et Prénom restent individuelles (A et B)
+            // Fusionner les 5 colonnes suivantes (C à G) pour la zone de signature
+            $sheet->mergeCells("C{$i}:G{$i}");
         }
     }
 
