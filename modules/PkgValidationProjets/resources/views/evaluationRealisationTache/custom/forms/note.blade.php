@@ -19,8 +19,9 @@
         max="{{ $maxNote }}"
         id="note"
         step="0.25"
-        placeholder="{{ __('PkgValidationProjets::evaluationRealisationTache.note') }}"
-        value="{{ $entity ? number_format($entity->note, 2, '.', '') : old('note') }}">
+        onfocus="this.select()"
+        placeholder="Note (0 à {{ $maxNote }})"
+        value="{{ old('note', ($entity && $entity->note !== null) ? number_format($entity->note, 2, '.', '') : '') }}">
           
       @if($maxNote)
         <small class="form-text text-muted">Barème : 0 à {{ number_format($maxNote, 2, '.', '') }}</small>
