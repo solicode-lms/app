@@ -137,6 +137,9 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
 
     public function styles(Worksheet $sheet)
     {
+        // Geler les volets : garder les titres visibles
+        $sheet->freezePane('C7');
+
         $this->styleMetadata($sheet);
         $this->styleHeaders($sheet);
         $this->styleNotes($sheet);
@@ -148,7 +151,37 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
               ->setFitToHeight(0);
     }
 
-    protected function styleMetadata(Worksheet $sheet): void
+    protected function styleNotes(Worksheet $sheet): void
+    {
+        $start = 7;
+        $end   = $start + $this->data->count() - 1;
+        $lastCol = $sheet->getHighestColumn();
+
+        // Zébrage des lignes
+        for ($row = $start; $row <= $end; $row++) {
+            if ($row % 2 === 0) {
+                $sheet->getStyle("A{$row}:{$lastCol}{$row}")
+                      ->getFill()
+                      ->setFillType(Fill::FILL_SOLID)
+                      ->getStartColor()
+                      ->setARGB('F9FBFD');
+            }
+        }
+
+        $sheet->getStyle("A{$start}:B{$end}")
+              ->applyFromArray($this->commonStyle([
+                  'alignment' => ['vertical' => Alignment::VERTICAL_CENTER]
+              ]));
+        $sheet->getStyle("C{$start}:{$lastCol}{$end}")
+              ->applyFromArray($this->commonStyle([
+                  'alignment' => [
+                      'horizontal' => Alignment::HORIZONTAL_CENTER,
+                      'vertical'   => Alignment::VERTICAL_CENTER
+                  ]
+              ]));
+    }
+
+    protected function styleEvaluateurs(Worksheet $sheet): void(Worksheet $sheet): void
     {
         // Style pour Groupe, Filière et Évaluateurs/Formateur
         $sheet->getStyle('A2:B3')
