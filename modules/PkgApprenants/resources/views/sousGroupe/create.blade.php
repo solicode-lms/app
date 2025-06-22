@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fa-table"></i>
+                                <i class="nav-icon fas fa-user-friends"></i>
                                 {{ curd_index_add_label('PkgApprenants::sousGroupe') }}
                             </h3>
                         </div>

@@ -13,7 +13,9 @@
     },
     {
         "reference": "sous_groupes_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-user-friends",
+        "value_float": 0,
         "e_model_reference": "sous_groupes",
         "e_metadata_definition_reference": "iconModel"
     },
@@ -370,5 +372,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "sous_groupes_hasMany_affectation_projets_sous_groupe_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SousGroupe_groupe_id_dynamicDropdown",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "targetDynamicDropdown": "#apprenants",
+            "targetDynamicDropdownApiUrl": "route('apprenants.getData')",
+            "targetDynamicDropdownFilter": "groupes.id"
+        },
+        "e_data_field_reference": "SousGroupe_groupe_id",
+        "e_metadata_definition_reference": "dynamicDropdown"
     }
 ]

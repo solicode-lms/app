@@ -99,6 +99,9 @@
           </label>
                       <select 
             id="groupe_id" 
+            data-target-dynamic-dropdown='#apprenants'
+            data-target-dynamic-dropdown-api-url='{{route('apprenants.getData')}}'
+            data-target-dynamic-dropdown-filter='groupes.id'
             required
             
             

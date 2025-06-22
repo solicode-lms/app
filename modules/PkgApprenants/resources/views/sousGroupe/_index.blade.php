@@ -43,7 +43,7 @@
        $titre = __("PkgApprenants::sousGroupe.singular");
     @endphp
     <x-crud-header 
-        id="sousGroupe-crud-header" icon="fa-table"  
+        id="sousGroupe-crud-header" icon="fas fa-user-friends"  
         iconColor="text-info"
         title="{{ $sousGroupe_title }}"
         :breadcrumbs="[

@@ -121,38 +121,45 @@ export default class DynamicDropdownTreatment {
    * @param {HTMLSelectElement} selectEl
    * @param {Array<{id: string, label: string}>} items
    */
-  _populate(selectEl, items) {
-    const prev = selectEl.value;
-    // const isSelect2 = selectEl.classList.contains('select2-hidden-accessible');
-    //  // Si pas d'items, masquer le select ou le parent du container Select2
-    // if (!items || items.length === 0) {
-    //   if (isSelect2) {
-    //     $(selectEl).parent().hide();
-    //   } else {
-    //     selectEl.style.display = 'none';
-    //   }
-    //   return;
-    // } else {
-    //   if (isSelect2) {
-    //     $(selectEl).parent().show();
-    //   } else {
-    //     selectEl.style.display = '';
-    //   }
-    // }
+/**
+ * Remplit un <select> avec les données fournies
+ * @param {HTMLSelectElement} selectEl
+ * @param {Array<{id: string, label: string}>} items
+ */
+_populate(selectEl, items) {
+  // ① Récupérer la ou les valeurs précédentes
+  const isMultiple = selectEl.multiple;
+  const prev = isMultiple
+    ? Array.from(selectEl.selectedOptions).map(opt => opt.value)
+    : selectEl.value;
 
-    // Option vide
+  // ② Vider le <select>
+  selectEl.innerHTML = '';
+
+  // ③ Si ce n’est PAS un multiple, ajouter l’option vide
+  if (!isMultiple) {
     const empty = selectEl.querySelector('option[value=""]') || new Option('', '');
-    selectEl.innerHTML = '';
     selectEl.appendChild(empty);
+  }
 
-    items.forEach(item => {
-      const opt = new Option(item.label ?? item.toString, item.id ?? item.value);
-      selectEl.appendChild(opt);
-    });
+  // ④ Ajouter les nouvelles options
+  items.forEach(item => {
+    const opt = new Option(item.label ?? item.toString, item.id ?? item.value);
+    // Si multiple, marquer comme sélectionnée si dans prev
+    if (isMultiple && Array.isArray(prev) && prev.includes(opt.value)) {
+      opt.selected = true;
+    }
+    selectEl.appendChild(opt);
+  });
 
-    // Restaurer ou vide
+  // ⑤ Si simple select, restaurer la valeur précédente
+  if (!isMultiple) {
     selectEl.value = Array.from(selectEl.options).some(o => o.value == prev)
       ? prev
       : '';
   }
+}
+
+
+
 }
