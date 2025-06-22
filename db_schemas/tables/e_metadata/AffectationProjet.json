@@ -797,5 +797,17 @@
         "value_boolean": 1,
         "e_data_field_reference": "AffectationProjet_echelle_note_cible",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AffectationProjet_groupe_id_dynamicDropdown",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "targetDynamicDropdown": "#sous_groupe_id",
+            "targetDynamicDropdownApiUrl": "route('sousGroupes.getData')",
+            "targetDynamicDropdownFilter": "groupe_id"
+        },
+        "e_data_field_reference": "AffectationProjet_groupe_id",
+        "e_metadata_definition_reference": "dynamicDropdown"
     }
 ]

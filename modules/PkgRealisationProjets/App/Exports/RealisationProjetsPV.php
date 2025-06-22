@@ -79,7 +79,7 @@ class RealisationProjetsPV implements FromArray, WithHeadings, ShouldAutoSize, W
             $text  = $names;
         }
         $length      = mb_strlen($text);
-        $charsPerCol = 8;
+        $charsPerCol = 7;
         $span        = max(2, (int) ceil($length / $charsPerCol));
         $this->metadataSpan = $span;
         $rows[] = array_merge([$label, $text], array_fill(0, $span - 2, ''));

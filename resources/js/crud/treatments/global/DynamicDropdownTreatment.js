@@ -90,9 +90,21 @@ export default class DynamicDropdownTreatment {
         continue;
       }
 
+   
+
       // Skip si déjà en cache
       if (tgt.cache.has(value)) {
+
+        // ▸ Désactiver la cible avant l'appel
+        el.disabled = true;
+
         this._populate(el, tgt.cache.get(value));
+
+        // ▸ Réactiver immédiatement si mise en cache
+        el.disabled = false;
+        // if ($(el).hasClass('select2-hidden-accessible')) {
+        //   $(el).trigger('change.select2');
+        // }
         continue;
       }
 
@@ -101,16 +113,18 @@ export default class DynamicDropdownTreatment {
       try {
         const url = `${tgt.apiUrl}?filter=${tgt.filterParam}&value=${encodeURIComponent(value)}`;
       
-
+        el.disabled = true;
         const resp = await fetch(url);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
 
         tgt.cache.set(value, data);
         this._populate(el, data);
+      
       } catch (err) {
         AjaxErrorHandler.handleError(err, err.message);
       } finally {
+        el.disabled = false;
         this.loader.hide();
       }
     }

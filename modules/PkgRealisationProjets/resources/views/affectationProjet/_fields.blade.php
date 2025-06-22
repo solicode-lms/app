@@ -81,6 +81,9 @@
                       <select 
             id="groupe_id" 
             {{ $canEditgroupe_id ? '' : 'disabled' }}
+            data-target-dynamic-dropdown='#sous_groupe_id'
+            data-target-dynamic-dropdown-api-url='{{route('sousGroupes.getData')}}'
+            data-target-dynamic-dropdown-filter='groupe_id'
             required
             
             

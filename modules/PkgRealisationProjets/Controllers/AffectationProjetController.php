@@ -53,14 +53,14 @@ class AffectationProjetController extends BaseAffectationProjetController
         if ($format === 'csv') {
             return Excel::download(
                 new RealisationProjetsPV ($realisationProjets_data, 'csv'),
-                'pv_affectation_projet_' . $id . '.csv',
+                'Réalisation_Projet_' . $affectationProjet->projet->titre . 'PV' . '.csv',
                 \Maatwebsite\Excel\Excel::CSV,
                 ['Content-Type' => 'text/csv']
             );
         } elseif ($format === 'xlsx') {
             return Excel::download(
                 new RealisationProjetsPV($realisationProjets_data, 'xlsx'),
-                'pv_affectation_projet_' . $id . '.xlsx',
+                'Réalisation_Projet_' . $affectationProjet->projet->titre . 'PV' . '.xlsx',
                 \Maatwebsite\Excel\Excel::XLSX
             );
         } else {
