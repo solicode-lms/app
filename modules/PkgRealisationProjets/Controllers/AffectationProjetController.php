@@ -4,6 +4,7 @@
 namespace Modules\PkgRealisationProjets\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetsPV;
@@ -48,19 +49,25 @@ class AffectationProjetController extends BaseAffectationProjetController
         $realisationProjets_data = $affectationProjet->realisationProjets;
 
 
+        // Nettoyer le titre pour le nom de fichier
+        $titreProjet = $affectationProjet->projet->titre;
+        $titreProjetClean = Str::slug($titreProjet, '_'); // transforme en "Nom_du_projet"
+
+        $fileName = 'Realisation_Projet_' . $titreProjetClean . '_PV';
+
        
         // Sélection du format de téléchargement
         if ($format === 'csv') {
             return Excel::download(
                 new RealisationProjetsPV ($realisationProjets_data, 'csv'),
-                'Réalisation_Projet_' . $affectationProjet->projet->titre . 'PV' . '.csv',
+                $fileName . '.csv',
                 \Maatwebsite\Excel\Excel::CSV,
                 ['Content-Type' => 'text/csv']
             );
         } elseif ($format === 'xlsx') {
             return Excel::download(
                 new RealisationProjetsPV($realisationProjets_data, 'xlsx'),
-                'Réalisation_Projet_' . $affectationProjet->projet->titre . 'PV' . '.xlsx',
+                $fileName . '.xlsx',
                 \Maatwebsite\Excel\Excel::XLSX
             );
         } else {
