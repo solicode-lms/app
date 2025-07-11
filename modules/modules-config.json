@@ -1,0 +1,37 @@
+{
+    "Core" : {
+        "active": true
+    },
+    "PkgAutorisation" : {
+        "active": true
+    },
+    "PkgWidgets" : {
+        "active": true
+    },
+    "PkgGapp" : {
+        "active": true
+    },
+    "PkgFormation" : {
+        "active": true
+    },
+
+
+    "PkgApprenants" : {
+        "active": false
+    },
+    "PkgCompetences" : {
+        "active": false
+    },
+    "PkgCreationProjet" : {
+        "active": false
+    },    
+    "PkgRealisationProjets" : {
+        "active": false
+    },
+    "PkgGestionTaches" : {
+        "active": false
+    },
+    "PkgValidationProjets" : {
+        "active": false
+    }
+}

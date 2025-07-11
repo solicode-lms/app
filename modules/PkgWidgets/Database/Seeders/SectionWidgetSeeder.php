@@ -1,5 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+
+// TODO  gapp générer : public static int $order = 83;
+// Il doit être avant BaseWidgetSeeder
 
 
 
@@ -9,6 +11,5 @@ use Modules\PkgWidgets\Database\Seeders\Base\BaseSectionWidgetSeeder;
 
 class SectionWidgetSeeder extends BaseSectionWidgetSeeder
 {
-  
-
+        public static int $order = 34;
 }

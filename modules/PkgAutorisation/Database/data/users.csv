@@ -1,5 +1,4 @@
 name,email,password,role,must_change_password
-root,root@ofppt-edu.ma,root,root,false
-gapp,gapp@ofppt-edu.ma,gapp,gapp,false
-admin,admin@ofppt-edu.ma,admin,admin,true
-membre,membre@ofppt-edu.ma,admin,membre,true
+root,root@ofppt-edu.ma,root,root,false,
+gapp,gapp@ofppt-edu.ma,gapp,gapp,false,
+admin,admin@ofppt-edu.ma,admin,admin,true,

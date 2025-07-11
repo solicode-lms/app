@@ -1,13 +1,28 @@
-code,nom,masse_horaire,filiere_id
-M05,"Initiation à l’environnement du développement mobile par la pédagogie active",70,1
-M06,"Maquettage d’une application mobile",50,1
-M07,"Gestion de projet",50,1
-M08,"Manipulation d’une base de données",80,1
-M09,"Développement de la partie back-end",160,1
-M10,"Développement d’une application mobile",125,1
-M11,"Déploiement d’une application web et d’une application mobile",100,1
-M12,"Veille et d’adaptation aux technologies de l’entreprise.",60,1
-M13,"Projet de fin de formation",120,1
-M14,"Stage en entreprise",120,1
-M01,"Développement front-end",70,2
-M02,"Développement back-end",50,2
+"code","nom","description","masse_horaire","filiere_id","reference"
+"DMB-M105","Initiation à l’environnement du développement mobile par la pédagogie active","Initiation à l’environnement du développement mobile par la pédagogie active","70","1","5aa6bb23-b8f4-4c59-9f5d-8d44e318f365"
+"DMB-M106","Maquettage d’une application mobile","","50","1","d2db8ed7-2293-4a4c-921f-cb1f96790b63"
+"DMB-M107","Gestion de projet","","50","1","8552184c-94ca-4548-95c9-922a8742bd28"
+"DMB-M108","Manipulation d’une base de données","","80","1","7a125911-8c90-410c-a133-6034ec7bda43"
+"DMB-M109","Développement de la partie back-end","","160","1","939cbf39-5b87-4665-b68f-b752775f77e3"
+"DMB-M110","Développement d’une application mobile","","225","1","2348a02e-fb19-42ac-a3c6-d066003fdcee"
+"DMB-M111","Déploiement d’une application web et d’une application mobile","","100","1","5a4df650-699a-431d-8943-37c39144cf6c"
+"DWB-M105","Initiation à l’environnement du développement web","","70","2","ad15a4cc-9329-4dd0-9211-cf1ca521e63f"
+"DWB-M106","Maquettage et UX/UI d'un projet d’application web","","70","2","41af3768-1fd6-4e5b-bed8-2004250e3017"
+"DWB-M107","Gestion de projet","","80","2","9a6d0866-bf9d-47bd-8049-bee30ab156b0"
+"DWB-M108","Intégration front-end d'un projet d’application web","","210","2","38137289-16a7-4552-a343-473525e710d8"
+"DWB-M109","Développement backend d'un projet d’application web","","165","2","cdf532cc-6df3-4b2d-a90e-8b5d021e5c57"
+"DWB-M110","Réaliser une application web avec un CMS","","120","2","59819fb7-3c83-48c4-be2a-d20b0a015d70"
+"DWB-M111","Veille et adaptation aux technologies de l’entreprise","","80","2","e74886d1-e30e-40d4-a782-a702894f7d5c"
+"DWB-M112","Projet de fin de formation","","120","2","f8036eea-247f-4956-b94a-68f69c4b0856"
+"DWB-M113","Initiation au milieu de travail (Stage)","","120","2","c60f0504-bd48-407e-aaca-89b7fa3afd92"
+"DWB-M101","Français","","30","2","1eba932e-d091-4637-b51d-691abbab6023"
+"DWB-M102","Anglais technique","","30","2","0f43b932-dcd3-49df-8d9f-940c246a4e81"
+"DWB-M103","Culture d'entreprenariat","","30","2","ab6bc818-cde3-42ed-92f1-0f090805e689"
+"DWB-M104","Compétences comportementales et social (ex Soft Skills)","","45","2","11494d36-dc58-40ce-b70e-094b20ad41e5"
+"DMB-M112","Veille et adaptation aux technologies de l’entreprise","","60","1","f03f14e8-e3f0-4853-af5b-a9dc27752eb7"
+"DMB-M113","Projet de fin de formation","","120","1","92cace8b-3af4-4b3e-852e-057654bccab7"
+"DMB-M101","Français","","30","1","a4b72190-4198-44a1-85c3-6058393444d0"
+"DMB-M102","Anglais technique","","30","1","b557d4fb-cf04-4d0a-bc90-3cb9636fbd62"
+"DMB-M103","Culture d'entreprenariat","","30","1","7ccbcf68-1afd-4d23-9324-1b290f18f468"
+"DMB-M104","Compétences comportementales et social (ex Soft Skills)","","45","1","febc8be4-e453-473a-bbaa-ac1a8eb02aac"
+"DMB-M114","Stage en entreprise","","120","1","d84c3e03-96a2-4032-bac6-4331f5ed4017"

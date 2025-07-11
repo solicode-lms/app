@@ -18,8 +18,13 @@ class AppServiceProvider extends ServiceProvider
         // Charger dynamiquement tous les ServiceProviders des modules.
         $this->loadModuleServiceProviders();
         
+        // Active ou désactive la prévention du "lazy loading" Eloquent 
+        // en fonction de la variable d’environnement MODEL_PREVENT_LAZY_LOADING.
+        // Cela permet de forcer le développeur à utiliser "with()" pour éviter les requêtes N+1.
+
         // dd(app()->isProduction());
-        Model::preventLazyLoading(! app()->isProduction());
+        // Model::preventLazyLoading(! app()->isProduction());
+        Model::preventLazyLoading(filter_var(env('MODEL_PREVENT_LAZY_LOADING', false), FILTER_VALIDATE_BOOLEAN));
     }
 
     /**
@@ -54,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
         $moduleProvidersPath = base_path('modules');
 
         // Chemin vers le fichier de configuration JSON.
-        $configFilePath = $moduleProvidersPath . '/modules.json';
+        $configFilePath = $moduleProvidersPath . '/modules-config.json';
         $config = json_decode(file_get_contents($configFilePath), true);
 
         // Récupérer tous les fichiers correspondant à un ServiceProvider dans les modules.
@@ -65,12 +70,14 @@ class AppServiceProvider extends ServiceProvider
              // Récupérer le nom du dossier du module à partir du chemin du fichier.
             $moduleName = basename(dirname(dirname(dirname($providerFile))));
 
+            // Si on ne charge pas un module : il ne vas pas charger les route 
+            // ce qui générer une exception lors de l'affichage de la page admin
             // Vérifier si le module est désactivé dans la configuration.
-            if (isset($config[$moduleName]['active']) && !$config[$moduleName]['active']) {
-                Log::info("Module désactivé : {$moduleName}");
-                echo "\033[33mModule désactivé : {$moduleName}\033[0m\n"; // Texte en jaune
-                continue;
-            }
+            // if (isset($config[$moduleName]['active']) && !$config[$moduleName]['active']) {
+            //     Log::info("Module désactivé : {$moduleName}");
+            //     echo "[Module désactivé : {$moduleName}\n]"; // Texte en jaune
+            //     continue;
+            // }
 
             // Récupérer le nom complet de la classe du ServiceProvider.
             $providerClass = $this->getProviderClass($providerFile);

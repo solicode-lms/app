@@ -1,10 +1,16 @@
-code,mini_code,nom,description,module_id
-C1,"Maquettage","Maquetter une application mobile","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.",2
-C2,"Database","Manipuler une base de données - perfectionnement","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.",4
-C3,"Back-end","Développer la partie back-end d’une application web ou web mobile - perfectionnement","Conception et développement des services backend pour les applications, avec un focus sur l'intégration et l'optimisation.",5
-C4,"Gestion projet","Collaborer à la gestion d’un projet informatique et à l’organisation de l’environnement de développement - perfectionnement","Techniques avancées pour participer efficacement à la gestion de projet et au développement collaboratif.",3
-C5,"Mobile","Développer une application mobile native, avec Android et React Native","Développement d’applications mobiles natives en utilisant Android et React Native.",6
-C6,"Test","Préparer et exécuter les plans de tests d’une application","Mise en œuvre de tests automatisés et manuels pour assurer la qualité des applications.",5
-C7,"Déploiement","Préparer et exécuter le déploiement d’une application web et mobile - perfectionnement","Étapes pour préparer, tester, et déployer une application sur les environnements de production.",7
-C1,"Front-end","Développement front-end","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.",11
-C2,"Back-end","Développement backend","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.",12
+"code","mini_code","nom","module_id","description","reference"
+"C1","Maquettage","Maquetter une application mobile","2","Création et design des interfaces utilisateur pour une application mobile en utilisant des outils de maquette.","183c36db-57cd-4ef3-ba4b-b09be5ff56d1"
+"C2","Database","Manipuler une base de données - perfectionnement","4","Approfondissement des concepts de gestion et manipulation des bases de données pour les applications mobiles.","13916b58-9c54-4915-b0f6-adda3597a888"
+"C3","Back-end","Développer la partie back-end d’une application web ou web mobile - perfectionnement","5","Conception et développement des services backend pour les applications, avec un focus sur l'intégration et l'optimisation.","8c2d7eb3-7de7-4054-8d2d-799597efcbb1"
+"C4","Gestion projet","Collaborer à la gestion d’un projet informatique et à l’organisation de l’environnement de développement - perfectionnement","3","Techniques avancées pour participer efficacement à la gestion de projet et au développement collaboratif.","ed8dca25-9173-44e1-baf6-51e8225a46f5"
+"C5","Mobile","Développer une application mobile native, avec Android et React Native","6","Développement d’applications mobiles natives en utilisant Android et React Native.","d42caf8b-1109-4fbb-a3e8-ed649671a184"
+"C6","Test","Préparer et exécuter les plans de tests d’une application","5","Mise en œuvre de tests automatisés et manuels pour assurer la qualité des applications.","8cd1264a-3471-44af-a815-97f20fc68fde"
+"C7","Déploiement","Préparer et exécuter le déploiement d’une application web et mobile - perfectionnement","7","Étapes pour préparer, tester, et déployer une application sur les environnements de production.","9115296c-3621-4283-a6a0-9657e88d6790"
+"C1","","Maquetter une application","12","","0393fd36-3f1e-4810-b959-d550f8061475"
+"C2","","Réaliser une interface utilisateur web statique et adaptable","14","","31166e44-6427-4576-832e-3977686c6b11"
+"C3","","Développer une interface utilisateur web dynamique","14","","96e598e7-4147-4f13-ab19-ecc390fb5b8c"
+"C5","","Créer une base de données - niveau 1","15","","6aec3b9e-f6fc-4e1a-82ff-c1d8e740ab90"
+"C6","","Développer les composants d’accès aux données - niveau 1","15","","6e60eef5-5b1e-4371-bc9f-7ec0cec9f328"
+"C7","","Développer la partie back-end d’une application web ou web mobile - niveau 1","15","","38c03e96-51b4-4a52-9c0a-262a438cc529"
+"C4","","Réaliser une interface utilisateur avec une solution de gestion de contenu ou e-commerce","16","","899a78ef-fe70-437e-a475-6362083e11ba"
+"C8","","Framwork FrontEnd (React, vueJs...)","16","","29b5ae2b-a67b-453b-b59b-316d39e51e2f"
