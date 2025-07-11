@@ -1,6 +1,0 @@
-"code","titre","sys_color_id","description","reference"
-"A_FAIRE","À faire","2","La tâche est prévue mais pas encore commencée","WF_A_FAIRE"
-"EN_COURS","En cours","3","La tâche est en cours de réalisation","WF_EN_COURS"
-"EN_VALIDATION","En validation","5","La tâche est terminée mais en attente de validation","WF_EN_VALIDATION"
-"TERMINEE","Terminée","1","La tâche a été validée et complétée","WF_TERMINEE"
-"EN_PAUSE","En pause","6","La tâche est temporairement suspendue","WF_EN_PAUSE"

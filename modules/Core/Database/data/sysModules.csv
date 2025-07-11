@@ -10,6 +10,5 @@
 "La formation Solicode","PkgFormation","Contient les tables PkgApprenants ","1","9","1","6","PkgFormation"
 "Réalisation des projets","PkgRealisationProjets","Contient les tables","1","10","1","6","PkgRealisationProjets"
 "Gestion des tâches","PkgGestionTaches","Contient les tables PkgGestionTaches","1","11","1","6","PkgGestionTaches"
-"Gestion des autoformations","PkgAutoformation","Contient les tables PkgAutoformation","1","11","1","6","PkgAutoformation"
 "Gestion des notification","PkgNotification","Contient les tables PkgNotification","1","11","1","6","PkgNotification"
 "Evaluation de projets","PkgValidationProjets","Contient les tables PkgValidationProjets","1","12","1","6","PkgValidationProjets"
