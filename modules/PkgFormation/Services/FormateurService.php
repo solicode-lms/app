@@ -7,9 +7,7 @@ use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgCompetences\Services\NiveauDifficulteService;
 use Modules\PkgFormation\Services\Base\BaseFormateurService;
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
-use Modules\PkgCompetences\Models\NiveauDifficulte;
 
 /**
  * Classe FormateurService pour gérer la persistance de l'entité Formateur.
@@ -51,46 +49,25 @@ class FormateurService extends BaseFormateurService
         }
 
 
-        // Création des niveaux de difficulté pour le formateur
-        $niveauDifficulteService = new NiveauDifficulteService();
-        $niveauxDifficulte = [
-            ["Débutant", "Notions de base acquises.", 0, 5],
-            ["Intermédiaire", "Compétences appliquées avec assistance limitée.", 6, 10],
-            ["Avancé", "Bonne autonomie dans l'application des compétences.", 11, 15],
-            ["Expert", "Expertise démontrée avec capacité à résoudre des problèmes complexes.", 16, 18],
-            ["Maîtrise complète", "Maîtrise totale et capacité à enseigner ou guider les autres.", 19, 20]
-        ];
-
-        foreach ($niveauxDifficulte as $niveau) {
-            $niveauDifficulteService->updateOrCreate(
-                [  "nom" => $niveau[0], "formateur_id" => $formateur->id],
-                [
-                "nom" => $niveau[0],
-                "description" => $niveau[1],
-                "noteMin" => $niveau[2],
-                "noteMax" => $niveau[3],
-                "formateur_id" => $formateur->id
-            ]);
-        }
-
+        // TODO : Il faut créer des état de réalisation des tâches
         // Création des états de réalisation de projets pour le formateur
-        $etatsRealisationProjetService = new EtatsRealisationProjetService();
-        $etatsRealisationProjet = [
-            ["En cours", "Le projet est en cours de réalisation."],
-            ["Terminé", "Le projet a été finalisé avec succès."],
-            ["Annulé", "Le projet a été abandonné ou annulé."]
-        ];
+        // $etatsRealisationProjetService = new EtatsRealisationProjetService();
+        // $etatsRealisationProjet = [
+        //     ["En cours", "Le projet est en cours de réalisation."],
+        //     ["Terminé", "Le projet a été finalisé avec succès."],
+        //     ["Annulé", "Le projet a été abandonné ou annulé."]
+        // ];
 
-        foreach ($etatsRealisationProjet as $etat) {
-            $etatsRealisationProjetService->updateOrCreate ([
-                "titre" => $etat[0],
-                "formateur_id" => $formateur->id
-            ],[
-                "titre" => $etat[0],
-                "description" => $etat[1],
-                "formateur_id" => $formateur->id
-            ]);
-        }
+        // foreach ($etatsRealisationProjet as $etat) {
+        //     $etatsRealisationProjetService->updateOrCreate ([
+        //         "titre" => $etat[0],
+        //         "formateur_id" => $formateur->id
+        //     ],[
+        //         "titre" => $etat[0],
+        //         "description" => $etat[1],
+        //         "formateur_id" => $formateur->id
+        //     ]);
+        // }
 
         return $formateur;
     }
