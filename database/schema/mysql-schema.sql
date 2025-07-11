@@ -193,37 +193,6 @@ CREATE TABLE `category_technologies` (
   UNIQUE KEY `category_technologies_reference_unique` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `chapitres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chapitres` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `coefficient` int NOT NULL DEFAULT '1',
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `ordre` int NOT NULL,
-  `is_officiel` tinyint(1) NOT NULL DEFAULT '0',
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `formation_id` bigint unsigned NOT NULL,
-  `niveau_competence_id` bigint unsigned DEFAULT NULL,
-  `formateur_id` bigint unsigned DEFAULT NULL,
-  `chapitre_officiel_id` bigint unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `chapitres_nom_unique` (`nom`),
-  UNIQUE KEY `chapitres_reference_unique` (`reference`),
-  KEY `chapitres_formation_id_foreign` (`formation_id`),
-  KEY `chapitres_niveau_competence_id_foreign` (`niveau_competence_id`),
-  KEY `chapitres_formateur_id_foreign` (`formateur_id`),
-  KEY `chapitres_chapitre_officiel_id_foreign` (`chapitre_officiel_id`),
-  CONSTRAINT `chapitres_chapitre_officiel_id_foreign` FOREIGN KEY (`chapitre_officiel_id`) REFERENCES `chapitres` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `chapitres_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `chapitres_formation_id_foreign` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `chapitres_niveau_competence_id_foreign` FOREIGN KEY (`niveau_competence_id`) REFERENCES `niveau_competences` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `commentaire_realisation_taches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -441,30 +410,6 @@ CREATE TABLE `e_relationships` (
   CONSTRAINT `e_relationships_target_e_model_id_foreign` FOREIGN KEY (`target_e_model_id`) REFERENCES `e_models` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `etat_chapitres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `etat_chapitres` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_editable_only_by_formateur` tinyint(1) DEFAULT '0',
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `workflow_chapitre_id` bigint unsigned DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `formateur_id` bigint unsigned NOT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `etat_chapitres_reference_unique` (`reference`),
-  KEY `etat_chapitres_workflow_chapitre_id_foreign` (`workflow_chapitre_id`),
-  KEY `etat_chapitres_formateur_id_foreign` (`formateur_id`),
-  KEY `etat_chapitres_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `etat_chapitres_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `etat_chapitres_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`),
-  CONSTRAINT `etat_chapitres_workflow_chapitre_id_foreign` FOREIGN KEY (`workflow_chapitre_id`) REFERENCES `workflow_chapitres` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `etat_evaluation_projets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -482,30 +427,6 @@ CREATE TABLE `etat_evaluation_projets` (
   UNIQUE KEY `etat_evaluation_projets_reference_unique` (`reference`),
   KEY `etat_evaluation_projets_sys_color_id_foreign` (`sys_color_id`),
   CONSTRAINT `etat_evaluation_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `etat_formations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `etat_formations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_editable_only_by_formateur` tinyint(1) DEFAULT '0',
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `workflow_formation_id` bigint unsigned DEFAULT NULL,
-  `formateur_id` bigint unsigned NOT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `etat_formations_reference_unique` (`reference`),
-  KEY `etat_formations_workflow_formation_id_foreign` (`workflow_formation_id`),
-  KEY `etat_formations_formateur_id_foreign` (`formateur_id`),
-  KEY `etat_formations_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `etat_formations_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `etat_formations_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`),
-  CONSTRAINT `etat_formations_workflow_formation_id_foreign` FOREIGN KEY (`workflow_formation_id`) REFERENCES `workflow_formations` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `etat_realisation_taches`;
@@ -761,46 +682,6 @@ CREATE TABLE `formateurs` (
   UNIQUE KEY `formateurs_reference_unique` (`reference`),
   KEY `formateurs_user_id_foreign` (`user_id`),
   CONSTRAINT `formateurs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `formation_technology`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `formation_technology` (
-  `formation_id` bigint unsigned NOT NULL,
-  `technology_id` bigint unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `formation_technology_formation_id_foreign` (`formation_id`),
-  KEY `formation_technology_technology_id_foreign` (`technology_id`),
-  CONSTRAINT `formation_technology_formation_id_foreign` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `formation_technology_technology_id_foreign` FOREIGN KEY (`technology_id`) REFERENCES `technologies` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `formations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `formations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `is_officiel` tinyint(1) NOT NULL DEFAULT '0',
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `formateur_id` bigint unsigned DEFAULT NULL,
-  `formation_officiel_id` bigint unsigned DEFAULT NULL,
-  `competence_id` bigint unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `formations_nom_unique` (`nom`),
-  UNIQUE KEY `formations_reference_unique` (`reference`),
-  KEY `formations_formateur_id_foreign` (`formateur_id`),
-  KEY `formations_formation_officiel_id_foreign` (`formation_officiel_id`),
-  KEY `formations_competence_id_foreign` (`competence_id`),
-  CONSTRAINT `formations_competence_id_foreign` FOREIGN KEY (`competence_id`) REFERENCES `competences` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `formations_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `formations_formation_officiel_id_foreign` FOREIGN KEY (`formation_officiel_id`) REFERENCES `formations` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `groupes`;
@@ -1190,52 +1071,6 @@ CREATE TABLE `projets` (
   KEY `projets_filiere_id_foreign` (`filiere_id`),
   CONSTRAINT `projets_filiere_id_foreign` FOREIGN KEY (`filiere_id`) REFERENCES `filieres` (`id`) ON DELETE CASCADE,
   CONSTRAINT `projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `realisation_chapitres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `realisation_chapitres` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `date_debut` date NOT NULL,
-  `date_fin` date DEFAULT NULL,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `chapitre_id` bigint unsigned NOT NULL,
-  `realisation_formation_id` bigint unsigned NOT NULL,
-  `etat_chapitre_id` bigint unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `realisation_chapitres_reference_unique` (`reference`),
-  KEY `realisation_chapitres_chapitre_id_foreign` (`chapitre_id`),
-  KEY `realisation_chapitres_realisation_formation_id_foreign` (`realisation_formation_id`),
-  KEY `realisation_chapitres_etat_chapitre_id_foreign` (`etat_chapitre_id`),
-  CONSTRAINT `realisation_chapitres_chapitre_id_foreign` FOREIGN KEY (`chapitre_id`) REFERENCES `chapitres` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `realisation_chapitres_etat_chapitre_id_foreign` FOREIGN KEY (`etat_chapitre_id`) REFERENCES `etat_chapitres` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `realisation_chapitres_realisation_formation_id_foreign` FOREIGN KEY (`realisation_formation_id`) REFERENCES `realisation_formations` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `realisation_formations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `realisation_formations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `date_debut` date NOT NULL,
-  `date_fin` date DEFAULT NULL,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `formation_id` bigint unsigned NOT NULL,
-  `apprenant_id` bigint unsigned NOT NULL,
-  `etat_formation_id` bigint unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `realisation_formations_reference_unique` (`reference`),
-  KEY `realisation_formations_formation_id_foreign` (`formation_id`),
-  KEY `realisation_formations_apprenant_id_foreign` (`apprenant_id`),
-  KEY `realisation_formations_etat_formation_id_foreign` (`etat_formation_id`),
-  CONSTRAINT `realisation_formations_apprenant_id_foreign` FOREIGN KEY (`apprenant_id`) REFERENCES `apprenants` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `realisation_formations_etat_formation_id_foreign` FOREIGN KEY (`etat_formation_id`) REFERENCES `etat_formations` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `realisation_formations_formation_id_foreign` FOREIGN KEY (`formation_id`) REFERENCES `formations` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `realisation_projets`;
@@ -1732,46 +1567,6 @@ CREATE TABLE `widgets` (
   CONSTRAINT `widgets_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `widget_types` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `workflow_chapitres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `workflow_chapitres` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `workflow_chapitres_code_unique` (`code`),
-  UNIQUE KEY `workflow_chapitres_titre_unique` (`titre`),
-  UNIQUE KEY `workflow_chapitres_reference_unique` (`reference`),
-  KEY `workflow_chapitres_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `workflow_chapitres_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `workflow_formations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `workflow_formations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `workflow_formations_code_unique` (`code`),
-  UNIQUE KEY `workflow_formations_titre_unique` (`titre`),
-  UNIQUE KEY `workflow_formations_reference_unique` (`reference`),
-  KEY `workflow_formations_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `workflow_formations_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `workflow_projets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1902,15 +1697,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (79,'2025_03_06_082
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (80,'2025_03_07_080906_add_remarques_to_realisation_taches_table',9);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (81,'2025_03_09_104844_add_calculable_to_e_data_fields_table',10);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (82,'2025_03_10_090419_add_calculable_sql_to_e_data_field',10);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (83,'2025_03_19_154646_create_workflow_chapitres_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (84,'2025_03_19_155655_create_workflow_formations_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (85,'2025_03_19_155908_create_etat_formations_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (86,'2025_03_19_164845_create_etat_chapitres_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (87,'2025_03_19_165111_create_formations_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (88,'2025_03_19_173711_create_formation_technology_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (89,'2025_03_19_174828_create_chapitres_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (90,'2025_03_19_175854_create_realisation_formations_table',11);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (91,'2025_03_19_180206_create_realisation_chapitres_table',11);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (92,'2025_03_20_093855_create_formation_technology_table',11);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (93,'2025_04_03_203624_create_role_widget_table',12);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (94,'2025_04_03_204114_create_role_widget_table',12);
