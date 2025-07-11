@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-dependanceTache')),
         calculationUrl:  '{{ route('dependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::dependanceTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::dependanceTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::dependanceTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::dependanceTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="dependanceTache-crud" class="crud">
     @section('dependanceTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::dependanceTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::dependanceTache.singular");
     @endphp
     <x-crud-header 
         id="dependanceTache-crud-header" icon="fas fa-link"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="dependanceTache-data-container" class="data-container">
                     @if($dependanceTache_viewType != "widgets")
-                    @include("PkgGestionTaches::dependanceTache._$dependanceTache_viewType")
+                    @include("PkgRealisationTache::dependanceTache._$dependanceTache_viewType")
                     @endif
                 </div>
                 @section('dependanceTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="dependanceTache-data-container-out" >
         @if($dependanceTache_viewType == "widgets")
-        @include("PkgGestionTaches::dependanceTache._$dependanceTache_viewType")
+        @include("PkgRealisationTache::dependanceTache._$dependanceTache_viewType")
         @endif
     </section>
     @show

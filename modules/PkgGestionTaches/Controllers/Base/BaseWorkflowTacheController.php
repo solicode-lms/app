@@ -2,19 +2,19 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\WorkflowTacheRequest;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\App\Requests\WorkflowTacheRequest;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\WorkflowTacheExport;
-use Modules\PkgGestionTaches\App\Imports\WorkflowTacheImport;
+use Modules\PkgRealisationTache\App\Exports\WorkflowTacheExport;
+use Modules\PkgRealisationTache\App\Imports\WorkflowTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseWorkflowTacheController extends AdminController
@@ -59,13 +59,13 @@ class BaseWorkflowTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::workflowTache._index', $workflowTache_compact_value)->render();
+                return view('PkgRealisationTache::workflowTache._index', $workflowTache_compact_value)->render();
             }else{
                 return view($workflowTache_partialViewName, $workflowTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::workflowTache.index', $workflowTache_compact_value);
+        return view('PkgRealisationTache::workflowTache.index', $workflowTache_compact_value);
     }
     /**
      */
@@ -79,9 +79,9 @@ class BaseWorkflowTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._fields', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
+            return view('PkgRealisationTache::workflowTache._fields', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
         }
-        return view('PkgGestionTaches::workflowTache.create', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
+        return view('PkgRealisationTache::workflowTache.create', compact('bulkEdit' ,'itemWorkflowTache', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -109,9 +109,9 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._fields', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
+            return view('PkgRealisationTache::workflowTache._fields', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
         }
-        return view('PkgGestionTaches::workflowTache.bulk-edit', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
+        return view('PkgRealisationTache::workflowTache.bulk-edit', compact('bulkEdit', 'workflowTache_ids', 'itemWorkflowTache', 'sysColors'));
     }
     /**
      */
@@ -122,7 +122,7 @@ class BaseWorkflowTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' => __('PkgGestionTaches::workflowTache.singular')]);
+                'modelName' => __('PkgRealisationTache::workflowTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -134,7 +134,7 @@ class BaseWorkflowTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' => __('PkgGestionTaches::workflowTache.singular')
+                'modelName' => __('PkgRealisationTache::workflowTache.singular')
             ])
         );
     }
@@ -155,10 +155,10 @@ class BaseWorkflowTacheController extends AdminController
         extract($etatRealisationTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
+            return view('PkgRealisationTache::workflowTache._show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
+        return view('PkgRealisationTache::workflowTache.show', array_merge(compact('itemWorkflowTache'),$etatRealisationTache_compact_value));
 
     }
     /**
@@ -184,10 +184,10 @@ class BaseWorkflowTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::workflowTache._edit', array_merge(compact('bulkEdit' , 'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+            return view('PkgRealisationTache::workflowTache._edit', array_merge(compact('bulkEdit' , 'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
         }
 
-        return view('PkgGestionTaches::workflowTache.edit', array_merge(compact('bulkEdit' ,'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
+        return view('PkgRealisationTache::workflowTache.edit', array_merge(compact('bulkEdit' ,'itemWorkflowTache','sysColors'),$etatRealisationTache_compact_value));
 
 
     }
@@ -201,7 +201,7 @@ class BaseWorkflowTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' =>  __('PkgGestionTaches::workflowTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::workflowTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -213,7 +213,7 @@ class BaseWorkflowTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' =>  __('PkgGestionTaches::workflowTache.singular')
+                'modelName' =>  __('PkgRealisationTache::workflowTache.singular')
                 ])
         );
 
@@ -261,7 +261,7 @@ class BaseWorkflowTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' =>  __('PkgGestionTaches::workflowTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::workflowTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -273,7 +273,7 @@ class BaseWorkflowTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $workflowTache,
-                'modelName' =>  __('PkgGestionTaches::workflowTache.singular')
+                'modelName' =>  __('PkgRealisationTache::workflowTache.singular')
                 ])
         );
 
@@ -293,7 +293,7 @@ class BaseWorkflowTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($workflowTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::workflowTache.plural')
+            'modelName' => __('PkgRealisationTache::workflowTache.plural')
         ]));
     }
 
@@ -325,7 +325,7 @@ class BaseWorkflowTacheController extends AdminController
 
         return redirect()->route('workflowTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::workflowTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::workflowTache.plural')
             ]));
 
 

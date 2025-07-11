@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -45,7 +45,7 @@ class BaseWorkflowTacheService extends BaseService
     {
         parent::__construct(new WorkflowTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::workflowTache.plural');
+        $this->title = __('PkgRealisationTache::workflowTache.plural');
     }
 
 
@@ -111,8 +111,8 @@ class BaseWorkflowTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::workflowTache._table',
-            default => 'PkgGestionTaches::workflowTache._table',
+            'table' => 'PkgRealisationTache::workflowTache._table',
+            default => 'PkgRealisationTache::workflowTache._table',
         };
     }
 

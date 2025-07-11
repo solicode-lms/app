@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::etatRealisationTache.create')
+@extends('PkgRealisationTache::etatRealisationTache.create')

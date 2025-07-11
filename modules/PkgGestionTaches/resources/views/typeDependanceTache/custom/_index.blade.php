@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::typeDependanceTache._index')
+@extends('PkgRealisationTache::typeDependanceTache._index')

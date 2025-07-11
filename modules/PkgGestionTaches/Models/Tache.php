@@ -1,8 +1,8 @@
 <?php
  
 
-namespace Modules\PkgGestionTaches\Models;
-use Modules\PkgGestionTaches\Models\Base\BaseTache;
+namespace Modules\PkgRealisationTache\Models;
+use Modules\PkgRealisationTache\Models\Base\BaseTache;
 
 class Tache extends BaseTache
 { 

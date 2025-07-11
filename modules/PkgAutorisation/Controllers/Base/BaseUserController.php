@@ -9,7 +9,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
-use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
+use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgNotification\Services\NotificationService;
 use Modules\Core\Services\UserModelFilterService;
 use Modules\PkgWidgets\Services\WidgetUtilisateurService;

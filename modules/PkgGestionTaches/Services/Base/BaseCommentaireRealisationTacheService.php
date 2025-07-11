@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -45,7 +45,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     {
         parent::__construct(new CommentaireRealisationTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::commentaireRealisationTache.plural');
+        $this->title = __('PkgRealisationTache::commentaireRealisationTache.plural');
     }
 
 
@@ -57,7 +57,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
     
 
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
         }
 
         if (!array_key_exists('formateur_id', $scopeVariables)) {
@@ -119,8 +119,8 @@ class BaseCommentaireRealisationTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::commentaireRealisationTache._table',
-            default => 'PkgGestionTaches::commentaireRealisationTache._table',
+            'table' => 'PkgRealisationTache::commentaireRealisationTache._table',
+            default => 'PkgRealisationTache::commentaireRealisationTache._table',
         };
     }
 

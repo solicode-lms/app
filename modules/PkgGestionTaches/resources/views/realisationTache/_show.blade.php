@@ -9,7 +9,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.singular')) }}</small>
                               
       @if($itemRealisationTache->tache)
         {{ $itemRealisationTache->tache }}
@@ -43,7 +43,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.dateDebut')) }}</small>
                             
     <span>
       @if ($itemRealisationTache->dateDebut)
@@ -58,7 +58,7 @@
 
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.dateFin')) }}</small>
                             
     <span>
       @if ($itemRealisationTache->dateFin)
@@ -79,7 +79,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}</small>
                               
       @if($itemRealisationTache->etatRealisationTache)
         {{ $itemRealisationTache->etatRealisationTache }}
@@ -93,7 +93,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.note')) }}</small>
                               
       <span>
         @if(! is_null($itemRealisationTache->note))
@@ -114,7 +114,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_formateur')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemRealisationTache->remarques_formateur) && $itemRealisationTache->remarques_formateur !== '')
     {!! $itemRealisationTache->remarques_formateur !!}
@@ -127,7 +127,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_apprenant')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemRealisationTache->remarques_apprenant) && $itemRealisationTache->remarques_apprenant !== '')
     {!! $itemRealisationTache->remarques_apprenant !!}
@@ -143,7 +143,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemRealisationTache->remarque_evaluateur) && $itemRealisationTache->remarque_evaluateur !== '')
     {!! $itemRealisationTache->remarque_evaluateur !!}
@@ -165,9 +165,9 @@
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+                  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
             </div>
           </div>
       </div>
@@ -191,7 +191,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::realisationTache.singular") }} : {{ $itemRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::realisationTache.singular") }} : {{ $itemRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

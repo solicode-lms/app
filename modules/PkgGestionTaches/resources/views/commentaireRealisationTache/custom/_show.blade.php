@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::commentaireRealisationTache._show')
+@extends('PkgRealisationTache::commentaireRealisationTache._show')

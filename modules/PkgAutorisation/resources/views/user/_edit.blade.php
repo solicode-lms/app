@@ -49,7 +49,7 @@
                             <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">{{ucfirst(__('PkgAutorisation::profile.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="user-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#user-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="user-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural'))}}</a>
+                            <a class="nav-link" id="user-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#user-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="user-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-notification-tab" data-toggle="pill" href="#user-hasmany-tabs-notification" role="tab" aria-controls="user-hasmany-tabs-notification" aria-selected="false">{{ucfirst(__('PkgNotification::notification.plural'))}}</a>
@@ -83,7 +83,7 @@
                                 @include('PkgAutorisation::profile._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="user-hasmany-tabs-historiqueRealisationTache-tab">
-                                @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
+                                @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
                             <div class="tab-pane fade" id="user-hasmany-tabs-notification" role="tabpanel" aria-labelledby="user-hasmany-tabs-notification-tab">
                                 @include('PkgNotification::notification._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])

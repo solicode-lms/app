@@ -2,19 +2,19 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\LabelRealisationTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\LabelRealisationTacheRequest;
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\App\Requests\LabelRealisationTacheRequest;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\LabelRealisationTacheExport;
-use Modules\PkgGestionTaches\App\Imports\LabelRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Exports\LabelRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Imports\LabelRealisationTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseLabelRealisationTacheController extends AdminController
@@ -65,13 +65,13 @@ class BaseLabelRealisationTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::labelRealisationTache._index', $labelRealisationTache_compact_value)->render();
+                return view('PkgRealisationTache::labelRealisationTache._index', $labelRealisationTache_compact_value)->render();
             }else{
                 return view($labelRealisationTache_partialViewName, $labelRealisationTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.index', $labelRealisationTache_compact_value);
+        return view('PkgRealisationTache::labelRealisationTache.index', $labelRealisationTache_compact_value);
     }
     /**
      */
@@ -90,9 +90,9 @@ class BaseLabelRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgRealisationTache::labelRealisationTache._fields', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
         }
-        return view('PkgGestionTaches::labelRealisationTache.create', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgRealisationTache::labelRealisationTache.create', compact('bulkEdit' ,'itemLabelRealisationTache', 'formateurs', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -125,9 +125,9 @@ class BaseLabelRealisationTacheController extends AdminController
         $itemLabelRealisationTache = $this->labelRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+            return view('PkgRealisationTache::labelRealisationTache._fields', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
         }
-        return view('PkgGestionTaches::labelRealisationTache.bulk-edit', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
+        return view('PkgRealisationTache::labelRealisationTache.bulk-edit', compact('bulkEdit', 'labelRealisationTache_ids', 'itemLabelRealisationTache', 'formateurs', 'sysColors'));
     }
     /**
      */
@@ -138,7 +138,7 @@ class BaseLabelRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' => __('PkgGestionTaches::labelRealisationTache.singular')]);
+                'modelName' => __('PkgRealisationTache::labelRealisationTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -150,7 +150,7 @@ class BaseLabelRealisationTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' => __('PkgGestionTaches::labelRealisationTache.singular')
+                'modelName' => __('PkgRealisationTache::labelRealisationTache.singular')
             ])
         );
     }
@@ -165,10 +165,10 @@ class BaseLabelRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._show', array_merge(compact('itemLabelRealisationTache'),));
+            return view('PkgRealisationTache::labelRealisationTache._show', array_merge(compact('itemLabelRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.show', array_merge(compact('itemLabelRealisationTache'),));
+        return view('PkgRealisationTache::labelRealisationTache.show', array_merge(compact('itemLabelRealisationTache'),));
 
     }
     /**
@@ -189,10 +189,10 @@ class BaseLabelRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::labelRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemLabelRealisationTache','formateurs', 'sysColors'),));
+            return view('PkgRealisationTache::labelRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemLabelRealisationTache','formateurs', 'sysColors'),));
         }
 
-        return view('PkgGestionTaches::labelRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemLabelRealisationTache','formateurs', 'sysColors'),));
+        return view('PkgRealisationTache::labelRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemLabelRealisationTache','formateurs', 'sysColors'),));
 
 
     }
@@ -209,7 +209,7 @@ class BaseLabelRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::labelRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::labelRealisationTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -221,7 +221,7 @@ class BaseLabelRealisationTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::labelRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::labelRealisationTache.singular')
                 ])
         );
 
@@ -272,7 +272,7 @@ class BaseLabelRealisationTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::labelRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::labelRealisationTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -284,7 +284,7 @@ class BaseLabelRealisationTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $labelRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::labelRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::labelRealisationTache.singular')
                 ])
         );
 
@@ -307,7 +307,7 @@ class BaseLabelRealisationTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($labelRealisationTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::labelRealisationTache.plural')
+            'modelName' => __('PkgRealisationTache::labelRealisationTache.plural')
         ]));
     }
 
@@ -339,7 +339,7 @@ class BaseLabelRealisationTacheController extends AdminController
 
         return redirect()->route('labelRealisationTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::labelRealisationTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::labelRealisationTache.plural')
             ]));
 
 

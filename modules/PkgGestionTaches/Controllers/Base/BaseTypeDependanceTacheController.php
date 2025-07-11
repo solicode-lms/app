@@ -2,18 +2,18 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\TypeDependanceTacheService;
-use Modules\PkgGestionTaches\Services\DependanceTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\TypeDependanceTacheService;
+use Modules\PkgRealisationTache\Services\DependanceTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\TypeDependanceTacheRequest;
-use Modules\PkgGestionTaches\Models\TypeDependanceTache;
+use Modules\PkgRealisationTache\App\Requests\TypeDependanceTacheRequest;
+use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\TypeDependanceTacheExport;
-use Modules\PkgGestionTaches\App\Imports\TypeDependanceTacheImport;
+use Modules\PkgRealisationTache\App\Exports\TypeDependanceTacheExport;
+use Modules\PkgRealisationTache\App\Imports\TypeDependanceTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseTypeDependanceTacheController extends AdminController
@@ -56,13 +56,13 @@ class BaseTypeDependanceTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::typeDependanceTache._index', $typeDependanceTache_compact_value)->render();
+                return view('PkgRealisationTache::typeDependanceTache._index', $typeDependanceTache_compact_value)->render();
             }else{
                 return view($typeDependanceTache_partialViewName, $typeDependanceTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.index', $typeDependanceTache_compact_value);
+        return view('PkgRealisationTache::typeDependanceTache.index', $typeDependanceTache_compact_value);
     }
     /**
      */
@@ -75,9 +75,9 @@ class BaseTypeDependanceTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._fields', compact('bulkEdit' ,'itemTypeDependanceTache'));
+            return view('PkgRealisationTache::typeDependanceTache._fields', compact('bulkEdit' ,'itemTypeDependanceTache'));
         }
-        return view('PkgGestionTaches::typeDependanceTache.create', compact('bulkEdit' ,'itemTypeDependanceTache'));
+        return view('PkgRealisationTache::typeDependanceTache.create', compact('bulkEdit' ,'itemTypeDependanceTache'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -104,9 +104,9 @@ class BaseTypeDependanceTacheController extends AdminController
         $itemTypeDependanceTache = $this->typeDependanceTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._fields', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
+            return view('PkgRealisationTache::typeDependanceTache._fields', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
         }
-        return view('PkgGestionTaches::typeDependanceTache.bulk-edit', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
+        return view('PkgRealisationTache::typeDependanceTache.bulk-edit', compact('bulkEdit', 'typeDependanceTache_ids', 'itemTypeDependanceTache'));
     }
     /**
      */
@@ -117,7 +117,7 @@ class BaseTypeDependanceTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' => __('PkgGestionTaches::typeDependanceTache.singular')]);
+                'modelName' => __('PkgRealisationTache::typeDependanceTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -129,7 +129,7 @@ class BaseTypeDependanceTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' => __('PkgGestionTaches::typeDependanceTache.singular')
+                'modelName' => __('PkgRealisationTache::typeDependanceTache.singular')
             ])
         );
     }
@@ -150,10 +150,10 @@ class BaseTypeDependanceTacheController extends AdminController
         extract($dependanceTaches_view_data);
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
+            return view('PkgRealisationTache::typeDependanceTache._show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
+        return view('PkgRealisationTache::typeDependanceTache.show', array_merge(compact('itemTypeDependanceTache'),$dependanceTache_compact_value));
 
     }
     /**
@@ -178,10 +178,10 @@ class BaseTypeDependanceTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::typeDependanceTache._edit', array_merge(compact('bulkEdit' , 'itemTypeDependanceTache',),$dependanceTache_compact_value));
+            return view('PkgRealisationTache::typeDependanceTache._edit', array_merge(compact('bulkEdit' , 'itemTypeDependanceTache',),$dependanceTache_compact_value));
         }
 
-        return view('PkgGestionTaches::typeDependanceTache.edit', array_merge(compact('bulkEdit' ,'itemTypeDependanceTache',),$dependanceTache_compact_value));
+        return view('PkgRealisationTache::typeDependanceTache.edit', array_merge(compact('bulkEdit' ,'itemTypeDependanceTache',),$dependanceTache_compact_value));
 
 
     }
@@ -195,7 +195,7 @@ class BaseTypeDependanceTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' =>  __('PkgGestionTaches::typeDependanceTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::typeDependanceTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -207,7 +207,7 @@ class BaseTypeDependanceTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' =>  __('PkgGestionTaches::typeDependanceTache.singular')
+                'modelName' =>  __('PkgRealisationTache::typeDependanceTache.singular')
                 ])
         );
 
@@ -255,7 +255,7 @@ class BaseTypeDependanceTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' =>  __('PkgGestionTaches::typeDependanceTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::typeDependanceTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -267,7 +267,7 @@ class BaseTypeDependanceTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $typeDependanceTache,
-                'modelName' =>  __('PkgGestionTaches::typeDependanceTache.singular')
+                'modelName' =>  __('PkgRealisationTache::typeDependanceTache.singular')
                 ])
         );
 
@@ -287,7 +287,7 @@ class BaseTypeDependanceTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($typeDependanceTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::typeDependanceTache.plural')
+            'modelName' => __('PkgRealisationTache::typeDependanceTache.plural')
         ]));
     }
 
@@ -319,7 +319,7 @@ class BaseTypeDependanceTacheController extends AdminController
 
         return redirect()->route('typeDependanceTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::typeDependanceTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::typeDependanceTache.plural')
             ]));
 
 

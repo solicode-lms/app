@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::etatRealisationTache._fields')
+@extends('PkgRealisationTache::etatRealisationTache._fields')

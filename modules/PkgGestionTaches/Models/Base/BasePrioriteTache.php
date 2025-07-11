@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgRealisationTache\Models\Tache;
 
 /**
  * Classe BasePrioriteTache

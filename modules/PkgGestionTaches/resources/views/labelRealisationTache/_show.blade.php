@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::labelRealisationTache.nom')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::labelRealisationTache.nom')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemLabelRealisationTache->nom) && $itemLabelRealisationTache->nom !== '')
           {{ $itemLabelRealisationTache->nom }}
@@ -19,7 +19,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::labelRealisationTache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::labelRealisationTache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemLabelRealisationTache->description) && $itemLabelRealisationTache->description !== '')
     {!! $itemLabelRealisationTache->description !!}
@@ -85,7 +85,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::labelRealisationTache.singular") }} : {{ $itemLabelRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::labelRealisationTache.singular") }} : {{ $itemLabelRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -41,16 +41,16 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
         ];
         }else{
         return [
-            'tache_id' => __('PkgGestionTaches::realisationTache.tache_id'),
-            'realisation_projet_id' => __('PkgGestionTaches::realisationTache.realisation_projet_id'),
-            'dateDebut' => __('PkgGestionTaches::realisationTache.dateDebut'),
-            'dateFin' => __('PkgGestionTaches::realisationTache.dateFin'),
-            'remarque_evaluateur' => __('PkgGestionTaches::realisationTache.remarque_evaluateur'),
-            'etat_realisation_tache_id' => __('PkgGestionTaches::realisationTache.etat_realisation_tache_id'),
-            'note' => __('PkgGestionTaches::realisationTache.note'),
+            'tache_id' => __('PkgRealisationTache::realisationTache.tache_id'),
+            'realisation_projet_id' => __('PkgRealisationTache::realisationTache.realisation_projet_id'),
+            'dateDebut' => __('PkgRealisationTache::realisationTache.dateDebut'),
+            'dateFin' => __('PkgRealisationTache::realisationTache.dateFin'),
+            'remarque_evaluateur' => __('PkgRealisationTache::realisationTache.remarque_evaluateur'),
+            'etat_realisation_tache_id' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_id'),
+            'note' => __('PkgRealisationTache::realisationTache.note'),
             'reference' => __('Core::msg.reference'),
-            'remarques_formateur' => __('PkgGestionTaches::realisationTache.remarques_formateur'),
-            'remarques_apprenant' => __('PkgGestionTaches::realisationTache.remarques_apprenant'),
+            'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
+            'remarques_apprenant' => __('PkgRealisationTache::realisationTache.remarques_apprenant'),
         ];
 
         }

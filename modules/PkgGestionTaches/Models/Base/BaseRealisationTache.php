@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgRealisationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 
 /**
  * Classe BaseRealisationTache
@@ -81,7 +81,7 @@ class BaseRealisationTache extends BaseModel
     ];
     public $manyToOne = [
         'Tache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             "sortByPath" => "prioriteTache.ordre"
@@ -92,7 +92,7 @@ class BaseRealisationTache extends BaseModel
             "foreign_key" => "realisation_projet_id", 
             ],
         'EtatRealisationTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\EtatRealisationTache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\EtatRealisationTache",
             'relation' => 'etatRealisationTaches' , 
             "foreign_key" => "etat_realisation_tache_id", 
             "sortByPath" => "etatRealisationTache.workflowTache.ordre"

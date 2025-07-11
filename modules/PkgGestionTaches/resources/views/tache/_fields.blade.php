@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="ordre">
-            {{ ucfirst(__('PkgGestionTaches::tache.ordre')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.ordre')) }}
             
           </label>
                       <input
@@ -49,7 +49,7 @@
                 
                 
                 id="ordre"
-                placeholder="{{ __('PkgGestionTaches::tache.ordre') }}"
+                placeholder="{{ __('PkgRealisationTache::tache.ordre') }}"
                 value="{{ $itemTache ? $itemTache->ordre : old('ordre') }}">
           @error('ordre')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="titre">
-            {{ ucfirst(__('PkgGestionTaches::tache.titre')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.titre')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -78,7 +78,7 @@
                 
                 
                 id="titre"
-                placeholder="{{ __('PkgGestionTaches::tache.titre') }}"
+                placeholder="{{ __('PkgRealisationTache::tache.titre') }}"
                 value="{{ $itemTache ? $itemTache->titre : old('titre') }}">
           @error('titre')
             <div class="text-danger">{{ $message }}</div>
@@ -96,7 +96,7 @@
           </div>
           @endif
           <label for="priorite_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::tache.priorite_tache_id')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.priorite_tache_id')) }}
             
           </label>
                       <select 
@@ -164,7 +164,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgGestionTaches::tache.description')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -174,7 +174,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::tache.description') }}">{{ $itemTache ? $itemTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::tache.description') }}">{{ $itemTache ? $itemTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -191,7 +191,7 @@
           </div>
           @endif
           <label for="dateDebut">
-            {{ ucfirst(__('PkgGestionTaches::tache.dateDebut')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.dateDebut')) }}
             
           </label>
                       <input
@@ -202,7 +202,7 @@
                 
                 
                 id="dateDebut"
-                placeholder="{{ __('PkgGestionTaches::tache.dateDebut') }}"
+                placeholder="{{ __('PkgRealisationTache::tache.dateDebut') }}"
                 value="{{ $itemTache ? $itemTache->dateDebut : old('dateDebut') }}">
 
           @error('dateDebut')
@@ -221,7 +221,7 @@
           </div>
           @endif
           <label for="dateFin">
-            {{ ucfirst(__('PkgGestionTaches::tache.dateFin')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.dateFin')) }}
             
           </label>
                       <input
@@ -232,7 +232,7 @@
                 
                 
                 id="dateFin"
-                placeholder="{{ __('PkgGestionTaches::tache.dateFin') }}"
+                placeholder="{{ __('PkgRealisationTache::tache.dateFin') }}"
                 value="{{ $itemTache ? $itemTache->dateFin : old('dateFin') }}">
 
           @error('dateFin')
@@ -251,7 +251,7 @@
           </div>
           @endif
           <label for="note">
-            {{ ucfirst(__('PkgGestionTaches::tache.note')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.note')) }}
             
           </label>
               <input
@@ -263,7 +263,7 @@
         
         id="note"
         step="0.01"
-        placeholder="{{ __('PkgGestionTaches::tache.note') }}"
+        placeholder="{{ __('PkgRealisationTache::tache.note') }}"
         value="{{ $itemTache ? number_format($itemTache->note, 2, '.', '') : old('note') }}">
           @error('note')
             <div class="text-danger">{{ $message }}</div>
@@ -327,9 +327,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::tache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::tache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::tache.singular") }} : {{$itemTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::tache.singular") }} : {{$itemTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

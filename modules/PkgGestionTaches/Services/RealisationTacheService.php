@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Services;
+namespace Modules\PkgRealisationTache\Services;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,14 +12,14 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgGestionTaches\Models\RealisationTache;
-use Modules\PkgGestionTaches\Models\Tache;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
-use Modules\PkgGestionTaches\Services\Base\BaseRealisationTacheService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheServiceCrud;
-use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheServiceWidgets;
-use Modules\PkgGestionTaches\Services\RealisationTacheService\RealisationTacheWorkflow;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheServiceCrud;
+use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheServiceWidgets;
+use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheWorkflow;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
@@ -119,7 +119,7 @@ class RealisationTacheService extends BaseRealisationTacheService
 
         // Génération du filtre ManyToOne pour l'état de réalisation de tâche
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-            __('PkgGestionTaches::etatRealisationTache.plural'),
+            __('PkgRealisationTache::etatRealisationTache.plural'),
             'etat_realisation_tache_id',
             EtatRealisationTache::class,
             'nom',
@@ -141,9 +141,9 @@ class RealisationTacheService extends BaseRealisationTacheService
     
         // Génération du filtre Relation pour WorkflowTache
         $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __('PkgGestionTaches::workflowTache.plural'),
+                __('PkgRealisationTache::workflowTache.plural'),
                 'etatRealisationTache.WorkflowTache.Code',
-                \Modules\PkgGestionTaches\Models\WorkflowTache::class,
+                \Modules\PkgRealisationTache\Models\WorkflowTache::class,
                 'code',
                 'code',
                 $workflows
@@ -172,9 +172,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             default => Tache::all(),
         };
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-            __("PkgGestionTaches::tache.plural"),
+            __("PkgRealisationTache::tache.plural"),
             'tache_id',
-            \Modules\PkgGestionTaches\Models\Tache::class,
+            \Modules\PkgRealisationTache\Models\Tache::class,
             'titre',
             $taches
         );

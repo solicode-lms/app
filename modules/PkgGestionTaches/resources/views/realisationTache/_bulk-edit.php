@@ -8,7 +8,7 @@
         editUrl: '{{ route('realisationTaches.edit',  ['realisationTache' => ':id']) }}',
         indexUrl: '{{ route('realisationTaches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::realisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::realisationTache.singular") }}',
     });
 </script>
 <script>
@@ -30,11 +30,11 @@
                             </h3>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="realisationTache-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-home" role="tab" aria-controls="realisationTache-hasmany-tabs-home" aria-selected="true">{{__('PkgGestionTaches::realisationTache.singular')}}</a>
+                            <a class="nav-link active" id="realisationTache-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-home" role="tab" aria-controls="realisationTache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::realisationTache.singular')}}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationTache-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="realisationTache-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{__('PkgGestionTaches::historiqueRealisationTache.plural')}}</a>
+                            <a class="nav-link" id="realisationTache-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#realisationTache-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="realisationTache-hasmany-tabs-historiqueRealisationTache" aria-selected="false">{{__('PkgRealisationTache::historiqueRealisationTache.plural')}}</a>
                         </li>
 
                        
@@ -43,11 +43,11 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-realisationTache-tabContent">
                             <div class="tab-pane fade show active" id="realisationTache-hasmany-tabs-home" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-home-tab">
-                                @include('PkgGestionTaches::realisationTache._fields')
+                                @include('PkgRealisationTache::realisationTache._fields')
                             </div>
 
                             <div class="tab-pane fade" id="realisationTache-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="realisationTache-hasmany-tabs-historiqueRealisationTache-tab">
-                                @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+                                @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
                             </div>
 
                            

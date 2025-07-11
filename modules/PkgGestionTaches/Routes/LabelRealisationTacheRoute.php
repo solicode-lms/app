@@ -4,11 +4,11 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Modules\PkgGestionTaches\Controllers\LabelRealisationTacheController;
+use Modules\PkgRealisationTache\Controllers\LabelRealisationTacheController;
 
 // routes for labelRealisationTache management
 Route::middleware('auth')->group(function () {
-    Route::prefix('/admin/PkgGestionTaches')->group(function () {
+    Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('labelRealisationTaches/getData', [LabelRealisationTacheController::class, 'getData'])->name('labelRealisationTaches.getData');
         // bulk - edit and delete
         Route::post('labelRealisationTaches/bulk-delete', [LabelRealisationTacheController::class, 'bulkDelete'])

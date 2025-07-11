@@ -4,11 +4,11 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Modules\PkgGestionTaches\Controllers\WorkflowTacheController;
+use Modules\PkgRealisationTache\Controllers\WorkflowTacheController;
 
 // routes for workflowTache management
 Route::middleware('auth')->group(function () {
-    Route::prefix('/admin/PkgGestionTaches')->group(function () {
+    Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('workflowTaches/getData', [WorkflowTacheController::class, 'getData'])->name('workflowTaches.getData');
         // bulk - edit and delete
         Route::post('workflowTaches/bulk-delete', [WorkflowTacheController::class, 'bulkDelete'])

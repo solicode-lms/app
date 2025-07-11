@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Services;
-use Modules\PkgGestionTaches\Services\Base\BaseCommentaireRealisationTacheService;
+namespace Modules\PkgRealisationTache\Services;
+use Modules\PkgRealisationTache\Services\Base\BaseCommentaireRealisationTacheService;
 
 /**
  * Classe CommentaireRealisationTacheService pour gérer la persistance de l'entité CommentaireRealisationTache.

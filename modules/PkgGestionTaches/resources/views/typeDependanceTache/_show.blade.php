@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::typeDependanceTache.titre')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemTypeDependanceTache->titre) && $itemTypeDependanceTache->titre !== '')
           {{ $itemTypeDependanceTache->titre }}
@@ -19,7 +19,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::typeDependanceTache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemTypeDependanceTache->description) && $itemTypeDependanceTache->description !== '')
     {!! $itemTypeDependanceTache->description !!}
@@ -32,9 +32,9 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::dependanceTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::dependanceTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'typeDependanceTache.show_' . $itemTypeDependanceTache->id])
+                  @include('PkgRealisationTache::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'typeDependanceTache.show_' . $itemTypeDependanceTache->id])
             </div>
           </div>
       </div>
@@ -58,7 +58,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::typeDependanceTache.singular") }} : {{ $itemTypeDependanceTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::typeDependanceTache.singular") }} : {{ $itemTypeDependanceTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

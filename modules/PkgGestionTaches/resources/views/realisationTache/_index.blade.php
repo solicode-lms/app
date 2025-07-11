@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-realisationTache')),
         calculationUrl:  '{{ route('realisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::realisationTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::realisationTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::realisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::realisationTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="realisationTache-crud" class="crud">
     @section('realisationTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::realisationTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::realisationTache.singular");
     @endphp
     <x-crud-header 
         id="realisationTache-crud-header" icon="fas fa-laptop-code"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="realisationTache-data-container" class="data-container">
                     @if($realisationTache_viewType != "widgets")
-                    @include("PkgGestionTaches::realisationTache._$realisationTache_viewType")
+                    @include("PkgRealisationTache::realisationTache._$realisationTache_viewType")
                     @endif
                 </div>
                 @section('realisationTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="realisationTache-data-container-out" >
         @if($realisationTache_viewType == "widgets")
-        @include("PkgGestionTaches::realisationTache._$realisationTache_viewType")
+        @include("PkgRealisationTache::realisationTache._$realisationTache_viewType")
         @endif
     </section>
     @show

@@ -2,19 +2,19 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgAutorisation\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\HistoriqueRealisationTacheRequest;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\App\Requests\HistoriqueRealisationTacheRequest;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\HistoriqueRealisationTacheExport;
-use Modules\PkgGestionTaches\App\Imports\HistoriqueRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Exports\HistoriqueRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Imports\HistoriqueRealisationTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseHistoriqueRealisationTacheController extends AdminController
@@ -61,13 +61,13 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::historiqueRealisationTache._index', $historiqueRealisationTache_compact_value)->render();
+                return view('PkgRealisationTache::historiqueRealisationTache._index', $historiqueRealisationTache_compact_value)->render();
             }else{
                 return view($historiqueRealisationTache_partialViewName, $historiqueRealisationTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.index', $historiqueRealisationTache_compact_value);
+        return view('PkgRealisationTache::historiqueRealisationTache.index', $historiqueRealisationTache_compact_value);
     }
     /**
      */
@@ -82,9 +82,9 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+            return view('PkgRealisationTache::historiqueRealisationTache._fields', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
         }
-        return view('PkgGestionTaches::historiqueRealisationTache.create', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+        return view('PkgRealisationTache::historiqueRealisationTache.create', compact('bulkEdit' ,'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -113,9 +113,9 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+            return view('PkgRealisationTache::historiqueRealisationTache._fields', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
         }
-        return view('PkgGestionTaches::historiqueRealisationTache.bulk-edit', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
+        return view('PkgRealisationTache::historiqueRealisationTache.bulk-edit', compact('bulkEdit', 'historiqueRealisationTache_ids', 'itemHistoriqueRealisationTache', 'realisationTaches', 'users'));
     }
     /**
      */
@@ -126,7 +126,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' => __('PkgGestionTaches::historiqueRealisationTache.singular')]);
+                'modelName' => __('PkgRealisationTache::historiqueRealisationTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -138,7 +138,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' => __('PkgGestionTaches::historiqueRealisationTache.singular')
+                'modelName' => __('PkgRealisationTache::historiqueRealisationTache.singular')
             ])
         );
     }
@@ -152,10 +152,10 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._show', array_merge(compact('itemHistoriqueRealisationTache'),));
+            return view('PkgRealisationTache::historiqueRealisationTache._show', array_merge(compact('itemHistoriqueRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.show', array_merge(compact('itemHistoriqueRealisationTache'),));
+        return view('PkgRealisationTache::historiqueRealisationTache.show', array_merge(compact('itemHistoriqueRealisationTache'),));
 
     }
     /**
@@ -175,10 +175,10 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::historiqueRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+            return view('PkgRealisationTache::historiqueRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
         }
 
-        return view('PkgGestionTaches::historiqueRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
+        return view('PkgRealisationTache::historiqueRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemHistoriqueRealisationTache','realisationTaches', 'users'),));
 
 
     }
@@ -192,7 +192,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::historiqueRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::historiqueRealisationTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -204,7 +204,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::historiqueRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::historiqueRealisationTache.singular')
                 ])
         );
 
@@ -252,7 +252,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::historiqueRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::historiqueRealisationTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -264,7 +264,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $historiqueRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::historiqueRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::historiqueRealisationTache.singular')
                 ])
         );
 
@@ -284,7 +284,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($historiqueRealisationTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::historiqueRealisationTache.plural')
+            'modelName' => __('PkgRealisationTache::historiqueRealisationTache.plural')
         ]));
     }
 
@@ -316,7 +316,7 @@ class BaseHistoriqueRealisationTacheController extends AdminController
 
         return redirect()->route('historiqueRealisationTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::historiqueRealisationTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::historiqueRealisationTache.plural')
             ]));
 
 

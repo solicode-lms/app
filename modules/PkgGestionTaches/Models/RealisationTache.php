@@ -1,13 +1,13 @@
 <?php
  
 
-namespace Modules\PkgGestionTaches\Models;
+namespace Modules\PkgRealisationTache\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgCreationProjet\Models\Livrable;
-use Modules\PkgGestionTaches\Models\Base\BaseRealisationTache;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Models\Base\BaseRealisationTache;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 

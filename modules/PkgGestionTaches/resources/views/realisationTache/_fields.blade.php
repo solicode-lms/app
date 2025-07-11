@@ -42,7 +42,7 @@
           </div>
           @endif
           <label for="tache_id">
-            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -124,7 +124,7 @@
           </div>
           @endif
           <label for="dateDebut">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.dateDebut')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.dateDebut')) }}
             <span class="text-danger">*</span>
           </label>
                       <input
@@ -136,7 +136,7 @@
                 
                 id="dateDebut"
                 {{ $canEditdateDebut ? '' : 'disabled' }}
-                placeholder="{{ __('PkgGestionTaches::realisationTache.dateDebut') }}"
+                placeholder="{{ __('PkgRealisationTache::realisationTache.dateDebut') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateDebut : old('dateDebut') }}">
 
           @error('dateDebut')
@@ -156,7 +156,7 @@
           </div>
           @endif
           <label for="dateFin">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.dateFin')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.dateFin')) }}
             
           </label>
                       <input
@@ -168,7 +168,7 @@
                 
                 id="dateFin"
                 {{ $canEditdateFin ? '' : 'disabled' }}
-                placeholder="{{ __('PkgGestionTaches::realisationTache.dateFin') }}"
+                placeholder="{{ __('PkgRealisationTache::realisationTache.dateFin') }}"
                 value="{{ $itemRealisationTache ? $itemRealisationTache->dateFin : old('dateFin') }}">
 
           @error('dateFin')
@@ -198,7 +198,7 @@
           </div>
           @endif
           <label for="etat_realisation_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -234,7 +234,7 @@
           </div>
           @endif
           <label for="note">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.note')) }}
             
           </label>
               <input
@@ -247,7 +247,7 @@
         id="note"
         {{ $canEditnote ? '' : 'disabled' }}
         step="0.01"
-        placeholder="{{ __('PkgGestionTaches::realisationTache.note') }}"
+        placeholder="{{ __('PkgRealisationTache::realisationTache.note') }}"
         value="{{ $itemRealisationTache ? number_format($itemRealisationTache->note, 2, '.', '') : old('note') }}">
           @error('note')
             <div class="text-danger">{{ $message }}</div>
@@ -276,7 +276,7 @@
           </div>
           @endif
           <label for="remarques_formateur">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_formateur')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_formateur')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -287,7 +287,7 @@
                 
                 
                 id="remarques_formateur"
-                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::realisationTache.remarques_formateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_formateur : old('remarques_formateur') }}</textarea>
           @error('remarques_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -305,7 +305,7 @@
           </div>
           @endif
           <label for="remarques_apprenant">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.remarques_apprenant')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.remarques_apprenant')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -316,7 +316,7 @@
                 
                 
                 id="remarques_apprenant"
-                placeholder="{{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::realisationTache.remarques_apprenant') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarques_apprenant : old('remarques_apprenant') }}</textarea>
           @error('remarques_apprenant')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -341,7 +341,7 @@
           </div>
           @endif
           <label for="remarque_evaluateur">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -351,7 +351,7 @@
                 
                 
                 id="remarque_evaluateur"
-                placeholder="{{ __('PkgGestionTaches::realisationTache.remarque_evaluateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarque_evaluateur : old('remarque_evaluateur') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::realisationTache.remarque_evaluateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarque_evaluateur : old('remarque_evaluateur') }}</textarea>
           @error('remarque_evaluateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -381,11 +381,11 @@
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.plural')) }}
+            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}
             
     </label>
 
-  @include('PkgGestionTaches::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
@@ -412,9 +412,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::realisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::realisationTache.singular") }} : {{$itemRealisationTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::realisationTache.singular") }} : {{$itemRealisationTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

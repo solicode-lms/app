@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\TypeDependanceTache;
+use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -42,7 +42,7 @@ class BaseTypeDependanceTacheService extends BaseService
     {
         parent::__construct(new TypeDependanceTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::typeDependanceTache.plural');
+        $this->title = __('PkgRealisationTache::typeDependanceTache.plural');
     }
 
 
@@ -104,8 +104,8 @@ class BaseTypeDependanceTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::typeDependanceTache._table',
-            default => 'PkgGestionTaches::typeDependanceTache._table',
+            'table' => 'PkgRealisationTache::typeDependanceTache._table',
+            default => 'PkgRealisationTache::typeDependanceTache._table',
         };
     }
 

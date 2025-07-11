@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.commentaire')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemCommentaireRealisationTache->commentaire) && $itemCommentaireRealisationTache->commentaire !== '')
     {!! $itemCommentaireRealisationTache->commentaire !!}
@@ -19,7 +19,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.dateCommentaire')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.dateCommentaire')) }}</small>
                             
     <span>
       @if ($itemCommentaireRealisationTache->dateCommentaire)
@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
                               
       @if($itemCommentaireRealisationTache->realisationTache)
         {{ $itemCommentaireRealisationTache->realisationTache }}
@@ -93,7 +93,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::commentaireRealisationTache.singular") }} : {{ $itemCommentaireRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::commentaireRealisationTache.singular") }} : {{ $itemCommentaireRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

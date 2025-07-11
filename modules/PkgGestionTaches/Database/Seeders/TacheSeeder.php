@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Database\Seeders;
+namespace Modules\PkgRealisationTache\Database\Seeders;
 
-use Modules\PkgGestionTaches\Database\Seeders\Base\BaseTacheSeeder;
+use Modules\PkgRealisationTache\Database\Seeders\Base\BaseTacheSeeder;
 
 class TacheSeeder extends BaseTacheSeeder
 {

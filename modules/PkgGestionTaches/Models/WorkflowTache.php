@@ -1,8 +1,8 @@
 <?php
  
 
-namespace Modules\PkgGestionTaches\Models;
-use Modules\PkgGestionTaches\Models\Base\BaseWorkflowTache;
+namespace Modules\PkgRealisationTache\Models;
+use Modules\PkgRealisationTache\Models\Base\BaseWorkflowTache;
 
 class WorkflowTache extends BaseWorkflowTache
 { 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Modules\PkgGestionTaches\Services;
+namespace Modules\PkgRealisationTache\Services;
 
-use Modules\PkgGestionTaches\Models\WorkflowTache;
-use Modules\PkgGestionTaches\Services\Base\BaseWorkflowTacheService;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Services\Base\BaseWorkflowTacheService;
 
 /**
  * Classe WorkflowTacheService pour gérer la persistance de l'entité WorkflowTache.

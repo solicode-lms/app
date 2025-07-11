@@ -15,7 +15,7 @@
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->
-                        @include('PkgGestionTaches::historiqueRealisationTache._fields')
+                        @include('PkgRealisationTache::historiqueRealisationTache._fields')
                     </div>
                 </div>
             </div>

@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-workflowTache')),
         calculationUrl:  '{{ route('workflowTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::workflowTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::workflowTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::workflowTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::workflowTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="workflowTache-crud" class="crud">
     @section('workflowTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::workflowTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::workflowTache.singular");
     @endphp
     <x-crud-header 
         id="workflowTache-crud-header" icon="fas fa-check-square"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="workflowTache-data-container" class="data-container">
                     @if($workflowTache_viewType != "widgets")
-                    @include("PkgGestionTaches::workflowTache._$workflowTache_viewType")
+                    @include("PkgRealisationTache::workflowTache._$workflowTache_viewType")
                     @endif
                 </div>
                 @section('workflowTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="workflowTache-data-container-out" >
         @if($workflowTache_viewType == "widgets")
-        @include("PkgGestionTaches::workflowTache._$workflowTache_viewType")
+        @include("PkgRealisationTache::workflowTache._$workflowTache_viewType")
         @endif
     </section>
     @show

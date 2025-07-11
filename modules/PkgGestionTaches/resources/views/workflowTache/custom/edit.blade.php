@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::workflowTache.edit')
+@extends('PkgRealisationTache::workflowTache.edit')

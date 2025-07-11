@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\Database\Seeders;
+namespace Modules\PkgRealisationTache\Database\Seeders;
 
-use Modules\PkgGestionTaches\Database\Seeders\Base\BaseTypeDependanceTacheSeeder;
+use Modules\PkgRealisationTache\Database\Seeders\Base\BaseTypeDependanceTacheSeeder;
 
 class TypeDependanceTacheSeeder extends BaseTypeDependanceTacheSeeder
 {

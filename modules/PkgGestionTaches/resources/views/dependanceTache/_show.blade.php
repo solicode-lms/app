@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.singular')) }}</small>
                               
       @if($itemDependanceTache->tache)
         {{ $itemDependanceTache->tache }}
@@ -20,7 +20,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::typeDependanceTache.singular')) }}</small>
                               
       @if($itemDependanceTache->typeDependanceTache)
         {{ $itemDependanceTache->typeDependanceTache }}
@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::tache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.singular')) }}</small>
                               
       @if($itemDependanceTache->tache)
         {{ $itemDependanceTache->tache }}
@@ -65,7 +65,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::dependanceTache.singular") }} : {{ $itemDependanceTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::dependanceTache.singular") }} : {{ $itemDependanceTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

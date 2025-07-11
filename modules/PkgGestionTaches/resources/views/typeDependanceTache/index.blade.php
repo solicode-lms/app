@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_title('PkgGestionTaches::typeDependanceTache'))
+@section('title', curd_index_title('PkgRealisationTache::typeDependanceTache'))
 @section('content')
-    @include('PkgGestionTaches::typeDependanceTache._index')
+    @include('PkgRealisationTache::typeDependanceTache._index')
 @endsection

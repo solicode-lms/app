@@ -4,11 +4,11 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Modules\PkgGestionTaches\Controllers\EtatRealisationTacheController;
+use Modules\PkgRealisationTache\Controllers\EtatRealisationTacheController;
 
 // routes for etatRealisationTache management
 Route::middleware('auth')->group(function () {
-    Route::prefix('/admin/PkgGestionTaches')->group(function () {
+    Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('etatRealisationTaches/getData', [EtatRealisationTacheController::class, 'getData'])->name('etatRealisationTaches.getData');
         // bulk - edit and delete
         Route::post('etatRealisationTaches/bulk-delete', [EtatRealisationTacheController::class, 'bulkDelete'])

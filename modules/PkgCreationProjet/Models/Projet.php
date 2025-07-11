@@ -5,7 +5,7 @@ namespace Modules\PkgCreationProjet\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\PkgCreationProjet\Models\Base\BaseProjet;
-use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgRealisationTache\Models\Tache;
 
 class Projet extends BaseProjet
 {

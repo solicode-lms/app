@@ -8,10 +8,10 @@
                 $bulkEdit = Auth::user()->can('edit-realisationTache') || Auth::user()->can('destroy-realisationTache');
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
-                <x-sortable-column :sortable="true" width="15"  field="note" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.note'))}}" />
-                <x-sortable-column :sortable="true" width="20"  field="remarque_evaluateur" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur'))}}" />
+                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="note" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.note'))}}" />
+                <x-sortable-column :sortable="true" width="20"  field="remarque_evaluateur" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur'))}}" />
 
                 
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -30,16 +30,16 @@
                        
                          {{  $realisationTache->tache }}
                         <span class="d-block text-muted small" title="{{$realisationTache->tache->projet->titre }} " data-toggle="tooltip">
-                                — {{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}} :  {{  $realisationTache->tache->projet->titre }}
+                                — {{ucfirst(__('PkgRealisationTache::realisationTache.projet_title'))}} :  {{  $realisationTache->tache->projet->titre }}
                         </span>
                         <span class="d-block text-muted small" title="{{ $realisationTache->nom_prenom_apprenant }} " data-toggle="tooltip">
-                                — {{ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant'))}} :  {{ $realisationTache->nom_prenom_apprenant }}
+                                — {{ucfirst(__('PkgRealisationTache::realisationTache.nom_prenom_apprenant'))}} :  {{ $realisationTache->nom_prenom_apprenant }}
                         </span>
 
                         <span class="d-block text-muted small" title="{{ $realisationTache->etatRealisationTache }} " data-toggle="tooltip">
                             @if(!empty($realisationTache->etatRealisationTache))
                             
-                             —  {{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}} :  
+                             —  {{ucfirst(__('PkgRealisationTache::etatRealisationTache.singular'))}} :  
                              <x-badge 
                             :text="$realisationTache->etatRealisationTache" 
                             :background="$realisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
@@ -47,7 +47,7 @@
                             @endif
                         </span>
                         <span class="d-block text-muted small" title="{{ $realisationTache->deadline }} " data-toggle="tooltip">
-                                — {{ucfirst(__('PkgGestionTaches::realisationTache.deadline'))}} : <x-deadline-display :value="$realisationTache->deadline" />
+                                — {{ucfirst(__('PkgRealisationTache::realisationTache.deadline'))}} : <x-deadline-display :value="$realisationTache->deadline" />
                         </span>
                        
                         

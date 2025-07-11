@@ -2,9 +2,9 @@
  
 
 
-namespace Modules\PkgGestionTaches\App\Requests;
-use Modules\PkgGestionTaches\App\Requests\Base\BaseRealisationTacheRequest;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+namespace Modules\PkgRealisationTache\App\Requests;
+use Modules\PkgRealisationTache\App\Requests\Base\BaseRealisationTacheRequest;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 
 class RealisationTacheRequest extends BaseRealisationTacheRequest
 {

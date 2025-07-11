@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 
 class BaseHistoriqueRealisationTacheRequest extends FormRequest
 {
@@ -45,11 +45,11 @@ class BaseHistoriqueRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'changement.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.changement')]),
-            'dateModification.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.dateModification')]),
-            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.realisation_tache_id')]),
-            'user_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.user_id')]),
-            'isFeedback.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::HistoriqueRealisationTache.isFeedback')])
+            'changement.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::HistoriqueRealisationTache.changement')]),
+            'dateModification.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::HistoriqueRealisationTache.dateModification')]),
+            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::HistoriqueRealisationTache.realisation_tache_id')]),
+            'user_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::HistoriqueRealisationTache.user_id')]),
+            'isFeedback.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::HistoriqueRealisationTache.isFeedback')])
         ];
     }
 

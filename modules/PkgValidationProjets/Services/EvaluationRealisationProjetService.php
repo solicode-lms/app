@@ -10,7 +10,7 @@ use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
@@ -123,7 +123,7 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
 
         // // Génération du filtre ManyToOne pour l'état de réalisation de tâche
         // $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-        //     __('PkgGestionTaches::etatRealisationTache.plural'),
+        //     __('PkgRealisationTache::etatRealisationTache.plural'),
         //     'etat_realisation_tache_id',
         //     EtatRealisationTache::class,
         //     'nom',
@@ -145,9 +145,9 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
     
         // // Génération du filtre Relation pour WorkflowTache
         // $this->fieldsFilterable[] = $this->generateRelationFilter(
-        //         __('PkgGestionTaches::workflowTache.plural'),
+        //         __('PkgRealisationTache::workflowTache.plural'),
         //         'etatRealisationTache.WorkflowTache.Code',
-        //         \Modules\PkgGestionTaches\Models\WorkflowTache::class,
+        //         \Modules\PkgRealisationTache\Models\WorkflowTache::class,
         //         'code',
         //         'code',
         //         $workflows
@@ -165,9 +165,9 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //     default => Tache::all(),
         // };
         // $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-        //     __("PkgGestionTaches::tache.plural"),
+        //     __("PkgRealisationTache::tache.plural"),
         //     'tache_id',
-        //     \Modules\PkgGestionTaches\Models\Tache::class,
+        //     \Modules\PkgRealisationTache\Models\Tache::class,
         //     'titre',
         //     $taches
         // );
@@ -188,7 +188,7 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
      * afin qu’il y ait exactement une ligne par (realisation_projet_id, evaluateur_id)
      * pour tous les évaluateurs actuellement affectés à ce projet, sur toutes les réalisations du projet.
      *
-     * @param  \Modules\PkgGestionTaches\Models\AffectationProjet  $affectationProjet
+     * @param  \Modules\PkgRealisationTache\Models\AffectationProjet  $affectationProjet
      * @return void
      */
     public function SyncEvaluationRealisationProjet($affectationProjet)

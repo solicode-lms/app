@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::prioriteTache.edit')
+@extends('PkgRealisationTache::prioriteTache.edit')

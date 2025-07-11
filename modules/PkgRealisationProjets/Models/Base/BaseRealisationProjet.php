@@ -14,7 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 

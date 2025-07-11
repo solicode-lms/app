@@ -4,7 +4,7 @@ namespace Modules\PkgValidationProjets\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
 use Modules\PkgValidationProjets\Services\Base\BaseEvaluationRealisationTacheService;
 

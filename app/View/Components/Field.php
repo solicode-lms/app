@@ -32,10 +32,10 @@ class Field extends Component
         $partial = $this->partial;
 
         if (!$partial) {
-            $modelClass = get_class($this->entity); // Ex: Modules\PkgGestionTaches\Models\RealisationTache
+            $modelClass = get_class($this->entity); // Ex: Modules\PkgRealisationTache\Models\RealisationTache
             $parts = explode('\\', $modelClass);
 
-            $package = $parts[1] ?? 'PkgCore'; // PkgGestionTaches
+            $package = $parts[1] ?? 'PkgCore'; // PkgRealisationTache
             $model   = class_basename($modelClass); // RealisationTache
 
             $partial = $package . '::' . lcfirst($model) . '.custom.fields.' . $this->field;

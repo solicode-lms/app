@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::labelRealisationTache.show')
+@extends('PkgRealisationTache::labelRealisationTache.show')

@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -45,7 +45,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     {
         parent::__construct(new HistoriqueRealisationTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::historiqueRealisationTache.plural');
+        $this->title = __('PkgRealisationTache::historiqueRealisationTache.plural');
     }
 
 
@@ -57,7 +57,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     
 
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgGestionTaches\Models\RealisationTache::class, 'id');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
         }
 
         if (!array_key_exists('user_id', $scopeVariables)) {
@@ -115,8 +115,8 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::historiqueRealisationTache._table',
-            default => 'PkgGestionTaches::historiqueRealisationTache._table',
+            'table' => 'PkgRealisationTache::historiqueRealisationTache._table',
+            default => 'PkgRealisationTache::historiqueRealisationTache._table',
         };
     }
 

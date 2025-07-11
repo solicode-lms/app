@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="changement">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement')) }}
+            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement')) }}
             <span class="text-danger">*</span>
           </label>
                       <textarea rows="" cols=""
@@ -48,7 +48,7 @@
                 
                 
                 id="changement"
-                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::historiqueRealisationTache.changement') }}">{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->changement : old('changement') }}</textarea>
           @error('changement')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -66,7 +66,7 @@
           </div>
           @endif
           <label for="dateModification">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification')) }}
+            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification')) }}
             <span class="text-danger">*</span>
           </label>
                       <input
@@ -78,7 +78,7 @@
                 
                 id="dateModification"
                 {{ $canEditdateModification ? '' : 'disabled' }}
-                placeholder="{{ __('PkgGestionTaches::historiqueRealisationTache.dateModification') }}"
+                placeholder="{{ __('PkgRealisationTache::historiqueRealisationTache.dateModification') }}"
                 value="{{ $itemHistoriqueRealisationTache ? $itemHistoriqueRealisationTache->dateModification : old('dateModification') }}">
 
           @error('dateModification')
@@ -97,7 +97,7 @@
           </div>
           @endif
           <label for="realisation_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -168,7 +168,7 @@
           </div>
           @endif
           <label for="isFeedback">
-            {{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.isFeedback')) }}
+            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.isFeedback')) }}
             
           </label>
                       <input type="hidden" name="isFeedback" value="0">
@@ -211,9 +211,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::historiqueRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{$itemHistoriqueRealisationTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::historiqueRealisationTache.singular") }} : {{$itemHistoriqueRealisationTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

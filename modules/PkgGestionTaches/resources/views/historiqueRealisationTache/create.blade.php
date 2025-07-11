@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_add_label('PkgGestionTaches::historiqueRealisationTache'))
+@section('title', curd_index_add_label('PkgRealisationTache::historiqueRealisationTache'))
 
 @section('content')
     <div class="content-header">
@@ -14,11 +14,11 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-history"></i>
-                                {{ curd_index_add_label('PkgGestionTaches::historiqueRealisationTache') }}
+                                {{ curd_index_add_label('PkgRealisationTache::historiqueRealisationTache') }}
                             </h3>
                         </div>
                         <!-- Obtenir le formulaire -->
-                        @include('PkgGestionTaches::historiqueRealisationTache._fields')
+                        @include('PkgRealisationTache::historiqueRealisationTache._fields')
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_add_label('PkgGestionTaches::typeDependanceTache'))
+@section('title', curd_index_add_label('PkgRealisationTache::typeDependanceTache'))
 
 @section('content')
     <div class="content-header">
@@ -14,11 +14,11 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-random"></i>
-                                {{ curd_index_add_label('PkgGestionTaches::typeDependanceTache') }}
+                                {{ curd_index_add_label('PkgRealisationTache::typeDependanceTache') }}
                             </h3>
                         </div>
                         <!-- Obtenir le formulaire -->
-                        @include('PkgGestionTaches::typeDependanceTache._fields')
+                        @include('PkgRealisationTache::typeDependanceTache._fields')
                     </div>
                 </div>
             </div>

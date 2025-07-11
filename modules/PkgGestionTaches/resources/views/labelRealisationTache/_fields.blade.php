@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="nom">
-            {{ ucfirst(__('PkgGestionTaches::labelRealisationTache.nom')) }}
+            {{ ucfirst(__('PkgRealisationTache::labelRealisationTache.nom')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -49,7 +49,7 @@
                 
                 
                 id="nom"
-                placeholder="{{ __('PkgGestionTaches::labelRealisationTache.nom') }}"
+                placeholder="{{ __('PkgRealisationTache::labelRealisationTache.nom') }}"
                 value="{{ $itemLabelRealisationTache ? $itemLabelRealisationTache->nom : old('nom') }}">
           @error('nom')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgGestionTaches::labelRealisationTache.description')) }}
+            {{ ucfirst(__('PkgRealisationTache::labelRealisationTache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -77,7 +77,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::labelRealisationTache.description') }}">{{ $itemLabelRealisationTache ? $itemLabelRealisationTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::labelRealisationTache.description') }}">{{ $itemLabelRealisationTache ? $itemLabelRealisationTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -174,9 +174,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::labelRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::labelRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::labelRealisationTache.singular") }} : {{$itemLabelRealisationTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::labelRealisationTache.singular") }} : {{$itemLabelRealisationTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

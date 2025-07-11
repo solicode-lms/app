@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-typeDependanceTache')),
         calculationUrl:  '{{ route('typeDependanceTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::typeDependanceTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::typeDependanceTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="typeDependanceTache-crud" class="crud">
     @section('typeDependanceTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::typeDependanceTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::typeDependanceTache.singular");
     @endphp
     <x-crud-header 
         id="typeDependanceTache-crud-header" icon="fas fa-random"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="typeDependanceTache-data-container" class="data-container">
                     @if($typeDependanceTache_viewType != "widgets")
-                    @include("PkgGestionTaches::typeDependanceTache._$typeDependanceTache_viewType")
+                    @include("PkgRealisationTache::typeDependanceTache._$typeDependanceTache_viewType")
                     @endif
                 </div>
                 @section('typeDependanceTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="typeDependanceTache-data-container-out" >
         @if($typeDependanceTache_viewType == "widgets")
-        @include("PkgGestionTaches::typeDependanceTache._$typeDependanceTache_viewType")
+        @include("PkgRealisationTache::typeDependanceTache._$typeDependanceTache_viewType")
         @endif
     </section>
     @show

@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports;
+namespace Modules\PkgRealisationTache\App\Exports;
 
-use Modules\PkgGestionTaches\App\Exports\Base\BaseHistoriqueRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Exports\Base\BaseHistoriqueRealisationTacheExport;
 
 class HistoriqueRealisationTacheExport extends BaseHistoriqueRealisationTacheExport {
   

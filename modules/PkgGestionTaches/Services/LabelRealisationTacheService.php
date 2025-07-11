@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Services;
-use Modules\PkgGestionTaches\Services\Base\BaseLabelRealisationTacheService;
+namespace Modules\PkgRealisationTache\Services;
+use Modules\PkgRealisationTache\Services\Base\BaseLabelRealisationTacheService;
 
 /**
  * Classe LabelRealisationTacheService pour gérer la persistance de l'entité LabelRealisationTache.

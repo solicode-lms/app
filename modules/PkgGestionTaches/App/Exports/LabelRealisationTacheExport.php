@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports;
+namespace Modules\PkgRealisationTache\App\Exports;
 
-use Modules\PkgGestionTaches\App\Exports\Base\BaseLabelRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Exports\Base\BaseLabelRealisationTacheExport;
 
 class LabelRealisationTacheExport extends BaseLabelRealisationTacheExport {
   

@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="commentaire">
-            {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.commentaire')) }}
+            {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.commentaire')) }}
             <span class="text-danger">*</span>
           </label>
                       <textarea rows="" cols=""
@@ -48,7 +48,7 @@
                 
                 
                 id="commentaire"
-                placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::commentaireRealisationTache.commentaire') }}">{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->commentaire : old('commentaire') }}</textarea>
           @error('commentaire')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -65,7 +65,7 @@
           </div>
           @endif
           <label for="dateCommentaire">
-            {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.dateCommentaire')) }}
+            {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.dateCommentaire')) }}
             <span class="text-danger">*</span>
           </label>
                       <input
@@ -76,7 +76,7 @@
                 
                 
                 id="dateCommentaire"
-                placeholder="{{ __('PkgGestionTaches::commentaireRealisationTache.dateCommentaire') }}"
+                placeholder="{{ __('PkgRealisationTache::commentaireRealisationTache.dateCommentaire') }}"
                 value="{{ $itemCommentaireRealisationTache ? $itemCommentaireRealisationTache->dateCommentaire : old('dateCommentaire') }}">
 
           @error('dateCommentaire')
@@ -95,7 +95,7 @@
           </div>
           @endif
           <label for="realisation_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -209,9 +209,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::commentaireRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::commentaireRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::commentaireRealisationTache.singular") }} : {{$itemCommentaireRealisationTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::commentaireRealisationTache.singular") }} : {{$itemCommentaireRealisationTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

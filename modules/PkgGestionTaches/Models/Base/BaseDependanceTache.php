@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\Tache;
-use Modules\PkgGestionTaches\Models\TypeDependanceTache;
+use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 
 /**
  * Classe BaseDependanceTache
@@ -50,17 +50,17 @@ class BaseDependanceTache extends BaseModel
     ];
     public $manyToOne = [
         'Tache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             ],
         'TypeDependanceTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\TypeDependanceTache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\TypeDependanceTache",
             'relation' => 'typeDependanceTaches' , 
             "foreign_key" => "type_dependance_tache_id", 
             ],
         'Tache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\Tache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             ]

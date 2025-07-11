@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 
 class BaseEtatRealisationTacheRequest extends FormRequest
 {
@@ -46,13 +46,13 @@ class BaseEtatRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'workflow_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.workflow_tache_id')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.sys_color_id')]),
-            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.is_editable_only_by_formateur')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.formateur_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::EtatRealisationTache.description')])
+            'workflow_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.workflow_tache_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.sys_color_id')]),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.is_editable_only_by_formateur')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.formateur_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.description')])
         ];
     }
 

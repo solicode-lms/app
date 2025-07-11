@@ -227,18 +227,18 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::commentaireRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  @include('PkgRealisationTache::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
             </div>
           </div>
       </div>
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
             </div>
           </div>
       </div>
@@ -254,18 +254,18 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::labelRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::labelRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  @include('PkgRealisationTache::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
             </div>
           </div>
       </div>
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::prioriteTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::prioriteTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  @include('PkgRealisationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
             </div>
           </div>
       </div>

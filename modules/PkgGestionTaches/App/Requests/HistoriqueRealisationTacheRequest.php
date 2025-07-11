@@ -3,8 +3,8 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests;
-use Modules\PkgGestionTaches\App\Requests\Base\BaseHistoriqueRealisationTacheRequest;
+namespace Modules\PkgRealisationTache\App\Requests;
+use Modules\PkgRealisationTache\App\Requests\Base\BaseHistoriqueRealisationTacheRequest;
 
 class HistoriqueRealisationTacheRequest extends BaseHistoriqueRealisationTacheRequest
 {

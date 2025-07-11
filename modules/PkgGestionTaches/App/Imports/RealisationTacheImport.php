@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Imports;
+namespace Modules\PkgRealisationTache\App\Imports;
 
-use Modules\PkgGestionTaches\App\Imports\Base\BaseRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Imports\Base\BaseRealisationTacheImport;
 
 class RealisationTacheImport extends BaseRealisationTacheImport
 {

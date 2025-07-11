@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Services\RealisationTacheService;
+namespace Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

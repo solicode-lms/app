@@ -3,10 +3,10 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Providers;
-use Modules\PkgGestionTaches\App\Providers\Base\BasePkgGestionTachesServiceProvider;
+namespace Modules\PkgRealisationTache\App\Providers;
+use Modules\PkgRealisationTache\App\Providers\Base\BasePkgRealisationTacheServiceProvider;
 
-class PkgGestionTachesServiceProvider extends BasePkgGestionTachesServiceProvider
+class PkgRealisationTacheServiceProvider extends BasePkgRealisationTacheServiceProvider
 {
     
 }

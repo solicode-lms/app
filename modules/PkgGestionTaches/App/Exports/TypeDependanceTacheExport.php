@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports;
+namespace Modules\PkgRealisationTache\App\Exports;
 
-use Modules\PkgGestionTaches\App\Exports\Base\BaseTypeDependanceTacheExport;
+use Modules\PkgRealisationTache\App\Exports\Base\BaseTypeDependanceTacheExport;
 
 class TypeDependanceTacheExport extends BaseTypeDependanceTacheExport {
   

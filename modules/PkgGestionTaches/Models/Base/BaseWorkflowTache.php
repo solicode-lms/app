@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\Core\Models\SysColor;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 
 /**
  * Classe BaseWorkflowTache

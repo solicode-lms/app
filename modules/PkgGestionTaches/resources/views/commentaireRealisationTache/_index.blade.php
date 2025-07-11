@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-commentaireRealisationTache')),
         calculationUrl:  '{{ route('commentaireRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::commentaireRealisationTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::commentaireRealisationTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::commentaireRealisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::commentaireRealisationTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="commentaireRealisationTache-crud" class="crud">
     @section('commentaireRealisationTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::commentaireRealisationTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::commentaireRealisationTache.singular");
     @endphp
     <x-crud-header 
         id="commentaireRealisationTache-crud-header" icon="fas fa-comments"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="commentaireRealisationTache-data-container" class="data-container">
                     @if($commentaireRealisationTache_viewType != "widgets")
-                    @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
+                    @include("PkgRealisationTache::commentaireRealisationTache._$commentaireRealisationTache_viewType")
                     @endif
                 </div>
                 @section('commentaireRealisationTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="commentaireRealisationTache-data-container-out" >
         @if($commentaireRealisationTache_viewType == "widgets")
-        @include("PkgGestionTaches::commentaireRealisationTache._$commentaireRealisationTache_viewType")
+        @include("PkgRealisationTache::commentaireRealisationTache._$commentaireRealisationTache_viewType")
         @endif
     </section>
     @show

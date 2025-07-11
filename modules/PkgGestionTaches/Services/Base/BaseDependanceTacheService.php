@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\DependanceTache;
+use Modules\PkgRealisationTache\Models\DependanceTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -43,7 +43,7 @@ class BaseDependanceTacheService extends BaseService
     {
         parent::__construct(new DependanceTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::dependanceTache.plural');
+        $this->title = __('PkgRealisationTache::dependanceTache.plural');
     }
 
 
@@ -55,15 +55,15 @@ class BaseDependanceTacheService extends BaseService
     
 
         if (!array_key_exists('tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::tache.plural"), 'tache_id', \Modules\PkgRealisationTache\Models\Tache::class, 'titre');
         }
 
         if (!array_key_exists('type_dependance_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::typeDependanceTache.plural"), 'type_dependance_tache_id', \Modules\PkgGestionTaches\Models\TypeDependanceTache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::typeDependanceTache.plural"), 'type_dependance_tache_id', \Modules\PkgRealisationTache\Models\TypeDependanceTache::class, 'titre');
         }
 
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_cible_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::tache.plural"), 'tache_cible_id', \Modules\PkgRealisationTache\Models\Tache::class, 'titre');
         }
 
     }
@@ -117,8 +117,8 @@ class BaseDependanceTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::dependanceTache._table',
-            default => 'PkgGestionTaches::dependanceTache._table',
+            'table' => 'PkgRealisationTache::dependanceTache._table',
+            default => 'PkgRealisationTache::dependanceTache._table',
         };
     }
 

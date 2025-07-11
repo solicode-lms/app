@@ -15,11 +15,11 @@ use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
-use Modules\PkgGestionTaches\Models\PrioriteTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\PrioriteTache;
 
 /**
  * Classe BaseFormateur

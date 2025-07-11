@@ -24,14 +24,14 @@
     @endif
 
     <label for="remarque_evaluateur">
-        {{ ucfirst(__('PkgGestionTaches::realisationTache.remarque_evaluateur')) }}
+        {{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}
     </label>
 
     <textarea
         name="remarque_evaluateur"
         id="remarque_evaluateur"
         class="form-control richText"
-        placeholder="{{ __('PkgGestionTaches::realisationTache.remarque_evaluateur') }}"
+        placeholder="{{ __('PkgRealisationTache::realisationTache.remarque_evaluateur') }}"
     >{{ old('remarque_evaluateur', $displayMessage) }}</textarea>
 
     @error('remarque_evaluateur')

@@ -104,8 +104,8 @@
 
 },
 
-"PkgGestionTaches": {
-    "name": "PkgGestionTaches",
+"PkgRealisationTache": {
+    "name": "PkgRealisationTache",
     "tables": [
         "etat_realisation_taches",
         "label_realisation_taches",

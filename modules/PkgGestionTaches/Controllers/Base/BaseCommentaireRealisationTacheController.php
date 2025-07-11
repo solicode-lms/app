@@ -2,20 +2,20 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\CommentaireRealisationTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\CommentaireRealisationTacheService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\CommentaireRealisationTacheRequest;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\App\Requests\CommentaireRealisationTacheRequest;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\CommentaireRealisationTacheExport;
-use Modules\PkgGestionTaches\App\Imports\CommentaireRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Exports\CommentaireRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Imports\CommentaireRealisationTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseCommentaireRealisationTacheController extends AdminController
@@ -64,13 +64,13 @@ class BaseCommentaireRealisationTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::commentaireRealisationTache._index', $commentaireRealisationTache_compact_value)->render();
+                return view('PkgRealisationTache::commentaireRealisationTache._index', $commentaireRealisationTache_compact_value)->render();
             }else{
                 return view($commentaireRealisationTache_partialViewName, $commentaireRealisationTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.index', $commentaireRealisationTache_compact_value);
+        return view('PkgRealisationTache::commentaireRealisationTache.index', $commentaireRealisationTache_compact_value);
     }
     /**
      */
@@ -86,9 +86,9 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+            return view('PkgRealisationTache::commentaireRealisationTache._fields', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
         }
-        return view('PkgGestionTaches::commentaireRealisationTache.create', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+        return view('PkgRealisationTache::commentaireRealisationTache.create', compact('bulkEdit' ,'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -118,9 +118,9 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', compact('bulkEdit', 'commentaireRealisationTache_ids', 'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+            return view('PkgRealisationTache::commentaireRealisationTache._fields', compact('bulkEdit', 'commentaireRealisationTache_ids', 'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
         }
-        return view('PkgGestionTaches::commentaireRealisationTache.bulk-edit', compact('bulkEdit', 'commentaireRealisationTache_ids', 'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
+        return view('PkgRealisationTache::commentaireRealisationTache.bulk-edit', compact('bulkEdit', 'commentaireRealisationTache_ids', 'itemCommentaireRealisationTache', 'apprenants', 'formateurs', 'realisationTaches'));
     }
     /**
      */
@@ -131,7 +131,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' => __('PkgGestionTaches::commentaireRealisationTache.singular')]);
+                'modelName' => __('PkgRealisationTache::commentaireRealisationTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -143,7 +143,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' => __('PkgGestionTaches::commentaireRealisationTache.singular')
+                'modelName' => __('PkgRealisationTache::commentaireRealisationTache.singular')
             ])
         );
     }
@@ -157,10 +157,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._show', array_merge(compact('itemCommentaireRealisationTache'),));
+            return view('PkgRealisationTache::commentaireRealisationTache._show', array_merge(compact('itemCommentaireRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.show', array_merge(compact('itemCommentaireRealisationTache'),));
+        return view('PkgRealisationTache::commentaireRealisationTache.show', array_merge(compact('itemCommentaireRealisationTache'),));
 
     }
     /**
@@ -181,10 +181,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::commentaireRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+            return view('PkgRealisationTache::commentaireRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
         }
 
-        return view('PkgGestionTaches::commentaireRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
+        return view('PkgRealisationTache::commentaireRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemCommentaireRealisationTache','apprenants', 'formateurs', 'realisationTaches'),));
 
 
     }
@@ -198,7 +198,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::commentaireRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::commentaireRealisationTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -210,7 +210,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::commentaireRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::commentaireRealisationTache.singular')
                 ])
         );
 
@@ -258,7 +258,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::commentaireRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::commentaireRealisationTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -270,7 +270,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $commentaireRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::commentaireRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::commentaireRealisationTache.singular')
                 ])
         );
 
@@ -290,7 +290,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($commentaireRealisationTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::commentaireRealisationTache.plural')
+            'modelName' => __('PkgRealisationTache::commentaireRealisationTache.plural')
         ]));
     }
 
@@ -322,7 +322,7 @@ class BaseCommentaireRealisationTacheController extends AdminController
 
         return redirect()->route('commentaireRealisationTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::commentaireRealisationTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::commentaireRealisationTache.plural')
             ]));
 
 

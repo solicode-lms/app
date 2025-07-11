@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="titre">
-            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.titre')) }}
+            {{ ucfirst(__('PkgRealisationTache::typeDependanceTache.titre')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -49,7 +49,7 @@
                 
                 
                 id="titre"
-                placeholder="{{ __('PkgGestionTaches::typeDependanceTache.titre') }}"
+                placeholder="{{ __('PkgRealisationTache::typeDependanceTache.titre') }}"
                 value="{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->titre : old('titre') }}">
           @error('titre')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.description')) }}
+            {{ ucfirst(__('PkgRealisationTache::typeDependanceTache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -77,7 +77,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::typeDependanceTache.description') }}">{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::typeDependanceTache.description') }}">{{ $itemTypeDependanceTache ? $itemTypeDependanceTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -106,9 +106,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::typeDependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::typeDependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::typeDependanceTache.singular") }} : {{$itemTypeDependanceTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::typeDependanceTache.singular") }} : {{$itemTypeDependanceTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

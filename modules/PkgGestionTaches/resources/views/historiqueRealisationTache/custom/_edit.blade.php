@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::historiqueRealisationTache._edit')
+@extends('PkgRealisationTache::historiqueRealisationTache._edit')

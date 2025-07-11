@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\TypeDependanceTache;
+use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 
 class BaseTypeDependanceTacheRequest extends FormRequest
 {
@@ -42,9 +42,9 @@ class BaseTypeDependanceTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'titre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::TypeDependanceTache.titre')]),
+            'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TypeDependanceTache.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::TypeDependanceTache.description')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TypeDependanceTache.description')])
         ];
     }
 

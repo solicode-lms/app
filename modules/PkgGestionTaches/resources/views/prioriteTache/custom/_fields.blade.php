@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::prioriteTache._fields')
+@extends('PkgRealisationTache::prioriteTache._fields')

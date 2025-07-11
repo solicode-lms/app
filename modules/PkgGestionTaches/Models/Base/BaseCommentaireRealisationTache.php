@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgApprenants\Models\Apprenant;
 
@@ -51,7 +51,7 @@ class BaseCommentaireRealisationTache extends BaseModel
     ];
     public $manyToOne = [
         'RealisationTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
             'relation' => 'realisationTaches' , 
             "foreign_key" => "realisation_tache_id", 
             ],

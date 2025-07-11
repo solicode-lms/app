@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Services;
-use Modules\PkgGestionTaches\Services\Base\BaseDependanceTacheService;
+namespace Modules\PkgRealisationTache\Services;
+use Modules\PkgRealisationTache\Services\Base\BaseDependanceTacheService;
 
 /**
  * Classe DependanceTacheService pour gérer la persistance de l'entité DependanceTache.

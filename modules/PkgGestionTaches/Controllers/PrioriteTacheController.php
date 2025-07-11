@@ -2,10 +2,10 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers;
+namespace Modules\PkgRealisationTache\Controllers;
 
 
-use Modules\PkgGestionTaches\Controllers\Base\BasePrioriteTacheController;
+use Modules\PkgRealisationTache\Controllers\Base\BasePrioriteTacheController;
 
 class PrioriteTacheController extends BasePrioriteTacheController
 {

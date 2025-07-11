@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-etatRealisationTache')),
         calculationUrl:  '{{ route('etatRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::etatRealisationTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::etatRealisationTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::etatRealisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::etatRealisationTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="etatRealisationTache-crud" class="crud">
     @section('etatRealisationTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::etatRealisationTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::etatRealisationTache.singular");
     @endphp
     <x-crud-header 
         id="etatRealisationTache-crud-header" icon="fas fa-check"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="etatRealisationTache-data-container" class="data-container">
                     @if($etatRealisationTache_viewType != "widgets")
-                    @include("PkgGestionTaches::etatRealisationTache._$etatRealisationTache_viewType")
+                    @include("PkgRealisationTache::etatRealisationTache._$etatRealisationTache_viewType")
                     @endif
                 </div>
                 @section('etatRealisationTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="etatRealisationTache-data-container-out" >
         @if($etatRealisationTache_viewType == "widgets")
-        @include("PkgGestionTaches::etatRealisationTache._$etatRealisationTache_viewType")
+        @include("PkgRealisationTache::etatRealisationTache._$etatRealisationTache_viewType")
         @endif
     </section>
     @show

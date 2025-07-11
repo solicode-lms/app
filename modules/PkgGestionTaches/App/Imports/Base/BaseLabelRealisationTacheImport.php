@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Imports\Base;
+namespace Modules\PkgRealisationTache\App\Imports\Base;
 
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;

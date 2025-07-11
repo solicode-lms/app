@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 
 class BaseCommentaireRealisationTacheRequest extends FormRequest
 {
@@ -45,11 +45,11 @@ class BaseCommentaireRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'commentaire.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::CommentaireRealisationTache.commentaire')]),
-            'dateCommentaire.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::CommentaireRealisationTache.dateCommentaire')]),
-            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::CommentaireRealisationTache.realisation_tache_id')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::CommentaireRealisationTache.formateur_id')]),
-            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::CommentaireRealisationTache.apprenant_id')])
+            'commentaire.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::CommentaireRealisationTache.commentaire')]),
+            'dateCommentaire.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::CommentaireRealisationTache.dateCommentaire')]),
+            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::CommentaireRealisationTache.realisation_tache_id')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::CommentaireRealisationTache.formateur_id')]),
+            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::CommentaireRealisationTache.apprenant_id')])
         ];
     }
 

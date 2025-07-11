@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\DependanceTache;
+use Modules\PkgRealisationTache\Models\DependanceTache;
 
 class BaseDependanceTacheRequest extends FormRequest
 {
@@ -43,9 +43,9 @@ class BaseDependanceTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.tache_id')]),
-            'type_dependance_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.type_dependance_tache_id')]),
-            'tache_cible_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::DependanceTache.tache_cible_id')])
+            'tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::DependanceTache.tache_id')]),
+            'type_dependance_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::DependanceTache.type_dependance_tache_id')]),
+            'tache_cible_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::DependanceTache.tache_cible_id')])
         ];
     }
 

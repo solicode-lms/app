@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_title('PkgGestionTaches::prioriteTache'))
+@section('title', curd_index_title('PkgRealisationTache::prioriteTache'))
 @section('content')
-    @include('PkgGestionTaches::prioriteTache._index')
+    @include('PkgRealisationTache::prioriteTache._index')
 @endsection

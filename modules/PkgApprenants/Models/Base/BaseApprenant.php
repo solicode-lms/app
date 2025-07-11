@@ -16,7 +16,7 @@ use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgApprenants\Models\Groupe;
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**

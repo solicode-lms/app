@@ -2,10 +2,10 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers;
+namespace Modules\PkgRealisationTache\Controllers;
 
 
-use Modules\PkgGestionTaches\Controllers\Base\BaseTacheController;
+use Modules\PkgRealisationTache\Controllers\Base\BaseTacheController;
 
 class TacheController extends BaseTacheController
 {

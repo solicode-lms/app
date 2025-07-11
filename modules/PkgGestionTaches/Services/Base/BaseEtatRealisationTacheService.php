@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -46,7 +46,7 @@ class BaseEtatRealisationTacheService extends BaseService
     {
         parent::__construct(new EtatRealisationTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::etatRealisationTache.plural');
+        $this->title = __('PkgRealisationTache::etatRealisationTache.plural');
     }
 
 
@@ -58,7 +58,7 @@ class BaseEtatRealisationTacheService extends BaseService
     
 
         if (!array_key_exists('workflow_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::workflowTache.plural"), 'workflow_tache_id', \Modules\PkgGestionTaches\Models\WorkflowTache::class, 'code');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::workflowTache.plural"), 'workflow_tache_id', \Modules\PkgRealisationTache\Models\WorkflowTache::class, 'code');
         }
 
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
@@ -134,8 +134,8 @@ class BaseEtatRealisationTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::etatRealisationTache._table',
-            default => 'PkgGestionTaches::etatRealisationTache._table',
+            'table' => 'PkgRealisationTache::etatRealisationTache._table',
+            default => 'PkgRealisationTache::etatRealisationTache._table',
         };
     }
 

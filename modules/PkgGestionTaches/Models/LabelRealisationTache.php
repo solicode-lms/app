@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models;
-use Modules\PkgGestionTaches\Models\Base\BaseLabelRealisationTache;
+namespace Modules\PkgRealisationTache\Models;
+use Modules\PkgRealisationTache\Models\Base\BaseLabelRealisationTache;
 
 class LabelRealisationTache extends BaseLabelRealisationTache
 {

@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Imports;
+namespace Modules\PkgRealisationTache\App\Imports;
 
-use Modules\PkgGestionTaches\App\Imports\Base\BaseHistoriqueRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Imports\Base\BaseHistoriqueRealisationTacheImport;
 
 class HistoriqueRealisationTacheImport extends BaseHistoriqueRealisationTacheImport
 {

@@ -3,8 +3,8 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests;
-use Modules\PkgGestionTaches\App\Requests\Base\BaseEtatRealisationTacheRequest;
+namespace Modules\PkgRealisationTache\App\Requests;
+use Modules\PkgRealisationTache\App\Requests\Base\BaseEtatRealisationTacheRequest;
 
 class EtatRealisationTacheRequest extends BaseEtatRealisationTacheRequest
 {

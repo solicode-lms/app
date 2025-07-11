@@ -4,16 +4,16 @@
 
 namespace Modules\Core\Controllers\Base;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgValidationProjets\Services\EtatEvaluationProjetService;
-use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
+use Modules\PkgRealisationTache\Services\LabelRealisationTacheService;
 use Modules\Core\Services\SysModuleService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgWidgets\Services\SectionWidgetService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
-use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;

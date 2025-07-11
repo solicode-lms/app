@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgRealisationTache\Models\Tache;
 
 class BaseTacheRequest extends FormRequest
 {
@@ -49,17 +49,17 @@ class BaseTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.ordre')]),
-            'titre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.titre')]),
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.ordre')]),
+            'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.priorite_tache_id')]),
-            'projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.projet_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.description')]),
-            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateDebut')]),
-            'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.dateFin')]),
-            'note.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.note')]),
-            'livrables.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::Tache.livrables')]),
-            'livrables.array' => __('validation.array', ['attribute' => __('PkgGestionTaches::Tache.livrables')])
+            'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.priorite_tache_id')]),
+            'projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.projet_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.description')]),
+            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.dateDebut')]),
+            'dateFin.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.dateFin')]),
+            'note.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.note')]),
+            'livrables.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::Tache.livrables')]),
+            'livrables.array' => __('validation.array', ['attribute' => __('PkgRealisationTache::Tache.livrables')])
         ];
     }
 

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Modules\PkgGestionTaches\Services;
+namespace Modules\PkgRealisationTache\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Utils\DateUtil;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
-use Modules\PkgGestionTaches\Models\RealisationTache;
-use Modules\PkgGestionTaches\Services\Base\BaseHistoriqueRealisationTacheService;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Services\Base\BaseHistoriqueRealisationTacheService;
 use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgNotification\Services\NotificationService;
 
@@ -28,7 +28,7 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
 
     /**
      * Enregistrer les changement effectuer sur un objet realisationTache
-     * @param \Modules\PkgGestionTaches\Services\RealisationTache $realisationTache
+     * @param \Modules\PkgRealisationTache\Services\RealisationTache $realisationTache
      * @param array $nouveauxChamps
      * @return void
      */
@@ -68,7 +68,7 @@ class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheSe
             
             $changement = collect($champsModifies)
                 ->map(function ($value, $key) use ($realisationTache) {
-                    $label = ucfirst(__("PkgGestionTaches::realisationTache.$key")); // 💬 traduction via lang('fields.nom_champ')
+                    $label = ucfirst(__("PkgRealisationTache::realisationTache.$key")); // 💬 traduction via lang('fields.nom_champ')
 
                     // 🛠️ Vérifier si c'est une relation ManyToOne
                     // 🛠️ Est-ce que ce champ est une clé étrangère ManyToOne ?

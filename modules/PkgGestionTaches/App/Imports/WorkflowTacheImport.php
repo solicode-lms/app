@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Imports;
+namespace Modules\PkgRealisationTache\App\Imports;
 
-use Modules\PkgGestionTaches\App\Imports\Base\BaseWorkflowTacheImport;
+use Modules\PkgRealisationTache\App\Imports\Base\BaseWorkflowTacheImport;
 
 class WorkflowTacheImport extends BaseWorkflowTacheImport
 {

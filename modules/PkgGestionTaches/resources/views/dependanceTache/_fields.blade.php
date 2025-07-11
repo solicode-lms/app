@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="tache_id">
-            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -72,7 +72,7 @@
           </div>
           @endif
           <label for="type_dependance_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::typeDependanceTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::typeDependanceTache.singular')) }}
             
           </label>
                       <select 
@@ -106,7 +106,7 @@
           </div>
           @endif
           <label for="tache_cible_id">
-            {{ ucfirst(__('PkgGestionTaches::tache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -152,9 +152,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::dependanceTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::dependanceTache.singular") }} : {{$itemDependanceTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::dependanceTache.singular") }} : {{$itemDependanceTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

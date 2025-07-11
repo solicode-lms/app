@@ -10,7 +10,7 @@
         editUrl: '{{ route('workflowTaches.edit',  ['workflowTache' => ':id']) }}',
         indexUrl: '{{ route('workflowTaches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::workflowTache.singular") }} - {{ $itemWorkflowTache }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::workflowTache.singular") }} - {{ $itemWorkflowTache }}',
     });
 </script>
 <script>
@@ -33,11 +33,11 @@
                             </h3>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="workflowTache-hasmany-tabs-home-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-home" role="tab" aria-controls="workflowTache-hasmany-tabs-home" aria-selected="true">{{__('PkgGestionTaches::workflowTache.singular')}}</a>
+                            <a class="nav-link active" id="workflowTache-hasmany-tabs-home-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-home" role="tab" aria-controls="workflowTache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::workflowTache.singular')}}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="workflowTache-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="workflowTache-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
+                            <a class="nav-link" id="workflowTache-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#workflowTache-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="workflowTache-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::etatRealisationTache.plural'))}}</a>
                         </li>
 
                        
@@ -46,11 +46,11 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-workflowTache-tabContent">
                             <div class="tab-pane fade show active" id="workflowTache-hasmany-tabs-home" role="tabpanel" aria-labelledby="workflowTache-hasmany-tabs-home-tab">
-                                @include('PkgGestionTaches::workflowTache._fields')
+                                @include('PkgRealisationTache::workflowTache._fields')
                             </div>
 
                             <div class="tab-pane fade" id="workflowTache-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="workflowTache-hasmany-tabs-etatRealisationTache-tab">
-                                @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowTache.edit_' . $itemWorkflowTache->id])
+                                @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowTache.edit_' . $itemWorkflowTache->id])
                             </div>
 
                            

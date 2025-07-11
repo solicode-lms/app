@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Modules\Core\App\Traits\HasDynamicAttributes;
 use Modules\PkgApprenants\Models\Base\BaseApprenant;
 use Modules\PkgFormation\Models\AnneeFormation;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Modules\Core\Services\ViewStateService;

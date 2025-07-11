@@ -1,5 +1,5 @@
 
-@extends('PkgGestionTaches::realisationTache._index')
+@extends('PkgRealisationTache::realisationTache._index')
 
 <script>
 

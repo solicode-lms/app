@@ -1,3 +1,3 @@
 {{-- Ensuite, on hérite du tableau original --}}
-@extends('PkgGestionTaches::realisationTache._table')
+@extends('PkgRealisationTache::realisationTache._table')
 

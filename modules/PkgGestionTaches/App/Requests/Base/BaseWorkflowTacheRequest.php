@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 
 class BaseWorkflowTacheRequest extends FormRequest
 {
@@ -45,13 +45,13 @@ class BaseWorkflowTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.ordre')]),
-            'code.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.code')]),
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.ordre')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.code')]),
             'code.max' => __('validation.codeMax'),
-            'titre.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.titre')]),
+            'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.description')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::WorkflowTache.sys_color_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.description')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.sys_color_id')])
         ];
     }
 

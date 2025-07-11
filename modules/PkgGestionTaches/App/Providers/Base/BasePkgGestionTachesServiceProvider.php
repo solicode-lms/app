@@ -3,13 +3,13 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Providers\Base;
+namespace Modules\PkgRealisationTache\App\Providers\Base;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
-class BasePkgGestionTachesServiceProvider extends ServiceProvider
+class BasePkgRealisationTacheServiceProvider extends ServiceProvider
 {
     /**
      * Enregistrer les services dans l'application.
@@ -38,12 +38,12 @@ class BasePkgGestionTachesServiceProvider extends ServiceProvider
         }
 
         // Charger les vues du module
-        $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'PkgGestionTaches');
+        $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'PkgRealisationTache');
 
         // Charger les fichiers de traduction
         $this->loadTranslationsFrom(
             __DIR__ . '/../../../resources/lang',
-            'PkgGestionTaches'
+            'PkgRealisationTache'
         );
     }
 

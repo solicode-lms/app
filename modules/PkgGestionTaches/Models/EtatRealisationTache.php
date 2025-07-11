@@ -1,8 +1,8 @@
 <?php
  
 
-namespace Modules\PkgGestionTaches\Models;
-use Modules\PkgGestionTaches\Models\Base\BaseEtatRealisationTache;
+namespace Modules\PkgRealisationTache\Models;
+use Modules\PkgRealisationTache\Models\Base\BaseEtatRealisationTache;
 
 class EtatRealisationTache extends BaseEtatRealisationTache
 {

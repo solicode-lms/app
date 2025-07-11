@@ -16,7 +16,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgAutorisation\Models\Profile;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgNotification\Models\Notification;
 use Modules\Core\Models\UserModelFilter;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;

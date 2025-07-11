@@ -4,7 +4,7 @@
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\LivrableService;
-use Modules\PkgGestionTaches\Services\TacheService;
+use Modules\PkgRealisationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;

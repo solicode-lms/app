@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models;
-use Modules\PkgGestionTaches\Models\Base\BaseTypeDependanceTache;
+namespace Modules\PkgRealisationTache\Models;
+use Modules\PkgRealisationTache\Models\Base\BaseTypeDependanceTache;
 
 class TypeDependanceTache extends BaseTypeDependanceTache
 {

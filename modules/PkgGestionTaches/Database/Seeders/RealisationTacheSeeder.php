@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\Database\Seeders;
+namespace Modules\PkgRealisationTache\Database\Seeders;
 
-use Modules\PkgGestionTaches\Database\Seeders\Base\BaseRealisationTacheSeeder;
+use Modules\PkgRealisationTache\Database\Seeders\Base\BaseRealisationTacheSeeder;
 
 class RealisationTacheSeeder extends BaseRealisationTacheSeeder
 {

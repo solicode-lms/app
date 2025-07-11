@@ -27,7 +27,7 @@
     "PkgRealisationProjets" : {
         "active": false
     },
-    "PkgGestionTaches" : {
+    "PkgRealisationTache" : {
         "active": false
     },
     "PkgValidationProjets" : {

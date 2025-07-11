@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Modules\PkgGestionTaches\Services;
+namespace Modules\PkgRealisationTache\Services;
 
-use Modules\PkgGestionTaches\Models\WorkflowTache;
-use Modules\PkgGestionTaches\Services\Base\BaseEtatRealisationTacheService;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Services\Base\BaseEtatRealisationTacheService;
 
 /**
  * Classe EtatRealisationTacheService pour gérer la persistance de l'entité EtatRealisationTache.
@@ -57,7 +57,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
      * Récupère l'état par défaut (ordre minimal) défini par un formateur.
      *
      * @param int $formateurId
-     * @return \Modules\PkgGestionTaches\Models\EtatRealisationTache|null
+     * @return \Modules\PkgRealisationTache\Models\EtatRealisationTache|null
      */
     public function getDefaultEtatByFormateurId(int $formateurId)
     {

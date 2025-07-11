@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgValidationProjets\Models\Evaluateur;
 use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
 
@@ -57,7 +57,7 @@ class BaseEvaluationRealisationTache extends BaseModel
     ];
     public $manyToOne = [
         'RealisationTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\RealisationTache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
             'relation' => 'realisationTaches' , 
             "foreign_key" => "realisation_tache_id", 
             ],

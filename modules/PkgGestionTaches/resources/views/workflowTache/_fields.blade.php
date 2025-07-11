@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="ordre">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.ordre')) }}
             
           </label>
                       <input
@@ -49,7 +49,7 @@
                 
                 
                 id="ordre"
-                placeholder="{{ __('PkgGestionTaches::workflowTache.ordre') }}"
+                placeholder="{{ __('PkgRealisationTache::workflowTache.ordre') }}"
                 value="{{ $itemWorkflowTache ? $itemWorkflowTache->ordre : old('ordre') }}">
           @error('ordre')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="code">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.code')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -78,7 +78,7 @@
                 
                 
                 id="code"
-                placeholder="{{ __('PkgGestionTaches::workflowTache.code') }}"
+                placeholder="{{ __('PkgRealisationTache::workflowTache.code') }}"
                 value="{{ $itemWorkflowTache ? $itemWorkflowTache->code : old('code') }}">
           @error('code')
             <div class="text-danger">{{ $message }}</div>
@@ -96,7 +96,7 @@
           </div>
           @endif
           <label for="titre">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.titre')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -107,7 +107,7 @@
                 
                 
                 id="titre"
-                placeholder="{{ __('PkgGestionTaches::workflowTache.titre') }}"
+                placeholder="{{ __('PkgRealisationTache::workflowTache.titre') }}"
                 value="{{ $itemWorkflowTache ? $itemWorkflowTache->titre : old('titre') }}">
           @error('titre')
             <div class="text-danger">{{ $message }}</div>
@@ -125,7 +125,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.description')) }}
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -135,7 +135,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::workflowTache.description') }}">{{ $itemWorkflowTache ? $itemWorkflowTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::workflowTache.description') }}">{{ $itemWorkflowTache ? $itemWorkflowTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -198,9 +198,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::workflowTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::workflowTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::workflowTache.singular") }} : {{$itemWorkflowTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::workflowTache.singular") }} : {{$itemWorkflowTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

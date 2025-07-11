@@ -9,8 +9,8 @@
                     $bulkEdit = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] || $historiqueRealisationTaches_permissions['destroy-historiqueRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement'))}}" />
-                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification'))}}" />
+                <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification'))}}" />
                 <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -30,7 +30,7 @@
 
                     </td>
                     <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="dateModification"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->dateModification }}" >
-                        @include('PkgGestionTaches::historiqueRealisationTache.custom.fields.dateModification', ['entity' => $historiqueRealisationTache])
+                        @include('PkgRealisationTache::historiqueRealisationTache.custom.fields.dateModification', ['entity' => $historiqueRealisationTache])
                     </td>
                     <td style="max-width: 17%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$historiqueRealisationTache->id}}" data-field="user_id"  data-toggle="tooltip" title="{{ $historiqueRealisationTache->user }}" >
                         {{  $historiqueRealisationTache->user }}

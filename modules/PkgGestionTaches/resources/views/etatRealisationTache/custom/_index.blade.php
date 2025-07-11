@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::etatRealisationTache._index')
+@extends('PkgRealisationTache::etatRealisationTache._index')

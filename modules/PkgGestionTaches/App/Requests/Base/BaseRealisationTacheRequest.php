@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 
 class BaseRealisationTacheRequest extends FormRequest
 {
@@ -49,15 +49,15 @@ class BaseRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.tache_id')]),
-            'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.realisation_projet_id')]),
-            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateDebut')]),
-            'dateFin.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.dateFin')]),
-            'remarque_evaluateur.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.remarque_evaluateur')]),
-            'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.etat_realisation_tache_id')]),
-            'note.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.note')]),
-            'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.remarques_formateur')]),
-            'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::RealisationTache.remarques_apprenant')])
+            'tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_id')]),
+            'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.realisation_projet_id')]),
+            'dateDebut.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateDebut')]),
+            'dateFin.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateFin')]),
+            'remarque_evaluateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarque_evaluateur')]),
+            'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.etat_realisation_tache_id')]),
+            'note.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.note')]),
+            'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_formateur')]),
+            'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_apprenant')])
         ];
     }
 

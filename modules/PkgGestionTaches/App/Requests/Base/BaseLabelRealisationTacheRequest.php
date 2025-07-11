@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Requests\Base;
+namespace Modules\PkgRealisationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 
 class BaseLabelRealisationTacheRequest extends FormRequest
 {
@@ -44,11 +44,11 @@ class BaseLabelRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nom.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::LabelRealisationTache.nom')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LabelRealisationTache.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::LabelRealisationTache.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::LabelRealisationTache.formateur_id')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgGestionTaches::LabelRealisationTache.sys_color_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LabelRealisationTache.description')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LabelRealisationTache.formateur_id')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::LabelRealisationTache.sys_color_id')])
         ];
     }
 

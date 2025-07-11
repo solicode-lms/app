@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::typeDependanceTache._edit')
+@extends('PkgRealisationTache::typeDependanceTache._edit')

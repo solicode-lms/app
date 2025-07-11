@@ -4,11 +4,11 @@
 
 
 use Illuminate\Support\Facades\Route;
-use Modules\PkgGestionTaches\Controllers\PrioriteTacheController;
+use Modules\PkgRealisationTache\Controllers\PrioriteTacheController;
 
 // routes for prioriteTache management
 Route::middleware('auth')->group(function () {
-    Route::prefix('/admin/PkgGestionTaches')->group(function () {
+    Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('prioriteTaches/getData', [PrioriteTacheController::class, 'getData'])->name('prioriteTaches.getData');
         // bulk - edit and delete
         Route::post('prioriteTaches/bulk-delete', [PrioriteTacheController::class, 'bulkDelete'])

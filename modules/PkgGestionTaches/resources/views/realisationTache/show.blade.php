@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', __('Core::msg.show') . ' ' . __('PkgGestionTaches::realisationTache.singular'))
+@section('title', __('Core::msg.show') . ' ' . __('PkgRealisationTache::realisationTache.singular'))
  
 @section('content')
     <div class="content-header">
@@ -18,7 +18,7 @@
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->
-                        @include('PkgGestionTaches::realisationTache._show')
+                        @include('PkgRealisationTache::realisationTache._show')
                     </div>
                 </div>
             </div>

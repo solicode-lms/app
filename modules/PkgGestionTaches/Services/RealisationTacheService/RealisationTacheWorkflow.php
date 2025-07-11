@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Services\RealisationTacheService;
+namespace Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,13 +10,13 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgAutorisation\Models\Role;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
-use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Database\Seeders\EtatRealisationTacheSeeder;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
-use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 
 trait RealisationTacheWorkflow
 {

@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
+use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -37,12 +37,12 @@ class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadi
         ];
         }else{
         return [
-            'commentaire' => __('PkgGestionTaches::commentaireRealisationTache.commentaire'),
-            'dateCommentaire' => __('PkgGestionTaches::commentaireRealisationTache.dateCommentaire'),
+            'commentaire' => __('PkgRealisationTache::commentaireRealisationTache.commentaire'),
+            'dateCommentaire' => __('PkgRealisationTache::commentaireRealisationTache.dateCommentaire'),
             'reference' => __('Core::msg.reference'),
-            'realisation_tache_id' => __('PkgGestionTaches::commentaireRealisationTache.realisation_tache_id'),
-            'formateur_id' => __('PkgGestionTaches::commentaireRealisationTache.formateur_id'),
-            'apprenant_id' => __('PkgGestionTaches::commentaireRealisationTache.apprenant_id'),
+            'realisation_tache_id' => __('PkgRealisationTache::commentaireRealisationTache.realisation_tache_id'),
+            'formateur_id' => __('PkgRealisationTache::commentaireRealisationTache.formateur_id'),
+            'apprenant_id' => __('PkgRealisationTache::commentaireRealisationTache.apprenant_id'),
         ];
 
         }

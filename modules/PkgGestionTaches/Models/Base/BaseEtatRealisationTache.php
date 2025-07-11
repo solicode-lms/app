@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Models\Base;
+namespace Modules\PkgRealisationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\Core\Models\SysColor;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 
 /**
  * Classe BaseEtatRealisationTache
@@ -53,7 +53,7 @@ class BaseEtatRealisationTache extends BaseModel
     ];
     public $manyToOne = [
         'WorkflowTache' => [
-            'model' => "Modules\\PkgGestionTaches\\Models\\WorkflowTache",
+            'model' => "Modules\\PkgRealisationTache\\Models\\WorkflowTache",
             'relation' => 'workflowTaches' , 
             "foreign_key" => "workflow_tache_id", 
             ],

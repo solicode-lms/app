@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-labelRealisationTache')),
         calculationUrl:  '{{ route('labelRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::labelRealisationTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::labelRealisationTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::labelRealisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::labelRealisationTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="labelRealisationTache-crud" class="crud">
     @section('labelRealisationTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::labelRealisationTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::labelRealisationTache.singular");
     @endphp
     <x-crud-header 
         id="labelRealisationTache-crud-header" icon="fas fa-tag"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="labelRealisationTache-data-container" class="data-container">
                     @if($labelRealisationTache_viewType != "widgets")
-                    @include("PkgGestionTaches::labelRealisationTache._$labelRealisationTache_viewType")
+                    @include("PkgRealisationTache::labelRealisationTache._$labelRealisationTache_viewType")
                     @endif
                 </div>
                 @section('labelRealisationTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="labelRealisationTache-data-container-out" >
         @if($labelRealisationTache_viewType == "widgets")
-        @include("PkgGestionTaches::labelRealisationTache._$labelRealisationTache_viewType")
+        @include("PkgRealisationTache::labelRealisationTache._$labelRealisationTache_viewType")
         @endif
     </section>
     @show

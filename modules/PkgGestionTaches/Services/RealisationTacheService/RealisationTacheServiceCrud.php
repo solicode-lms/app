@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Services\RealisationTacheService;
+namespace Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -11,13 +11,13 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgAutorisation\Models\Role;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
-use Modules\PkgGestionTaches\Database\Seeders\EtatRealisationTacheSeeder;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Database\Seeders\EtatRealisationTacheSeeder;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
-use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 
 trait RealisationTacheServiceCrud

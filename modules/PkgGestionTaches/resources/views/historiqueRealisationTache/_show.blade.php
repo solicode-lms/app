@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.changement')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemHistoriqueRealisationTache->changement) && $itemHistoriqueRealisationTache->changement !== '')
     {!! $itemHistoriqueRealisationTache->changement !!}
@@ -19,7 +19,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.dateModification')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification')) }}</small>
                             
     <span>
       @if ($itemHistoriqueRealisationTache->dateModification)
@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::realisationTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
                               
       @if($itemHistoriqueRealisationTache->realisationTache)
         {{ $itemHistoriqueRealisationTache->realisationTache }}
@@ -62,7 +62,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::historiqueRealisationTache.isFeedback')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.isFeedback')) }}</small>
                               
       @if($itemHistoriqueRealisationTache->isFeedback)
         <span class="badge badge-success">{{ __('Oui') }}</span>
@@ -92,7 +92,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::historiqueRealisationTache.singular") }} : {{ $itemHistoriqueRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::historiqueRealisationTache.singular") }} : {{ $itemHistoriqueRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

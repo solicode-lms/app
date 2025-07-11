@@ -5,7 +5,7 @@
 namespace Modules\PkgValidationProjets\Controllers\Base;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Modules\PkgValidationProjets\Services\EvaluateurService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

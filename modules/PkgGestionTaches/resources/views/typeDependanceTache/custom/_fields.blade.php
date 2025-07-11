@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgGestionTaches::typeDependanceTache._fields')
+@extends('PkgRealisationTache::typeDependanceTache._fields')

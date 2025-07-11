@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\TypeDependanceTache;
+use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -34,8 +34,8 @@ class BaseTypeDependanceTacheExport implements FromCollection, WithHeadings, Sho
         ];
         }else{
         return [
-            'titre' => __('PkgGestionTaches::typeDependanceTache.titre'),
-            'description' => __('PkgGestionTaches::typeDependanceTache.description'),
+            'titre' => __('PkgRealisationTache::typeDependanceTache.titre'),
+            'description' => __('PkgRealisationTache::typeDependanceTache.description'),
             'reference' => __('Core::msg.reference'),
         ];
 

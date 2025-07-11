@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -44,7 +44,7 @@ class BaseLabelRealisationTacheService extends BaseService
     {
         parent::__construct(new LabelRealisationTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::labelRealisationTache.plural');
+        $this->title = __('PkgRealisationTache::labelRealisationTache.plural');
     }
 
 
@@ -128,8 +128,8 @@ class BaseLabelRealisationTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::labelRealisationTache._table',
-            default => 'PkgGestionTaches::labelRealisationTache._table',
+            'table' => 'PkgRealisationTache::labelRealisationTache._table',
+            default => 'PkgRealisationTache::labelRealisationTache._table',
         };
     }
 

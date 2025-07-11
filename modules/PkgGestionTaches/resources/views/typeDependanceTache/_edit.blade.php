@@ -10,7 +10,7 @@
         editUrl: '{{ route('typeDependanceTaches.edit',  ['typeDependanceTache' => ':id']) }}',
         indexUrl: '{{ route('typeDependanceTaches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::typeDependanceTache.singular") }} - {{ $itemTypeDependanceTache }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::typeDependanceTache.singular") }} - {{ $itemTypeDependanceTache }}',
     });
 </script>
 <script>
@@ -33,11 +33,11 @@
                             </h3>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="typeDependanceTache-hasmany-tabs-home-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-home" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-home" aria-selected="true">{{__('PkgGestionTaches::typeDependanceTache.singular')}}</a>
+                            <a class="nav-link active" id="typeDependanceTache-hasmany-tabs-home-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-home" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::typeDependanceTache.singular')}}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="typeDependanceTache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-dependanceTache" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::dependanceTache.plural'))}}</a>
+                            <a class="nav-link" id="typeDependanceTache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#typeDependanceTache-hasmany-tabs-dependanceTache" role="tab" aria-controls="typeDependanceTache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::dependanceTache.plural'))}}</a>
                         </li>
 
                        
@@ -46,11 +46,11 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-typeDependanceTache-tabContent">
                             <div class="tab-pane fade show active" id="typeDependanceTache-hasmany-tabs-home" role="tabpanel" aria-labelledby="typeDependanceTache-hasmany-tabs-home-tab">
-                                @include('PkgGestionTaches::typeDependanceTache._fields')
+                                @include('PkgRealisationTache::typeDependanceTache._fields')
                             </div>
 
                             <div class="tab-pane fade" id="typeDependanceTache-hasmany-tabs-dependanceTache" role="tabpanel" aria-labelledby="typeDependanceTache-hasmany-tabs-dependanceTache-tab">
-                                @include('PkgGestionTaches::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'typeDependanceTache.edit_' . $itemTypeDependanceTache->id])
+                                @include('PkgRealisationTache::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'typeDependanceTache.edit_' . $itemTypeDependanceTache->id])
                             </div>
 
                            

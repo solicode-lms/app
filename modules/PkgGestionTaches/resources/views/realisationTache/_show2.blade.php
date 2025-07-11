@@ -10,7 +10,7 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-6 col-lg-6">
                     <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::tache.singular') }}</small>
+                        <small class="text-muted d-block">{{ __('PkgRealisationTache::tache.singular') }}</small>
                         {{ $itemRealisationTache->tache?->titre ?? '—' }}
                     </div>
                 </div>
@@ -32,14 +32,14 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-6 col-lg-4">
                     <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::realisationTache.dateDebut') }}</small>
+                        <small class="text-muted d-block">{{ __('PkgRealisationTache::realisationTache.dateDebut') }}</small>
                         {{ optional($itemRealisationTache->dateDebut)->isoFormat('LL') ?? '—' }}
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4">
                     <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::realisationTache.dateFin') }}</small>
+                        <small class="text-muted d-block">{{ __('PkgRealisationTache::realisationTache.dateFin') }}</small>
                         {{ optional($itemRealisationTache->dateFin)->isoFormat('LL') ?? '—' }}
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-4 col-lg-3">
                     <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgGestionTaches::etatRealisationTache.singular') }}</small>
+                        <small class="text-muted d-block">{{ __('PkgRealisationTache::etatRealisationTache.singular') }}</small>
                         @if($etat = $itemRealisationTache->etatRealisationTache)
                             <span class="badge badge-{{ $etat->sysColor?->class ?? 'info' }} p-2">
                                 {{ $etat->nom }}
@@ -78,7 +78,7 @@
                     <div class="callout callout-info m-0 h-100">
                         <h6 class="mb-2">
                             <i class="fas fa-chalkboard-teacher mr-1"></i>
-                            {{ __('PkgGestionTaches::realisationTache.remarques_formateur') }}
+                            {{ __('PkgRealisationTache::realisationTache.remarques_formateur') }}
                         </h6>
                         {!! nl2br(e($itemRealisationTache->remarques_formateur ?? '—')) !!}
                     </div>
@@ -89,7 +89,7 @@
                     <div class="callout callout-warning m-0 h-100">
                         <h6 class="mb-2">
                             <i class="fas fa-user-graduate mr-1"></i>
-                            {{ __('PkgGestionTaches::realisationTache.remarques_apprenant') }}
+                            {{ __('PkgRealisationTache::realisationTache.remarques_apprenant') }}
                         </h6>
                         {!! nl2br(e($itemRealisationTache->remarques_apprenant ?? '—')) !!}
                     </div>
@@ -102,7 +102,7 @@
                 <i class="fas fa-history mr-1"></i>{{ __('Historique') }}
             </h6>
             <div class="border rounded shadow-sm p-0">
-                @include('PkgGestionTaches::historiqueRealisationTache._index', [
+                @include('PkgRealisationTache::historiqueRealisationTache._index', [
                     'isMany'        => true,
                     'edit_has_many' => false,
                     'contextKey'    => 'realisationTache.show_'.$itemRealisationTache->id
@@ -125,7 +125,7 @@
 
 
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::realisationTache.singular") }} : {{ $itemRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::realisationTache.singular") }} : {{ $itemRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

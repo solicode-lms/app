@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.nom')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemEtatRealisationTache->nom) && $itemEtatRealisationTache->nom !== '')
           {{ $itemEtatRealisationTache->nom }}
@@ -19,7 +19,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::workflowTache.singular')) }}</small>
                               
       @if($itemEtatRealisationTache->workflowTache)
         {{ $itemEtatRealisationTache->workflowTache }}
@@ -55,7 +55,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur')) }}</small>
                               
       @if($itemEtatRealisationTache->is_editable_only_by_formateur)
         <span class="badge badge-success">{{ __('Oui') }}</span>
@@ -82,7 +82,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemEtatRealisationTache->description) && $itemEtatRealisationTache->description !== '')
     {!! $itemEtatRealisationTache->description !!}
@@ -112,7 +112,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::etatRealisationTache.singular") }} : {{ $itemEtatRealisationTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::etatRealisationTache.singular") }} : {{ $itemEtatRealisationTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

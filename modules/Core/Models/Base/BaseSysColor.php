@@ -11,16 +11,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 
 /**
  * Classe BaseSysColor

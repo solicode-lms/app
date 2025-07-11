@@ -35,7 +35,7 @@
     @endif
 
     <label for="note">
-        {{ ucfirst(__('PkgGestionTaches::realisationTache.note')) }}
+        {{ ucfirst(__('PkgRealisationTache::realisationTache.note')) }}
         @if($moyenneAffiche !== null)
             <small class="text-muted">(Moyenne : {{ number_format($moyenneAffiche, 2, '.', '') }})</small>
         @endif

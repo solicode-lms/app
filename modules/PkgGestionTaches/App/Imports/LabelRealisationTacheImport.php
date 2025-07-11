@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Imports;
+namespace Modules\PkgRealisationTache\App\Imports;
 
-use Modules\PkgGestionTaches\App\Imports\Base\BaseLabelRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Imports\Base\BaseLabelRealisationTacheImport;
 
 class LabelRealisationTacheImport extends BaseLabelRealisationTacheImport
 {

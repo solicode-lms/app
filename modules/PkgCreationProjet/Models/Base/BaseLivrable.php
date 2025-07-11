@@ -13,7 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgGestionTaches\Models\Tache;
+use Modules\PkgRealisationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 
 /**

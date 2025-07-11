@@ -2,10 +2,10 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers;
+namespace Modules\PkgRealisationTache\Controllers;
 
 
-use Modules\PkgGestionTaches\Controllers\Base\BaseHistoriqueRealisationTacheController;
+use Modules\PkgRealisationTache\Controllers\Base\BaseHistoriqueRealisationTacheController;
 
 class HistoriqueRealisationTacheController extends BaseHistoriqueRealisationTacheController
 {

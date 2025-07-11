@@ -7,7 +7,7 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
-use Modules\PkgGestionTaches\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
 use Illuminate\Http\Request;

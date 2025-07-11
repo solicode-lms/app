@@ -86,9 +86,9 @@
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::tache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::tache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
+                  @include('PkgRealisationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
             </div>
           </div>
       </div>

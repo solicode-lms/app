@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -49,7 +49,7 @@ class BaseRealisationTacheService extends BaseService
     {
         parent::__construct(new RealisationTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::realisationTache.plural');
+        $this->title = __('PkgRealisationTache::realisationTache.plural');
     }
 
 
@@ -61,7 +61,7 @@ class BaseRealisationTacheService extends BaseService
     
 
         if (!array_key_exists('tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::tache.plural"), 'tache_id', \Modules\PkgGestionTaches\Models\Tache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::tache.plural"), 'tache_id', \Modules\PkgRealisationTache\Models\Tache::class, 'titre');
         }
 
         if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
@@ -69,7 +69,7 @@ class BaseRealisationTacheService extends BaseService
         }
 
         if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGestionTaches::etatRealisationTache.plural"), 'etat_realisation_tache_id', \Modules\PkgGestionTaches\Models\EtatRealisationTache::class, 'nom');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::etatRealisationTache.plural"), 'etat_realisation_tache_id', \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 'nom');
         }
 
     }
@@ -142,9 +142,9 @@ class BaseRealisationTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::realisationTache._table',
-            'table-evaluation' => 'PkgGestionTaches::realisationTache._table-evaluation',
-            default => 'PkgGestionTaches::realisationTache._table',
+            'table' => 'PkgRealisationTache::realisationTache._table',
+            'table-evaluation' => 'PkgRealisationTache::realisationTache._table-evaluation',
+            default => 'PkgRealisationTache::realisationTache._table',
         };
     }
 

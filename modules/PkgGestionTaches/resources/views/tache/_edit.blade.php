@@ -10,7 +10,7 @@
         editUrl: '{{ route('taches.edit',  ['tache' => ':id']) }}',
         indexUrl: '{{ route('taches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::tache.singular") }} - {{ $itemTache }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::tache.singular") }} - {{ $itemTache }}',
     });
 </script>
 <script>
@@ -33,14 +33,14 @@
                             </h3>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgGestionTaches::tache.singular')}}</a>
+                            <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::tache.singular')}}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-dependanceTache" role="tab" aria-controls="tache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::dependanceTache.plural'))}}</a>
+                            <a class="nav-link" id="tache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-dependanceTache" role="tab" aria-controls="tache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::dependanceTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::realisationTache.plural'))}}</a>
+                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}</a>
                         </li>
 
                        
@@ -49,14 +49,14 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-tache-tabContent">
                             <div class="tab-pane fade show active" id="tache-hasmany-tabs-home" role="tabpanel" aria-labelledby="tache-hasmany-tabs-home-tab">
-                                @include('PkgGestionTaches::tache._fields')
+                                @include('PkgRealisationTache::tache._fields')
                             </div>
 
                             <div class="tab-pane fade" id="tache-hasmany-tabs-dependanceTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-dependanceTache-tab">
-                                @include('PkgGestionTaches::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
+                                @include('PkgRealisationTache::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>
                             <div class="tab-pane fade" id="tache-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-realisationTache-tab">
-                                @include('PkgGestionTaches::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
+                                @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>
 
                            

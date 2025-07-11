@@ -37,9 +37,9 @@ class FormField extends Component
             return $this->partial;
         }
 
-        $modelClass = get_class($this->entity);            // e.g. Modules\PkgGestionTaches\Models\RealisationTache
+        $modelClass = get_class($this->entity);            // e.g. Modules\PkgRealisationTache\Models\RealisationTache
         $parts      = explode('\\', $modelClass);
-        $package    = $parts[1] ?? 'PkgCore';              // e.g. "PkgGestionTaches"
+        $package    = $parts[1] ?? 'PkgCore';              // e.g. "PkgRealisationTache"
         $modelName  = lcfirst(class_basename($modelClass));// e.g. "realisationTache"
 
         return "{$package}::{$modelName}.custom.forms.{$this->field}";

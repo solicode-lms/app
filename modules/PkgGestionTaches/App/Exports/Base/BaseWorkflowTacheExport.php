@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\WorkflowTache;
+use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -37,12 +37,12 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
         ];
         }else{
         return [
-            'ordre' => __('PkgGestionTaches::workflowTache.ordre'),
-            'code' => __('PkgGestionTaches::workflowTache.code'),
-            'titre' => __('PkgGestionTaches::workflowTache.titre'),
-            'description' => __('PkgGestionTaches::workflowTache.description'),
+            'ordre' => __('PkgRealisationTache::workflowTache.ordre'),
+            'code' => __('PkgRealisationTache::workflowTache.code'),
+            'titre' => __('PkgRealisationTache::workflowTache.titre'),
+            'description' => __('PkgRealisationTache::workflowTache.description'),
             'reference' => __('Core::msg.reference'),
-            'sys_color_id' => __('PkgGestionTaches::workflowTache.sys_color_id'),
+            'sys_color_id' => __('PkgRealisationTache::workflowTache.sys_color_id'),
         ];
 
         }

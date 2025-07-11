@@ -2,20 +2,20 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\EtatRealisationTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgGestionTaches\Services\WorkflowTacheService;
+use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\EtatRealisationTacheRequest;
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\App\Requests\EtatRealisationTacheRequest;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\EtatRealisationTacheExport;
-use Modules\PkgGestionTaches\App\Imports\EtatRealisationTacheImport;
+use Modules\PkgRealisationTache\App\Exports\EtatRealisationTacheExport;
+use Modules\PkgRealisationTache\App\Imports\EtatRealisationTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BaseEtatRealisationTacheController extends AdminController
@@ -68,13 +68,13 @@ class BaseEtatRealisationTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::etatRealisationTache._index', $etatRealisationTache_compact_value)->render();
+                return view('PkgRealisationTache::etatRealisationTache._index', $etatRealisationTache_compact_value)->render();
             }else{
                 return view($etatRealisationTache_partialViewName, $etatRealisationTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.index', $etatRealisationTache_compact_value);
+        return view('PkgRealisationTache::etatRealisationTache.index', $etatRealisationTache_compact_value);
     }
     /**
      */
@@ -94,9 +94,9 @@ class BaseEtatRealisationTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
         }
-        return view('PkgGestionTaches::etatRealisationTache.create', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgRealisationTache::etatRealisationTache.create', compact('bulkEdit' ,'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -130,9 +130,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $itemEtatRealisationTache = $this->etatRealisationTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+            return view('PkgRealisationTache::etatRealisationTache._fields', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
         }
-        return view('PkgGestionTaches::etatRealisationTache.bulk-edit', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
+        return view('PkgRealisationTache::etatRealisationTache.bulk-edit', compact('bulkEdit', 'etatRealisationTache_ids', 'itemEtatRealisationTache', 'formateurs', 'sysColors', 'workflowTaches'));
     }
     /**
      */
@@ -143,7 +143,7 @@ class BaseEtatRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' => __('PkgGestionTaches::etatRealisationTache.singular')]);
+                'modelName' => __('PkgRealisationTache::etatRealisationTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -155,7 +155,7 @@ class BaseEtatRealisationTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' => __('PkgGestionTaches::etatRealisationTache.singular')
+                'modelName' => __('PkgRealisationTache::etatRealisationTache.singular')
             ])
         );
     }
@@ -170,10 +170,10 @@ class BaseEtatRealisationTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._show', array_merge(compact('itemEtatRealisationTache'),));
+            return view('PkgRealisationTache::etatRealisationTache._show', array_merge(compact('itemEtatRealisationTache'),));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.show', array_merge(compact('itemEtatRealisationTache'),));
+        return view('PkgRealisationTache::etatRealisationTache.show', array_merge(compact('itemEtatRealisationTache'),));
 
     }
     /**
@@ -195,10 +195,10 @@ class BaseEtatRealisationTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::etatRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+            return view('PkgRealisationTache::etatRealisationTache._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
         }
 
-        return view('PkgGestionTaches::etatRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
+        return view('PkgRealisationTache::etatRealisationTache.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationTache','formateurs', 'sysColors', 'workflowTaches'),));
 
 
     }
@@ -215,7 +215,7 @@ class BaseEtatRealisationTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::etatRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::etatRealisationTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -227,7 +227,7 @@ class BaseEtatRealisationTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::etatRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::etatRealisationTache.singular')
                 ])
         );
 
@@ -278,7 +278,7 @@ class BaseEtatRealisationTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::etatRealisationTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::etatRealisationTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -290,7 +290,7 @@ class BaseEtatRealisationTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $etatRealisationTache,
-                'modelName' =>  __('PkgGestionTaches::etatRealisationTache.singular')
+                'modelName' =>  __('PkgRealisationTache::etatRealisationTache.singular')
                 ])
         );
 
@@ -313,7 +313,7 @@ class BaseEtatRealisationTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($etatRealisationTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::etatRealisationTache.plural')
+            'modelName' => __('PkgRealisationTache::etatRealisationTache.plural')
         ]));
     }
 
@@ -345,7 +345,7 @@ class BaseEtatRealisationTacheController extends AdminController
 
         return redirect()->route('etatRealisationTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::etatRealisationTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::etatRealisationTache.plural')
             ]));
 
 

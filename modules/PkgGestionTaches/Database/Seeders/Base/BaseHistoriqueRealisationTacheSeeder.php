@@ -3,7 +3,7 @@
 
 
 
-namespace Modules\PkgGestionTaches\Database\Seeders\Base;
+namespace Modules\PkgRealisationTache\Database\Seeders\Base;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +16,8 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
-use Modules\PkgGestionTaches\Services\HistoriqueRealisationTacheService;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 
 
 class BaseHistoriqueRealisationTacheSeeder extends Seeder
@@ -49,7 +49,7 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgGestionTaches/Database/data/historiqueRealisationTaches.csv");
+        $filePath = base_path("modules/PkgRealisationTache/Database/data/historiqueRealisationTaches.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -96,7 +96,7 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
     public function addDefaultControllerDomainFeatures(): void
     {
         // Trouver dynamiquement le module SysModule par son slug
-        $moduleSlug = 'PkgGestionTaches'; // Slug du module
+        $moduleSlug = 'PkgRealisationTache'; // Slug du module
         $sysModule = SysModule::where('slug', $moduleSlug)->first();
 
         if (!$sysModule) {

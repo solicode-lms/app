@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::workflowTache.ordre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::workflowTache.ordre')) }}</small>
                               
       <span>
         @if(! is_null($itemWorkflowTache->ordre))
@@ -21,7 +21,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::workflowTache.code')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::workflowTache.code')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemWorkflowTache->code) && $itemWorkflowTache->code !== '')
           {{ $itemWorkflowTache->code }}
@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::workflowTache.titre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::workflowTache.titre')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemWorkflowTache->titre) && $itemWorkflowTache->titre !== '')
           {{ $itemWorkflowTache->titre }}
@@ -47,7 +47,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGestionTaches::workflowTache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::workflowTache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemWorkflowTache->description) && $itemWorkflowTache->description !== '')
     {!! $itemWorkflowTache->description !!}
@@ -82,9 +82,9 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowTache.show_' . $itemWorkflowTache->id])
+                  @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'workflowTache.show_' . $itemWorkflowTache->id])
             </div>
           </div>
       </div>
@@ -108,7 +108,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgGestionTaches::workflowTache.singular") }} : {{ $itemWorkflowTache }}';
+    window.modalTitle   = '{{ __("PkgRealisationTache::workflowTache.singular") }} : {{ $itemWorkflowTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

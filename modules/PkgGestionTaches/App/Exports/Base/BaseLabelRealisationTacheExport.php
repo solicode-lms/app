@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\LabelRealisationTache;
+use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -36,11 +36,11 @@ class BaseLabelRealisationTacheExport implements FromCollection, WithHeadings, S
         ];
         }else{
         return [
-            'nom' => __('PkgGestionTaches::labelRealisationTache.nom'),
-            'description' => __('PkgGestionTaches::labelRealisationTache.description'),
+            'nom' => __('PkgRealisationTache::labelRealisationTache.nom'),
+            'description' => __('PkgRealisationTache::labelRealisationTache.description'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgGestionTaches::labelRealisationTache.formateur_id'),
-            'sys_color_id' => __('PkgGestionTaches::labelRealisationTache.sys_color_id'),
+            'formateur_id' => __('PkgRealisationTache::labelRealisationTache.formateur_id'),
+            'sys_color_id' => __('PkgRealisationTache::labelRealisationTache.sys_color_id'),
         ];
 
         }

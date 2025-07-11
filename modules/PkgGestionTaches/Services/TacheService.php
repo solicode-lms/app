@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\PkgGestionTaches\Services;
+namespace Modules\PkgRealisationTache\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Modules\PkgGestionTaches\Services\Base\BaseTacheService;
+use Modules\PkgRealisationTache\Services\Base\BaseTacheService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgAutorisation\Models\Role;
@@ -58,7 +58,7 @@ class TacheService extends BaseTacheService
      * Hook appelé après la création d’une tâche
      * pour générer les réalisations et évaluations associées.
      *
-     * @param  \Modules\PkgGestionTaches\Models\Tache  $tache
+     * @param  \Modules\PkgRealisationTache\Models\Tache  $tache
      * @return void
      */
     public function afterCreateRules($tache): void

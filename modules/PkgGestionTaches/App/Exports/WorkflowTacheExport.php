@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports;
+namespace Modules\PkgRealisationTache\App\Exports;
 
-use Modules\PkgGestionTaches\App\Exports\Base\BaseWorkflowTacheExport;
+use Modules\PkgRealisationTache\App\Exports\Base\BaseWorkflowTacheExport;
 
 class WorkflowTacheExport extends BaseWorkflowTacheExport {
   

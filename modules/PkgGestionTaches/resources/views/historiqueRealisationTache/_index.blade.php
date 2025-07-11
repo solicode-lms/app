@@ -22,8 +22,8 @@
         deleteUrl: '{{ route('historiqueRealisationTaches.destroy',  ['historiqueRealisationTache' => ':id']) }}', 
         calculationUrl:  '{{ route('historiqueRealisationTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgGestionTaches::historiqueRealisationTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgGestionTaches::historiqueRealisationTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::historiqueRealisationTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::historiqueRealisationTache.singular") }}',
     });
 </script>
 <script>
@@ -37,8 +37,8 @@
 <div id="historiqueRealisationTache-crud" class="crud">
     @section('historiqueRealisationTache-crud-header')
     @php
-        $package = __("PkgGestionTaches::PkgGestionTaches.name");
-       $titre = __("PkgGestionTaches::historiqueRealisationTache.singular");
+        $package = __("PkgRealisationTache::PkgRealisationTache.name");
+       $titre = __("PkgRealisationTache::historiqueRealisationTache.singular");
     @endphp
     <x-crud-header 
         id="historiqueRealisationTache-crud-header" icon="fas fa-history"  
@@ -93,7 +93,7 @@
                 @show
                 <div id="historiqueRealisationTache-data-container" class="data-container">
                     @if($historiqueRealisationTache_viewType == "table")
-                    @include("PkgGestionTaches::historiqueRealisationTache._$historiqueRealisationTache_viewType")
+                    @include("PkgRealisationTache::historiqueRealisationTache._$historiqueRealisationTache_viewType")
                     @endif
                 </div>
                 @section('historiqueRealisationTache-crud-bulk-actions')
@@ -129,7 +129,7 @@
     </section>
      <section id="historiqueRealisationTache-data-container-out" >
         @if($historiqueRealisationTache_viewType == "widgets")
-        @include("PkgGestionTaches::historiqueRealisationTache._$historiqueRealisationTache_viewType")
+        @include("PkgRealisationTache::historiqueRealisationTache._$historiqueRealisationTache_viewType")
         @endif
     </section>
     @show

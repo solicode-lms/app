@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\HistoriqueRealisationTache;
+use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -37,12 +37,12 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
         ];
         }else{
         return [
-            'changement' => __('PkgGestionTaches::historiqueRealisationTache.changement'),
-            'dateModification' => __('PkgGestionTaches::historiqueRealisationTache.dateModification'),
-            'realisation_tache_id' => __('PkgGestionTaches::historiqueRealisationTache.realisation_tache_id'),
-            'user_id' => __('PkgGestionTaches::historiqueRealisationTache.user_id'),
+            'changement' => __('PkgRealisationTache::historiqueRealisationTache.changement'),
+            'dateModification' => __('PkgRealisationTache::historiqueRealisationTache.dateModification'),
+            'realisation_tache_id' => __('PkgRealisationTache::historiqueRealisationTache.realisation_tache_id'),
+            'user_id' => __('PkgRealisationTache::historiqueRealisationTache.user_id'),
             'reference' => __('Core::msg.reference'),
-            'isFeedback' => __('PkgGestionTaches::historiqueRealisationTache.isFeedback'),
+            'isFeedback' => __('PkgRealisationTache::historiqueRealisationTache.isFeedback'),
         ];
 
         }

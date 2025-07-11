@@ -1,4 +1,4 @@
-Voici l'ordre de création des tables pour le package **PkgGestionTaches**, en tenant compte des relations définies :
+Voici l'ordre de création des tables pour le package **PkgRealisationTache**, en tenant compte des relations définies :
 
 1. **EtatRealisationTache** (car il est référencé par RealisationTache)
 2. **LabelRealisationTache** (indépendant mais utilisé dans Tache)

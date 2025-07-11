@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="nom">
-            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.nom')) }}
+            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.nom')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -49,7 +49,7 @@
                 
                 
                 id="nom"
-                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.nom') }}"
+                placeholder="{{ __('PkgRealisationTache::etatRealisationTache.nom') }}"
                 value="{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->nom : old('nom') }}">
           @error('nom')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="workflow_tache_id">
-            {{ ucfirst(__('PkgGestionTaches::workflowTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.singular')) }}
             
           </label>
                       <select 
@@ -135,7 +135,7 @@
           </div>
           @endif
           <label for="is_editable_only_by_formateur">
-            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur')) }}
+            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur')) }}
             
           </label>
                       <input type="hidden" name="is_editable_only_by_formateur" value="0">
@@ -199,7 +199,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.description')) }}
+            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -209,7 +209,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgGestionTaches::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgRealisationTache::etatRealisationTache.description') }}">{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -238,9 +238,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgGestionTaches::etatRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgRealisationTache::etatRealisationTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgGestionTaches::etatRealisationTache.singular") }} : {{$itemEtatRealisationTache}}'
+        window.modalTitle = '{{__("PkgRealisationTache::etatRealisationTache.singular") }} : {{$itemEtatRealisationTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

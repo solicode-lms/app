@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgGestionTaches\App\Exports\Base;
+namespace Modules\PkgRealisationTache\App\Exports\Base;
 
-use Modules\PkgGestionTaches\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -38,13 +38,13 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
         ];
         }else{
         return [
-            'nom' => __('PkgGestionTaches::etatRealisationTache.nom'),
-            'workflow_tache_id' => __('PkgGestionTaches::etatRealisationTache.workflow_tache_id'),
-            'sys_color_id' => __('PkgGestionTaches::etatRealisationTache.sys_color_id'),
-            'is_editable_only_by_formateur' => __('PkgGestionTaches::etatRealisationTache.is_editable_only_by_formateur'),
+            'nom' => __('PkgRealisationTache::etatRealisationTache.nom'),
+            'workflow_tache_id' => __('PkgRealisationTache::etatRealisationTache.workflow_tache_id'),
+            'sys_color_id' => __('PkgRealisationTache::etatRealisationTache.sys_color_id'),
+            'is_editable_only_by_formateur' => __('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgGestionTaches::etatRealisationTache.formateur_id'),
-            'description' => __('PkgGestionTaches::etatRealisationTache.description'),
+            'formateur_id' => __('PkgRealisationTache::etatRealisationTache.formateur_id'),
+            'description' => __('PkgRealisationTache::etatRealisationTache.description'),
         ];
 
         }

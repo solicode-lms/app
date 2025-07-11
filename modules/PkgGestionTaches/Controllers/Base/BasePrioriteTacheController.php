@@ -2,18 +2,18 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgGestionTaches\Controllers\Base;
-use Modules\PkgGestionTaches\Services\PrioriteTacheService;
+namespace Modules\PkgRealisationTache\Controllers\Base;
+use Modules\PkgRealisationTache\Services\PrioriteTacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
 use Modules\Core\App\Helpers\JsonResponseHelper;
-use Modules\PkgGestionTaches\App\Requests\PrioriteTacheRequest;
-use Modules\PkgGestionTaches\Models\PrioriteTache;
+use Modules\PkgRealisationTache\App\Requests\PrioriteTacheRequest;
+use Modules\PkgRealisationTache\Models\PrioriteTache;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\PkgGestionTaches\App\Exports\PrioriteTacheExport;
-use Modules\PkgGestionTaches\App\Imports\PrioriteTacheImport;
+use Modules\PkgRealisationTache\App\Exports\PrioriteTacheExport;
+use Modules\PkgRealisationTache\App\Imports\PrioriteTacheImport;
 use Modules\Core\Services\ContextState;
 
 class BasePrioriteTacheController extends AdminController
@@ -62,13 +62,13 @@ class BasePrioriteTacheController extends AdminController
         // Retourner la vue ou les données pour une requête AJAX
         if ($request->ajax()) {
             if($request['showIndex']){
-                return view('PkgGestionTaches::prioriteTache._index', $prioriteTache_compact_value)->render();
+                return view('PkgRealisationTache::prioriteTache._index', $prioriteTache_compact_value)->render();
             }else{
                 return view($prioriteTache_partialViewName, $prioriteTache_compact_value)->render();
             }
         }
 
-        return view('PkgGestionTaches::prioriteTache.index', $prioriteTache_compact_value);
+        return view('PkgRealisationTache::prioriteTache.index', $prioriteTache_compact_value);
     }
     /**
      */
@@ -86,9 +86,9 @@ class BasePrioriteTacheController extends AdminController
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
+            return view('PkgRealisationTache::prioriteTache._fields', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
         }
-        return view('PkgGestionTaches::prioriteTache.create', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
+        return view('PkgRealisationTache::prioriteTache.create', compact('bulkEdit' ,'itemPrioriteTache', 'formateurs'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -120,9 +120,9 @@ class BasePrioriteTacheController extends AdminController
         $itemPrioriteTache = $this->prioriteTacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
+            return view('PkgRealisationTache::prioriteTache._fields', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
         }
-        return view('PkgGestionTaches::prioriteTache.bulk-edit', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
+        return view('PkgRealisationTache::prioriteTache.bulk-edit', compact('bulkEdit', 'prioriteTache_ids', 'itemPrioriteTache', 'formateurs'));
     }
     /**
      */
@@ -133,7 +133,7 @@ class BasePrioriteTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' => __('PkgGestionTaches::prioriteTache.singular')]);
+                'modelName' => __('PkgRealisationTache::prioriteTache.singular')]);
         
             return JsonResponseHelper::success(
              $message,
@@ -145,7 +145,7 @@ class BasePrioriteTacheController extends AdminController
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' => __('PkgGestionTaches::prioriteTache.singular')
+                'modelName' => __('PkgRealisationTache::prioriteTache.singular')
             ])
         );
     }
@@ -160,10 +160,10 @@ class BasePrioriteTacheController extends AdminController
 
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._show', array_merge(compact('itemPrioriteTache'),));
+            return view('PkgRealisationTache::prioriteTache._show', array_merge(compact('itemPrioriteTache'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.show', array_merge(compact('itemPrioriteTache'),));
+        return view('PkgRealisationTache::prioriteTache.show', array_merge(compact('itemPrioriteTache'),));
 
     }
     /**
@@ -183,10 +183,10 @@ class BasePrioriteTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgGestionTaches::prioriteTache._fields', array_merge(compact('bulkEdit' , 'itemPrioriteTache','formateurs'),));
+            return view('PkgRealisationTache::prioriteTache._fields', array_merge(compact('bulkEdit' , 'itemPrioriteTache','formateurs'),));
         }
 
-        return view('PkgGestionTaches::prioriteTache.edit', array_merge(compact('bulkEdit' ,'itemPrioriteTache','formateurs'),));
+        return view('PkgRealisationTache::prioriteTache.edit', array_merge(compact('bulkEdit' ,'itemPrioriteTache','formateurs'),));
 
 
     }
@@ -203,7 +203,7 @@ class BasePrioriteTacheController extends AdminController
         if ($request->ajax()) {
              $message = __('Core::msg.updateSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' =>  __('PkgGestionTaches::prioriteTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::prioriteTache.singular')]);
             
             return JsonResponseHelper::success(
                 $message,
@@ -215,7 +215,7 @@ class BasePrioriteTacheController extends AdminController
             'success',
             __('Core::msg.updateSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' =>  __('PkgGestionTaches::prioriteTache.singular')
+                'modelName' =>  __('PkgRealisationTache::prioriteTache.singular')
                 ])
         );
 
@@ -266,7 +266,7 @@ class BasePrioriteTacheController extends AdminController
         if ($request->ajax()) {
             $message = __('Core::msg.deleteSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' =>  __('PkgGestionTaches::prioriteTache.singular')]);
+                'modelName' =>  __('PkgRealisationTache::prioriteTache.singular')]);
             
 
             return JsonResponseHelper::success(
@@ -278,7 +278,7 @@ class BasePrioriteTacheController extends AdminController
             'success',
             __('Core::msg.deleteSuccess', [
                 'entityToString' => $prioriteTache,
-                'modelName' =>  __('PkgGestionTaches::prioriteTache.singular')
+                'modelName' =>  __('PkgRealisationTache::prioriteTache.singular')
                 ])
         );
 
@@ -301,7 +301,7 @@ class BasePrioriteTacheController extends AdminController
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
             'entityToString' => count($prioriteTache_ids) . ' éléments',
-            'modelName' => __('PkgGestionTaches::prioriteTache.plural')
+            'modelName' => __('PkgRealisationTache::prioriteTache.plural')
         ]));
     }
 
@@ -333,7 +333,7 @@ class BasePrioriteTacheController extends AdminController
 
         return redirect()->route('prioriteTaches.index')->with(
             'success', __('Core::msg.importSuccess', [
-            'modelNames' =>  __('PkgGestionTaches::prioriteTache.plural')
+            'modelNames' =>  __('PkgRealisationTache::prioriteTache.plural')
             ]));
 
 

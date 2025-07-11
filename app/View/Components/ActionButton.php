@@ -29,14 +29,14 @@ class ActionButton extends Component
         $partial = $this->partial;
 
         if (!$partial) {
-            $modelClass = get_class($this->entity); // Ex: Modules\PkgGestionTaches\Models\RealisationTache
+            $modelClass = get_class($this->entity); // Ex: Modules\PkgRealisationTache\Models\RealisationTache
             $parts = explode('\\', $modelClass);
 
-            $package = $parts[1] ?? 'PkgCore'; // Exemple : PkgGestionTaches
+            $package = $parts[1] ?? 'PkgCore'; // Exemple : PkgRealisationTache
             $model = class_basename($modelClass); // Exemple : RealisationTache
 
             $partial = $package . '::' . lcfirst($model) . '.custom.actions.' . $this->actionName;
-            // => ex : PkgGestionTaches::realisationTache.custom.actions.edit
+            // => ex : PkgRealisationTache::realisationTache.custom.actions.edit
         }
 
         return function (array $viewData) use ($partial) {

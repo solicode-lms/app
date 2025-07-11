@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_add_label('PkgGestionTaches::realisationTache'))
+@section('title', curd_index_add_label('PkgRealisationTache::realisationTache'))
 
 @section('content')
     <div class="content-header">
@@ -14,11 +14,11 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-laptop-code"></i>
-                                {{ curd_index_add_label('PkgGestionTaches::realisationTache') }}
+                                {{ curd_index_add_label('PkgRealisationTache::realisationTache') }}
                             </h3>
                         </div>
                         <!-- Obtenir le formulaire -->
-                        @include('PkgGestionTaches::realisationTache._fields')
+                        @include('PkgRealisationTache::realisationTache._fields')
                     </div>
                 </div>
             </div>

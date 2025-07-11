@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', curd_index_title('PkgGestionTaches::workflowTache'))
+@section('title', curd_index_title('PkgRealisationTache::workflowTache'))
 @section('content')
-    @include('PkgGestionTaches::workflowTache._index')
+    @include('PkgRealisationTache::workflowTache._index')
 @endsection

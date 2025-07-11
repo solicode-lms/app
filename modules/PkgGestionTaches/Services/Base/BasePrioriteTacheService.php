@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgGestionTaches\Services\Base;
+namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgGestionTaches\Models\PrioriteTache;
+use Modules\PkgRealisationTache\Models\PrioriteTache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -44,7 +44,7 @@ class BasePrioriteTacheService extends BaseService
     {
         parent::__construct(new PrioriteTache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgGestionTaches::prioriteTache.plural');
+        $this->title = __('PkgRealisationTache::prioriteTache.plural');
     }
 
 
@@ -124,8 +124,8 @@ class BasePrioriteTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgGestionTaches::prioriteTache._table',
-            default => 'PkgGestionTaches::prioriteTache._table',
+            'table' => 'PkgRealisationTache::prioriteTache._table',
+            default => 'PkgRealisationTache::prioriteTache._table',
         };
     }
 

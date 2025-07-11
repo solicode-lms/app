@@ -9,12 +9,12 @@
                     $bulkEdit = $realisationTaches_permissions['edit-realisationTache'] || $realisationTaches_permissions['destroy-realisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="12"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.projet_title'))}}" />
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::tache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::etatRealisationTache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="14"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nom_prenom_apprenant'))}}" />
-                <x-sortable-column :sortable="true" width="9"  field="deadline" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.deadline'))}}" />
-                <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgGestionTaches::realisationTache.nombre_livrables'))}}" />
+                <x-sortable-column :sortable="true" width="12"  field="projet_title" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.projet_title'))}}" />
+                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::etatRealisationTache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="14"  field="nom_prenom_apprenant" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.nom_prenom_apprenant'))}}" />
+                <x-sortable-column :sortable="true" width="9"  field="deadline" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.deadline'))}}" />
+                <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
 
                     </td>
                     <td style="max-width: 12%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
-                        @include('PkgGestionTaches::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
+                        @include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
                     </td>
                     <td style="max-width: 14%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nom_prenom_apprenant"  data-toggle="tooltip" title="{{ $realisationTache->nom_prenom_apprenant }}" >
                         {{ $realisationTache->nom_prenom_apprenant }}
@@ -45,7 +45,7 @@
                         <x-deadline-display :value="$realisationTache->deadline" />
                     </td>
                     <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
-                        @include('PkgGestionTaches::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
+                        @include('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($realisationTaches_permissions['index-livrablesRealisation'])
