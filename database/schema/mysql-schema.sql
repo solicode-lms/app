@@ -1493,7 +1493,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (60,'2025_02_22_093
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2025_02_22_102330_add_filiere_id_to_projet_table',2);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2025_02_27_142426_fixDeleteOnCascade',3);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2025_02_27_144402_fixDeleteOnCascade2',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (64,'2025_02_28_084248_add_is_editable_by_formateur_to_etats_realisation_projets',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (65,'2025_03_01_111510_create_etat_realisation_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (66,'2025_03_01_112308_create_label_realisation_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (67,'2025_03_01_112813_create_priorite_taches_table',4);
@@ -1521,8 +1520,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (98,'2025_04_09_204
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (99,'2025_04_12_114212_alter_default_value_column_in_e_metadata_definitions',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (100,'2025_04_13_074238_create_section_widgets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (101,'2025_04_13_074404_add_section_widget_id_to_widgets_table',14);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (103,'2025_04_13_145926_add_workflow_projet_id_to_etats_realisation_projets_table',14);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (104,'2025_04_13_175508_add_sys_color_id_to_etats_realisation_projets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (105,'2025_04_13_200545_add_sys_color_to_workflow_taches_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (106,'2025_04_16_170325_create_user_model_filters_table',15);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (107,'2025_04_19_115140_add_ordre_to_workflow_taches_table',16);
