@@ -534,7 +534,7 @@
         "table_name": "notifications",
         "icon": "fa-table",
         "description": "Automatically generated model for notifications",
-        "e_package_id": 13,
+        "e_package_id": 12,
         "is_pivot_table": 0,
         "created_at": null,
         "updated_at": null
