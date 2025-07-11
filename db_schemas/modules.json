@@ -75,20 +75,11 @@
 "PkgCompetences": {
     "name": "PkgCompetences",
     "tables": [
-        "niveau_difficultes",
-        "appreciations",
-        "competences",
-        "niveau_competences",
-        "category_technologies",
-        "technologies",
-        "competence_technology",
-        "appreciations",
-         "technology_transfert_competence"
+        "competences"
     ]
 
 },
 "PkgCreationProjet": {
-
     "name": "PkgCreationProjet",
     "tables": [
         "nature_livrables",
