@@ -144,20 +144,6 @@
     ]
 },
 
-"PkgAutoformation": {
-    "name": "PkgAutoformation",
-    "tables": [
-        "etat_chapitres",
-        "etat_formations",
-        "workflow_chapitres",
-        "workflow_formations",
-        "formations",
-        "formation_technology",
-        "chapitres",
-        "realisation_formations",
-        "realisation_chapitres"
-    ]
-},
 "PkgNotification": {
     "name": "PkgNotification",
     "tables": [
