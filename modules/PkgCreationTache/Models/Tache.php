@@ -2,7 +2,7 @@
  
 
 namespace Modules\PkgRealisationTache\Models;
-use Modules\PkgRealisationTache\Models\Base\BaseTache;
+use Modules\PkgCreationTache\Models\Base\BaseTache;
 
 class Tache extends BaseTache
 { 

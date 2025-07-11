@@ -1,8 +1,8 @@
 <?php
  
 
-namespace Modules\PkgRealisationTache\Services;
-use Modules\PkgRealisationTache\Services\Base\BasePrioriteTacheService;
+namespace Modules\PkgCreationTache\Services;
+use Modules\PkgCreationTache\Services\Base\BasePrioriteTacheService;
 
 /**
  * Classe PrioriteTacheService pour gérer la persistance de l'entité PrioriteTache.
