@@ -14,7 +14,7 @@
   <!-- Header -->
   <header class="bg-white shadow">
     <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-blue-600">SoliLMS</h1>
+      <h1 class="text-2xl font-bold text-blue-600"> {{ config('app.name') }} </h1>
       <nav>
         <ul class="flex space-x-4">
           <li><a href="/admin/" class="text-gray-600 hover:text-blue-500">Mon espace de formation</a></li>
