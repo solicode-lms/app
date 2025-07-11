@@ -1,7 +1,7 @@
 [
     {
         "reference": "niveaux_scolaires_creationOrder",
-        "value_integer": 22,
+        "value_integer": 18,
         "e_model_reference": "niveaux_scolaires",
         "e_metadata_definition_reference": "creationOrder"
     },

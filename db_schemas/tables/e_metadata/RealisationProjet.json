@@ -1,7 +1,7 @@
 [
     {
         "reference": "realisation_projets_creationOrder",
-        "value_integer": 53,
+        "value_integer": 44,
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "creationOrder"
     },
@@ -86,12 +86,6 @@
         "e_metadata_definition_reference": "filterable"
     },
     {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
         "reference": "RealisationProjet_reference_required",
         "value_boolean": 1,
         "e_data_field_reference": "RealisationProjet_reference",
@@ -167,12 +161,6 @@
         "reference": "RealisationProjet_updated_at_displayOrder",
         "value_integer": 14,
         "e_data_field_reference": "RealisationProjet_updated_at",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_displayOrder",
-        "value_integer": 11,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
@@ -269,13 +257,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_displayInTable",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
         "reference": "realisation_projets_ownedByUser",
         "value_boolean": 1,
         "value_float": 0,
@@ -360,12 +341,6 @@
         "reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "realisation_projets_hasMany_livrables_realisations_realisation_projet_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
@@ -504,12 +479,6 @@
         "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -698,12 +667,6 @@
         "reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "realisation_projets_hasMany_realisation_taches_realisation_projet_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "realisation_projets_hasMany_validations_realisation_projet_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "realisation_projets_hasMany_validations_realisation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {

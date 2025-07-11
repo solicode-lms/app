@@ -1,7 +1,7 @@
 [
     {
         "reference": "competences_creationOrder",
-        "value_integer": 18,
+        "value_integer": 17,
         "e_model_reference": "competences",
         "e_metadata_definition_reference": "creationOrder"
     },
@@ -40,19 +40,6 @@
         "value_boolean": 1,
         "e_data_field_reference": "Competence_module_id",
         "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "competences_hasMany_niveau_competences_competence_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_editHasMany",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
-        "e_metadata_definition_reference": "editHasMany"
     },
     {
         "reference": "Competence_module_id_filterable",
@@ -149,25 +136,6 @@
         "e_metadata_definition_reference": "displayOrder"
     },
     {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_displayOrder",
-        "value_integer": 6,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "competences_hasMany_niveau_competences_competence_id_displayOrder",
-        "value_integer": 8,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_displayOrder",
-        "value_integer": 13,
-        "value_float": 0,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
         "reference": "Competence_id_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "Competence_id",
@@ -213,12 +181,6 @@
         "reference": "Competence_reference_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "Competence_reference",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
@@ -304,26 +266,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "competences_hasMany_niveau_competences_competence_id_inputMdWidth",
-        "value_boolean": 0,
-        "value_integer": 12,
-        "value_float": 0,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "Competence_description_isRichText",
         "value_boolean": 1,
         "e_data_field_reference": "Competence_description",
@@ -339,24 +281,6 @@
         "reference": "Competence_module_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "Competence_module_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "competences_hasMany_niveau_competences_competence_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -507,31 +431,6 @@
         "reference": "Competence_reference_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "Competence_reference",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "competences_technologies_competence_technology_m2m_m2m_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_technologies_competence_technology_m2m_m2m",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "competences_hasMany_niveau_competences_competence_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "competences_hasMany_niveau_competences_competence_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "competences_hasMany_transfert_competences_competence_id_viewShowFieldVisible",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "competences_hasMany_transfert_competences_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
