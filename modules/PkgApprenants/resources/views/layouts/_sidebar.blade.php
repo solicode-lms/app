@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-apprenantKonosy', 'index-apprenant', 'index-groupe', 'index-nationalite', 'index-niveauxScolaire', 'index-sousGroupe', 'index-ville'])
+@accessiblePermissions(['index-apprenantKonosy', 'index-niveauxScolaire', 'index-ville', 'index-nationalite', 'index-groupe', 'index-apprenant', 'index-sousGroupe'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgApprenants" class="nav-item has-treeview  {{ Request::is('admin/PkgApprenants*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgApprenants*') ? 'active' : '' }}">
@@ -20,19 +20,19 @@
             </a>
         </li>
         @endcan
-        @can('index-apprenant') 
-        <li class="nav-item" id="menu-apprenants">
-            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-id-card"></i>
-                {{__('PkgApprenants::apprenant.plural')}}
+        @can('index-niveauxScolaire') 
+        <li class="nav-item" id="menu-niveauxScolaires">
+            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-award"></i>
+                {{__('PkgApprenants::niveauxScolaire.plural')}}
             </a>
         </li>
         @endcan
-        @can('index-groupe') 
-        <li class="nav-item" id="menu-groupes">
-            <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/groupes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-users"></i>
-                {{__('PkgApprenants::groupe.plural')}}
+        @can('index-ville') 
+        <li class="nav-item" id="menu-villes">
+            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/villes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-city"></i>
+                {{__('PkgApprenants::ville.plural')}}
             </a>
         </li>
         @endcan
@@ -44,11 +44,19 @@
             </a>
         </li>
         @endcan
-        @can('index-niveauxScolaire') 
-        <li class="nav-item" id="menu-niveauxScolaires">
-            <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-award"></i>
-                {{__('PkgApprenants::niveauxScolaire.plural')}}
+        @can('index-groupe') 
+        <li class="nav-item" id="menu-groupes">
+            <a href="{{ route('groupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/groupes') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-users"></i>
+                {{__('PkgApprenants::groupe.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-apprenant') 
+        <li class="nav-item" id="menu-apprenants">
+            <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-id-card"></i>
+                {{__('PkgApprenants::apprenant.plural')}}
             </a>
         </li>
         @endcan
@@ -57,14 +65,6 @@
             <a href="{{ route('sousGroupes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/sousGroupes') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user-friends"></i>
                 {{__('PkgApprenants::sousGroupe.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-ville') 
-        <li class="nav-item" id="menu-villes">
-            <a href="{{ route('villes.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/villes') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-city"></i>
-                {{__('PkgApprenants::ville.plural')}}
             </a>
         </li>
         @endcan
