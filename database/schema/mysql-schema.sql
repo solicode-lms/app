@@ -435,18 +435,15 @@ CREATE TABLE `etats_realisation_projets` (
   `formateur_id` bigint unsigned NOT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sys_color_id` bigint unsigned DEFAULT NULL,
-  `workflow_projet_id` bigint unsigned DEFAULT NULL,
   `is_editable_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `etats_realisation_projets_reference_unique` (`reference`),
   KEY `etats_realisation_projets_formateur_id_foreign` (`formateur_id`),
-  KEY `etats_realisation_projets_workflow_projet_id_foreign` (`workflow_projet_id`),
   KEY `etats_realisation_projets_sys_color_id_foreign` (`sys_color_id`),
   CONSTRAINT `etats_realisation_projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `etats_realisation_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`),
-  CONSTRAINT `etats_realisation_projets_workflow_projet_id_foreign` FOREIGN KEY (`workflow_projet_id`) REFERENCES `workflow_projets` (`id`) ON DELETE SET NULL
+  CONSTRAINT `etats_realisation_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `evaluateurs`;
@@ -1415,26 +1412,6 @@ CREATE TABLE `widgets` (
   CONSTRAINT `widgets_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `widget_types` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `workflow_projets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `workflow_projets` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ordre` int DEFAULT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `workflow_projets_code_unique` (`code`),
-  UNIQUE KEY `workflow_projets_reference_unique` (`reference`),
-  KEY `workflow_projets_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `workflow_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `workflow_taches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1544,7 +1521,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (98,'2025_04_09_204
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (99,'2025_04_12_114212_alter_default_value_column_in_e_metadata_definitions',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (100,'2025_04_13_074238_create_section_widgets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (101,'2025_04_13_074404_add_section_widget_id_to_widgets_table',14);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (102,'2025_04_13_145740_create_workflow_projets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (103,'2025_04_13_145926_add_workflow_projet_id_to_etats_realisation_projets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (104,'2025_04_13_175508_add_sys_color_id_to_etats_realisation_projets_table',14);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (105,'2025_04_13_200545_add_sys_color_to_workflow_taches_table',14);
