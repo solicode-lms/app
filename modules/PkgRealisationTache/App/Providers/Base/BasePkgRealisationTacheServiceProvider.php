@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
-class BasePkgRealisationTacheServiceProviderphp extends ServiceProvider
+class BasePkgRealisationTacheServiceProvider extends ServiceProvider
 {
     /**
      * Enregistrer les services dans l'application.

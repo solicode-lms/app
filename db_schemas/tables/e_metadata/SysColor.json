@@ -279,24 +279,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_displayOrder",
-        "value_integer": 17,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id_editHasMany",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_etats_realisation_projets_sys_color_id",
@@ -380,12 +362,6 @@
         "reference": "sys_colors_hasMany_widgets_sys_color_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -542,12 +518,6 @@
         "reference": "sys_colors_hasMany_widgets_sys_color_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_projets_sys_color_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_projets_sys_color_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
