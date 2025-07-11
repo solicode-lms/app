@@ -12,12 +12,12 @@ class PkgRealisationProjetsServiceProvider extends BasePkgRealisationProjetsServ
     public function boot()
     {
         // Charger les migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../Database/Migrations');
 
         // Charger les fichiers de routes du module
-        $routeFiles = File::allFiles(__DIR__ . '/../../../Routes');
+        $routeFiles = File::allFiles(__DIR__ . '/../../Routes');
         
-        $routeFiles = collect(File::allFiles(__DIR__ . '/../../../Routes'))
+        $routeFiles = collect(File::allFiles(__DIR__ . '/../../Routes'))
         ->sortBy(function ($file) {
             $name = $file->getFilename();
             return match (true) {
@@ -34,11 +34,11 @@ class PkgRealisationProjetsServiceProvider extends BasePkgRealisationProjetsServ
         
 
         // Charger les vues du module
-        $this->loadViewsFrom(__DIR__ . '/../../../resources/views', 'PkgRealisationProjets');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'PkgRealisationProjets');
 
         // Charger les fichiers de traduction
         $this->loadTranslationsFrom(
-            __DIR__ . '/../../../resources/lang',
+            __DIR__ . '/../../resources/lang',
             'PkgRealisationProjets'
         );
     }

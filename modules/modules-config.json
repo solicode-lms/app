@@ -14,13 +14,12 @@
     "PkgFormation" : {
         "active": true
     },
-
-
     "PkgApprenants" : {
-        "active": false
+        "active": true
     },
+
     "PkgCompetences" : {
-        "active": false
+        "active": true
     },
     "PkgCreationProjet" : {
         "active": false
