@@ -32,15 +32,6 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::etatChapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::etatChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgGestionTaches::etatRealisationTache.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
@@ -62,15 +53,6 @@
             <small class="text-muted d-block">  {{ ucfirst(__('PkgValidationProjets::etatEvaluationProjet.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgValidationProjets::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::etatFormation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::etatFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
             </div>
           </div>
       </div>
@@ -116,24 +98,6 @@
             <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::workflowChapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::workflowChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::workflowFormation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::workflowFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
             </div>
           </div>
       </div>

@@ -39,9 +39,6 @@
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-niveauCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-niveauCompetence" role="tab" aria-controls="competence-hasmany-tabs-niveauCompetence" aria-selected="false">{{ucfirst(__('PkgCompetences::niveauCompetence.plural'))}}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="competence-hasmany-tabs-formation-tab" data-toggle="pill" href="#competence-hasmany-tabs-formation" role="tab" aria-controls="competence-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
-                        </li>
 
                        
                         </ul>
@@ -54,9 +51,6 @@
 
                             <div class="tab-pane fade" id="competence-hasmany-tabs-niveauCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-niveauCompetence-tab">
                                 @include('PkgCompetences::niveauCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.edit_' . $itemCompetence->id])
-                            </div>
-                            <div class="tab-pane fade" id="competence-hasmany-tabs-formation" role="tabpanel" aria-labelledby="competence-hasmany-tabs-formation-tab">
-                                @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.edit_' . $itemCompetence->id])
                             </div>
 
                            

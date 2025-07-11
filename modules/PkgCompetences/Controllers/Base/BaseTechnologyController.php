@@ -5,7 +5,6 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgCompetences\Services\CompetenceService;
-use Modules\PkgAutoformation\Services\FormationService;
 use Modules\PkgCompetences\Services\CategoryTechnologyService;
 use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Illuminate\Http\Request;
@@ -23,16 +22,14 @@ class BaseTechnologyController extends AdminController
 {
     protected $technologyService;
     protected $competenceService;
-    protected $formationService;
     protected $categoryTechnologyService;
     protected $transfertCompetenceService;
 
-    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, FormationService $formationService, CategoryTechnologyService $categoryTechnologyService, TransfertCompetenceService $transfertCompetenceService) {
+    public function __construct(TechnologyService $technologyService, CompetenceService $competenceService, CategoryTechnologyService $categoryTechnologyService, TransfertCompetenceService $transfertCompetenceService) {
         parent::__construct();
         $this->service  =  $technologyService;
         $this->technologyService = $technologyService;
         $this->competenceService = $competenceService;
-        $this->formationService = $formationService;
         $this->categoryTechnologyService = $categoryTechnologyService;
         $this->transfertCompetenceService = $transfertCompetenceService;
     }
@@ -85,14 +82,13 @@ class BaseTechnologyController extends AdminController
 
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
-        $formations = $this->formationService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('bulkEdit' ,'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', compact('bulkEdit' ,'itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
-        return view('PkgCompetences::technology.create', compact('bulkEdit' ,'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        return view('PkgCompetences::technology.create', compact('bulkEdit' ,'itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -114,7 +110,6 @@ class BaseTechnologyController extends AdminController
  
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
-        $formations = $this->formationService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
         $bulkEdit = true;
@@ -123,9 +118,9 @@ class BaseTechnologyController extends AdminController
         $itemTechnology = $this->technologyService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+            return view('PkgCompetences::technology._fields', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
         }
-        return view('PkgCompetences::technology.bulk-edit', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'formations', 'transfertCompetences', 'categoryTechnologies'));
+        return view('PkgCompetences::technology.bulk-edit', compact('bulkEdit', 'technology_ids', 'itemTechnology', 'competences', 'transfertCompetences', 'categoryTechnologies'));
     }
     /**
      */
@@ -180,17 +175,16 @@ class BaseTechnologyController extends AdminController
 
         $categoryTechnologies = $this->categoryTechnologyService->all();
         $competences = $this->competenceService->all();
-        $formations = $this->formationService->all();
         $transfertCompetences = $this->transfertCompetenceService->all();
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::technology._fields', array_merge(compact('bulkEdit' , 'itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
+            return view('PkgCompetences::technology._fields', array_merge(compact('bulkEdit' , 'itemTechnology','competences', 'transfertCompetences', 'categoryTechnologies'),));
         }
 
-        return view('PkgCompetences::technology.edit', array_merge(compact('bulkEdit' ,'itemTechnology','competences', 'formations', 'transfertCompetences', 'categoryTechnologies'),));
+        return view('PkgCompetences::technology.edit', array_merge(compact('bulkEdit' ,'itemTechnology','competences', 'transfertCompetences', 'categoryTechnologies'),));
 
 
     }

@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseSousGroupeSeeder extends Seeder
 {
-    public static int $order = 94;
+    public static int $order = 85;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

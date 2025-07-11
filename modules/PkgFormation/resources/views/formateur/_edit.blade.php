@@ -40,15 +40,6 @@
                             <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatChapitre" role="tab" aria-controls="formateur-hasmany-tabs-etatChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatChapitre.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatFormation" role="tab" aria-controls="formateur-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-formation-tab" data-toggle="pill" href="#formateur-hasmany-tabs-formation" role="tab" aria-controls="formateur-hasmany-tabs-formation" aria-selected="false">{{ucfirst(__('PkgAutoformation::formation.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::prioriteTache.plural'))}}</a>
                         </li>
 
@@ -63,15 +54,6 @@
 
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
-                            </div>
-                            <div class="tab-pane fade" id="formateur-hasmany-tabs-etatChapitre" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatChapitre-tab">
-                                @include('PkgAutoformation::etatChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
-                            </div>
-                            <div class="tab-pane fade" id="formateur-hasmany-tabs-etatFormation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatFormation-tab">
-                                @include('PkgAutoformation::etatFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
-                            </div>
-                            <div class="tab-pane fade" id="formateur-hasmany-tabs-formation" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-formation-tab">
-                                @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-prioriteTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-prioriteTache-tab">
                                 @include('PkgGestionTaches::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])

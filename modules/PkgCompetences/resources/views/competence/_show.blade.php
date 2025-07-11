@@ -98,15 +98,6 @@
           </div>
       </div>
 
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgAutoformation::formation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgAutoformation::formation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.show_' . $itemCompetence->id])
-            </div>
-          </div>
-      </div>
-
 
             </div>
         </div>

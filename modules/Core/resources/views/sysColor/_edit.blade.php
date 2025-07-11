@@ -37,9 +37,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-etatChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatChapitre.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::etatRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -47,9 +44,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatEvaluationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatEvaluationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatEvaluationProjet" aria-selected="false">{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatFormation" role="tab" aria-controls="sysColor-hasmany-tabs-etatFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::etatFormation.plural'))}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-labelRealisationTache" aria-selected="false">{{ucfirst(__('PkgGestionTaches::labelRealisationTache.plural'))}}</a>
@@ -67,12 +61,6 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-widget" role="tab" aria-controls="sysColor-hasmany-tabs-widget" aria-selected="false">{{ucfirst(__('PkgWidgets::widget.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-workflowChapitre" aria-selected="false">{{ucfirst(__('PkgAutoformation::workflowChapitre.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowFormation-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowFormation" role="tab" aria-controls="sysColor-hasmany-tabs-workflowFormation" aria-selected="false">{{ucfirst(__('PkgAutoformation::workflowFormation.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-workflowProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowProjet" role="tab" aria-controls="sysColor-hasmany-tabs-workflowProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::workflowProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -88,9 +76,6 @@
                                 @include('Core::sysColor._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatChapitre" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatChapitre-tab">
-                                @include('PkgAutoformation::etatChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
-                            </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgGestionTaches::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
@@ -99,9 +84,6 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatEvaluationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatEvaluationProjet-tab">
                                 @include('PkgValidationProjets::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
-                            </div>
-                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatFormation" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatFormation-tab">
-                                @include('PkgAutoformation::etatFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-labelRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-labelRealisationTache-tab">
                                 @include('PkgGestionTaches::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
@@ -117,12 +99,6 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
-                            </div>
-                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowChapitre" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowChapitre-tab">
-                                @include('PkgAutoformation::workflowChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
-                            </div>
-                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowFormation" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowFormation-tab">
-                                @include('PkgAutoformation::workflowFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowProjet-tab">
                                 @include('PkgRealisationProjets::workflowProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

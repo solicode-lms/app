@@ -12,7 +12,6 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\Competence;
-use Modules\PkgAutoformation\Models\Chapitre;
 
 /**
  * Classe BaseNiveauCompetence
@@ -66,15 +65,6 @@ class BaseNiveauCompetence extends BaseModel
     }
 
 
-    /**
-     * Relation HasMany pour NiveauCompetences.
-     *
-     * @return HasMany
-     */
-    public function chapitres(): HasMany
-    {
-        return $this->hasMany(Chapitre::class, 'niveau_competence_id', 'id');
-    }
 
 
 

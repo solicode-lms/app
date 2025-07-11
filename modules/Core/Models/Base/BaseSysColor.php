@@ -11,18 +11,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgAutoformation\Models\EtatChapitre;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
 use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
-use Modules\PkgAutoformation\Models\EtatFormation;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\PkgWidgets\Models\Widget;
-use Modules\PkgAutoformation\Models\WorkflowChapitre;
-use Modules\PkgAutoformation\Models\WorkflowFormation;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Modules\PkgGestionTaches\Models\WorkflowTache;
 
@@ -58,15 +54,6 @@ class BaseSysColor extends BaseModel
      *
      * @return HasMany
      */
-    public function etatChapitres(): HasMany
-    {
-        return $this->hasMany(EtatChapitre::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
     public function etatRealisationTaches(): HasMany
     {
         return $this->hasMany(EtatRealisationTache::class, 'sys_color_id', 'id');
@@ -88,15 +75,6 @@ class BaseSysColor extends BaseModel
     public function etatEvaluationProjets(): HasMany
     {
         return $this->hasMany(EtatEvaluationProjet::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
-    public function etatFormations(): HasMany
-    {
-        return $this->hasMany(EtatFormation::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.
@@ -142,24 +120,6 @@ class BaseSysColor extends BaseModel
     public function widgets(): HasMany
     {
         return $this->hasMany(Widget::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
-    public function workflowChapitres(): HasMany
-    {
-        return $this->hasMany(WorkflowChapitre::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
-    public function workflowFormations(): HasMany
-    {
-        return $this->hasMany(WorkflowFormation::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

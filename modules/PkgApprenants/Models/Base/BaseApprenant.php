@@ -18,7 +18,6 @@ use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
-use Modules\PkgAutoformation\Models\RealisationFormation;
 
 /**
  * Classe BaseApprenant
@@ -164,15 +163,6 @@ class BaseApprenant extends BaseModel
     public function realisationProjets(): HasMany
     {
         return $this->hasMany(RealisationProjet::class, 'apprenant_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Apprenants.
-     *
-     * @return HasMany
-     */
-    public function realisationFormations(): HasMany
-    {
-        return $this->hasMany(RealisationFormation::class, 'apprenant_id', 'id');
     }
 
 

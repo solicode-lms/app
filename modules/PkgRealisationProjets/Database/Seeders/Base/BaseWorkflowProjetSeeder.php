@@ -22,7 +22,7 @@ use Modules\PkgRealisationProjets\Services\WorkflowProjetService;
 
 class BaseWorkflowProjetSeeder extends Seeder
 {
-    public static int $order = 84;
+    public static int $order = 75;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

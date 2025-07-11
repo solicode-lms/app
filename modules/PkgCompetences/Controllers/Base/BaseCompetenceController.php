@@ -7,7 +7,6 @@ use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\NiveauCompetenceService;
-use Modules\PkgAutoformation\Services\FormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -160,18 +159,11 @@ class BaseCompetenceController extends AdminController
         $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
         extract($niveauCompetences_view_data);
 
-        $this->viewState->set('scope.formation.competence_id', $id);
-        
-
-        $formationService =  new FormationService();
-        $formations_view_data = $formationService->prepareDataForIndexView();
-        extract($formations_view_data);
-
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value, $formation_compact_value));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value));
 
     }
     /**
@@ -195,20 +187,13 @@ class BaseCompetenceController extends AdminController
         $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
         extract($niveauCompetences_view_data);
 
-        $this->viewState->set('scope.formation.competence_id', $id);
-        
-
-        $formationService =  new FormationService();
-        $formations_view_data = $formationService->prepareDataForIndexView();
-        extract($formations_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value, $formation_compact_value));
+        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value));
 
 
     }
