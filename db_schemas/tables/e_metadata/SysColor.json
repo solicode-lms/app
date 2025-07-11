@@ -243,94 +243,6 @@
         "e_metadata_definition_reference": "nature"
     },
     {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_displayOrder",
-        "value_integer": 7,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_nature",
-        "value_json": {
-            "nature": "badge"
-        },
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "nature"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_displayOrder",
-        "value_integer": 8,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_nature",
-        "value_json": {
-            "nature": "badge"
-        },
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "nature"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_displayOrder",
-        "value_integer": 13,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_editHasMany",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
-        "e_metadata_definition_reference": "editHasMany"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_displayOrder",
-        "value_integer": 14,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "sys_colors_hasMany_widgets_sys_color_id_editHasMany",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
@@ -429,18 +341,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
         "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
@@ -480,18 +380,6 @@
         "reference": "sys_colors_hasMany_widgets_sys_color_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -615,18 +503,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "sys_colors_hasMany_etat_chapitres_sys_color_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "sys_colors_hasMany_etat_formations_sys_color_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_etat_formations_sys_color_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_etat_realisation_taches_sys_color_id",
@@ -666,18 +542,6 @@
         "reference": "sys_colors_hasMany_widgets_sys_color_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_widgets_sys_color_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_chapitres_sys_color_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "sys_colors_hasMany_workflow_formations_sys_color_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "sys_colors_hasMany_workflow_formations_sys_color_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
