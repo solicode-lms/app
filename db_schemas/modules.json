@@ -60,7 +60,6 @@
 "PkgApprenants": {
     "name": "PkgApprenants",
     "tables": [
-        "villes", 
         "groupes",
         "niveaux_scolaires",
         "formateur_groupe",
