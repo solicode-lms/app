@@ -22,7 +22,7 @@ use Modules\PkgGestionTaches\Services\LabelRealisationTacheService;
 
 class BaseLabelRealisationTacheSeeder extends Seeder
 {
-    public static int $order = 59;
+    public static int $order = 49;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

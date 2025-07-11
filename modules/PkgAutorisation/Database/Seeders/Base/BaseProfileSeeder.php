@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Services\ProfileService;
 
 class BaseProfileSeeder extends Seeder
 {
-    public static int $order = 57;
+    public static int $order = 47;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

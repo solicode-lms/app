@@ -22,7 +22,7 @@ use Modules\PkgGapp\Services\EPackageService;
 
 class BaseEPackageSeeder extends Seeder
 {
-    public static int $order = 46;
+    public static int $order = 37;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

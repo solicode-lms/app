@@ -13,7 +13,6 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgCreationProjet\Models\TransfertCompetence;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgGestionTaches\Models\Tache;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -87,15 +86,6 @@ class BaseProjet extends BaseModel
     }
 
 
-    /**
-     * Relation HasMany pour Projets.
-     *
-     * @return HasMany
-     */
-    public function transfertCompetences(): HasMany
-    {
-        return $this->hasMany(TransfertCompetence::class, 'projet_id', 'id');
-    }
     /**
      * Relation HasMany pour Projets.
      *

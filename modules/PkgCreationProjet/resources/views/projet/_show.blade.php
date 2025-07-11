@@ -95,15 +95,6 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::transfertCompetence.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationProjet::transfertCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::livrable.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])

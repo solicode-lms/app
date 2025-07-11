@@ -12,9 +12,6 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Module;
-use Modules\PkgCompetences\Models\Technology;
-use Modules\PkgCompetences\Models\NiveauCompetence;
-use Modules\PkgCreationProjet\Models\TransfertCompetence;
 
 /**
  * Classe BaseCompetence
@@ -48,9 +45,6 @@ class BaseCompetence extends BaseModel
     protected $fillable = [
         'code', 'mini_code', 'nom', 'module_id', 'description'
     ];
-    public $manyToMany = [
-        'Technology' => ['relation' => 'technologies' , "foreign_key" => "technology_id" ]
-    ];
     public $manyToOne = [
         'Module' => [
             'model' => "Modules\\PkgFormation\\Models\\Module",
@@ -70,34 +64,7 @@ class BaseCompetence extends BaseModel
         return $this->belongsTo(Module::class, 'module_id', 'id');
     }
 
-    /**
-     * Relation ManyToMany pour Technologies.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function technologies()
-    {
-        return $this->belongsToMany(Technology::class, 'competence_technology');
-    }
 
-    /**
-     * Relation HasMany pour Competences.
-     *
-     * @return HasMany
-     */
-    public function niveauCompetences(): HasMany
-    {
-        return $this->hasMany(NiveauCompetence::class, 'competence_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Competences.
-     *
-     * @return HasMany
-     */
-    public function transfertCompetences(): HasMany
-    {
-        return $this->hasMany(TransfertCompetence::class, 'competence_id', 'id');
-    }
 
 
 

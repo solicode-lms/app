@@ -6,7 +6,6 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgCreationProjet\Services\TransfertCompetenceService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgGestionTaches\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
@@ -169,21 +168,6 @@ class BaseProjetController extends AdminController
         $this->authorize('view', $itemProjet);
 
 
-        $this->viewState->set('scope.transfertCompetence.projet_id', $id);
-        
-        // scopeDataInEditContext
-        $value = $itemProjet->getNestedValue('filiere_id');
-        $key = 'scope.competence.module.filiere_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemProjet->getNestedValue('formateur_id');
-        $key = 'scope.niveauDifficulte.formateur_id';
-        $this->viewState->set($key, $value);
-
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
-        extract($transfertCompetences_view_data);
-
         $this->viewState->set('scope.tache.projet_id', $id);
         
 
@@ -206,10 +190,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$transfertCompetence_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
     }
     /**
@@ -226,21 +210,6 @@ class BaseProjetController extends AdminController
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
-
-        $this->viewState->set('scope.transfertCompetence.projet_id', $id);
-        
-        // scopeDataInEditContext
-        $value = $itemProjet->getNestedValue('filiere_id');
-        $key = 'scope.competence.module.filiere_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemProjet->getNestedValue('formateur_id');
-        $key = 'scope.niveauDifficulte.formateur_id';
-        $this->viewState->set($key, $value);
-
-        $transfertCompetenceService =  new TransfertCompetenceService();
-        $transfertCompetences_view_data = $transfertCompetenceService->prepareDataForIndexView();
-        extract($transfertCompetences_view_data);
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
         
@@ -277,10 +246,10 @@ class BaseProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs'),$affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs'),$transfertCompetence_compact_value, $affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs'),$affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }

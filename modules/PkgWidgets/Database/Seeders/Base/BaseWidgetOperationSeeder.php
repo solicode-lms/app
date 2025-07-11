@@ -22,7 +22,7 @@ use Modules\PkgWidgets\Services\WidgetOperationService;
 
 class BaseWidgetOperationSeeder extends Seeder
 {
-    public static int $order = 35;
+    public static int $order = 30;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

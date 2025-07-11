@@ -57,25 +57,6 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::technology.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemCompetence->technologies->isNotEmpty())
-          <div>
-            @foreach($itemCompetence->technologies as $technology)
-              <span class="badge badge-info mr-1">
-                {{ $technology }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.description')) }}</small>
@@ -88,15 +69,6 @@
           </div>
       </div>
   
-
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::niveauCompetence.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::niveauCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.show_' . $itemCompetence->id])
-            </div>
-          </div>
-      </div>
 
 
             </div>

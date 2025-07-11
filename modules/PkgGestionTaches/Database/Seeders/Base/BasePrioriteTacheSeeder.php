@@ -22,7 +22,7 @@ use Modules\PkgGestionTaches\Services\PrioriteTacheService;
 
 class BasePrioriteTacheSeeder extends Seeder
 {
-    public static int $order = 60;
+    public static int $order = 50;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

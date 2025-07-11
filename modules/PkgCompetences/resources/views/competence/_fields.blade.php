@@ -150,40 +150,6 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemCompetence" field="technologies" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="technologies" id="bulk_field_technologies" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="technologies">
-            {{ ucfirst(__('PkgCompetences::technology.plural')) }}
-            
-          </label>
-                      <select
-                id="technologies"
-                name="technologies[]"
-                class="form-control select2"
-                
-                
-                multiple="multiple">
-               
-                @foreach ($technologies as $technology)
-                    <option value="{{ $technology->id }}"
-                        {{ (isset($itemCompetence) && $itemCompetence->technologies && $itemCompetence->technologies->contains('id', $technology->id)) || (is_array(old('technologies')) && in_array($technology->id, old('technologies'))) ? 'selected' : '' }}>
-                        {{ $technology }}
-                    </option>
-                @endforeach
-            </select>
-          @error('technologies')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :entity="$itemCompetence" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">

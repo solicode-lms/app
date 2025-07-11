@@ -4,9 +4,7 @@
 
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\CompetenceService;
-use Modules\PkgCompetences\Services\TechnologyService;
 use Modules\PkgFormation\Services\ModuleService;
-use Modules\PkgCompetences\Services\NiveauCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -21,14 +19,12 @@ use Modules\Core\Services\ContextState;
 class BaseCompetenceController extends AdminController
 {
     protected $competenceService;
-    protected $technologyService;
     protected $moduleService;
 
-    public function __construct(CompetenceService $competenceService, TechnologyService $technologyService, ModuleService $moduleService) {
+    public function __construct(CompetenceService $competenceService, ModuleService $moduleService) {
         parent::__construct();
         $this->service  =  $competenceService;
         $this->competenceService = $competenceService;
-        $this->technologyService = $technologyService;
         $this->moduleService = $moduleService;
     }
 
@@ -79,13 +75,12 @@ class BaseCompetenceController extends AdminController
         
 
         $modules = $this->moduleService->all();
-        $technologies = $this->technologyService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('bulkEdit' ,'itemCompetence', 'technologies', 'modules'));
+            return view('PkgCompetences::competence._fields', compact('bulkEdit' ,'itemCompetence', 'modules'));
         }
-        return view('PkgCompetences::competence.create', compact('bulkEdit' ,'itemCompetence', 'technologies', 'modules'));
+        return view('PkgCompetences::competence.create', compact('bulkEdit' ,'itemCompetence', 'modules'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -106,7 +101,6 @@ class BaseCompetenceController extends AdminController
          
  
         $modules = $this->moduleService->all();
-        $technologies = $this->technologyService->all();
 
         $bulkEdit = true;
 
@@ -114,9 +108,9 @@ class BaseCompetenceController extends AdminController
         $itemCompetence = $this->competenceService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'technologies', 'modules'));
+            return view('PkgCompetences::competence._fields', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'modules'));
         }
-        return view('PkgCompetences::competence.bulk-edit', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'technologies', 'modules'));
+        return view('PkgCompetences::competence.bulk-edit', compact('bulkEdit', 'competence_ids', 'itemCompetence', 'modules'));
     }
     /**
      */
@@ -135,7 +129,7 @@ class BaseCompetenceController extends AdminController
             );
         }
 
-        return redirect()->route('competences.edit',['competence' => $competence->id])->with(
+        return redirect()->route('competences.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $competence,
@@ -152,18 +146,11 @@ class BaseCompetenceController extends AdminController
         $itemCompetence = $this->competenceService->edit($id);
 
 
-        $this->viewState->set('scope.niveauCompetence.competence_id', $id);
-        
-
-        $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
-        extract($niveauCompetences_view_data);
-
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),));
         }
 
-        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$niveauCompetence_compact_value));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),));
 
     }
     /**
@@ -177,23 +164,15 @@ class BaseCompetenceController extends AdminController
 
 
         $modules = $this->moduleService->all();
-        $technologies = $this->technologyService->all();
 
-
-        $this->viewState->set('scope.niveauCompetence.competence_id', $id);
-        
-
-        $niveauCompetenceService =  new NiveauCompetenceService();
-        $niveauCompetences_view_data = $niveauCompetenceService->prepareDataForIndexView();
-        extract($niveauCompetences_view_data);
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value));
+            return view('PkgCompetences::competence._fields', array_merge(compact('bulkEdit' , 'itemCompetence','modules'),));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','technologies', 'modules'),$niveauCompetence_compact_value));
+        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','modules'),));
 
 
     }

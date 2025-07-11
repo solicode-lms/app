@@ -22,7 +22,7 @@ use Modules\PkgGestionTaches\Services\WorkflowTacheService;
 
 class BaseWorkflowTacheSeeder extends Seeder
 {
-    public static int $order = 70;
+    public static int $order = 60;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

@@ -33,7 +33,6 @@ class BaseCompetenceRequest extends FormRequest
             'mini_code' => 'nullable|string|max:255',
             'nom' => 'required|string|max:255',
             'module_id' => 'required',
-            'technologies' => 'nullable|array',
             'description' => 'nullable|string'
         ];
     }
@@ -53,8 +52,6 @@ class BaseCompetenceRequest extends FormRequest
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.nom')]),
             'nom.max' => __('validation.nomMax'),
             'module_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.module_id')]),
-            'technologies.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.technologies')]),
-            'technologies.array' => __('validation.array', ['attribute' => __('PkgCompetences::Competence.technologies')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Competence.description')])
         ];
     }

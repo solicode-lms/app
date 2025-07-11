@@ -22,7 +22,7 @@ use Modules\PkgFormation\Services\AnneeFormationService;
 
 class BaseAnneeFormationSeeder extends Seeder
 {
-    public static int $order = 26;
+    public static int $order = 21;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

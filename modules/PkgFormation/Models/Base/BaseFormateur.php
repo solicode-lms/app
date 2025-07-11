@@ -17,7 +17,6 @@ use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgGestionTaches\Models\CommentaireRealisationTache;
 use Modules\PkgGestionTaches\Models\EtatRealisationTache;
-use Modules\PkgCompetences\Models\NiveauDifficulte;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgGestionTaches\Models\LabelRealisationTache;
 use Modules\PkgGestionTaches\Models\PrioriteTache;
@@ -122,15 +121,6 @@ class BaseFormateur extends BaseModel
     public function etatRealisationTaches(): HasMany
     {
         return $this->hasMany(EtatRealisationTache::class, 'formateur_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Formateurs.
-     *
-     * @return HasMany
-     */
-    public function niveauDifficultes(): HasMany
-    {
-        return $this->hasMany(NiveauDifficulte::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.
