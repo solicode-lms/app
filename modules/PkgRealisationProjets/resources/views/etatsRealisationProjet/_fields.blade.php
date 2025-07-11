@@ -153,40 +153,6 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatsRealisationProjet" field="workflow_projet_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="workflow_projet_id" id="bulk_field_workflow_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="workflow_projet_id">
-            {{ ucfirst(__('PkgRealisationProjets::workflowProjet.singular')) }}
-            
-          </label>
-                      <select 
-            id="workflow_projet_id" 
-            
-            
-            
-            name="workflow_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($workflowProjets as $workflowProjet)
-                    <option value="{{ $workflowProjet->id }}"
-                        {{ (isset($itemEtatsRealisationProjet) && $itemEtatsRealisationProjet->workflow_projet_id == $workflowProjet->id) || (old('workflow_projet_id>') == $workflowProjet->id) ? 'selected' : '' }}>
-                        {{ $workflowProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('workflow_projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :entity="$itemEtatsRealisationProjet" field="is_editable_by_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

@@ -25,7 +25,6 @@ class BaseEtatsRealisationProjetService extends BaseService
         'titre',
         'description',
         'sys_color_id',
-        'workflow_projet_id',
         'is_editable_by_formateur'
     ];
 
@@ -63,10 +62,6 @@ class BaseEtatsRealisationProjetService extends BaseService
 
         if (!array_key_exists('sys_color_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
-        }
-
-        if (!array_key_exists('workflow_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::workflowProjet.plural"), 'workflow_projet_id', \Modules\PkgRealisationProjets\Models\WorkflowProjet::class, 'code');
         }
 
     }

@@ -33,7 +33,6 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             'description' => 'description',
             'reference' => 'reference',
             'sys_color_id' => 'sys_color_id',
-            'workflow_projet_id' => 'workflow_projet_id',
             'is_editable_by_formateur' => 'is_editable_by_formateur',
         ];
         }else{
@@ -43,7 +42,6 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
             'reference' => __('Core::msg.reference'),
             'sys_color_id' => __('PkgRealisationProjets::etatsRealisationProjet.sys_color_id'),
-            'workflow_projet_id' => __('PkgRealisationProjets::etatsRealisationProjet.workflow_projet_id'),
             'is_editable_by_formateur' => __('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur'),
         ];
 
@@ -60,7 +58,6 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
                 'description' => $etatsRealisationProjet->description,
                 'reference' => $etatsRealisationProjet->reference,
                 'sys_color_id' => $etatsRealisationProjet->sys_color_id,
-                'workflow_projet_id' => $etatsRealisationProjet->workflow_projet_id,
                 'is_editable_by_formateur' => $etatsRealisationProjet->is_editable_by_formateur,
             ];
         });

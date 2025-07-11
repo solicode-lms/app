@@ -22,7 +22,7 @@ use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 
 class BaseEvaluationRealisationTacheSeeder extends Seeder
 {
-    public static int $order = 68;
+    public static int $order = 67;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

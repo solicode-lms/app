@@ -19,7 +19,6 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\PkgWidgets\Models\Widget;
-use Modules\PkgRealisationProjets\Models\WorkflowProjet;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 
 /**
@@ -120,15 +119,6 @@ class BaseSysColor extends BaseModel
     public function widgets(): HasMany
     {
         return $this->hasMany(Widget::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
-    public function workflowProjets(): HasMany
-    {
-        return $this->hasMany(WorkflowProjet::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

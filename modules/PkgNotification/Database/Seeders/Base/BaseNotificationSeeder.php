@@ -22,7 +22,7 @@ use Modules\PkgNotification\Services\NotificationService;
 
 class BaseNotificationSeeder extends Seeder
 {
-    public static int $order = 66;
+    public static int $order = 65;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

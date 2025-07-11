@@ -61,9 +61,6 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-widget" role="tab" aria-controls="sysColor-hasmany-tabs-widget" aria-selected="false">{{ucfirst(__('PkgWidgets::widget.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-workflowProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowProjet" role="tab" aria-controls="sysColor-hasmany-tabs-workflowProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::workflowProjet.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-workflowTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-workflowTache" role="tab" aria-controls="sysColor-hasmany-tabs-workflowTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::workflowTache.plural'))}}</a>
                         </li>
 
@@ -99,9 +96,6 @@
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
-                            </div>
-                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowProjet-tab">
-                                @include('PkgRealisationProjets::workflowProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-workflowTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-workflowTache-tab">
                                 @include('PkgRealisationTache::workflowTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
