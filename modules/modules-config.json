@@ -23,7 +23,10 @@
     },
     "PkgCreationProjet" : {
         "active": false
-    },    
+    }, 
+     "PkgCreationTache" : {
+        "active": false
+    }, 
     "PkgRealisationProjets" : {
         "active": false
     },
