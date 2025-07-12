@@ -9,9 +9,9 @@
                     $bulkEdit = $dependanceTaches_permissions['edit-dependanceTache'] || $dependanceTaches_permissions['destroy-dependanceTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgRealisationTache::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgCreationTache::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="27.333333333333332" field="type_dependance_tache_id" modelname="dependanceTache" label="{{ucfirst(__('PkgRealisationTache::typeDependanceTache.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ucfirst(__('PkgRealisationTache::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_cible_id" modelname="dependanceTache" label="{{ucfirst(__('PkgCreationTache::tache.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

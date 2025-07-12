@@ -2,8 +2,8 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgRealisationTache\Models;
-use Modules\PkgRealisationTache\Models\Base\BasePrioriteTache;
+namespace Modules\PkgCreationTache\Models;
+use Modules\PkgCreationTache\Models\Base\BasePrioriteTache;
 
 class PrioriteTache extends BasePrioriteTache
 {

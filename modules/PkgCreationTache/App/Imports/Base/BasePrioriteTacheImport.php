@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Imports\Base;
+namespace Modules\PkgCreationTache\App\Imports\Base;
 
-use Modules\PkgRealisationTache\Models\PrioriteTache;
+use Modules\PkgCreationTache\Models\PrioriteTache;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;

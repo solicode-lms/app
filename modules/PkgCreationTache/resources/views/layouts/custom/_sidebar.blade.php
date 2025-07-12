@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgCreationTache::tache._fields')
+@extends('PkgCreationTache::layouts._sidebar')

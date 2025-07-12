@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Models\TypeDependanceTache;
 
 /**
@@ -50,7 +50,7 @@ class BaseDependanceTache extends BaseModel
     ];
     public $manyToOne = [
         'Tache' => [
-            'model' => "Modules\\PkgRealisationTache\\Models\\Tache",
+            'model' => "Modules\\PkgCreationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             ],
@@ -60,7 +60,7 @@ class BaseDependanceTache extends BaseModel
             "foreign_key" => "type_dependance_tache_id", 
             ],
         'Tache' => [
-            'model' => "Modules\\PkgRealisationTache\\Models\\Tache",
+            'model' => "Modules\\PkgCreationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
             ]

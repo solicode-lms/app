@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Exports;
+namespace Modules\PkgCreationTache\App\Exports;
 
-use Modules\PkgRealisationTache\App\Exports\Base\BasePrioriteTacheExport;
+use Modules\PkgCreationTache\App\Exports\Base\BasePrioriteTacheExport;
 
 class PrioriteTacheExport extends BasePrioriteTacheExport {
   

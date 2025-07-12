@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-prioriteTache')),
         calculationUrl:  '{{ route('prioriteTaches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::prioriteTache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::prioriteTache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationTache::prioriteTache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationTache::prioriteTache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="prioriteTache-crud" class="crud">
     @section('prioriteTache-crud-header')
     @php
-        $package = __("PkgRealisationTache::PkgRealisationTache.name");
-       $titre = __("PkgRealisationTache::prioriteTache.singular");
+        $package = __("PkgCreationTache::PkgCreationTache.name");
+       $titre = __("PkgCreationTache::prioriteTache.singular");
     @endphp
     <x-crud-header 
         id="prioriteTache-crud-header" icon="fas fa-list-ol"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="prioriteTache-data-container" class="data-container">
                     @if($prioriteTache_viewType != "widgets")
-                    @include("PkgRealisationTache::prioriteTache._$prioriteTache_viewType")
+                    @include("PkgCreationTache::prioriteTache._$prioriteTache_viewType")
                     @endif
                 </div>
                 @section('prioriteTache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="prioriteTache-data-container-out" >
         @if($prioriteTache_viewType == "widgets")
-        @include("PkgRealisationTache::prioriteTache._$prioriteTache_viewType")
+        @include("PkgCreationTache::prioriteTache._$prioriteTache_viewType")
         @endif
     </section>
     @show

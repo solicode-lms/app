@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationTache', 'index-prioriteTache', 'index-typeDependanceTache', 'index-realisationTache', 'index-workflowTache'])
+@accessiblePermissions(['index-etatRealisationTache', 'index-typeDependanceTache', 'index-realisationTache', 'index-workflowTache'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgRealisationTache" class="nav-item has-treeview  {{ Request::is('admin/PkgRealisationTache*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgRealisationTache*') ? 'active' : '' }}">
@@ -17,14 +17,6 @@
             <a href="{{ route('etatRealisationTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/etatRealisationTaches') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-check"></i>
                 {{__('PkgRealisationTache::etatRealisationTache.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-prioriteTache') 
-        <li class="nav-item" id="menu-prioriteTaches">
-            <a href="{{ route('prioriteTaches.index') }}" class="nav-link {{ Request::is('admin/PkgRealisationTache/prioriteTaches') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list-ol"></i>
-                {{__('PkgRealisationTache::prioriteTache.plural')}}
             </a>
         </li>
         @endcan

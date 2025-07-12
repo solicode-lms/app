@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\Database\Seeders;
+namespace Modules\PkgCreationTache\Database\Seeders;
 
-use Modules\PkgRealisationTache\Database\Seeders\Base\BasePrioriteTacheSeeder;
+use Modules\PkgCreationTache\Database\Seeders\Base\BasePrioriteTacheSeeder;
 
 class PrioriteTacheSeeder extends BasePrioriteTacheSeeder
 {

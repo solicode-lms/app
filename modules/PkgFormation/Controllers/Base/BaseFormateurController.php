@@ -8,7 +8,7 @@ use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\SpecialiteService;
 use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
-use Modules\PkgRealisationTache\Services\PrioriteTacheService;
+use Modules\PkgCreationTache\Services\PrioriteTacheService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgRealisationTache\Services\CommentaireRealisationTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;

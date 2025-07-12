@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgRealisationTache::prioriteTache._show')
+@extends('PkgCreationTache::prioriteTache._show')

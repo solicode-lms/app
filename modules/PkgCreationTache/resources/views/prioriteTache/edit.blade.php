@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 @extends('layouts.admin')
-@section('title', __('Core::msg.edit') . ' ' . __('PkgRealisationTache::prioriteTache.singular'))
+@section('title', __('Core::msg.edit') . ' ' . __('PkgCreationTache::prioriteTache.singular'))
 @section('content')
-    @include('PkgRealisationTache::prioriteTache._edit')
+    @include('PkgCreationTache::prioriteTache._edit')
 @endsection

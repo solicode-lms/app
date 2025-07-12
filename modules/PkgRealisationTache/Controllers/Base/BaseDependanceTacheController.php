@@ -4,7 +4,7 @@
 
 namespace Modules\PkgRealisationTache\Controllers\Base;
 use Modules\PkgRealisationTache\Services\DependanceTacheService;
-use Modules\PkgRealisationTache\Services\TacheService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgRealisationTache\Services\TypeDependanceTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -1,3 +1,3 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
-@extends('PkgRealisationTache::tache._table')
+@extends('PkgCreationTache::tache._table')

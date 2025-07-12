@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgRealisationTache\Services\Base;
+namespace Modules\PkgCreationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\Core\Services\BaseService;
 
 /**
@@ -48,7 +48,7 @@ class BaseTacheService extends BaseService
     {
         parent::__construct(new Tache());
         $this->fieldsFilterable = [];
-        $this->title = __('PkgRealisationTache::tache.plural');
+        $this->title = __('PkgCreationTache::tache.plural');
     }
 
 
@@ -60,7 +60,7 @@ class BaseTacheService extends BaseService
     
 
         if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgRealisationTache\Models\PrioriteTache::class, 'nom');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationTache::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgCreationTache\Models\PrioriteTache::class, 'nom');
         }
 
         if (!array_key_exists('projet_id', $scopeVariables)) {
@@ -118,8 +118,8 @@ class BaseTacheService extends BaseService
     public function getPartialViewName(string $viewType): string
     {
         return match ($viewType) {
-            'table' => 'PkgRealisationTache::tache._table',
-            default => 'PkgRealisationTache::tache._table',
+            'table' => 'PkgCreationTache::tache._table',
+            default => 'PkgCreationTache::tache._table',
         };
     }
 

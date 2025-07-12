@@ -2,7 +2,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
 
-namespace Modules\PkgRealisationTache\Models\Base;
+namespace Modules\PkgCreationTache\Models\Base;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgRealisationTache\Models\PrioriteTache;
+use Modules\PkgCreationTache\Models\PrioriteTache;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationTache\Models\DependanceTache;
@@ -55,7 +55,7 @@ class BaseTache extends BaseModel
     ];
     public $manyToOne = [
         'PrioriteTache' => [
-            'model' => "Modules\\PkgRealisationTache\\Models\\PrioriteTache",
+            'model' => "Modules\\PkgCreationTache\\Models\\PrioriteTache",
             'relation' => 'prioriteTaches' , 
             "foreign_key" => "priorite_tache_id", 
             ],

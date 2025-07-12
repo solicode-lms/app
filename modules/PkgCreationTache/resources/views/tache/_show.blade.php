@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-8 col-lg-8 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.titre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.titre')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemTache->titre) && $itemTache->titre !== '')
           {{ $itemTache->titre }}
@@ -33,7 +33,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemTache->description) && $itemTache->description !== '')
     {!! $itemTache->description !!}
@@ -46,7 +46,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.dateDebut')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.dateDebut')) }}</small>
                             
     <span>
       @if ($itemTache->dateDebut)
@@ -61,7 +61,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.dateFin')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.dateFin')) }}</small>
                             
     <span>
       @if ($itemTache->dateFin)
@@ -76,7 +76,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.note')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.note')) }}</small>
                               
       <span>
         @if(! is_null($itemTache->note))
@@ -91,7 +91,7 @@
 
       <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.ordre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.ordre')) }}</small>
                               
       <span>
         @if(! is_null($itemTache->ordre))
@@ -106,7 +106,7 @@
 
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tache.priorite_tache_id')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}</small>
                               
       @if($itemTache->prioriteTache)
         {{ $itemTache->prioriteTache }}
@@ -156,7 +156,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgRealisationTache::tache.singular") }} : {{ $itemTache }}';
+    window.modalTitle   = '{{ __("PkgCreationTache::tache.singular") }} : {{ $itemTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="tache_id">
-            {{ ucfirst(__('PkgRealisationTache::tache.singular')) }}
+            {{ ucfirst(__('PkgCreationTache::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -106,7 +106,7 @@
           </div>
           @endif
           <label for="tache_cible_id">
-            {{ ucfirst(__('PkgRealisationTache::tache.singular')) }}
+            {{ ucfirst(__('PkgCreationTache::tache.singular')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 

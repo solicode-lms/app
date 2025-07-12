@@ -3,11 +3,11 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Requests\Base;
+namespace Modules\PkgCreationTache\App\Requests\Base;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgRealisationTache\Models\PrioriteTache;
+use Modules\PkgCreationTache\Models\PrioriteTache;
 
 class BasePrioriteTacheRequest extends FormRequest
 {
@@ -44,11 +44,11 @@ class BasePrioriteTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'ordre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::PrioriteTache.ordre')]),
-            'nom.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::PrioriteTache.nom')]),
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PrioriteTache.ordre')]),
+            'nom.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PrioriteTache.nom')]),
             'nom.max' => __('validation.nomMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::PrioriteTache.description')]),
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::PrioriteTache.formateur_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PrioriteTache.description')]),
+            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::PrioriteTache.formateur_id')])
         ];
     }
 

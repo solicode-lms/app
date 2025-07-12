@@ -7,7 +7,7 @@ use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
-use Modules\PkgRealisationTache\Services\TacheService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\ResourceService;
 use Illuminate\Http\Request;

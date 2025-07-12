@@ -9,12 +9,12 @@
                     $bulkEdit = $taches_permissions['edit-tache'] || $taches_permissions['destroy-tache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgRealisationTache::tache.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="20"  field="titre" modelname="tache" label="{{ucfirst(__('PkgRealisationTache::tache.titre'))}}" />
-                <x-sortable-column :sortable="true" width="8" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgRealisationTache::tache.priorite_tache_id'))}}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{{ucfirst(__('PkgCreationTache::tache.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="20"  field="titre" modelname="tache" label="{{ucfirst(__('PkgCreationTache::tache.titre'))}}" />
+                <x-sortable-column :sortable="true" width="8" field="priorite_tache_id" modelname="tache" label="{{ucfirst(__('PkgCreationTache::tache.priorite_tache_id'))}}" />
                 <x-sortable-column :sortable="true" width="12.25" field="projet_id" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="12.25"  field="dateFin" modelname="tache" label="{{ucfirst(__('PkgRealisationTache::tache.dateFin'))}}" />
-                <x-sortable-column :sortable="true" width="12.25"  field="note" modelname="tache" label="{{ucfirst(__('PkgRealisationTache::tache.note'))}}" />
+                <x-sortable-column :sortable="true" width="12.25"  field="dateFin" modelname="tache" label="{{ucfirst(__('PkgCreationTache::tache.dateFin'))}}" />
+                <x-sortable-column :sortable="true" width="12.25"  field="note" modelname="tache" label="{{ucfirst(__('PkgCreationTache::tache.note'))}}" />
                 <x-sortable-column :sortable="true" width="12.25"  field="livrables" modelname="tache" label="{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -49,7 +49,7 @@
                         <x-deadline-display :value="$tache->dateFin" />
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
-                        @include('PkgRealisationTache::tache.custom.fields.note', ['entity' => $tache])
+                        @include('PkgCreationTache::tache.custom.fields.note', ['entity' => $tache])
                     </td>
                     <td style="max-width: 12.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
                         <ul>

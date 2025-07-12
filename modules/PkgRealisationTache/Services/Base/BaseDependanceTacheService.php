@@ -55,7 +55,7 @@ class BaseDependanceTacheService extends BaseService
     
 
         if (!array_key_exists('tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::tache.plural"), 'tache_id', \Modules\PkgRealisationTache\Models\Tache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationTache::tache.plural"), 'tache_id', \Modules\PkgCreationTache\Models\Tache::class, 'titre');
         }
 
         if (!array_key_exists('type_dependance_tache_id', $scopeVariables)) {
@@ -63,7 +63,7 @@ class BaseDependanceTacheService extends BaseService
         }
 
         if (!array_key_exists('tache_cible_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::tache.plural"), 'tache_cible_id', \Modules\PkgRealisationTache\Models\Tache::class, 'titre');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationTache::tache.plural"), 'tache_cible_id', \Modules\PkgCreationTache\Models\Tache::class, 'titre');
         }
 
     }

@@ -19,7 +19,7 @@ use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgRealisationTache\Models\LabelRealisationTache;
-use Modules\PkgRealisationTache\Models\PrioriteTache;
+use Modules\PkgCreationTache\Models\PrioriteTache;
 
 /**
  * Classe BaseFormateur

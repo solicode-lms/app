@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Exports\Base;
+namespace Modules\PkgCreationTache\App\Exports\Base;
 
-use Modules\PkgRealisationTache\Models\PrioriteTache;
+use Modules\PkgCreationTache\Models\PrioriteTache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -36,11 +36,11 @@ class BasePrioriteTacheExport implements FromCollection, WithHeadings, ShouldAut
         ];
         }else{
         return [
-            'ordre' => __('PkgRealisationTache::prioriteTache.ordre'),
-            'nom' => __('PkgRealisationTache::prioriteTache.nom'),
-            'description' => __('PkgRealisationTache::prioriteTache.description'),
+            'ordre' => __('PkgCreationTache::prioriteTache.ordre'),
+            'nom' => __('PkgCreationTache::prioriteTache.nom'),
+            'description' => __('PkgCreationTache::prioriteTache.description'),
             'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgRealisationTache::prioriteTache.formateur_id'),
+            'formateur_id' => __('PkgCreationTache::prioriteTache.formateur_id'),
         ];
 
         }

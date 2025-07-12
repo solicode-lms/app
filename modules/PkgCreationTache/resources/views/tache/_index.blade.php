@@ -24,8 +24,8 @@
         canEdit: @json(Auth::user()->can('edit-tache')),
         calculationUrl:  '{{ route('taches.dataCalcul') }}', 
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        create_title: '{{__("Core::msg.add") . " : " . __("PkgRealisationTache::tache.singular") }}',
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::tache.singular") }}',
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgCreationTache::tache.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationTache::tache.singular") }}',
     });
 </script>
 <script>
@@ -39,8 +39,8 @@
 <div id="tache-crud" class="crud">
     @section('tache-crud-header')
     @php
-        $package = __("PkgRealisationTache::PkgRealisationTache.name");
-       $titre = __("PkgRealisationTache::tache.singular");
+        $package = __("PkgCreationTache::PkgCreationTache.name");
+       $titre = __("PkgCreationTache::tache.singular");
     @endphp
     <x-crud-header 
         id="tache-crud-header" icon="fas fa-tasks"  
@@ -127,7 +127,7 @@
                 @show
                 <div id="tache-data-container" class="data-container">
                     @if($tache_viewType != "widgets")
-                    @include("PkgRealisationTache::tache._$tache_viewType")
+                    @include("PkgCreationTache::tache._$tache_viewType")
                     @endif
                 </div>
                 @section('tache-crud-bulk-actions')
@@ -163,7 +163,7 @@
     </section>
      <section id="tache-data-container-out" >
         @if($tache_viewType == "widgets")
-        @include("PkgRealisationTache::tache._$tache_viewType")
+        @include("PkgCreationTache::tache._$tache_viewType")
         @endif
     </section>
     @show

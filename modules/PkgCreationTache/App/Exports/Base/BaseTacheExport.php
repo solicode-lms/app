@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Exports\Base;
+namespace Modules\PkgCreationTache\App\Exports\Base;
 
-use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgCreationTache\Models\Tache;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -40,15 +40,15 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         ];
         }else{
         return [
-            'ordre' => __('PkgRealisationTache::tache.ordre'),
-            'titre' => __('PkgRealisationTache::tache.titre'),
-            'priorite_tache_id' => __('PkgRealisationTache::tache.priorite_tache_id'),
-            'projet_id' => __('PkgRealisationTache::tache.projet_id'),
-            'description' => __('PkgRealisationTache::tache.description'),
-            'dateDebut' => __('PkgRealisationTache::tache.dateDebut'),
-            'dateFin' => __('PkgRealisationTache::tache.dateFin'),
+            'ordre' => __('PkgCreationTache::tache.ordre'),
+            'titre' => __('PkgCreationTache::tache.titre'),
+            'priorite_tache_id' => __('PkgCreationTache::tache.priorite_tache_id'),
+            'projet_id' => __('PkgCreationTache::tache.projet_id'),
+            'description' => __('PkgCreationTache::tache.description'),
+            'dateDebut' => __('PkgCreationTache::tache.dateDebut'),
+            'dateFin' => __('PkgCreationTache::tache.dateFin'),
             'reference' => __('Core::msg.reference'),
-            'note' => __('PkgRealisationTache::tache.note'),
+            'note' => __('PkgCreationTache::tache.note'),
         ];
 
         }

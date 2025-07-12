@@ -6,7 +6,7 @@ namespace Modules\PkgRealisationTache\Controllers\Base;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
-use Modules\PkgRealisationTache\Services\TacheService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Illuminate\Http\Request;

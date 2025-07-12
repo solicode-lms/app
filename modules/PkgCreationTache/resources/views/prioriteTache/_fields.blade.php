@@ -38,7 +38,7 @@
           </div>
           @endif
           <label for="ordre">
-            {{ ucfirst(__('PkgRealisationTache::prioriteTache.ordre')) }}
+            {{ ucfirst(__('PkgCreationTache::prioriteTache.ordre')) }}
             <span class="text-danger">*</span>
           </label>
                       <input
@@ -49,7 +49,7 @@
                 
                 
                 id="ordre"
-                placeholder="{{ __('PkgRealisationTache::prioriteTache.ordre') }}"
+                placeholder="{{ __('PkgCreationTache::prioriteTache.ordre') }}"
                 value="{{ $itemPrioriteTache ? $itemPrioriteTache->ordre : old('ordre') }}">
           @error('ordre')
             <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
           </div>
           @endif
           <label for="nom">
-            {{ ucfirst(__('PkgRealisationTache::prioriteTache.nom')) }}
+            {{ ucfirst(__('PkgCreationTache::prioriteTache.nom')) }}
             <span class="text-danger">*</span>
           </label>
            <input
@@ -78,7 +78,7 @@
                 
                 
                 id="nom"
-                placeholder="{{ __('PkgRealisationTache::prioriteTache.nom') }}"
+                placeholder="{{ __('PkgCreationTache::prioriteTache.nom') }}"
                 value="{{ $itemPrioriteTache ? $itemPrioriteTache->nom : old('nom') }}">
           @error('nom')
             <div class="text-danger">{{ $message }}</div>
@@ -96,7 +96,7 @@
           </div>
           @endif
           <label for="description">
-            {{ ucfirst(__('PkgRealisationTache::prioriteTache.description')) }}
+            {{ ucfirst(__('PkgCreationTache::prioriteTache.description')) }}
             
           </label>
                       <textarea rows="" cols=""
@@ -106,7 +106,7 @@
                 
                 
                 id="description"
-                placeholder="{{ __('PkgRealisationTache::prioriteTache.description') }}">{{ $itemPrioriteTache ? $itemPrioriteTache->description : old('description') }}</textarea>
+                placeholder="{{ __('PkgCreationTache::prioriteTache.description') }}">{{ $itemPrioriteTache ? $itemPrioriteTache->description : old('description') }}</textarea>
           @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
@@ -169,9 +169,9 @@
 <script>
     
     @if ($bulkEdit)
-        window.modalTitle = '{{__("PkgRealisationTache::prioriteTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
+        window.modalTitle = '{{__("PkgCreationTache::prioriteTache.singular") }} : {{__("Core::msg.edition_en_masse") }}'
     @else
-        window.modalTitle = '{{__("PkgRealisationTache::prioriteTache.singular") }} : {{$itemPrioriteTache}}'
+        window.modalTitle = '{{__("PkgCreationTache::prioriteTache.singular") }} : {{$itemPrioriteTache}}'
     @endif
      window.contextState = @json($contextState);
      window.sessionState = @json($sessionState);

@@ -3,8 +3,8 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Requests;
-use Modules\PkgRealisationTache\App\Requests\Base\BasePrioriteTacheRequest;
+namespace Modules\PkgCreationTache\App\Requests;
+use Modules\PkgCreationTache\App\Requests\Base\BasePrioriteTacheRequest;
 
 class PrioriteTacheRequest extends BasePrioriteTacheRequest
 {

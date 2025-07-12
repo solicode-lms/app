@@ -3,9 +3,9 @@
 
 
 
-namespace Modules\PkgRealisationTache\App\Imports;
+namespace Modules\PkgCreationTache\App\Imports;
 
-use Modules\PkgRealisationTache\App\Imports\Base\BasePrioriteTacheImport;
+use Modules\PkgCreationTache\App\Imports\Base\BasePrioriteTacheImport;
 
 class PrioriteTacheImport extends BasePrioriteTacheImport
 {

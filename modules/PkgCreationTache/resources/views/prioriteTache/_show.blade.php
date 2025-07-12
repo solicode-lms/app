@@ -6,7 +6,7 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::prioriteTache.ordre')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.ordre')) }}</small>
                               
       <span>
         @if(! is_null($itemPrioriteTache->ordre))
@@ -21,7 +21,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::prioriteTache.nom')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.nom')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemPrioriteTache->nom) && $itemPrioriteTache->nom !== '')
           {{ $itemPrioriteTache->nom }}
@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::prioriteTache.description')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.description')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
   @if(! is_null($itemPrioriteTache->description) && $itemPrioriteTache->description !== '')
     {!! $itemPrioriteTache->description !!}
@@ -78,7 +78,7 @@
         </div>
 </div>
 <script>
-    window.modalTitle   = '{{ __("PkgRealisationTache::prioriteTache.singular") }} : {{ $itemPrioriteTache }}';
+    window.modalTitle   = '{{ __("PkgCreationTache::prioriteTache.singular") }} : {{ $itemPrioriteTache }}';
     window.contextState = @json($contextState);
     window.sessionState = @json($sessionState);
     window.viewState    = @json($viewState);

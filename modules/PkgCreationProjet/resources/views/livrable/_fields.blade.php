@@ -192,7 +192,7 @@
           </div>
           @endif
           <label for="taches">
-            {{ ucfirst(__('PkgRealisationTache::tache.plural')) }}
+            {{ ucfirst(__('PkgCreationTache::tache.plural')) }}
             
           </label>
                       <select

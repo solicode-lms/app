@@ -10,7 +10,7 @@
         editUrl: '{{ route('taches.edit',  ['tache' => ':id']) }}',
         indexUrl: '{{ route('taches.index') }}',
         csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
-        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgRealisationTache::tache.singular") }} - {{ $itemTache }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgCreationTache::tache.singular") }} - {{ $itemTache }}',
     });
 </script>
 <script>
@@ -33,7 +33,7 @@
                             </h3>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationTache::tache.singular')}}</a>
+                            <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgCreationTache::tache.singular')}}</a>
                         </li>
 
                         <li class="nav-item">
@@ -49,7 +49,7 @@
                     <div class="card-body">
                         <div class="tab-content" id="edit-tache-tabContent">
                             <div class="tab-pane fade show active" id="tache-hasmany-tabs-home" role="tabpanel" aria-labelledby="tache-hasmany-tabs-home-tab">
-                                @include('PkgRealisationTache::tache._fields')
+                                @include('PkgCreationTache::tache._fields')
                             </div>
 
                             <div class="tab-pane fade" id="tache-hasmany-tabs-dependanceTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-dependanceTache-tab">
