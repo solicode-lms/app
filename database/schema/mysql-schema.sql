@@ -221,27 +221,6 @@ CREATE TABLE `competences` (
   CONSTRAINT `competences_module_id_foreign` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `dependance_taches`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `dependance_taches` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tache_id` bigint unsigned NOT NULL,
-  `tache_cible_id` bigint unsigned NOT NULL,
-  `type_dependance_tache_id` bigint unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `dependance_taches_reference_unique` (`reference`),
-  KEY `dependance_taches_tache_id_foreign` (`tache_id`),
-  KEY `dependance_taches_tache_cible_id_foreign` (`tache_cible_id`),
-  KEY `dependance_taches_type_dependance_tache_id_foreign` (`type_dependance_tache_id`),
-  CONSTRAINT `dependance_taches_tache_cible_id_foreign` FOREIGN KEY (`tache_cible_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `dependance_taches_tache_id_foreign` FOREIGN KEY (`tache_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `dependance_taches_type_dependance_tache_id_foreign` FOREIGN KEY (`type_dependance_tache_id`) REFERENCES `type_dependance_taches` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `e_data_fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -725,26 +704,6 @@ CREATE TABLE `jobs` (
   `created_at` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `label_realisation_taches`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `label_realisation_taches` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `formateur_id` bigint unsigned NOT NULL,
-  `sys_color_id` bigint unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `label_realisation_taches_reference_unique` (`reference`),
-  KEY `label_realisation_taches_formateur_id_foreign` (`formateur_id`),
-  KEY `label_realisation_taches_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `label_realisation_taches_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `label_realisation_taches_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `livrable_tache`;
@@ -1283,20 +1242,6 @@ CREATE TABLE `taches` (
   CONSTRAINT `taches_projet_id_foreign` FOREIGN KEY (`projet_id`) REFERENCES `projets` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `type_dependance_taches`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `type_dependance_taches` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `type_dependance_taches_reference_unique` (`reference`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_model_filters`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1454,7 +1399,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (11,'0002_01_20_105
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (12,'0002_01_30_105641_create_features_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (13,'0002_01_31_000000_create_feature_permission_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (14,'0002_01_32_000000_create_sys_models_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (15,'0003_01_03_000002_add_controller_id_to_permissions_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (16,'0003_01_03_000003_create_feature_permission_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (17,'0003_90_90_000000_create_apprenant_konosies_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (18,'0004_01_01_000000_create_filieres_table',1);
@@ -1489,16 +1433,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (55,'2025_01_30_150
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (56,'2025_01_30_185358_create_realisation_projets_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (57,'2025_01_30_191645_create_livrables_realisations_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (59,'2025_02_16_085233_create_profiles_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (60,'2025_02_22_093404_add_code_to_modules_table',2);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2025_02_22_102330_add_filiere_id_to_projet_table',2);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2025_02_27_142426_fixDeleteOnCascade',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2025_02_27_144402_fixDeleteOnCascade2',3);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (65,'2025_03_01_111510_create_etat_realisation_taches_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (66,'2025_03_01_112308_create_label_realisation_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (67,'2025_03_01_112813_create_priorite_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (68,'2025_03_01_112941_create_taches_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (69,'2025_03_01_113440_create_type_dependance_taches_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (70,'2025_03_01_113547_create_dependance_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (71,'2025_03_01_114121_create_realisation_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (72,'2025_03_01_114437_create_historique_realisation_taches_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (73,'2025_03_01_114542_create_commentaire_realisation_taches_table',4);
@@ -1553,3 +1490,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (134,'2025_06_18_08
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (135,'2025_06_18_083412_update_affectation_projets_add_sous_groupe_id',23);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (136,'2025_06_18_094700_create_apprenant_sousGroupe_table',23);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (137,'2025_06_21_120321_add_echelle_note_cible_to_affectation_projets_table',24);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (138,'2025_07_12_125922_create_livrable_tache_table',25);
