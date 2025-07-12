@@ -37,9 +37,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-dependanceTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-dependanceTache" role="tab" aria-controls="tache-hasmany-tabs-dependanceTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::dependanceTache.plural'))}}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}</a>
                         </li>
 
@@ -52,9 +49,6 @@
                                 @include('PkgCreationTache::tache._fields')
                             </div>
 
-                            <div class="tab-pane fade" id="tache-hasmany-tabs-dependanceTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-dependanceTache-tab">
-                                @include('PkgRealisationTache::dependanceTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
-                            </div>
                             <div class="tab-pane fade" id="tache-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-realisationTache-tab">
                                 @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>

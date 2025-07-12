@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationTache\Models\PrioriteTache;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCreationProjet\Models\Livrable;
-use Modules\PkgRealisationTache\Models\DependanceTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 
 /**
@@ -96,24 +95,6 @@ class BaseTache extends BaseModel
         return $this->belongsToMany(Livrable::class, 'livrable_tache');
     }
 
-    /**
-     * Relation HasMany pour Taches.
-     *
-     * @return HasMany
-     */
-    public function tacheCibleIdDependanceTaches(): HasMany
-    {
-        return $this->hasMany(DependanceTache::class, 'tache_cible_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Taches.
-     *
-     * @return HasMany
-     */
-    public function dependanceTaches(): HasMany
-    {
-        return $this->hasMany(DependanceTache::class, 'tache_id', 'id');
-    }
     /**
      * Relation HasMany pour Taches.
      *

@@ -7,7 +7,6 @@ use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationTache\Services\PrioriteTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;
-use Modules\PkgRealisationTache\Services\DependanceTacheService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -204,13 +203,6 @@ class BaseTacheController extends AdminController
         $livrables = $this->livrableService->all();
 
 
-        $this->viewState->set('scope.dependanceTache.tache_id', $id);
-        
-
-        $dependanceTacheService =  new DependanceTacheService();
-        $dependanceTaches_view_data = $dependanceTacheService->prepareDataForIndexView();
-        extract($dependanceTaches_view_data);
-
         $this->viewState->set('scope.realisationTache.tache_id', $id);
         
 
@@ -221,10 +213,10 @@ class BaseTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'prioriteTaches', 'projets'),$realisationTache_compact_value));
         }
 
-        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'prioriteTaches', 'projets'),$dependanceTache_compact_value, $realisationTache_compact_value));
+        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'prioriteTaches', 'projets'),$realisationTache_compact_value));
 
 
     }

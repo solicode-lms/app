@@ -22,7 +22,7 @@ use Modules\PkgAutorisation\Models\User;
 
 class BaseUserModelFilterSeeder extends Seeder
 {
-    public static int $order = 64;
+    public static int $order = 61;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [

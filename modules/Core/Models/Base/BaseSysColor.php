@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
 use Modules\PkgEvaluateurs\Models\EtatEvaluationProjet;
-use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgWidgets\Models\SectionWidget;
@@ -74,15 +73,6 @@ class BaseSysColor extends BaseModel
     public function etatEvaluationProjets(): HasMany
     {
         return $this->hasMany(EtatEvaluationProjet::class, 'sys_color_id', 'id');
-    }
-    /**
-     * Relation HasMany pour SysColors.
-     *
-     * @return HasMany
-     */
-    public function labelRealisationTaches(): HasMany
-    {
-        return $this->hasMany(LabelRealisationTache::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

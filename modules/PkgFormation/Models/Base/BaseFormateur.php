@@ -18,7 +18,6 @@ use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Modules\PkgCreationTache\Models\PrioriteTache;
 
 /**
@@ -130,15 +129,6 @@ class BaseFormateur extends BaseModel
     public function projets(): HasMany
     {
         return $this->hasMany(Projet::class, 'formateur_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Formateurs.
-     *
-     * @return HasMany
-     */
-    public function labelRealisationTaches(): HasMany
-    {
-        return $this->hasMany(LabelRealisationTache::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.
