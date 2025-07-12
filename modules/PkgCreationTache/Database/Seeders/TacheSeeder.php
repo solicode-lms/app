@@ -2,7 +2,7 @@
 
 namespace Modules\PkgRealisationTache\Database\Seeders;
 
-use Modules\PkgRealisationTache\Database\Seeders\Base\BaseTacheSeeder;
+use Modules\PkgCreationTache\Database\Seeders\Base\BaseTacheSeeder;
 
 class TacheSeeder extends BaseTacheSeeder
 {

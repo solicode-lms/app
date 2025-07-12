@@ -21,7 +21,7 @@ use Illuminate\Validation\ValidationException;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
-use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgRealisationProjets\Models\WorkflowProjet;

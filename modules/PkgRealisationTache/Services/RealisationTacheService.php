@@ -11,10 +11,11 @@ use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgAutorisation\Models\Role;
+use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
-use Modules\PkgRealisationTache\Models\Tache;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheServiceCrud;
@@ -172,9 +173,9 @@ class RealisationTacheService extends BaseRealisationTacheService
             default => Tache::all(),
         };
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-            __("PkgRealisationTache::tache.plural"),
+            __("PkgCreationTache::tache.plural"),
             'tache_id',
-            \Modules\PkgRealisationTache\Models\Tache::class,
+            \Modules\PkgCreationTache\Models\Tache::class,
             'titre',
             $taches
         );

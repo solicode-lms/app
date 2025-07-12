@@ -10,7 +10,7 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-6 col-lg-6">
                     <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ __('PkgRealisationTache::tache.singular') }}</small>
+                        <small class="text-muted d-block">{{ __('PkgCreationTache::tache.singular') }}</small>
                         {{ $itemRealisationTache->tache?->titre ?? '—' }}
                     </div>
                 </div>

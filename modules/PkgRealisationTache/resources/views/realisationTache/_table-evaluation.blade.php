@@ -8,7 +8,7 @@
                 $bulkEdit = Auth::user()->can('edit-realisationTache') || Auth::user()->can('destroy-realisationTache');
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::tache.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{{ucfirst(__('PkgCreationTache::tache.singular'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))}}" />
                 <x-sortable-column :sortable="true" width="15"  field="note" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.note'))}}" />
                 <x-sortable-column :sortable="true" width="20"  field="remarque_evaluateur" modelname="realisationTache" label="{{ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur'))}}" />

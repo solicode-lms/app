@@ -9,7 +9,7 @@
         <thead>
             <tr> 
                 @section('realisationTache-table')
-                <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationTache::tache.singular')) }}" />
+                <x-sortable-column field="tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgCreationTache::tache.singular')) }}" />
                 <x-sortable-column field="realisation_projet_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}" />
                 <x-sortable-column field="etat_realisation_tache_id" modelname="realisationTache" label="{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}" />
                 <th>

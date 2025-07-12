@@ -165,9 +165,9 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
         //     default => Tache::all(),
         // };
         // $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-        //     __("PkgRealisationTache::tache.plural"),
+        //     __("PkgCreationTache::tache.plural"),
         //     'tache_id',
-        //     \Modules\PkgRealisationTache\Models\Tache::class,
+        //     \Modules\PkgCreationTache\Models\Tache::class,
         //     'titre',
         //     $taches
         // );

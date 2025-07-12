@@ -22,18 +22,18 @@
         "active": true
     },
     "PkgCreationProjet" : {
-        "active": false
+        "active": true
     }, 
      "PkgCreationTache" : {
-        "active": false
+        "active": true
     }, 
     "PkgRealisationProjets" : {
-        "active": false
+        "active": true
     },
     "PkgRealisationTache" : {
-        "active": false
+        "active": true
     },
     "PkgEvaluateurs" : {
-        "active": false
+        "active": true
     }
 }

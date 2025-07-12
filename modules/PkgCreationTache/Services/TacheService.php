@@ -12,6 +12,8 @@ use Modules\PkgNotification\Services\NotificationService;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 /**
  * Classe TacheService pour gérer la persistance de l'entité Tache.
