@@ -89,9 +89,9 @@
     },
     {
         "id": 12,
-        "reference": "PkgValidationProjets",
-        "name": "PkgValidationProjets",
-        "description": "Automatically generated package for PkgValidationProjets",
+        "reference": "PkgEvaluateurs",
+        "name": "PkgEvaluateurs",
+        "description": "Automatically generated package for PkgEvaluateurs",
         "created_at": null,
         "updated_at": null
     },

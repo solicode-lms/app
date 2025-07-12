@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgNotification\Enums\NotificationType;
 use Modules\PkgNotification\Services\NotificationService;
-use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
+use Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 
 /**
  * Classe TacheService pour gérer la persistance de l'entité Tache.

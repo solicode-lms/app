@@ -6,7 +6,7 @@ namespace Modules\Core\Controllers\Base;
 use Modules\Core\Services\SysColorService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\Core\Services\SysModelService;
-use Modules\PkgValidationProjets\Services\EtatEvaluationProjetService;
+use Modules\PkgEvaluateurs\Services\EtatEvaluationProjetService;
 use Modules\PkgRealisationTache\Services\LabelRealisationTacheService;
 use Modules\Core\Services\SysModuleService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;

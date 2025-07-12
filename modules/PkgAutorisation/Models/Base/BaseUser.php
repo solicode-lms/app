@@ -14,7 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Formateur;
-use Modules\PkgValidationProjets\Models\Evaluateur;
+use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgAutorisation\Models\Profile;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgNotification\Models\Notification;

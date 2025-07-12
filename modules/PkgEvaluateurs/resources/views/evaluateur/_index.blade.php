@@ -1,0 +1,170 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+
+<script>
+    window.crudModalManagersConfig = window.crudModalManagersConfig || [];
+    window.crudModalManagersConfig.push({
+        edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
+        isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        editOnFullScreen : false,
+        entity_name: 'evaluateur',
+        contextKey: '{{ isset($contextKey) ? $contextKey : 'evaluateur.index' }}', 
+        filterFormSelector: '#evaluateur-crud-filter-form',
+        crudSelector: '#evaluateur-crud',
+        tableSelector: '#evaluateur-data-container',
+        formSelector: '#evaluateurForm',
+        indexUrl: '{{ route('evaluateurs.index') }}', 
+        getUserNotificationsUrl: '{{route('notifications.getUserNotifications')}}',
+        createUrl: '{{ route('evaluateurs.create') }}',
+        editUrl: '{{ route('evaluateurs.edit',  ['evaluateur' => ':id']) }}',
+        showUrl: '{{ route('evaluateurs.show',  ['evaluateur' => ':id']) }}',
+        storeUrl: '{{ route('evaluateurs.store') }}', 
+        updateAttributesUrl: '{{ route('evaluateurs.updateAttributes') }}', 
+        deleteUrl: '{{ route('evaluateurs.destroy',  ['evaluateur' => ':id']) }}', 
+        canEdit: @json(Auth::user()->can('edit-evaluateur')),
+        calculationUrl:  '{{ route('evaluateurs.dataCalcul') }}', 
+        csrfToken: '{{ csrf_token() }}', // Jeton CSRF pour Laravel
+        create_title: '{{__("Core::msg.add") . " : " . __("PkgEvaluateurs::evaluateur.singular") }}',
+        edit_title: '{{__("Core::msg.edit") . " : " . __("PkgEvaluateurs::evaluateur.singular") }}',
+    });
+</script>
+<script>
+    if(!{{ isset($isMany) && $isMany ? 'true' : 'false' }}){
+        window.modalTitle = '{{ $evaluateur_title }}'
+    }
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState = @json($viewState);
+</script>
+<div id="evaluateur-crud" class="crud">
+    @section('evaluateur-crud-header')
+    @php
+        $package = __("PkgEvaluateurs::PkgEvaluateurs.name");
+       $titre = __("PkgEvaluateurs::evaluateur.singular");
+    @endphp
+    <x-crud-header 
+        id="evaluateur-crud-header" icon="fas fa-user-check"  
+        iconColor="text-info"
+        title="{{ $evaluateur_title }}"
+        :breadcrumbs="[
+            ['label' => $package, 'url' => '#'],
+            ['label' => $titre]
+        ]"
+    />
+    @show
+    @section('evaluateur-crud-table')
+    <section id="evaluateur-crud-table" class="content crud-table">
+        <div class="container-fluid">
+            <div class="card card-outline card-info " id="card_crud">
+                @section('evaluateur-crud-stats-bar')
+                <div class="card-header">
+                    <div class="row">
+                        <!-- Statistiques et Actions -->
+                        <div class="col-sm-8">
+                            <x-crud-stats-summary
+                                icon="fas fa-chart-bar text-info"
+                                :stats="$evaluateurs_stats"
+                            />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="d-flex align-items-center justify-content-end">
+                        
+                                <div class="actions d-flex align-items-center crud-action">
+                                </div>
+                                <x-crud-actions
+                                    :instanceItem="$evaluateur_instance"
+                                    :createPermission="'create-evaluateur'"
+                                    :createRoute="route('evaluateurs.create')"
+                                    :createText="__('Ajouter')"
+                                    :importPermission="'import-evaluateur'"
+                                    :importRoute="route('evaluateurs.import')"
+                                    :importText="__('Importer')"
+                                    :exportPermission="'export-evaluateur'"
+                                    :exportXlsxRoute="route('evaluateurs.export', ['format' => 'xlsx'])"
+                                    :exportCsvRoute="route('evaluateurs.export', ['format' => 'csv']) "
+                                    :exportText="__('Exporter')"
+                                    :viewTypes="$evaluateur_viewTypes"
+                                    :viewType="$evaluateur_viewType"
+                                />
+                            </div>
+
+
+                        
+                        </div>
+                    </div>
+                </div>
+                @show
+                @section('evaluateur-crud-filters')
+                <div class="card-header">
+                    <form id="evaluateur-crud-filter-form" method="GET" class="row">
+                        <x-filter-group count="{{count($evaluateurs_filters ?? [])}}">
+                            <!-- Filtres spécifiques -->
+                            @foreach ($evaluateurs_filters as $filter)
+                                <x-filter-field 
+                                    :label="$filter['label']" 
+                                    :type="$filter['type']" 
+                                    :field="$filter['field']" 
+                                    :options="$filter['options'] ?? []"
+                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
+                                    :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
+                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
+                                    :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
+                            @endforeach
+                        </x-filter-group>
+                        @section('evaluateur-crud-search-bar')
+                        <div id="evaluateur-crud-search-bar"
+                            class="{{ count($evaluateurs_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                            <x-search-bar
+                                :search="request('evaluateurs_search')"
+                                name="evaluateurs_search"
+                                id="evaluateurs_search"
+                                placeholder="Recherche ..."
+                            />
+                        </div>
+                        @show
+                    </form>
+                </div>
+                @show
+                <div id="evaluateur-data-container" class="data-container">
+                    @if($evaluateur_viewType != "widgets")
+                    @include("PkgEvaluateurs::evaluateur._$evaluateur_viewType")
+                    @endif
+                </div>
+                @section('evaluateur-crud-bulk-actions')
+                <div class="crud-bulk-action d-none align-items-center justify-content-between">
+                    <span class="bulk-selected-count-container">
+                        <strong><span class="bulk-selected-count">0</span> {{ __('élément(s) sélectionné(s)') }}</strong>
+                    </span>
+                    <span>
+                    @can("edit-evaluateur")
+                    <button 
+                        class="btn btn-sm btn-info bulkActionButton" 
+                        data-action-type="modal"
+                        data-url="{{ route('evaluateurs.bulkEdit') }}" 
+                        data-method="GET">
+                        <i class="fas fa-edit"></i> {{ __('Modifier') }}
+                    </button>
+                    @endcan
+                    @can('destroy-evaluateur')
+                    <button 
+                    class="btn btn-sm btn-outline-danger bulkActionButton" 
+                    data-url="{{ route('evaluateurs.bulkDelete') }}" 
+                    data-method="POST" 
+                    data-action-type="ajax"
+                    data-confirm="Confirmez-vous la suppression des éléments sélectionnés ?">
+                    <i class="fas fa-trash-alt"></i> {{ __('Supprimer') }}
+                    </button>
+                    @endcan
+                    </span>
+                </div>
+                @show
+            </div>
+        </div>
+    </section>
+     <section id="evaluateur-data-container-out" >
+        @if($evaluateur_viewType == "widgets")
+        @include("PkgEvaluateurs::evaluateur._$evaluateur_viewType")
+        @endif
+    </section>
+    @show
+</div>

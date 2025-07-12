@@ -50,9 +50,9 @@
 
       <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgValidationProjets::etatEvaluationProjet.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgValidationProjets::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
+                  @include('PkgEvaluateurs::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
             </div>
           </div>
       </div>

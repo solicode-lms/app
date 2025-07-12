@@ -15,7 +15,7 @@ use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\SousGroupe;
-use Modules\PkgValidationProjets\Models\Evaluateur;
+use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
 /**

@@ -26,6 +26,6 @@ class Formateur extends BaseFormateur
      */
     public function evaluateur()
     {
-        return $this->hasOne(\Modules\PkgValidationProjets\Models\Evaluateur::class);
+        return $this->hasOne(\Modules\PkgEvaluateurs\Models\Evaluateur::class);
     }
 }

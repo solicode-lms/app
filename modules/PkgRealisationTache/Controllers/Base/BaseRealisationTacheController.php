@@ -7,7 +7,7 @@ use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationTache\Services\TacheService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -14,7 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
-use Modules\PkgValidationProjets\Models\EvaluationRealisationTache;
+use Modules\PkgEvaluateurs\Models\EvaluationRealisationTache;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 

@@ -16,7 +16,7 @@ use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
-use Modules\PkgValidationProjets\Models\EvaluationRealisationProjet;
+use Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet;
 
 /**
  * Classe BaseRealisationProjet

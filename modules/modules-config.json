@@ -33,7 +33,7 @@
     "PkgRealisationTache" : {
         "active": false
     },
-    "PkgValidationProjets" : {
+    "PkgEvaluateurs" : {
         "active": false
     }
 }

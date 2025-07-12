@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Modules\Core\Services\SessionState;
 use Modules\PkgApprenants\Models\Apprenant;
-use Modules\PkgValidationProjets\Models\Evaluateur;
+use Modules\PkgEvaluateurs\Models\Evaluateur;
 
 class User extends Authenticatable
 {

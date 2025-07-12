@@ -13,7 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
-use Modules\PkgValidationProjets\Models\EtatEvaluationProjet;
+use Modules\PkgEvaluateurs\Models\EtatEvaluationProjet;
 use Modules\PkgRealisationTache\Models\LabelRealisationTache;
 use Modules\Core\Models\SysModule;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;

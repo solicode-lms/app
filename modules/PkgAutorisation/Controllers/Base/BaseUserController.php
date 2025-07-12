@@ -7,7 +7,7 @@ use Modules\PkgAutorisation\Services\UserService;
 use Modules\PkgAutorisation\Services\RoleService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgFormation\Services\FormateurService;
-use Modules\PkgValidationProjets\Services\EvaluateurService;
+use Modules\PkgEvaluateurs\Services\EvaluateurService;
 use Modules\PkgAutorisation\Services\ProfileService;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgNotification\Services\NotificationService;

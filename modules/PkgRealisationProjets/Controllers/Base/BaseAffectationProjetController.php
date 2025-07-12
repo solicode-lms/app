@@ -4,7 +4,7 @@
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
-use Modules\PkgValidationProjets\Services\EvaluateurService;
+use Modules\PkgEvaluateurs\Services\EvaluateurService;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationProjet\Services\ProjetService;

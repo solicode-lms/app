@@ -156,9 +156,9 @@
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgValidationProjets::evaluationRealisationTache.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgValidationProjets::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+                  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
             </div>
           </div>
       </div>

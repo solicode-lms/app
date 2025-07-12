@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 
 trait RealisationTacheServiceCrud
 {

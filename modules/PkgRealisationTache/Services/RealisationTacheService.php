@@ -22,7 +22,7 @@ use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTach
 use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheWorkflow;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationTacheService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Illuminate\Support\Collection;
 
 /**

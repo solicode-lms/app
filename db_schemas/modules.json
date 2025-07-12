@@ -131,8 +131,8 @@
 
 
 
-"PkgValidationProjets": {
-    "name": "PkgValidationProjets",
+"PkgEvaluateurs": {
+    "name": "PkgEvaluateurs",
     "tables": [
         "evaluateurs",
         "evaluation_realisation_taches",

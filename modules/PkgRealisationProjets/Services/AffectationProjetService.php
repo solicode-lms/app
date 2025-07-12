@@ -5,7 +5,7 @@ namespace Modules\PkgRealisationProjets\Services;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 
 /**
  * Classe AffectationProjetService pour gérer la persistance de l'entité AffectationProjet.

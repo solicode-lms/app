@@ -43,7 +43,7 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModel" role="tab" aria-controls="sysColor-hasmany-tabs-sysModel" aria-selected="false">{{ucfirst(__('Core::sysModel.plural'))}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysColor-hasmany-tabs-etatEvaluationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatEvaluationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatEvaluationProjet" aria-selected="false">{{ucfirst(__('PkgValidationProjets::etatEvaluationProjet.plural'))}}</a>
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatEvaluationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatEvaluationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatEvaluationProjet" aria-selected="false">{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-labelRealisationTache-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-labelRealisationTache" role="tab" aria-controls="sysColor-hasmany-tabs-labelRealisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::labelRealisationTache.plural'))}}</a>
@@ -80,7 +80,7 @@
                                 @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatEvaluationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatEvaluationProjet-tab">
-                                @include('PkgValidationProjets::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                                @include('PkgEvaluateurs::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-labelRealisationTache" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-labelRealisationTache-tab">
                                 @include('PkgRealisationTache::labelRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

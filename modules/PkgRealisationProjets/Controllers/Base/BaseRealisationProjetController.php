@@ -9,7 +9,7 @@ use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationProjets\Services\LivrablesRealisationService;
-use Modules\PkgValidationProjets\Services\EvaluationRealisationProjetService;
+use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;

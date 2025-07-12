@@ -270,7 +270,7 @@
           </div>
           @endif
           <label for="evaluateurs">
-            {{ ucfirst(__('PkgValidationProjets::evaluateur.plural')) }}
+            {{ ucfirst(__('PkgEvaluateurs::evaluateur.plural')) }}
             
           </label>
                       <select
