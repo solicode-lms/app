@@ -15,6 +15,7 @@ use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
@@ -102,6 +103,15 @@ class BaseFormateur extends BaseModel
     public function etatsRealisationProjets(): HasMany
     {
         return $this->hasMany(EtatsRealisationProjet::class, 'formateur_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Formateurs.
+     *
+     * @return HasMany
+     */
+    public function chapitres(): HasMany
+    {
+        return $this->hasMany(Chapitre::class, 'formateur_id', 'id');
     }
     /**
      * Relation HasMany pour Formateurs.

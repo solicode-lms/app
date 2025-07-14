@@ -5,6 +5,7 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgFormation\Services\ModuleService;
+use Modules\PkgCompetences\Services\MicroCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -129,7 +130,7 @@ class BaseCompetenceController extends AdminController
             );
         }
 
-        return redirect()->route('competences.index')->with(
+        return redirect()->route('competences.edit',['competence' => $competence->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $competence,
@@ -146,11 +147,18 @@ class BaseCompetenceController extends AdminController
         $itemCompetence = $this->competenceService->edit($id);
 
 
+        $this->viewState->set('scope.microCompetence.competence_id', $id);
+        
+
+        $microCompetenceService =  new MicroCompetenceService();
+        $microCompetences_view_data = $microCompetenceService->prepareDataForIndexView();
+        extract($microCompetences_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$microCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$microCompetence_compact_value));
 
     }
     /**
@@ -166,13 +174,20 @@ class BaseCompetenceController extends AdminController
         $modules = $this->moduleService->all();
 
 
+        $this->viewState->set('scope.microCompetence.competence_id', $id);
+        
+
+        $microCompetenceService =  new MicroCompetenceService();
+        $microCompetences_view_data = $microCompetenceService->prepareDataForIndexView();
+        extract($microCompetences_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._fields', array_merge(compact('bulkEdit' , 'itemCompetence','modules'),));
+            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','modules'),$microCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','modules'),));
+        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','modules'),$microCompetence_compact_value));
 
 
     }

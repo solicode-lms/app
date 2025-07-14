@@ -37,6 +37,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgCompetences::chapitre.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::etatRealisationTache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -52,6 +55,9 @@
                                 @include('PkgFormation::formateur._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="formateur-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-chapitre-tab">
+                                @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
+                            </div>
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>

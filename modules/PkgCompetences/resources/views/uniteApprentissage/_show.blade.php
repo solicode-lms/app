@@ -1,0 +1,108 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+@section('uniteApprentissage-show')
+<div id="uniteApprentissage-crud-show">
+        <div class="card-body">
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.ordre')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemUniteApprentissage->ordre))
+          {{ $itemUniteApprentissage->ordre }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.nom')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemUniteApprentissage->nom) && $itemUniteApprentissage->nom !== '')
+          {{ $itemUniteApprentissage->nom }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.lien')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemUniteApprentissage->lien) && $itemUniteApprentissage->lien !== '')
+          {{ $itemUniteApprentissage->lien }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.description')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemUniteApprentissage->description) && $itemUniteApprentissage->description !== '')
+    {!! $itemUniteApprentissage->description !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
+                              
+      @if($itemUniteApprentissage->microCompetence)
+        {{ $itemUniteApprentissage->microCompetence }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
+            </div>
+          </div>
+      </div>
+
+
+            </div>
+        </div>
+        <div class="card-footer">
+          <a href="{{ route('uniteApprentissages.index') }}" class="btn btn-default form-cancel-button">{{ __('Core::msg.cancel') }}</a>
+       
+          @can('edit-uniteApprentissage')
+          <x-action-button :entity="$itemUniteApprentissage" actionName="edit">
+          @can('update', $itemUniteApprentissage)
+              <a href="{{ route('uniteApprentissages.edit', ['uniteApprentissage' => $itemUniteApprentissage->id]) }}" data-id="{{$itemUniteApprentissage->id}}" class="btn btn-info ml-2 editEntity">
+                  <i class="fas fa-pen-square"></i>
+              </a>
+          @endcan
+          </x-action-button>
+          @endcan
+
+        </div>
+</div>
+<script>
+    window.modalTitle   = '{{ __("PkgCompetences::uniteApprentissage.singular") }} : {{ $itemUniteApprentissage }}';
+    window.contextState = @json($contextState);
+    window.sessionState = @json($sessionState);
+    window.viewState    = @json($viewState);
+</script>
+@show
