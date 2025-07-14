@@ -75,7 +75,10 @@
 "PkgCompetences": {
     "name": "PkgCompetences",
     "tables": [
-        "competences"
+        "competences",
+        "micro_competences",
+        "unite_apprentissages",
+        "chapitres"
     ]
 
 },
