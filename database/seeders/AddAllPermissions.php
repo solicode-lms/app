@@ -26,7 +26,7 @@ class AddAllPermissions extends Seeder
         $allSeeders = collect();
 
         // Chemin vers le fichier de configuration JSON.
-        $configFilePath = $baseModulePath . '/modules.json';
+        $configFilePath = $baseModulePath . '/modules-config.json';
         $config = json_decode(file_get_contents($configFilePath), true);
 
         foreach ($modules as $modulePath) {
