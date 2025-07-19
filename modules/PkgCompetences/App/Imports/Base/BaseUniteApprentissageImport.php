@@ -57,11 +57,12 @@ class BaseUniteApprentissageImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new UniteApprentissage([
              'ordre' => $values[0] ?? null,
+             'code' => $values[1] ?? null,
              'reference' => $reference,
-             'nom' => $values[2] ?? null,
-             'lien' => $values[3] ?? null,
-             'description' => $values[4] ?? null,
-             'micro_competence_id' => $values[5] ?? null,
+             'nom' => $values[3] ?? null,
+             'lien' => $values[4] ?? null,
+             'description' => $values[5] ?? null,
+             'micro_competence_id' => $values[6] ?? null,
         ]);
 
 

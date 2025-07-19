@@ -30,6 +30,7 @@ class BaseUniteApprentissageRequest extends FormRequest
     {
         return [
             'ordre' => 'required|integer',
+            'code' => 'nullable|string|max:255',
             'nom' => 'required|string|max:255',
             'lien' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -46,6 +47,8 @@ class BaseUniteApprentissageRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.ordre')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.code')]),
+            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.nom')]),
             'nom.max' => __('validation.nomMax'),
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.lien')]),

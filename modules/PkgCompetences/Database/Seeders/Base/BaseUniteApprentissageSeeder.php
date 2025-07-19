@@ -75,6 +75,7 @@ class BaseUniteApprentissageSeeder extends Seeder
             if ($row) {
                 $uniteApprentissageData =[
                     "ordre" => $row["ordre"] ?? null,
+                    "code" => $row["code"] ?? null,
                     "nom" => $row["nom"] ?? null,
                     "lien" => $row["lien"] ?? null,
                     "description" => $row["description"] ?? null,

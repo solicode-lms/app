@@ -29,6 +29,7 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
      if($this->format == 'csv'){
         return [
             'ordre' => 'ordre',
+            'code' => 'code',
             'reference' => 'reference',
             'nom' => 'nom',
             'lien' => 'lien',
@@ -38,6 +39,7 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
         }else{
         return [
             'ordre' => __('PkgCompetences::uniteApprentissage.ordre'),
+            'code' => __('PkgCompetences::uniteApprentissage.code'),
             'reference' => __('Core::msg.reference'),
             'nom' => __('PkgCompetences::uniteApprentissage.nom'),
             'lien' => __('PkgCompetences::uniteApprentissage.lien'),
@@ -54,6 +56,7 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
         return $this->data->map(function ($uniteApprentissage) {
             return [
                 'ordre' => $uniteApprentissage->ordre,
+                'code' => $uniteApprentissage->code,
                 'reference' => $uniteApprentissage->reference,
                 'nom' => $uniteApprentissage->nom,
                 'lien' => $uniteApprentissage->lien,

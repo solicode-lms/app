@@ -22,6 +22,7 @@ class BaseUniteApprentissageService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'code',
         'nom',
         'lien',
         'description',

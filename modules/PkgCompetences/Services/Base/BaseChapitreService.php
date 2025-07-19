@@ -59,7 +59,7 @@ class BaseChapitreService extends BaseService
     
 
         if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'nom');
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
         }
 
         if (!array_key_exists('formateur_id', $scopeVariables)) {
