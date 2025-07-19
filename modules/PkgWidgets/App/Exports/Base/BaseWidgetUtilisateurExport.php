@@ -17,45 +17,50 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'ordre' => 'ordre',
-            'user_id' => 'user_id',
-            'widget_id' => 'widget_id',
-            'titre' => 'titre',
-            'sous_titre' => 'sous_titre',
-            'visible' => 'visible',
-        ];
-        }else{
-        return [
-            'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
-            'user_id' => __('PkgWidgets::widgetUtilisateur.user_id'),
-            'widget_id' => __('PkgWidgets::widgetUtilisateur.widget_id'),
-            'titre' => __('PkgWidgets::widgetUtilisateur.titre'),
-            'sous_titre' => __('PkgWidgets::widgetUtilisateur.sous_titre'),
-            'visible' => __('PkgWidgets::widgetUtilisateur.visible'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'ordre' => 'ordre',
+                'user_reference' => 'user_reference',
+                'widget_reference' => 'widget_reference',
+                'titre' => 'titre',
+                'sous_titre' => 'sous_titre',
+                'visible' => 'visible',
+            ];
+        } else {
+            return [
+                'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
+                'user_reference' => __('PkgWidgets::widgetUtilisateur.user_reference'),
+                'widget_reference' => __('PkgWidgets::widgetUtilisateur.widget_reference'),
+                'titre' => __('PkgWidgets::widgetUtilisateur.titre'),
+                'sous_titre' => __('PkgWidgets::widgetUtilisateur.sous_titre'),
+                'visible' => __('PkgWidgets::widgetUtilisateur.visible'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($widgetUtilisateur) {
             return [
                 'ordre' => $widgetUtilisateur->ordre,
-                'user_id' => $widgetUtilisateur->user_id,
-                'widget_id' => $widgetUtilisateur->widget_id,
+                'user_reference' => $widgetUtilisateur->user?->reference,
+                'widget_reference' => $widgetUtilisateur->widget?->reference,
                 'titre' => $widgetUtilisateur->titre,
                 'sous_titre' => $widgetUtilisateur->sous_titre,
                 'visible' => $widgetUtilisateur->visible,
@@ -63,12 +68,15 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -78,16 +86,16 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -95,7 +103,7 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

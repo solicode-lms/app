@@ -17,42 +17,47 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'ordre' => 'ordre',
-            'code' => 'code',
-            'titre' => 'titre',
-            'sous_titre' => 'sous_titre',
-            'competence_id' => 'competence_id',
-            'lien' => 'lien',
-            'description' => 'description',
-            'reference' => 'reference',
-        ];
-        }else{
-        return [
-            'ordre' => __('PkgCompetences::microCompetence.ordre'),
-            'code' => __('PkgCompetences::microCompetence.code'),
-            'titre' => __('PkgCompetences::microCompetence.titre'),
-            'sous_titre' => __('PkgCompetences::microCompetence.sous_titre'),
-            'competence_id' => __('PkgCompetences::microCompetence.competence_id'),
-            'lien' => __('PkgCompetences::microCompetence.lien'),
-            'description' => __('PkgCompetences::microCompetence.description'),
-            'reference' => __('Core::msg.reference'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'ordre' => 'ordre',
+                'code' => 'code',
+                'titre' => 'titre',
+                'sous_titre' => 'sous_titre',
+                'competence_reference' => 'competence_reference',
+                'lien' => 'lien',
+                'description' => 'description',
+                'reference' => 'reference',
+            ];
+        } else {
+            return [
+                'ordre' => __('PkgCompetences::microCompetence.ordre'),
+                'code' => __('PkgCompetences::microCompetence.code'),
+                'titre' => __('PkgCompetences::microCompetence.titre'),
+                'sous_titre' => __('PkgCompetences::microCompetence.sous_titre'),
+                'competence_reference' => __('PkgCompetences::microCompetence.competence_reference'),
+                'lien' => __('PkgCompetences::microCompetence.lien'),
+                'description' => __('PkgCompetences::microCompetence.description'),
+                'reference' => __('Core::msg.reference'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($microCompetence) {
@@ -61,7 +66,7 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
                 'code' => $microCompetence->code,
                 'titre' => $microCompetence->titre,
                 'sous_titre' => $microCompetence->sous_titre,
-                'competence_id' => $microCompetence->competence_id,
+                'competence_reference' => $microCompetence->competence?->reference,
                 'lien' => $microCompetence->lien,
                 'description' => $microCompetence->description,
                 'reference' => $microCompetence->reference,
@@ -69,12 +74,15 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -84,16 +92,16 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -101,7 +109,7 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

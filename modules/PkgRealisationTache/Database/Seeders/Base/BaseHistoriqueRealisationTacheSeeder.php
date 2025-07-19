@@ -36,8 +36,6 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,26 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $realisation_tache_id = null;
+                if (!empty($row["realisation_tache_reference"])) {
+                    $realisation_tache_id = \Modules\PkgRealisationTache\Models\RealisationTache::where('reference', $row["realisation_tache_reference"])
+                        ->value('id');
+                }
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $historiqueRealisationTacheData =[
-                    "changement" => $row["changement"] ?? null,
-                    "dateModification" => $row["dateModification"] ?? null,
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
-                    "isFeedback" => $row["isFeedback"] ?? null,
+                        "changement" => $row["changement"] ?? null,
+                        "dateModification" => $row["dateModification"] ?? null,
+                        "realisation_tache_id" => $realisation_tache_id,
+                        "user_id" => $user_id,
+                        "isFeedback" => $row["isFeedback"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

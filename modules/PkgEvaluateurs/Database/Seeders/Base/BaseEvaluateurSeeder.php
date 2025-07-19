@@ -37,8 +37,6 @@ class BaseEvaluateurSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -74,13 +72,22 @@ class BaseEvaluateurSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $evaluateurData =[
-                    "nom" => $row["nom"] ?? null,
-                    "prenom" => $row["prenom"] ?? null,
-                    "email" => $row["email"] ?? null,
-                    "organism" => $row["organism"] ?? null,
-                    "telephone" => $row["telephone"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "prenom" => $row["prenom"] ?? null,
+                        "email" => $row["email"] ?? null,
+                        "organism" => $row["organism"] ?? null,
+                        "telephone" => $row["telephone"] ?? null,
+                        "user_id" => $user_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

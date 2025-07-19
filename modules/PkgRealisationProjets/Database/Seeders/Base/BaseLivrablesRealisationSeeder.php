@@ -36,8 +36,6 @@ class BaseLivrablesRealisationSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,26 @@ class BaseLivrablesRealisationSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $livrable_id = null;
+                if (!empty($row["livrable_reference"])) {
+                    $livrable_id = \Modules\PkgCreationProjet\Models\Livrable::where('reference', $row["livrable_reference"])
+                        ->value('id');
+                }
+                $realisation_projet_id = null;
+                if (!empty($row["realisation_projet_reference"])) {
+                    $realisation_projet_id = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('reference', $row["realisation_projet_reference"])
+                        ->value('id');
+                }
+
+
                 $livrablesRealisationData =[
-                    "livrable_id" => $row["livrable_id"] ?? null,
-                    "lien" => $row["lien"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
+                        "livrable_id" => $livrable_id,
+                        "lien" => $row["lien"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "realisation_projet_id" => $realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

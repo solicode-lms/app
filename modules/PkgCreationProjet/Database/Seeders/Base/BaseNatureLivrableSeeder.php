@@ -36,8 +36,6 @@ class BaseNatureLivrableSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,9 +71,13 @@ class BaseNatureLivrableSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $natureLivrableData =[
-                    "nom" => $row["nom"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

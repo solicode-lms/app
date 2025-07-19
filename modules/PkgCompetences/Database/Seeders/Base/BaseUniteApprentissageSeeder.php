@@ -36,8 +36,6 @@ class BaseUniteApprentissageSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,22 @@ class BaseUniteApprentissageSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $micro_competence_id = null;
+                if (!empty($row["micro_competence_reference"])) {
+                    $micro_competence_id = \Modules\PkgCompetences\Models\MicroCompetence::where('reference', $row["micro_competence_reference"])
+                        ->value('id');
+                }
+
+
                 $uniteApprentissageData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "code" => $row["code"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "lien" => $row["lien"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "micro_competence_id" => $row["micro_competence_id"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "lien" => $row["lien"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "micro_competence_id" => $micro_competence_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

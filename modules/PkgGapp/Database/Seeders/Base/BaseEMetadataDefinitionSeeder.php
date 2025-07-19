@@ -36,8 +36,6 @@ class BaseEMetadataDefinitionSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,17 @@ class BaseEMetadataDefinitionSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $eMetadataDefinitionData =[
-                    "name" => $row["name"] ?? null,
-                    "groupe" => $row["groupe"] ?? null,
-                    "type" => $row["type"] ?? null,
-                    "scope" => $row["scope"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "default_value" => $row["default_value"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "groupe" => $row["groupe"] ?? null,
+                        "type" => $row["type"] ?? null,
+                        "scope" => $row["scope"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "default_value" => $row["default_value"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

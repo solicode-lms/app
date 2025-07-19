@@ -36,8 +36,6 @@ class BaseRealisationProjetSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,32 @@ class BaseRealisationProjetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $affectation_projet_id = null;
+                if (!empty($row["affectation_projet_reference"])) {
+                    $affectation_projet_id = \Modules\PkgRealisationProjets\Models\AffectationProjet::where('reference', $row["affectation_projet_reference"])
+                        ->value('id');
+                }
+                $apprenant_id = null;
+                if (!empty($row["apprenant_reference"])) {
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
+                        ->value('id');
+                }
+                $etats_realisation_projet_id = null;
+                if (!empty($row["etats_realisation_projet_reference"])) {
+                    $etats_realisation_projet_id = \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::where('reference', $row["etats_realisation_projet_reference"])
+                        ->value('id');
+                }
+
+
                 $realisationProjetData =[
-                    "affectation_projet_id" => $row["affectation_projet_id"] ?? null,
-                    "apprenant_id" => $row["apprenant_id"] ?? null,
-                    "date_debut" => $row["date_debut"] ?? null,
-                    "date_fin" => $row["date_fin"] ?? null,
-                    "etats_realisation_projet_id" => $row["etats_realisation_projet_id"] ?? null,
-                    "rapport" => $row["rapport"] ?? null,
+                        "affectation_projet_id" => $affectation_projet_id,
+                        "apprenant_id" => $apprenant_id,
+                        "date_debut" => $row["date_debut"] ?? null,
+                        "date_fin" => $row["date_fin"] ?? null,
+                        "etats_realisation_projet_id" => $etats_realisation_projet_id,
+                        "rapport" => $row["rapport"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

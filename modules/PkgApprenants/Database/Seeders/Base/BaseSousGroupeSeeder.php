@@ -36,8 +36,6 @@ class BaseSousGroupeSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,10 +71,19 @@ class BaseSousGroupeSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $groupe_id = null;
+                if (!empty($row["groupe_reference"])) {
+                    $groupe_id = \Modules\PkgApprenants\Models\Groupe::where('reference', $row["groupe_reference"])
+                        ->value('id');
+                }
+
+
                 $sousGroupeData =[
-                    "nom" => $row["nom"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "groupe_id" => $row["groupe_id"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "groupe_id" => $groupe_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -36,8 +36,6 @@ class BaseRealisationTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,16 +71,35 @@ class BaseRealisationTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $tache_id = null;
+                if (!empty($row["tache_reference"])) {
+                    $tache_id = \Modules\PkgCreationTache\Models\Tache::where('reference', $row["tache_reference"])
+                        ->value('id');
+                }
+                $realisation_projet_id = null;
+                if (!empty($row["realisation_projet_reference"])) {
+                    $realisation_projet_id = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('reference', $row["realisation_projet_reference"])
+                        ->value('id');
+                }
+                $etat_realisation_tache_id = null;
+                if (!empty($row["etat_realisation_tache_reference"])) {
+                    $etat_realisation_tache_id = \Modules\PkgRealisationTache\Models\EtatRealisationTache::where('reference', $row["etat_realisation_tache_reference"])
+                        ->value('id');
+                }
+
+
                 $realisationTacheData =[
-                    "tache_id" => $row["tache_id"] ?? null,
-                    "realisation_projet_id" => $row["realisation_projet_id"] ?? null,
-                    "dateDebut" => $row["dateDebut"] ?? null,
-                    "dateFin" => $row["dateFin"] ?? null,
-                    "remarque_evaluateur" => $row["remarque_evaluateur"] ?? null,
-                    "etat_realisation_tache_id" => $row["etat_realisation_tache_id"] ?? null,
-                    "note" => $row["note"] ?? null,
-                    "remarques_formateur" => $row["remarques_formateur"] ?? null,
-                    "remarques_apprenant" => $row["remarques_apprenant"] ?? null,
+                        "tache_id" => $tache_id,
+                        "realisation_projet_id" => $realisation_projet_id,
+                        "dateDebut" => $row["dateDebut"] ?? null,
+                        "dateFin" => $row["dateFin"] ?? null,
+                        "remarque_evaluateur" => $row["remarque_evaluateur"] ?? null,
+                        "etat_realisation_tache_id" => $etat_realisation_tache_id,
+                        "note" => $row["note"] ?? null,
+                        "remarques_formateur" => $row["remarques_formateur"] ?? null,
+                        "remarques_apprenant" => $row["remarques_apprenant"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

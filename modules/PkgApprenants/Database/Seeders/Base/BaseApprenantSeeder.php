@@ -37,8 +37,6 @@ class BaseApprenantSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -74,25 +72,44 @@ class BaseApprenantSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $nationalite_id = null;
+                if (!empty($row["nationalite_reference"])) {
+                    $nationalite_id = \Modules\PkgApprenants\Models\Nationalite::where('reference', $row["nationalite_reference"])
+                        ->value('id');
+                }
+                $niveaux_scolaire_id = null;
+                if (!empty($row["niveaux_scolaire_reference"])) {
+                    $niveaux_scolaire_id = \Modules\PkgApprenants\Models\NiveauxScolaire::where('reference', $row["niveaux_scolaire_reference"])
+                        ->value('id');
+                }
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $apprenantData =[
-                    "nom" => $row["nom"] ?? null,
-                    "nom_arab" => $row["nom_arab"] ?? null,
-                    "prenom" => $row["prenom"] ?? null,
-                    "prenom_arab" => $row["prenom_arab"] ?? null,
-                    "profile_image" => $row["profile_image"] ?? null,
-                    "cin" => $row["cin"] ?? null,
-                    "date_naissance" => $row["date_naissance"] ?? null,
-                    "sexe" => $row["sexe"] ?? null,
-                    "nationalite_id" => $row["nationalite_id"] ?? null,
-                    "lieu_naissance" => $row["lieu_naissance"] ?? null,
-                    "diplome" => $row["diplome"] ?? null,
-                    "adresse" => $row["adresse"] ?? null,
-                    "niveaux_scolaire_id" => $row["niveaux_scolaire_id"] ?? null,
-                    "tele_num" => $row["tele_num"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
-                    "matricule" => $row["matricule"] ?? null,
-                    "date_inscription" => $row["date_inscription"] ?? null,
-                    "actif" => $row["actif"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "nom_arab" => $row["nom_arab"] ?? null,
+                        "prenom" => $row["prenom"] ?? null,
+                        "prenom_arab" => $row["prenom_arab"] ?? null,
+                        "profile_image" => $row["profile_image"] ?? null,
+                        "cin" => $row["cin"] ?? null,
+                        "date_naissance" => $row["date_naissance"] ?? null,
+                        "sexe" => $row["sexe"] ?? null,
+                        "nationalite_id" => $nationalite_id,
+                        "lieu_naissance" => $row["lieu_naissance"] ?? null,
+                        "diplome" => $row["diplome"] ?? null,
+                        "adresse" => $row["adresse"] ?? null,
+                        "niveaux_scolaire_id" => $niveaux_scolaire_id,
+                        "tele_num" => $row["tele_num"] ?? null,
+                        "user_id" => $user_id,
+                        "matricule" => $row["matricule"] ?? null,
+                        "date_inscription" => $row["date_inscription"] ?? null,
+                        "actif" => $row["actif"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

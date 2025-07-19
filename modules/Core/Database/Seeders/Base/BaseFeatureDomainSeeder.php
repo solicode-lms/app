@@ -35,8 +35,6 @@ class BaseFeatureDomainSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -72,11 +70,20 @@ class BaseFeatureDomainSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $sys_module_id = null;
+                if (!empty($row["sys_module_reference"])) {
+                    $sys_module_id = \Modules\Core\Models\SysModule::where('reference', $row["sys_module_reference"])
+                        ->value('id');
+                }
+
+
                 $featureDomainData =[
-                    "name" => $row["name"] ?? null,
-                    "slug" => $row["slug"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "sys_module_id" => $row["sys_module_id"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "slug" => $row["slug"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "sys_module_id" => $sys_module_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

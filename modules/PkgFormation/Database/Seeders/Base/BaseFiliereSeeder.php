@@ -36,8 +36,6 @@ class BaseFiliereSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,10 +71,14 @@ class BaseFiliereSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $filiereData =[
-                    "code" => $row["code"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -36,8 +36,6 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,26 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
+
+
                 $etatsRealisationProjetData =[
-                    "formateur_id" => $row["formateur_id"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null,
+                        "formateur_id" => $formateur_id,
+                        "titre" => $row["titre"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "sys_color_id" => $sys_color_id,
+                        "is_editable_by_formateur" => $row["is_editable_by_formateur"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

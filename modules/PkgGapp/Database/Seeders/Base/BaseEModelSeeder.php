@@ -36,8 +36,6 @@ class BaseEModelSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,22 @@ class BaseEModelSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $e_package_id = null;
+                if (!empty($row["e_package_reference"])) {
+                    $e_package_id = \Modules\PkgGapp\Models\EPackage::where('reference', $row["e_package_reference"])
+                        ->value('id');
+                }
+
+
                 $eModelData =[
-                    "name" => $row["name"] ?? null,
-                    "table_name" => $row["table_name"] ?? null,
-                    "icon" => $row["icon"] ?? null,
-                    "is_pivot_table" => $row["is_pivot_table"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "e_package_id" => $row["e_package_id"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "table_name" => $row["table_name"] ?? null,
+                        "icon" => $row["icon"] ?? null,
+                        "is_pivot_table" => $row["is_pivot_table"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "e_package_id" => $e_package_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

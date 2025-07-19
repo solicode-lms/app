@@ -36,8 +36,6 @@ class BaseWidgetUtilisateurSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,27 @@ class BaseWidgetUtilisateurSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+                $widget_id = null;
+                if (!empty($row["widget_reference"])) {
+                    $widget_id = \Modules\PkgWidgets\Models\Widget::where('reference', $row["widget_reference"])
+                        ->value('id');
+                }
+
+
                 $widgetUtilisateurData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
-                    "widget_id" => $row["widget_id"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "sous_titre" => $row["sous_titre"] ?? null,
-                    "visible" => $row["visible"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "user_id" => $user_id,
+                        "widget_id" => $widget_id,
+                        "titre" => $row["titre"] ?? null,
+                        "sous_titre" => $row["sous_titre"] ?? null,
+                        "visible" => $row["visible"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

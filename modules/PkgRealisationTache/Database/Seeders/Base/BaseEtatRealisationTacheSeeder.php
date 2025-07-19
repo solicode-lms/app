@@ -36,8 +36,6 @@ class BaseEtatRealisationTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,32 @@ class BaseEtatRealisationTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $workflow_tache_id = null;
+                if (!empty($row["workflow_tache_reference"])) {
+                    $workflow_tache_id = \Modules\PkgRealisationTache\Models\WorkflowTache::where('reference', $row["workflow_tache_reference"])
+                        ->value('id');
+                }
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
+
+
                 $etatRealisationTacheData =[
-                    "nom" => $row["nom"] ?? null,
-                    "workflow_tache_id" => $row["workflow_tache_id"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "workflow_tache_id" => $workflow_tache_id,
+                        "sys_color_id" => $sys_color_id,
+                        "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] ?? null,
+                        "formateur_id" => $formateur_id,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

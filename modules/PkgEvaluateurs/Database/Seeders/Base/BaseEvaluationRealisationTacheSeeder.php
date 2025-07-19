@@ -36,8 +36,6 @@ class BaseEvaluationRealisationTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,31 @@ class BaseEvaluationRealisationTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $realisation_tache_id = null;
+                if (!empty($row["realisation_tache_reference"])) {
+                    $realisation_tache_id = \Modules\PkgRealisationTache\Models\RealisationTache::where('reference', $row["realisation_tache_reference"])
+                        ->value('id');
+                }
+                $evaluateur_id = null;
+                if (!empty($row["evaluateur_reference"])) {
+                    $evaluateur_id = \Modules\PkgEvaluateurs\Models\Evaluateur::where('reference', $row["evaluateur_reference"])
+                        ->value('id');
+                }
+                $evaluation_realisation_projet_id = null;
+                if (!empty($row["evaluation_realisation_projet_reference"])) {
+                    $evaluation_realisation_projet_id = \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::where('reference', $row["evaluation_realisation_projet_reference"])
+                        ->value('id');
+                }
+
+
                 $evaluationRealisationTacheData =[
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
-                    "evaluateur_id" => $row["evaluateur_id"] ?? null,
-                    "note" => $row["note"] ?? null,
-                    "message" => $row["message"] ?? null,
-                    "evaluation_realisation_projet_id" => $row["evaluation_realisation_projet_id"] ?? null,
+                        "realisation_tache_id" => $realisation_tache_id,
+                        "evaluateur_id" => $evaluateur_id,
+                        "note" => $row["note"] ?? null,
+                        "message" => $row["message"] ?? null,
+                        "evaluation_realisation_projet_id" => $evaluation_realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

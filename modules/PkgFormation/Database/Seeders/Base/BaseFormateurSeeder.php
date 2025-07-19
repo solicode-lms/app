@@ -37,8 +37,6 @@ class BaseFormateurSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -74,20 +72,29 @@ class BaseFormateurSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $formateurData =[
-                    "matricule" => $row["matricule"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "prenom" => $row["prenom"] ?? null,
-                    "prenom_arab" => $row["prenom_arab"] ?? null,
-                    "nom_arab" => $row["nom_arab"] ?? null,
-                    "email" => $row["email"] ?? null,
-                    "tele_num" => $row["tele_num"] ?? null,
-                    "adresse" => $row["adresse"] ?? null,
-                    "diplome" => $row["diplome"] ?? null,
-                    "echelle" => $row["echelle"] ?? null,
-                    "echelon" => $row["echelon"] ?? null,
-                    "profile_image" => $row["profile_image"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
+                        "matricule" => $row["matricule"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "prenom" => $row["prenom"] ?? null,
+                        "prenom_arab" => $row["prenom_arab"] ?? null,
+                        "nom_arab" => $row["nom_arab"] ?? null,
+                        "email" => $row["email"] ?? null,
+                        "tele_num" => $row["tele_num"] ?? null,
+                        "adresse" => $row["adresse"] ?? null,
+                        "diplome" => $row["diplome"] ?? null,
+                        "echelle" => $row["echelle"] ?? null,
+                        "echelon" => $row["echelon"] ?? null,
+                        "profile_image" => $row["profile_image"] ?? null,
+                        "user_id" => $user_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

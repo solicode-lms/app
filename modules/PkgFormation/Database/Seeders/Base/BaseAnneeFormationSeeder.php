@@ -36,8 +36,6 @@ class BaseAnneeFormationSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,10 +71,14 @@ class BaseAnneeFormationSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $anneeFormationData =[
-                    "titre" => $row["titre"] ?? null,
-                    "date_debut" => $row["date_debut"] ?? null,
-                    "date_fin" => $row["date_fin"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "date_debut" => $row["date_debut"] ?? null,
+                        "date_fin" => $row["date_fin"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

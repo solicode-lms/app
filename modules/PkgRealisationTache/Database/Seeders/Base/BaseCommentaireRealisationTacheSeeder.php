@@ -36,8 +36,6 @@ class BaseCommentaireRealisationTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,31 @@ class BaseCommentaireRealisationTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $realisation_tache_id = null;
+                if (!empty($row["realisation_tache_reference"])) {
+                    $realisation_tache_id = \Modules\PkgRealisationTache\Models\RealisationTache::where('reference', $row["realisation_tache_reference"])
+                        ->value('id');
+                }
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
+                $apprenant_id = null;
+                if (!empty($row["apprenant_reference"])) {
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
+                        ->value('id');
+                }
+
+
                 $commentaireRealisationTacheData =[
-                    "commentaire" => $row["commentaire"] ?? null,
-                    "dateCommentaire" => $row["dateCommentaire"] ?? null,
-                    "realisation_tache_id" => $row["realisation_tache_id"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
-                    "apprenant_id" => $row["apprenant_id"] ?? null,
+                        "commentaire" => $row["commentaire"] ?? null,
+                        "dateCommentaire" => $row["dateCommentaire"] ?? null,
+                        "realisation_tache_id" => $realisation_tache_id,
+                        "formateur_id" => $formateur_id,
+                        "apprenant_id" => $apprenant_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

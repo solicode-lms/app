@@ -37,8 +37,6 @@ class BaseProjetSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -74,14 +72,28 @@ class BaseProjetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $filiere_id = null;
+                if (!empty($row["filiere_reference"])) {
+                    $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
+                        ->value('id');
+                }
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
+
+
                 $projetData =[
-                    "titre" => $row["titre"] ?? null,
-                    "travail_a_faire" => $row["travail_a_faire"] ?? null,
-                    "critere_de_travail" => $row["critere_de_travail"] ?? null,
-                    "nombre_jour" => $row["nombre_jour"] ?? null,
-                    "filiere_id" => $row["filiere_id"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "travail_a_faire" => $row["travail_a_faire"] ?? null,
+                        "critere_de_travail" => $row["critere_de_travail"] ?? null,
+                        "nombre_jour" => $row["nombre_jour"] ?? null,
+                        "filiere_id" => $filiere_id,
+                        "formateur_id" => $formateur_id,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

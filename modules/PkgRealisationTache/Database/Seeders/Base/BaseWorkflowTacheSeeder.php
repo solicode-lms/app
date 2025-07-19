@@ -36,8 +36,6 @@ class BaseWorkflowTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,21 @@ class BaseWorkflowTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
+
+
                 $workflowTacheData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "code" => $row["code"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

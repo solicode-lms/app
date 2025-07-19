@@ -36,8 +36,6 @@ class BaseMicroCompetenceSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,14 +71,23 @@ class BaseMicroCompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $competence_id = null;
+                if (!empty($row["competence_reference"])) {
+                    $competence_id = \Modules\PkgCompetences\Models\Competence::where('reference', $row["competence_reference"])
+                        ->value('id');
+                }
+
+
                 $microCompetenceData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "code" => $row["code"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "sous_titre" => $row["sous_titre"] ?? null,
-                    "competence_id" => $row["competence_id"] ?? null,
-                    "lien" => $row["lien"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "sous_titre" => $row["sous_titre"] ?? null,
+                        "competence_id" => $competence_id,
+                        "lien" => $row["lien"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

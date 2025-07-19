@@ -35,8 +35,6 @@ class BaseRoleSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -72,9 +70,13 @@ class BaseRoleSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $roleData =[
-                    "name" => $row["name"] ?? null,
-                    "guard_name" => $row["guard_name"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "guard_name" => $row["guard_name"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

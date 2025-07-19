@@ -36,8 +36,6 @@ class BaseResourceSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,11 +71,20 @@ class BaseResourceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
+                        ->value('id');
+                }
+
+
                 $resourceData =[
-                    "nom" => $row["nom"] ?? null,
-                    "lien" => $row["lien"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "projet_id" => $row["projet_id"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "lien" => $row["lien"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

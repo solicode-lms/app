@@ -36,8 +36,6 @@ class BaseProfileSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,21 @@ class BaseProfileSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $profileData =[
-                    "user_id" => $row["user_id"] ?? null,
-                    "phone" => $row["phone"] ?? null,
-                    "address" => $row["address"] ?? null,
-                    "profile_picture" => $row["profile_picture"] ?? null,
-                    "bio" => $row["bio"] ?? null,
+                        "user_id" => $user_id,
+                        "phone" => $row["phone"] ?? null,
+                        "address" => $row["address"] ?? null,
+                        "profile_picture" => $row["profile_picture"] ?? null,
+                        "bio" => $row["bio"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

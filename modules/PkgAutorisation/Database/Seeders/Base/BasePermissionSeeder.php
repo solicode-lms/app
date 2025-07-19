@@ -35,8 +35,6 @@ class BasePermissionSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -72,10 +70,19 @@ class BasePermissionSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $controller_id = null;
+                if (!empty($row["sys_controller_reference"])) {
+                    $controller_id = \Modules\Core\Models\SysController::where('reference', $row["sys_controller_reference"])
+                        ->value('id');
+                }
+
+
                 $permissionData =[
-                    "name" => $row["name"] ?? null,
-                    "guard_name" => $row["guard_name"] ?? null,
-                    "controller_id" => $row["controller_id"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "guard_name" => $row["guard_name"] ?? null,
+                        "controller_id" => $controller_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

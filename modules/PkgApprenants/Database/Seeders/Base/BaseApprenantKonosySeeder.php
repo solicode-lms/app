@@ -36,8 +36,6 @@ class BaseApprenantKonosySeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,26 +71,30 @@ class BaseApprenantKonosySeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+
+
                 $apprenantKonosyData =[
-                    "MatriculeEtudiant" => $row["MatriculeEtudiant"] ?? null,
-                    "Nom" => $row["Nom"] ?? null,
-                    "Prenom" => $row["Prenom"] ?? null,
-                    "Sexe" => $row["Sexe"] ?? null,
-                    "EtudiantActif" => $row["EtudiantActif"] ?? null,
-                    "Diplome" => $row["Diplome"] ?? null,
-                    "Principale" => $row["Principale"] ?? null,
-                    "LibelleLong" => $row["LibelleLong"] ?? null,
-                    "CodeDiplome" => $row["CodeDiplome"] ?? null,
-                    "DateNaissance" => $row["DateNaissance"] ?? null,
-                    "DateInscription" => $row["DateInscription"] ?? null,
-                    "LieuNaissance" => $row["LieuNaissance"] ?? null,
-                    "CIN" => $row["CIN"] ?? null,
-                    "NTelephone" => $row["NTelephone"] ?? null,
-                    "Adresse" => $row["Adresse"] ?? null,
-                    "Nationalite" => $row["Nationalite"] ?? null,
-                    "Nom_Arabe" => $row["Nom_Arabe"] ?? null,
-                    "Prenom_Arabe" => $row["Prenom_Arabe"] ?? null,
-                    "NiveauScolaire" => $row["NiveauScolaire"] ?? null,
+                        "MatriculeEtudiant" => $row["MatriculeEtudiant"] ?? null,
+                        "Nom" => $row["Nom"] ?? null,
+                        "Prenom" => $row["Prenom"] ?? null,
+                        "Sexe" => $row["Sexe"] ?? null,
+                        "EtudiantActif" => $row["EtudiantActif"] ?? null,
+                        "Diplome" => $row["Diplome"] ?? null,
+                        "Principale" => $row["Principale"] ?? null,
+                        "LibelleLong" => $row["LibelleLong"] ?? null,
+                        "CodeDiplome" => $row["CodeDiplome"] ?? null,
+                        "DateNaissance" => $row["DateNaissance"] ?? null,
+                        "DateInscription" => $row["DateInscription"] ?? null,
+                        "LieuNaissance" => $row["LieuNaissance"] ?? null,
+                        "CIN" => $row["CIN"] ?? null,
+                        "NTelephone" => $row["NTelephone"] ?? null,
+                        "Adresse" => $row["Adresse"] ?? null,
+                        "Nationalite" => $row["Nationalite"] ?? null,
+                        "Nom_Arabe" => $row["Nom_Arabe"] ?? null,
+                        "Prenom_Arabe" => $row["Prenom_Arabe"] ?? null,
+                        "NiveauScolaire" => $row["NiveauScolaire"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

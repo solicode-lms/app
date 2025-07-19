@@ -17,61 +17,69 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'nom' => 'nom',
-            'workflow_tache_id' => 'workflow_tache_id',
-            'sys_color_id' => 'sys_color_id',
-            'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-            'reference' => 'reference',
-            'formateur_id' => 'formateur_id',
-            'description' => 'description',
-        ];
-        }else{
-        return [
-            'nom' => __('PkgRealisationTache::etatRealisationTache.nom'),
-            'workflow_tache_id' => __('PkgRealisationTache::etatRealisationTache.workflow_tache_id'),
-            'sys_color_id' => __('PkgRealisationTache::etatRealisationTache.sys_color_id'),
-            'is_editable_only_by_formateur' => __('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur'),
-            'reference' => __('Core::msg.reference'),
-            'formateur_id' => __('PkgRealisationTache::etatRealisationTache.formateur_id'),
-            'description' => __('PkgRealisationTache::etatRealisationTache.description'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'nom' => 'nom',
+                'workflow_tache_reference' => 'workflow_tache_reference',
+                'sys_color_reference' => 'sys_color_reference',
+                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
+                'reference' => 'reference',
+                'formateur_reference' => 'formateur_reference',
+                'description' => 'description',
+            ];
+        } else {
+            return [
+                'nom' => __('PkgRealisationTache::etatRealisationTache.nom'),
+                'workflow_tache_reference' => __('PkgRealisationTache::etatRealisationTache.workflow_tache_reference'),
+                'sys_color_reference' => __('PkgRealisationTache::etatRealisationTache.sys_color_reference'),
+                'is_editable_only_by_formateur' => __('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur'),
+                'reference' => __('Core::msg.reference'),
+                'formateur_reference' => __('PkgRealisationTache::etatRealisationTache.formateur_reference'),
+                'description' => __('PkgRealisationTache::etatRealisationTache.description'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($etatRealisationTache) {
             return [
                 'nom' => $etatRealisationTache->nom,
-                'workflow_tache_id' => $etatRealisationTache->workflow_tache_id,
-                'sys_color_id' => $etatRealisationTache->sys_color_id,
+                'workflow_tache_reference' => $etatRealisationTache->workflowTache?->reference,
+                'sys_color_reference' => $etatRealisationTache->sysColor?->reference,
                 'is_editable_only_by_formateur' => $etatRealisationTache->is_editable_only_by_formateur,
                 'reference' => $etatRealisationTache->reference,
-                'formateur_id' => $etatRealisationTache->formateur_id,
+                'formateur_reference' => $etatRealisationTache->formateur?->reference,
                 'description' => $etatRealisationTache->description,
             ];
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -81,16 +89,16 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -98,7 +106,7 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

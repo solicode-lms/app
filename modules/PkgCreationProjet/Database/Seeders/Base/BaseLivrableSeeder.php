@@ -36,8 +36,6 @@ class BaseLivrableSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,26 @@ class BaseLivrableSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $nature_livrable_id = null;
+                if (!empty($row["nature_livrable_reference"])) {
+                    $nature_livrable_id = \Modules\PkgCreationProjet\Models\NatureLivrable::where('reference', $row["nature_livrable_reference"])
+                        ->value('id');
+                }
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
+                        ->value('id');
+                }
+
+
                 $livrableData =[
-                    "nature_livrable_id" => $row["nature_livrable_id"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "projet_id" => $row["projet_id"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "is_affichable_seulement_par_formateur" => $row["is_affichable_seulement_par_formateur"] ?? null,
+                        "nature_livrable_id" => $nature_livrable_id,
+                        "titre" => $row["titre"] ?? null,
+                        "projet_id" => $projet_id,
+                        "description" => $row["description"] ?? null,
+                        "is_affichable_seulement_par_formateur" => $row["is_affichable_seulement_par_formateur"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

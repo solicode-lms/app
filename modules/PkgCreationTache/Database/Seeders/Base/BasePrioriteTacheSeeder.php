@@ -36,8 +36,6 @@ class BasePrioriteTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,11 +71,20 @@ class BasePrioriteTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
+
+
                 $prioriteTacheData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "formateur_id" => $formateur_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

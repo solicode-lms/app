@@ -17,40 +17,45 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'name' => 'name',
-            'email' => 'email',
-            'email_verified_at' => 'email_verified_at',
-            'password' => 'password',
-            'must_change_password' => 'must_change_password',
-            'remember_token' => 'remember_token',
-            'reference' => 'reference',
-        ];
-        }else{
-        return [
-            'name' => __('PkgAutorisation::user.name'),
-            'email' => __('PkgAutorisation::user.email'),
-            'email_verified_at' => __('PkgAutorisation::user.email_verified_at'),
-            'password' => __('PkgAutorisation::user.password'),
-            'must_change_password' => __('PkgAutorisation::user.must_change_password'),
-            'remember_token' => __('PkgAutorisation::user.remember_token'),
-            'reference' => __('Core::msg.reference'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'name' => 'name',
+                'email' => 'email',
+                'email_verified_at' => 'email_verified_at',
+                'password' => 'password',
+                'must_change_password' => 'must_change_password',
+                'remember_token' => 'remember_token',
+                'reference' => 'reference',
+            ];
+        } else {
+            return [
+                'name' => __('PkgAutorisation::user.name'),
+                'email' => __('PkgAutorisation::user.email'),
+                'email_verified_at' => __('PkgAutorisation::user.email_verified_at'),
+                'password' => __('PkgAutorisation::user.password'),
+                'must_change_password' => __('PkgAutorisation::user.must_change_password'),
+                'remember_token' => __('PkgAutorisation::user.remember_token'),
+                'reference' => __('Core::msg.reference'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($user) {
@@ -66,12 +71,15 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -81,16 +89,16 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -98,7 +106,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

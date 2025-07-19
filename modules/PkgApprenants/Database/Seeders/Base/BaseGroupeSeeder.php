@@ -36,8 +36,6 @@ class BaseGroupeSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,26 @@ class BaseGroupeSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $filiere_id = null;
+                if (!empty($row["filiere_reference"])) {
+                    $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
+                        ->value('id');
+                }
+                $annee_formation_id = null;
+                if (!empty($row["annee_formation_reference"])) {
+                    $annee_formation_id = \Modules\PkgFormation\Models\AnneeFormation::where('reference', $row["annee_formation_reference"])
+                        ->value('id');
+                }
+
+
                 $groupeData =[
-                    "code" => $row["code"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "filiere_id" => $row["filiere_id"] ?? null,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "filiere_id" => $filiere_id,
+                        "annee_formation_id" => $annee_formation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

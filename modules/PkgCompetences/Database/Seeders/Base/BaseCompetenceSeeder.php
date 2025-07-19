@@ -36,8 +36,6 @@ class BaseCompetenceSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,12 +71,21 @@ class BaseCompetenceSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $module_id = null;
+                if (!empty($row["module_reference"])) {
+                    $module_id = \Modules\PkgFormation\Models\Module::where('reference', $row["module_reference"])
+                        ->value('id');
+                }
+
+
                 $competenceData =[
-                    "code" => $row["code"] ?? null,
-                    "mini_code" => $row["mini_code"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "module_id" => $row["module_id"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "code" => $row["code"] ?? null,
+                        "mini_code" => $row["mini_code"] ?? null,
+                        "nom" => $row["nom"] ?? null,
+                        "module_id" => $module_id,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

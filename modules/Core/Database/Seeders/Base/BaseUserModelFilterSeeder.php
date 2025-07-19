@@ -36,8 +36,6 @@ class BaseUserModelFilterSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,10 +71,19 @@ class BaseUserModelFilterSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $userModelFilterData =[
-                    "user_id" => $row["user_id"] ?? null,
-                    "model_name" => $row["model_name"] ?? null,
-                    "filters" => $row["filters"] ?? null,
+                        "user_id" => $user_id,
+                        "model_name" => $row["model_name"] ?? null,
+                        "filters" => $row["filters"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

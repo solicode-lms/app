@@ -17,38 +17,43 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'commentaire' => 'commentaire',
-            'dateCommentaire' => 'dateCommentaire',
-            'reference' => 'reference',
-            'realisation_tache_id' => 'realisation_tache_id',
-            'formateur_id' => 'formateur_id',
-            'apprenant_id' => 'apprenant_id',
-        ];
-        }else{
-        return [
-            'commentaire' => __('PkgRealisationTache::commentaireRealisationTache.commentaire'),
-            'dateCommentaire' => __('PkgRealisationTache::commentaireRealisationTache.dateCommentaire'),
-            'reference' => __('Core::msg.reference'),
-            'realisation_tache_id' => __('PkgRealisationTache::commentaireRealisationTache.realisation_tache_id'),
-            'formateur_id' => __('PkgRealisationTache::commentaireRealisationTache.formateur_id'),
-            'apprenant_id' => __('PkgRealisationTache::commentaireRealisationTache.apprenant_id'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'commentaire' => 'commentaire',
+                'dateCommentaire' => 'dateCommentaire',
+                'reference' => 'reference',
+                'realisation_tache_reference' => 'realisation_tache_reference',
+                'formateur_reference' => 'formateur_reference',
+                'apprenant_reference' => 'apprenant_reference',
+            ];
+        } else {
+            return [
+                'commentaire' => __('PkgRealisationTache::commentaireRealisationTache.commentaire'),
+                'dateCommentaire' => __('PkgRealisationTache::commentaireRealisationTache.dateCommentaire'),
+                'reference' => __('Core::msg.reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::commentaireRealisationTache.realisation_tache_reference'),
+                'formateur_reference' => __('PkgRealisationTache::commentaireRealisationTache.formateur_reference'),
+                'apprenant_reference' => __('PkgRealisationTache::commentaireRealisationTache.apprenant_reference'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($commentaireRealisationTache) {
@@ -56,19 +61,22 @@ class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadi
                 'commentaire' => $commentaireRealisationTache->commentaire,
                 'dateCommentaire' => $commentaireRealisationTache->dateCommentaire,
                 'reference' => $commentaireRealisationTache->reference,
-                'realisation_tache_id' => $commentaireRealisationTache->realisation_tache_id,
-                'formateur_id' => $commentaireRealisationTache->formateur_id,
-                'apprenant_id' => $commentaireRealisationTache->apprenant_id,
+                'realisation_tache_reference' => $commentaireRealisationTache->realisationTache?->reference,
+                'formateur_reference' => $commentaireRealisationTache->formateur?->reference,
+                'apprenant_reference' => $commentaireRealisationTache->apprenant?->reference,
             ];
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -78,16 +86,16 @@ class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadi
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -95,7 +103,7 @@ class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadi
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

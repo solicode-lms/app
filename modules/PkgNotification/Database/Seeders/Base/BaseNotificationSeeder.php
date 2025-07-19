@@ -36,8 +36,6 @@ class BaseNotificationSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,14 +71,23 @@ class BaseNotificationSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $user_id = null;
+                if (!empty($row["user_reference"])) {
+                    $user_id = \Modules\PkgAutorisation\Models\User::where('reference', $row["user_reference"])
+                        ->value('id');
+                }
+
+
                 $notificationData =[
-                    "title" => $row["title"] ?? null,
-                    "type" => $row["type"] ?? null,
-                    "message" => $row["message"] ?? null,
-                    "sent_at" => $row["sent_at"] ?? null,
-                    "is_read" => $row["is_read"] ?? null,
-                    "user_id" => $row["user_id"] ?? null,
-                    "data" => $row["data"] ?? null,
+                        "title" => $row["title"] ?? null,
+                        "type" => $row["type"] ?? null,
+                        "message" => $row["message"] ?? null,
+                        "sent_at" => $row["sent_at"] ?? null,
+                        "is_read" => $row["is_read"] ?? null,
+                        "user_id" => $user_id,
+                        "data" => $row["data"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

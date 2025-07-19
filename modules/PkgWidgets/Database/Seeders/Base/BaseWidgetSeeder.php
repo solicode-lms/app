@@ -36,8 +36,6 @@ class BaseWidgetSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,18 +71,47 @@ class BaseWidgetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $type_id = null;
+                if (!empty($row["widget_type_reference"])) {
+                    $type_id = \Modules\PkgWidgets\Models\WidgetType::where('reference', $row["widget_type_reference"])
+                        ->value('id');
+                }
+                $model_id = null;
+                if (!empty($row["sys_model_reference"])) {
+                    $model_id = \Modules\Core\Models\SysModel::where('reference', $row["sys_model_reference"])
+                        ->value('id');
+                }
+                $operation_id = null;
+                if (!empty($row["widget_operation_reference"])) {
+                    $operation_id = \Modules\PkgWidgets\Models\WidgetOperation::where('reference', $row["widget_operation_reference"])
+                        ->value('id');
+                }
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
+                $section_widget_id = null;
+                if (!empty($row["section_widget_reference"])) {
+                    $section_widget_id = \Modules\PkgWidgets\Models\SectionWidget::where('reference', $row["section_widget_reference"])
+                        ->value('id');
+                }
+
+
                 $widgetData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "icon" => $row["icon"] ?? null,
-                    "name" => $row["name"] ?? null,
-                    "label" => $row["label"] ?? null,
-                    "type_id" => $row["type_id"] ?? null,
-                    "model_id" => $row["model_id"] ?? null,
-                    "operation_id" => $row["operation_id"] ?? null,
-                    "color" => $row["color"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "section_widget_id" => $row["section_widget_id"] ?? null,
-                    "parameters" => $row["parameters"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "icon" => $row["icon"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "label" => $row["label"] ?? null,
+                        "type_id" => $type_id,
+                        "model_id" => $model_id,
+                        "operation_id" => $operation_id,
+                        "color" => $row["color"] ?? null,
+                        "sys_color_id" => $sys_color_id,
+                        "section_widget_id" => $section_widget_id,
+                        "parameters" => $row["parameters"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

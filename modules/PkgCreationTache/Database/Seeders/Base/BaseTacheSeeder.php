@@ -36,8 +36,6 @@ class BaseTacheSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,15 +71,29 @@ class BaseTacheSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $priorite_tache_id = null;
+                if (!empty($row["priorite_tache_reference"])) {
+                    $priorite_tache_id = \Modules\PkgCreationTache\Models\PrioriteTache::where('reference', $row["priorite_tache_reference"])
+                        ->value('id');
+                }
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
+                        ->value('id');
+                }
+
+
                 $tacheData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "titre" => $row["titre"] ?? null,
-                    "priorite_tache_id" => $row["priorite_tache_id"] ?? null,
-                    "projet_id" => $row["projet_id"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "dateDebut" => $row["dateDebut"] ?? null,
-                    "dateFin" => $row["dateFin"] ?? null,
-                    "note" => $row["note"] ?? null,
+                        "ordre" => $row["ordre"] ?? null,
+                        "titre" => $row["titre"] ?? null,
+                        "priorite_tache_id" => $priorite_tache_id,
+                        "projet_id" => $projet_id,
+                        "description" => $row["description"] ?? null,
+                        "dateDebut" => $row["dateDebut"] ?? null,
+                        "dateFin" => $row["dateFin"] ?? null,
+                        "note" => $row["note"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

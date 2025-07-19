@@ -37,8 +37,6 @@ class BaseAffectationProjetSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -74,16 +72,40 @@ class BaseAffectationProjetSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
+                        ->value('id');
+                }
+                $groupe_id = null;
+                if (!empty($row["groupe_reference"])) {
+                    $groupe_id = \Modules\PkgApprenants\Models\Groupe::where('reference', $row["groupe_reference"])
+                        ->value('id');
+                }
+                $annee_formation_id = null;
+                if (!empty($row["annee_formation_reference"])) {
+                    $annee_formation_id = \Modules\PkgFormation\Models\AnneeFormation::where('reference', $row["annee_formation_reference"])
+                        ->value('id');
+                }
+                $sous_groupe_id = null;
+                if (!empty($row["sous_groupe_reference"])) {
+                    $sous_groupe_id = \Modules\PkgApprenants\Models\SousGroupe::where('reference', $row["sous_groupe_reference"])
+                        ->value('id');
+                }
+
+
                 $affectationProjetData =[
-                    "projet_id" => $row["projet_id"] ?? null,
-                    "groupe_id" => $row["groupe_id"] ?? null,
-                    "annee_formation_id" => $row["annee_formation_id"] ?? null,
-                    "date_debut" => $row["date_debut"] ?? null,
-                    "date_fin" => $row["date_fin"] ?? null,
-                    "sous_groupe_id" => $row["sous_groupe_id"] ?? null,
-                    "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
-                    "echelle_note_cible" => $row["echelle_note_cible"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "projet_id" => $projet_id,
+                        "groupe_id" => $groupe_id,
+                        "annee_formation_id" => $annee_formation_id,
+                        "date_debut" => $row["date_debut"] ?? null,
+                        "date_fin" => $row["date_fin"] ?? null,
+                        "sous_groupe_id" => $sous_groupe_id,
+                        "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
+                        "echelle_note_cible" => $row["echelle_note_cible"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

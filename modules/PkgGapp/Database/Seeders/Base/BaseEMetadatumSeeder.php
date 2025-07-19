@@ -36,8 +36,6 @@ class BaseEMetadatumSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,19 +71,38 @@ class BaseEMetadatumSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $e_model_id = null;
+                if (!empty($row["e_model_reference"])) {
+                    $e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
+                        ->value('id');
+                }
+                $e_data_field_id = null;
+                if (!empty($row["e_data_field_reference"])) {
+                    $e_data_field_id = \Modules\PkgGapp\Models\EDataField::where('reference', $row["e_data_field_reference"])
+                        ->value('id');
+                }
+                $e_metadata_definition_id = null;
+                if (!empty($row["e_metadata_definition_reference"])) {
+                    $e_metadata_definition_id = \Modules\PkgGapp\Models\EMetadataDefinition::where('reference', $row["e_metadata_definition_reference"])
+                        ->value('id');
+                }
+
+
                 $eMetadatumData =[
-                    "value_boolean" => $row["value_boolean"] ?? null,
-                    "value_string" => $row["value_string"] ?? null,
-                    "value_integer" => $row["value_integer"] ?? null,
-                    "value_float" => $row["value_float"] ?? null,
-                    "value_date" => $row["value_date"] ?? null,
-                    "value_datetime" => $row["value_datetime"] ?? null,
-                    "value_enum" => $row["value_enum"] ?? null,
-                    "value_json" => $row["value_json"] ?? null,
-                    "value_text" => $row["value_text"] ?? null,
-                    "e_model_id" => $row["e_model_id"] ?? null,
-                    "e_data_field_id" => $row["e_data_field_id"] ?? null,
-                    "e_metadata_definition_id" => $row["e_metadata_definition_id"] ?? null,
+                        "value_boolean" => $row["value_boolean"] ?? null,
+                        "value_string" => $row["value_string"] ?? null,
+                        "value_integer" => $row["value_integer"] ?? null,
+                        "value_float" => $row["value_float"] ?? null,
+                        "value_date" => $row["value_date"] ?? null,
+                        "value_datetime" => $row["value_datetime"] ?? null,
+                        "value_enum" => $row["value_enum"] ?? null,
+                        "value_json" => $row["value_json"] ?? null,
+                        "value_text" => $row["value_text"] ?? null,
+                        "e_model_id" => $e_model_id,
+                        "e_data_field_id" => $e_data_field_id,
+                        "e_metadata_definition_id" => $e_metadata_definition_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

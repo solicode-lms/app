@@ -36,8 +36,6 @@ class BaseERelationshipSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,20 +71,34 @@ class BaseERelationshipSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $source_e_model_id = null;
+                if (!empty($row["e_model_reference"])) {
+                    $source_e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
+                        ->value('id');
+                }
+                $target_e_model_id = null;
+                if (!empty($row["e_model_reference"])) {
+                    $target_e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
+                        ->value('id');
+                }
+
+
                 $eRelationshipData =[
-                    "name" => $row["name"] ?? null,
-                    "type" => $row["type"] ?? null,
-                    "source_e_model_id" => $row["source_e_model_id"] ?? null,
-                    "target_e_model_id" => $row["target_e_model_id"] ?? null,
-                    "cascade_on_delete" => $row["cascade_on_delete"] ?? null,
-                    "is_cascade" => $row["is_cascade"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "column_name" => $row["column_name"] ?? null,
-                    "referenced_table" => $row["referenced_table"] ?? null,
-                    "referenced_column" => $row["referenced_column"] ?? null,
-                    "through" => $row["through"] ?? null,
-                    "with_column" => $row["with_column"] ?? null,
-                    "morph_name" => $row["morph_name"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "type" => $row["type"] ?? null,
+                        "source_e_model_id" => $source_e_model_id,
+                        "target_e_model_id" => $target_e_model_id,
+                        "cascade_on_delete" => $row["cascade_on_delete"] ?? null,
+                        "is_cascade" => $row["is_cascade"] ?? null,
+                        "description" => $row["description"] ?? null,
+                        "column_name" => $row["column_name"] ?? null,
+                        "referenced_table" => $row["referenced_table"] ?? null,
+                        "referenced_column" => $row["referenced_column"] ?? null,
+                        "through" => $row["through"] ?? null,
+                        "with_column" => $row["with_column"] ?? null,
+                        "morph_name" => $row["morph_name"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

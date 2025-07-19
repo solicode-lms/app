@@ -36,8 +36,6 @@ class BaseEDataFieldSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,20 +71,34 @@ class BaseEDataFieldSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $e_model_id = null;
+                if (!empty($row["e_model_reference"])) {
+                    $e_model_id = \Modules\PkgGapp\Models\EModel::where('reference', $row["e_model_reference"])
+                        ->value('id');
+                }
+                $e_relationship_id = null;
+                if (!empty($row["e_relationship_reference"])) {
+                    $e_relationship_id = \Modules\PkgGapp\Models\ERelationship::where('reference', $row["e_relationship_reference"])
+                        ->value('id');
+                }
+
+
                 $eDataFieldData =[
-                    "name" => $row["name"] ?? null,
-                    "e_model_id" => $row["e_model_id"] ?? null,
-                    "data_type" => $row["data_type"] ?? null,
-                    "default_value" => $row["default_value"] ?? null,
-                    "column_name" => $row["column_name"] ?? null,
-                    "e_relationship_id" => $row["e_relationship_id"] ?? null,
-                    "field_order" => $row["field_order"] ?? null,
-                    "db_primaryKey" => $row["db_primaryKey"] ?? null,
-                    "db_nullable" => $row["db_nullable"] ?? null,
-                    "db_unique" => $row["db_unique"] ?? null,
-                    "calculable" => $row["calculable"] ?? null,
-                    "calculable_sql" => $row["calculable_sql"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "e_model_id" => $e_model_id,
+                        "data_type" => $row["data_type"] ?? null,
+                        "default_value" => $row["default_value"] ?? null,
+                        "column_name" => $row["column_name"] ?? null,
+                        "e_relationship_id" => $e_relationship_id,
+                        "field_order" => $row["field_order"] ?? null,
+                        "db_primaryKey" => $row["db_primaryKey"] ?? null,
+                        "db_nullable" => $row["db_nullable"] ?? null,
+                        "db_unique" => $row["db_unique"] ?? null,
+                        "calculable" => $row["calculable"] ?? null,
+                        "calculable_sql" => $row["calculable_sql"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

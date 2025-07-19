@@ -17,42 +17,47 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'titre' => 'titre',
-            'travail_a_faire' => 'travail_a_faire',
-            'critere_de_travail' => 'critere_de_travail',
-            'nombre_jour' => 'nombre_jour',
-            'filiere_id' => 'filiere_id',
-            'formateur_id' => 'formateur_id',
-            'description' => 'description',
-            'reference' => 'reference',
-        ];
-        }else{
-        return [
-            'titre' => __('PkgCreationProjet::projet.titre'),
-            'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
-            'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
-            'nombre_jour' => __('PkgCreationProjet::projet.nombre_jour'),
-            'filiere_id' => __('PkgCreationProjet::projet.filiere_id'),
-            'formateur_id' => __('PkgCreationProjet::projet.formateur_id'),
-            'description' => __('PkgCreationProjet::projet.description'),
-            'reference' => __('Core::msg.reference'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'titre' => 'titre',
+                'travail_a_faire' => 'travail_a_faire',
+                'critere_de_travail' => 'critere_de_travail',
+                'nombre_jour' => 'nombre_jour',
+                'filiere_reference' => 'filiere_reference',
+                'formateur_reference' => 'formateur_reference',
+                'description' => 'description',
+                'reference' => 'reference',
+            ];
+        } else {
+            return [
+                'titre' => __('PkgCreationProjet::projet.titre'),
+                'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
+                'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
+                'nombre_jour' => __('PkgCreationProjet::projet.nombre_jour'),
+                'filiere_reference' => __('PkgCreationProjet::projet.filiere_reference'),
+                'formateur_reference' => __('PkgCreationProjet::projet.formateur_reference'),
+                'description' => __('PkgCreationProjet::projet.description'),
+                'reference' => __('Core::msg.reference'),
+            ];
         }
-   
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($projet) {
@@ -61,20 +66,23 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,
                 'nombre_jour' => $projet->nombre_jour,
-                'filiere_id' => $projet->filiere_id,
-                'formateur_id' => $projet->formateur_id,
+                'filiere_reference' => $projet->filiere?->reference,
+                'formateur_reference' => $projet->formateur?->reference,
                 'description' => $projet->description,
                 'reference' => $projet->reference,
             ];
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -84,16 +92,16 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -101,7 +109,7 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }

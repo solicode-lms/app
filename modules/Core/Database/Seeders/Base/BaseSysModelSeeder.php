@@ -36,8 +36,6 @@ class BaseSysModelSeeder extends Seeder
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
 
         // Ajouter les données à partir d'un fichier CSV
         $this->seedFromCsv();
@@ -73,13 +71,27 @@ class BaseSysModelSeeder extends Seeder
         while (($data = fgetcsv($csvFile)) !== false) {
             $row = array_combine($headers, $data);
             if ($row) {
+
+
+                $sys_module_id = null;
+                if (!empty($row["sys_module_reference"])) {
+                    $sys_module_id = \Modules\Core\Models\SysModule::where('reference', $row["sys_module_reference"])
+                        ->value('id');
+                }
+                $sys_color_id = null;
+                if (!empty($row["sys_color_reference"])) {
+                    $sys_color_id = \Modules\Core\Models\SysColor::where('reference', $row["sys_color_reference"])
+                        ->value('id');
+                }
+
+
                 $sysModelData =[
-                    "name" => $row["name"] ?? null,
-                    "model" => $row["model"] ?? null,
-                    "sys_module_id" => $row["sys_module_id"] ?? null,
-                    "sys_color_id" => $row["sys_color_id"] ?? null,
-                    "icone" => $row["icone"] ?? null,
-                    "description" => $row["description"] ?? null,
+                        "name" => $row["name"] ?? null,
+                        "model" => $row["model"] ?? null,
+                        "sys_module_id" => $sys_module_id,
+                        "sys_color_id" => $sys_color_id,
+                        "icone" => $row["icone"] ?? null,
+                        "description" => $row["description"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
