@@ -110,12 +110,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "Chapitre_nom_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_nom",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
         "reference": "Chapitre_nom_required",
         "value_boolean": 1,
         "e_data_field_reference": "Chapitre_nom",
@@ -519,6 +513,96 @@
         "reference": "Chapitre_updated_at_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "Chapitre_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Chapitre_code_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "Chapitre_code_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Chapitre_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Chapitre_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Chapitre_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_code",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre_duree_en_heure_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre_duree_en_heure",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
