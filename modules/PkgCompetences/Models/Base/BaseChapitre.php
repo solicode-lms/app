@@ -45,7 +45,7 @@ class BaseChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'nom', 'lien', 'description', 'isOfficiel', 'unite_apprentissage_id', 'formateur_id'
+        'ordre', 'code', 'nom', 'lien', 'description', 'duree_en_heure', 'isOfficiel', 'unite_apprentissage_id', 'formateur_id'
     ];
     public $manyToOne = [
         'UniteApprentissage' => [
@@ -91,6 +91,6 @@ class BaseChapitre extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom ?? "";
+        return $this->code ?? "";
     }
 }

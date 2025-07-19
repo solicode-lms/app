@@ -74,13 +74,15 @@ class BaseChapitreSeeder extends Seeder
             $row = array_combine($headers, $data);
             if ($row) {
                 $chapitreData =[
-                    "ordre" => $row["ordre"] ?? null,
-                    "nom" => $row["nom"] ?? null,
-                    "lien" => $row["lien"] ?? null,
-                    "description" => $row["description"] ?? null,
-                    "isOfficiel" => $row["isOfficiel"] ?? null,
-                    "unite_apprentissage_id" => $row["unite_apprentissage_id"] ?? null,
-                    "formateur_id" => $row["formateur_id"] ?? null,
+                    "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
+                    "code" => !empty($row["code"]) ? $row["code"] : null,
+                    "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                    "lien" => !empty($row["lien"]) ? $row["lien"] : null,
+                    "description" => !empty($row["description"]) ? $row["description"] : null,
+                    "duree_en_heure" => !empty($row["duree_en_heure"]) ? $row["duree_en_heure"] : null,
+                    "isOfficiel" => !empty($row["isOfficiel"]) ? $row["isOfficiel"] : null,
+                    "unite_apprentissage_id" => !empty($row["unite_apprentissage_id"]) ? $row["unite_apprentissage_id"] : null,
+                    "formateur_id" => !empty($row["formateur_id"]) ? $row["formateur_id"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

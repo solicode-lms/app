@@ -179,6 +179,32 @@ CREATE TABLE `cache_locks` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `chapitres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chapitres` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `duree_en_heure` double NOT NULL DEFAULT '0',
+  `ordre` int unsigned NOT NULL DEFAULT '0',
+  `isOfficiel` tinyint(1) NOT NULL DEFAULT '1',
+  `unite_apprentissage_id` bigint unsigned NOT NULL,
+  `formateur_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `chapitres_reference_unique` (`reference`),
+  UNIQUE KEY `chapitres_code_unique` (`code`),
+  KEY `chapitres_unite_apprentissage_id_foreign` (`unite_apprentissage_id`),
+  KEY `chapitres_formateur_id_foreign` (`formateur_id`),
+  CONSTRAINT `chapitres_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `chapitres_unite_apprentissage_id_foreign` FOREIGN KEY (`unite_apprentissage_id`) REFERENCES `unite_apprentissages` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `commentaire_realisation_taches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -762,6 +788,28 @@ CREATE TABLE `livrables_realisations` (
   CONSTRAINT `livrables_realisations_realisation_projet_id_foreign` FOREIGN KEY (`realisation_projet_id`) REFERENCES `realisation_projets` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `micro_competences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `micro_competences` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sous_titre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int unsigned NOT NULL DEFAULT '0',
+  `competence_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `micro_competences_reference_unique` (`reference`),
+  UNIQUE KEY `micro_competences_code_unique` (`code`),
+  KEY `micro_competences_competence_id_foreign` (`competence_id`),
+  CONSTRAINT `micro_competences_competence_id_foreign` FOREIGN KEY (`competence_id`) REFERENCES `competences` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1242,6 +1290,27 @@ CREATE TABLE `taches` (
   CONSTRAINT `taches_projet_id_foreign` FOREIGN KEY (`projet_id`) REFERENCES `projets` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `unite_apprentissages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unite_apprentissages` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int unsigned NOT NULL DEFAULT '0',
+  `micro_competence_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unite_apprentissages_reference_unique` (`reference`),
+  UNIQUE KEY `unite_apprentissages_code_unique` (`code`),
+  KEY `unite_apprentissages_micro_competence_id_foreign` (`micro_competence_id`),
+  CONSTRAINT `unite_apprentissages_micro_competence_id_foreign` FOREIGN KEY (`micro_competence_id`) REFERENCES `micro_competences` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_model_filters`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1490,4 +1559,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (134,'2025_06_18_08
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (135,'2025_06_18_083412_update_affectation_projets_add_sous_groupe_id',23);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (136,'2025_06_18_094700_create_apprenant_sousGroupe_table',23);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (137,'2025_06_21_120321_add_echelle_note_cible_to_affectation_projets_table',24);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (138,'2025_07_12_125922_create_livrable_tache_table',25);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (139,'2025_07_12_125922_create_livrable_tache_table',25);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (140,'2025_07_14_101307_create_micro_competences_table',26);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (141,'2025_07_14_101815_create_unite_apprentissages_table',27);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (142,'2025_07_14_102022_create_chapitres_table',28);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (143,'2025_07_19_144700_add_code_to_unite_apprentissages_table',29);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (144,'2025_07_19_150339_add_code_and_duree_to_chapitres_table',30);

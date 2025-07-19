@@ -22,9 +22,11 @@ class BaseChapitreService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'code',
         'nom',
         'lien',
         'description',
+        'duree_en_heure',
         'isOfficiel',
         'unite_apprentissage_id',
         'formateur_id'
@@ -58,14 +60,20 @@ class BaseChapitreService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
-        }
-
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
+        $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+        $microCompetences = $microCompetenceService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgCompetences::microCompetence.plural"),
+            'uniteApprentissage.micro_competence_id', 
+            \Modules\PkgCompetences\Models\MicroCompetence::class,
+            "id", 
+            "id",
+            $microCompetences
+        );
     }
 
     /**

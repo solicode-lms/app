@@ -21,6 +21,19 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.code')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemChapitre->code) && $itemChapitre->code !== '')
+          {{ $itemChapitre->code }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.nom')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemChapitre->nom) && $itemChapitre->nom !== '')
@@ -54,6 +67,21 @@
   @else
     <span class="text-muted">—</span>
   @endif
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.duree_en_heure')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemChapitre->duree_en_heure))
+          {{ number_format($itemChapitre->duree_en_heure, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
           </div>
       </div>
   

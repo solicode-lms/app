@@ -57,13 +57,15 @@ class BaseChapitreImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new Chapitre([
              'ordre' => $values[0] ?? null,
+             'code' => $values[1] ?? null,
              'reference' => $reference,
-             'nom' => $values[2] ?? null,
-             'lien' => $values[3] ?? null,
-             'description' => $values[4] ?? null,
-             'isOfficiel' => $values[5] ?? null,
-             'unite_apprentissage_id' => $values[6] ?? null,
-             'formateur_id' => $values[7] ?? null,
+             'nom' => $values[3] ?? null,
+             'lien' => $values[4] ?? null,
+             'description' => $values[5] ?? null,
+             'duree_en_heure' => $values[6] ?? null,
+             'isOfficiel' => $values[7] ?? null,
+             'unite_apprentissage_id' => $values[8] ?? null,
+             'formateur_id' => $values[9] ?? null,
         ]);
 
 

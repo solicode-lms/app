@@ -29,10 +29,12 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
      if($this->format == 'csv'){
         return [
             'ordre' => 'ordre',
+            'code' => 'code',
             'reference' => 'reference',
             'nom' => 'nom',
             'lien' => 'lien',
             'description' => 'description',
+            'duree_en_heure' => 'duree_en_heure',
             'isOfficiel' => 'isOfficiel',
             'unite_apprentissage_id' => 'unite_apprentissage_id',
             'formateur_id' => 'formateur_id',
@@ -40,10 +42,12 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
         }else{
         return [
             'ordre' => __('PkgCompetences::chapitre.ordre'),
+            'code' => __('PkgCompetences::chapitre.code'),
             'reference' => __('Core::msg.reference'),
             'nom' => __('PkgCompetences::chapitre.nom'),
             'lien' => __('PkgCompetences::chapitre.lien'),
             'description' => __('PkgCompetences::chapitre.description'),
+            'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
             'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
             'unite_apprentissage_id' => __('PkgCompetences::chapitre.unite_apprentissage_id'),
             'formateur_id' => __('PkgCompetences::chapitre.formateur_id'),
@@ -58,10 +62,12 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
         return $this->data->map(function ($chapitre) {
             return [
                 'ordre' => $chapitre->ordre,
+                'code' => $chapitre->code,
                 'reference' => $chapitre->reference,
                 'nom' => $chapitre->nom,
                 'lien' => $chapitre->lien,
                 'description' => $chapitre->description,
+                'duree_en_heure' => $chapitre->duree_en_heure,
                 'isOfficiel' => $chapitre->isOfficiel,
                 'unite_apprentissage_id' => $chapitre->unite_apprentissage_id,
                 'formateur_id' => $chapitre->formateur_id,

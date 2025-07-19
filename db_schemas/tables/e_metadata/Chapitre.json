@@ -301,7 +301,8 @@
     },
     {
         "reference": "Chapitre_isOfficiel_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Chapitre_isOfficiel",
         "e_metadata_definition_reference": "required"
     },
@@ -355,7 +356,8 @@
     },
     {
         "reference": "Chapitre_unite_apprentissage_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Chapitre_unite_apprentissage_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -604,5 +606,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "Chapitre_duree_en_heure",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_unite_apprentissage_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "uniteApprentissage.micro_competence_id",
+                "iModelName": "MicroCompetence",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "Chapitre_unite_apprentissage_id",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]
