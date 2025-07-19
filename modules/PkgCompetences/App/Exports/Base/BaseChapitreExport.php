@@ -1,6 +1,8 @@
 <?php
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
+
+
 namespace Modules\PkgCompetences\App\Exports\Base;
 
 use Modules\PkgCompetences\Models\Chapitre;
@@ -23,6 +25,9 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
         $this->format = $format;
     }
 
+    /**
+     * Génère les en-têtes du fichier exporté
+     */
     public function headings(): array
     {
         if ($this->format === 'csv') {
@@ -54,6 +59,9 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
         }
     }
 
+    /**
+     * Prépare les données à exporter
+     */
     public function collection()
     {
         return $this->data->map(function ($chapitre) {
@@ -66,18 +74,21 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => $chapitre->description,
                 'duree_en_heure' => $chapitre->duree_en_heure,
                 'isOfficiel' => $chapitre->isOfficiel,
-                'unite_apprentissage_reference' => optional($chapitre->uniteApprentissage)->reference,
-                'formateur_reference' => optional($chapitre->formateur)->reference,
+                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
+                'formateur_reference' => $chapitre->formateur?->reference,
             ];
         });
     }
 
+    /**
+     * Applique le style au fichier exporté
+     */
     public function styles(Worksheet $sheet)
     {
         $lastRow = $sheet->getHighestRow();
         $lastColumn = $sheet->getHighestColumn();
 
-        // Appliquer les bordures à toutes les cellules contenant des données
+        // Bordures pour toutes les cellules contenant des données
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -87,7 +98,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             ],
         ]);
 
-        // Appliquer un style spécifique aux en-têtes (ligne 1)
+        // Style spécifique pour les en-têtes
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
@@ -104,7 +115,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             ],
         ]);
 
-        // Ajuster automatiquement la largeur des colonnes
+        // Largeur automatique pour toutes les colonnes
         foreach (range('A', $lastColumn) as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
