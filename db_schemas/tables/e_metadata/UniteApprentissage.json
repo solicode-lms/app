@@ -110,12 +110,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "UniteApprentissage_nom_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "UniteApprentissage_nom",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
         "reference": "UniteApprentissage_nom_required",
         "value_boolean": 1,
         "e_data_field_reference": "UniteApprentissage_nom",
@@ -453,6 +447,54 @@
         "reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "UniteApprentissage_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "UniteApprentissage_code_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "UniteApprentissage_code_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UniteApprentissage_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UniteApprentissage_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UniteApprentissage_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UniteApprentissage_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "UniteApprentissage_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "UniteApprentissage_code",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
