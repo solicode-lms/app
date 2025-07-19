@@ -16,4 +16,9 @@ class Competence extends BaseCompetence
     {
         return $this->code . "-" . ($this->mini_code ? $this->mini_code : $this->nom);
     }
+
+    public function generateReference(): string
+    {
+        return $this->module->reference . "-" . $this->code ;
+    }
 }

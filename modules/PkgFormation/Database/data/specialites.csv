@@ -1,6 +1,6 @@
-nom,description
-Développement logiciel,Spécialité axée sur la programmation
-Communication efficace,Formation dédiée aux compétences de communication interpersonnelle et professionnelle.
-Soft skills,Spécialité en développement personnel
-Entrepreneuriat,Formation axée sur la création
-Leadership et management,Spécialité orientée vers la gestion d'équipe
+"nom","description","reference"
+"Développement logiciel","Spécialité axée sur la programmation","Développement logiciel"
+"Communication efficace","Formation dédiée aux compétences de communication interpersonnelle et professionnelle.","Communication efficace"
+"Soft skills","Spécialité en développement personnel","Soft skills"
+"Entrepreneuriat","Formation axée sur la création","Entrepreneuriat"
+"Leadership et management","Spécialité orientée vers la gestion d'équipe","Leadership et management"
