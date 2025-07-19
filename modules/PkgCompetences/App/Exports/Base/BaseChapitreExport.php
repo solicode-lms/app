@@ -1,8 +1,6 @@
 <?php
 // Ce fichier est maintenu par ESSARRAJ Fouad
 
-
-
 namespace Modules\PkgCompetences\App\Exports\Base;
 
 use Modules\PkgCompetences\Models\Chapitre;
@@ -17,8 +15,9 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
+    protected $format;
 
-    public function __construct($data,$format)
+    public function __construct($data, $format)
     {
         $this->data = $data;
         $this->format = $format;
@@ -26,35 +25,33 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
 
     public function headings(): array
     {
-     if($this->format == 'csv'){
-        return [
-            'ordre' => 'ordre',
-            'code' => 'code',
-            'reference' => 'reference',
-            'nom' => 'nom',
-            'lien' => 'lien',
-            'description' => 'description',
-            'duree_en_heure' => 'duree_en_heure',
-            'isOfficiel' => 'isOfficiel',
-            'unite_apprentissage_id' => 'unite_apprentissage_id',
-            'formateur_id' => 'formateur_id',
-        ];
-        }else{
-        return [
-            'ordre' => __('PkgCompetences::chapitre.ordre'),
-            'code' => __('PkgCompetences::chapitre.code'),
-            'reference' => __('Core::msg.reference'),
-            'nom' => __('PkgCompetences::chapitre.nom'),
-            'lien' => __('PkgCompetences::chapitre.lien'),
-            'description' => __('PkgCompetences::chapitre.description'),
-            'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
-            'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
-            'unite_apprentissage_id' => __('PkgCompetences::chapitre.unite_apprentissage_id'),
-            'formateur_id' => __('PkgCompetences::chapitre.formateur_id'),
-        ];
-
+        if ($this->format === 'csv') {
+            return [
+                'ordre' => 'ordre',
+                'code' => 'code',
+                'reference' => 'reference',
+                'nom' => 'nom',
+                'lien' => 'lien',
+                'description' => 'description',
+                'duree_en_heure' => 'duree_en_heure',
+                'isOfficiel' => 'isOfficiel',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
+                'formateur_reference' => 'formateur_reference',
+            ];
+        } else {
+            return [
+                'ordre' => __('PkgCompetences::chapitre.ordre'),
+                'code' => __('PkgCompetences::chapitre.code'),
+                'reference' => __('Core::msg.reference'),
+                'nom' => __('PkgCompetences::chapitre.nom'),
+                'lien' => __('PkgCompetences::chapitre.lien'),
+                'description' => __('PkgCompetences::chapitre.description'),
+                'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
+                'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
+                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
+                'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
+            ];
         }
-   
     }
 
     public function collection()
@@ -69,8 +66,8 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => $chapitre->description,
                 'duree_en_heure' => $chapitre->duree_en_heure,
                 'isOfficiel' => $chapitre->isOfficiel,
-                'unite_apprentissage_id' => $chapitre->unite_apprentissage_id,
-                'formateur_id' => $chapitre->formateur_id,
+                'unite_apprentissage_reference' => optional($chapitre->uniteApprentissage)->reference,
+                'formateur_reference' => optional($chapitre->formateur)->reference,
             ];
         });
     }
@@ -95,11 +92,11 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             'font' => [
                 'bold' => true,
                 'size' => 12,
-                'color' => ['argb' => 'FFFFFF'], // Texte blanc
+                'color' => ['argb' => 'FFFFFF'],
             ],
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['argb' => '4F81BD'], // Fond bleu
+                'startColor' => ['argb' => '4F81BD'],
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
