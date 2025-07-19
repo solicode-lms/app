@@ -30,21 +30,21 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
         return [
             'ordre' => 'ordre',
             'code' => 'code',
-            'reference' => 'reference',
             'nom' => 'nom',
             'lien' => 'lien',
             'description' => 'description',
             'micro_competence_id' => 'micro_competence_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
             'ordre' => __('PkgCompetences::uniteApprentissage.ordre'),
             'code' => __('PkgCompetences::uniteApprentissage.code'),
-            'reference' => __('Core::msg.reference'),
             'nom' => __('PkgCompetences::uniteApprentissage.nom'),
             'lien' => __('PkgCompetences::uniteApprentissage.lien'),
             'description' => __('PkgCompetences::uniteApprentissage.description'),
             'micro_competence_id' => __('PkgCompetences::uniteApprentissage.micro_competence_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -57,11 +57,11 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
             return [
                 'ordre' => $uniteApprentissage->ordre,
                 'code' => $uniteApprentissage->code,
-                'reference' => $uniteApprentissage->reference,
                 'nom' => $uniteApprentissage->nom,
                 'lien' => $uniteApprentissage->lien,
                 'description' => $uniteApprentissage->description,
                 'micro_competence_id' => $uniteApprentissage->micro_competence_id,
+                'reference' => $uniteApprentissage->reference,
             ];
         });
     }
