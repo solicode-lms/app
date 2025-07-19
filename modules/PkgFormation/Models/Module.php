@@ -7,5 +7,9 @@ use Modules\PkgFormation\Models\Base\BaseModule;
 
 class Module extends BaseModule
 {
+    public function __toString()
+    {
+        return trim(($this->code ?? '') . ' ' . ($this->nom ?? ''));
+    }
 
 }

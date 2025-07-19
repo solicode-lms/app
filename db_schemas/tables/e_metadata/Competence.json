@@ -43,7 +43,8 @@
     },
     {
         "reference": "Competence_module_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Competence_module_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -456,5 +457,35 @@
         "value_boolean": 1,
         "e_data_field_reference": "competences_hasMany_micro_competences_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Competence_module_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "Module.Filiere_id",
+                "iModelName": "Filiere",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "Competence_module_id",
+        "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "Competence_code_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "Competence_code",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Competence_mini_code_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 10,
+        "value_float": 0,
+        "e_data_field_reference": "Competence_mini_code",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

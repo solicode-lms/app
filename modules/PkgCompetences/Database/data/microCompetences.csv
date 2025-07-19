@@ -1,27 +1,18 @@
 "ordre","reference","titre","sous_titre","code","lien","description","competence_id"
-"1","893d5db9-4a1e-4057-bf9d-e453faa434a1","Comprendre le rôle du maquettage","","C1.M01","","Rôle du maquettage dans le développement web / Différences wireframe, maquette, prototype","8"
-"2","5bea2a68-70f7-4afd-8d4b-3571f932fda1","Découvrir les outils de maquettage","","C1.M02","","Découverte de Figma et autres outils","8"
-"3","ae58397c-bd70-411c-a44d-61b6fc037212","Appliquer les principes d’UX et d’UI","","C1.M03","","Notions d’UX, UI et design responsive","8"
-"4","5bac0539-ed9d-4054-8a27-c98a1b00d98f","Structurer une page HTML","","C2.M01","","Structure de base, balises HTML, listes, tableaux","9"
-"5","3be43e0f-0680-4d85-8213-c53fa7fa6420","Créer des formulaires accessibles","","C2.M02","","Formulaires HTML valides et accessibles","9"
-"6","7cbbd9aa-c555-4ea7-b296-9a1d850564ea","Produire un code HTML sémantique et optimisé","","C2.M03","","Balises sémantiques, meta tags, SEO","9"
-"7","96171ab3-2d12-4348-8c75-695f222fb3ac","Styliser des interfaces avec CSS","","C2.M04","","Boîte CSS, sélecteurs, typo, couleurs","9"
-"8","daec9bff-7b2b-4a4f-a2e6-e8432a01edd7","Concevoir des mises en page modernes","","C2.M05","","Flexbox, animations CSS, responsive","9"
-"9","2d10a204-3863-42ce-83ce-cfb34acf5235","Utiliser des outils CSS avancés","","C2.M06","","Préprocesseurs, variables CSS, Bootstrap","9"
-"10","96a349d1-1911-43bb-a798-290436ed3d16","Interagir avec l’utilisateur via le navigateur","","C3.M01","","Événements JS et manipulation DOM","10"
-"11","f4f24625-6a06-473c-bcc5-e78e5a2a6786","Gérer les appels asynchrones et les APIs","","C3.M02","","AJAX, JSON, Fetch API","10"
-"12","c586f81b-b559-4a12-b8fe-1e52989099d3","Organiser son code avec des concepts avancés","","C3.M03","","Initiation POO, ES6","10"
-"13","37fe4b0e-1c73-4ec2-9ce1-c6d22067702d","Comprendre la structure d’une application React/Vue","","C3.M04","","Architecture SPA, composants","10"
-"14","047a73b4-ae3d-48f5-b524-6a1cdd8182e5","Créer des interfaces réactives avec des props et des événements","","C3.M05","","Props, écouteurs, rendu dynamique","10"
-"15","ef4a2ad7-a258-4072-a30c-6be2a8c8a81e","Gérer la navigation entre vues","","C3.M06","","Routes et transitions entre pages","10"
-"16","45e6cadc-87aa-423e-b049-1d679407fef6","Prendre en main un CMS moderne","","C4.M01","","Installation WordPress, plugins, sécurité","14"
-"17","d3235fa8-e5e3-4f35-b561-127560651857","Modéliser une base de données relationnelle","","C5.M01","","MCD, MLD et organisation logique","11"
-"18","7fd5ba84-5128-4c1c-afdd-59fbc83466eb","Mettre en place une base de données avec SQL","","C5.M02","","CREATE TABLE, types SQL","11"
-"19","0dd59e78-01d9-4c0d-a05c-dd754ac68c52","Rechercher des données efficacement","","C5.M03","","SELECT, JOIN, GROUP BY, HAVING","11"
-"20","409156f4-d439-4188-9ba7-b64f93eb16a2","Gérer les données (ajout, mise à jour, suppression)","","C5.M04","","INSERT, UPDATE, DELETE","11"
-"21","d2490448-aa99-48e4-bff2-1f64fbea00d5","Connecter une application PHP à une base de données","","C6.M01","","Connexion sécurisée, JSON, exceptions","12"
-"22","83bbf444-d2d4-4fde-94c1-31c857cc8280","Maîtriser les bases du langage PHP","","C7.M01","","Variables, conditions, boucles, tableaux","13"
-"23","a0b3b9b7-024e-47f0-86b1-f2fc009e2406","Travailler avec les chaînes et les fonctions","","C7.M02","","Manipulation de texte, fonctions personnalisées","13"
-"24","6f8510b2-3d84-418e-8733-b0731b70dd71","Gérer les formulaires et la navigation","","C7.M03","","Sessions, validation, navigation sécurisée","13"
-"25","adeb0e78-8fa9-4f27-a319-e7123f1e8c3f","Structurer une application PHP orientée objet","","C7.M04","","POO, CRUD, architecture MVC simple","13"
-"26","40c0f00b-b39e-4380-83a1-afdb50db8e66","Étendre les fonctionnalités d’un CMS","","C8.M01","","Plugins, WooCommerce, composants personnalisés","15"
+1,"T.1","Comprendre la démarche pédagogique à Solicode","Découvrir la pédagogie active et la méthode Solicode","T.1","https://solicode-web-mobile.github.io/autoformations-web/demarche-pedagogique-solicode/","Introduction aux principes de la pédagogie active de Solicode.",9
+2,"T.2","Collaboration & posture professionnelle","Adopter une posture collaborative et agile","T.2","https://solicode-web-mobile.github.io/autoformations-web/collaboration-posture-professionnelle/","Apprendre à collaborer efficacement dans un cadre professionnel.",10
+3,"T.3","Git & GitHub","Gérer un projet avec Git et GitHub","T.3","https://solicode-web-mobile.github.io/autoformations-web/git-github/","Utiliser Git et GitHub pour gérer les versions et collaborer.",11
+4,"1.1","Comprendre le maquettage","Découvrir le rôle du maquettage dans un projet web","C1-1.1","https://solicode-web-mobile.github.io/autoformations-web/comprendre-maquettage/","Découvrir les bases du maquettage et son rôle dans la conception.",1
+5,"1.2","Concevoir avec UX/UI","Appliquer les principes UX et UI dans la conception","C1-1.2","https://solicode-web-mobile.github.io/autoformations-web/concevoir-ux-ui/","Appliquer les notions UX/UI pour améliorer les interfaces.",1
+6,"2.1","Structurer le HTML","Maîtriser la structure et la sémantique HTML","C2-2.1","https://solicode-web-mobile.github.io/autoformations-web/structurer-html/","Apprendre à structurer une page HTML correctement.",2
+7,"2.2","Styliser avec CSS","Mettre en forme une interface web avec CSS","C2-2.2","https://solicode-web-mobile.github.io/autoformations-web/styliser-css/","Utiliser CSS pour mettre en forme et styliser les pages web.",2
+8,"3.1","JavaScript : Premiers pas","Découvrir les bases du langage JavaScript","C3-3.1","https://solicode-web-mobile.github.io/autoformations-web/javascript-premiers-pas/","Découvrir les bases de JavaScript pour créer des interactions.",3
+9,"3.2","JavaScript : Aller plus loin","Approfondir les concepts et APIs JavaScript","C3-3.2","https://solicode-web-mobile.github.io/autoformations-web/javascript-aller-plus-loin/","Approfondir JavaScript pour manipuler les données et APIs.",3
+10,"4.1","Démarrer avec WordPress","Installer et configurer un site WordPress","C4-4.1","https://solicode-web-mobile.github.io/autoformations-web/demarrer-wordpress/","Apprendre les fondamentaux de WordPress pour créer un site.",4
+11,"5.1","Concevoir une base relationnelle","Modéliser et créer une base SQL","C5-5.1","https://solicode-web-mobile.github.io/autoformations-web/concevoir-base-relationnelle/","Concevoir et modéliser une base de données relationnelle.",5
+12,"5.2","Requêtes et manipulation SQL","Lire et manipuler des données SQL","C5-5.2","https://solicode-web-mobile.github.io/autoformations-web/requetes-manipulation-sql/","Maîtriser les requêtes SQL pour interroger et modifier les données.",5
+13,"6.1","Connecter une application à une base de données","Connexion et requêtes sécurisées avec PDO","C6-6.1","https://solicode-web-mobile.github.io/autoformations-web/connecter-application-bdd/","Apprendre à connecter une application à une base de données via PDO.",6
+14,"7.1","Bases et logique PHP","Découvrir la syntaxe et la logique en PHP","C7-7.1","https://solicode-web-mobile.github.io/autoformations-web/bases-logique-php/","Découvrir la syntaxe et les bases de la logique PHP.",7
+15,"7.2","Formulaires et navigation sécurisée","Gérer les formulaires et les sessions en PHP","C7-7.2","https://solicode-web-mobile.github.io/autoformations-web/formulaires-navigation-securisee/","Gérer les formulaires et sécuriser la navigation en PHP.",7
+16,"7.3","Programmation orientée objet","Découvrir la POO en PHP","C7-7.3","https://solicode-web-mobile.github.io/autoformations-web/programmation-orientee-objet/","Maîtriser les concepts de base de la POO avec PHP.",7
+17,"8.1","Découvrir React","Créer des composants interactifs avec React","C8-8.1","https://solicode-web-mobile.github.io/autoformations-web/c8-decouvrir-react/","Introduction à React et ses composants fondamentaux.",8

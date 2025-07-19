@@ -10,4 +10,9 @@ class Filiere extends BaseFiliere
     {
         return $this->code;
     }
+
+     public function __toString()
+    {
+        return trim(($this->code ?? '') . '-' . ($this->nom ?? ''));
+    }
 }

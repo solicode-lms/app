@@ -56,10 +56,16 @@ class BaseCompetenceService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('module_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::module.plural"), 'module_id', \Modules\PkgFormation\Models\Module::class, 'code');
-        }
-
+        $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+        $filieres = $filiereService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgFormation::filiere.plural"),
+            'Module.Filiere_id', 
+            \Modules\PkgFormation\Models\Filiere::class,
+            "id", 
+            "id",
+            $filieres
+        );
     }
 
     /**

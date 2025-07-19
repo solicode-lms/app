@@ -9,10 +9,10 @@
                     $bulkEdit = $competences_permissions['edit-competence'] || $competences_permissions['destroy-competence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20.5"  field="code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.code'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="mini_code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.mini_code'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.nom'))}}" />
-                <x-sortable-column :sortable="true" width="20.5" field="module_id" modelname="competence" label="{{ucfirst(__('PkgFormation::module.singular'))}}" />
+                <x-sortable-column :sortable="true" width="6"  field="code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.code'))}}" />
+                <x-sortable-column :sortable="true" width="10"  field="mini_code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.mini_code'))}}" />
+                <x-sortable-column :sortable="true" width="33"  field="nom" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.nom'))}}" />
+                <x-sortable-column :sortable="true" width="33" field="module_id" modelname="competence" label="{{ucfirst(__('PkgFormation::module.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,19 +24,19 @@
                 @endphp
                 <tr id="competence-row-{{$competence->id}}" data-id="{{$competence->id}}">
                     <x-checkbox-row :item="$competence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $competence->code }}" >
+                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $competence->code }}" >
                         {{ $competence->code }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="mini_code"  data-toggle="tooltip" title="{{ $competence->mini_code }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="mini_code"  data-toggle="tooltip" title="{{ $competence->mini_code }}" >
                         {{ $competence->mini_code }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $competence->nom }}" >
+                    <td style="max-width: 33%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $competence->nom }}" >
                         {{ $competence->nom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $competence->module }}" >
+                    <td style="max-width: 33%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$competence->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $competence->module }}" >
                         {{  $competence->module }}
 
                     </td>

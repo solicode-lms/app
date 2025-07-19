@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-competence', 'index-microCompetence', 'index-uniteApprentissage', 'index-chapitre'])
+@accessiblePermissions(['index-chapitre', 'index-competence', 'index-microCompetence', 'index-uniteApprentissage'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgCompetences" class="nav-item has-treeview  {{ Request::is('admin/PkgCompetences*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCompetences*') ? 'active' : '' }}">
@@ -12,6 +12,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('index-chapitre') 
+        <li class="nav-item" id="menu-chapitres">
+            <a href="{{ route('chapitres.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/chapitres') ? 'active' : '' }}">
+                <i class="nav-icon fa-table"></i>
+                {{__('PkgCompetences::chapitre.plural')}}
+            </a>
+        </li>
+        @endcan
         @can('index-competence') 
         <li class="nav-item" id="menu-competences">
             <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
@@ -33,14 +41,6 @@
             <a href="{{ route('uniteApprentissages.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/uniteApprentissages') ? 'active' : '' }}">
                 <i class="nav-icon fa-table"></i>
                 {{__('PkgCompetences::uniteApprentissage.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-chapitre') 
-        <li class="nav-item" id="menu-chapitres">
-            <a href="{{ route('chapitres.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/chapitres') ? 'active' : '' }}">
-                <i class="nav-icon fa-table"></i>
-                {{__('PkgCompetences::chapitre.plural')}}
             </a>
         </li>
         @endcan
