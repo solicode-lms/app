@@ -30,12 +30,12 @@ class BaseMicroCompetenceRequest extends FormRequest
     {
         return [
             'ordre' => 'required|integer',
+            'code' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255',
+            'competence_id' => 'nullable',
             'lien' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'competence_id' => 'nullable'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -48,16 +48,16 @@ class BaseMicroCompetenceRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.ordre')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.code')]),
+            'code.max' => __('validation.codeMax'),
             'titre.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.titre')]),
             'titre.max' => __('validation.titreMax'),
             'sous_titre.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.sous_titre')]),
             'sous_titre.max' => __('validation.sous_titreMax'),
-            'code.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.code')]),
-            'code.max' => __('validation.codeMax'),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.competence_id')]),
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.lien')]),
             'lien.max' => __('validation.lienMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.description')]),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.competence_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::MicroCompetence.description')])
         ];
     }
 

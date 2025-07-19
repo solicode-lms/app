@@ -43,7 +43,7 @@
        $titre = __("PkgCompetences::chapitre.singular");
     @endphp
     <x-crud-header 
-        id="chapitre-crud-header" icon="fa-table"  
+        id="chapitre-crud-header" icon="fas fa-chalkboard"  
         iconColor="text-info"
         title="{{ $chapitre_title }}"
         :breadcrumbs="[

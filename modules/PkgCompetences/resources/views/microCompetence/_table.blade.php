@@ -10,10 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="19.5"  field="titre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.titre'))}}" />
-                <x-sortable-column :sortable="true" width="19.5"  field="code" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.code'))}}" />
-                <x-sortable-column :sortable="true" width="19.5"  field="lien" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.lien'))}}" />
-                <x-sortable-column :sortable="true" width="19.5" field="competence_id" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
+                <x-sortable-column :sortable="true" width="6"  field="code" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.code'))}}" />
+                <x-sortable-column :sortable="true" width="55"  field="titre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.titre'))}}" />
+                <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
+                <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.lien'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -31,20 +31,20 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $microCompetence->titre }}" >
-                        {{ $microCompetence->titre }}
-
-                    </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $microCompetence->code }}" >
+                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $microCompetence->code }}" >
                         {{ $microCompetence->code }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
-                        {{ $microCompetence->lien }}
+                    <td style="max-width: 55%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $microCompetence->titre }}" >
+                        {{ $microCompetence->titre }}
 
                     </td>
-                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $microCompetence->competence }}" >
+                    <td style="max-width: 11%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $microCompetence->competence }}" >
                         {{  $microCompetence->competence }}
+
+                    </td>
+                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
+                        {{ $microCompetence->lien }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

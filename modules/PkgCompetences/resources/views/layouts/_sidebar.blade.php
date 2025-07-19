@@ -15,7 +15,7 @@
         @can('index-chapitre') 
         <li class="nav-item" id="menu-chapitres">
             <a href="{{ route('chapitres.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/chapitres') ? 'active' : '' }}">
-                <i class="nav-icon fa-table"></i>
+                <i class="nav-icon fas fa-chalkboard"></i>
                 {{__('PkgCompetences::chapitre.plural')}}
             </a>
         </li>
@@ -31,7 +31,7 @@
         @can('index-microCompetence') 
         <li class="nav-item" id="menu-microCompetences">
             <a href="{{ route('microCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/microCompetences') ? 'active' : '' }}">
-                <i class="nav-icon fa-table"></i>
+                <i class="nav-icon fas fa-book"></i>
                 {{__('PkgCompetences::microCompetence.plural')}}
             </a>
         </li>
@@ -39,7 +39,7 @@
         @can('index-uniteApprentissage') 
         <li class="nav-item" id="menu-uniteApprentissages">
             <a href="{{ route('uniteApprentissages.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/uniteApprentissages') ? 'active' : '' }}">
-                <i class="nav-icon fa-table"></i>
+                <i class="nav-icon fas fa-puzzle-piece"></i>
                 {{__('PkgCompetences::uniteApprentissage.plural')}}
             </a>
         </li>

@@ -22,12 +22,12 @@ class BaseMicroCompetenceService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
+        'code',
         'titre',
         'sous_titre',
-        'code',
+        'competence_id',
         'lien',
-        'description',
-        'competence_id'
+        'description'
     ];
 
     /**

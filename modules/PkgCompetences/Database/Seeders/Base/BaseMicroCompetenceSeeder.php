@@ -75,12 +75,12 @@ class BaseMicroCompetenceSeeder extends Seeder
             if ($row) {
                 $microCompetenceData =[
                     "ordre" => $row["ordre"] ?? null,
+                    "code" => $row["code"] ?? null,
                     "titre" => $row["titre"] ?? null,
                     "sous_titre" => $row["sous_titre"] ?? null,
-                    "code" => $row["code"] ?? null,
+                    "competence_id" => $row["competence_id"] ?? null,
                     "lien" => $row["lien"] ?? null,
                     "description" => $row["description"] ?? null,
-                    "competence_id" => $row["competence_id"] ?? null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

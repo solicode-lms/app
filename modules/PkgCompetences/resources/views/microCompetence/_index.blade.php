@@ -43,7 +43,7 @@
        $titre = __("PkgCompetences::microCompetence.singular");
     @endphp
     <x-crud-header 
-        id="microCompetence-crud-header" icon="fa-table"  
+        id="microCompetence-crud-header" icon="fas fa-book"  
         iconColor="text-info"
         title="{{ $microCompetence_title }}"
         :breadcrumbs="[

@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
-
+ 
 return [
-    'singular' => 'UniteApprentissage',
-    'plural' => 'UniteApprentissages',
-    'ordre' => 'ordre',
-    'nom' => 'nom',
-    'lien' => 'lien',
-    'description' => 'description',
-    'micro_competence_id' => 'micro_competence_id',
+    'singular' => 'Unité d\'Apprentissage',
+    'plural' => 'Unités d\'Apprentissage',
+    'ordre' => 'Ordre',
+    'nom' => 'Nom',
+    'lien' => 'Lien',
+    'description' => 'Description',
+    'micro_competence_id' => 'Autoformation',
 ];

@@ -43,7 +43,7 @@
        $titre = __("PkgCompetences::uniteApprentissage.singular");
     @endphp
     <x-crud-header 
-        id="uniteApprentissage-crud-header" icon="fa-table"  
+        id="uniteApprentissage-crud-header" icon="fas fa-puzzle-piece"  
         iconColor="text-info"
         title="{{ $uniteApprentissage_title }}"
         :breadcrumbs="[

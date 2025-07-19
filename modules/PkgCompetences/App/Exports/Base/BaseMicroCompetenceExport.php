@@ -29,24 +29,24 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
      if($this->format == 'csv'){
         return [
             'ordre' => 'ordre',
-            'reference' => 'reference',
+            'code' => 'code',
             'titre' => 'titre',
             'sous_titre' => 'sous_titre',
-            'code' => 'code',
+            'competence_id' => 'competence_id',
             'lien' => 'lien',
             'description' => 'description',
-            'competence_id' => 'competence_id',
+            'reference' => 'reference',
         ];
         }else{
         return [
             'ordre' => __('PkgCompetences::microCompetence.ordre'),
-            'reference' => __('Core::msg.reference'),
+            'code' => __('PkgCompetences::microCompetence.code'),
             'titre' => __('PkgCompetences::microCompetence.titre'),
             'sous_titre' => __('PkgCompetences::microCompetence.sous_titre'),
-            'code' => __('PkgCompetences::microCompetence.code'),
+            'competence_id' => __('PkgCompetences::microCompetence.competence_id'),
             'lien' => __('PkgCompetences::microCompetence.lien'),
             'description' => __('PkgCompetences::microCompetence.description'),
-            'competence_id' => __('PkgCompetences::microCompetence.competence_id'),
+            'reference' => __('Core::msg.reference'),
         ];
 
         }
@@ -58,13 +58,13 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
         return $this->data->map(function ($microCompetence) {
             return [
                 'ordre' => $microCompetence->ordre,
-                'reference' => $microCompetence->reference,
+                'code' => $microCompetence->code,
                 'titre' => $microCompetence->titre,
                 'sous_titre' => $microCompetence->sous_titre,
-                'code' => $microCompetence->code,
+                'competence_id' => $microCompetence->competence_id,
                 'lien' => $microCompetence->lien,
                 'description' => $microCompetence->description,
-                'competence_id' => $microCompetence->competence_id,
+                'reference' => $microCompetence->reference,
             ];
         });
     }

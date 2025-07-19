@@ -13,7 +13,9 @@
     },
     {
         "reference": "micro_competences_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-book",
+        "value_float": 0,
         "e_model_reference": "micro_competences",
         "e_metadata_definition_reference": "iconModel"
     },
@@ -25,7 +27,7 @@
     },
     {
         "reference": "MicroCompetence_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 12,
         "e_data_field_reference": "MicroCompetence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -67,7 +69,7 @@
     },
     {
         "reference": "MicroCompetence_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 9,
         "e_data_field_reference": "MicroCompetence_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -205,7 +207,7 @@
     },
     {
         "reference": "MicroCompetence_code_displayOrder",
-        "value_integer": 5,
+        "value_integer": 2,
         "e_data_field_reference": "MicroCompetence_code",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -247,7 +249,7 @@
     },
     {
         "reference": "MicroCompetence_lien_displayOrder",
-        "value_integer": 6,
+        "value_integer": 7,
         "e_data_field_reference": "MicroCompetence_lien",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -291,7 +293,7 @@
     },
     {
         "reference": "MicroCompetence_description_displayOrder",
-        "value_integer": 7,
+        "value_integer": 8,
         "e_data_field_reference": "MicroCompetence_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -401,7 +403,7 @@
     },
     {
         "reference": "MicroCompetence_competence_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 5,
         "e_data_field_reference": "MicroCompetence_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -515,7 +517,7 @@
     },
     {
         "reference": "micro_competences_hasMany_unite_apprentissages_micro_competence_id_displayOrder",
-        "value_integer": 12,
+        "value_integer": 6,
         "e_data_field_reference": "micro_competences_hasMany_unite_apprentissages_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -530,5 +532,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "micro_competences_hasMany_unite_apprentissages_micro_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "MicroCompetence_code_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "MicroCompetence_code",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "MicroCompetence_competence_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 11,
+        "value_float": 0,
+        "e_data_field_reference": "MicroCompetence_competence_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "MicroCompetence_lien_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 6,
+        "value_float": 0,
+        "e_data_field_reference": "MicroCompetence_lien",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

@@ -58,6 +58,35 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemMicroCompetence" field="code" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="code">
+            {{ ucfirst(__('PkgCompetences::microCompetence.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="code"
+                placeholder="{{ __('PkgCompetences::microCompetence.code') }}"
+                value="{{ $itemMicroCompetence ? $itemMicroCompetence->code : old('code') }}">
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemMicroCompetence" field="titre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -116,29 +145,34 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemMicroCompetence" field="code" :bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemMicroCompetence" field="competence_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="code">
-            {{ ucfirst(__('PkgCompetences::microCompetence.code')) }}
-            <span class="text-danger">*</span>
+          <label for="competence_id">
+            {{ ucfirst(__('PkgCompetences::competence.singular')) }}
+            
           </label>
-           <input
-                name="code"
-                type="input"
-                class="form-control"
-                required
-                
-                
-                id="code"
-                placeholder="{{ __('PkgCompetences::microCompetence.code') }}"
-                value="{{ $itemMicroCompetence ? $itemMicroCompetence->code : old('code') }}">
-          @error('code')
+                      <select 
+            id="competence_id" 
+            
+            
+            
+            name="competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($competences as $competence)
+                    <option value="{{ $competence->id }}"
+                        {{ (isset($itemMicroCompetence) && $itemMicroCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
+                        {{ $competence }}
+                    </option>
+                @endforeach
+            </select>
+          @error('competence_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -195,40 +229,6 @@
                 id="description"
                 placeholder="{{ __('PkgCompetences::microCompetence.description') }}">{{ $itemMicroCompetence ? $itemMicroCompetence->description : old('description') }}</textarea>
           @error('description')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemMicroCompetence" field="competence_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="competence_id" id="bulk_field_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="competence_id">
-            {{ ucfirst(__('PkgCompetences::competence.singular')) }}
-            
-          </label>
-                      <select 
-            id="competence_id" 
-            
-            
-            
-            name="competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($competences as $competence)
-                    <option value="{{ $competence->id }}"
-                        {{ (isset($itemMicroCompetence) && $itemMicroCompetence->competence_id == $competence->id) || (old('competence_id>') == $competence->id) ? 'selected' : '' }}>
-                        {{ $competence }}
-                    </option>
-                @endforeach
-            </select>
-          @error('competence_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

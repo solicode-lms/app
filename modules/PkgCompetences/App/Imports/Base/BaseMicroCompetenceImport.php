@@ -57,13 +57,13 @@ class BaseMicroCompetenceImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new MicroCompetence([
              'ordre' => $values[0] ?? null,
-             'reference' => $reference,
+             'code' => $values[1] ?? null,
              'titre' => $values[2] ?? null,
              'sous_titre' => $values[3] ?? null,
-             'code' => $values[4] ?? null,
+             'competence_id' => $values[4] ?? null,
              'lien' => $values[5] ?? null,
              'description' => $values[6] ?? null,
-             'competence_id' => $values[7] ?? null,
+             'reference' => $reference,
         ]);
 
 

@@ -13,7 +13,9 @@
     },
     {
         "reference": "unite_apprentissages_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-puzzle-piece",
+        "value_float": 0,
         "e_model_reference": "unite_apprentissages",
         "e_metadata_definition_reference": "iconModel"
     },
