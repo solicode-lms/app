@@ -397,7 +397,8 @@
     },
     {
         "reference": "MicroCompetence_competence_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "MicroCompetence_competence_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -556,5 +557,51 @@
         "value_float": 0,
         "e_data_field_reference": "MicroCompetence_lien",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "MicroCompetence-filiere_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "MicroCompetence-filiere_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "MicroCompetence-filiere_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "MicroCompetence-filiere_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "MicroCompetence-filiere_filterable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "MicroCompetence-filiere_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "competence.module.filiere_id",
+                "iModelName": "Filiere",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "MicroCompetence-filiere",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]

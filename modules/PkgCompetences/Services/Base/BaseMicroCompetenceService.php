@@ -58,10 +58,16 @@ class BaseMicroCompetenceService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::competence.plural"), 'competence_id', \Modules\PkgCompetences\Models\Competence::class, 'code');
-        }
-
+        $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+        $filieres = $filiereService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgFormation::filiere.plural"),
+            'competence.module.filiere_id', 
+            \Modules\PkgFormation\Models\Filiere::class,
+            "id", 
+            "id",
+            $filieres
+        );
     }
 
     /**

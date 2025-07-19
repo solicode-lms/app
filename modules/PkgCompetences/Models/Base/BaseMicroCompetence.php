@@ -35,6 +35,14 @@ class BaseMicroCompetence extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : filiere
+        $sql = "SELECT f.nom
+        FROM micro_competences mc
+        JOIN competences c ON mc.competence_id = c.id
+        JOIN modules m ON c.module_id = m.id
+        JOIN filieres f ON m.filiere_id = f.id
+        WHERE mc.id = micro_competences.id";
+        static::addDynamicAttribute('filiere', $sql);
     }
 
     

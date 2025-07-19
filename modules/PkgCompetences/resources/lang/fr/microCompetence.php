@@ -11,4 +11,5 @@ return [
     'lien' => 'Lien',
     'description' => 'Description',
     'competence_id' => 'Compétence',
+    'filiere' => 'Filiere'
 ];

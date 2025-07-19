@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "MicroCompetence-filiere",
+        "name": "filiere",
+        "column_name": "filiere",
+        "data_type": "String",
+        "field_order": 1,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT f.nom\r\nFROM micro_competences mc\r\nJOIN competences c ON mc.competence_id = c.id\r\nJOIN modules m ON c.module_id = m.id\r\nJOIN filieres f ON m.filiere_id = f.id\r\nWHERE mc.id = micro_competences.id",
+        "description": "",
+        "e_model_reference": "micro_competences"
+    }
+]

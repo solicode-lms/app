@@ -10,8 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.ordre'))}}" />
+                <x-sortable-column :sortable="true" width="27.5"  field="filiere" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.filiere'))}}" />
                 <x-sortable-column :sortable="true" width="6"  field="code" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.code'))}}" />
-                <x-sortable-column :sortable="true" width="55"  field="titre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.titre'))}}" />
+                <x-sortable-column :sortable="true" width="27.5"  field="titre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.titre'))}}" />
                 <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
                 <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.lien'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
@@ -31,11 +32,15 @@
                         </div>
 
                     </td>
+                    <td style="max-width: 27.5%;" class=" text-truncate" data-id="{{$microCompetence->id}}" data-field="filiere"  data-toggle="tooltip" title="{{ $microCompetence->filiere }}" >
+                        {{ $microCompetence->filiere }}
+
+                    </td>
                     <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $microCompetence->code }}" >
                         {{ $microCompetence->code }}
 
                     </td>
-                    <td style="max-width: 55%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $microCompetence->titre }}" >
+                    <td style="max-width: 27.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $microCompetence->titre }}" >
                         {{ $microCompetence->titre }}
 
                     </td>
