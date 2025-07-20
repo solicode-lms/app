@@ -71,6 +71,4 @@ class BaseAnneeFormation extends BaseModel
     {
         return $this->titre ?? "";
     }
-
-   
 }

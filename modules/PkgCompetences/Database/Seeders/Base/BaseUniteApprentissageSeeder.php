@@ -80,8 +80,6 @@ class BaseUniteApprentissageSeeder extends Seeder
                 }
 
 
-              
-                
                 $uniteApprentissageData =[
                         "ordre" => $row["ordre"] ?? null,
                         "code" => $row["code"] ?? null,

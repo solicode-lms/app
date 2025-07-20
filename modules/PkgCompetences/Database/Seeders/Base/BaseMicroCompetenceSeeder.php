@@ -79,7 +79,7 @@ class BaseMicroCompetenceSeeder extends Seeder
                         ->value('id');
                 }
 
-                
+
                 $microCompetenceData =[
                         "ordre" => $row["ordre"] ?? null,
                         "code" => $row["code"] ?? null,
