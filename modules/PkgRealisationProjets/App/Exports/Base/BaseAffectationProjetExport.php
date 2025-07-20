@@ -74,7 +74,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'sous_groupe_reference' => $affectationProjet->sousGroupe?->reference,
                 'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur,
                 'reference' => $affectationProjet->reference,
-                'echelle_note_cible' => $affectationProjet->echelle_note_cible,
+                'echelle_note_cible' => (string) $affectationProjet->echelle_note_cible,
                 'description' => $affectationProjet->description,
             ];
         });

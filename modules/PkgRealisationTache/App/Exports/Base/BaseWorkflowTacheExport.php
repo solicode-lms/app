@@ -58,7 +58,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($workflowTache) {
             return [
-                'ordre' => $workflowTache->ordre,
+                'ordre' => (string) $workflowTache->ordre,
                 'code' => $workflowTache->code,
                 'titre' => $workflowTache->titre,
                 'description' => $workflowTache->description,

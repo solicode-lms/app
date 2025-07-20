@@ -70,7 +70,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($widget) {
             return [
-                'ordre' => $widget->ordre,
+                'ordre' => (string) $widget->ordre,
                 'icon' => $widget->icon,
                 'name' => $widget->name,
                 'label' => $widget->label,

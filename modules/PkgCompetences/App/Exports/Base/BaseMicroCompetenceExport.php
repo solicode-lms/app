@@ -62,7 +62,7 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
     {
         return $this->data->map(function ($microCompetence) {
             return [
-                'ordre' => $microCompetence->ordre,
+                'ordre' => (string) $microCompetence->ordre,
                 'code' => $microCompetence->code,
                 'titre' => $microCompetence->titre,
                 'sous_titre' => $microCompetence->sous_titre,

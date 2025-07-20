@@ -60,7 +60,7 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
     {
         return $this->data->map(function ($uniteApprentissage) {
             return [
-                'ordre' => $uniteApprentissage->ordre,
+                'ordre' => (string) $uniteApprentissage->ordre,
                 'code' => $uniteApprentissage->code,
                 'nom' => $uniteApprentissage->nom,
                 'lien' => $uniteApprentissage->lien,

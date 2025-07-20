@@ -56,7 +56,7 @@ class BasePrioriteTacheExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($prioriteTache) {
             return [
-                'ordre' => $prioriteTache->ordre,
+                'ordre' => (string) $prioriteTache->ordre,
                 'nom' => $prioriteTache->nom,
                 'description' => $prioriteTache->description,
                 'reference' => $prioriteTache->reference,

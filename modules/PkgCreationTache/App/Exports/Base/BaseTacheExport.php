@@ -64,7 +64,7 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return $this->data->map(function ($tache) {
             return [
-                'ordre' => $tache->ordre,
+                'ordre' => (string) $tache->ordre,
                 'titre' => $tache->titre,
                 'priorite_tache_reference' => $tache->prioriteTache?->reference,
                 'projet_reference' => $tache->projet?->reference,

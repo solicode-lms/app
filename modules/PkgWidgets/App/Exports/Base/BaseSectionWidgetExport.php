@@ -58,7 +58,7 @@ class BaseSectionWidgetExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($sectionWidget) {
             return [
-                'ordre' => $sectionWidget->ordre,
+                'ordre' => (string) $sectionWidget->ordre,
                 'icone' => $sectionWidget->icone,
                 'titre' => $sectionWidget->titre,
                 'sous_titre' => $sectionWidget->sous_titre,

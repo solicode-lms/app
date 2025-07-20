@@ -58,7 +58,7 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($widgetUtilisateur) {
             return [
-                'ordre' => $widgetUtilisateur->ordre,
+                'ordre' => (string) $widgetUtilisateur->ordre,
                 'user_reference' => $widgetUtilisateur->user?->reference,
                 'widget_reference' => $widgetUtilisateur->widget?->reference,
                 'titre' => $widgetUtilisateur->titre,

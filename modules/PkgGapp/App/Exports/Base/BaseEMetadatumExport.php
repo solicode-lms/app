@@ -75,7 +75,7 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'reference' => $eMetadatum->reference,
                 'value_boolean' => $eMetadatum->value_boolean,
                 'value_string' => $eMetadatum->value_string,
-                'value_integer' => $eMetadatum->value_integer,
+                'value_integer' => (string) $eMetadatum->value_integer,
                 'value_float' => $eMetadatum->value_float,
                 'value_date' => $eMetadatum->value_date,
                 'value_datetime' => $eMetadatum->value_datetime,

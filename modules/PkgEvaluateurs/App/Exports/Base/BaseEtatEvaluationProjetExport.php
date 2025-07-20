@@ -58,7 +58,7 @@ class BaseEtatEvaluationProjetExport implements FromCollection, WithHeadings, Sh
     {
         return $this->data->map(function ($etatEvaluationProjet) {
             return [
-                'ordre' => $etatEvaluationProjet->ordre,
+                'ordre' => (string) $etatEvaluationProjet->ordre,
                 'code' => $etatEvaluationProjet->code,
                 'titre' => $etatEvaluationProjet->titre,
                 'description' => $etatEvaluationProjet->description,

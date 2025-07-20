@@ -80,7 +80,7 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'default_value' => $eDataField->default_value,
                 'column_name' => $eDataField->column_name,
                 'e_relationship_reference' => $eDataField->eRelationship?->reference,
-                'field_order' => $eDataField->field_order,
+                'field_order' => (string) $eDataField->field_order,
                 'reference' => $eDataField->reference,
                 'db_primaryKey' => $eDataField->db_primaryKey,
                 'db_nullable' => $eDataField->db_nullable,

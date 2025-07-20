@@ -66,7 +66,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return $this->data->map(function ($chapitre) {
             return [
-                'ordre' => $chapitre->ordre,
+                'ordre' => (string) $chapitre->ordre,
                 'code' => $chapitre->code,
                 'reference' => $chapitre->reference,
                 'nom' => $chapitre->nom,
