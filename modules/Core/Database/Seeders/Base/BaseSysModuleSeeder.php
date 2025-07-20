@@ -82,7 +82,7 @@ class BaseSysModuleSeeder extends Seeder
                         "name" => $row["name"] ?? null,
                         "slug" => $row["slug"] ?? null,
                         "description" => $row["description"] ?? null,
-                        "is_active" => !empty($row["is_active"]) ? $row["is_active"] : null,
+                        "is_active" => $row["is_active"] ?? null,
                         "order" => $row["order"] ?? null,
                         "version" => $row["version"] ?? null,
                         "sys_color_id" => $sys_color_id,
