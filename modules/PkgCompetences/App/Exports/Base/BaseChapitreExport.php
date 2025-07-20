@@ -34,26 +34,26 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'ordre' => 'ordre',
                 'code' => 'code',
+                'reference' => 'reference',
                 'nom' => 'nom',
-                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'lien' => 'lien',
                 'description' => 'description',
                 'duree_en_heure' => 'duree_en_heure',
-                'reference' => 'reference',
                 'isOfficiel' => 'isOfficiel',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'formateur_reference' => 'formateur_reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgCompetences::chapitre.ordre'),
                 'code' => __('PkgCompetences::chapitre.code'),
+                'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgCompetences::chapitre.nom'),
-                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
                 'lien' => __('PkgCompetences::chapitre.lien'),
                 'description' => __('PkgCompetences::chapitre.description'),
                 'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
-                'reference' => __('Core::msg.reference'),
                 'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
+                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
                 'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
             ];
         }
@@ -68,13 +68,13 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'ordre' => (string) $chapitre->ordre,
                 'code' => $chapitre->code,
+                'reference' => $chapitre->reference,
                 'nom' => $chapitre->nom,
-                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
                 'lien' => $chapitre->lien,
                 'description' => $chapitre->description,
                 'duree_en_heure' => $chapitre->duree_en_heure,
-                'reference' => $chapitre->reference,
                 'isOfficiel' => $chapitre->isOfficiel,
+                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
                 'formateur_reference' => $chapitre->formateur?->reference,
             ];
         });
