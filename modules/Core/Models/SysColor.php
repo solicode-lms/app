@@ -8,7 +8,7 @@ class SysColor extends BaseSysColor
 {
      public function generateReference(): string
     {
-        return $this->code ;
+        return $this->name ;
     }
 
 }

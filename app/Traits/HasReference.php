@@ -23,6 +23,17 @@ trait HasReference
                 $model->reference = $model->generateReference();
             }
         });
+
+        // fireModelEvent en cas de modification sans changement de données 
+        // il est utilisere pour corriger les référence pendnat seed
+        // Il doit être executer en développement seulement
+        static::saving(function ($model) {
+            if ($model->exists) {
+               if ($model->hasColumn('reference')) {
+                $model->reference = $model->generateReference();
+               }
+            } 
+        });
     }
 
     /**
