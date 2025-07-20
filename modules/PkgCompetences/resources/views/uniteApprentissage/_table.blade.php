@@ -10,10 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="9"  field="code" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.code'))}}" />
-                <x-sortable-column :sortable="true" width="29.5"  field="nom" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.nom'))}}" />
-                <x-sortable-column :sortable="true" width="10"  field="lien" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.lien'))}}" />
-                <x-sortable-column :sortable="true" width="29.5" field="micro_competence_id" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::microCompetence.singular'))}}" />
+                <x-sortable-column :sortable="true" width="8"  field="code" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.code'))}}" />
+                <x-sortable-column :sortable="true" width="20"  field="nom" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.nom'))}}" />
+                <x-sortable-column :sortable="true" width="6"  field="lien" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.lien'))}}" />
+                <x-sortable-column :sortable="true" width="15" field="micro_competence_id" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::microCompetence.singular'))}}" />
+                <x-sortable-column :sortable="false" width="29"  field="Chapitre" modelname="uniteApprentissage" label="{{ucfirst(__('PkgCompetences::chapitre.plural'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -31,20 +32,28 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 9%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="code"  data-toggle="tooltip" title="{{ $uniteApprentissage->code }}" >
+                    <td style="max-width: 8%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="code"  data-toggle="tooltip" title="{{ $uniteApprentissage->code }}" >
                         {{ $uniteApprentissage->code }}
 
                     </td>
-                    <td style="max-width: 29.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $uniteApprentissage->nom }}" >
+                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $uniteApprentissage->nom }}" >
                         {{ $uniteApprentissage->nom }}
 
                     </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $uniteApprentissage->lien }}" >
+                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $uniteApprentissage->lien }}" >
                         {{ $uniteApprentissage->lien }}
 
                     </td>
-                    <td style="max-width: 29.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $uniteApprentissage->microCompetence }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $uniteApprentissage->microCompetence }}" >
                         {{  $uniteApprentissage->microCompetence }}
+
+                    </td>
+                    <td style="max-width: 29%;" class=" text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="Chapitre"  data-toggle="tooltip" title="{{ $uniteApprentissage->chapitres }}" >
+                        <ul>
+                            @foreach ($uniteApprentissage->chapitres as $chapitre)
+                                <li>{{$chapitre}} </li>
+                            @endforeach
+                        </ul>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

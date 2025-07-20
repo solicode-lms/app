@@ -10,4 +10,9 @@ class Chapitre extends BaseChapitre
     {
         return $this->uniteApprentissage->reference . "-" . $this->code ;
     }
+
+      public function __toString()
+    {
+        return $this->nom ?? "";
+    }
 }

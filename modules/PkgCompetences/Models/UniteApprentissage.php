@@ -9,4 +9,9 @@ class UniteApprentissage extends BaseUniteApprentissage
     {
         return $this->microCompetence->reference . "-" . $this->code ;
     }
+
+    public function __toString()
+    {
+        return $this->nom ?? "";
+    }
 }
