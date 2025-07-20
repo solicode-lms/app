@@ -22,10 +22,21 @@ class SysModuleSeeder extends BaseSysModuleSeeder
 {
     public static int $order = 6;
 
+
+
+    public function seedFromCsv(): void
+    {
+        // Il faut inser les sysColor 
+        $sysColorSeeder =  new SysColorSeeder();
+        $sysColorSeeder->seedFromCsv();
+
+        parent::seedFromCsv();
+    }
+
+
     public function run(): void
     {
-        // il est exécuter par RootSeeder : le premier seeder 
-        // Ajouter les données à partir d'un fichier CSV
+        // il est exécuter par UserSeeder : le premier seeder 
         // $this->seedFromCsv();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions

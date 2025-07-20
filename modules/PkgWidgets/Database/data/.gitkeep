@@ -1,0 +1,7 @@
+"type","description","reference"
+"card","Widget affichant une carte avec des données synthétiques","card"
+"chart","Widget affichant un graphique","chart"
+"table","Widget affichant un tableau de données","table"
+"statistic","Widget affichant une statistique rapide","statistic"
+"progress","Widget affichant une barre de progression","progress"
+"liste","","liste"

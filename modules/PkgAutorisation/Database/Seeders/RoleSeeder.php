@@ -8,15 +8,14 @@ use Modules\PkgAutorisation\Models\Role;
 class RoleSeeder extends BaseRoleSeeder
 {
 
-    // Il doit s'executer une seul fois
-    public function run(): void
+     public function run(): void
     {
-        // Vérifiez si le rôle avec l'ID 1 existe déjà
-        $role = Role::find(1);
-    
-        if ($role === null) {
-            parent::run();
-        }
+        // il est exécuter par UserSeeder : le premier seeder 
+        // $this->seedFromCsv();
+
+        // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
+        $this->addDefaultControllerDomainFeatures();
+
     }
 
 }

@@ -22,20 +22,16 @@ use Modules\PkgAutorisation\Models\User;
 
 class SysColorSeeder extends BaseSysColorSeeder
 {
-    public static int $order = 6;
+   // public static int $order = 1;
 
     public function run(): void
     {
-        $AdminRole = User::ADMIN;
-        $MembreRole = User::MEMBRE;
-
-        // Ajouter les données à partir d'un fichier CSV
-
-        // Il est exécuter par SysModyleSeeder
+        // il est exécuter par SysModuleSeeder depuis UserSeeder  : le premier seeder 
         // $this->seedFromCsv();
 
         // Ajouter le contrôleur, le domaine, les fonctionnalités et leurs permissions
         $this->addDefaultControllerDomainFeatures();
+
     }
 
 }

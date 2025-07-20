@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Schema;
+use Modules\Core\Database\Seeders\SysModuleSeeder;
 use Modules\PkgAutorisation\Database\Seeders\Base\BaseUserSeeder;
 use Modules\PkgAutorisation\Models\User;
 
@@ -15,9 +16,13 @@ class UserSeeder extends BaseUserSeeder
     // changement de fichier csv et insertion des rôles au utilisateurs
     public function seedFromCsv(): void {
 
+        // Puisque c'est le premier seeder faut charger les donner nécessaire pour l'execution de UserSeeder
         // Insertion des rôles 
         $roleSeeder = new RoleSeeder();
-        $roleSeeder->run();
+        $roleSeeder->seedFromCsv();
+        // Insertion des Moudues
+        $sysModuleSeeder =  new SysModuleSeeder();
+        $sysModuleSeeder->seedFromCsv();
 
 
         $csvFile = fopen(base_path("modules/PkgAutorisation/Database/data/users.csv"), "r");
