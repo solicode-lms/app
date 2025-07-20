@@ -1,7 +1,7 @@
-"matricule","nom","prenom","prenom_arab","nom_arab","email","tele_num","adresse","diplome","echelle","echelon","profile_image","user_reference","reference"
-"0001","ESSARRAJ","Fouad","","","fouad.essarraj@ofppt-edu.ma","","","","","","","e2dc644b-0249-4944-8a20-6884640666f3","0001"
-"0002","CHEBAB","FATIN","","","fatin.chebab@ofppt-edu.ma","","","","","","","185eac18-3e4e-4557-976d-b0ea41321670","0002"
-"0003","BOUZIANE","IMANE","","","imane.bouziane@ofppt-edu.ma","","","","","","","c32d3190-bdbb-406e-a625-bdd525b1c03e","0003"
-"0004","SOKLABI","ABDELLATIF","","","abdellatif.soklabi@ofppt-edu.ma","","","","","","","3caa4317-2f93-45e9-8dd8-293ab289fc6b","0004"
-"0005","EL MASOUDI","EL MASOUDI","","","abelouahab.elmasoudi@ofppt-edu.ma","","","","","","","4948f0fd-c8be-44e5-9a0d-fe1e4fd0b096","0005"
-"admin-formateur","admin","formateur","","","admin.formateur@ofppt-edu.ma","","","","","","","dc6da323-3bca-4549-bcf2-a3e80a711f97","admin-formateur"
+matricule,nom,prenom,email
+0001,ESSARRAJ,Fouad,fouad.essarraj@ofppt-edu.ma
+0002,CHEBAB,FATIN,fatin.chebab@ofppt-edu.ma
+0003,BOUZIANE,IMANE,imane.bouziane@ofppt-edu.ma
+0004,SOKLABI,ABDELLATIF,abdellatif.soklabi@ofppt-edu.ma
+0005,EL MASOUDI,EL MASOUDI,abelouahab.elmasoudi@ofppt-edu.ma
+"admin-formateur","admin","formateur","admin.formateur@ofppt-edu.ma"
