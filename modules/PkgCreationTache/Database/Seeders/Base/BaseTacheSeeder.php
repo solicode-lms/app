@@ -86,14 +86,14 @@ class BaseTacheSeeder extends Seeder
 
 
                 $tacheData =[
-                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "priorite_tache_id" => $priorite_tache_id,
                         "projet_id" => $projet_id,
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "dateDebut" => $row["dateDebut"] === "" ? null : $row["dateDebut"],
-                        "dateFin" => $row["dateFin"] === "" ? null : $row["dateFin"],
-                        "note" => $row["note"] === "" ? null : $row["note"],
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
+                        "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
+                        "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

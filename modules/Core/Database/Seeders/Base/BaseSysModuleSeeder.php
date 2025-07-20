@@ -79,12 +79,12 @@ class BaseSysModuleSeeder extends Seeder
 
 
                 $sysModuleData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "slug" => $row["slug"] === "" ? null : $row["slug"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "is_active" => $row["is_active"] === "" ? null : $row["is_active"],
-                        "order" => $row["order"] === "" ? null : $row["order"],
-                        "version" => $row["version"] === "" ? null : $row["version"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "slug" => isset($row["slug"]) && $row["slug"] !== "" ? $row["slug"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "is_active" => isset($row["is_active"]) && $row["is_active"] !== "" ? $row["is_active"] : null,
+                        "order" => isset($row["order"]) && $row["order"] !== "" ? $row["order"] : null,
+                        "version" => isset($row["version"]) && $row["version"] !== "" ? $row["version"] : null,
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

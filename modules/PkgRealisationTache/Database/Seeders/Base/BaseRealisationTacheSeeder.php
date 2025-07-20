@@ -93,13 +93,13 @@ class BaseRealisationTacheSeeder extends Seeder
                 $realisationTacheData =[
                         "tache_id" => $tache_id,
                         "realisation_projet_id" => $realisation_projet_id,
-                        "dateDebut" => $row["dateDebut"] === "" ? null : $row["dateDebut"],
-                        "dateFin" => $row["dateFin"] === "" ? null : $row["dateFin"],
-                        "remarque_evaluateur" => $row["remarque_evaluateur"] === "" ? null : $row["remarque_evaluateur"],
+                        "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
+                        "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
+                        "remarque_evaluateur" => isset($row["remarque_evaluateur"]) && $row["remarque_evaluateur"] !== "" ? $row["remarque_evaluateur"] : null,
                         "etat_realisation_tache_id" => $etat_realisation_tache_id,
-                        "note" => $row["note"] === "" ? null : $row["note"],
-                        "remarques_formateur" => $row["remarques_formateur"] === "" ? null : $row["remarques_formateur"],
-                        "remarques_apprenant" => $row["remarques_apprenant"] === "" ? null : $row["remarques_apprenant"],
+                        "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
+                        "remarques_formateur" => isset($row["remarques_formateur"]) && $row["remarques_formateur"] !== "" ? $row["remarques_formateur"] : null,
+                        "remarques_apprenant" => isset($row["remarques_apprenant"]) && $row["remarques_apprenant"] !== "" ? $row["remarques_apprenant"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

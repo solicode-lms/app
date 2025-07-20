@@ -81,11 +81,11 @@ class BaseCompetenceSeeder extends Seeder
 
 
                 $competenceData =[
-                        "code" => $row["code"] === "" ? null : $row["code"],
-                        "mini_code" => $row["mini_code"] === "" ? null : $row["mini_code"],
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
+                        "mini_code" => isset($row["mini_code"]) && $row["mini_code"] !== "" ? $row["mini_code"] : null,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "module_id" => $module_id,
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

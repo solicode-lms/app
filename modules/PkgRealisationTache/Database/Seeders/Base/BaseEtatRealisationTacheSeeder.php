@@ -91,12 +91,12 @@ class BaseEtatRealisationTacheSeeder extends Seeder
 
 
                 $etatRealisationTacheData =[
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "workflow_tache_id" => $workflow_tache_id,
                         "sys_color_id" => $sys_color_id,
-                        "is_editable_only_by_formateur" => $row["is_editable_only_by_formateur"] === "" ? null : $row["is_editable_only_by_formateur"],
+                        "is_editable_only_by_formateur" => isset($row["is_editable_only_by_formateur"]) && $row["is_editable_only_by_formateur"] !== "" ? $row["is_editable_only_by_formateur"] : null,
                         "formateur_id" => $formateur_id,
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

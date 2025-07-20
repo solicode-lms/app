@@ -81,9 +81,9 @@ class BaseResourceSeeder extends Seeder
 
 
                 $resourceData =[
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "lien" => $row["lien"] === "" ? null : $row["lien"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

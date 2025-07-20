@@ -86,13 +86,13 @@ class BaseChapitreSeeder extends Seeder
 
 
                 $chapitreData =[
-                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
-                        "code" => $row["code"] === "" ? null : $row["code"],
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "lien" => $row["lien"] === "" ? null : $row["lien"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "duree_en_heure" => $row["duree_en_heure"] === "" ? null : $row["duree_en_heure"],
-                        "isOfficiel" => $row["isOfficiel"] === "" ? null : $row["isOfficiel"],
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "duree_en_heure" => isset($row["duree_en_heure"]) && $row["duree_en_heure"] !== "" ? $row["duree_en_heure"] : null,
+                        "isOfficiel" => isset($row["isOfficiel"]) && $row["isOfficiel"] !== "" ? $row["isOfficiel"] : null,
                         "unite_apprentissage_id" => $unite_apprentissage_id,
                         "formateur_id" => $formateur_id,
                     "reference" => $row["reference"] ?? null ,

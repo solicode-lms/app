@@ -82,8 +82,8 @@ class BaseUserModelFilterSeeder extends Seeder
 
                 $userModelFilterData =[
                         "user_id" => $user_id,
-                        "model_name" => $row["model_name"] === "" ? null : $row["model_name"],
-                        "filters" => $row["filters"] === "" ? null : $row["filters"],
+                        "model_name" => isset($row["model_name"]) && $row["model_name"] !== "" ? $row["model_name"] : null,
+                        "filters" => isset($row["filters"]) && $row["filters"] !== "" ? $row["filters"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

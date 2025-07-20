@@ -76,12 +76,12 @@ class BaseEMetadataDefinitionSeeder extends Seeder
 
 
                 $eMetadataDefinitionData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "groupe" => $row["groupe"] === "" ? null : $row["groupe"],
-                        "type" => $row["type"] === "" ? null : $row["type"],
-                        "scope" => $row["scope"] === "" ? null : $row["scope"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "default_value" => $row["default_value"] === "" ? null : $row["default_value"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "groupe" => isset($row["groupe"]) && $row["groupe"] !== "" ? $row["groupe"] : null,
+                        "type" => isset($row["type"]) && $row["type"] !== "" ? $row["type"] : null,
+                        "scope" => isset($row["scope"]) && $row["scope"] !== "" ? $row["scope"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "default_value" => isset($row["default_value"]) && $row["default_value"] !== "" ? $row["default_value"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

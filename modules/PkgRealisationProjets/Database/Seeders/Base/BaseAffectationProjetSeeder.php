@@ -100,12 +100,12 @@ class BaseAffectationProjetSeeder extends Seeder
                         "projet_id" => $projet_id,
                         "groupe_id" => $groupe_id,
                         "annee_formation_id" => $annee_formation_id,
-                        "date_debut" => $row["date_debut"] === "" ? null : $row["date_debut"],
-                        "date_fin" => $row["date_fin"] === "" ? null : $row["date_fin"],
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "sous_groupe_id" => $sous_groupe_id,
-                        "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] === "" ? null : $row["is_formateur_evaluateur"],
-                        "echelle_note_cible" => $row["echelle_note_cible"] === "" ? null : $row["echelle_note_cible"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "is_formateur_evaluateur" => isset($row["is_formateur_evaluateur"]) && $row["is_formateur_evaluateur"] !== "" ? $row["is_formateur_evaluateur"] : null,
+                        "echelle_note_cible" => isset($row["echelle_note_cible"]) && $row["echelle_note_cible"] !== "" ? $row["echelle_note_cible"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

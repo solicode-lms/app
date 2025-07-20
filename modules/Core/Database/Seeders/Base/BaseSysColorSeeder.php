@@ -76,8 +76,8 @@ class BaseSysColorSeeder extends Seeder
 
 
                 $sysColorData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "hex" => $row["hex"] === "" ? null : $row["hex"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "hex" => isset($row["hex"]) && $row["hex"] !== "" ? $row["hex"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

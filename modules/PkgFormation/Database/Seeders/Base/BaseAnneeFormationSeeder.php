@@ -76,9 +76,9 @@ class BaseAnneeFormationSeeder extends Seeder
 
 
                 $anneeFormationData =[
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
-                        "date_debut" => $row["date_debut"] === "" ? null : $row["date_debut"],
-                        "date_fin" => $row["date_fin"] === "" ? null : $row["date_fin"],
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

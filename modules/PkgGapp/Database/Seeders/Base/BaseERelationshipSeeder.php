@@ -86,19 +86,19 @@ class BaseERelationshipSeeder extends Seeder
 
 
                 $eRelationshipData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "type" => $row["type"] === "" ? null : $row["type"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "type" => isset($row["type"]) && $row["type"] !== "" ? $row["type"] : null,
                         "source_e_model_id" => $source_e_model_id,
                         "target_e_model_id" => $target_e_model_id,
-                        "cascade_on_delete" => $row["cascade_on_delete"] === "" ? null : $row["cascade_on_delete"],
-                        "is_cascade" => $row["is_cascade"] === "" ? null : $row["is_cascade"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "column_name" => $row["column_name"] === "" ? null : $row["column_name"],
-                        "referenced_table" => $row["referenced_table"] === "" ? null : $row["referenced_table"],
-                        "referenced_column" => $row["referenced_column"] === "" ? null : $row["referenced_column"],
-                        "through" => $row["through"] === "" ? null : $row["through"],
-                        "with_column" => $row["with_column"] === "" ? null : $row["with_column"],
-                        "morph_name" => $row["morph_name"] === "" ? null : $row["morph_name"],
+                        "cascade_on_delete" => isset($row["cascade_on_delete"]) && $row["cascade_on_delete"] !== "" ? $row["cascade_on_delete"] : null,
+                        "is_cascade" => isset($row["is_cascade"]) && $row["is_cascade"] !== "" ? $row["is_cascade"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "column_name" => isset($row["column_name"]) && $row["column_name"] !== "" ? $row["column_name"] : null,
+                        "referenced_table" => isset($row["referenced_table"]) && $row["referenced_table"] !== "" ? $row["referenced_table"] : null,
+                        "referenced_column" => isset($row["referenced_column"]) && $row["referenced_column"] !== "" ? $row["referenced_column"] : null,
+                        "through" => isset($row["through"]) && $row["through"] !== "" ? $row["through"] : null,
+                        "with_column" => isset($row["with_column"]) && $row["with_column"] !== "" ? $row["with_column"] : null,
+                        "morph_name" => isset($row["morph_name"]) && $row["morph_name"] !== "" ? $row["morph_name"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

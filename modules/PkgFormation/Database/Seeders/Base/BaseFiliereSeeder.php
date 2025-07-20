@@ -76,9 +76,9 @@ class BaseFiliereSeeder extends Seeder
 
 
                 $filiereData =[
-                        "code" => $row["code"] === "" ? null : $row["code"],
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -101,17 +101,17 @@ class BaseWidgetSeeder extends Seeder
 
 
                 $widgetData =[
-                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
-                        "icon" => $row["icon"] === "" ? null : $row["icon"],
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "label" => $row["label"] === "" ? null : $row["label"],
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "icon" => isset($row["icon"]) && $row["icon"] !== "" ? $row["icon"] : null,
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "label" => isset($row["label"]) && $row["label"] !== "" ? $row["label"] : null,
                         "type_id" => $type_id,
                         "model_id" => $model_id,
                         "operation_id" => $operation_id,
-                        "color" => $row["color"] === "" ? null : $row["color"],
+                        "color" => isset($row["color"]) && $row["color"] !== "" ? $row["color"] : null,
                         "sys_color_id" => $sys_color_id,
                         "section_widget_id" => $section_widget_id,
-                        "parameters" => $row["parameters"] === "" ? null : $row["parameters"],
+                        "parameters" => isset($row["parameters"]) && $row["parameters"] !== "" ? $row["parameters"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

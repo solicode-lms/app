@@ -81,9 +81,9 @@ class BasePrioriteTacheSeeder extends Seeder
 
 
                 $prioriteTacheData =[
-                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "formateur_id" => $formateur_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

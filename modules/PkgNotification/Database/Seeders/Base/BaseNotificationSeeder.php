@@ -81,13 +81,13 @@ class BaseNotificationSeeder extends Seeder
 
 
                 $notificationData =[
-                        "title" => $row["title"] === "" ? null : $row["title"],
-                        "type" => $row["type"] === "" ? null : $row["type"],
-                        "message" => $row["message"] === "" ? null : $row["message"],
-                        "sent_at" => $row["sent_at"] === "" ? null : $row["sent_at"],
-                        "is_read" => $row["is_read"] === "" ? null : $row["is_read"],
+                        "title" => isset($row["title"]) && $row["title"] !== "" ? $row["title"] : null,
+                        "type" => isset($row["type"]) && $row["type"] !== "" ? $row["type"] : null,
+                        "message" => isset($row["message"]) && $row["message"] !== "" ? $row["message"] : null,
+                        "sent_at" => isset($row["sent_at"]) && $row["sent_at"] !== "" ? $row["sent_at"] : null,
+                        "is_read" => isset($row["is_read"]) && $row["is_read"] !== "" ? $row["is_read"] : null,
                         "user_id" => $user_id,
-                        "data" => $row["data"] === "" ? null : $row["data"],
+                        "data" => isset($row["data"]) && $row["data"] !== "" ? $row["data"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

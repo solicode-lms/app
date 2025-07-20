@@ -87,9 +87,9 @@ class BaseLivrablesRealisationSeeder extends Seeder
 
                 $livrablesRealisationData =[
                         "livrable_id" => $livrable_id,
-                        "lien" => $row["lien"] === "" ? null : $row["lien"],
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "realisation_projet_id" => $realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

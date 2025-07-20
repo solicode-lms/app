@@ -87,13 +87,13 @@ class BaseProjetSeeder extends Seeder
 
 
                 $projetData =[
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
-                        "travail_a_faire" => $row["travail_a_faire"] === "" ? null : $row["travail_a_faire"],
-                        "critere_de_travail" => $row["critere_de_travail"] === "" ? null : $row["critere_de_travail"],
-                        "nombre_jour" => $row["nombre_jour"] === "" ? null : $row["nombre_jour"],
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "travail_a_faire" => isset($row["travail_a_faire"]) && $row["travail_a_faire"] !== "" ? $row["travail_a_faire"] : null,
+                        "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,
+                        "nombre_jour" => isset($row["nombre_jour"]) && $row["nombre_jour"] !== "" ? $row["nombre_jour"] : null,
                         "filiere_id" => $filiere_id,
                         "formateur_id" => $formateur_id,
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

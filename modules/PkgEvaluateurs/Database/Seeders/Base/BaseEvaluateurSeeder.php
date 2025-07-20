@@ -82,11 +82,11 @@ class BaseEvaluateurSeeder extends Seeder
 
 
                 $evaluateurData =[
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "prenom" => $row["prenom"] === "" ? null : $row["prenom"],
-                        "email" => $row["email"] === "" ? null : $row["email"],
-                        "organism" => $row["organism"] === "" ? null : $row["organism"],
-                        "telephone" => $row["telephone"] === "" ? null : $row["telephone"],
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "prenom" => isset($row["prenom"]) && $row["prenom"] !== "" ? $row["prenom"] : null,
+                        "email" => isset($row["email"]) && $row["email"] !== "" ? $row["email"] : null,
+                        "organism" => isset($row["organism"]) && $row["organism"] !== "" ? $row["organism"] : null,
+                        "telephone" => isset($row["telephone"]) && $row["telephone"] !== "" ? $row["telephone"] : null,
                         "user_id" => $user_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

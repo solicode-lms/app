@@ -87,10 +87,10 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
 
                 $etatsRealisationProjetData =[
                         "formateur_id" => $formateur_id,
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "sys_color_id" => $sys_color_id,
-                        "is_editable_by_formateur" => $row["is_editable_by_formateur"] === "" ? null : $row["is_editable_by_formateur"],
+                        "is_editable_by_formateur" => isset($row["is_editable_by_formateur"]) && $row["is_editable_by_formateur"] !== "" ? $row["is_editable_by_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

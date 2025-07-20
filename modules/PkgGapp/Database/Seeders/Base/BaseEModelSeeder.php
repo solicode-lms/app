@@ -81,11 +81,11 @@ class BaseEModelSeeder extends Seeder
 
 
                 $eModelData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "table_name" => $row["table_name"] === "" ? null : $row["table_name"],
-                        "icon" => $row["icon"] === "" ? null : $row["icon"],
-                        "is_pivot_table" => $row["is_pivot_table"] === "" ? null : $row["is_pivot_table"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "table_name" => isset($row["table_name"]) && $row["table_name"] !== "" ? $row["table_name"] : null,
+                        "icon" => isset($row["icon"]) && $row["icon"] !== "" ? $row["icon"] : null,
+                        "is_pivot_table" => isset($row["is_pivot_table"]) && $row["is_pivot_table"] !== "" ? $row["is_pivot_table"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "e_package_id" => $e_package_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

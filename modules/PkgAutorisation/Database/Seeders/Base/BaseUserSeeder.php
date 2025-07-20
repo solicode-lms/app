@@ -76,12 +76,12 @@ class BaseUserSeeder extends Seeder
 
 
                 $userData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
-                        "email" => $row["email"] === "" ? null : $row["email"],
-                        "email_verified_at" => $row["email_verified_at"] === "" ? null : $row["email_verified_at"],
-                        "password" => $row["password"] === "" ? null : $row["password"],
-                        "must_change_password" => $row["must_change_password"] === "" ? null : $row["must_change_password"],
-                        "remember_token" => $row["remember_token"] === "" ? null : $row["remember_token"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
+                        "email" => isset($row["email"]) && $row["email"] !== "" ? $row["email"] : null,
+                        "email_verified_at" => isset($row["email_verified_at"]) && $row["email_verified_at"] !== "" ? $row["email_verified_at"] : null,
+                        "password" => isset($row["password"]) && $row["password"] !== "" ? $row["password"] : null,
+                        "must_change_password" => isset($row["must_change_password"]) && $row["must_change_password"] !== "" ? $row["must_change_password"] : null,
+                        "remember_token" => isset($row["remember_token"]) && $row["remember_token"] !== "" ? $row["remember_token"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

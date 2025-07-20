@@ -93,10 +93,10 @@ class BaseRealisationProjetSeeder extends Seeder
                 $realisationProjetData =[
                         "affectation_projet_id" => $affectation_projet_id,
                         "apprenant_id" => $apprenant_id,
-                        "date_debut" => $row["date_debut"] === "" ? null : $row["date_debut"],
-                        "date_fin" => $row["date_fin"] === "" ? null : $row["date_fin"],
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "etats_realisation_projet_id" => $etats_realisation_projet_id,
-                        "rapport" => $row["rapport"] === "" ? null : $row["rapport"],
+                        "rapport" => isset($row["rapport"]) && $row["rapport"] !== "" ? $row["rapport"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

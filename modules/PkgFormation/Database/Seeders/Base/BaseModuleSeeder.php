@@ -81,10 +81,10 @@ class BaseModuleSeeder extends Seeder
 
 
                 $moduleData =[
-                        "code" => $row["code"] === "" ? null : $row["code"],
-                        "nom" => $row["nom"] === "" ? null : $row["nom"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
-                        "masse_horaire" => $row["masse_horaire"] === "" ? null : $row["masse_horaire"],
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
+                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "masse_horaire" => isset($row["masse_horaire"]) && $row["masse_horaire"] !== "" ? $row["masse_horaire"] : null,
                         "filiere_id" => $filiere_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

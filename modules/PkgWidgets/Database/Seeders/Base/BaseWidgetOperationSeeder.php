@@ -76,8 +76,8 @@ class BaseWidgetOperationSeeder extends Seeder
 
 
                 $widgetOperationData =[
-                        "operation" => $row["operation"] === "" ? null : $row["operation"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "operation" => isset($row["operation"]) && $row["operation"] !== "" ? $row["operation"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

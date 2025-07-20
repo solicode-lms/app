@@ -86,19 +86,19 @@ class BaseEDataFieldSeeder extends Seeder
 
 
                 $eDataFieldData =[
-                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "name" => isset($row["name"]) && $row["name"] !== "" ? $row["name"] : null,
                         "e_model_id" => $e_model_id,
-                        "data_type" => $row["data_type"] === "" ? null : $row["data_type"],
-                        "default_value" => $row["default_value"] === "" ? null : $row["default_value"],
-                        "column_name" => $row["column_name"] === "" ? null : $row["column_name"],
+                        "data_type" => isset($row["data_type"]) && $row["data_type"] !== "" ? $row["data_type"] : null,
+                        "default_value" => isset($row["default_value"]) && $row["default_value"] !== "" ? $row["default_value"] : null,
+                        "column_name" => isset($row["column_name"]) && $row["column_name"] !== "" ? $row["column_name"] : null,
                         "e_relationship_id" => $e_relationship_id,
-                        "field_order" => $row["field_order"] === "" ? null : $row["field_order"],
-                        "db_primaryKey" => $row["db_primaryKey"] === "" ? null : $row["db_primaryKey"],
-                        "db_nullable" => $row["db_nullable"] === "" ? null : $row["db_nullable"],
-                        "db_unique" => $row["db_unique"] === "" ? null : $row["db_unique"],
-                        "calculable" => $row["calculable"] === "" ? null : $row["calculable"],
-                        "calculable_sql" => $row["calculable_sql"] === "" ? null : $row["calculable_sql"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "field_order" => isset($row["field_order"]) && $row["field_order"] !== "" ? $row["field_order"] : null,
+                        "db_primaryKey" => isset($row["db_primaryKey"]) && $row["db_primaryKey"] !== "" ? $row["db_primaryKey"] : null,
+                        "db_nullable" => isset($row["db_nullable"]) && $row["db_nullable"] !== "" ? $row["db_nullable"] : null,
+                        "db_unique" => isset($row["db_unique"]) && $row["db_unique"] !== "" ? $row["db_unique"] : null,
+                        "calculable" => isset($row["calculable"]) && $row["calculable"] !== "" ? $row["calculable"] : null,
+                        "calculable_sql" => isset($row["calculable_sql"]) && $row["calculable_sql"] !== "" ? $row["calculable_sql"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

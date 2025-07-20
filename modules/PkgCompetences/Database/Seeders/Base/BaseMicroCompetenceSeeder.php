@@ -81,13 +81,13 @@ class BaseMicroCompetenceSeeder extends Seeder
 
 
                 $microCompetenceData =[
-                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
-                        "code" => $row["code"] === "" ? null : $row["code"],
-                        "titre" => $row["titre"] === "" ? null : $row["titre"],
-                        "sous_titre" => $row["sous_titre"] === "" ? null : $row["sous_titre"],
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
+                        "sous_titre" => isset($row["sous_titre"]) && $row["sous_titre"] !== "" ? $row["sous_titre"] : null,
                         "competence_id" => $competence_id,
-                        "lien" => $row["lien"] === "" ? null : $row["lien"],
-                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

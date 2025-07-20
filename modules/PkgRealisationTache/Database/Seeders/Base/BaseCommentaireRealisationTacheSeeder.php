@@ -91,8 +91,8 @@ class BaseCommentaireRealisationTacheSeeder extends Seeder
 
 
                 $commentaireRealisationTacheData =[
-                        "commentaire" => $row["commentaire"] === "" ? null : $row["commentaire"],
-                        "dateCommentaire" => $row["dateCommentaire"] === "" ? null : $row["dateCommentaire"],
+                        "commentaire" => isset($row["commentaire"]) && $row["commentaire"] !== "" ? $row["commentaire"] : null,
+                        "dateCommentaire" => isset($row["dateCommentaire"]) && $row["dateCommentaire"] !== "" ? $row["dateCommentaire"] : null,
                         "realisation_tache_id" => $realisation_tache_id,
                         "formateur_id" => $formateur_id,
                         "apprenant_id" => $apprenant_id,
