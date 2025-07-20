@@ -80,9 +80,9 @@ class BaseFeatureDomainSeeder extends Seeder
 
 
                 $featureDomainData =[
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "slug" => !empty($row["slug"]) ? $row["slug"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "slug" => $row["slug"] === "" ? null : $row["slug"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                         "sys_module_id" => $sys_module_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

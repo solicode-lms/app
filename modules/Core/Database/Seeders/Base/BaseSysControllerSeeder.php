@@ -81,10 +81,10 @@ class BaseSysControllerSeeder extends Seeder
 
                 $sysControllerData =[
                         "sys_module_id" => $sys_module_id,
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "slug" => !empty($row["slug"]) ? $row["slug"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
-                        "is_active" => !empty($row["is_active"]) ? $row["is_active"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "slug" => $row["slug"] === "" ? null : $row["slug"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "is_active" => $row["is_active"] === "" ? null : $row["is_active"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

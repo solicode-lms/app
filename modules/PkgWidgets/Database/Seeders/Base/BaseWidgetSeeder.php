@@ -101,17 +101,17 @@ class BaseWidgetSeeder extends Seeder
 
 
                 $widgetData =[
-                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
-                        "icon" => !empty($row["icon"]) ? $row["icon"] : null,
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "label" => !empty($row["label"]) ? $row["label"] : null,
+                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
+                        "icon" => $row["icon"] === "" ? null : $row["icon"],
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "label" => $row["label"] === "" ? null : $row["label"],
                         "type_id" => $type_id,
                         "model_id" => $model_id,
                         "operation_id" => $operation_id,
-                        "color" => !empty($row["color"]) ? $row["color"] : null,
+                        "color" => $row["color"] === "" ? null : $row["color"],
                         "sys_color_id" => $sys_color_id,
                         "section_widget_id" => $section_widget_id,
-                        "parameters" => !empty($row["parameters"]) ? $row["parameters"] : null,
+                        "parameters" => $row["parameters"] === "" ? null : $row["parameters"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -86,19 +86,19 @@ class BaseERelationshipSeeder extends Seeder
 
 
                 $eRelationshipData =[
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "type" => !empty($row["type"]) ? $row["type"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "type" => $row["type"] === "" ? null : $row["type"],
                         "source_e_model_id" => $source_e_model_id,
                         "target_e_model_id" => $target_e_model_id,
-                        "cascade_on_delete" => !empty($row["cascade_on_delete"]) ? $row["cascade_on_delete"] : null,
-                        "is_cascade" => !empty($row["is_cascade"]) ? $row["is_cascade"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
-                        "column_name" => !empty($row["column_name"]) ? $row["column_name"] : null,
-                        "referenced_table" => !empty($row["referenced_table"]) ? $row["referenced_table"] : null,
-                        "referenced_column" => !empty($row["referenced_column"]) ? $row["referenced_column"] : null,
-                        "through" => !empty($row["through"]) ? $row["through"] : null,
-                        "with_column" => !empty($row["with_column"]) ? $row["with_column"] : null,
-                        "morph_name" => !empty($row["morph_name"]) ? $row["morph_name"] : null,
+                        "cascade_on_delete" => $row["cascade_on_delete"] === "" ? null : $row["cascade_on_delete"],
+                        "is_cascade" => $row["is_cascade"] === "" ? null : $row["is_cascade"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
+                        "column_name" => $row["column_name"] === "" ? null : $row["column_name"],
+                        "referenced_table" => $row["referenced_table"] === "" ? null : $row["referenced_table"],
+                        "referenced_column" => $row["referenced_column"] === "" ? null : $row["referenced_column"],
+                        "through" => $row["through"] === "" ? null : $row["through"],
+                        "with_column" => $row["with_column"] === "" ? null : $row["with_column"],
+                        "morph_name" => $row["morph_name"] === "" ? null : $row["morph_name"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -76,8 +76,8 @@ class BaseNatureLivrableSeeder extends Seeder
 
 
                 $natureLivrableData =[
-                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "nom" => $row["nom"] === "" ? null : $row["nom"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

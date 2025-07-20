@@ -76,8 +76,8 @@ class BaseEPackageSeeder extends Seeder
 
 
                 $ePackageData =[
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

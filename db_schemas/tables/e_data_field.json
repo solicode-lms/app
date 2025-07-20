@@ -4533,7 +4533,7 @@
         "field_order": 2,
         "db_nullable": 0,
         "db_primaryKey": 0,
-        "db_unique": 1,
+        "db_unique": 0,
         "calculable": 0,
         "description": "Field in table modules"
     },

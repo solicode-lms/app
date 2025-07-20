@@ -87,13 +87,13 @@ class BaseProjetSeeder extends Seeder
 
 
                 $projetData =[
-                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
-                        "travail_a_faire" => !empty($row["travail_a_faire"]) ? $row["travail_a_faire"] : null,
-                        "critere_de_travail" => !empty($row["critere_de_travail"]) ? $row["critere_de_travail"] : null,
-                        "nombre_jour" => !empty($row["nombre_jour"]) ? $row["nombre_jour"] : null,
+                        "titre" => $row["titre"] === "" ? null : $row["titre"],
+                        "travail_a_faire" => $row["travail_a_faire"] === "" ? null : $row["travail_a_faire"],
+                        "critere_de_travail" => $row["critere_de_travail"] === "" ? null : $row["critere_de_travail"],
+                        "nombre_jour" => $row["nombre_jour"] === "" ? null : $row["nombre_jour"],
                         "filiere_id" => $filiere_id,
                         "formateur_id" => $formateur_id,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

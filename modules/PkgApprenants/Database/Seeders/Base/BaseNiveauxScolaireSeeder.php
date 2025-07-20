@@ -76,9 +76,9 @@ class BaseNiveauxScolaireSeeder extends Seeder
 
 
                 $niveauxScolaireData =[
-                        "code" => !empty($row["code"]) ? $row["code"] : null,
-                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "code" => $row["code"] === "" ? null : $row["code"],
+                        "nom" => $row["nom"] === "" ? null : $row["nom"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -82,10 +82,10 @@ class BaseProfileSeeder extends Seeder
 
                 $profileData =[
                         "user_id" => $user_id,
-                        "phone" => !empty($row["phone"]) ? $row["phone"] : null,
-                        "address" => !empty($row["address"]) ? $row["address"] : null,
-                        "profile_picture" => !empty($row["profile_picture"]) ? $row["profile_picture"] : null,
-                        "bio" => !empty($row["bio"]) ? $row["bio"] : null,
+                        "phone" => $row["phone"] === "" ? null : $row["phone"],
+                        "address" => $row["address"] === "" ? null : $row["address"],
+                        "profile_picture" => $row["profile_picture"] === "" ? null : $row["profile_picture"],
+                        "bio" => $row["bio"] === "" ? null : $row["bio"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

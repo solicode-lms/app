@@ -86,12 +86,12 @@ class BaseSysModelSeeder extends Seeder
 
 
                 $sysModelData =[
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
-                        "model" => !empty($row["model"]) ? $row["model"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
+                        "model" => $row["model"] === "" ? null : $row["model"],
                         "sys_module_id" => $sys_module_id,
                         "sys_color_id" => $sys_color_id,
-                        "icone" => !empty($row["icone"]) ? $row["icone"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "icone" => $row["icone"] === "" ? null : $row["icone"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

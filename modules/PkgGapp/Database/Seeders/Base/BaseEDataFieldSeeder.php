@@ -86,19 +86,19 @@ class BaseEDataFieldSeeder extends Seeder
 
 
                 $eDataFieldData =[
-                        "name" => !empty($row["name"]) ? $row["name"] : null,
+                        "name" => $row["name"] === "" ? null : $row["name"],
                         "e_model_id" => $e_model_id,
-                        "data_type" => !empty($row["data_type"]) ? $row["data_type"] : null,
-                        "default_value" => !empty($row["default_value"]) ? $row["default_value"] : null,
-                        "column_name" => !empty($row["column_name"]) ? $row["column_name"] : null,
+                        "data_type" => $row["data_type"] === "" ? null : $row["data_type"],
+                        "default_value" => $row["default_value"] === "" ? null : $row["default_value"],
+                        "column_name" => $row["column_name"] === "" ? null : $row["column_name"],
                         "e_relationship_id" => $e_relationship_id,
-                        "field_order" => !empty($row["field_order"]) ? $row["field_order"] : null,
-                        "db_primaryKey" => !empty($row["db_primaryKey"]) ? $row["db_primaryKey"] : null,
-                        "db_nullable" => !empty($row["db_nullable"]) ? $row["db_nullable"] : null,
-                        "db_unique" => !empty($row["db_unique"]) ? $row["db_unique"] : null,
-                        "calculable" => !empty($row["calculable"]) ? $row["calculable"] : null,
-                        "calculable_sql" => !empty($row["calculable_sql"]) ? $row["calculable_sql"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "field_order" => $row["field_order"] === "" ? null : $row["field_order"],
+                        "db_primaryKey" => $row["db_primaryKey"] === "" ? null : $row["db_primaryKey"],
+                        "db_nullable" => $row["db_nullable"] === "" ? null : $row["db_nullable"],
+                        "db_unique" => $row["db_unique"] === "" ? null : $row["db_unique"],
+                        "calculable" => $row["calculable"] === "" ? null : $row["calculable"],
+                        "calculable_sql" => $row["calculable_sql"] === "" ? null : $row["calculable_sql"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

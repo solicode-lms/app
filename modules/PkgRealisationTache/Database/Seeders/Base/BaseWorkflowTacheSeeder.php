@@ -81,10 +81,10 @@ class BaseWorkflowTacheSeeder extends Seeder
 
 
                 $workflowTacheData =[
-                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
-                        "code" => !empty($row["code"]) ? $row["code"] : null,
-                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
-                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
+                        "code" => $row["code"] === "" ? null : $row["code"],
+                        "titre" => $row["titre"] === "" ? null : $row["titre"],
+                        "description" => $row["description"] === "" ? null : $row["description"],
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

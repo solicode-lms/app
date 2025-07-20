@@ -81,10 +81,10 @@ class BaseSectionWidgetSeeder extends Seeder
 
 
                 $sectionWidgetData =[
-                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
-                        "icone" => !empty($row["icone"]) ? $row["icone"] : null,
-                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
-                        "sous_titre" => !empty($row["sous_titre"]) ? $row["sous_titre"] : null,
+                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
+                        "icone" => $row["icone"] === "" ? null : $row["icone"],
+                        "titre" => $row["titre"] === "" ? null : $row["titre"],
+                        "sous_titre" => $row["sous_titre"] === "" ? null : $row["sous_titre"],
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

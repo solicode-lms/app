@@ -86,12 +86,12 @@ class BaseWidgetUtilisateurSeeder extends Seeder
 
 
                 $widgetUtilisateurData =[
-                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
+                        "ordre" => $row["ordre"] === "" ? null : $row["ordre"],
                         "user_id" => $user_id,
                         "widget_id" => $widget_id,
-                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
-                        "sous_titre" => !empty($row["sous_titre"]) ? $row["sous_titre"] : null,
-                        "visible" => !empty($row["visible"]) ? $row["visible"] : null,
+                        "titre" => $row["titre"] === "" ? null : $row["titre"],
+                        "sous_titre" => $row["sous_titre"] === "" ? null : $row["sous_titre"],
+                        "visible" => $row["visible"] === "" ? null : $row["visible"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

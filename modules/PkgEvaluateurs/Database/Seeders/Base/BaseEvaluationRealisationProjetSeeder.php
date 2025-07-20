@@ -93,9 +93,9 @@ class BaseEvaluationRealisationProjetSeeder extends Seeder
                 $evaluationRealisationProjetData =[
                         "realisation_projet_id" => $realisation_projet_id,
                         "evaluateur_id" => $evaluateur_id,
-                        "date_evaluation" => !empty($row["date_evaluation"]) ? $row["date_evaluation"] : null,
+                        "date_evaluation" => $row["date_evaluation"] === "" ? null : $row["date_evaluation"],
                         "etat_evaluation_projet_id" => $etat_evaluation_projet_id,
-                        "remarques" => !empty($row["remarques"]) ? $row["remarques"] : null,
+                        "remarques" => $row["remarques"] === "" ? null : $row["remarques"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

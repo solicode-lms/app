@@ -86,11 +86,11 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
 
 
                 $historiqueRealisationTacheData =[
-                        "changement" => !empty($row["changement"]) ? $row["changement"] : null,
-                        "dateModification" => !empty($row["dateModification"]) ? $row["dateModification"] : null,
+                        "changement" => $row["changement"] === "" ? null : $row["changement"],
+                        "dateModification" => $row["dateModification"] === "" ? null : $row["dateModification"],
                         "realisation_tache_id" => $realisation_tache_id,
                         "user_id" => $user_id,
-                        "isFeedback" => !empty($row["isFeedback"]) ? $row["isFeedback"] : null,
+                        "isFeedback" => $row["isFeedback"] === "" ? null : $row["isFeedback"],
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
