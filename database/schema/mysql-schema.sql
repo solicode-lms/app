@@ -859,7 +859,6 @@ CREATE TABLE `modules` (
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `modules_reference_unique` (`reference`),
-  UNIQUE KEY `modules_code_unique` (`code`),
   KEY `modules_filiere_id_foreign` (`filiere_id`),
   CONSTRAINT `modules_filiere_id_foreign` FOREIGN KEY (`filiere_id`) REFERENCES `filieres` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

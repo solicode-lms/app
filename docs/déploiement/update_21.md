@@ -6,7 +6,7 @@ php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\ChapitreSeed
 
 php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeeder
 
-php artisan db:seed --class=Modules\PkgFormation\Database\Seeders\FormateurSeeder
+php artisan db:seed --class=Modules\PkgFormation\Database\Seeders\ModuleSeeder
 
 ````
 
