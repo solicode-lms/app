@@ -81,11 +81,11 @@ class BaseUniteApprentissageSeeder extends Seeder
 
 
                 $uniteApprentissageData =[
-                        "ordre" => $row["ordre"] ?? null,
-                        "code" => $row["code"] ?? null,
-                        "nom" => $row["nom"] ?? null,
-                        "lien" => $row["lien"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
+                        "code" => !empty($row["code"]) ? $row["code"] : null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "lien" => !empty($row["lien"]) ? $row["lien"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                         "micro_competence_id" => $micro_competence_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

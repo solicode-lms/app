@@ -86,9 +86,9 @@ class BaseGroupeSeeder extends Seeder
 
 
                 $groupeData =[
-                        "code" => $row["code"] ?? null,
-                        "nom" => $row["nom"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "code" => !empty($row["code"]) ? $row["code"] : null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                         "filiere_id" => $filiere_id,
                         "annee_formation_id" => $annee_formation_id,
                     "reference" => $row["reference"] ?? null ,

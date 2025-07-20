@@ -76,8 +76,8 @@ class BaseWidgetTypeSeeder extends Seeder
 
 
                 $widgetTypeData =[
-                        "type" => $row["type"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "type" => !empty($row["type"]) ? $row["type"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

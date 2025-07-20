@@ -87,10 +87,10 @@ class BaseLivrableSeeder extends Seeder
 
                 $livrableData =[
                         "nature_livrable_id" => $nature_livrable_id,
-                        "titre" => $row["titre"] ?? null,
+                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
                         "projet_id" => $projet_id,
-                        "description" => $row["description"] ?? null,
-                        "is_affichable_seulement_par_formateur" => $row["is_affichable_seulement_par_formateur"] ?? null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "is_affichable_seulement_par_formateur" => !empty($row["is_affichable_seulement_par_formateur"]) ? $row["is_affichable_seulement_par_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

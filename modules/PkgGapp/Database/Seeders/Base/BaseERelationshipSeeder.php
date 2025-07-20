@@ -86,19 +86,19 @@ class BaseERelationshipSeeder extends Seeder
 
 
                 $eRelationshipData =[
-                        "name" => $row["name"] ?? null,
-                        "type" => $row["type"] ?? null,
+                        "name" => !empty($row["name"]) ? $row["name"] : null,
+                        "type" => !empty($row["type"]) ? $row["type"] : null,
                         "source_e_model_id" => $source_e_model_id,
                         "target_e_model_id" => $target_e_model_id,
-                        "cascade_on_delete" => $row["cascade_on_delete"] ?? null,
-                        "is_cascade" => $row["is_cascade"] ?? null,
-                        "description" => $row["description"] ?? null,
-                        "column_name" => $row["column_name"] ?? null,
-                        "referenced_table" => $row["referenced_table"] ?? null,
-                        "referenced_column" => $row["referenced_column"] ?? null,
-                        "through" => $row["through"] ?? null,
-                        "with_column" => $row["with_column"] ?? null,
-                        "morph_name" => $row["morph_name"] ?? null,
+                        "cascade_on_delete" => !empty($row["cascade_on_delete"]) ? $row["cascade_on_delete"] : null,
+                        "is_cascade" => !empty($row["is_cascade"]) ? $row["is_cascade"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "column_name" => !empty($row["column_name"]) ? $row["column_name"] : null,
+                        "referenced_table" => !empty($row["referenced_table"]) ? $row["referenced_table"] : null,
+                        "referenced_column" => !empty($row["referenced_column"]) ? $row["referenced_column"] : null,
+                        "through" => !empty($row["through"]) ? $row["through"] : null,
+                        "with_column" => !empty($row["with_column"]) ? $row["with_column"] : null,
+                        "morph_name" => !empty($row["morph_name"]) ? $row["morph_name"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

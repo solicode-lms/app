@@ -80,8 +80,8 @@ class BasePermissionSeeder extends Seeder
 
 
                 $permissionData =[
-                        "name" => $row["name"] ?? null,
-                        "guard_name" => $row["guard_name"] ?? null,
+                        "name" => !empty($row["name"]) ? $row["name"] : null,
+                        "guard_name" => !empty($row["guard_name"]) ? $row["guard_name"] : null,
                         "controller_id" => $controller_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

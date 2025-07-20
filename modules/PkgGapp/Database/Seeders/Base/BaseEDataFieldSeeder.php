@@ -86,19 +86,19 @@ class BaseEDataFieldSeeder extends Seeder
 
 
                 $eDataFieldData =[
-                        "name" => $row["name"] ?? null,
+                        "name" => !empty($row["name"]) ? $row["name"] : null,
                         "e_model_id" => $e_model_id,
-                        "data_type" => $row["data_type"] ?? null,
-                        "default_value" => $row["default_value"] ?? null,
-                        "column_name" => $row["column_name"] ?? null,
+                        "data_type" => !empty($row["data_type"]) ? $row["data_type"] : null,
+                        "default_value" => !empty($row["default_value"]) ? $row["default_value"] : null,
+                        "column_name" => !empty($row["column_name"]) ? $row["column_name"] : null,
                         "e_relationship_id" => $e_relationship_id,
-                        "field_order" => $row["field_order"] ?? null,
-                        "db_primaryKey" => $row["db_primaryKey"] ?? null,
-                        "db_nullable" => $row["db_nullable"] ?? null,
-                        "db_unique" => $row["db_unique"] ?? null,
-                        "calculable" => $row["calculable"] ?? null,
-                        "calculable_sql" => $row["calculable_sql"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "field_order" => !empty($row["field_order"]) ? $row["field_order"] : null,
+                        "db_primaryKey" => !empty($row["db_primaryKey"]) ? $row["db_primaryKey"] : null,
+                        "db_nullable" => !empty($row["db_nullable"]) ? $row["db_nullable"] : null,
+                        "db_unique" => !empty($row["db_unique"]) ? $row["db_unique"] : null,
+                        "calculable" => !empty($row["calculable"]) ? $row["calculable"] : null,
+                        "calculable_sql" => !empty($row["calculable_sql"]) ? $row["calculable_sql"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

@@ -76,9 +76,9 @@ class BaseNationaliteSeeder extends Seeder
 
 
                 $nationaliteData =[
-                        "code" => $row["code"] ?? null,
-                        "nom" => $row["nom"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "code" => !empty($row["code"]) ? $row["code"] : null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

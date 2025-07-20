@@ -75,8 +75,8 @@ class BaseRoleSeeder extends Seeder
 
 
                 $roleData =[
-                        "name" => $row["name"] ?? null,
-                        "guard_name" => $row["guard_name"] ?? null,
+                        "name" => !empty($row["name"]) ? $row["name"] : null,
+                        "guard_name" => !empty($row["guard_name"]) ? $row["guard_name"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

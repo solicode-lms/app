@@ -76,8 +76,8 @@ class BaseSpecialiteSeeder extends Seeder
 
 
                 $specialiteData =[
-                        "nom" => $row["nom"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

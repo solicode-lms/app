@@ -86,13 +86,13 @@ class BaseChapitreSeeder extends Seeder
 
 
                 $chapitreData =[
-                        "ordre" => $row["ordre"] ?? null,
-                        "code" => $row["code"] ?? null,
-                        "nom" => $row["nom"] ?? null,
-                        "lien" => $row["lien"] ?? null,
-                        "description" => $row["description"] ?? null,
-                        "duree_en_heure" => $row["duree_en_heure"] ?? null,
-                        "isOfficiel" => $row["isOfficiel"] ?? null,
+                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
+                        "code" => !empty($row["code"]) ? $row["code"] : null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "lien" => !empty($row["lien"]) ? $row["lien"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
+                        "duree_en_heure" => !empty($row["duree_en_heure"]) ? $row["duree_en_heure"] : null,
+                        "isOfficiel" => !empty($row["isOfficiel"]) ? $row["isOfficiel"] : null,
                         "unite_apprentissage_id" => $unite_apprentissage_id,
                         "formateur_id" => $formateur_id,
                     "reference" => $row["reference"] ?? null ,

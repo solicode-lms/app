@@ -93,8 +93,8 @@ class BaseEvaluationRealisationTacheSeeder extends Seeder
                 $evaluationRealisationTacheData =[
                         "realisation_tache_id" => $realisation_tache_id,
                         "evaluateur_id" => $evaluateur_id,
-                        "note" => $row["note"] ?? null,
-                        "message" => $row["message"] ?? null,
+                        "note" => !empty($row["note"]) ? $row["note"] : null,
+                        "message" => !empty($row["message"]) ? $row["message"] : null,
                         "evaluation_realisation_projet_id" => $evaluation_realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

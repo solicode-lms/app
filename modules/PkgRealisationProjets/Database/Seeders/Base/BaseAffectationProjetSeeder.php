@@ -100,12 +100,12 @@ class BaseAffectationProjetSeeder extends Seeder
                         "projet_id" => $projet_id,
                         "groupe_id" => $groupe_id,
                         "annee_formation_id" => $annee_formation_id,
-                        "date_debut" => $row["date_debut"] ?? null,
-                        "date_fin" => $row["date_fin"] ?? null,
+                        "date_debut" => !empty($row["date_debut"]) ? $row["date_debut"] : null,
+                        "date_fin" => !empty($row["date_fin"]) ? $row["date_fin"] : null,
                         "sous_groupe_id" => $sous_groupe_id,
-                        "is_formateur_evaluateur" => $row["is_formateur_evaluateur"] ?? null,
-                        "echelle_note_cible" => $row["echelle_note_cible"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "is_formateur_evaluateur" => !empty($row["is_formateur_evaluateur"]) ? $row["is_formateur_evaluateur"] : null,
+                        "echelle_note_cible" => !empty($row["echelle_note_cible"]) ? $row["echelle_note_cible"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

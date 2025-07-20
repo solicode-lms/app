@@ -81,10 +81,10 @@ class BaseEtatEvaluationProjetSeeder extends Seeder
 
 
                 $etatEvaluationProjetData =[
-                        "ordre" => $row["ordre"] ?? null,
-                        "code" => $row["code"] ?? null,
-                        "titre" => $row["titre"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "ordre" => !empty($row["ordre"]) ? $row["ordre"] : null,
+                        "code" => !empty($row["code"]) ? $row["code"] : null,
+                        "titre" => !empty($row["titre"]) ? $row["titre"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

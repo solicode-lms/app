@@ -81,8 +81,8 @@ class BaseSousGroupeSeeder extends Seeder
 
 
                 $sousGroupeData =[
-                        "nom" => $row["nom"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "nom" => !empty($row["nom"]) ? $row["nom"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                         "groupe_id" => $groupe_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

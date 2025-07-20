@@ -80,8 +80,8 @@ class BaseFeatureSeeder extends Seeder
 
 
                 $featureData =[
-                        "name" => $row["name"] ?? null,
-                        "description" => $row["description"] ?? null,
+                        "name" => !empty($row["name"]) ? $row["name"] : null,
+                        "description" => !empty($row["description"]) ? $row["description"] : null,
                         "feature_domain_id" => $feature_domain_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
