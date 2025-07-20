@@ -8,6 +8,6 @@ class Module extends BaseModule
 {
     public function generateReference(): string
     {
-        return $this->filiere->reference . "." . $this->code ;
+        return $this->filiere->reference . "-" . $this->code ;
     }
 }
