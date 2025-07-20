@@ -10,11 +10,11 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="code" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.code'))}}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.nom'))}}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="lien" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.lien'))}}" />
-                <x-sortable-column :sortable="true" width="15.6" field="unite_apprentissage_id" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.singular'))}}" />
-                <x-sortable-column :sortable="true" width="15.6" field="formateur_id" modelname="chapitre" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="9"  field="code" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.code'))}}" />
+                <x-sortable-column :sortable="true" width="17.25"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.nom'))}}" />
+                <x-sortable-column :sortable="true" width="17.25" field="unite_apprentissage_id" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.singular'))}}" />
+                <x-sortable-column :sortable="true" width="17.25"  field="lien" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.lien'))}}" />
+                <x-sortable-column :sortable="true" width="17.25" field="formateur_id" modelname="chapitre" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -32,23 +32,23 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $chapitre->code }}" >
+                    <td style="max-width: 9%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $chapitre->code }}" >
                         {{ $chapitre->code }}
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
+                    <td style="max-width: 17.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $chapitre->nom }}" >
                         {{ $chapitre->nom }}
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
-                        {{ $chapitre->lien }}
-
-                    </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
+                    <td style="max-width: 17.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
                         {{  $chapitre->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
+                    <td style="max-width: 17.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
+                        {{ $chapitre->lien }}
+
+                    </td>
+                    <td style="max-width: 17.25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $chapitre->formateur }}" >
                         {{  $chapitre->formateur }}
 
                     </td>

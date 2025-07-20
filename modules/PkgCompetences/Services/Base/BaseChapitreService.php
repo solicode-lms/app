@@ -24,11 +24,11 @@ class BaseChapitreService extends BaseService
         'ordre',
         'code',
         'nom',
+        'unite_apprentissage_id',
         'lien',
         'description',
         'duree_en_heure',
         'isOfficiel',
-        'unite_apprentissage_id',
         'formateur_id'
     ];
 
@@ -59,6 +59,10 @@ class BaseChapitreService extends BaseService
         $scopeVariables = $this->viewState->getScopeVariables('chapitre');
         $this->fieldsFilterable = [];
     
+
+        if (!array_key_exists('isOfficiel', $scopeVariables)) {
+        $this->fieldsFilterable[] = ['field' => 'isOfficiel', 'type' => 'Boolean', 'label' => 'isOfficiel'];
+        }
 
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
