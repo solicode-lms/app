@@ -10,4 +10,9 @@ class Module extends BaseModule
     {
         return $this->filiere->reference . "-" . $this->code ;
     }
+
+      public function __toString()
+    {
+        return $this->code  . "-" . ($this->nom ?? "");
+    }
 }
