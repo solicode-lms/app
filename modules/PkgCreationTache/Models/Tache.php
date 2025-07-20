@@ -16,4 +16,9 @@ class Tache extends BaseTache
         return ($this->prioriteTache ? ($this->prioriteTache->nom . "-") : "") . ($this->titre ?? "");
     }
 
+    public function generateReference(): string
+    {
+         return  $this->projet->reference . "-" .  $this->titre;
+    }
+
 }

@@ -10,4 +10,10 @@ class WidgetUtilisateur extends BaseWidgetUtilisateur
         'user',
     ];
 
+
+     public function generateReference(): string
+    {
+        return $this->user->reference . "-" . $this->widget->reference ;
+    }
+
 }

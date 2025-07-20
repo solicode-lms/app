@@ -142,4 +142,9 @@ class User extends Authenticatable
         return $this->email ?? "";
     }
 
+    public function generateReference(): string
+    {
+        return $this->email ;
+    }
+
 }

@@ -10,4 +10,9 @@ class Profile extends BaseProfile
     {
         return $this->user->email ?? "";
     }
+
+    public function generateReference(): string
+    {
+        return $this->user->reference ;
+    }
 }

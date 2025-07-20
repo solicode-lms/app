@@ -49,4 +49,9 @@ class Projet extends BaseProjet
     {
         return (float) $this->taches()->sum('note');
     }
+
+    public function generateReference(): string
+    {
+       return $this->titre . (!empty($this->formateur) ? '-' . $this->formateur->reference : '');
+    }
 }

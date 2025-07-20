@@ -12,4 +12,8 @@ class EvaluationRealisationProjet extends BaseEvaluationRealisationProjet
     //    'etatEvaluationProjet'
     // ];
 
+    public function generateReference(): string
+    {
+         return  $this->realisationProjet->reference . "-" .  $this->evaluateur->reference;
+    }
 }

@@ -9,4 +9,9 @@ class Evaluateur extends BaseEvaluateur
     protected $with = [
         'user'
     ];
+
+    public function generateReference(): string
+    {
+         return  $this->user->reference ;
+    }
 }

@@ -17,4 +17,10 @@ class EtatsRealisationProjet extends BaseEtatsRealisationProjet
     // {
     //     return ($this->titre ?? "") . "-" . ($this->formateur?->nom ?? "");
     // }
+
+    public function generateReference(): string
+    {
+
+        return $this->titre;
+    }
 }

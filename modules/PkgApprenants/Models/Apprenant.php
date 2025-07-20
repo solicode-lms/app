@@ -55,31 +55,11 @@ class Apprenant extends BaseApprenant
         return ($this->nom ?? "") . " " . $this->prenom ?? "";
     }
 
+    public function generateReference(): string
+    {
+        return $this->matricule ;
+    }
 
-    //    /**
-    //  * Récupère le groupe en cours pour l'année de formation actuelle.
-    //  *
-    //  * @return \Modules\PkgApprenants\Models\Groupe|null
-    //  */
-    // public function groupeEnCours()
-    // {
-    //    // Mettre en cache l'année de formation actuelle pendant 1 heure
-    //     $anneeActuelle = Cache::remember('annee_formation_active', now()->addHour(), function () {
-    //         return \Modules\PkgFormation\Models\AnneeFormation::query()
-    //             ->whereYear('date_debut', '<=', now()->year)
-    //             ->whereYear('date_fin', '>=', now()->year)
-    //             ->first();
-    //     });
-
-    //     if (!$anneeActuelle) return null;
-
-    //     return $this->groupes()
-    //         ->where('annee_formation_id', $anneeActuelle->id)
-    //         ->first();
-    // }
-    // public function getGroupeAttribute()
-    // {
-    //     return $this->groupeEnCours();
-    // }
+    
 
 }

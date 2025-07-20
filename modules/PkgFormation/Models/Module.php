@@ -6,10 +6,8 @@ use Modules\PkgFormation\Models\Base\BaseModule;
 
 class Module extends BaseModule
 {
-
     public function generateReference(): string
     {
-        return $this->code ;
+        return $this->filiere->reference . "." . $this->code ;
     }
-
 }

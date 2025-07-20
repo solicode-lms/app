@@ -22,4 +22,9 @@ class EvaluationRealisationTache extends BaseEvaluationRealisationTache
             : null;
     }
 
+    public function generateReference(): string
+    {
+         return  $this->realisationTache->reference . "-" .  $this->evaluateur->reference;
+    }
+
 }

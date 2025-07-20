@@ -10,4 +10,10 @@ class WidgetOperation extends BaseWidgetOperation
     {
         return $this->operation ?? "";
     }
+
+    public function generateReference(): string
+    {
+        return $this->operation ;
+    }
+     
 }

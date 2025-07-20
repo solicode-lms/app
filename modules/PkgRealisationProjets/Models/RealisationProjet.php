@@ -53,4 +53,9 @@ class RealisationProjet extends BaseRealisationProjet
         return round($noteRedim, 2);
     }
 
+    public function generateReference(): string
+    {
+        return $this->affectationProjet->reference . "-" . $this->apprenant->reference ;
+    }
+
 }

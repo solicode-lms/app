@@ -10,4 +10,8 @@ class WorkflowTache extends BaseWorkflowTache
        'sysColor'
     ];
 
+     public function generateReference(): string
+    {
+        return $this->code ;
+    }
 }

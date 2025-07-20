@@ -9,4 +9,9 @@ class SousGroupe extends BaseSousGroupe
         'groupe'
     ];
 
+    public function generateReference(): string
+    {
+        return $this->groupe->reference . "-" . $this->nom ;
+    }
+
 }

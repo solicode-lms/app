@@ -25,4 +25,13 @@ class AffectationProjet extends BaseAffectationProjet
         // Sinon, afficher le projet + le groupe
         return (string) $this->projet?->titre . " [" . ($this->groupe?->code ?? "Groupe inconnu") . "]";
     }
+
+    public function generateReference(): string
+    {
+        $refGroup = !empty($this->sousGroupe)
+            ? $this->sousGroupe->reference
+            : $this->groupe->reference;
+
+        return $this->projet->reference . '.' . $refGroup;
+    }
 }

@@ -239,5 +239,9 @@ public function getRealisationLivrable()
         return $eval?->message;
     }
 
+    public function generateReference(): string
+    {
+        return $this->realisationProjet->reference . "-" . $this->tache->reference ;
+    }
 
 }

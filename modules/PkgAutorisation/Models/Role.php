@@ -36,4 +36,9 @@ class Role extends ModelsRole
         return $this->name;
     }
 
+    public function generateReference(): string
+    {
+         return $this->name;
+    }
+
 }

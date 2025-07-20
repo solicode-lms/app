@@ -30,4 +30,9 @@ class Permission extends ModelsPermission
     {
         return $this->name;
     }
+
+     public function generateReference(): string
+    {
+        return $this->name ;
+    }
 }

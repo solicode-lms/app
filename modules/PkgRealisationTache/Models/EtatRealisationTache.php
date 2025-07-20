@@ -11,5 +11,9 @@ class EtatRealisationTache extends BaseEtatRealisationTache
        'sysColor',
     ];
 
+    public function generateReference(): string
+    {
+        return $this->formateur->reference . "-" . $this->workflowTache->reference ;
+    }
 
 }
