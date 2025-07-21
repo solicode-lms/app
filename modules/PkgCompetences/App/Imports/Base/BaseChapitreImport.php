@@ -62,9 +62,9 @@ class BaseChapitreImport implements ToModel, WithHeadingRow
              'nom' => $values[3] ?? null,
              'lien' => $values[4] ?? null,
              'description' => $values[5] ?? null,
-             'duree_en_heure' => $values[6] ?? null,
-             'isOfficiel' => $values[7] ?? null,
-             'unite_apprentissage_id' => $values[8] ?? null,
+             'isOfficiel' => $values[6] ?? null,
+             'unite_apprentissage_id' => $values[7] ?? null,
+             'duree_en_heure' => $values[8] ?? null,
              'formateur_id' => $values[9] ?? null,
         ]);
 

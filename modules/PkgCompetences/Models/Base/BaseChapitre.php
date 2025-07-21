@@ -45,7 +45,7 @@ class BaseChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'nom', 'lien', 'description', 'duree_en_heure', 'isOfficiel', 'unite_apprentissage_id', 'formateur_id'
+        'ordre', 'code', 'nom', 'lien', 'description', 'isOfficiel', 'unite_apprentissage_id', 'duree_en_heure', 'formateur_id'
     ];
     public $manyToOne = [
         'UniteApprentissage' => [

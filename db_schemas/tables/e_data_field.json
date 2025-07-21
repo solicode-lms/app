@@ -1082,7 +1082,7 @@
     },
     {
         "id": 84,
-        "reference": "Chapitre_duree_en_heure",
+        "reference": "Chapitre-duree_en_heure",
         "name": "duree_en_heure",
         "column_name": "duree_en_heure",
         "data_type": "Float",

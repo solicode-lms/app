@@ -38,9 +38,9 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nom' => 'nom',
                 'lien' => 'lien',
                 'description' => 'description',
-                'duree_en_heure' => 'duree_en_heure',
                 'isOfficiel' => 'isOfficiel',
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
+                'duree_en_heure' => 'duree_en_heure',
                 'formateur_reference' => 'formateur_reference',
             ];
         } else {
@@ -51,9 +51,9 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nom' => __('PkgCompetences::chapitre.nom'),
                 'lien' => __('PkgCompetences::chapitre.lien'),
                 'description' => __('PkgCompetences::chapitre.description'),
-                'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
                 'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
                 'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
+                'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
                 'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
             ];
         }
@@ -72,9 +72,9 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nom' => $chapitre->nom,
                 'lien' => $chapitre->lien,
                 'description' => $chapitre->description,
-                'duree_en_heure' => $chapitre->duree_en_heure,
                 'isOfficiel' => $chapitre->isOfficiel,
                 'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
+                'duree_en_heure' => $chapitre->duree_en_heure,
                 'formateur_reference' => $chapitre->formateur?->reference,
             ];
         });
