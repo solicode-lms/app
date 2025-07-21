@@ -581,7 +581,8 @@
     },
     {
         "reference": "Chapitre_unite_apprentissage_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Chapitre_unite_apprentissage_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -636,5 +637,19 @@
         "value_float": 0,
         "e_data_field_reference": "Chapitre_lien",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Chapitre_unite_apprentissage_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "UniteApprentissage.Micro_competence_id",
+                "iModelName": "MicroCompetence",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "Chapitre_unite_apprentissage_id",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]

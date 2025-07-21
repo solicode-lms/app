@@ -64,14 +64,20 @@ class BaseChapitreService extends BaseService
         $this->fieldsFilterable[] = ['field' => 'isOfficiel', 'type' => 'Boolean', 'label' => 'isOfficiel'];
         }
 
-        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
-        }
-
         if (!array_key_exists('formateur_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
         }
 
+        $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+        $microCompetences = $microCompetenceService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgCompetences::microCompetence.plural"),
+            'UniteApprentissage.Micro_competence_id', 
+            \Modules\PkgCompetences\Models\MicroCompetence::class,
+            "id", 
+            "id",
+            $microCompetences
+        );
     }
 
     /**
