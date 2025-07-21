@@ -9,8 +9,8 @@
                     $bulkEdit = $featureDomains_permissions['edit-featureDomain'] || $featureDomains_permissions['destroy-featureDomain'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41"  field="name" modelname="featureDomain" label="{{ucfirst(__('Core::featureDomain.name'))}}" />
-                <x-sortable-column :sortable="true" width="41" field="sys_module_id" modelname="featureDomain" label="{{ucfirst(__('Core::sysModule.singular'))}}" />
+                <x-sortable-column :sortable="true" width="41"  field="name" modelname="featureDomain" label="{!!ucfirst(__('Core::featureDomain.name'))!!}" />
+                <x-sortable-column :sortable="true" width="41" field="sys_module_id" modelname="featureDomain" label="{!!ucfirst(__('Core::sysModule.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

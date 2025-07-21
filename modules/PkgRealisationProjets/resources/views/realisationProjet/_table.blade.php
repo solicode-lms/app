@@ -9,12 +9,12 @@
                     $bulkEdit = $realisationProjets_permissions['edit-realisationProjet'] || $realisationProjets_permissions['destroy-realisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="affectation_projet_id" modelname="realisationProjet" label="{{ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationProjet" label="{{ucfirst(__('PkgApprenants::apprenant.singular'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="etats_realisation_projet_id" modelname="realisationProjet" label="{{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="avancement_projet" modelname="realisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="note" modelname="realisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.note'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="LivrablesRealisation" modelname="realisationProjet" label="{{ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))}}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="avancement_projet" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="note" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.note'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

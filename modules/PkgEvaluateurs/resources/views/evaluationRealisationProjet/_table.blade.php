@@ -9,11 +9,11 @@
                     $bulkEdit = $evaluationRealisationProjets_permissions['edit-evaluationRealisationProjet'] || $evaluationRealisationProjets_permissions['destroy-evaluationRealisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="nomApprenant" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.nomApprenant'))}}" />
-                <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgEvaluateurs::evaluateur.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="evaluationRealisationProjet" label="{{ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.note'))}}" />
+                <x-sortable-column :sortable="true" width="16.4" field="realisation_projet_id" modelname="evaluationRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="nomApprenant" modelname="evaluationRealisationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.nomApprenant'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="evaluateur_id" modelname="evaluationRealisationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_evaluation_projet_id" modelname="evaluationRealisationProjet" label="{!!ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="evaluationRealisationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.note'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

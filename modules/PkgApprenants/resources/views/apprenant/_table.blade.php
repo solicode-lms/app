@@ -9,10 +9,10 @@
                     $bulkEdit = $apprenants_permissions['edit-apprenant'] || $apprenants_permissions['destroy-apprenant'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.nom'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.prenom'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="duree_sans_terminer_tache" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="apprenant" label="{{ucfirst(__('PkgApprenants::groupe.plural'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.prenom'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="duree_sans_terminer_tache" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::apprenant.duree_sans_terminer_tache'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="groupes" modelname="apprenant" label="{!!ucfirst(__('PkgApprenants::groupe.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

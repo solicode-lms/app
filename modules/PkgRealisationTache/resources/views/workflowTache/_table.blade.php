@@ -9,10 +9,10 @@
                     $bulkEdit = $workflowTaches_permissions['edit-workflowTache'] || $workflowTaches_permissions['destroy-workflowTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="workflowTache" label="{{ucfirst(__('PkgRealisationTache::workflowTache.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="25.666666666666668"  field="code" modelname="workflowTache" label="{{ucfirst(__('PkgRealisationTache::workflowTache.code'))}}" />
-                <x-sortable-column :sortable="true" width="25.666666666666668"  field="titre" modelname="workflowTache" label="{{ucfirst(__('PkgRealisationTache::workflowTache.titre'))}}" />
-                <x-sortable-column :sortable="true" width="25.666666666666668" field="sys_color_id" modelname="workflowTache" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="workflowTache" label="{!!ucfirst(__('PkgRealisationTache::workflowTache.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668"  field="code" modelname="workflowTache" label="{!!ucfirst(__('PkgRealisationTache::workflowTache.code'))!!}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668"  field="titre" modelname="workflowTache" label="{!!ucfirst(__('PkgRealisationTache::workflowTache.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="25.666666666666668" field="sys_color_id" modelname="workflowTache" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

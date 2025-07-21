@@ -9,9 +9,9 @@
                     $bulkEdit = $eModels_permissions['edit-eModel'] || $eModels_permissions['destroy-eModel'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="7"  field="icone" modelname="eModel" label="{{ucfirst(__('PkgGapp::eModel.icone'))}}" />
-                <x-sortable-column :sortable="true" width="37.5"  field="name" modelname="eModel" label="{{ucfirst(__('PkgGapp::eModel.name'))}}" />
-                <x-sortable-column :sortable="true" width="37.5" field="e_package_id" modelname="eModel" label="{{ucfirst(__('PkgGapp::ePackage.singular'))}}" />
+                <x-sortable-column :sortable="true" width="7"  field="icone" modelname="eModel" label="{!!ucfirst(__('PkgGapp::eModel.icone'))!!}" />
+                <x-sortable-column :sortable="true" width="37.5"  field="name" modelname="eModel" label="{!!ucfirst(__('PkgGapp::eModel.name'))!!}" />
+                <x-sortable-column :sortable="true" width="37.5" field="e_package_id" modelname="eModel" label="{!!ucfirst(__('PkgGapp::ePackage.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

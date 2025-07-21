@@ -9,7 +9,7 @@
                     $bulkEdit = $natureLivrables_permissions['edit-natureLivrable'] || $natureLivrables_permissions['destroy-natureLivrable'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="82"  field="nom" modelname="natureLivrable" label="{{ucfirst(__('PkgCreationProjet::natureLivrable.nom'))}}" />
+                <x-sortable-column :sortable="true" width="82"  field="nom" modelname="natureLivrable" label="{!!ucfirst(__('PkgCreationProjet::natureLivrable.nom'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

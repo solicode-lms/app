@@ -9,10 +9,10 @@
                     $bulkEdit = $evaluateurs_permissions['edit-evaluateur'] || $evaluateurs_permissions['destroy-evaluateur'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{{ucfirst(__('PkgEvaluateurs::evaluateur.nom'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{{ucfirst(__('PkgEvaluateurs::evaluateur.prenom'))}}" />
-                <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{{ucfirst(__('PkgEvaluateurs::evaluateur.organism'))}}" />
-                <x-sortable-column :sortable="true" width="20.5" field="user_id" modelname="evaluateur" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="evaluateur" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="prenom" modelname="evaluateur" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.prenom'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="organism" modelname="evaluateur" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.organism'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="user_id" modelname="evaluateur" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

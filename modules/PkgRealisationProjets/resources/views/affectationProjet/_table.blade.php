@@ -9,12 +9,12 @@
                     $bulkEdit = $affectationProjets_permissions['edit-affectationProjet'] || $affectationProjets_permissions['destroy-affectationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="projet_id" modelname="affectationProjet" label="{{ucfirst(__('PkgCreationProjet::projet.singular'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="groupe_id" modelname="affectationProjet" label="{{ucfirst(__('PkgApprenants::groupe.singular'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_debut" modelname="affectationProjet" label="{{ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_fin" modelname="affectationProjet" label="{{ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))}}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="sous_groupe_id" modelname="affectationProjet" label="{{ucfirst(__('PkgApprenants::sousGroupe.singular'))}}" />
-                <x-sortable-column :sortable="false" width="13.666666666666666"  field="evaluateurs" modelname="affectationProjet" label="{{ucfirst(__('PkgEvaluateurs::evaluateur.plural'))}}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="projet_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgCreationProjet::projet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_debut" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_fin" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="sous_groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::sousGroupe.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="13.666666666666666"  field="evaluateurs" modelname="affectationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

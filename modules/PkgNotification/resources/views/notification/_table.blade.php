@@ -9,9 +9,9 @@
                     $bulkEdit = $notifications_permissions['edit-notification'] || $notifications_permissions['destroy-notification'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="title" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.title'))}}" />
-                <x-sortable-column :sortable="false" width="27.333333333333332"  field="message" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.message'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="sent_at" modelname="notification" label="{{ucfirst(__('PkgNotification::notification.sent_at'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="title" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.title'))!!}" />
+                <x-sortable-column :sortable="false" width="27.333333333333332"  field="message" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.message'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="sent_at" modelname="notification" label="{!!ucfirst(__('PkgNotification::notification.sent_at'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

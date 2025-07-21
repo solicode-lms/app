@@ -9,7 +9,7 @@
                     $bulkEdit = $userModelFilters_permissions['edit-userModelFilter'] || $userModelFilters_permissions['destroy-userModelFilter'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="82" field="user_id" modelname="userModelFilter" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
+                <x-sortable-column :sortable="true" width="82" field="user_id" modelname="userModelFilter" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

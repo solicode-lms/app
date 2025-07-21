@@ -9,13 +9,13 @@
                     $bulkEdit = $widgets_permissions['edit-widget'] || $widgets_permissions['destroy-widget'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="4"  field="icon" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.icon'))}}" />
-                <x-sortable-column :sortable="true" width="19"  field="name" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.name'))}}" />
-                <x-sortable-column :sortable="true" width="19"  field="label" modelname="widget" label="{{ucfirst(__('PkgWidgets::widget.label'))}}" />
-                <x-sortable-column :sortable="true" width="7" field="type_id" modelname="widget" label="{{ucfirst(__('PkgWidgets::widgetType.singular'))}}" />
-                <x-sortable-column :sortable="true" width="10"  field="roles" modelname="widget" label="{{ucfirst(__('PkgAutorisation::role.plural'))}}" />
-                <x-sortable-column :sortable="true" width="19" field="section_widget_id" modelname="widget" label="{{ucfirst(__('PkgWidgets::sectionWidget.singular'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="widget" label="{!!ucfirst(__('PkgWidgets::widget.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="4"  field="icon" modelname="widget" label="{!!ucfirst(__('PkgWidgets::widget.icon'))!!}" />
+                <x-sortable-column :sortable="true" width="19"  field="name" modelname="widget" label="{!!ucfirst(__('PkgWidgets::widget.name'))!!}" />
+                <x-sortable-column :sortable="true" width="19"  field="label" modelname="widget" label="{!!ucfirst(__('PkgWidgets::widget.label'))!!}" />
+                <x-sortable-column :sortable="true" width="7" field="type_id" modelname="widget" label="{!!ucfirst(__('PkgWidgets::widgetType.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="10"  field="roles" modelname="widget" label="{!!ucfirst(__('PkgAutorisation::role.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="19" field="section_widget_id" modelname="widget" label="{!!ucfirst(__('PkgWidgets::sectionWidget.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

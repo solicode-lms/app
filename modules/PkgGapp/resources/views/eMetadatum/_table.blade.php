@@ -9,9 +9,9 @@
                     $bulkEdit = $eMetadata_permissions['edit-eMetadatum'] || $eMetadata_permissions['destroy-eMetadatum'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_model_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eModel.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eDataField.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{{ucfirst(__('PkgGapp::eMetadataDefinition.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_model_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eModel.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_data_field_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eDataField.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="e_metadata_definition_id" modelname="eMetadatum" label="{!!ucfirst(__('PkgGapp::eMetadataDefinition.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

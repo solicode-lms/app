@@ -9,7 +9,7 @@
                     $bulkEdit = $ePackages_permissions['edit-ePackage'] || $ePackages_permissions['destroy-ePackage'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="82"  field="name" modelname="ePackage" label="{{ucfirst(__('PkgGapp::ePackage.name'))}}" />
+                <x-sortable-column :sortable="true" width="82"  field="name" modelname="ePackage" label="{!!ucfirst(__('PkgGapp::ePackage.name'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

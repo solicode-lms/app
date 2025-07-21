@@ -9,9 +9,9 @@
                     $bulkEdit = $etatsRealisationProjets_permissions['edit-etatsRealisationProjet'] || $etatsRealisationProjets_permissions['destroy-etatsRealisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="etatsRealisationProjet" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="etatsRealisationProjet" label="{{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatsRealisationProjet" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="formateur_id" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatsRealisationProjet" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

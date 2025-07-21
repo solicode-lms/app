@@ -9,8 +9,8 @@
                     $bulkEdit = $widgetOperations_permissions['edit-widgetOperation'] || $widgetOperations_permissions['destroy-widgetOperation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41"  field="operation" modelname="widgetOperation" label="{{ucfirst(__('PkgWidgets::widgetOperation.operation'))}}" />
-                <x-sortable-column :sortable="true" width="41"  field="description" modelname="widgetOperation" label="{{ucfirst(__('PkgWidgets::widgetOperation.description'))}}" />
+                <x-sortable-column :sortable="true" width="41"  field="operation" modelname="widgetOperation" label="{!!ucfirst(__('PkgWidgets::widgetOperation.operation'))!!}" />
+                <x-sortable-column :sortable="true" width="41"  field="description" modelname="widgetOperation" label="{!!ucfirst(__('PkgWidgets::widgetOperation.description'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

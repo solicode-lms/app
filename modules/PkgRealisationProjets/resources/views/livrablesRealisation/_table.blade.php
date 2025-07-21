@@ -9,9 +9,9 @@
                     $bulkEdit = $livrablesRealisations_permissions['edit-livrablesRealisation'] || $livrablesRealisations_permissions['destroy-livrablesRealisation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{{ucfirst(__('PkgCreationProjet::livrable.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="lien" modelname="livrablesRealisation" label="{{ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="livrablesRealisation" label="{{ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="livrable_id" modelname="livrablesRealisation" label="{!!ucfirst(__('PkgCreationProjet::livrable.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="lien" modelname="livrablesRealisation" label="{!!ucfirst(__('PkgRealisationProjets::livrablesRealisation.lien'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="titre" modelname="livrablesRealisation" label="{!!ucfirst(__('PkgRealisationProjets::livrablesRealisation.titre'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

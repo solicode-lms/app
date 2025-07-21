@@ -9,9 +9,9 @@
                     $bulkEdit = $groupes_permissions['edit-groupe'] || $groupes_permissions['destroy-groupe'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="groupe" label="{{ucfirst(__('PkgApprenants::groupe.code'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="filiere_id" modelname="groupe" label="{{ucfirst(__('PkgFormation::filiere.singular'))}}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="formateurs" modelname="groupe" label="{{ucfirst(__('PkgFormation::formateur.plural'))}}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="groupe" label="{!!ucfirst(__('PkgApprenants::groupe.code'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="filiere_id" modelname="groupe" label="{!!ucfirst(__('PkgFormation::filiere.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="formateurs" modelname="groupe" label="{!!ucfirst(__('PkgFormation::formateur.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

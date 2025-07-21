@@ -9,11 +9,11 @@
                     $bulkEdit = $widgetUtilisateurs_permissions['edit-widgetUtilisateur'] || $widgetUtilisateurs_permissions['destroy-widgetUtilisateur'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="widgetUtilisateur" label="{{ucfirst(__('PkgWidgets::widgetUtilisateur.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="19.25" field="widget_id" modelname="widgetUtilisateur" label="{{ucfirst(__('PkgWidgets::widget.singular'))}}" />
-                <x-sortable-column :sortable="true" width="19.25"  field="package" modelname="widgetUtilisateur" label="{{ucfirst(__('PkgWidgets::widgetUtilisateur.package'))}}" />
-                <x-sortable-column :sortable="true" width="19.25"  field="type" modelname="widgetUtilisateur" label="{{ucfirst(__('PkgWidgets::widgetUtilisateur.type'))}}" />
-                <x-sortable-column :sortable="true" width="19.25"  field="visible" modelname="widgetUtilisateur" label="{{ucfirst(__('PkgWidgets::widgetUtilisateur.visible'))}}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="19.25" field="widget_id" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widget.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.25"  field="package" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.package'))!!}" />
+                <x-sortable-column :sortable="true" width="19.25"  field="type" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.type'))!!}" />
+                <x-sortable-column :sortable="true" width="19.25"  field="visible" modelname="widgetUtilisateur" label="{!!ucfirst(__('PkgWidgets::widgetUtilisateur.visible'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

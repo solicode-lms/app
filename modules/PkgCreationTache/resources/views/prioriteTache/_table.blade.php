@@ -9,9 +9,9 @@
                     $bulkEdit = $prioriteTaches_permissions['edit-prioriteTache'] || $prioriteTaches_permissions['destroy-prioriteTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="prioriteTache" label="{{ucfirst(__('PkgCreationTache::prioriteTache.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="38.5"  field="nom" modelname="prioriteTache" label="{{ucfirst(__('PkgCreationTache::prioriteTache.nom'))}}" />
-                <x-sortable-column :sortable="true" width="38.5" field="formateur_id" modelname="prioriteTache" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="prioriteTache" label="{!!ucfirst(__('PkgCreationTache::prioriteTache.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="38.5"  field="nom" modelname="prioriteTache" label="{!!ucfirst(__('PkgCreationTache::prioriteTache.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="38.5" field="formateur_id" modelname="prioriteTache" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

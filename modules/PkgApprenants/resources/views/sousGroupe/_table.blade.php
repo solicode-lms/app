@@ -9,8 +9,8 @@
                     $bulkEdit = $sousGroupes_permissions['edit-sousGroupe'] || $sousGroupes_permissions['destroy-sousGroupe'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41"  field="nom" modelname="sousGroupe" label="{{ucfirst(__('PkgApprenants::sousGroupe.nom'))}}" />
-                <x-sortable-column :sortable="true" width="41" field="groupe_id" modelname="sousGroupe" label="{{ucfirst(__('PkgApprenants::groupe.singular'))}}" />
+                <x-sortable-column :sortable="true" width="41"  field="nom" modelname="sousGroupe" label="{!!ucfirst(__('PkgApprenants::sousGroupe.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="41" field="groupe_id" modelname="sousGroupe" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

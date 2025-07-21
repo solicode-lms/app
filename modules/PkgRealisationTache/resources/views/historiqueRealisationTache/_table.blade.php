@@ -9,9 +9,9 @@
                     $bulkEdit = $historiqueRealisationTaches_permissions['edit-historiqueRealisationTache'] || $historiqueRealisationTaches_permissions['destroy-historiqueRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement'))}}" />
-                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification'))}}" />
-                <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{{ucfirst(__('PkgAutorisation::user.singular'))}}" />
+                <x-sortable-column :sortable="true" width="50"  field="changement" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::historiqueRealisationTache.changement'))!!}" />
+                <x-sortable-column :sortable="true" width="15"  field="dateModification" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::historiqueRealisationTache.dateModification'))!!}" />
+                <x-sortable-column :sortable="true" width="17" field="user_id" modelname="historiqueRealisationTache" label="{!!ucfirst(__('PkgAutorisation::user.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

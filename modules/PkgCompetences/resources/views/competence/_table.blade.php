@@ -9,10 +9,10 @@
                     $bulkEdit = $competences_permissions['edit-competence'] || $competences_permissions['destroy-competence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="6"  field="code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.code'))}}" />
-                <x-sortable-column :sortable="true" width="10"  field="mini_code" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.mini_code'))}}" />
-                <x-sortable-column :sortable="true" width="33"  field="nom" modelname="competence" label="{{ucfirst(__('PkgCompetences::competence.nom'))}}" />
-                <x-sortable-column :sortable="true" width="33" field="module_id" modelname="competence" label="{{ucfirst(__('PkgFormation::module.singular'))}}" />
+                <x-sortable-column :sortable="true" width="6"  field="code" modelname="competence" label="{!!ucfirst(__('PkgCompetences::competence.code'))!!}" />
+                <x-sortable-column :sortable="true" width="10"  field="mini_code" modelname="competence" label="{!!ucfirst(__('PkgCompetences::competence.mini_code'))!!}" />
+                <x-sortable-column :sortable="true" width="33"  field="nom" modelname="competence" label="{!!ucfirst(__('PkgCompetences::competence.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="33" field="module_id" modelname="competence" label="{!!ucfirst(__('PkgFormation::module.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

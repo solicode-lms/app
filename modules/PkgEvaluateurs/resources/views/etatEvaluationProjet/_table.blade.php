@@ -9,10 +9,10 @@
                     $bulkEdit = $etatEvaluationProjets_permissions['edit-etatEvaluationProjet'] || $etatEvaluationProjets_permissions['destroy-etatEvaluationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatEvaluationProjet" label="{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatEvaluationProjet" label="{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.code'))}}" />
-                <x-sortable-column :sortable="true" width="26"  field="titre" modelname="etatEvaluationProjet" label="{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.titre'))}}" />
-                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatEvaluationProjet" label="{{ucfirst(__('Core::sysColor.singular'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatEvaluationProjet" label="{!!ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatEvaluationProjet" label="{!!ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.code'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="titre" modelname="etatEvaluationProjet" label="{!!ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatEvaluationProjet" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

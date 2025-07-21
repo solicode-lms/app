@@ -9,9 +9,9 @@
                     $bulkEdit = $evaluationRealisationTaches_permissions['edit-evaluationRealisationTache'] || $evaluationRealisationTaches_permissions['destroy-evaluationRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="50" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_id'))}}" />
-                <x-sortable-column :sortable="true" width="16"  field="note" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.note'))}}" />
-                <x-sortable-column :sortable="true" width="16"  field="nombre_livrables" modelname="evaluationRealisationTache" label="{{ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.nombre_livrables'))}}" />
+                <x-sortable-column :sortable="true" width="50" field="realisation_tache_id" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_id'))!!}" />
+                <x-sortable-column :sortable="true" width="16"  field="note" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.note'))!!}" />
+                <x-sortable-column :sortable="true" width="16"  field="nombre_livrables" modelname="evaluationRealisationTache" label="{!!ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.nombre_livrables'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
