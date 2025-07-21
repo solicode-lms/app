@@ -9,12 +9,12 @@
                     $bulkEdit = $chapitres_permissions['edit-chapitre'] || $chapitres_permissions['destroy-chapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="8"  field="code" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.code'))}}" />
-                <x-sortable-column :sortable="true" width="30"  field="nom" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.nom'))}}" />
-                <x-sortable-column :sortable="true" width="7"  field="lien" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::chapitre.lien'))}}" />
-                <x-sortable-column :sortable="true" width="16.5" field="unite_apprentissage_id" modelname="chapitre" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.singular'))}}" />
-                <x-sortable-column :sortable="true" width="16.5" field="formateur_id" modelname="chapitre" label="{{ucfirst(__('PkgFormation::formateur.singular'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="8"  field="code" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.code'))!!}" />
+                <x-sortable-column :sortable="true" width="30"  field="nom" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="7"  field="lien" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.lien'))!!}" />
+                <x-sortable-column :sortable="true" width="16.5" field="unite_apprentissage_id" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.5" field="formateur_id" modelname="chapitre" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>

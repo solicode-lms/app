@@ -9,12 +9,12 @@
                     $bulkEdit = $microCompetences_permissions['edit-microCompetence'] || $microCompetences_permissions['destroy-microCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.ordre'))}}" />
-                <x-sortable-column :sortable="true" width="6"  field="code" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.code'))}}" />
-                <x-sortable-column :sortable="true" width="27.5"  field="titre" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.titre'))}}" />
-                <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::competence.singular'))}}" />
-                <x-sortable-column :sortable="false" width="27.5"  field="UniteApprentissage" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::uniteApprentissage.plural'))}}" />
-                <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{{ucfirst(__('PkgCompetences::microCompetence.lien'))}}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="6"  field="code" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.code'))!!}" />
+                <x-sortable-column :sortable="true" width="27.5"  field="titre" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="27.5"  field="UniteApprentissage" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.lien'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
