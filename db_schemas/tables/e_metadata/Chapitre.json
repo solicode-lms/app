@@ -471,7 +471,7 @@
     {
         "reference": "Chapitre_code_columnWidth",
         "value_boolean": 1,
-        "value_integer": 8,
+        "value_integer": 6,
         "value_float": 0,
         "e_data_field_reference": "Chapitre_code",
         "e_metadata_definition_reference": "columnWidth"
@@ -687,5 +687,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Chapitre_unite_apprentissage_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 25,
+        "value_float": 0,
+        "e_data_field_reference": "Chapitre_unite_apprentissage_id",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "Chapitre_formateur_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 15,
+        "value_float": 0,
+        "e_data_field_reference": "Chapitre_formateur_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
