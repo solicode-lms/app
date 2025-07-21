@@ -1004,7 +1004,7 @@
     },
     {
         "id": 78,
-        "reference": "Chapitre_id",
+        "reference": "Chapitre-id",
         "name": "id",
         "column_name": "id",
         "data_type": "Integer",

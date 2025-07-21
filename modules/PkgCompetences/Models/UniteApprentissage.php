@@ -12,6 +12,6 @@ class UniteApprentissage extends BaseUniteApprentissage
 
     public function __toString()
     {
-        return $this->nom ?? "";
+        return ($this->code ?? "") . "-" . ($this->nom ?? "");
     }
 }

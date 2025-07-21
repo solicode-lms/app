@@ -33,7 +33,7 @@
     },
     {
         "reference": "Chapitre_nom_displayOrder",
-        "value_integer": 3,
+        "value_integer": 4,
         "e_data_field_reference": "Chapitre_nom",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -224,7 +224,7 @@
     },
     {
         "reference": "Chapitre_isOfficiel_displayOrder",
-        "value_integer": 9,
+        "value_integer": 8,
         "e_data_field_reference": "Chapitre_isOfficiel",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -272,7 +272,7 @@
     },
     {
         "reference": "Chapitre_formateur_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 10,
         "e_data_field_reference": "Chapitre_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -308,7 +308,7 @@
     },
     {
         "reference": "Chapitre_created_at_displayOrder",
-        "value_integer": 12,
+        "value_integer": 11,
         "e_data_field_reference": "Chapitre_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -344,7 +344,7 @@
     },
     {
         "reference": "Chapitre_updated_at_displayOrder",
-        "value_integer": 13,
+        "value_integer": 12,
         "e_data_field_reference": "Chapitre_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -486,43 +486,43 @@
     {
         "reference": "Chapitre_id_required",
         "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "required"
     },
     {
-        "reference": "Chapitre_id_displayOrder",
-        "value_integer": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "reference": "Chapitre-id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Chapitre_id_displayInForm",
         "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
         "reference": "Chapitre_id_inputMdWidth",
         "value_integer": 6,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Chapitre_id_sortable",
         "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "sortable"
     },
     {
         "reference": "Chapitre_id_viewFormFieldVisible",
         "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
     {
         "reference": "Chapitre_id_viewShowFieldVisible",
         "value_boolean": 1,
-        "e_data_field_reference": "Chapitre_id",
+        "e_data_field_reference": "Chapitre-id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
@@ -588,7 +588,7 @@
     },
     {
         "reference": "Chapitre_unite_apprentissage_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 9,
         "e_data_field_reference": "Chapitre_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -651,5 +651,41 @@
         ],
         "e_data_field_reference": "Chapitre_unite_apprentissage_id",
         "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "Chapitre-id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "Chapitre-id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Chapitre-id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Chapitre-id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Chapitre-id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Chapitre-id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Chapitre-id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

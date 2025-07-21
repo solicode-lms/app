@@ -9,4 +9,9 @@ class MicroCompetence extends BaseMicroCompetence
     {
         return $this->competence->reference . "-" . $this->code ;
     }
+
+     public function __toString()
+    {
+        return ($this->code ?? "") . "-" . ($this->titre ?? "");
+    }
 }
