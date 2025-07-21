@@ -7,7 +7,7 @@ class MicroCompetence extends BaseMicroCompetence
 {
     public function generateReference(): string
     {
-        return $this->competence->reference . "-" . $this->code ;
+        return $this->competence->module->filiere->reference . "-" . $this->code ;
     }
 
      public function __toString()
