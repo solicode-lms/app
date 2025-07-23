@@ -48,6 +48,7 @@
 				"database": "solicode_lms",
 				"username": "root"
 			}
-		]
+		],
+		"liveServer.settings.port": 5501
 	}
 }

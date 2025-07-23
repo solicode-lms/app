@@ -5,10 +5,11 @@ php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\UniteApprent
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\ChapitreSeeder
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\UpdateReferenceSeeder
 
+php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\PhaseEvaluationSeeder
+
 
 
 php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeeder
-
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
 
 ````

@@ -43,7 +43,7 @@
        $titre = __("PkgCompetences::phaseEvaluation.singular");
     @endphp
     <x-crud-header 
-        id="phaseEvaluation-crud-header" icon="fa-table"  
+        id="phaseEvaluation-crud-header" icon="fas fa-battery-three-quarters"  
         iconColor="text-info"
         title="{{ $phaseEvaluation_title }}"
         :breadcrumbs="[

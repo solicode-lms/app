@@ -43,7 +43,7 @@
        $titre = __("PkgCompetences::critereEvaluation.singular");
     @endphp
     <x-crud-header 
-        id="critereEvaluation-crud-header" icon="fa-table"  
+        id="critereEvaluation-crud-header" icon="fas fa-check-circle"  
         iconColor="text-info"
         title="{{ $critereEvaluation_title }}"
         :breadcrumbs="[
