@@ -5,6 +5,7 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\CritereEvaluationService;
 use Modules\PkgCompetences\Services\PhaseEvaluationService;
+use Modules\PkgCompetences\Services\UniteApprentissageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -20,12 +21,14 @@ class BaseCritereEvaluationController extends AdminController
 {
     protected $critereEvaluationService;
     protected $phaseEvaluationService;
+    protected $uniteApprentissageService;
 
-    public function __construct(CritereEvaluationService $critereEvaluationService, PhaseEvaluationService $phaseEvaluationService) {
+    public function __construct(CritereEvaluationService $critereEvaluationService, PhaseEvaluationService $phaseEvaluationService, UniteApprentissageService $uniteApprentissageService) {
         parent::__construct();
         $this->service  =  $critereEvaluationService;
         $this->critereEvaluationService = $critereEvaluationService;
         $this->phaseEvaluationService = $phaseEvaluationService;
+        $this->uniteApprentissageService = $uniteApprentissageService;
     }
 
     /**
@@ -75,12 +78,13 @@ class BaseCritereEvaluationController extends AdminController
         
 
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._fields', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations'));
+            return view('PkgCompetences::critereEvaluation._fields', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
         }
-        return view('PkgCompetences::critereEvaluation.create', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations'));
+        return view('PkgCompetences::critereEvaluation.create', compact('bulkEdit' ,'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -101,6 +105,7 @@ class BaseCritereEvaluationController extends AdminController
          
  
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = true;
 
@@ -108,9 +113,9 @@ class BaseCritereEvaluationController extends AdminController
         $itemCritereEvaluation = $this->critereEvaluationService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._fields', compact('bulkEdit', 'critereEvaluation_ids', 'itemCritereEvaluation', 'phaseEvaluations'));
+            return view('PkgCompetences::critereEvaluation._fields', compact('bulkEdit', 'critereEvaluation_ids', 'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
         }
-        return view('PkgCompetences::critereEvaluation.bulk-edit', compact('bulkEdit', 'critereEvaluation_ids', 'itemCritereEvaluation', 'phaseEvaluations'));
+        return view('PkgCompetences::critereEvaluation.bulk-edit', compact('bulkEdit', 'critereEvaluation_ids', 'itemCritereEvaluation', 'phaseEvaluations', 'uniteApprentissages'));
     }
     /**
      */
@@ -164,15 +169,16 @@ class BaseCritereEvaluationController extends AdminController
 
 
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::critereEvaluation._fields', array_merge(compact('bulkEdit' , 'itemCritereEvaluation','phaseEvaluations'),));
+            return view('PkgCompetences::critereEvaluation._fields', array_merge(compact('bulkEdit' , 'itemCritereEvaluation','phaseEvaluations', 'uniteApprentissages'),));
         }
 
-        return view('PkgCompetences::critereEvaluation.edit', array_merge(compact('bulkEdit' ,'itemCritereEvaluation','phaseEvaluations'),));
+        return view('PkgCompetences::critereEvaluation.edit', array_merge(compact('bulkEdit' ,'itemCritereEvaluation','phaseEvaluations', 'uniteApprentissages'),));
 
 
     }

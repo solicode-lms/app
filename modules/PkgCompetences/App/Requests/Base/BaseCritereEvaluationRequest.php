@@ -32,7 +32,8 @@ class BaseCritereEvaluationRequest extends FormRequest
             'ordre' => 'required|integer',
             'intitule' => 'required|string',
             'bareme' => 'required',
-            'phase_evaluation_id' => 'required'
+            'phase_evaluation_id' => 'required',
+            'unite_apprentissage_id' => 'required'
         ];
     }
 
@@ -47,7 +48,8 @@ class BaseCritereEvaluationRequest extends FormRequest
             'ordre.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.ordre')]),
             'intitule.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.intitule')]),
             'bareme.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.bareme')]),
-            'phase_evaluation_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.phase_evaluation_id')])
+            'phase_evaluation_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.phase_evaluation_id')]),
+            'unite_apprentissage_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::CritereEvaluation.unite_apprentissage_id')])
         ];
     }
 

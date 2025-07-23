@@ -37,6 +37,7 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
                 'intitule' => 'intitule',
                 'bareme' => 'bareme',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
             ];
         } else {
             return [
@@ -45,6 +46,7 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
                 'intitule' => __('PkgCompetences::critereEvaluation.intitule'),
                 'bareme' => __('PkgCompetences::critereEvaluation.bareme'),
                 'phase_evaluation_reference' => __('PkgCompetences::critereEvaluation.phase_evaluation_reference'),
+                'unite_apprentissage_reference' => __('PkgCompetences::critereEvaluation.unite_apprentissage_reference'),
             ];
         }
     }
@@ -61,6 +63,7 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
                 'intitule' => $critereEvaluation->intitule,
                 'bareme' => $critereEvaluation->bareme,
                 'phase_evaluation_reference' => $critereEvaluation->phaseEvaluation?->reference,
+                'unite_apprentissage_reference' => $critereEvaluation->uniteApprentissage?->reference,
             ];
         });
     }

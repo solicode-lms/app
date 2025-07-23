@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-chapitre" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgCompetences::chapitre.plural'))}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-critereEvaluation" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-critereEvaluation" aria-selected="false">{{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}</a>
+                        </li>
 
                        
                         </ul>
@@ -51,6 +54,9 @@
 
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-chapitre-tab">
                                 @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
+                            </div>
+                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-critereEvaluation" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-critereEvaluation-tab">
+                                @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
 
                            

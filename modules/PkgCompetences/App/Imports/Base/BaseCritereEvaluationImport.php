@@ -61,6 +61,7 @@ class BaseCritereEvaluationImport implements ToModel, WithHeadingRow
              'intitule' => $values[2] ?? null,
              'bareme' => $values[3] ?? null,
              'phase_evaluation_id' => $values[4] ?? null,
+             'unite_apprentissage_id' => $values[5] ?? null,
         ]);
 
 

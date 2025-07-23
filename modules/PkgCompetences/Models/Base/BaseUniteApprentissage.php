@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\MicroCompetence;
 use Modules\PkgCompetences\Models\Chapitre;
+use Modules\PkgCompetences\Models\CritereEvaluation;
 
 /**
  * Classe BaseUniteApprentissage
@@ -74,6 +75,15 @@ class BaseUniteApprentissage extends BaseModel
     public function chapitres(): HasMany
     {
         return $this->hasMany(Chapitre::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation HasMany pour UniteApprentissages.
+     *
+     * @return HasMany
+     */
+    public function critereEvaluations(): HasMany
+    {
+        return $this->hasMany(CritereEvaluation::class, 'unite_apprentissage_id', 'id');
     }
 
 

@@ -24,7 +24,8 @@ class BaseCritereEvaluationService extends BaseService
         'ordre',
         'intitule',
         'bareme',
-        'phase_evaluation_id'
+        'phase_evaluation_id',
+        'unite_apprentissage_id'
     ];
 
     /**
@@ -57,6 +58,10 @@ class BaseCritereEvaluationService extends BaseService
 
         if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::phaseEvaluation.plural"), 'phase_evaluation_id', \Modules\PkgCompetences\Models\PhaseEvaluation::class, 'code');
+        }
+
+        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
         }
 
     }

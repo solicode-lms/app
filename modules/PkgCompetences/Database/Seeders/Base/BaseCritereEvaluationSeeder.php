@@ -78,6 +78,11 @@ class BaseCritereEvaluationSeeder extends Seeder
                     $phase_evaluation_id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('reference', $row["phase_evaluation_reference"])
                         ->value('id');
                 }
+                $unite_apprentissage_id = null;
+                if (!empty($row["unite_apprentissage_reference"])) {
+                    $unite_apprentissage_id = \Modules\PkgCompetences\Models\UniteApprentissage::where('reference', $row["unite_apprentissage_reference"])
+                        ->value('id');
+                }
 
 
                 $critereEvaluationData =[
@@ -85,6 +90,7 @@ class BaseCritereEvaluationSeeder extends Seeder
                         "intitule" => isset($row["intitule"]) && $row["intitule"] !== "" ? $row["intitule"] : null,
                         "bareme" => isset($row["bareme"]) && $row["bareme"] !== "" ? $row["bareme"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
+                        "unite_apprentissage_id" => $unite_apprentissage_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

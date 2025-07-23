@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
+use Modules\PkgCompetences\Models\UniteApprentissage;
 
 /**
  * Classe BaseCritereEvaluation
@@ -27,7 +28,8 @@ class BaseCritereEvaluation extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'phaseEvaluation'
+      //  'phaseEvaluation',
+      //  'uniteApprentissage'
     ];
 
 
@@ -43,13 +45,18 @@ class BaseCritereEvaluation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'intitule', 'bareme', 'phase_evaluation_id'
+        'ordre', 'intitule', 'bareme', 'phase_evaluation_id', 'unite_apprentissage_id'
     ];
     public $manyToOne = [
         'PhaseEvaluation' => [
             'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
             'relation' => 'phaseEvaluations' , 
             "foreign_key" => "phase_evaluation_id", 
+            ],
+        'UniteApprentissage' => [
+            'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
+            'relation' => 'uniteApprentissages' , 
+            "foreign_key" => "unite_apprentissage_id", 
             ]
     ];
 
@@ -62,6 +69,15 @@ class BaseCritereEvaluation extends BaseModel
     public function phaseEvaluation(): BelongsTo
     {
         return $this->belongsTo(PhaseEvaluation::class, 'phase_evaluation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour UniteApprentissage.
+     *
+     * @return BelongsTo
+     */
+    public function uniteApprentissage(): BelongsTo
+    {
+        return $this->belongsTo(UniteApprentissage::class, 'unite_apprentissage_id', 'id');
     }
 
 
