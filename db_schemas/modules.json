@@ -78,7 +78,9 @@
         "competences",
         "micro_competences",
         "unite_apprentissages",
-        "chapitres"
+        "chapitres",
+        "phase_evaluations",
+        "critere_evaluations"
     ]
 
 },
