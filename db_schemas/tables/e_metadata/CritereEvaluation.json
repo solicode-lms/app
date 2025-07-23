@@ -441,5 +441,21 @@
         "value_boolean": 1,
         "e_data_field_reference": "CritereEvaluation_unite_apprentissage_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "CritereEvaluation_intitule_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 50,
+        "value_float": 0,
+        "e_data_field_reference": "CritereEvaluation_intitule",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "CritereEvaluation_phase_evaluation_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 15,
+        "value_float": 0,
+        "e_data_field_reference": "CritereEvaluation_phase_evaluation_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
