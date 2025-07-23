@@ -32,9 +32,9 @@
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$eMetadataDefinition->id}}" data-field="description"  data-toggle="tooltip" title="{{ $eMetadataDefinition->description }}" >
+                  
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($eMetadataDefinition->description, 30) !!}
-                    </td>
+                   
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

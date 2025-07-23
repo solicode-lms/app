@@ -27,9 +27,9 @@
 
                     </td>
                     <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$widgetType->id}}" data-field="description"  data-toggle="tooltip" title="{{ $widgetType->description }}" >
+                  
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($widgetType->description, 30) !!}
-                    </td>
+                   
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

@@ -28,9 +28,9 @@
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="message"  data-toggle="tooltip" title="{{ $notification->message }}" >
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="message"  data-toggle="tooltip" title="{{ $notification->message }}" >
+                  
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($notification->message, 30) !!}
-                    </td>
+                   
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$notification->id}}" data-field="sent_at"  data-toggle="tooltip" title="{{ $notification->sent_at }}" >

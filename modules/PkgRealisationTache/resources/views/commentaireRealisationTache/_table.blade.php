@@ -25,9 +25,9 @@
                 <tr id="commentaireRealisationTache-row-{{$commentaireRealisationTache->id}}" data-id="{{$commentaireRealisationTache->id}}">
                     <x-checkbox-row :item="$commentaireRealisationTache" :bulkEdit="$bulkEdit" />
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="commentaire"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="commentaire"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->commentaire }}" >
+                  
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($commentaireRealisationTache->commentaire, 30) !!}
-                    </td>
+                   
 
                     </td>
                     <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$commentaireRealisationTache->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $commentaireRealisationTache->realisationTache }}" >
