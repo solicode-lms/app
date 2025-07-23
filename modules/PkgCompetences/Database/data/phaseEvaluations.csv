@@ -1,1 +1,4 @@
-ordre,code,libelle,coefficient,description
+"ordre","reference","code","libelle","coefficient","description"
+1,"N1","N1","Imiter",0.2,"Niveau 1 – Imitation : l’apprenant reproduit pas à pas des exemples guidés pour assimiler les bases."
+2,"N2","N2","Adapter",0.3,"Niveau 2 – Adaptation : l’apprenant adapte et combine les acquis pour créer un prototype contextualisé."
+3,"N3","N3","Transposer",0.5,"Niveau 3 – Transposition : l’apprenant conçoit et réalise un projet autonome démontrant une maîtrise complète."
