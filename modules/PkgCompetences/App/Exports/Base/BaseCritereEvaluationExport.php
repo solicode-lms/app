@@ -5,7 +5,7 @@
 
 namespace Modules\PkgCompetences\App\Exports\Base;
 
-use Modules\PkgCompetences\Models\Chapitre;
+use Modules\PkgCompetences\Models\CritereEvaluation;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseCritereEvaluationExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
     protected $format;
@@ -33,28 +33,18 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'code' => 'code',
                 'reference' => 'reference',
-                'nom' => 'nom',
-                'lien' => 'lien',
-                'description' => 'description',
-                'duree_en_heure' => 'duree_en_heure',
-                'isOfficiel' => 'isOfficiel',
-                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
-                'formateur_reference' => 'formateur_reference',
+                'intitule' => 'intitule',
+                'bareme' => 'bareme',
+                'phase_evaluation_reference' => 'phase_evaluation_reference',
             ];
         } else {
             return [
-                'ordre' => __('PkgCompetences::chapitre.ordre'),
-                'code' => __('PkgCompetences::chapitre.code'),
+                'ordre' => __('PkgCompetences::critereEvaluation.ordre'),
                 'reference' => __('Core::msg.reference'),
-                'nom' => __('PkgCompetences::chapitre.nom'),
-                'lien' => __('PkgCompetences::chapitre.lien'),
-                'description' => __('PkgCompetences::chapitre.description'),
-                'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
-                'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
-                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
-                'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
+                'intitule' => __('PkgCompetences::critereEvaluation.intitule'),
+                'bareme' => __('PkgCompetences::critereEvaluation.bareme'),
+                'phase_evaluation_reference' => __('PkgCompetences::critereEvaluation.phase_evaluation_reference'),
             ];
         }
     }
@@ -64,18 +54,13 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
      */
     public function collection()
     {
-        return $this->data->map(function ($chapitre) {
+        return $this->data->map(function ($critereEvaluation) {
             return [
-                'ordre' => (string) $chapitre->ordre,
-                'code' => $chapitre->code,
-                'reference' => $chapitre->reference,
-                'nom' => $chapitre->nom,
-                'lien' => $chapitre->lien,
-                'description' => $chapitre->description,
-                'duree_en_heure' => $chapitre->duree_en_heure,
-                'isOfficiel' => $chapitre->isOfficiel,
-                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
-                'formateur_reference' => $chapitre->formateur?->reference,
+                'ordre' => (string) $critereEvaluation->ordre,
+                'reference' => $critereEvaluation->reference,
+                'intitule' => $critereEvaluation->intitule,
+                'bareme' => $critereEvaluation->bareme,
+                'phase_evaluation_reference' => $critereEvaluation->phaseEvaluation?->reference,
             ];
         });
     }

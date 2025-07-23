@@ -26,9 +26,9 @@ class BaseChapitreService extends BaseService
         'nom',
         'lien',
         'description',
+        'duree_en_heure',
         'isOfficiel',
         'unite_apprentissage_id',
-        'duree_en_heure',
         'formateur_id'
     ];
 

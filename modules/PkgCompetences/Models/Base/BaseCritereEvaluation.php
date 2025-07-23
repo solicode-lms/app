@@ -1,0 +1,80 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgCompetences\Models\Base;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
+use App\Traits\HasDynamicContext;
+use Modules\Core\Models\BaseModel;
+use Modules\PkgCompetences\Models\PhaseEvaluation;
+
+/**
+ * Classe BaseCritereEvaluation
+ * Cette classe sert de base pour le modèle CritereEvaluation.
+ */
+class BaseCritereEvaluation extends BaseModel
+{
+    use HasFactory, HasDynamicContext;
+
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+      //  'phaseEvaluation'
+    ];
+
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        $this->isOwnedByUser =  false;
+    }
+
+    
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'ordre', 'intitule', 'bareme', 'phase_evaluation_id'
+    ];
+    public $manyToOne = [
+        'PhaseEvaluation' => [
+            'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
+            'relation' => 'phaseEvaluations' , 
+            "foreign_key" => "phase_evaluation_id", 
+            ]
+    ];
+
+
+    /**
+     * Relation BelongsTo pour PhaseEvaluation.
+     *
+     * @return BelongsTo
+     */
+    public function phaseEvaluation(): BelongsTo
+    {
+        return $this->belongsTo(PhaseEvaluation::class, 'phase_evaluation_id', 'id');
+    }
+
+
+
+
+
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->intitule ?? "";
+    }
+}

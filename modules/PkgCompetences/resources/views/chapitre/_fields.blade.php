@@ -172,6 +172,36 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemChapitre" field="duree_en_heure" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="duree_en_heure" id="bulk_field_duree_en_heure" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="duree_en_heure">
+            {{ ucfirst(__('PkgCompetences::chapitre.duree_en_heure')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="duree_en_heure"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="duree_en_heure"
+        step="0.01"
+        placeholder="{{ __('PkgCompetences::chapitre.duree_en_heure') }}"
+        value="{{ $itemChapitre ? number_format($itemChapitre->duree_en_heure, 2, '.', '') : old('duree_en_heure') }}">
+          @error('duree_en_heure')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemChapitre" field="isOfficiel" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -230,36 +260,6 @@
                 @endforeach
             </select>
           @error('unite_apprentissage_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemChapitre" field="duree_en_heure" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="duree_en_heure" id="bulk_field_duree_en_heure" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="duree_en_heure">
-            {{ ucfirst(__('PkgCompetences::chapitre.duree_en_heure')) }}
-            <span class="text-danger">*</span>
-          </label>
-              <input
-        name="duree_en_heure"
-        type="number"
-        class="form-control"
-        required
-        
-        
-        id="duree_en_heure"
-        step="0.01"
-        placeholder="{{ __('PkgCompetences::chapitre.duree_en_heure') }}"
-        value="{{ $itemChapitre ? number_format($itemChapitre->duree_en_heure, 2, '.', '') : old('duree_en_heure') }}">
-          @error('duree_en_heure')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

@@ -5,30 +5,30 @@
 
 namespace Modules\PkgCompetences\App\Imports\Base;
 
-use Modules\PkgCompetences\Models\Chapitre;
+use Modules\PkgCompetences\Models\CritereEvaluation;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseChapitreImport implements ToModel, WithHeadingRow
+class BaseCritereEvaluationImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return Chapitre|null
+     * @return CritereEvaluation|null
      */
-    private function findExistingRecord($reference): ?Chapitre
+    private function findExistingRecord($reference): ?CritereEvaluation
     {
         if($reference == null) return null;
-        return Chapitre::where('reference', $reference)->first();
+        return CritereEvaluation::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return Chapitre|null
+     * @return CritereEvaluation|null
      */
     public function model(array $row)
     {
@@ -55,17 +55,12 @@ class BaseChapitreImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new Chapitre([
+        return new CritereEvaluation([
              'ordre' => $values[0] ?? null,
-             'code' => $values[1] ?? null,
              'reference' => $reference,
-             'nom' => $values[3] ?? null,
-             'lien' => $values[4] ?? null,
-             'description' => $values[5] ?? null,
-             'duree_en_heure' => $values[6] ?? null,
-             'isOfficiel' => $values[7] ?? null,
-             'unite_apprentissage_id' => $values[8] ?? null,
-             'formateur_id' => $values[9] ?? null,
+             'intitule' => $values[2] ?? null,
+             'bareme' => $values[3] ?? null,
+             'phase_evaluation_id' => $values[4] ?? null,
         ]);
 
 

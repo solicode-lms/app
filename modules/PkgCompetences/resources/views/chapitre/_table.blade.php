@@ -14,7 +14,6 @@
                 <x-sortable-column :sortable="true" width="30"  field="nom" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.nom'))!!}" />
                 <x-sortable-column :sortable="true" width="7"  field="lien" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.lien'))!!}" />
                 <x-sortable-column :sortable="true" width="25" field="unite_apprentissage_id" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="10"  field="duree_en_heure" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.duree_en_heure'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -46,10 +45,6 @@
                     </td>
                     <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
                         {{  $chapitre->uniteApprentissage }}
-
-                    </td>
-                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="duree_en_heure"  data-toggle="tooltip" title="{{ $chapitre->duree_en_heure }}" >
-                        {{ $chapitre->duree_en_heure }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

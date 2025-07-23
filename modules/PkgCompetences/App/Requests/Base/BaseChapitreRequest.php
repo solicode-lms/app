@@ -34,9 +34,9 @@ class BaseChapitreRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'lien' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'duree_en_heure' => 'required',
             'isOfficiel' => 'nullable|boolean',
             'unite_apprentissage_id' => 'required',
-            'duree_en_heure' => 'required',
             'formateur_id' => 'nullable'
         ];
     }
@@ -57,9 +57,9 @@ class BaseChapitreRequest extends FormRequest
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.lien')]),
             'lien.max' => __('validation.lienMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.description')]),
+            'duree_en_heure.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.duree_en_heure')]),
             'isOfficiel.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.isOfficiel')]),
             'unite_apprentissage_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.unite_apprentissage_id')]),
-            'duree_en_heure.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.duree_en_heure')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::Chapitre.formateur_id')])
         ];
     }

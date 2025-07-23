@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCompetences\Models\Chapitre;
-use Modules\PkgCompetences\Services\ChapitreService;
+use Modules\PkgCompetences\Models\CritereEvaluation;
+use Modules\PkgCompetences\Services\CritereEvaluationService;
 
 
-class BaseChapitreSeeder extends Seeder
+class BaseCritereEvaluationSeeder extends Seeder
 {
-    public static int $order = 76;
+    public static int $order = 78;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -47,7 +47,7 @@ class BaseChapitreSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgCompetences/Database/data/chapitres.csv");
+        $filePath = base_path("modules/PkgCompetences/Database/data/critereEvaluations.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -65,7 +65,7 @@ class BaseChapitreSeeder extends Seeder
             return;
         }
 
-        $chapitreService = new ChapitreService();
+        $critereEvaluationService = new CritereEvaluationService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
@@ -73,34 +73,24 @@ class BaseChapitreSeeder extends Seeder
             if ($row) {
 
 
-                $unite_apprentissage_id = null;
-                if (!empty($row["unite_apprentissage_reference"])) {
-                    $unite_apprentissage_id = \Modules\PkgCompetences\Models\UniteApprentissage::where('reference', $row["unite_apprentissage_reference"])
-                        ->value('id');
-                }
-                $formateur_id = null;
-                if (!empty($row["formateur_reference"])) {
-                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                $phase_evaluation_id = null;
+                if (!empty($row["phase_evaluation_reference"])) {
+                    $phase_evaluation_id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('reference', $row["phase_evaluation_reference"])
                         ->value('id');
                 }
 
 
-                $chapitreData =[
+                $critereEvaluationData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
-                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
-                        "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
-                        "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
-                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "duree_en_heure" => isset($row["duree_en_heure"]) && $row["duree_en_heure"] !== "" ? $row["duree_en_heure"] : null,
-                        "isOfficiel" => isset($row["isOfficiel"]) && $row["isOfficiel"] !== "" ? $row["isOfficiel"] : null,
-                        "unite_apprentissage_id" => $unite_apprentissage_id,
-                        "formateur_id" => $formateur_id,
+                        "intitule" => isset($row["intitule"]) && $row["intitule"] !== "" ? $row["intitule"] : null,
+                        "bareme" => isset($row["bareme"]) && $row["bareme"] !== "" ? $row["bareme"] : null,
+                        "phase_evaluation_id" => $phase_evaluation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $chapitreService->updateOrCreate(["reference" => $row["reference"]], $chapitreData);
+                    $critereEvaluationService->updateOrCreate(["reference" => $row["reference"]], $critereEvaluationData);
                 } else {
-                    $chapitreService->create($chapitreData);
+                    $critereEvaluationService->create($critereEvaluationData);
                 }
             }
         }
@@ -123,9 +113,9 @@ class BaseChapitreSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'ChapitreController';
-        $controllerBaseName = 'chapitre';
-        $domainName = 'Chapitre';
+        $controllerName = 'CritereEvaluationController';
+        $controllerBaseName = 'critereEvaluation';
+        $domainName = 'CritereEvaluation';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(
