@@ -10,8 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::critereEvaluation.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="phase_evaluation_id" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::phaseEvaluation.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="unite_apprentissage_id" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="unite_apprentissage_id" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="26"  field="intitule" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::critereEvaluation.intitule'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="phase_evaluation_id" modelname="critereEvaluation" label="{!!ucfirst(__('PkgCompetences::phaseEvaluation.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -29,12 +30,18 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="phase_evaluation_id"  data-toggle="tooltip" title="{{ $critereEvaluation->phaseEvaluation }}" >
-                        {{  $critereEvaluation->phaseEvaluation }}
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $critereEvaluation->uniteApprentissage }}" >
+                        {{  $critereEvaluation->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $critereEvaluation->uniteApprentissage }}" >
-                        {{  $critereEvaluation->uniteApprentissage }}
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule"  data-toggle="tooltip" title="{{ $critereEvaluation->intitule }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule"  data-toggle="tooltip" title="{{ $critereEvaluation->intitule }}" >
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($critereEvaluation->intitule, 30) !!}
+                    </td>
+
+                    </td>
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="phase_evaluation_id"  data-toggle="tooltip" title="{{ $critereEvaluation->phaseEvaluation }}" >
+                        {{  $critereEvaluation->phaseEvaluation }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

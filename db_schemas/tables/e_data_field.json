@@ -1490,7 +1490,7 @@
     },
     {
         "id": 115,
-        "reference": "CritereEvaluation_unite_apprentissage_id",
+        "reference": "CritereEvaluation-unite_apprentissage_id",
         "name": "unite_apprentissage_id",
         "column_name": "unite_apprentissage_id",
         "data_type": "ManyToOne",

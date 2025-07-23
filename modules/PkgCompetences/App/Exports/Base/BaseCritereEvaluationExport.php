@@ -33,20 +33,20 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'reference' => 'reference',
                 'intitule' => 'intitule',
                 'bareme' => 'bareme',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
-                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgCompetences::critereEvaluation.ordre'),
+                'unite_apprentissage_reference' => __('PkgCompetences::critereEvaluation.unite_apprentissage_reference'),
                 'reference' => __('Core::msg.reference'),
                 'intitule' => __('PkgCompetences::critereEvaluation.intitule'),
                 'bareme' => __('PkgCompetences::critereEvaluation.bareme'),
                 'phase_evaluation_reference' => __('PkgCompetences::critereEvaluation.phase_evaluation_reference'),
-                'unite_apprentissage_reference' => __('PkgCompetences::critereEvaluation.unite_apprentissage_reference'),
             ];
         }
     }
@@ -59,11 +59,11 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
         return $this->data->map(function ($critereEvaluation) {
             return [
                 'ordre' => (string) $critereEvaluation->ordre,
+                'unite_apprentissage_reference' => $critereEvaluation->uniteApprentissage?->reference,
                 'reference' => $critereEvaluation->reference,
                 'intitule' => $critereEvaluation->intitule,
                 'bareme' => $critereEvaluation->bareme,
                 'phase_evaluation_reference' => $critereEvaluation->phaseEvaluation?->reference,
-                'unite_apprentissage_reference' => $critereEvaluation->uniteApprentissage?->reference,
             ];
         });
     }

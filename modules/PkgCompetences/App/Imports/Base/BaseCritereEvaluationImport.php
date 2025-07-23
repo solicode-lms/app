@@ -57,11 +57,11 @@ class BaseCritereEvaluationImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new CritereEvaluation([
              'ordre' => $values[0] ?? null,
+             'unite_apprentissage_id' => $values[1] ?? null,
              'reference' => $reference,
-             'intitule' => $values[2] ?? null,
-             'bareme' => $values[3] ?? null,
-             'phase_evaluation_id' => $values[4] ?? null,
-             'unite_apprentissage_id' => $values[5] ?? null,
+             'intitule' => $values[3] ?? null,
+             'bareme' => $values[4] ?? null,
+             'phase_evaluation_id' => $values[5] ?? null,
         ]);
 
 

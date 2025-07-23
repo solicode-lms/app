@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCompetences\Models\UniteApprentissage;
+use Modules\PkgCompetences\Models\PhaseEvaluation;
 
 /**
  * Classe BaseCritereEvaluation
@@ -28,8 +28,8 @@ class BaseCritereEvaluation extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'phaseEvaluation',
-      //  'uniteApprentissage'
+      //  'uniteApprentissage',
+      //  'phaseEvaluation'
     ];
 
 
@@ -45,31 +45,22 @@ class BaseCritereEvaluation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'intitule', 'bareme', 'phase_evaluation_id', 'unite_apprentissage_id'
+        'ordre', 'unite_apprentissage_id', 'intitule', 'bareme', 'phase_evaluation_id'
     ];
     public $manyToOne = [
-        'PhaseEvaluation' => [
-            'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
-            'relation' => 'phaseEvaluations' , 
-            "foreign_key" => "phase_evaluation_id", 
-            ],
         'UniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
             'relation' => 'uniteApprentissages' , 
             "foreign_key" => "unite_apprentissage_id", 
+            ],
+        'PhaseEvaluation' => [
+            'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
+            'relation' => 'phaseEvaluations' , 
+            "foreign_key" => "phase_evaluation_id", 
             ]
     ];
 
 
-    /**
-     * Relation BelongsTo pour PhaseEvaluation.
-     *
-     * @return BelongsTo
-     */
-    public function phaseEvaluation(): BelongsTo
-    {
-        return $this->belongsTo(PhaseEvaluation::class, 'phase_evaluation_id', 'id');
-    }
     /**
      * Relation BelongsTo pour UniteApprentissage.
      *
@@ -78,6 +69,15 @@ class BaseCritereEvaluation extends BaseModel
     public function uniteApprentissage(): BelongsTo
     {
         return $this->belongsTo(UniteApprentissage::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour PhaseEvaluation.
+     *
+     * @return BelongsTo
+     */
+    public function phaseEvaluation(): BelongsTo
+    {
+        return $this->belongsTo(PhaseEvaluation::class, 'phase_evaluation_id', 'id');
     }
 
 
