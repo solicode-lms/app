@@ -445,7 +445,7 @@
     {
         "reference": "CritereEvaluation_intitule_columnWidth",
         "value_boolean": 1,
-        "value_integer": 50,
+        "value_integer": 40,
         "value_float": 0,
         "e_data_field_reference": "CritereEvaluation_intitule",
         "e_metadata_definition_reference": "columnWidth"
