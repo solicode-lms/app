@@ -30,12 +30,12 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule"  data-toggle="tooltip" title="{{ $critereEvaluation->intitule }}" >
+                   
                     <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="intitule"  data-toggle="tooltip" title="{{ $critereEvaluation->intitule }}" >
                         {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($critereEvaluation->intitule, 30) !!}
                     </td>
 
-                    </td>
+                 
                     <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$critereEvaluation->id}}" data-field="phase_evaluation_id"  data-toggle="tooltip" title="{{ $critereEvaluation->phaseEvaluation }}" >
                         {{  $critereEvaluation->phaseEvaluation }}
 
