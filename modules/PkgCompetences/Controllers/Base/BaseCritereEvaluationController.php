@@ -77,8 +77,8 @@ class BaseCritereEvaluationController extends AdminController
         $itemCritereEvaluation = $this->critereEvaluationService->createInstance();
         
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -104,8 +104,8 @@ class BaseCritereEvaluationController extends AdminController
          $itemCritereEvaluation = $this->critereEvaluationService->find($critereEvaluation_ids[0]);
          
  
-        $uniteApprentissages = $this->uniteApprentissageService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
         $bulkEdit = true;
 
@@ -168,8 +168,8 @@ class BaseCritereEvaluationController extends AdminController
         $itemCritereEvaluation = $this->critereEvaluationService->edit($id);
 
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->all();
 
 
         $bulkEdit = false;
