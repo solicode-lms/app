@@ -1,8 +1,7 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'name' => 'PkgApprentissage',
-    'icon' => 'fa-table'
+    'name' => 'Apprentissage',
+    'icon' => 'fas fa-chalkboard-teacher'
 ];

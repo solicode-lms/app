@@ -1,17 +1,16 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationUa',
-    'plural' => 'RealisationUas',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'progression_cache' => 'progression_cache',
-    'note_cache' => 'note_cache',
-    'bareme_cache' => 'bareme_cache',
-    'commentaire_formateur' => 'commentaire_formateur',
-    'realisation_micro_competence_id' => 'realisation_micro_competence_id',
-    'unite_apprentissage_id' => 'unite_apprentissage_id',
-    'etat_realisation_ua_id' => 'etat_realisation_ua_id',
+    'singular' => 'Réalisation d’UA',
+    'plural' => 'Réalisations d’UAs',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'progression_cache' => 'Progression (cache)',
+    'note_cache' => 'Note (cache)',
+    'bareme_cache' => 'Barème (cache)',
+    'commentaire_formateur' => 'Commentaire du formateur',
+    'realisation_micro_competence_id' => 'Réalisation de la micro-compétence',
+    'unite_apprentissage_id' => 'Unité d’apprentissage',
+    'etat_realisation_ua_id' => 'État de réalisation de l’UA',
 ];

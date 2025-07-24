@@ -16,5 +16,11 @@ php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\CritereEvalu
 php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeeder
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
 
+php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationChapitreSeeder
+
+
+
+
+
 ````
 

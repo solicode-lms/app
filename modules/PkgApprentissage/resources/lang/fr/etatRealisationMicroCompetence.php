@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatRealisationMicroCompetence',
-    'plural' => 'EtatRealisationMicroCompetences',
-    'nom' => 'nom',
-    'code' => 'code',
-    'description' => 'description',
-    'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de l’Autoformation',
+    'plural' => 'États de l’Autoformation',
+    'nom' => 'Nom',
+    'code' => 'Code',
+    'description' => 'Description',
+    'is_editable_only_by_formateur' => 'Modifiable uniquement par le formateur',
+    'sys_color_id' => 'Couleur système',
 ];

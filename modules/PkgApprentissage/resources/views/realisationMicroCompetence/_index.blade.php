@@ -43,7 +43,7 @@
        $titre = __("PkgApprentissage::realisationMicroCompetence.singular");
     @endphp
     <x-crud-header 
-        id="realisationMicroCompetence-crud-header" icon="fa-table"  
+        id="realisationMicroCompetence-crud-header" icon="fas fa-coffee"  
         iconColor="text-info"
         title="{{ $realisationMicroCompetence_title }}"
         :breadcrumbs="[

@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationChapitre',
-    'plural' => 'RealisationChapitres',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'commentaire_formateur' => 'commentaire_formateur',
-    'realisation_ua_id' => 'realisation_ua_id',
-    'realisation_tache_id' => 'realisation_tache_id',
-    'chapitre_id' => 'chapitre_id',
-    'etat_realisation_chapitre_id' => 'etat_realisation_chapitre_id',
+    'singular' => 'Réalisation de Chapitre',
+    'plural' => 'Réalisations de Chapitres',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'commentaire_formateur' => 'Commentaire du formateur',
+    'realisation_ua_id' => 'Réalisation UA',
+    'realisation_tache_id' => 'Réalisation de tâche',
+    'chapitre_id' => 'Chapitre',
+    'etat_realisation_chapitre_id' => 'État de réalisation du chapitre',
 ];

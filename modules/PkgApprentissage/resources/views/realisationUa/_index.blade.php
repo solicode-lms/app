@@ -43,7 +43,7 @@
        $titre = __("PkgApprentissage::realisationUa.singular");
     @endphp
     <x-crud-header 
-        id="realisationUa-crud-header" icon="fa-table"  
+        id="realisationUa-crud-header" icon="fas fa-tools"  
         iconColor="text-info"
         title="{{ $realisationUa_title }}"
         :breadcrumbs="[

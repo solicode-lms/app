@@ -1,15 +1,14 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationUaProjet',
-    'plural' => 'RealisationUaProjets',
-    'note' => 'note',
-    'bareme' => 'bareme',
-    'remarque_formateur' => 'remarque_formateur',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'realisation_ua_id' => 'realisation_ua_id',
-    'realisation_tache_id' => 'realisation_tache_id',
+    'singular' => 'Réalisation d’UA Projet',
+    'plural' => 'Réalisations d’UAs Projets',
+    'note' => 'Note',
+    'bareme' => 'Barème',
+    'remarque_formateur' => 'Remarque du formateur',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'realisation_ua_id' => 'Réalisation de l’UA',
+    'realisation_tache_id' => 'Réalisation de tâche',
 ];

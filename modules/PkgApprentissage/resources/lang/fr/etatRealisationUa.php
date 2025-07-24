@@ -1,13 +1,12 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatRealisationUa',
-    'plural' => 'EtatRealisationUas',
-    'nom' => 'nom',
-    'code' => 'code',
-    'description' => 'description',
-    'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de l’UA',
+    'plural' => 'États de l’UA',
+    'nom' => 'Nom',
+    'code' => 'Code',
+    'description' => 'Description',
+    'is_editable_only_by_formateur' => 'Modifiable uniquement par le formateur',
+    'sys_color_id' => 'Couleur système',
 ];
