@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="microCompetence-hasmany-tabs-uniteApprentissage-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-uniteApprentissage" role="tab" aria-controls="microCompetence-hasmany-tabs-uniteApprentissage" aria-selected="false">{{ucfirst(__('PkgCompetences::uniteApprentissage.plural'))}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="microCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="microCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}</a>
+                        </li>
 
                        
                         </ul>
@@ -51,6 +54,9 @@
 
                             <div class="tab-pane fade" id="microCompetence-hasmany-tabs-uniteApprentissage" role="tabpanel" aria-labelledby="microCompetence-hasmany-tabs-uniteApprentissage-tab">
                                 @include('PkgCompetences::uniteApprentissage._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'microCompetence.edit_' . $itemMicroCompetence->id])
+                            </div>
+                            <div class="tab-pane fade" id="microCompetence-hasmany-tabs-realisationMicroCompetence" role="tabpanel" aria-labelledby="microCompetence-hasmany-tabs-realisationMicroCompetence-tab">
+                                @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'microCompetence.edit_' . $itemMicroCompetence->id])
                             </div>
 
                            

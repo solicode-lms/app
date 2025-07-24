@@ -14,8 +14,11 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Models\SysModel;
 use Modules\PkgEvaluateurs\Models\EtatEvaluationProjet;
+use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\Core\Models\SysModule;
+use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
+use Modules\PkgApprentissage\Models\EtatRealisationUa;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\PkgWidgets\Models\Widget;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
@@ -79,6 +82,15 @@ class BaseSysColor extends BaseModel
      *
      * @return HasMany
      */
+    public function etatRealisationChapitres(): HasMany
+    {
+        return $this->hasMany(EtatRealisationChapitre::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
     public function sysModules(): HasMany
     {
         return $this->hasMany(SysModule::class, 'sys_color_id', 'id');
@@ -88,9 +100,27 @@ class BaseSysColor extends BaseModel
      *
      * @return HasMany
      */
+    public function etatRealisationMicroCompetences(): HasMany
+    {
+        return $this->hasMany(EtatRealisationMicroCompetence::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
     public function etatsRealisationProjets(): HasMany
     {
         return $this->hasMany(EtatsRealisationProjet::class, 'sys_color_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SysColors.
+     *
+     * @return HasMany
+     */
+    public function etatRealisationUas(): HasMany
+    {
+        return $this->hasMany(EtatRealisationUa::class, 'sys_color_id', 'id');
     }
     /**
      * Relation HasMany pour SysColors.

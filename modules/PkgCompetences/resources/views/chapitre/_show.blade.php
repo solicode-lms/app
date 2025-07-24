@@ -127,6 +127,15 @@
       </div>
   
 
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'chapitre.show_' . $itemChapitre->id])
+            </div>
+          </div>
+      </div>
+
 
             </div>
         </div>

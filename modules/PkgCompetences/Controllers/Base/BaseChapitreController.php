@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -134,7 +135,7 @@ class BaseChapitreController extends AdminController
             );
         }
 
-        return redirect()->route('chapitres.index')->with(
+        return redirect()->route('chapitres.edit',['chapitre' => $chapitre->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $chapitre,
@@ -151,11 +152,18 @@ class BaseChapitreController extends AdminController
         $itemChapitre = $this->chapitreService->edit($id);
 
 
+        $this->viewState->set('scope.realisationChapitre.chapitre_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._show', array_merge(compact('itemChapitre'),));
+            return view('PkgCompetences::chapitre._show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgCompetences::chapitre.show', array_merge(compact('itemChapitre'),));
+        return view('PkgCompetences::chapitre.show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value));
 
     }
     /**
@@ -172,13 +180,20 @@ class BaseChapitreController extends AdminController
         $formateurs = $this->formateurService->all();
 
 
+        $this->viewState->set('scope.realisationChapitre.chapitre_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._fields', array_merge(compact('bulkEdit' , 'itemChapitre','formateurs', 'uniteApprentissages'),));
+            return view('PkgCompetences::chapitre._edit', array_merge(compact('bulkEdit' , 'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value));
         }
 
-        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','formateurs', 'uniteApprentissages'),));
+        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value));
 
 
     }

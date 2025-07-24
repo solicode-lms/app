@@ -1,0 +1,106 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+@section('realisationMicroCompetence-table')
+<div class="card-body p-0 crud-card-body" id="realisationMicroCompetences-crud-card-body">
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
+            <tr>
+                @php
+                    $bulkEdit = $realisationMicroCompetences_permissions['edit-realisationMicroCompetence'] || $realisationMicroCompetences_permissions['destroy-realisationMicroCompetence'];
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular'))!!}" />
+                <th class="text-center">{{ __('Core::msg.action') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @section('realisationMicroCompetence-table-tbody')
+            @foreach ($realisationMicroCompetences_data as $realisationMicroCompetence)
+                @php
+                    $isEditable = $realisationMicroCompetences_permissions['edit-realisationMicroCompetence'] && $realisationMicroCompetences_permissionsByItem['update'][$realisationMicroCompetence->id];
+                @endphp
+                <tr id="realisationMicroCompetence-row-{{$realisationMicroCompetence->id}}" data-id="{{$realisationMicroCompetence->id}}">
+                    <x-checkbox-row :item="$realisationMicroCompetence" :bulkEdit="$bulkEdit" />
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->date_debut }}" >
+                        <x-deadline-display :value="$realisationMicroCompetence->date_debut" />
+                    </td>
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->date_fin }}" >
+                        <x-deadline-display :value="$realisationMicroCompetence->date_fin" />
+                    </td>
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->apprenant }}" >
+                        {{  $realisationMicroCompetence->apprenant }}
+
+                    </td>
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->microCompetence }}" >
+                        {{  $realisationMicroCompetence->microCompetence }}
+
+                    </td>
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="etat_realisation_micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->etatRealisationMicroCompetence }}" >
+                        @if(!empty($realisationMicroCompetence->etatRealisationMicroCompetence))
+                        <x-badge 
+                        :text="$realisationMicroCompetence->etatRealisationMicroCompetence" 
+                        :background="$realisationMicroCompetence->etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
+                        />
+                        @endif
+
+                    </td>
+                    <td class="text-right wrappable" style="max-width: 15%;">
+
+
+                       
+
+                        @if($realisationMicroCompetences_permissions['edit-realisationMicroCompetence'])
+                        <x-action-button :entity="$realisationMicroCompetence" actionName="edit">
+                        @if($realisationMicroCompetences_permissionsByItem['update'][$realisationMicroCompetence->id])
+                            <a href="{{ route('realisationMicroCompetences.edit', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-sm btn-default context-state editEntity">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
+                        @if($realisationMicroCompetences_permissions['show-realisationMicroCompetence'])
+                        <x-action-button :entity="$realisationMicroCompetence" actionName="show">
+                        @if($realisationMicroCompetences_permissionsByItem['view'][$realisationMicroCompetence->id])
+                            <a href="{{ route('realisationMicroCompetences.show', ['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" data-id="{{$realisationMicroCompetence->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
+
+                        <x-action-button :entity="$realisationMicroCompetence" actionName="delete">
+                        @if($realisationMicroCompetences_permissions['destroy-realisationMicroCompetence'])
+                        @if($realisationMicroCompetences_permissionsByItem['delete'][$realisationMicroCompetence->id])
+                            <form class="context-state" action="{{ route('realisationMicroCompetences.destroy',['realisationMicroCompetence' => $realisationMicroCompetence->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$realisationMicroCompetence->id}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
+                        @endif
+                        </x-action-button>
+                    </td>
+                </tr>
+            @endforeach
+            @show
+        </tbody>
+    </table>
+</div>
+@show
+
+<div class="card-footer">
+    @section('realisationMicroCompetence-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $realisationMicroCompetences_data->onEachSide(1)->links() }}
+    </ul>
+    @show
+</div>
+<script>
+    window.viewState = @json($viewState);
+</script>

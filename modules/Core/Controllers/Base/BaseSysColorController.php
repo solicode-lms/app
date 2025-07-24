@@ -7,8 +7,11 @@ use Modules\Core\Services\SysColorService;
 use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
 use Modules\Core\Services\SysModelService;
 use Modules\PkgEvaluateurs\Services\EtatEvaluationProjetService;
+use Modules\PkgApprentissage\Services\EtatRealisationChapitreService;
 use Modules\Core\Services\SysModuleService;
+use Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
+use Modules\PkgApprentissage\Services\EtatRealisationUaService;
 use Modules\PkgWidgets\Services\SectionWidgetService;
 use Modules\PkgWidgets\Services\WidgetService;
 use Modules\PkgRealisationTache\Services\WorkflowTacheService;
@@ -170,6 +173,13 @@ class BaseSysColorController extends AdminController
         $etatEvaluationProjets_view_data = $etatEvaluationProjetService->prepareDataForIndexView();
         extract($etatEvaluationProjets_view_data);
 
+        $this->viewState->set('scope.etatRealisationChapitre.sys_color_id', $id);
+        
+
+        $etatRealisationChapitreService =  new EtatRealisationChapitreService();
+        $etatRealisationChapitres_view_data = $etatRealisationChapitreService->prepareDataForIndexView();
+        extract($etatRealisationChapitres_view_data);
+
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
         
 
@@ -177,12 +187,26 @@ class BaseSysColorController extends AdminController
         $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
         extract($sysModules_view_data);
 
+        $this->viewState->set('scope.etatRealisationMicroCompetence.sys_color_id', $id);
+        
+
+        $etatRealisationMicroCompetenceService =  new EtatRealisationMicroCompetenceService();
+        $etatRealisationMicroCompetences_view_data = $etatRealisationMicroCompetenceService->prepareDataForIndexView();
+        extract($etatRealisationMicroCompetences_view_data);
+
         $this->viewState->set('scope.etatsRealisationProjet.sys_color_id', $id);
         
 
         $etatsRealisationProjetService =  new EtatsRealisationProjetService();
         $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
         extract($etatsRealisationProjets_view_data);
+
+        $this->viewState->set('scope.etatRealisationUa.sys_color_id', $id);
+        
+
+        $etatRealisationUaService =  new EtatRealisationUaService();
+        $etatRealisationUas_view_data = $etatRealisationUaService->prepareDataForIndexView();
+        extract($etatRealisationUas_view_data);
 
         $this->viewState->set('scope.sectionWidget.sys_color_id', $id);
         
@@ -206,10 +230,10 @@ class BaseSysColorController extends AdminController
         extract($workflowTaches_view_data);
 
         if (request()->ajax()) {
-            return view('Core::sysColor._show', array_merge(compact('itemSysColor'),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
+            return view('Core::sysColor._show', array_merge(compact('itemSysColor'),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $etatRealisationChapitre_compact_value, $sysModule_compact_value, $etatRealisationMicroCompetence_compact_value, $etatsRealisationProjet_compact_value, $etatRealisationUa_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
         }
 
-        return view('Core::sysColor.show', array_merge(compact('itemSysColor'),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
+        return view('Core::sysColor.show', array_merge(compact('itemSysColor'),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $etatRealisationChapitre_compact_value, $sysModule_compact_value, $etatRealisationMicroCompetence_compact_value, $etatsRealisationProjet_compact_value, $etatRealisationUa_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
 
     }
     /**
@@ -245,6 +269,13 @@ class BaseSysColorController extends AdminController
         $etatEvaluationProjets_view_data = $etatEvaluationProjetService->prepareDataForIndexView();
         extract($etatEvaluationProjets_view_data);
 
+        $this->viewState->set('scope.etatRealisationChapitre.sys_color_id', $id);
+        
+
+        $etatRealisationChapitreService =  new EtatRealisationChapitreService();
+        $etatRealisationChapitres_view_data = $etatRealisationChapitreService->prepareDataForIndexView();
+        extract($etatRealisationChapitres_view_data);
+
         $this->viewState->set('scope.sysModule.sys_color_id', $id);
         
 
@@ -252,12 +283,26 @@ class BaseSysColorController extends AdminController
         $sysModules_view_data = $sysModuleService->prepareDataForIndexView();
         extract($sysModules_view_data);
 
+        $this->viewState->set('scope.etatRealisationMicroCompetence.sys_color_id', $id);
+        
+
+        $etatRealisationMicroCompetenceService =  new EtatRealisationMicroCompetenceService();
+        $etatRealisationMicroCompetences_view_data = $etatRealisationMicroCompetenceService->prepareDataForIndexView();
+        extract($etatRealisationMicroCompetences_view_data);
+
         $this->viewState->set('scope.etatsRealisationProjet.sys_color_id', $id);
         
 
         $etatsRealisationProjetService =  new EtatsRealisationProjetService();
         $etatsRealisationProjets_view_data = $etatsRealisationProjetService->prepareDataForIndexView();
         extract($etatsRealisationProjets_view_data);
+
+        $this->viewState->set('scope.etatRealisationUa.sys_color_id', $id);
+        
+
+        $etatRealisationUaService =  new EtatRealisationUaService();
+        $etatRealisationUas_view_data = $etatRealisationUaService->prepareDataForIndexView();
+        extract($etatRealisationUas_view_data);
 
         $this->viewState->set('scope.sectionWidget.sys_color_id', $id);
         
@@ -283,10 +328,10 @@ class BaseSysColorController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('Core::sysColor._edit', array_merge(compact('bulkEdit' , 'itemSysColor',),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
+            return view('Core::sysColor._edit', array_merge(compact('bulkEdit' , 'itemSysColor',),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $etatRealisationChapitre_compact_value, $sysModule_compact_value, $etatRealisationMicroCompetence_compact_value, $etatsRealisationProjet_compact_value, $etatRealisationUa_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
         }
 
-        return view('Core::sysColor.edit', array_merge(compact('bulkEdit' ,'itemSysColor',),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $sysModule_compact_value, $etatsRealisationProjet_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
+        return view('Core::sysColor.edit', array_merge(compact('bulkEdit' ,'itemSysColor',),$etatRealisationTache_compact_value, $sysModel_compact_value, $etatEvaluationProjet_compact_value, $etatRealisationChapitre_compact_value, $sysModule_compact_value, $etatRealisationMicroCompetence_compact_value, $etatsRealisationProjet_compact_value, $etatRealisationUa_compact_value, $sectionWidget_compact_value, $widget_compact_value, $workflowTache_compact_value));
 
 
     }

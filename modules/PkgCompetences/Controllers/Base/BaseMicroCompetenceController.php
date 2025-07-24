@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\MicroCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
+use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -154,11 +155,18 @@ class BaseMicroCompetenceController extends AdminController
         $uniteApprentissages_view_data = $uniteApprentissageService->prepareDataForIndexView();
         extract($uniteApprentissages_view_data);
 
+        $this->viewState->set('scope.realisationMicroCompetence.micro_competence_id', $id);
+        
+
+        $realisationMicroCompetenceService =  new RealisationMicroCompetenceService();
+        $realisationMicroCompetences_view_data = $realisationMicroCompetenceService->prepareDataForIndexView();
+        extract($realisationMicroCompetences_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
+            return view('PkgCompetences::microCompetence._show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
         }
 
-        return view('PkgCompetences::microCompetence.show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
+        return view('PkgCompetences::microCompetence.show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
 
     }
     /**
@@ -181,13 +189,20 @@ class BaseMicroCompetenceController extends AdminController
         $uniteApprentissages_view_data = $uniteApprentissageService->prepareDataForIndexView();
         extract($uniteApprentissages_view_data);
 
+        $this->viewState->set('scope.realisationMicroCompetence.micro_competence_id', $id);
+        
+
+        $realisationMicroCompetenceService =  new RealisationMicroCompetenceService();
+        $realisationMicroCompetences_view_data = $realisationMicroCompetenceService->prepareDataForIndexView();
+        extract($realisationMicroCompetences_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._edit', array_merge(compact('bulkEdit' , 'itemMicroCompetence','competences'),$uniteApprentissage_compact_value));
+            return view('PkgCompetences::microCompetence._edit', array_merge(compact('bulkEdit' , 'itemMicroCompetence','competences'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
         }
 
-        return view('PkgCompetences::microCompetence.edit', array_merge(compact('bulkEdit' ,'itemMicroCompetence','competences'),$uniteApprentissage_compact_value));
+        return view('PkgCompetences::microCompetence.edit', array_merge(compact('bulkEdit' ,'itemMicroCompetence','competences'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
 
 
     }

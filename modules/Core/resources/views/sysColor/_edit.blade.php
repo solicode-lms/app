@@ -46,10 +46,19 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatEvaluationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatEvaluationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatEvaluationProjet" aria-selected="false">{{ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationChapitre-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationChapitre" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationChapitre" aria-selected="false">{{ucfirst(__('PkgApprentissage::etatRealisationChapitre.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-sysModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sysModule" role="tab" aria-controls="sysColor-hasmany-tabs-sysModule" aria-selected="false">{{ucfirst(__('Core::sysModule.plural'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationMicroCompetence-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationMicroCompetence" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationMicroCompetence" aria-selected="false">{{ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatsRealisationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationUa-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationUa" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationUa" aria-selected="false">{{ucfirst(__('PkgApprentissage::etatRealisationUa.plural'))}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-sectionWidget-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-sectionWidget" role="tab" aria-controls="sysColor-hasmany-tabs-sectionWidget" aria-selected="false">{{ucfirst(__('PkgWidgets::sectionWidget.plural'))}}</a>
@@ -79,11 +88,20 @@
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatEvaluationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatEvaluationProjet-tab">
                                 @include('PkgEvaluateurs::etatEvaluationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationChapitre" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationChapitre-tab">
+                                @include('PkgApprentissage::etatRealisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sysModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sysModule-tab">
                                 @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationMicroCompetence" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationMicroCompetence-tab">
+                                @include('PkgApprentissage::etatRealisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatsRealisationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatsRealisationProjet-tab">
                                 @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationUa" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationUa-tab">
+                                @include('PkgApprentissage::etatRealisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-sectionWidget" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-sectionWidget-tab">
                                 @include('PkgWidgets::sectionWidget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])

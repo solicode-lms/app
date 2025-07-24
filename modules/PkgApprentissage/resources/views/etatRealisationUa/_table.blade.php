@@ -1,0 +1,96 @@
+{{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
+
+@section('etatRealisationUa-table')
+<div class="card-body p-0 crud-card-body" id="etatRealisationUas-crud-card-body">
+    <table class="table table-striped text-nowrap" style="table-layout: fixed; width: 100%;">
+        <thead style="width: 100%">
+            <tr>
+                @php
+                    $bulkEdit = $etatRealisationUas_permissions['edit-etatRealisationUa'] || $etatRealisationUas_permissions['destroy-etatRealisationUa'];
+                @endphp
+                <x-checkbox-header :bulkEdit="$bulkEdit" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.code'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatRealisationUa" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <th class="text-center">{{ __('Core::msg.action') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @section('etatRealisationUa-table-tbody')
+            @foreach ($etatRealisationUas_data as $etatRealisationUa)
+                @php
+                    $isEditable = $etatRealisationUas_permissions['edit-etatRealisationUa'] && $etatRealisationUas_permissionsByItem['update'][$etatRealisationUa->id];
+                @endphp
+                <tr id="etatRealisationUa-row-{{$etatRealisationUa->id}}" data-id="{{$etatRealisationUa->id}}">
+                    <x-checkbox-row :item="$etatRealisationUa" :bulkEdit="$bulkEdit" />
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationUa->nom }}" >
+                        {{ $etatRealisationUa->nom }}
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationUa->code }}" >
+                        {{ $etatRealisationUa->code }}
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationUa->sysColor }}" >
+                        <x-badge 
+                        :text="$etatRealisationUa->sysColor->name ?? ''" 
+                        :background="$etatRealisationUa->sysColor->hex ?? '#6c757d'" 
+                        />
+
+                    </td>
+                    <td class="text-right wrappable" style="max-width: 15%;">
+
+
+                       
+
+                        @if($etatRealisationUas_permissions['edit-etatRealisationUa'])
+                        <x-action-button :entity="$etatRealisationUa" actionName="edit">
+                        @if($etatRealisationUas_permissionsByItem['update'][$etatRealisationUa->id])
+                            <a href="{{ route('etatRealisationUas.edit', ['etatRealisationUa' => $etatRealisationUa->id]) }}" data-id="{{$etatRealisationUa->id}}" class="btn btn-sm btn-default context-state editEntity">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
+                        @if($etatRealisationUas_permissions['show-etatRealisationUa'])
+                        <x-action-button :entity="$etatRealisationUa" actionName="show">
+                        @if($etatRealisationUas_permissionsByItem['view'][$etatRealisationUa->id])
+                            <a href="{{ route('etatRealisationUas.show', ['etatRealisationUa' => $etatRealisationUa->id]) }}" data-id="{{$etatRealisationUa->id}}" class="btn btn-default btn-sm context-state showEntity">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        @endif
+                        </x-action-button>
+                        @endif
+
+                        <x-action-button :entity="$etatRealisationUa" actionName="delete">
+                        @if($etatRealisationUas_permissions['destroy-etatRealisationUa'])
+                        @if($etatRealisationUas_permissionsByItem['delete'][$etatRealisationUa->id])
+                            <form class="context-state" action="{{ route('etatRealisationUas.destroy',['etatRealisationUa' => $etatRealisationUa->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-default d-none d-lg-inline deleteEntity" data-id="{{$etatRealisationUa->id}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
+                        @endif
+                        </x-action-button>
+                    </td>
+                </tr>
+            @endforeach
+            @show
+        </tbody>
+    </table>
+</div>
+@show
+
+<div class="card-footer">
+    @section('etatRealisationUa-crud-pagination')
+    <ul class="pagination m-0 d-flex justify-content-center">
+        {{ $etatRealisationUas_data->onEachSide(1)->links() }}
+    </ul>
+    @show
+</div>
+<script>
+    window.viewState = @json($viewState);
+</script>

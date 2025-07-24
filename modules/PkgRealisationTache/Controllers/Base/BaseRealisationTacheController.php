@@ -9,6 +9,9 @@ use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
+use Modules\PkgApprentissage\Services\RealisationUaProjetService;
+use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -202,11 +205,32 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
+        $this->viewState->set('scope.realisationChapitre.realisation_tache_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
+
+        $this->viewState->set('scope.realisationUaProjet.realisation_tache_id', $id);
+        
+
+        $realisationUaProjetService =  new RealisationUaProjetService();
+        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
+        extract($realisationUaProjets_view_data);
+
+        $this->viewState->set('scope.realisationUaPrototype.realisation_tache_id', $id);
+        
+
+        $realisationUaPrototypeService =  new RealisationUaPrototypeService();
+        $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
+        extract($realisationUaPrototypes_view_data);
+
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
+            return view('PkgRealisationTache::realisationTache._show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
         }
 
-        return view('PkgRealisationTache::realisationTache.show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
+        return view('PkgRealisationTache::realisationTache.show', array_merge(compact('itemRealisationTache'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
 
     }
     /**
@@ -243,13 +267,34 @@ class BaseRealisationTacheController extends AdminController
         $historiqueRealisationTaches_view_data = $historiqueRealisationTacheService->prepareDataForIndexView();
         extract($historiqueRealisationTaches_view_data);
 
+        $this->viewState->set('scope.realisationChapitre.realisation_tache_id', $id);
+        
+
+        $realisationChapitreService =  new RealisationChapitreService();
+        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
+        extract($realisationChapitres_view_data);
+
+        $this->viewState->set('scope.realisationUaProjet.realisation_tache_id', $id);
+        
+
+        $realisationUaProjetService =  new RealisationUaProjetService();
+        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
+        extract($realisationUaProjets_view_data);
+
+        $this->viewState->set('scope.realisationUaPrototype.realisation_tache_id', $id);
+        
+
+        $realisationUaPrototypeService =  new RealisationUaPrototypeService();
+        $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
+        extract($realisationUaPrototypes_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationTache::realisationTache._fields', array_merge(compact('bulkEdit' , 'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
+            return view('PkgRealisationTache::realisationTache._edit', array_merge(compact('bulkEdit' , 'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
         }
 
-        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value));
+        return view('PkgRealisationTache::realisationTache.edit', array_merge(compact('bulkEdit' ,'itemRealisationTache','etatRealisationTaches', 'realisationProjets', 'taches'),$evaluationRealisationTache_compact_value, $historiqueRealisationTache_compact_value, $realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
 
 
     }

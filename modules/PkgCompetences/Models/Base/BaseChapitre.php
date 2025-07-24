@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 use Modules\PkgFormation\Models\Formateur;
+use Modules\PkgApprentissage\Models\RealisationChapitre;
 
 /**
  * Classe BaseChapitre
@@ -81,6 +82,15 @@ class BaseChapitre extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour Chapitres.
+     *
+     * @return HasMany
+     */
+    public function realisationChapitres(): HasMany
+    {
+        return $this->hasMany(RealisationChapitre::class, 'chapitre_id', 'id');
+    }
 
 
 

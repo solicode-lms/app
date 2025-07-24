@@ -16,7 +16,10 @@ use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationTache;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
+use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
+use Modules\PkgApprentissage\Models\RealisationUaProjet;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 
 /**
  * Classe BaseRealisationTache
@@ -152,9 +155,36 @@ class BaseRealisationTache extends BaseModel
      *
      * @return HasMany
      */
+    public function realisationChapitres(): HasMany
+    {
+        return $this->hasMany(RealisationChapitre::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
     public function commentaireRealisationTaches(): HasMany
     {
         return $this->hasMany(CommentaireRealisationTache::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
+    public function realisationUaProjets(): HasMany
+    {
+        return $this->hasMany(RealisationUaProjet::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour RealisationTaches.
+     *
+     * @return HasMany
+     */
+    public function realisationUaPrototypes(): HasMany
+    {
+        return $this->hasMany(RealisationUaPrototype::class, 'realisation_tache_id', 'id');
     }
 
 

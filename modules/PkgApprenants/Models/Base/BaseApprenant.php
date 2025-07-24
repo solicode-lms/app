@@ -18,6 +18,7 @@ use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 
 /**
  * Classe BaseApprenant
@@ -163,6 +164,15 @@ class BaseApprenant extends BaseModel
     public function realisationProjets(): HasMany
     {
         return $this->hasMany(RealisationProjet::class, 'apprenant_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Apprenants.
+     *
+     * @return HasMany
+     */
+    public function realisationMicroCompetences(): HasMany
+    {
+        return $this->hasMany(RealisationMicroCompetence::class, 'apprenant_id', 'id');
     }
 
 

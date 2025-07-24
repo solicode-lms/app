@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\MicroCompetence;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCompetences\Models\CritereEvaluation;
+use Modules\PkgApprentissage\Models\RealisationUa;
 
 /**
  * Classe BaseUniteApprentissage
@@ -84,6 +85,15 @@ class BaseUniteApprentissage extends BaseModel
     public function critereEvaluations(): HasMany
     {
         return $this->hasMany(CritereEvaluation::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation HasMany pour UniteApprentissages.
+     *
+     * @return HasMany
+     */
+    public function realisationUas(): HasMany
+    {
+        return $this->hasMany(RealisationUa::class, 'unite_apprentissage_id', 'id');
     }
 
 
