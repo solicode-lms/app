@@ -184,11 +184,11 @@ DROP TABLE IF EXISTS `chapitres`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chapitres` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `duree_en_heure` double NOT NULL DEFAULT '0',
   `ordre` int unsigned NOT NULL DEFAULT '0',
   `isOfficiel` tinyint(1) NOT NULL DEFAULT '1',
@@ -245,6 +245,27 @@ CREATE TABLE `competences` (
   UNIQUE KEY `competences_reference_unique` (`reference`),
   KEY `competences_module_id_foreign` (`module_id`),
   CONSTRAINT `competences_module_id_foreign` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `critere_evaluations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `critere_evaluations` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `intitule` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bareme` double NOT NULL DEFAULT '1',
+  `ordre` int NOT NULL DEFAULT '0',
+  `phase_evaluation_id` bigint unsigned NOT NULL,
+  `unite_apprentissage_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `critere_evaluations_reference_unique` (`reference`),
+  KEY `critere_evaluations_phase_evaluation_id_foreign` (`phase_evaluation_id`),
+  KEY `critere_evaluations_unite_apprentissage_id_foreign` (`unite_apprentissage_id`),
+  CONSTRAINT `critere_evaluations_phase_evaluation_id_foreign` FOREIGN KEY (`phase_evaluation_id`) REFERENCES `phase_evaluations` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `critere_evaluations_unite_apprentissage_id_foreign` FOREIGN KEY (`unite_apprentissage_id`) REFERENCES `unite_apprentissages` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `e_data_fields`;
@@ -406,6 +427,46 @@ CREATE TABLE `etat_evaluation_projets` (
   CONSTRAINT `etat_evaluation_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `etat_realisation_chapitres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `etat_realisation_chapitres` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
+  `sys_color_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `etat_realisation_chapitres_reference_unique` (`reference`),
+  UNIQUE KEY `etat_realisation_chapitres_code_unique` (`code`),
+  KEY `etat_realisation_chapitres_sys_color_id_foreign` (`sys_color_id`),
+  CONSTRAINT `etat_realisation_chapitres_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `etat_realisation_micro_competences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `etat_realisation_micro_competences` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
+  `sys_color_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `etat_realisation_micro_competences_reference_unique` (`reference`),
+  UNIQUE KEY `etat_realisation_micro_competences_code_unique` (`code`),
+  KEY `etat_realisation_micro_competences_sys_color_id_foreign` (`sys_color_id`),
+  CONSTRAINT `etat_realisation_micro_competences_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `etat_realisation_taches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -428,6 +489,26 @@ CREATE TABLE `etat_realisation_taches` (
   CONSTRAINT `etat_realisation_taches_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `etat_realisation_taches_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`),
   CONSTRAINT `etat_realisation_taches_workflow_tache_id_foreign` FOREIGN KEY (`workflow_tache_id`) REFERENCES `workflow_taches` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `etat_realisation_uas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `etat_realisation_uas` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
+  `sys_color_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `etat_realisation_uas_reference_unique` (`reference`),
+  UNIQUE KEY `etat_realisation_uas_code_unique` (`code`),
+  KEY `etat_realisation_uas_sys_color_id_foreign` (`sys_color_id`),
+  CONSTRAINT `etat_realisation_uas_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `etats_realisation_projets`;
@@ -793,12 +874,12 @@ DROP TABLE IF EXISTS `micro_competences`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `micro_competences` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sous_titre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sous_titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int unsigned NOT NULL DEFAULT '0',
   `competence_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -954,6 +1035,24 @@ CREATE TABLE `permissions` (
   CONSTRAINT `permissions_controller_id_foreign` FOREIGN KEY (`controller_id`) REFERENCES `sys_controllers` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `phase_evaluations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `phase_evaluations` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `coefficient` double NOT NULL DEFAULT '1',
+  `ordre` int NOT NULL DEFAULT '0',
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `phase_evaluations_reference_unique` (`reference`),
+  UNIQUE KEY `phase_evaluations_code_unique` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `priorite_taches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1012,6 +1111,61 @@ CREATE TABLE `projets` (
   CONSTRAINT `projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `realisation_chapitres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `realisation_chapitres` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_debut` datetime DEFAULT NULL,
+  `date_fin` datetime DEFAULT NULL,
+  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `realisation_ua_id` bigint unsigned NOT NULL,
+  `realisation_tache_id` bigint unsigned DEFAULT NULL,
+  `chapitre_id` bigint unsigned NOT NULL,
+  `etat_realisation_chapitre_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `realisation_chapitres_reference_unique` (`reference`),
+  KEY `realisation_chapitres_realisation_ua_id_foreign` (`realisation_ua_id`),
+  KEY `realisation_chapitres_realisation_tache_id_foreign` (`realisation_tache_id`),
+  KEY `realisation_chapitres_chapitre_id_foreign` (`chapitre_id`),
+  KEY `fk_rchap_etat` (`etat_realisation_chapitre_id`),
+  CONSTRAINT `fk_rchap_etat` FOREIGN KEY (`etat_realisation_chapitre_id`) REFERENCES `etat_realisation_chapitres` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `realisation_chapitres_chapitre_id_foreign` FOREIGN KEY (`chapitre_id`) REFERENCES `chapitres` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_chapitres_realisation_tache_id_foreign` FOREIGN KEY (`realisation_tache_id`) REFERENCES `realisation_taches` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `realisation_chapitres_realisation_ua_id_foreign` FOREIGN KEY (`realisation_ua_id`) REFERENCES `realisation_uas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `realisation_micro_competences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `realisation_micro_competences` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_debut` datetime DEFAULT NULL,
+  `date_fin` datetime DEFAULT NULL,
+  `progression_cache` double NOT NULL DEFAULT '0',
+  `note_cache` double NOT NULL DEFAULT '0',
+  `bareme_cache` double NOT NULL DEFAULT '0',
+  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `dernier_update` datetime DEFAULT NULL,
+  `apprenant_id` bigint unsigned NOT NULL,
+  `micro_competence_id` bigint unsigned NOT NULL,
+  `etat_realisation_micro_competence_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `realisation_micro_competences_reference_unique` (`reference`),
+  KEY `realisation_micro_competences_apprenant_id_foreign` (`apprenant_id`),
+  KEY `realisation_micro_competences_micro_competence_id_foreign` (`micro_competence_id`),
+  KEY `fk_rmcomp_etat` (`etat_realisation_micro_competence_id`),
+  CONSTRAINT `fk_rmcomp_etat` FOREIGN KEY (`etat_realisation_micro_competence_id`) REFERENCES `etat_realisation_micro_competences` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `realisation_micro_competences_apprenant_id_foreign` FOREIGN KEY (`apprenant_id`) REFERENCES `apprenants` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_micro_competences_micro_competence_id_foreign` FOREIGN KEY (`micro_competence_id`) REFERENCES `micro_competences` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `realisation_projets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1061,6 +1215,79 @@ CREATE TABLE `realisation_taches` (
   CONSTRAINT `realisation_taches_etat_realisation_tache_id_foreign` FOREIGN KEY (`etat_realisation_tache_id`) REFERENCES `etat_realisation_taches` (`id`) ON DELETE SET NULL,
   CONSTRAINT `realisation_taches_realisation_projet_id_foreign` FOREIGN KEY (`realisation_projet_id`) REFERENCES `realisation_projets` (`id`) ON DELETE CASCADE,
   CONSTRAINT `realisation_taches_tache_id_foreign` FOREIGN KEY (`tache_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `realisation_ua_projets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `realisation_ua_projets` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` double NOT NULL DEFAULT '0',
+  `bareme` double NOT NULL DEFAULT '0',
+  `remarque_formateur` text COLLATE utf8mb4_unicode_ci,
+  `date_debut` datetime DEFAULT NULL,
+  `date_fin` datetime DEFAULT NULL,
+  `realisation_ua_id` bigint unsigned NOT NULL,
+  `realisation_tache_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `realisation_ua_projets_reference_unique` (`reference`),
+  KEY `realisation_ua_projets_realisation_ua_id_foreign` (`realisation_ua_id`),
+  KEY `realisation_ua_projets_realisation_tache_id_foreign` (`realisation_tache_id`),
+  CONSTRAINT `realisation_ua_projets_realisation_tache_id_foreign` FOREIGN KEY (`realisation_tache_id`) REFERENCES `realisation_taches` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_ua_projets_realisation_ua_id_foreign` FOREIGN KEY (`realisation_ua_id`) REFERENCES `realisation_uas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `realisation_ua_prototypes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `realisation_ua_prototypes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` double NOT NULL DEFAULT '0',
+  `bareme` double NOT NULL DEFAULT '0',
+  `remarque_formateur` text COLLATE utf8mb4_unicode_ci,
+  `date_debut` datetime DEFAULT NULL,
+  `date_fin` datetime DEFAULT NULL,
+  `realisation_ua_id` bigint unsigned NOT NULL,
+  `realisation_tache_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `realisation_ua_prototypes_reference_unique` (`reference`),
+  KEY `realisation_ua_prototypes_realisation_ua_id_foreign` (`realisation_ua_id`),
+  KEY `realisation_ua_prototypes_realisation_tache_id_foreign` (`realisation_tache_id`),
+  CONSTRAINT `realisation_ua_prototypes_realisation_tache_id_foreign` FOREIGN KEY (`realisation_tache_id`) REFERENCES `realisation_taches` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_ua_prototypes_realisation_ua_id_foreign` FOREIGN KEY (`realisation_ua_id`) REFERENCES `realisation_uas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `realisation_uas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `realisation_uas` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_debut` datetime DEFAULT NULL,
+  `date_fin` datetime DEFAULT NULL,
+  `progression_cache` double NOT NULL DEFAULT '0',
+  `note_cache` double NOT NULL DEFAULT '0',
+  `bareme_cache` double NOT NULL DEFAULT '0',
+  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `realisation_micro_competence_id` bigint unsigned NOT NULL,
+  `unite_apprentissage_id` bigint unsigned NOT NULL,
+  `etat_realisation_ua_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `realisation_uas_reference_unique` (`reference`),
+  KEY `realisation_uas_realisation_micro_competence_id_foreign` (`realisation_micro_competence_id`),
+  KEY `realisation_uas_unite_apprentissage_id_foreign` (`unite_apprentissage_id`),
+  KEY `fk_rua_etat` (`etat_realisation_ua_id`),
+  CONSTRAINT `fk_rua_etat` FOREIGN KEY (`etat_realisation_ua_id`) REFERENCES `etat_realisation_uas` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `realisation_uas_realisation_micro_competence_id_foreign` FOREIGN KEY (`realisation_micro_competence_id`) REFERENCES `realisation_micro_competences` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_uas_unite_apprentissage_id_foreign` FOREIGN KEY (`unite_apprentissage_id`) REFERENCES `unite_apprentissages` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `resources`;
@@ -1294,11 +1521,11 @@ DROP TABLE IF EXISTS `unite_apprentissages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `unite_apprentissages` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lien` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lien` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int unsigned NOT NULL DEFAULT '0',
   `micro_competence_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1564,3 +1791,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (141,'2025_07_14_10
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (142,'2025_07_14_102022_create_chapitres_table',28);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (143,'2025_07_19_144700_add_code_to_unite_apprentissages_table',29);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (144,'2025_07_19_150339_add_code_and_duree_to_chapitres_table',30);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (145,'2025_07_23_183609_create_phase_evaluations_table',31);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (146,'2025_07_23_183911_create_critere_evaluations_table',32);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (147,'2025_07_23_192910_add_unite_apprentissage_id_to_critere_evaluations_table',33);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (148,'2025_07_24_085112_create_etat_realisation_micro_competences_table',34);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (149,'2025_07_24_085304_create_etat_realisation_uas_table',35);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (151,'2025_07_24_085404_create_etat_realisation_chapitres_table',36);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (152,'2025_07_24_085625_create_realisation_micro_competences_table',37);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (153,'2025_07_24_090114_create_realisation_uas_table',38);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (155,'2025_07_24_090212_create_realisation_chapitres_table',39);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (156,'2025_07_24_090256_create_realisation_ua_prototypes_table',39);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (157,'2025_07_24_091203_create_realisation_ua_projets_table',40);
