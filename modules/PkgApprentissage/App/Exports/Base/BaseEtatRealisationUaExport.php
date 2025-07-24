@@ -32,6 +32,7 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
     {
         if ($this->format === 'csv') {
             return [
+                'ordre' => 'ordre',
                 'reference' => 'reference',
                 'nom' => 'nom',
                 'code' => 'code',
@@ -41,6 +42,7 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
             ];
         } else {
             return [
+                'ordre' => __('PkgApprentissage::etatRealisationUa.ordre'),
                 'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationUa.nom'),
                 'code' => __('PkgApprentissage::etatRealisationUa.code'),
@@ -58,6 +60,7 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($etatRealisationUa) {
             return [
+                'ordre' => (string) $etatRealisationUa->ordre,
                 'reference' => $etatRealisationUa->reference,
                 'nom' => $etatRealisationUa->nom,
                 'code' => $etatRealisationUa->code,

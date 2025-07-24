@@ -44,7 +44,7 @@ class BaseEtatRealisationMicroCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'code', 'description', 'is_editable_only_by_formateur', 'sys_color_id'
+        'ordre', 'nom', 'code', 'description', 'is_editable_only_by_formateur', 'sys_color_id'
     ];
     public $manyToOne = [
         'SysColor' => [

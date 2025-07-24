@@ -434,5 +434,67 @@
         "value_boolean": 1,
         "e_data_field_reference": "etat_realisation_chapitres_hasMany_realisation_chapitres_etat_realisation_chapitre_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_columnWidth",
+        "value_integer": 4,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationChapitre_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationChapitre_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

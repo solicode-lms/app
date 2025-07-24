@@ -29,7 +29,36 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEtatRealisationChapitre" field="nom" :bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemEtatRealisationChapitre" field="ordre" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgApprentissage::etatRealisationChapitre.ordre') }}"
+                value="{{ $itemEtatRealisationChapitre ? $itemEtatRealisationChapitre->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemEtatRealisationChapitre" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

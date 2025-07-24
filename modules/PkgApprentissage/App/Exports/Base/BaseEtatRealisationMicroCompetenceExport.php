@@ -32,6 +32,7 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
     {
         if ($this->format === 'csv') {
             return [
+                'ordre' => 'ordre',
                 'reference' => 'reference',
                 'nom' => 'nom',
                 'code' => 'code',
@@ -41,6 +42,7 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
             ];
         } else {
             return [
+                'ordre' => __('PkgApprentissage::etatRealisationMicroCompetence.ordre'),
                 'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationMicroCompetence.nom'),
                 'code' => __('PkgApprentissage::etatRealisationMicroCompetence.code'),
@@ -58,6 +60,7 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
     {
         return $this->data->map(function ($etatRealisationMicroCompetence) {
             return [
+                'ordre' => (string) $etatRealisationMicroCompetence->ordre,
                 'reference' => $etatRealisationMicroCompetence->reference,
                 'nom' => $etatRealisationMicroCompetence->nom,
                 'code' => $etatRealisationMicroCompetence->code,

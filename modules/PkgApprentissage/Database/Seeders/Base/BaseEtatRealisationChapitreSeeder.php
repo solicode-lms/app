@@ -81,6 +81,7 @@ class BaseEtatRealisationChapitreSeeder extends Seeder
 
 
                 $etatRealisationChapitreData =[
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,

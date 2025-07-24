@@ -29,6 +29,7 @@ class BaseEtatRealisationChapitreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'required|integer',
             'nom' => 'required|string|max:255',
             'code' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -45,6 +46,7 @@ class BaseEtatRealisationChapitreRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.ordre')]),
             'nom.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.nom')]),
             'nom.max' => __('validation.nomMax'),
             'code.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.code')]),

@@ -21,6 +21,7 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'nom',
         'code',
         'description',

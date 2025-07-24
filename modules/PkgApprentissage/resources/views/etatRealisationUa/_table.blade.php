@@ -9,9 +9,10 @@
                     $bulkEdit = $etatRealisationUas_permissions['edit-etatRealisationUa'] || $etatRealisationUas_permissions['destroy-etatRealisationUa'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="nom" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="code" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.code'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="etatRealisationUa" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="nom" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatRealisationUa" label="{!!ucfirst(__('PkgApprentissage::etatRealisationUa.code'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatRealisationUa" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,15 +24,21 @@
                 @endphp
                 <tr id="etatRealisationUa-row-{{$etatRealisationUa->id}}" data-id="{{$etatRealisationUa->id}}">
                     <x-checkbox-row :item="$etatRealisationUa" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationUa->nom }}" >
+                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $etatRealisationUa->ordre }}" >
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $etatRealisationUa->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
+
+                    </td>
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationUa->nom }}" >
                         {{ $etatRealisationUa->nom }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationUa->code }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationUa->code }}" >
                         {{ $etatRealisationUa->code }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationUa->sysColor }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationUa->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationUa->sysColor }}" >
                         <x-badge 
                         :text="$etatRealisationUa->sysColor->name ?? ''" 
                         :background="$etatRealisationUa->sysColor->hex ?? '#6c757d'" 
