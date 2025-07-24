@@ -102,5 +102,13 @@
         "description": "Automatically generated package for PkgNotification",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 14,
+        "reference": "PkgApprentissage",
+        "name": "PkgApprentissage",
+        "description": "Automatically generated package for PkgApprentissage",
+        "created_at": null,
+        "updated_at": null
     }
 ]

@@ -559,5 +559,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_displayOrder",
+        "value_integer": 13,
+        "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
