@@ -1,5 +1,9 @@
 
 ````bash
+php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
+
+
+
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\MicroCompetenceSeeder
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\UniteApprentissageSeeder
 php artisan db:seed --class=Modules\PkgCompetences\Database\Seeders\ChapitreSeeder

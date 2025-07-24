@@ -152,7 +152,23 @@
     "tables": [
         "notifications"
     ]
+},
+
+"PkgApprentissage": {
+    "name": "PkgApprentissage",
+    "tables": [
+        "etat_realisation_micro_competences",
+        "etat_realisation_uas",
+        "etat_realisation_chapitres",
+        "realisation_micro_competences",
+        "realisation_uas",
+        "realisation_chapitres",
+        "realisation_ua_prototypes",
+        "realisation_ua_projets"
+    ]
 }
+
+
         
 }
 

@@ -13,3 +13,4 @@
 "Gestion des notification","PkgNotification","Contient les tables PkgNotification","1","11","1","danger","PkgNotification"
 "Evaluation de projets","PkgEvaluateurs","Contient les tables PkgEvaluateurs","1","12","1","danger","PkgEvaluateurs"
 "Gestion des tâches","PkgCreationTache","Contient les tables PkgCreationTache","1","11","1","danger","PkgCreationTache"
+"Gestion des apprentissages","PkgApprentissage","Contient les tables PkgApprentissage","1","11","1","danger","PkgApprentissage"
