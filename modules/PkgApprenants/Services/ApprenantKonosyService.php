@@ -138,8 +138,10 @@ class ApprenantKonosyService extends BaseService
         );
         $user->assignRole(Role::APPRENANT_ROLE);
 
-        // Create or Update Apprenant 
-        $apprenant = (new ApprenantService())->updateOrCreate(
+        // Create or Update Apprenant
+        $apprenantService= new ApprenantService();
+       
+        $apprenant = $apprenantService->updateOrCreate(
             ['matricule' => $apprenantKonosy->MatriculeEtudiant],
             [
             'nom' => $apprenantKonosy->Nom,
@@ -158,14 +160,16 @@ class ApprenantKonosyService extends BaseService
             'adresse' => $apprenantKonosy->Adresse,
             'nationalite_id' => $nationalite->id,
             'niveaux_scolaire_id' => $niveau_scolaire->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+       
+            'groupes' => [$groupe->id],   // Ajouter la relation groupes
             ]
         );
 
-         // Ajouter l'apprenant au groupe
-        if (!$apprenant->groupes()->where('id', $groupe->id)->exists()) {
-            $apprenant->groupes()->attach($groupe->id);
-        }
+         // Ajouter l'apprenant au groupe : ce code ne va pas executer les règle métier de create 
+        // if (!$apprenant->groupes()->where('id', $groupe->id)->exists()) {
+        //     $apprenant->groupes()->attach($groupe->id);
+        // }
 
     }
 }

@@ -1,1 +1,8 @@
-nom,code,description,is_editable_only_by_formateur,sys_color_id
+"ordre","reference","nom","code","description","is_editable_only_by_formateur","sys_color_reference"
+1,"TODO","À faire","TODO","La micro-compétence est planifiée mais n’a pas encore été commencée.","1","secondary"
+2,"IN_PROGRESS_CHAPITRE","En cours – Chapitre (Imiter)","IN_PROGRESS_CHAPITRE","La micro-compétence est en phase chapitre (niveau 1 – imitation).","1","info"
+3,"IN_PROGRESS_PROTOTYPE","En cours – Prototype (Adapter)","IN_PROGRESS_PROTOTYPE","La micro-compétence est en phase prototype (niveau 2 – adaptation).","1","blue"
+4,"IN_PROGRESS_PROJET","En cours – Mini-projet (Transposer)","IN_PROGRESS_PROJET","La micro-compétence est en phase mini-projet (niveau 3 – transposition).","1","indigo"
+5,"DONE","Terminé","DONE","La micro-compétence est terminée et validée automatiquement par le système.","1","success"
+6,"PAUSED","En pause","PAUSED","La micro-compétence est temporairement mise en attente.","1","warning"
+7,"BLOCKED","Bloqué","BLOCKED","La micro-compétence est bloquée (problème technique ou blocage pédagogique).","1","danger"

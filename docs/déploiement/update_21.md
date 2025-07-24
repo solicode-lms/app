@@ -1,5 +1,12 @@
 
 ````bash
+
+
+
+php artisan db:seed --class=Modules\PkgApprenants\Database\Seeders\ApprenantKonosySeeder
+
+
+
 php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysModuleSeeder
 
 
@@ -17,6 +24,9 @@ php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeede
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
 
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationChapitreSeeder
+php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationMicroCompetenceSeeder
+
+php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationUaSeeder
 
 
 

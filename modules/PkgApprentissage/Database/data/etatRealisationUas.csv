@@ -1,1 +1,8 @@
-nom,code,description,is_editable_only_by_formateur,sys_color_id
+"ordre","reference","nom","code","description","is_editable_only_by_formateur","sys_color_reference"
+1,"TODO","À faire","TODO","L’unité d’apprentissage est planifiée mais pas encore commencée.","0","secondary"
+2,"IN_PROGRESS_CHAPITRE","En cours(Imiter)","IN_PROGRESS_CHAPITRE","L’unité d’apprentissage est en phase chapitre (niveau 1 – imitation).","0","info"
+3,"IN_PROGRESS_PROTOTYPE","En cours(Adapter)","IN_PROGRESS_PROTOTYPE","L’unité d’apprentissage est en phase prototype (niveau 2 – adaptation).","0","blue"
+4,"IN_PROGRESS_PROJET","En cours(Transposer)","IN_PROGRESS_PROJET","L’unité d’apprentissage est en phase mini-projet (niveau 3 – transposition).","0","indigo"
+5,"DONE","Terminé","DONE","L’unité d’apprentissage est terminée et validée automatiquement par le système.","0","success"
+6,"PAUSED","En pause","PAUSED","L’unité d’apprentissage est temporairement mise en attente.","0","warning"
+7,"BLOCKED","Bloqué","BLOCKED","L’unité d’apprentissage est bloquée (problème technique ou pédagogique).","0","danger"

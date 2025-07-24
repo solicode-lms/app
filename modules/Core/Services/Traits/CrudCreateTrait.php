@@ -4,6 +4,7 @@ namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 trait CrudCreateTrait
 {
@@ -53,37 +54,52 @@ trait CrudCreateTrait
      * @param array $data Données de l'élément à créer.
      * @return mixed
      */
-    public function create(array|object $data){
-        $this->executeRules('before', 'create', $data, null);
-        if (is_object($data) && $data instanceof \Illuminate\Database\Eloquent\Model) {
-            $data = $data->getAttributes(); // Convertit l'objet Eloquent en tableau
-        }
-        if (!is_array($data)) {
-            throw new \InvalidArgumentException('Les données doivent être un tableau ou un objet Eloquent.');
-        }
+    /**
+     * Crée un nouvel élément avec transaction.
+     *
+     * @param array $data Données de l'élément à créer.
+     * @return mixed
+     */
+    public function create(array|object $data)
+    {
+        return DB::transaction(function () use ($data) {
+            $this->executeRules('before', 'create', $data, null);
 
-        // Si le modèle a une colonne "ordre"
-        if ($this->hasOrdreColumn()) {
-            $ordre = $data['ordre'] ?? $this->getNextOrdre();
-
-            // Réorganiser les autres si l’ordre est explicitement fourni
-            if (isset($data['ordre'])) {
-                if($this->ordreGroupColumn){
-                    $this->reorderOrdreColumn(null, $ordre, null, $data[$this->ordreGroupColumn]);
-                }else{
-                    $this->reorderOrdreColumn(null, $ordre, null, null);
-                }
-               
+            if (is_object($data) && $data instanceof Model) {
+                $data = $data->getAttributes();
+            }
+            if (!is_array($data)) {
+                throw new \InvalidArgumentException('Les données doivent être un tableau ou un objet Eloquent.');
             }
 
-            $data['ordre'] = $ordre;
-        }
-        
-        $entity = $this->model->create($data);
-        $this->syncManyToManyRelations($entity, $data);
+            // Si le modèle a une colonne "ordre"
+            if ($this->hasOrdreColumn()) {
+                $ordre = $data['ordre'] ?? $this->getNextOrdre();
+                if (isset($data['ordre'])) {
+                    if ($this->ordreGroupColumn) {
+                        $this->reorderOrdreColumn(null, $ordre, null, $data[$this->ordreGroupColumn]);
+                    } else {
+                        $this->reorderOrdreColumn(null, $ordre, null, null);
+                    }
+                }
+                $data['ordre'] = $ordre;
+            }
 
-        $this->executeRules('after', 'create', $entity, $entity->id);
-        return  $entity;
+            // Créer l'entité principale
+
+            // Filtrer les champs non fillable
+            $data_fillable = array_intersect_key($data, array_flip($this->model->getFillable()));
+
+            $entity = $this->model->create($data_fillable);
+
+            // Synchroniser les relations ManyToMany
+            $this->syncManyToManyRelations($entity, $data);
+
+            // Exécuter les règles après création
+            $this->executeRules('after', 'create', $entity, $entity->id);
+
+            return $entity;
+        });
     }
   
     /**
@@ -93,8 +109,24 @@ trait CrudCreateTrait
      * @param array $values Données à mettre à jour ou à créer.
      * @return Model
      */
+    // public function updateOrCreate(array $attributes, array $values)
+    // {
+    //    return $this->model->updateOrCreate($attributes, $values);
+    // }
+
+
     public function updateOrCreate(array $attributes, array $values)
     {
-        return $this->model->updateOrCreate($attributes, $values);
+        // Rechercher l'entité existante
+        $entity = $this->model->where($attributes)->first();
+
+        if ($entity) {
+            // Mettre à jour avec logique métier
+            return $this->update($entity->id, $values);
+        } else {
+            // Créer avec logique métier
+            $data = array_merge($attributes, $values);
+            return $this->create($data);
+        }
     }
 }

@@ -9,11 +9,9 @@
                     $bulkEdit = $realisationMicroCompetences_permissions['edit-realisationMicroCompetence'] || $realisationMicroCompetences_permissions['destroy-realisationMicroCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="apprenant_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,21 +23,15 @@
                 @endphp
                 <tr id="realisationMicroCompetence-row-{{$realisationMicroCompetence->id}}" data-id="{{$realisationMicroCompetence->id}}">
                     <x-checkbox-row :item="$realisationMicroCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->date_debut }}" >
-                        <x-deadline-display :value="$realisationMicroCompetence->date_debut" />
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->date_fin }}" >
-                        <x-deadline-display :value="$realisationMicroCompetence->date_fin" />
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->apprenant }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->apprenant }}" >
                         {{  $realisationMicroCompetence->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->microCompetence }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->microCompetence }}" >
                         {{  $realisationMicroCompetence->microCompetence }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="etat_realisation_micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->etatRealisationMicroCompetence }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="etat_realisation_micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->etatRealisationMicroCompetence }}" >
                         @if(!empty($realisationMicroCompetence->etatRealisationMicroCompetence))
                         <x-badge 
                         :text="$realisationMicroCompetence->etatRealisationMicroCompetence" 

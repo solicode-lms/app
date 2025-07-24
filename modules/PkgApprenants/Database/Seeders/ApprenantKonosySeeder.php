@@ -13,13 +13,14 @@ use Modules\Core\Models\Feature;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Models\SysController;
 use Modules\Core\Models\SysModule;
+use Modules\PkgApprenants\Database\Seeders\Base\BaseApprenantKonosySeeder;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\PkgApprenants\Services\ApprenantKonosyService;
 
-class ApprenantKonosySeeder extends Seeder
+class ApprenantKonosySeeder extends BaseApprenantKonosySeeder
 {
     public static int $order = 14;
 

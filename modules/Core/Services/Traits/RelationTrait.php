@@ -24,13 +24,20 @@ trait RelationTrait
 
             $relation = $relationConfig["relation"];
 
-            if (!isset($data[$relation]) || !is_array($data[$relation]) || empty($data[$relation])) {
-                // Si aucune donnée n'est fournie pour la relation, supprimer toutes les relations existantes
-                $entity->{$relation}()->sync([]);
-            } else {
-                // Mettre à jour les relations normalement
-                $entity->{$relation}()->sync($data[$relation]);
+            // if (!isset($data[$relation]) || !is_array($data[$relation]) || empty($data[$relation])) {
+            //     // Si aucune donnée n'est fournie pour la relation, supprimer toutes les relations existantes
+            //     $entity->{$relation}()->sync([]);
+            // } else {
+            //     // Mettre à jour les relations normalement
+            //     $entity->{$relation}()->sync($data[$relation]);
+            // }
+
+            if (array_key_exists($relation, $data)) {
+            // Si la valeur est null ou tableau vide, on détache tout
+            $values = $data[$relation] ?? [];
+            $entity->$relation()->sync($values);
             }
+            // Si la clé n'existe pas, on ne fait rien
         }
     }
 

@@ -4,6 +4,7 @@ namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 trait CrudUpdateTrait
 {
@@ -48,42 +49,39 @@ trait CrudUpdateTrait
      * @param mixed $id Identifiant de l'élément à mettre à jour.
      * @param array $data Données à mettre à jour.
      * @return Entity modifié
-     */
+    */
     public function update($idOrItem, array $data)
     {
-       
-        $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
-        $id = $entity->id;
-
-        $this->executeRules('before', 'update', $data, $id);
-
-
-        if (!$entity) {
-            return false;
-        }
-
-        if ($this->hasOrdreColumn()) {
-            $ancienOrdre = $entity->ordre;
-    
-            if (!isset($data['ordre']) || $data['ordre'] === null) {
-                $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+        return DB::transaction(function () use ($idOrItem, $data) {
+            $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
+            if (!$entity) {
+                return false;
             }
-    
-            $nouvelOrdre = $data['ordre'];
-    
-            if ($nouvelOrdre !== $ancienOrdre) {
-                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $entity->id,$entity->projet_id);
+
+            $id = $entity->id;
+            $this->executeRules('before', 'update', $data, $id);
+
+            if ($this->hasOrdreColumn()) {
+                $ancienOrdre = $entity->ordre;
+                $data['ordre'] = $data['ordre'] ?? $ancienOrdre ?? $this->getNextOrdre();
+                $nouvelOrdre = $data['ordre'];
+
+                if ($nouvelOrdre !== $ancienOrdre) {
+                    $groupId = $this->ordreGroupColumn && isset($entity->{$this->ordreGroupColumn})
+                        ? $entity->{$this->ordreGroupColumn}
+                        : null;
+                    $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $entity->id, $groupId);
+                }
             }
-        }
 
+            $entity->update($data);
+            $this->syncManyToManyRelations($entity, $data);
+            $this->executeRules('after', 'update', $entity, $id);
 
-       $entity->update($data);
-
-        $this->syncManyToManyRelations($entity, $data);
-
-        $this->executeRules('after', 'update', $entity, $id);
-        return $entity;
+            return $entity;
+        });
     }
+
   /**
      * Méthode surchargable pour mettre à jour un enregistrement.
      * Par défaut, elle utilise la méthode Eloquent standard.

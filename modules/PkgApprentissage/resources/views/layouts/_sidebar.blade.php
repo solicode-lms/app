@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-etatRealisationMicroCompetence', 'index-etatRealisationUa', 'index-etatRealisationChapitre', 'index-realisationMicroCompetence', 'index-realisationUa', 'index-realisationChapitre', 'index-realisationUaPrototype', 'index-realisationUaProjet'])
+@accessiblePermissions(['index-etatRealisationChapitre', 'index-etatRealisationMicroCompetence', 'index-etatRealisationUa', 'index-realisationChapitre', 'index-realisationMicroCompetence', 'index-realisationUaProjet', 'index-realisationUaPrototype', 'index-realisationUa'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgApprentissage" class="nav-item has-treeview  {{ Request::is('admin/PkgApprentissage*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgApprentissage*') ? 'active' : '' }}">
@@ -12,6 +12,14 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('index-etatRealisationChapitre') 
+        <li class="nav-item" id="menu-etatRealisationChapitres">
+            <a href="{{ route('etatRealisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationChapitres') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-check-square"></i>
+                {{__('PkgApprentissage::etatRealisationChapitre.plural')}}
+            </a>
+        </li>
+        @endcan
         @can('index-etatRealisationMicroCompetence') 
         <li class="nav-item" id="menu-etatRealisationMicroCompetences">
             <a href="{{ route('etatRealisationMicroCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationMicroCompetences') ? 'active' : '' }}">
@@ -28,11 +36,11 @@
             </a>
         </li>
         @endcan
-        @can('index-etatRealisationChapitre') 
-        <li class="nav-item" id="menu-etatRealisationChapitres">
-            <a href="{{ route('etatRealisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/etatRealisationChapitres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-check-square"></i>
-                {{__('PkgApprentissage::etatRealisationChapitre.plural')}}
+        @can('index-realisationChapitre') 
+        <li class="nav-item" id="menu-realisationChapitres">
+            <a href="{{ route('realisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationChapitres') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-code"></i>
+                {{__('PkgApprentissage::realisationChapitre.plural')}}
             </a>
         </li>
         @endcan
@@ -44,19 +52,11 @@
             </a>
         </li>
         @endcan
-        @can('index-realisationUa') 
-        <li class="nav-item" id="menu-realisationUas">
-            <a href="{{ route('realisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUas') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-tools"></i>
-                {{__('PkgApprentissage::realisationUa.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-realisationChapitre') 
-        <li class="nav-item" id="menu-realisationChapitres">
-            <a href="{{ route('realisationChapitres.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationChapitres') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-code"></i>
-                {{__('PkgApprentissage::realisationChapitre.plural')}}
+        @can('index-realisationUaProjet') 
+        <li class="nav-item" id="menu-realisationUaProjets">
+            <a href="{{ route('realisationUaProjets.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaProjets') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-cogs"></i>
+                {{__('PkgApprentissage::realisationUaProjet.plural')}}
             </a>
         </li>
         @endcan
@@ -68,11 +68,11 @@
             </a>
         </li>
         @endcan
-        @can('index-realisationUaProjet') 
-        <li class="nav-item" id="menu-realisationUaProjets">
-            <a href="{{ route('realisationUaProjets.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUaProjets') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-cogs"></i>
-                {{__('PkgApprentissage::realisationUaProjet.plural')}}
+        @can('index-realisationUa') 
+        <li class="nav-item" id="menu-realisationUas">
+            <a href="{{ route('realisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgApprentissage/realisationUas') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-tools"></i>
+                {{__('PkgApprentissage::realisationUa.plural')}}
             </a>
         </li>
         @endcan
