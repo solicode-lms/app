@@ -84,9 +84,9 @@ class BaseRealisationChapitreController extends AdminController
         
 
         $chapitres = $this->chapitreService->all();
+        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -113,9 +113,9 @@ class BaseRealisationChapitreController extends AdminController
          
  
         $chapitres = $this->chapitreService->all();
+        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
         $bulkEdit = true;
 
@@ -179,9 +179,9 @@ class BaseRealisationChapitreController extends AdminController
 
 
         $chapitres = $this->chapitreService->all();
+        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
 
         $bulkEdit = false;

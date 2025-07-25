@@ -22,12 +22,12 @@ class BaseRealisationChapitreService extends BaseService
      */
     protected $fieldsSearchable = [
         'chapitre_id',
+        'etat_realisation_chapitre_id',
         'date_debut',
         'date_fin',
-        'commentaire_formateur',
         'realisation_ua_id',
         'realisation_tache_id',
-        'etat_realisation_chapitre_id'
+        'commentaire_formateur'
     ];
 
     /**
@@ -84,6 +84,32 @@ class BaseRealisationChapitreService extends BaseService
                 }
             
             
+                if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::etatRealisationChapitre.plural"), 
+                        'etat_realisation_chapitre_id', 
+                        \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 
+                        'nom'
+                    );
+                }
+            
+            
+                $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                $groupes = $groupeService->all();
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgApprenants::groupe.plural"),
+                    'RealisationUa.RealisationMicroCompetence.Apprenant.Groupes.Id', 
+                    \Modules\PkgApprenants\Models\Groupe::class,
+                    "id", 
+                    "id",
+                    $groupes,
+                    "[name='RealisationUa.RealisationMicroCompetence.Apprenant_id']",
+                    route('apprenants.getData'),
+                    "Groupes.Id"
+                    
+                );
+            
+            
                 $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
                 $apprenants = $apprenantService->all();
                 $this->fieldsFilterable[] = $this->generateRelationFilter(
@@ -102,16 +128,6 @@ class BaseRealisationChapitreService extends BaseService
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
                         'id'
-                    );
-                }
-            
-            
-                if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgApprentissage::etatRealisationChapitre.plural"), 
-                        'etat_realisation_chapitre_id', 
-                        \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 
-                        'nom'
                     );
                 }
             

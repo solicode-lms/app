@@ -9,11 +9,11 @@
                     $bulkEdit = $realisationChapitres_permissions['edit-realisationChapitre'] || $realisationChapitres_permissions['destroy-realisationChapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_ua_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_tache_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="30" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="10" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="14"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
+                <x-sortable-column :sortable="true" width="14" field="realisation_ua_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="14" field="realisation_tache_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,28 +25,28 @@
                 @endphp
                 <tr id="realisationChapitre-row-{{$realisationChapitre->id}}" data-id="{{$realisationChapitre->id}}">
                     <x-checkbox-row :item="$realisationChapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
+                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
                         {{  $realisationChapitre->chapitre }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant"  data-toggle="tooltip" title="{{ $realisationChapitre->apprenant }}" >
-                        {{ $realisationChapitre->apprenant }}
-
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationUa }}" >
-                        @include('PkgApprentissage::realisationChapitre.custom.fields.realisationUa', ['entity' => $realisationChapitre])
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationTache }}" >
-                        {{  $realisationChapitre->realisationTache }}
-
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="etat_realisation_chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->etatRealisationChapitre }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="etat_realisation_chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->etatRealisationChapitre }}" >
                         @if(!empty($realisationChapitre->etatRealisationChapitre))
                         <x-badge 
                         :text="$realisationChapitre->etatRealisationChapitre" 
                         :background="$realisationChapitre->etatRealisationChapitre->sysColor->hex ?? '#6c757d'" 
                         />
                         @endif
+
+                    </td>
+                    <td style="max-width: 14%;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant"  data-toggle="tooltip" title="{{ $realisationChapitre->apprenant }}" >
+                        {{ $realisationChapitre->apprenant }}
+
+                    </td>
+                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationUa }}" >
+                        @include('PkgApprentissage::realisationChapitre.custom.fields.realisationUa', ['entity' => $realisationChapitre])
+                    </td>
+                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationTache }}" >
+                        {{  $realisationChapitre->realisationTache }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

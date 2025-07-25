@@ -63,6 +63,40 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemRealisationChapitre" field="etat_realisation_chapitre_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_chapitre_id" id="bulk_field_etat_realisation_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etat_realisation_chapitre_id">
+            {{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular')) }}
+            
+          </label>
+                      <select 
+            id="etat_realisation_chapitre_id" 
+            
+            
+            
+            name="etat_realisation_chapitre_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatRealisationChapitres as $etatRealisationChapitre)
+                    <option value="{{ $etatRealisationChapitre->id }}"
+                        {{ (isset($itemRealisationChapitre) && $itemRealisationChapitre->etat_realisation_chapitre_id == $etatRealisationChapitre->id) || (old('etat_realisation_chapitre_id>') == $etatRealisationChapitre->id) ? 'selected' : '' }}>
+                        {{ $etatRealisationChapitre }}
+                    </option>
+                @endforeach
+            </select>
+          @error('etat_realisation_chapitre_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemRealisationChapitre" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -117,33 +151,6 @@
                 value="{{ $itemRealisationChapitre ? $itemRealisationChapitre->date_fin : old('date_fin') }}">
 
           @error('date_fin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemRealisationChapitre" field="commentaire_formateur" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="commentaire_formateur" id="bulk_field_commentaire_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="commentaire_formateur">
-            {{ ucfirst(__('PkgApprentissage::realisationChapitre.commentaire_formateur')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="commentaire_formateur"
-                class="form-control richText"
-                
-                
-                
-                id="commentaire_formateur"
-                placeholder="{{ __('PkgApprentissage::realisationChapitre.commentaire_formateur') }}">{{ $itemRealisationChapitre ? $itemRealisationChapitre->commentaire_formateur : old('commentaire_formateur') }}</textarea>
-          @error('commentaire_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -218,34 +225,27 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationChapitre" field="etat_realisation_chapitre_id" :bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemRealisationChapitre" field="commentaire_formateur" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_chapitre_id" id="bulk_field_etat_realisation_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="commentaire_formateur" id="bulk_field_commentaire_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="etat_realisation_chapitre_id">
-            {{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular')) }}
+          <label for="commentaire_formateur">
+            {{ ucfirst(__('PkgApprentissage::realisationChapitre.commentaire_formateur')) }}
             
           </label>
-                      <select 
-            id="etat_realisation_chapitre_id" 
-            
-            
-            
-            name="etat_realisation_chapitre_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($etatRealisationChapitres as $etatRealisationChapitre)
-                    <option value="{{ $etatRealisationChapitre->id }}"
-                        {{ (isset($itemRealisationChapitre) && $itemRealisationChapitre->etat_realisation_chapitre_id == $etatRealisationChapitre->id) || (old('etat_realisation_chapitre_id>') == $etatRealisationChapitre->id) ? 'selected' : '' }}>
-                        {{ $etatRealisationChapitre }}
-                    </option>
-                @endforeach
-            </select>
-          @error('etat_realisation_chapitre_id')
+                      <textarea rows="" cols=""
+                name="commentaire_formateur"
+                class="form-control richText"
+                
+                
+                
+                id="commentaire_formateur"
+                placeholder="{{ __('PkgApprentissage::realisationChapitre.commentaire_formateur') }}">{{ $itemRealisationChapitre ? $itemRealisationChapitre->commentaire_formateur : old('commentaire_formateur') }}</textarea>
+          @error('commentaire_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

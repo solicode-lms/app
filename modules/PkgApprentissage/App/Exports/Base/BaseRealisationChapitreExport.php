@@ -33,23 +33,23 @@ class BaseRealisationChapitreExport implements FromCollection, WithHeadings, Sho
         if ($this->format === 'csv') {
             return [
                 'chapitre_reference' => 'chapitre_reference',
+                'etat_realisation_chapitre_reference' => 'etat_realisation_chapitre_reference',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
-                'commentaire_formateur' => 'commentaire_formateur',
                 'realisation_ua_reference' => 'realisation_ua_reference',
                 'realisation_tache_reference' => 'realisation_tache_reference',
-                'etat_realisation_chapitre_reference' => 'etat_realisation_chapitre_reference',
+                'commentaire_formateur' => 'commentaire_formateur',
                 'reference' => 'reference',
             ];
         } else {
             return [
                 'chapitre_reference' => __('PkgApprentissage::realisationChapitre.chapitre_reference'),
+                'etat_realisation_chapitre_reference' => __('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_reference'),
                 'date_debut' => __('PkgApprentissage::realisationChapitre.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationChapitre.date_fin'),
-                'commentaire_formateur' => __('PkgApprentissage::realisationChapitre.commentaire_formateur'),
                 'realisation_ua_reference' => __('PkgApprentissage::realisationChapitre.realisation_ua_reference'),
                 'realisation_tache_reference' => __('PkgApprentissage::realisationChapitre.realisation_tache_reference'),
-                'etat_realisation_chapitre_reference' => __('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_reference'),
+                'commentaire_formateur' => __('PkgApprentissage::realisationChapitre.commentaire_formateur'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -63,12 +63,12 @@ class BaseRealisationChapitreExport implements FromCollection, WithHeadings, Sho
         return $this->data->map(function ($realisationChapitre) {
             return [
                 'chapitre_reference' => $realisationChapitre->chapitre?->reference,
+                'etat_realisation_chapitre_reference' => $realisationChapitre->etatRealisationChapitre?->reference,
                 'date_debut' => $realisationChapitre->date_debut,
                 'date_fin' => $realisationChapitre->date_fin,
-                'commentaire_formateur' => $realisationChapitre->commentaire_formateur,
                 'realisation_ua_reference' => $realisationChapitre->realisationUa?->reference,
                 'realisation_tache_reference' => $realisationChapitre->realisationTache?->reference,
-                'etat_realisation_chapitre_reference' => $realisationChapitre->etatRealisationChapitre?->reference,
+                'commentaire_formateur' => $realisationChapitre->commentaire_formateur,
                 'reference' => $realisationChapitre->reference,
             ];
         });

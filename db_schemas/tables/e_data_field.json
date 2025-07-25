@@ -6149,7 +6149,7 @@
     },
     {
         "id": 472,
-        "reference": "RealisationChapitre_commentaire_formateur",
+        "reference": "RealisationChapitre-commentaire_formateur",
         "name": "commentaire_formateur",
         "column_name": "commentaire_formateur",
         "data_type": "Text",
@@ -6201,7 +6201,7 @@
     },
     {
         "id": 476,
-        "reference": "RealisationChapitre_etat_realisation_chapitre_id",
+        "reference": "RealisationChapitre-etat_realisation_chapitre_id",
         "name": "etat_realisation_chapitre_id",
         "column_name": "etat_realisation_chapitre_id",
         "data_type": "ManyToOne",
@@ -6214,7 +6214,7 @@
     },
     {
         "id": 477,
-        "reference": "RealisationChapitre_created_at",
+        "reference": "RealisationChapitre-created_at",
         "name": "created_at",
         "column_name": "created_at",
         "data_type": "Date",
@@ -6227,7 +6227,7 @@
     },
     {
         "id": 478,
-        "reference": "RealisationChapitre_updated_at",
+        "reference": "RealisationChapitre-updated_at",
         "name": "updated_at",
         "column_name": "updated_at",
         "data_type": "Date",
@@ -10871,7 +10871,7 @@
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
-        "calculable_sql": "SELECT em.value_boolean\r\nFROM e_metadata em\r\nJOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id\r\nWHERE em.e_data_field_id = e_data_fields.id\r\nAND emd.reference = 'displayInTable'",
+        "calculable_sql": "SELECT em.value_boolean\r\nFROM e_metadata em\r\nJOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id\r\nWHERE em.e_data_field_id = e_data_fields.id\r\nAND emd.reference = 'displayInTable'\r\nORDER BY em.id DESC\r\nLIMIT 1",
         "description": ""
     },
     {

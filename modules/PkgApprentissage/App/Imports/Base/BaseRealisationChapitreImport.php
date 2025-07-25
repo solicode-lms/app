@@ -57,12 +57,12 @@ class BaseRealisationChapitreImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new RealisationChapitre([
              'chapitre_id' => $values[0] ?? null,
-             'date_debut' => $values[1] ?? null,
-             'date_fin' => $values[2] ?? null,
-             'commentaire_formateur' => $values[3] ?? null,
+             'etat_realisation_chapitre_id' => $values[1] ?? null,
+             'date_debut' => $values[2] ?? null,
+             'date_fin' => $values[3] ?? null,
              'realisation_ua_id' => $values[4] ?? null,
              'realisation_tache_id' => $values[5] ?? null,
-             'etat_realisation_chapitre_id' => $values[6] ?? null,
+             'commentaire_formateur' => $values[6] ?? null,
              'reference' => $reference,
         ]);
 

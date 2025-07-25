@@ -62,21 +62,40 @@ class BaseEDataFieldService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('eDataField');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('e_model_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgGapp::eModel.plural"), 
+                        'e_model_id', 
+                        \Modules\PkgGapp\Models\EModel::class, 
+                        'name'
+                    );
+                }
+            
+            
+                if (!array_key_exists('data_type', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'data_type', 
+                        'type'  => 'String', 
+                        'label' => 'data_type'
+                    ];
+                }
+            
+            
+                if (!array_key_exists('calculable', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'calculable', 
+                        'type'  => 'Boolean', 
+                        'label' => 'calculable'
+                    ];
+                }
+            
 
-        if (!array_key_exists('e_model_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::eModel.plural"), 'e_model_id', \Modules\PkgGapp\Models\EModel::class, 'name');
-        }
 
-        if (!array_key_exists('data_type', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'data_type', 'type' => 'String', 'label' => 'data_type'];
-        }
-
-        if (!array_key_exists('calculable', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'calculable', 'type' => 'Boolean', 'label' => 'calculable'];
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de eDataField.
