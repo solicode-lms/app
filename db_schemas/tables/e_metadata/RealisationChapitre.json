@@ -535,7 +535,10 @@
             {
                 "path": "Chapitre.UniteApprentissage.Micro_competence_id",
                 "iModelName": "MicroCompetence",
-                "relationType": "ManyToOne"
+                "relationType": "ManyToOne",
+                "targetDynamicDropdown": "[name='chapitre_id']",
+                "targetDynamicDropdownApiUrl": "route('chapitres.getData')",
+                "targetDynamicDropdownFilter": "uniteApprentissage.micro_competence_id"
             }
         ],
         "e_data_field_reference": "RealisationChapitre_chapitre_id",

@@ -79,9 +79,10 @@ class BaseRealisationChapitreService extends BaseService
             "id", 
             "id",
             $microCompetences,
-            "[name='chapitre_id']", // champ déclencheur
-            route('chapitres.getData'), // URL de chargement
-            "uniteApprentissage.micro_competence_id" // chemin relationnel dynamique
+            "[name='chapitre_id']",
+            "route('chapitres.getData')",
+            "uniteApprentissage.micro_competence_id"
+            
         );
         $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
         $apprenants = $apprenantService->all();
