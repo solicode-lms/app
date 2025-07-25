@@ -44,13 +44,13 @@ class BaseEDataField extends BaseModel
         WHERE em.e_data_field_id = e_data_fields.id
         AND emd.reference = 'displayOrder'";
         static::addDynamicAttribute('displayOrder', $sql);
-        // Colonne dynamique : displayInTable
-        $sql = "SELECT em.value_boolean
-        FROM e_metadata em
-        JOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id
-        WHERE em.e_data_field_id = e_data_fields.id
-        AND emd.reference = 'displayInTable'";
-        static::addDynamicAttribute('displayInTable', $sql);
+        // // Colonne dynamique : displayInTable
+        // $sql = "SELECT em.value_boolean
+        // FROM e_metadata em
+        // JOIN e_metadata_definitions emd ON em.e_metadata_definition_id = emd.id
+        // WHERE em.e_data_field_id = e_data_fields.id
+        // AND emd.reference = 'displayInTable'";
+        // static::addDynamicAttribute('displayInTable', $sql);
     }
 
     

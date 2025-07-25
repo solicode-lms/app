@@ -6097,7 +6097,7 @@
     },
     {
         "id": 468,
-        "reference": "RealisationChapitre_id",
+        "reference": "RealisationChapitre-id",
         "name": "id",
         "column_name": "id",
         "data_type": "Integer",
@@ -6110,7 +6110,7 @@
     },
     {
         "id": 469,
-        "reference": "RealisationChapitre_reference",
+        "reference": "RealisationChapitre-reference",
         "name": "reference",
         "column_name": "reference",
         "data_type": "String",
@@ -6188,7 +6188,7 @@
     },
     {
         "id": 475,
-        "reference": "RealisationChapitre_chapitre_id",
+        "reference": "RealisationChapitre-chapitre_id",
         "name": "chapitre_id",
         "column_name": "chapitre_id",
         "data_type": "ManyToOne",
