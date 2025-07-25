@@ -33,7 +33,6 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'reference' => 'reference',
                 'titre' => 'titre',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
@@ -45,6 +44,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
                 'description_prototype' => 'description_prototype',
                 'contraintes_prototype' => 'contraintes_prototype',
                 'titre_projet' => 'titre_projet',
+                'reference' => 'reference',
                 'description_projet' => 'description_projet',
                 'contraintes_projet' => 'contraintes_projet',
                 'filiere_reference' => 'filiere_reference',
@@ -53,7 +53,6 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
         } else {
             return [
                 'ordre' => __('PkgSessions::sessionFormation.ordre'),
-                'reference' => __('Core::msg.reference'),
                 'titre' => __('PkgSessions::sessionFormation.titre'),
                 'date_debut' => __('PkgSessions::sessionFormation.date_debut'),
                 'date_fin' => __('PkgSessions::sessionFormation.date_fin'),
@@ -65,6 +64,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
                 'description_prototype' => __('PkgSessions::sessionFormation.description_prototype'),
                 'contraintes_prototype' => __('PkgSessions::sessionFormation.contraintes_prototype'),
                 'titre_projet' => __('PkgSessions::sessionFormation.titre_projet'),
+                'reference' => __('Core::msg.reference'),
                 'description_projet' => __('PkgSessions::sessionFormation.description_projet'),
                 'contraintes_projet' => __('PkgSessions::sessionFormation.contraintes_projet'),
                 'filiere_reference' => __('PkgSessions::sessionFormation.filiere_reference'),
@@ -81,7 +81,6 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
         return $this->data->map(function ($sessionFormation) {
             return [
                 'ordre' => (string) $sessionFormation->ordre,
-                'reference' => $sessionFormation->reference,
                 'titre' => $sessionFormation->titre,
                 'date_debut' => $sessionFormation->date_debut,
                 'date_fin' => $sessionFormation->date_fin,
@@ -93,6 +92,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
                 'description_prototype' => $sessionFormation->description_prototype,
                 'contraintes_prototype' => $sessionFormation->contraintes_prototype,
                 'titre_projet' => $sessionFormation->titre_projet,
+                'reference' => $sessionFormation->reference,
                 'description_projet' => $sessionFormation->description_projet,
                 'contraintes_projet' => $sessionFormation->contraintes_projet,
                 'filiere_reference' => $sessionFormation->filiere?->reference,

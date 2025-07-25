@@ -30,6 +30,9 @@ php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealis
 
 
 
+php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\SessionFormationSeeder
+php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\AlignementUaSeeder
+
 
 
 ````

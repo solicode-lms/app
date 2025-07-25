@@ -27,7 +27,7 @@
     },
     {
         "reference": "SessionFormation_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 15,
         "e_data_field_reference": "SessionFormation_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "SessionFormation_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 13,
         "e_data_field_reference": "SessionFormation_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -123,7 +123,7 @@
     },
     {
         "reference": "SessionFormation_titre_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "SessionFormation_titre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -221,13 +221,14 @@
     },
     {
         "reference": "SessionFormation_date_debut_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "SessionFormation_date_debut",
         "e_metadata_definition_reference": "displayInTable"
     },
     {
         "reference": "SessionFormation_date_debut_displayOrder",
-        "value_integer": 5,
+        "value_integer": 3,
         "e_data_field_reference": "SessionFormation_date_debut",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -263,13 +264,14 @@
     },
     {
         "reference": "SessionFormation_date_fin_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "SessionFormation_date_fin",
         "e_metadata_definition_reference": "displayInTable"
     },
     {
         "reference": "SessionFormation_date_fin_displayOrder",
-        "value_integer": 6,
+        "value_integer": 4,
         "e_data_field_reference": "SessionFormation_date_fin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -305,7 +307,7 @@
     },
     {
         "reference": "SessionFormation_jour_feries_vacances_displayOrder",
-        "value_integer": 7,
+        "value_integer": 5,
         "e_data_field_reference": "SessionFormation_jour_feries_vacances",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -341,7 +343,7 @@
     },
     {
         "reference": "SessionFormation_thematique_displayOrder",
-        "value_integer": 8,
+        "value_integer": 6,
         "e_data_field_reference": "SessionFormation_thematique",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -383,7 +385,7 @@
     },
     {
         "reference": "SessionFormation_objectifs_pedagogique_displayOrder",
-        "value_integer": 9,
+        "value_integer": 7,
         "e_data_field_reference": "SessionFormation_objectifs_pedagogique",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -419,7 +421,7 @@
     },
     {
         "reference": "SessionFormation_remarques_displayOrder",
-        "value_integer": 10,
+        "value_integer": 8,
         "e_data_field_reference": "SessionFormation_remarques",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -461,7 +463,7 @@
     },
     {
         "reference": "SessionFormation_titre_prototype_displayOrder",
-        "value_integer": 11,
+        "value_integer": 9,
         "e_data_field_reference": "SessionFormation_titre_prototype",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -503,7 +505,7 @@
     },
     {
         "reference": "SessionFormation_description_prototype_displayOrder",
-        "value_integer": 12,
+        "value_integer": 10,
         "e_data_field_reference": "SessionFormation_description_prototype",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -539,7 +541,7 @@
     },
     {
         "reference": "SessionFormation_contraintes_prototype_displayOrder",
-        "value_integer": 13,
+        "value_integer": 11,
         "e_data_field_reference": "SessionFormation_contraintes_prototype",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -581,7 +583,7 @@
     },
     {
         "reference": "SessionFormation_titre_projet_displayOrder",
-        "value_integer": 14,
+        "value_integer": 12,
         "e_data_field_reference": "SessionFormation_titre_projet",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -623,7 +625,7 @@
     },
     {
         "reference": "SessionFormation_description_projet_displayOrder",
-        "value_integer": 15,
+        "value_integer": 14,
         "e_data_field_reference": "SessionFormation_description_projet",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -743,7 +745,8 @@
     },
     {
         "reference": "SessionFormation_annee_formation_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "SessionFormation_annee_formation_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -908,5 +911,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "session_formations_hasMany_livrable_sessions_session_formation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "session_formations_hasMany_alignement_uas_session_formation_id_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "session_formations_hasMany_alignement_uas_session_formation_id",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

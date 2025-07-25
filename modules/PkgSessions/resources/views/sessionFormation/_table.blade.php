@@ -10,11 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="date_debut" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="15.6"  field="date_fin" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="15.6" field="filiere_id" modelname="sessionFormation" label="{!!ucfirst(__('PkgFormation::filiere.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="15.6" field="annee_formation_id" modelname="sessionFormation" label="{!!ucfirst(__('PkgFormation::anneeFormation.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="filiere_id" modelname="sessionFormation" label="{!!ucfirst(__('PkgFormation::filiere.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="26"  field="AlignementUa" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::alignementUa.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -32,22 +30,20 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sessionFormation->titre }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sessionFormation->titre }}" >
                         {{ $sessionFormation->titre }}
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $sessionFormation->date_debut }}" >
-                        <x-deadline-display :value="$sessionFormation->date_debut" />
-                    </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $sessionFormation->date_fin }}" >
-                        <x-deadline-display :value="$sessionFormation->date_fin" />
-                    </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $sessionFormation->filiere }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $sessionFormation->filiere }}" >
                         {{  $sessionFormation->filiere }}
 
                     </td>
-                    <td style="max-width: 15.6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="annee_formation_id"  data-toggle="tooltip" title="{{ $sessionFormation->anneeFormation }}" >
-                        {{  $sessionFormation->anneeFormation }}
+                    <td style="max-width: 26%;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa"  data-toggle="tooltip" title="{{ $sessionFormation->alignementUas }}" >
+                        <ul>
+                            @foreach ($sessionFormation->alignementUas as $alignementUa)
+                                <li>{{$alignementUa}} </li>
+                            @endforeach
+                        </ul>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
