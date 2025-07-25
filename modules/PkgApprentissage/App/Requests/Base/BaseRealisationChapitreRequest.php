@@ -29,12 +29,12 @@ class BaseRealisationChapitreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'chapitre_id' => 'required',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
             'realisation_ua_id' => 'required',
             'realisation_tache_id' => 'nullable',
-            'chapitre_id' => 'required',
             'etat_realisation_chapitre_id' => 'nullable'
         ];
     }
@@ -47,12 +47,12 @@ class BaseRealisationChapitreRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'chapitre_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.chapitre_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.date_fin')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.commentaire_formateur')]),
             'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.realisation_ua_id')]),
             'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.realisation_tache_id')]),
-            'chapitre_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.chapitre_id')]),
             'etat_realisation_chapitre_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationChapitre.etat_realisation_chapitre_id')])
         ];
     }

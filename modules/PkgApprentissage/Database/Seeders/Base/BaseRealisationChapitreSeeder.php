@@ -73,6 +73,11 @@ class BaseRealisationChapitreSeeder extends Seeder
             if ($row) {
 
 
+                $chapitre_id = null;
+                if (!empty($row["chapitre_reference"])) {
+                    $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
+                        ->value('id');
+                }
                 $realisation_ua_id = null;
                 if (!empty($row["realisation_ua_reference"])) {
                     $realisation_ua_id = \Modules\PkgApprentissage\Models\RealisationUa::where('reference', $row["realisation_ua_reference"])
@@ -83,11 +88,6 @@ class BaseRealisationChapitreSeeder extends Seeder
                     $realisation_tache_id = \Modules\PkgRealisationTache\Models\RealisationTache::where('reference', $row["realisation_tache_reference"])
                         ->value('id');
                 }
-                $chapitre_id = null;
-                if (!empty($row["chapitre_reference"])) {
-                    $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
-                        ->value('id');
-                }
                 $etat_realisation_chapitre_id = null;
                 if (!empty($row["etat_realisation_chapitre_reference"])) {
                     $etat_realisation_chapitre_id = \Modules\PkgApprentissage\Models\EtatRealisationChapitre::where('reference', $row["etat_realisation_chapitre_reference"])
@@ -96,12 +96,12 @@ class BaseRealisationChapitreSeeder extends Seeder
 
 
                 $realisationChapitreData =[
+                        "chapitre_id" => $chapitre_id,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "realisation_ua_id" => $realisation_ua_id,
                         "realisation_tache_id" => $realisation_tache_id,
-                        "chapitre_id" => $chapitre_id,
                         "etat_realisation_chapitre_id" => $etat_realisation_chapitre_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

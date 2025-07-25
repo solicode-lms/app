@@ -228,6 +228,7 @@
     {
         "reference": "RealisationChapitre_realisation_ua_id_displayInTable",
         "value_boolean": 1,
+        "value_float": 0,
         "e_data_field_reference": "RealisationChapitre_realisation_ua_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -239,7 +240,8 @@
     },
     {
         "reference": "RealisationChapitre_realisation_ua_id_filterable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationChapitre_realisation_ua_id",
         "e_metadata_definition_reference": "filterable"
     },
@@ -347,7 +349,9 @@
     },
     {
         "reference": "RealisationChapitre_chapitre_id_displayOrder",
-        "value_integer": 8,
+        "value_boolean": 0,
+        "value_integer": 1,
+        "value_float": 0,
         "e_data_field_reference": "RealisationChapitre_chapitre_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -508,5 +512,33 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationChapitre_updated_at",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationChapitre_realisation_ua_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "RealisationUa.RealisationMicroCompetence.Apprenant_id",
+                "iModelName": "Apprenant",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "RealisationChapitre_realisation_ua_id",
+        "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "RealisationChapitre_chapitre_id_relationFilter",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "path": "Chapitre.UniteApprentissage.Micro_competence_id",
+                "iModelName": "MicroCompetence",
+                "relationType": "ManyToOne"
+            }
+        ],
+        "e_data_field_reference": "RealisationChapitre_chapitre_id",
+        "e_metadata_definition_reference": "relationFilter"
     }
 ]

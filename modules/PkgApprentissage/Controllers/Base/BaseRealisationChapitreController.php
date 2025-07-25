@@ -83,9 +83,9 @@ class BaseRealisationChapitreController extends AdminController
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
         
 
+        $chapitres = $this->chapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $chapitres = $this->chapitreService->all();
         $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
         $bulkEdit = false;
@@ -112,9 +112,9 @@ class BaseRealisationChapitreController extends AdminController
          $itemRealisationChapitre = $this->realisationChapitreService->find($realisationChapitre_ids[0]);
          
  
+        $chapitres = $this->chapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $chapitres = $this->chapitreService->all();
         $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
         $bulkEdit = true;
@@ -178,9 +178,9 @@ class BaseRealisationChapitreController extends AdminController
         $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
 
 
+        $chapitres = $this->chapitreService->all();
         $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
-        $chapitres = $this->chapitreService->all();
         $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
 
 

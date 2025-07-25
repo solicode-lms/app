@@ -6,6 +6,20 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
+                              
+      @if($itemRealisationChapitre->chapitre)
+        {{ $itemRealisationChapitre->chapitre }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.date_debut')) }}</small>
                             
     <span>
@@ -67,20 +81,6 @@
                               
       @if($itemRealisationChapitre->realisationTache)
         {{ $itemRealisationChapitre->realisationTache }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
-                              
-      @if($itemRealisationChapitre->chapitre)
-        {{ $itemRealisationChapitre->chapitre }}
       @else
         —
       @endif

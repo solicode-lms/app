@@ -6,9 +6,16 @@ use Modules\PkgApprentissage\Models\Base\BaseRealisationMicroCompetence;
 
 class RealisationMicroCompetence extends BaseRealisationMicroCompetence
 {
-    // public function __toString()
-    // {
-    //     return $this->microCompetence->titre . "-" . $this->apprenant->nom . " " . $this->apprenant->prenom;
-    // }
+
+    protected $with = [
+        'apprenant',
+        'microCompetence',
+        'etatRealisationMicroCompetence'
+    ];
+
+    public function __toString()
+    {
+        return $this->microCompetence->titre . "-" . $this->apprenant;
+    }
 
 }

@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgRealisationTache\Models\RealisationTache;
-use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 
 /**
@@ -30,9 +30,9 @@ class BaseRealisationChapitre extends BaseModel
      * @var array
      */
     protected $with = [
+      //  'chapitre',
       //  'realisationUa',
       //  'realisationTache',
-      //  'chapitre',
       //  'etatRealisationChapitre'
     ];
 
@@ -49,9 +49,14 @@ class BaseRealisationChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'commentaire_formateur', 'realisation_ua_id', 'realisation_tache_id', 'chapitre_id', 'etat_realisation_chapitre_id'
+        'chapitre_id', 'date_debut', 'date_fin', 'commentaire_formateur', 'realisation_ua_id', 'realisation_tache_id', 'etat_realisation_chapitre_id'
     ];
     public $manyToOne = [
+        'Chapitre' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
+            'relation' => 'chapitres' , 
+            "foreign_key" => "chapitre_id", 
+            ],
         'RealisationUa' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationUa",
             'relation' => 'realisationUas' , 
@@ -62,11 +67,6 @@ class BaseRealisationChapitre extends BaseModel
             'relation' => 'realisationTaches' , 
             "foreign_key" => "realisation_tache_id", 
             ],
-        'Chapitre' => [
-            'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
-            'relation' => 'chapitres' , 
-            "foreign_key" => "chapitre_id", 
-            ],
         'EtatRealisationChapitre' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationChapitre",
             'relation' => 'etatRealisationChapitres' , 
@@ -75,6 +75,15 @@ class BaseRealisationChapitre extends BaseModel
     ];
 
 
+    /**
+     * Relation BelongsTo pour Chapitre.
+     *
+     * @return BelongsTo
+     */
+    public function chapitre(): BelongsTo
+    {
+        return $this->belongsTo(Chapitre::class, 'chapitre_id', 'id');
+    }
     /**
      * Relation BelongsTo pour RealisationUa.
      *
@@ -92,15 +101,6 @@ class BaseRealisationChapitre extends BaseModel
     public function realisationTache(): BelongsTo
     {
         return $this->belongsTo(RealisationTache::class, 'realisation_tache_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour Chapitre.
-     *
-     * @return BelongsTo
-     */
-    public function chapitre(): BelongsTo
-    {
-        return $this->belongsTo(Chapitre::class, 'chapitre_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationChapitre.

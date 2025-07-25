@@ -29,7 +29,41 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationChapitre" field="date_debut" :bulkEdit="$bulkEdit">
+        <x-form-field :entity="$itemRealisationChapitre" field="chapitre_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="chapitre_id">
+            {{ ucfirst(__('PkgCompetences::chapitre.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="chapitre_id" 
+            required
+            
+            
+            name="chapitre_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($chapitres as $chapitre)
+                    <option value="{{ $chapitre->id }}"
+                        {{ (isset($itemRealisationChapitre) && $itemRealisationChapitre->chapitre_id == $chapitre->id) || (old('chapitre_id>') == $chapitre->id) ? 'selected' : '' }}>
+                        {{ $chapitre }}
+                    </option>
+                @endforeach
+            </select>
+          @error('chapitre_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemRealisationChapitre" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -178,40 +212,6 @@
                 @endforeach
             </select>
           @error('realisation_tache_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemRealisationChapitre" field="chapitre_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="chapitre_id">
-            {{ ucfirst(__('PkgCompetences::chapitre.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="chapitre_id" 
-            required
-            
-            
-            name="chapitre_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($chapitres as $chapitre)
-                    <option value="{{ $chapitre->id }}"
-                        {{ (isset($itemRealisationChapitre) && $itemRealisationChapitre->chapitre_id == $chapitre->id) || (old('chapitre_id>') == $chapitre->id) ? 'selected' : '' }}>
-                        {{ $chapitre }}
-                    </option>
-                @endforeach
-            </select>
-          @error('chapitre_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

@@ -21,12 +21,12 @@ class BaseRealisationChapitreService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'chapitre_id',
         'date_debut',
         'date_fin',
         'commentaire_formateur',
         'realisation_ua_id',
         'realisation_tache_id',
-        'chapitre_id',
         'etat_realisation_chapitre_id'
     ];
 
@@ -58,22 +58,41 @@ class BaseRealisationChapitreService extends BaseService
         $this->fieldsFilterable = [];
     
 
-        if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::realisationUa.plural"), 'realisation_ua_id', \Modules\PkgApprentissage\Models\RealisationUa::class, 'id');
+        if (!array_key_exists('chapitre_id', $scopeVariables)) {
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::chapitre.plural"), 'chapitre_id', \Modules\PkgCompetences\Models\Chapitre::class, 'code');
         }
 
         if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
         }
 
-        if (!array_key_exists('chapitre_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::chapitre.plural"), 'chapitre_id', \Modules\PkgCompetences\Models\Chapitre::class, 'code');
-        }
-
         if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
         $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::etatRealisationChapitre.plural"), 'etat_realisation_chapitre_id', \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 'nom');
         }
 
+        $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+        $microCompetences = $microCompetenceService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgCompetences::microCompetence.plural"),
+            'Chapitre.UniteApprentissage.Micro_competence_id', 
+            \Modules\PkgCompetences\Models\MicroCompetence::class,
+            "id", 
+            "id",
+            $microCompetences,
+            "[name='chapitre_id']", // champ déclencheur
+            route('chapitres.getData'), // URL de chargement
+            "uniteApprentissage.micro_competence_id" // chemin relationnel dynamique
+        );
+        $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+        $apprenants = $apprenantService->all();
+        $this->fieldsFilterable[] = $this->generateRelationFilter(
+            __("PkgApprenants::apprenant.plural"),
+            'RealisationUa.RealisationMicroCompetence.Apprenant_id', 
+            \Modules\PkgApprenants\Models\Apprenant::class,
+            "id", 
+            "id",
+            $apprenants
+        );
     }
 
     /**
