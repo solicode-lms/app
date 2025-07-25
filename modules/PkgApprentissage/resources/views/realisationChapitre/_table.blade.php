@@ -34,8 +34,7 @@
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationUa }}" >
-                        {{  $realisationChapitre->realisationUa }}
-
+                        @include('PkgApprentissage::realisationChapitre.custom.fields.realisationUa', ['entity' => $realisationChapitre])
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationTache }}" >
                         {{  $realisationChapitre->realisationTache }}
