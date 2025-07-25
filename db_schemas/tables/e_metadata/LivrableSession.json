@@ -1,0 +1,430 @@
+[
+    {
+        "reference": "livrable_sessions_creationOrder",
+        "value_integer": 88,
+        "e_model_reference": "livrable_sessions",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "livrable_sessions_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "livrable_sessions",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "livrable_sessions_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "livrable_sessions",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "LivrableSession_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LivrableSession_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LivrableSession_reference_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_titre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LivrableSession_titre_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "LivrableSession_titre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LivrableSession_titre_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_titre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_titre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_titre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_titre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_titre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_titre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_description_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "LivrableSession_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LivrableSession_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LivrableSession_ordre_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "LivrableSession_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_ordre_columnWidth",
+        "value_integer": 4,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "LivrableSession_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_session_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_session_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_nature_livrable_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_nature_livrable_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_created_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_updated_at_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "LivrableSession_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "LivrableSession_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "LivrableSession_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "LivrableSession_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "LivrableSession_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "LivrableSession_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    }
+]

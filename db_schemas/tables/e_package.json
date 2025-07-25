@@ -110,5 +110,13 @@
         "description": "Automatically generated package for PkgApprentissage",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 15,
+        "reference": "PkgSessions",
+        "name": "PkgSessions",
+        "description": "Automatically generated package for PkgSessions",
+        "created_at": null,
+        "updated_at": null
     }
 ]

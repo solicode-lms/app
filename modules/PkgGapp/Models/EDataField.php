@@ -23,7 +23,7 @@ class EDataField extends BaseEDataField
 
     public function generateReference(): string
     {
-        return $this->eModel->name . "-" .  $this->name;
+        return $this->eModel->name . "_" .  $this->name;
     }
 
 }

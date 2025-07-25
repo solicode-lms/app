@@ -171,7 +171,7 @@
 "PkgSessions": {
     "name": "PkgSessions",
     "tables": [
-        "sessions",
+        "session_formations",
         "alignement_uas",
         "livrable_sessions"
     ]

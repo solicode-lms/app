@@ -1,0 +1,376 @@
+[
+    {
+        "reference": "alignement_uas_creationOrder",
+        "value_integer": 87,
+        "e_model_reference": "alignement_uas",
+        "e_metadata_definition_reference": "creationOrder"
+    },
+    {
+        "reference": "alignement_uas_displayInSideBar",
+        "value_boolean": 1,
+        "e_model_reference": "alignement_uas",
+        "e_metadata_definition_reference": "displayInSideBar"
+    },
+    {
+        "reference": "alignement_uas_iconModel",
+        "value_string": "fa-table",
+        "e_model_reference": "alignement_uas",
+        "e_metadata_definition_reference": "iconModel"
+    },
+    {
+        "reference": "AlignementUa_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AlignementUa_id_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_reference_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AlignementUa_reference_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_reference_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_reference_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_reference_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_reference_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_reference_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_reference",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_description_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_description_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_description_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_description_isRichText",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "isRichText"
+    },
+    {
+        "reference": "AlignementUa_description_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_description_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_description",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "AlignementUa_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AlignementUa_ordre_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "AlignementUa_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_ordre_columnWidth",
+        "value_integer": 4,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "AlignementUa_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_displayOrder",
+        "value_integer": 5,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_unite_apprentissage_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_displayOrder",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_session_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_session_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_created_at_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_created_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_created_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_created_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_created_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_created_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_created_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_updated_at_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "AlignementUa_updated_at_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "AlignementUa_updated_at_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "AlignementUa_updated_at_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "AlignementUa_updated_at_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "AlignementUa_updated_at_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "AlignementUa_updated_at",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    }
+]
