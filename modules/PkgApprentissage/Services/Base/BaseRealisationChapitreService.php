@@ -56,19 +56,7 @@ class BaseRealisationChapitreService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationChapitre');
         $this->fieldsFilterable = [];
-    
-
-        if (!array_key_exists('chapitre_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::chapitre.plural"), 'chapitre_id', \Modules\PkgCompetences\Models\Chapitre::class, 'code');
-        }
-
-        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
-        }
-
-        if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::etatRealisationChapitre.plural"), 'etat_realisation_chapitre_id', \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 'nom');
-        }
+        
 
         $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
         $microCompetences = $microCompetenceService->all();
@@ -84,17 +72,37 @@ class BaseRealisationChapitreService extends BaseService
             "uniteApprentissage.micro_competence_id"
             
         );
-        $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
-        $apprenants = $apprenantService->all();
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgApprenants::apprenant.plural"),
-            'RealisationUa.RealisationMicroCompetence.Apprenant_id', 
-            \Modules\PkgApprenants\Models\Apprenant::class,
-            "id", 
-            "id",
-            $apprenants
-        );
+
+        if (!array_key_exists('chapitre_id', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgCompetences::chapitre.plural"), 
+                'chapitre_id', 
+                \Modules\PkgCompetences\Models\Chapitre::class, 
+                'code'
+            );
+        }
+
+
+        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgRealisationTache::realisationTache.plural"), 
+                'realisation_tache_id', 
+                \Modules\PkgRealisationTache\Models\RealisationTache::class, 
+                'id'
+            );
+        }
+
+
+        if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
+            $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                __("PkgApprentissage::etatRealisationChapitre.plural"), 
+                'etat_realisation_chapitre_id', 
+                \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 
+                'nom'
+            );
+        }
     }
+
 
     /**
      * Crée une nouvelle instance de realisationChapitre.
