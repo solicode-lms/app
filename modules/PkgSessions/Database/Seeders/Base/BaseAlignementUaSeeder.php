@@ -87,9 +87,9 @@ class BaseAlignementUaSeeder extends Seeder
 
                 $alignementUaData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
-                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "unite_apprentissage_id" => $unite_apprentissage_id,
                         "session_formation_id" => $session_formation_id,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

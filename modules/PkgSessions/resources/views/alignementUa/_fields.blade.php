@@ -39,46 +39,19 @@
           @endif
           <label for="ordre">
             {{ ucfirst(__('PkgSessions::alignementUa.ordre')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input
                 name="ordre"
                 type="number"
                 class="form-control"
-                required
+                
                 
                 
                 id="ordre"
                 placeholder="{{ __('PkgSessions::alignementUa.ordre') }}"
                 value="{{ $itemAlignementUa ? $itemAlignementUa->ordre : old('ordre') }}">
           @error('ordre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemAlignementUa" field="description" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="description">
-            {{ ucfirst(__('PkgSessions::alignementUa.description')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                
-                id="description"
-                placeholder="{{ __('PkgSessions::alignementUa.description') }}">{{ $itemAlignementUa ? $itemAlignementUa->description : old('description') }}</textarea>
-          @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -147,6 +120,33 @@
                 @endforeach
             </select>
           @error('session_formation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemAlignementUa" field="description" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="description">
+            {{ ucfirst(__('PkgSessions::alignementUa.description')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                
+                id="description"
+                placeholder="{{ __('PkgSessions::alignementUa.description') }}">{{ $itemAlignementUa ? $itemAlignementUa->description : old('description') }}</textarea>
+          @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

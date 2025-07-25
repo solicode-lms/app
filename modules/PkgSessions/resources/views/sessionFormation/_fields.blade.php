@@ -31,7 +31,7 @@
     <div class="row">
         <x-form-field :entity="$itemSessionFormation" field="ordre" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -60,7 +60,7 @@
 
 <x-form-field :entity="$itemSessionFormation" field="titre" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-10">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -81,93 +81,6 @@
                 placeholder="{{ __('PkgSessions::sessionFormation.titre') }}"
                 value="{{ $itemSessionFormation ? $itemSessionFormation->titre : old('titre') }}">
           @error('titre')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemSessionFormation" field="date_debut" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_debut">
-            {{ ucfirst(__('PkgSessions::sessionFormation.date_debut')) }}
-            
-          </label>
-                      <input
-                name="date_debut"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_debut"
-                placeholder="{{ __('PkgSessions::sessionFormation.date_debut') }}"
-                value="{{ $itemSessionFormation ? $itemSessionFormation->date_debut : old('date_debut') }}">
-
-          @error('date_debut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemSessionFormation" field="date_fin" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgSessions::sessionFormation.date_fin')) }}
-            
-          </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                placeholder="{{ __('PkgSessions::sessionFormation.date_fin') }}"
-                value="{{ $itemSessionFormation ? $itemSessionFormation->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemSessionFormation" field="jour_feries_vacances" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="jour_feries_vacances" id="bulk_field_jour_feries_vacances" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="jour_feries_vacances">
-            {{ ucfirst(__('PkgSessions::sessionFormation.jour_feries_vacances')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="jour_feries_vacances"
-                class="form-control richText"
-                
-                
-                
-                id="jour_feries_vacances"
-                placeholder="{{ __('PkgSessions::sessionFormation.jour_feries_vacances') }}">{{ $itemSessionFormation ? $itemSessionFormation->jour_feries_vacances : old('jour_feries_vacances') }}</textarea>
-          @error('jour_feries_vacances')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -203,6 +116,40 @@
   
 </x-form-field>
 
+<x-form-field :entity="$itemSessionFormation" field="filiere_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="filiere_id">
+            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+            
+          </label>
+                      <select 
+            id="filiere_id" 
+            
+            
+            
+            name="filiere_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemSessionFormation) && $itemSessionFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
+          @error('filiere_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :entity="$itemSessionFormation" field="objectifs_pedagogique" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -224,33 +171,6 @@
                 id="objectifs_pedagogique"
                 placeholder="{{ __('PkgSessions::sessionFormation.objectifs_pedagogique') }}">{{ $itemSessionFormation ? $itemSessionFormation->objectifs_pedagogique : old('objectifs_pedagogique') }}</textarea>
           @error('objectifs_pedagogique')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :entity="$itemSessionFormation" field="remarques" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques" id="bulk_field_remarques" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="remarques">
-            {{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="remarques"
-                class="form-control richText"
-                
-                
-                
-                id="remarques"
-                placeholder="{{ __('PkgSessions::sessionFormation.remarques') }}">{{ $itemSessionFormation ? $itemSessionFormation->remarques : old('remarques') }}</textarea>
-          @error('remarques')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -423,34 +343,114 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSessionFormation" field="filiere_id" :bulkEdit="$bulkEdit">
+<x-form-field :entity="$itemSessionFormation" field="remarques" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarques" id="bulk_field_remarques" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="remarques">
+            {{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="remarques"
+                class="form-control richText"
+                
+                
+                
+                id="remarques"
+                placeholder="{{ __('PkgSessions::sessionFormation.remarques') }}">{{ $itemSessionFormation ? $itemSessionFormation->remarques : old('remarques') }}</textarea>
+          @error('remarques')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemSessionFormation" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="filiere_id">
-            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+          <label for="date_debut">
+            {{ ucfirst(__('PkgSessions::sessionFormation.date_debut')) }}
             
           </label>
-                      <select 
-            id="filiere_id" 
+                      <input
+                name="date_debut"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_debut"
+                placeholder="{{ __('PkgSessions::sessionFormation.date_debut') }}"
+                value="{{ $itemSessionFormation ? $itemSessionFormation->date_debut : old('date_debut') }}">
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemSessionFormation" field="date_fin" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_fin">
+            {{ ucfirst(__('PkgSessions::sessionFormation.date_fin')) }}
             
+          </label>
+                      <input
+                name="date_fin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_fin"
+                placeholder="{{ __('PkgSessions::sessionFormation.date_fin') }}"
+                value="{{ $itemSessionFormation ? $itemSessionFormation->date_fin : old('date_fin') }}">
+
+          @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :entity="$itemSessionFormation" field="jour_feries_vacances" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="jour_feries_vacances" id="bulk_field_jour_feries_vacances" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="jour_feries_vacances">
+            {{ ucfirst(__('PkgSessions::sessionFormation.jour_feries_vacances')) }}
             
-            
-            name="filiere_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
-                        {{ (isset($itemSessionFormation) && $itemSessionFormation->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
-                        {{ $filiere }}
-                    </option>
-                @endforeach
-            </select>
-          @error('filiere_id')
+          </label>
+                      <textarea rows="" cols=""
+                name="jour_feries_vacances"
+                class="form-control richText"
+                
+                
+                
+                id="jour_feries_vacances"
+                placeholder="{{ __('PkgSessions::sessionFormation.jour_feries_vacances') }}">{{ $itemSessionFormation ? $itemSessionFormation->jour_feries_vacances : old('jour_feries_vacances') }}</textarea>
+          @error('jour_feries_vacances')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

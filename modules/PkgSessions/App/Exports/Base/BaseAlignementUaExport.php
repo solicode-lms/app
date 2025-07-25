@@ -33,18 +33,18 @@ class BaseAlignementUaExport implements FromCollection, WithHeadings, ShouldAuto
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'reference' => 'reference',
-                'description' => 'description',
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'session_formation_reference' => 'session_formation_reference',
+                'description' => 'description',
+                'reference' => 'reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgSessions::alignementUa.ordre'),
-                'reference' => __('Core::msg.reference'),
-                'description' => __('PkgSessions::alignementUa.description'),
                 'unite_apprentissage_reference' => __('PkgSessions::alignementUa.unite_apprentissage_reference'),
                 'session_formation_reference' => __('PkgSessions::alignementUa.session_formation_reference'),
+                'description' => __('PkgSessions::alignementUa.description'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -57,10 +57,10 @@ class BaseAlignementUaExport implements FromCollection, WithHeadings, ShouldAuto
         return $this->data->map(function ($alignementUa) {
             return [
                 'ordre' => (string) $alignementUa->ordre,
-                'reference' => $alignementUa->reference,
-                'description' => $alignementUa->description,
                 'unite_apprentissage_reference' => $alignementUa->uniteApprentissage?->reference,
                 'session_formation_reference' => $alignementUa->sessionFormation?->reference,
+                'description' => $alignementUa->description,
+                'reference' => $alignementUa->reference,
             ];
         });
     }

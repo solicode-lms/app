@@ -69,7 +69,7 @@
     },
     {
         "reference": "AlignementUa_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 8,
         "e_data_field_reference": "AlignementUa_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -105,7 +105,7 @@
     },
     {
         "reference": "AlignementUa_description_displayOrder",
-        "value_integer": 3,
+        "value_integer": 7,
         "e_data_field_reference": "AlignementUa_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -147,13 +147,14 @@
     },
     {
         "reference": "AlignementUa_ordre_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "AlignementUa_ordre",
         "e_metadata_definition_reference": "required"
     },
     {
         "reference": "AlignementUa_ordre_displayOrder",
-        "value_integer": 1,
+        "value_integer": 2,
         "e_data_field_reference": "AlignementUa_ordre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -221,7 +222,7 @@
     },
     {
         "reference": "AlignementUa_unite_apprentissage_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 3,
         "e_data_field_reference": "AlignementUa_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -269,7 +270,7 @@
     },
     {
         "reference": "AlignementUa_session_formation_id_displayOrder",
-        "value_integer": 6,
+        "value_integer": 4,
         "e_data_field_reference": "AlignementUa_session_formation_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -305,7 +306,7 @@
     },
     {
         "reference": "AlignementUa_created_at_displayOrder",
-        "value_integer": 7,
+        "value_integer": 5,
         "e_data_field_reference": "AlignementUa_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -341,7 +342,7 @@
     },
     {
         "reference": "AlignementUa_updated_at_displayOrder",
-        "value_integer": 8,
+        "value_integer": 6,
         "e_data_field_reference": "AlignementUa_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },

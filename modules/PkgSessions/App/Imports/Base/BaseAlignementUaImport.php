@@ -57,10 +57,10 @@ class BaseAlignementUaImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new AlignementUa([
              'ordre' => $values[0] ?? null,
+             'unite_apprentissage_id' => $values[1] ?? null,
+             'session_formation_id' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
-             'description' => $values[2] ?? null,
-             'unite_apprentissage_id' => $values[3] ?? null,
-             'session_formation_id' => $values[4] ?? null,
         ]);
 
 

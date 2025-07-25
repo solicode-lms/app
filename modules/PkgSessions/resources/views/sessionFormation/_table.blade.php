@@ -31,8 +31,7 @@
 
                     </td>
                     <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sessionFormation->titre }}" >
-                        {{ $sessionFormation->titre }}
-
+                        @include('PkgSessions::sessionFormation.custom.fields.titre', ['entity' => $sessionFormation])
                     </td>
                     <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $sessionFormation->filiere }}" >
                         {{  $sessionFormation->filiere }}

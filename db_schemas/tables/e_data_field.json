@@ -7791,7 +7791,7 @@
         "name": "id",
         "column_name": "id",
         "data_type": "Integer",
-        "field_order": 1,
+        "field_order": 21,
         "db_nullable": 0,
         "db_primaryKey": 1,
         "db_unique": 0,

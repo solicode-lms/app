@@ -47,7 +47,7 @@ class BaseSessionFormation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'titre', 'date_debut', 'date_fin', 'jour_feries_vacances', 'thematique', 'objectifs_pedagogique', 'remarques', 'titre_prototype', 'description_prototype', 'contraintes_prototype', 'titre_projet', 'description_projet', 'contraintes_projet', 'filiere_id', 'annee_formation_id'
+        'ordre', 'titre', 'thematique', 'filiere_id', 'objectifs_pedagogique', 'titre_prototype', 'description_prototype', 'contraintes_prototype', 'titre_projet', 'description_projet', 'contraintes_projet', 'remarques', 'date_debut', 'date_fin', 'jour_feries_vacances', 'annee_formation_id'
     ];
     public $manyToOne = [
         'Filiere' => [

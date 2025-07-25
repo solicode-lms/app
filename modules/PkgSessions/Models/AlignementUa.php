@@ -11,4 +11,9 @@ class AlignementUa extends BaseAlignementUa
     {
         return  $this->uniteApprentissage->reference . '-' . $this->sessionFormation->reference ;
     }
+
+    public function __toString()
+    {
+        return $this->uniteApprentissage ?? "";
+    }
 }

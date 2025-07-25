@@ -31,19 +31,19 @@ class BaseSessionFormationRequest extends FormRequest
         return [
             'ordre' => 'required|integer',
             'titre' => 'required|string|max:255',
-            'date_debut' => 'nullable',
-            'date_fin' => 'nullable',
-            'jour_feries_vacances' => 'nullable|string',
             'thematique' => 'nullable|string|max:255',
+            'filiere_id' => 'nullable',
             'objectifs_pedagogique' => 'required|string',
-            'remarques' => 'nullable|string',
             'titre_prototype' => 'required|string|max:255',
             'description_prototype' => 'required|string',
             'contraintes_prototype' => 'nullable|string',
             'titre_projet' => 'required|string|max:255',
             'description_projet' => 'required|string',
             'contraintes_projet' => 'nullable|string',
-            'filiere_id' => 'nullable',
+            'remarques' => 'nullable|string',
+            'date_debut' => 'nullable',
+            'date_fin' => 'nullable',
+            'jour_feries_vacances' => 'nullable|string',
             'annee_formation_id' => 'nullable'
         ];
     }
@@ -59,13 +59,10 @@ class BaseSessionFormationRequest extends FormRequest
             'ordre.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.ordre')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.date_fin')]),
-            'jour_feries_vacances.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.jour_feries_vacances')]),
             'thematique.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.thematique')]),
             'thematique.max' => __('validation.thematiqueMax'),
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.filiere_id')]),
             'objectifs_pedagogique.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.objectifs_pedagogique')]),
-            'remarques.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.remarques')]),
             'titre_prototype.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.titre_prototype')]),
             'titre_prototype.max' => __('validation.titre_prototypeMax'),
             'description_prototype.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.description_prototype')]),
@@ -74,7 +71,10 @@ class BaseSessionFormationRequest extends FormRequest
             'titre_projet.max' => __('validation.titre_projetMax'),
             'description_projet.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.description_projet')]),
             'contraintes_projet.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.contraintes_projet')]),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.filiere_id')]),
+            'remarques.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.remarques')]),
+            'date_debut.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.date_debut')]),
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.date_fin')]),
+            'jour_feries_vacances.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.jour_feries_vacances')]),
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgSessions::SessionFormation.annee_formation_id')])
         ];
     }

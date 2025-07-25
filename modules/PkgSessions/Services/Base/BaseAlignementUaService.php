@@ -22,9 +22,9 @@ class BaseAlignementUaService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
-        'description',
         'unite_apprentissage_id',
-        'session_formation_id'
+        'session_formation_id',
+        'description'
     ];
 
     /**

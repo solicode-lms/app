@@ -4,7 +4,7 @@
 <div id="sessionFormation-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                      <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.ordre')) }}</small>
                               
@@ -19,7 +19,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+      <div class="col-12 col-md-10 col-lg-10 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre')) }}</small>
                                 <!-- Valeur texte -->
@@ -28,49 +28,6 @@
         @else
           <span class="text-muted">—</span>
         @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_debut')) }}</small>
-                            
-    <span>
-      @if ($itemSessionFormation->date_debut)
-        {{ \Carbon\Carbon::parse($itemSessionFormation->date_debut)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_fin')) }}</small>
-                            
-    <span>
-      @if ($itemSessionFormation->date_fin)
-        {{ \Carbon\Carbon::parse($itemSessionFormation->date_fin)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.jour_feries_vacances')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemSessionFormation->jour_feries_vacances) && $itemSessionFormation->jour_feries_vacances !== '')
-    {!! $itemSessionFormation->jour_feries_vacances !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
           </div>
       </div>
   
@@ -88,25 +45,26 @@
       </div>
   
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemSessionFormation->objectifs_pedagogique) && $itemSessionFormation->objectifs_pedagogique !== '')
-    {!! $itemSessionFormation->objectifs_pedagogique !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
+                              
+      @if($itemSessionFormation->filiere)
+        {{ $itemSessionFormation->filiere }}
+      @else
+        —
+      @endif
+
           </div>
       </div>
   
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemSessionFormation->remarques) && $itemSessionFormation->remarques !== '')
-    {!! $itemSessionFormation->remarques !!}
+  @if(! is_null($itemSessionFormation->objectifs_pedagogique) && $itemSessionFormation->objectifs_pedagogique !== '')
+    {!! $itemSessionFormation->objectifs_pedagogique !!}
   @else
     <span class="text-muted">—</span>
   @endif
@@ -192,16 +150,58 @@
       </div>
   
 
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.remarques')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemSessionFormation->remarques) && $itemSessionFormation->remarques !== '')
+    {!! $itemSessionFormation->remarques !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
-                              
-      @if($itemSessionFormation->filiere)
-        {{ $itemSessionFormation->filiere }}
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_debut')) }}</small>
+                            
+    <span>
+      @if ($itemSessionFormation->date_debut)
+        {{ \Carbon\Carbon::parse($itemSessionFormation->date_debut)->isoFormat('LLL') }}
       @else
         —
       @endif
+    </span>
+          </div>
+      </div>
+  
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.date_fin')) }}</small>
+                            
+    <span>
+      @if ($itemSessionFormation->date_fin)
+        {{ \Carbon\Carbon::parse($itemSessionFormation->date_fin)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.jour_feries_vacances')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemSessionFormation->jour_feries_vacances) && $itemSessionFormation->jour_feries_vacances !== '')
+    {!! $itemSessionFormation->jour_feries_vacances !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
           </div>
       </div>
   

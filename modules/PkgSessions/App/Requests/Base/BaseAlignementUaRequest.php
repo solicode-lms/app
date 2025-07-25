@@ -29,10 +29,10 @@ class BaseAlignementUaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ordre' => 'required|integer',
-            'description' => 'nullable|string',
+            'ordre' => 'nullable|integer',
             'unite_apprentissage_id' => 'required',
-            'session_formation_id' => 'nullable'
+            'session_formation_id' => 'nullable',
+            'description' => 'nullable|string'
         ];
     }
 
@@ -45,9 +45,9 @@ class BaseAlignementUaRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.ordre')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.description')]),
             'unite_apprentissage_id.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.unite_apprentissage_id')]),
-            'session_formation_id.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.session_formation_id')])
+            'session_formation_id.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.session_formation_id')]),
+            'description.required' => __('validation.required', ['attribute' => __('PkgSessions::AlignementUa.description')])
         ];
     }
 
