@@ -43,7 +43,7 @@
        $titre = __("PkgSessions::sessionFormation.singular");
     @endphp
     <x-crud-header 
-        id="sessionFormation-crud-header" icon="fa-table"  
+        id="sessionFormation-crud-header" icon="fas fa-map"  
         iconColor="text-info"
         title="{{ $sessionFormation_title }}"
         :breadcrumbs="[

@@ -13,7 +13,9 @@
     },
     {
         "reference": "livrable_sessions_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-folder",
+        "value_float": 0,
         "e_model_reference": "livrable_sessions",
         "e_metadata_definition_reference": "iconModel"
     },

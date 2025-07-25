@@ -13,7 +13,9 @@
     },
     {
         "reference": "session_formations_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-map",
+        "value_float": 0,
         "e_model_reference": "session_formations",
         "e_metadata_definition_reference": "iconModel"
     },

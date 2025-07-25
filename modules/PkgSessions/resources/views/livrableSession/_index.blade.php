@@ -43,7 +43,7 @@
        $titre = __("PkgSessions::livrableSession.singular");
     @endphp
     <x-crud-header 
-        id="livrableSession-crud-header" icon="fa-table"  
+        id="livrableSession-crud-header" icon="fas fa-folder"  
         iconColor="text-info"
         title="{{ $livrableSession_title }}"
         :breadcrumbs="[

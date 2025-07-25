@@ -43,7 +43,7 @@
        $titre = __("PkgSessions::alignementUa.singular");
     @endphp
     <x-crud-header 
-        id="alignementUa-crud-header" icon="fa-table"  
+        id="alignementUa-crud-header" icon="fas fa-road"  
         iconColor="text-info"
         title="{{ $alignementUa_title }}"
         :breadcrumbs="[

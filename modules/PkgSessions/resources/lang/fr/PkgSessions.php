@@ -1,8 +1,8 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
+
 
 
 return [
-    'name' => 'PkgSessions',
-    'icon' => 'fa-table'
+    'name' => 'Feuille de route',
+    'icon' => 'fas fa-route'
 ];
