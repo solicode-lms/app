@@ -8,6 +8,7 @@ use Modules\PkgGapp\Models\Base\BaseEMetadatum;
 
 class EMetadatum extends BaseEMetadatum
 {
+    protected bool $allowReferenceUpdate = false;
 
     protected $with = [
        'eModel',

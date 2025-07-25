@@ -1,6 +1,6 @@
 [
     {
-        "reference": "RealisationChapitre-apprenant",
+        "reference": "RealisationChapitre_apprenant",
         "name": "apprenant",
         "column_name": "apprenant",
         "data_type": "String",

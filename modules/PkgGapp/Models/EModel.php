@@ -6,6 +6,7 @@ use Modules\PkgGapp\Models\Base\BaseEModel;
 
 class EModel extends BaseEModel
 {
+    protected bool $allowReferenceUpdate = false;
 
      protected $with = [
        'ePackage'

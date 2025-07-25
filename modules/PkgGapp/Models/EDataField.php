@@ -7,6 +7,8 @@ use Modules\PkgGapp\Models\Base\BaseEDataField;
 class EDataField extends BaseEDataField
 {
 
+    protected bool $allowReferenceUpdate = false;
+    
     protected $with = [
        'eModel',
        'eRelationship'

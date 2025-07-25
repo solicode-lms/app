@@ -7,6 +7,13 @@ use Illuminate\Support\Str;
 trait HasReference
 {
     /**
+     * Indique si la référence peut être mise à jour après la création.
+     *
+     * @var bool
+     */
+    protected bool $allowReferenceUpdate = true;
+
+    /**
      * Boot le trait pour gérer les événements du modèle.
      */
     protected static function bootHasReference()
@@ -17,22 +24,16 @@ trait HasReference
             }
         });
 
-        //Ne pas mettre à jour la référence il doit être déterminé à la création
         static::updating(function ($model) {
-            if ($model->hasColumn('reference')) {
+            if ($model->hasColumn('reference') && $model->shouldUpdateReference()) {
                 $model->reference = $model->generateReference();
             }
         });
 
-        // fireModelEvent en cas de modification sans changement de données 
-        // il est utilisere pour corriger les référence pendnat seed
-        // Il doit être executer en développement seulement
         static::saving(function ($model) {
-            if ($model->exists) {
-               if ($model->hasColumn('reference')) {
+            if ($model->exists && $model->hasColumn('reference') && $model->shouldUpdateReference()) {
                 $model->reference = $model->generateReference();
-               }
-            } 
+            }
         });
     }
 
@@ -47,6 +48,28 @@ trait HasReference
     }
 
     /**
+     * Vérifie si la référence peut être mise à jour.
+     *
+     * @return bool
+     */
+    public function shouldUpdateReference(): bool
+    {
+        return $this->allowReferenceUpdate;
+    }
+
+    /**
+     * Active ou désactive la mise à jour automatique de la référence.
+     *
+     * @param bool $allow
+     * @return $this
+     */
+    public function setAllowReferenceUpdate(bool $allow): self
+    {
+        $this->allowReferenceUpdate = $allow;
+        return $this;
+    }
+
+    /**
      * Vérifie si une colonne existe dans la table du modèle.
      *
      * @param string $column
@@ -54,10 +77,9 @@ trait HasReference
      */
     public function hasColumn(string $column): bool
     {
-        $value =  in_array($column, $this->getConnection()
+        return in_array($column, $this->getConnection()
             ->getSchemaBuilder()
             ->getColumnListing($this->getTable()));
-        return $value;
     }
 
     /**
