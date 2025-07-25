@@ -52,13 +52,22 @@ class BaseFeatureService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('feature');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('feature_domain_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("Core::featureDomain.plural"), 
+                        'feature_domain_id', 
+                        \Modules\Core\Models\FeatureDomain::class, 
+                        'name'
+                    );
+                }
+            
 
-        if (!array_key_exists('feature_domain_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::featureDomain.plural"), 'feature_domain_id', \Modules\Core\Models\FeatureDomain::class, 'name');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de feature.

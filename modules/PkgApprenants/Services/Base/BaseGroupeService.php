@@ -54,17 +54,32 @@ class BaseGroupeService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('groupe');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('filiere_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::filiere.plural"), 
+                        'filiere_id', 
+                        \Modules\PkgFormation\Models\Filiere::class, 
+                        'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('annee_formation_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::anneeFormation.plural"), 
+                        'annee_formation_id', 
+                        \Modules\PkgFormation\Models\AnneeFormation::class, 
+                        'titre'
+                    );
+                }
+            
 
-        if (!array_key_exists('filiere_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
-        }
 
-        if (!array_key_exists('annee_formation_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::anneeFormation.plural"), 'annee_formation_id', \Modules\PkgFormation\Models\AnneeFormation::class, 'titre');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de groupe.

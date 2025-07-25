@@ -51,9 +51,12 @@ class BaseNatureLivrableService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('natureLivrable');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de natureLivrable.

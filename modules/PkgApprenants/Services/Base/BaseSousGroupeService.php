@@ -52,13 +52,22 @@ class BaseSousGroupeService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('sousGroupe');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('groupe_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::groupe.plural"), 
+                        'groupe_id', 
+                        \Modules\PkgApprenants\Models\Groupe::class, 
+                        'code'
+                    );
+                }
+            
 
-        if (!array_key_exists('groupe_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::groupe.plural"), 'groupe_id', \Modules\PkgApprenants\Models\Groupe::class, 'code');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de sousGroupe.

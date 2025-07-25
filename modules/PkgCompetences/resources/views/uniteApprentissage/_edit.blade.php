@@ -37,6 +37,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-alignementUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-alignementUa" aria-selected="false">{{ucfirst(__('PkgSessions::alignementUa.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-chapitre" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgCompetences::chapitre.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -55,6 +58,9 @@
                                 @include('PkgCompetences::uniteApprentissage._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-alignementUa" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-alignementUa-tab">
+                                @include('PkgSessions::alignementUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
+                            </div>
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-chapitre-tab">
                                 @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>

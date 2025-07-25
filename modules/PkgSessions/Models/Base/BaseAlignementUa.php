@@ -1,0 +1,96 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgSessions\Models\Base;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
+use App\Traits\HasDynamicContext;
+use Modules\Core\Models\BaseModel;
+use Modules\PkgCompetences\Models\UniteApprentissage;
+use Modules\PkgSessions\Models\SessionFormation;
+
+/**
+ * Classe BaseAlignementUa
+ * Cette classe sert de base pour le modèle AlignementUa.
+ */
+class BaseAlignementUa extends BaseModel
+{
+    use HasFactory, HasDynamicContext;
+
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+      //  'uniteApprentissage',
+      //  'sessionFormation'
+    ];
+
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        $this->isOwnedByUser =  false;
+    }
+
+    
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'ordre', 'description', 'unite_apprentissage_id', 'session_formation_id'
+    ];
+    public $manyToOne = [
+        'UniteApprentissage' => [
+            'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
+            'relation' => 'uniteApprentissages' , 
+            "foreign_key" => "unite_apprentissage_id", 
+            ],
+        'SessionFormation' => [
+            'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
+            'relation' => 'sessionFormations' , 
+            "foreign_key" => "session_formation_id", 
+            ]
+    ];
+
+
+    /**
+     * Relation BelongsTo pour UniteApprentissage.
+     *
+     * @return BelongsTo
+     */
+    public function uniteApprentissage(): BelongsTo
+    {
+        return $this->belongsTo(UniteApprentissage::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour SessionFormation.
+     *
+     * @return BelongsTo
+     */
+    public function sessionFormation(): BelongsTo
+    {
+        return $this->belongsTo(SessionFormation::class, 'session_formation_id', 'id');
+    }
+
+
+
+
+
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ?? "";
+    }
+}

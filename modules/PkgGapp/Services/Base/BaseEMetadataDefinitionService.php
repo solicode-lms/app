@@ -55,13 +55,21 @@ class BaseEMetadataDefinitionService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('eMetadataDefinition');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('groupe', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'groupe', 
+                        'type'  => 'String', 
+                        'label' => 'groupe'
+                    ];
+                }
+            
 
-        if (!array_key_exists('groupe', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'groupe', 'type' => 'String', 'label' => 'groupe'];
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de eMetadataDefinition.

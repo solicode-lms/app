@@ -53,13 +53,22 @@ class BaseResourceService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('resource');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::projet.plural"), 
+                        'projet_id', 
+                        \Modules\PkgCreationProjet\Models\Projet::class, 
+                        'titre'
+                    );
+                }
+            
 
-        if (!array_key_exists('projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de resource.

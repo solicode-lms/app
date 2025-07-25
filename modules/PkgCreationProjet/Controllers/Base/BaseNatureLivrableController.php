@@ -4,6 +4,7 @@
 
 namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\NatureLivrableService;
+use Modules\PkgSessions\Services\LivrableSessionService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -142,6 +143,13 @@ class BaseNatureLivrableController extends AdminController
         $itemNatureLivrable = $this->natureLivrableService->edit($id);
 
 
+        $this->viewState->set('scope.livrableSession.nature_livrable_id', $id);
+        
+
+        $livrableSessionService =  new LivrableSessionService();
+        $livrableSessions_view_data = $livrableSessionService->prepareDataForIndexView();
+        extract($livrableSessions_view_data);
+
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
         
 
@@ -150,10 +158,10 @@ class BaseNatureLivrableController extends AdminController
         extract($livrables_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._show', array_merge(compact('itemNatureLivrable'),$livrable_compact_value));
+            return view('PkgCreationProjet::natureLivrable._show', array_merge(compact('itemNatureLivrable'),$livrableSession_compact_value, $livrable_compact_value));
         }
 
-        return view('PkgCreationProjet::natureLivrable.show', array_merge(compact('itemNatureLivrable'),$livrable_compact_value));
+        return view('PkgCreationProjet::natureLivrable.show', array_merge(compact('itemNatureLivrable'),$livrableSession_compact_value, $livrable_compact_value));
 
     }
     /**
@@ -168,6 +176,13 @@ class BaseNatureLivrableController extends AdminController
 
 
 
+        $this->viewState->set('scope.livrableSession.nature_livrable_id', $id);
+        
+
+        $livrableSessionService =  new LivrableSessionService();
+        $livrableSessions_view_data = $livrableSessionService->prepareDataForIndexView();
+        extract($livrableSessions_view_data);
+
         $this->viewState->set('scope.livrable.nature_livrable_id', $id);
         
 
@@ -178,10 +193,10 @@ class BaseNatureLivrableController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('bulkEdit' , 'itemNatureLivrable',),$livrable_compact_value));
+            return view('PkgCreationProjet::natureLivrable._edit', array_merge(compact('bulkEdit' , 'itemNatureLivrable',),$livrableSession_compact_value, $livrable_compact_value));
         }
 
-        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('bulkEdit' ,'itemNatureLivrable',),$livrable_compact_value));
+        return view('PkgCreationProjet::natureLivrable.edit', array_merge(compact('bulkEdit' ,'itemNatureLivrable',),$livrableSession_compact_value, $livrable_compact_value));
 
 
     }

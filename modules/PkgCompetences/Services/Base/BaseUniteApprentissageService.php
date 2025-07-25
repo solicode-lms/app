@@ -55,13 +55,22 @@ class BaseUniteApprentissageService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('uniteApprentissage');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('micro_competence_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::microCompetence.plural"), 
+                        'micro_competence_id', 
+                        \Modules\PkgCompetences\Models\MicroCompetence::class, 
+                        'titre'
+                    );
+                }
+            
 
-        if (!array_key_exists('micro_competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::microCompetence.plural"), 'micro_competence_id', \Modules\PkgCompetences\Models\MicroCompetence::class, 'titre');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de uniteApprentissage.

@@ -52,9 +52,12 @@ class BaseFiliereService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('filiere');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de filiere.

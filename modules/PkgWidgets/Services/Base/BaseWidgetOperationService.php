@@ -51,9 +51,12 @@ class BaseWidgetOperationService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('widgetOperation');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de widgetOperation.

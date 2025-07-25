@@ -54,21 +54,42 @@ class BaseEvaluationRealisationTacheService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('evaluationRealisationTache');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationTache::realisationTache.plural"), 
+                        'realisation_tache_id', 
+                        \Modules\PkgRealisationTache\Models\RealisationTache::class, 
+                        'id'
+                    );
+                }
+            
+            
+                if (!array_key_exists('evaluateur_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgEvaluateurs::evaluateur.plural"), 
+                        'evaluateur_id', 
+                        \Modules\PkgEvaluateurs\Models\Evaluateur::class, 
+                        'nom'
+                    );
+                }
+            
+            
+                if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgEvaluateurs::evaluationRealisationProjet.plural"), 
+                        'evaluation_realisation_projet_id', 
+                        \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::class, 
+                        'id'
+                    );
+                }
+            
 
-        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
-        }
 
-        if (!array_key_exists('evaluateur_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgEvaluateurs::evaluateur.plural"), 'evaluateur_id', \Modules\PkgEvaluateurs\Models\Evaluateur::class, 'nom');
-        }
-
-        if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgEvaluateurs::evaluationRealisationProjet.plural"), 'evaluation_realisation_projet_id', \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::class, 'id');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de evaluationRealisationTache.

@@ -52,9 +52,12 @@ class BaseNiveauxScolaireService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('niveauxScolaire');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de niveauxScolaire.

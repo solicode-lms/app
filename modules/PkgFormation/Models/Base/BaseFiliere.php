@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgFormation\Models\Module;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgSessions\Models\SessionFormation;
 
 /**
  * Classe BaseFiliere
@@ -68,6 +69,15 @@ class BaseFiliere extends BaseModel
     public function projets(): HasMany
     {
         return $this->hasMany(Projet::class, 'filiere_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Filieres.
+     *
+     * @return HasMany
+     */
+    public function sessionFormations(): HasMany
+    {
+        return $this->hasMany(SessionFormation::class, 'filiere_id', 'id');
     }
 
 

@@ -58,21 +58,42 @@ class BaseRealisationTacheService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationTache');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationTache::tache.plural"), 
+                        'tache_id', 
+                        \Modules\PkgCreationTache\Models\Tache::class, 
+                        'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationProjets::realisationProjet.plural"), 
+                        'realisation_projet_id', 
+                        \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
+                        'id'
+                    );
+                }
+            
+            
+                if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationTache::etatRealisationTache.plural"), 
+                        'etat_realisation_tache_id', 
+                        \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 
+                        'nom'
+                    );
+                }
+            
 
-        if (!array_key_exists('tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationTache::tache.plural"), 'tache_id', \Modules\PkgCreationTache\Models\Tache::class, 'titre');
-        }
 
-        if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
-        }
-
-        if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::etatRealisationTache.plural"), 'etat_realisation_tache_id', \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 'nom');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de realisationTache.

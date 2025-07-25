@@ -58,21 +58,42 @@ class BaseRealisationUaService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationUa');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('realisation_micro_competence_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::realisationMicroCompetence.plural"), 
+                        'realisation_micro_competence_id', 
+                        \Modules\PkgApprentissage\Models\RealisationMicroCompetence::class, 
+                        'id'
+                    );
+                }
+            
+            
+                if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::uniteApprentissage.plural"), 
+                        'unite_apprentissage_id', 
+                        \Modules\PkgCompetences\Models\UniteApprentissage::class, 
+                        'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('etat_realisation_ua_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::etatRealisationUa.plural"), 
+                        'etat_realisation_ua_id', 
+                        \Modules\PkgApprentissage\Models\EtatRealisationUa::class, 
+                        'nom'
+                    );
+                }
+            
 
-        if (!array_key_exists('realisation_micro_competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::realisationMicroCompetence.plural"), 'realisation_micro_competence_id', \Modules\PkgApprentissage\Models\RealisationMicroCompetence::class, 'id');
-        }
 
-        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
-        }
-
-        if (!array_key_exists('etat_realisation_ua_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::etatRealisationUa.plural"), 'etat_realisation_ua_id', \Modules\PkgApprentissage\Models\EtatRealisationUa::class, 'nom');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de realisationUa.

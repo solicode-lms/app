@@ -56,19 +56,24 @@ class BaseMicroCompetenceService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('microCompetence');
         $this->fieldsFilterable = [];
-    
+        
+            
+                $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                $filieres = $filiereService->all();
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgFormation::filiere.plural"),
+                    'competence.module.filiere_id', 
+                    \Modules\PkgFormation\Models\Filiere::class,
+                    "id", 
+                    "id",
+                    $filieres
+                );
+            
 
-        $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-        $filieres = $filiereService->all();
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgFormation::filiere.plural"),
-            'competence.module.filiere_id', 
-            \Modules\PkgFormation\Models\Filiere::class,
-            "id", 
-            "id",
-            $filieres
-        );
+
+
     }
+
 
     /**
      * Crée une nouvelle instance de microCompetence.

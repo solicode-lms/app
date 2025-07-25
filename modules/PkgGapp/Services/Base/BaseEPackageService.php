@@ -51,9 +51,12 @@ class BaseEPackageService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('ePackage');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de ePackage.

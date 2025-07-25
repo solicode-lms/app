@@ -54,17 +54,32 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('historiqueRealisationTache');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationTache::realisationTache.plural"), 
+                        'realisation_tache_id', 
+                        \Modules\PkgRealisationTache\Models\RealisationTache::class, 
+                        'id'
+                    );
+                }
+            
+            
+                if (!array_key_exists('user_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgAutorisation::user.plural"), 
+                        'user_id', 
+                        \Modules\PkgAutorisation\Models\User::class, 
+                        'name'
+                    );
+                }
+            
 
-        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
-        }
 
-        if (!array_key_exists('user_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de historiqueRealisationTache.

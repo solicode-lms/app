@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgApprenants\Models\Groupe;
+use Modules\PkgSessions\Models\SessionFormation;
 
 /**
  * Classe BaseAnneeFormation
@@ -58,6 +59,15 @@ class BaseAnneeFormation extends BaseModel
     public function groupes(): HasMany
     {
         return $this->hasMany(Groupe::class, 'annee_formation_id', 'id');
+    }
+    /**
+     * Relation HasMany pour AnneeFormations.
+     *
+     * @return HasMany
+     */
+    public function sessionFormations(): HasMany
+    {
+        return $this->hasMany(SessionFormation::class, 'annee_formation_id', 'id');
     }
 
 

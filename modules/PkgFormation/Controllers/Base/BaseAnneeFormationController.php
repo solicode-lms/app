@@ -6,6 +6,7 @@ namespace Modules\PkgFormation\Controllers\Base;
 use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgSessions\Services\SessionFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -157,11 +158,18 @@ class BaseAnneeFormationController extends AdminController
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
+        $this->viewState->set('scope.sessionFormation.annee_formation_id', $id);
+        
+
+        $sessionFormationService =  new SessionFormationService();
+        $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
+        extract($sessionFormations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value));
+            return view('PkgFormation::anneeFormation._show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value));
+        return view('PkgFormation::anneeFormation.show', array_merge(compact('itemAnneeFormation'),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
 
     }
     /**
@@ -190,13 +198,20 @@ class BaseAnneeFormationController extends AdminController
         $groupes_view_data = $groupeService->prepareDataForIndexView();
         extract($groupes_view_data);
 
+        $this->viewState->set('scope.sessionFormation.annee_formation_id', $id);
+        
+
+        $sessionFormationService =  new SessionFormationService();
+        $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
+        extract($sessionFormations_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgFormation::anneeFormation._edit', array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+            return view('PkgFormation::anneeFormation._edit', array_merge(compact('bulkEdit' , 'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
         }
 
-        return view('PkgFormation::anneeFormation.edit', array_merge(compact('bulkEdit' ,'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value));
+        return view('PkgFormation::anneeFormation.edit', array_merge(compact('bulkEdit' ,'itemAnneeFormation',),$affectationProjet_compact_value, $groupe_compact_value, $sessionFormation_compact_value));
 
 
     }

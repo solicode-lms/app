@@ -58,27 +58,43 @@ class BaseChapitreService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('chapitre');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('isOfficiel', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'isOfficiel', 
+                        'type'  => 'Boolean', 
+                        'label' => 'isOfficiel'
+                    ];
+                }
+            
+            
+                $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+                $microCompetences = $microCompetenceService->all();
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgCompetences::microCompetence.plural"),
+                    'UniteApprentissage.Micro_competence_id', 
+                    \Modules\PkgCompetences\Models\MicroCompetence::class,
+                    "id", 
+                    "id",
+                    $microCompetences
+                );
+            
+            
+                if (!array_key_exists('formateur_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::formateur.plural"), 
+                        'formateur_id', 
+                        \Modules\PkgFormation\Models\Formateur::class, 
+                        'nom'
+                    );
+                }
+            
 
-        if (!array_key_exists('isOfficiel', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'isOfficiel', 'type' => 'Boolean', 'label' => 'isOfficiel'];
-        }
 
-        if (!array_key_exists('formateur_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
-        }
 
-        $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
-        $microCompetences = $microCompetenceService->all();
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgCompetences::microCompetence.plural"),
-            'UniteApprentissage.Micro_competence_id', 
-            \Modules\PkgCompetences\Models\MicroCompetence::class,
-            "id", 
-            "id",
-            $microCompetences
-        );
     }
+
 
     /**
      * Crée une nouvelle instance de chapitre.

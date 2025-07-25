@@ -37,6 +37,9 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" id="natureLivrable-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrableSession" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrableSession" aria-selected="false">{{ucfirst(__('PkgSessions::livrableSession.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="natureLivrable-hasmany-tabs-livrable-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrable" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrable" aria-selected="false">{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}</a>
                         </li>
 
@@ -49,6 +52,9 @@
                                 @include('PkgCreationProjet::natureLivrable._fields')
                             </div>
 
+                            <div class="tab-pane fade" id="natureLivrable-hasmany-tabs-livrableSession" role="tabpanel" aria-labelledby="natureLivrable-hasmany-tabs-livrableSession-tab">
+                                @include('PkgSessions::livrableSession._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_' . $itemNatureLivrable->id])
+                            </div>
                             <div class="tab-pane fade" id="natureLivrable-hasmany-tabs-livrable" role="tabpanel" aria-labelledby="natureLivrable-hasmany-tabs-livrable-tab">
                                 @include('PkgCreationProjet::livrable._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'natureLivrable.edit_' . $itemNatureLivrable->id])
                             </div>

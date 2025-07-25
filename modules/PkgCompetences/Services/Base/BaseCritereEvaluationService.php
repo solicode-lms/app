@@ -54,17 +54,32 @@ class BaseCritereEvaluationService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('critereEvaluation');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::phaseEvaluation.plural"), 
+                        'phase_evaluation_id', 
+                        \Modules\PkgCompetences\Models\PhaseEvaluation::class, 
+                        'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::uniteApprentissage.plural"), 
+                        'unite_apprentissage_id', 
+                        \Modules\PkgCompetences\Models\UniteApprentissage::class, 
+                        'code'
+                    );
+                }
+            
 
-        if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::phaseEvaluation.plural"), 'phase_evaluation_id', \Modules\PkgCompetences\Models\PhaseEvaluation::class, 'code');
-        }
 
-        if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::uniteApprentissage.plural"), 'unite_apprentissage_id', \Modules\PkgCompetences\Models\UniteApprentissage::class, 'code');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de critereEvaluation.

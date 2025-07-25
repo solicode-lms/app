@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions([])
+@accessiblePermissions(['index-sessionFormation', 'index-alignementUa', 'index-livrableSession'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgSessions" class="nav-item has-treeview  {{ Request::is('admin/PkgSessions*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgSessions*') ? 'active' : '' }}">
@@ -12,6 +12,30 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @can('index-sessionFormation') 
+        <li class="nav-item" id="menu-sessionFormations">
+            <a href="{{ route('sessionFormations.index') }}" class="nav-link {{ Request::is('admin/PkgSessions/sessionFormations') ? 'active' : '' }}">
+                <i class="nav-icon fa-table"></i>
+                {{__('PkgSessions::sessionFormation.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-alignementUa') 
+        <li class="nav-item" id="menu-alignementUas">
+            <a href="{{ route('alignementUas.index') }}" class="nav-link {{ Request::is('admin/PkgSessions/alignementUas') ? 'active' : '' }}">
+                <i class="nav-icon fa-table"></i>
+                {{__('PkgSessions::alignementUa.plural')}}
+            </a>
+        </li>
+        @endcan
+        @can('index-livrableSession') 
+        <li class="nav-item" id="menu-livrableSessions">
+            <a href="{{ route('livrableSessions.index') }}" class="nav-link {{ Request::is('admin/PkgSessions/livrableSessions') ? 'active' : '' }}">
+                <i class="nav-icon fa-table"></i>
+                {{__('PkgSessions::livrableSession.plural')}}
+            </a>
+        </li>
+        @endcan
     </ul>
 </li>
 @endif

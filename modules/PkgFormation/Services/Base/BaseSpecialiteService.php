@@ -51,13 +51,22 @@ class BaseSpecialiteService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('specialite');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('formateurs', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToManyFilter(
+                        __("PkgFormation::formateur.plural"), 
+                        'formateur_id', 
+                        \Modules\PkgFormation\Models\Formateur::class, 
+                        'nom'
+                    );
+                }
+            
 
-        if (!array_key_exists('formateurs', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToManyFilter(__("PkgFormation::formateur.plural"), 'formateur_id', \Modules\PkgFormation\Models\Formateur::class, 'nom');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de specialite.

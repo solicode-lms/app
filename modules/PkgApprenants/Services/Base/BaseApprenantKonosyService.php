@@ -68,9 +68,12 @@ class BaseApprenantKonosyService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('apprenantKonosy');
         $this->fieldsFilterable = [];
-    
+        
+
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de apprenantKonosy.

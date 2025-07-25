@@ -56,17 +56,31 @@ class BaseNotificationService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('notification');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('is_read', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'is_read', 
+                        'type'  => 'Boolean', 
+                        'label' => 'is_read'
+                    ];
+                }
+            
+            
+                if (!array_key_exists('user_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgAutorisation::user.plural"), 
+                        'user_id', 
+                        \Modules\PkgAutorisation\Models\User::class, 
+                        'name'
+                    );
+                }
+            
 
-        if (!array_key_exists('is_read', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'is_read', 'type' => 'Boolean', 'label' => 'is_read'];
-        }
 
-        if (!array_key_exists('user_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de notification.

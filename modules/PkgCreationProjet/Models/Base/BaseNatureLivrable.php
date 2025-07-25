@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
+use Modules\PkgSessions\Models\LivrableSession;
 use Modules\PkgCreationProjet\Models\Livrable;
 
 /**
@@ -40,6 +41,15 @@ class BaseNatureLivrable extends BaseModel
 
 
 
+    /**
+     * Relation HasMany pour NatureLivrables.
+     *
+     * @return HasMany
+     */
+    public function livrableSessions(): HasMany
+    {
+        return $this->hasMany(LivrableSession::class, 'nature_livrable_id', 'id');
+    }
     /**
      * Relation HasMany pour NatureLivrables.
      *

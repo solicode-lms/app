@@ -54,13 +54,22 @@ class BaseModuleService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('module');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('filiere_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::filiere.plural"), 
+                        'filiere_id', 
+                        \Modules\PkgFormation\Models\Filiere::class, 
+                        'code'
+                    );
+                }
+            
 
-        if (!array_key_exists('filiere_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgFormation::filiere.plural"), 'filiere_id', \Modules\PkgFormation\Models\Filiere::class, 'code');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de module.

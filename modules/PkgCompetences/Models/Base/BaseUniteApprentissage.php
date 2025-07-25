@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\MicroCompetence;
+use Modules\PkgSessions\Models\AlignementUa;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCompetences\Models\CritereEvaluation;
 use Modules\PkgApprentissage\Models\RealisationUa;
@@ -68,6 +69,15 @@ class BaseUniteApprentissage extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour UniteApprentissages.
+     *
+     * @return HasMany
+     */
+    public function alignementUas(): HasMany
+    {
+        return $this->hasMany(AlignementUa::class, 'unite_apprentissage_id', 'id');
+    }
     /**
      * Relation HasMany pour UniteApprentissages.
      *

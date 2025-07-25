@@ -59,21 +59,42 @@ class BaseRealisationMicroCompetenceService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationMicroCompetence');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('apprenant_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::apprenant.plural"), 
+                        'apprenant_id', 
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom'
+                    );
+                }
+            
+            
+                if (!array_key_exists('micro_competence_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::microCompetence.plural"), 
+                        'micro_competence_id', 
+                        \Modules\PkgCompetences\Models\MicroCompetence::class, 
+                        'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('etat_realisation_micro_competence_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::etatRealisationMicroCompetence.plural"), 
+                        'etat_realisation_micro_competence_id', 
+                        \Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence::class, 
+                        'nom'
+                    );
+                }
+            
 
-        if (!array_key_exists('apprenant_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprenants::apprenant.plural"), 'apprenant_id', \Modules\PkgApprenants\Models\Apprenant::class, 'nom');
-        }
 
-        if (!array_key_exists('micro_competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCompetences::microCompetence.plural"), 'micro_competence_id', \Modules\PkgCompetences\Models\MicroCompetence::class, 'titre');
-        }
-
-        if (!array_key_exists('etat_realisation_micro_competence_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::etatRealisationMicroCompetence.plural"), 'etat_realisation_micro_competence_id', \Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence::class, 'nom');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de realisationMicroCompetence.

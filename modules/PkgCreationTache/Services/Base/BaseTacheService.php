@@ -57,17 +57,32 @@ class BaseTacheService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('tache');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationTache::prioriteTache.plural"), 
+                        'priorite_tache_id', 
+                        \Modules\PkgCreationTache\Models\PrioriteTache::class, 
+                        'nom'
+                    );
+                }
+            
+            
+                if (!array_key_exists('projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::projet.plural"), 
+                        'projet_id', 
+                        \Modules\PkgCreationProjet\Models\Projet::class, 
+                        'titre'
+                    );
+                }
+            
 
-        if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationTache::prioriteTache.plural"), 'priorite_tache_id', \Modules\PkgCreationTache\Models\PrioriteTache::class, 'nom');
-        }
 
-        if (!array_key_exists('projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::projet.plural"), 'projet_id', \Modules\PkgCreationProjet\Models\Projet::class, 'titre');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de tache.

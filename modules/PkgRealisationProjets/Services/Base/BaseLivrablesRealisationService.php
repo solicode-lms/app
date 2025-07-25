@@ -54,17 +54,32 @@ class BaseLivrablesRealisationService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('livrablesRealisation');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('livrable_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::livrable.plural"), 
+                        'livrable_id', 
+                        \Modules\PkgCreationProjet\Models\Livrable::class, 
+                        'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationProjets::realisationProjet.plural"), 
+                        'realisation_projet_id', 
+                        \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
+                        'id'
+                    );
+                }
+            
 
-        if (!array_key_exists('livrable_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgCreationProjet::livrable.plural"), 'livrable_id', \Modules\PkgCreationProjet\Models\Livrable::class, 'titre');
-        }
 
-        if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationProjets::realisationProjet.plural"), 'realisation_projet_id', \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 'id');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de livrablesRealisation.

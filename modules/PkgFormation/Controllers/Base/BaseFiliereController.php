@@ -7,6 +7,7 @@ use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgSessions\Services\SessionFormationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -165,11 +166,18 @@ class BaseFiliereController extends AdminController
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
+        $this->viewState->set('scope.sessionFormation.filiere_id', $id);
+        
+
+        $sessionFormationService =  new SessionFormationService();
+        $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
+        extract($sessionFormations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+            return view('PkgFormation::filiere._show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
         }
 
-        return view('PkgFormation::filiere.show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+        return view('PkgFormation::filiere.show', array_merge(compact('itemFiliere'),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
 
     }
     /**
@@ -205,13 +213,20 @@ class BaseFiliereController extends AdminController
         $projets_view_data = $projetService->prepareDataForIndexView();
         extract($projets_view_data);
 
+        $this->viewState->set('scope.sessionFormation.filiere_id', $id);
+        
+
+        $sessionFormationService =  new SessionFormationService();
+        $sessionFormations_view_data = $sessionFormationService->prepareDataForIndexView();
+        extract($sessionFormations_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgFormation::filiere._edit', array_merge(compact('bulkEdit' , 'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+            return view('PkgFormation::filiere._edit', array_merge(compact('bulkEdit' , 'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
         }
 
-        return view('PkgFormation::filiere.edit', array_merge(compact('bulkEdit' ,'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value));
+        return view('PkgFormation::filiere.edit', array_merge(compact('bulkEdit' ,'itemFiliere',),$groupe_compact_value, $module_compact_value, $projet_compact_value, $sessionFormation_compact_value));
 
 
     }

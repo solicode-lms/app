@@ -55,13 +55,22 @@ class BaseEModelService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('eModel');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('e_package_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgGapp::ePackage.plural"), 
+                        'e_package_id', 
+                        \Modules\PkgGapp\Models\EPackage::class, 
+                        'name'
+                    );
+                }
+            
 
-        if (!array_key_exists('e_package_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgGapp::ePackage.plural"), 'e_package_id', \Modules\PkgGapp\Models\EPackage::class, 'name');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de eModel.

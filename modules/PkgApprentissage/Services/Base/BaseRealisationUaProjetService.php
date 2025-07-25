@@ -56,17 +56,32 @@ class BaseRealisationUaProjetService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('realisationUaProjet');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::realisationUa.plural"), 
+                        'realisation_ua_id', 
+                        \Modules\PkgApprentissage\Models\RealisationUa::class, 
+                        'id'
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationTache::realisationTache.plural"), 
+                        'realisation_tache_id', 
+                        \Modules\PkgRealisationTache\Models\RealisationTache::class, 
+                        'id'
+                    );
+                }
+            
 
-        if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgApprentissage::realisationUa.plural"), 'realisation_ua_id', \Modules\PkgApprentissage\Models\RealisationUa::class, 'id');
-        }
 
-        if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgRealisationTache::realisationTache.plural"), 'realisation_tache_id', \Modules\PkgRealisationTache\Models\RealisationTache::class, 'id');
-        }
 
     }
+
 
     /**
      * Crée une nouvelle instance de realisationUaProjet.

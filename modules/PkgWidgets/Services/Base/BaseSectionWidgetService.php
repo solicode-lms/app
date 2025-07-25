@@ -54,13 +54,22 @@ class BaseSectionWidgetService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('sectionWidget');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('sys_color_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("Core::sysColor.plural"), 
+                        'sys_color_id', 
+                        \Modules\Core\Models\SysColor::class, 
+                        'name'
+                    );
+                }
+            
 
-        if (!array_key_exists('sys_color_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("Core::sysColor.plural"), 'sys_color_id', \Modules\Core\Models\SysColor::class, 'name');
-        }
+
 
     }
+
 
     /**
      * Crée une nouvelle instance de sectionWidget.

@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="anneeFormation-hasmany-tabs-groupe-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-groupe" role="tab" aria-controls="anneeFormation-hasmany-tabs-groupe" aria-selected="false">{{ucfirst(__('PkgApprenants::groupe.plural'))}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="anneeFormation-hasmany-tabs-sessionFormation-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-sessionFormation" role="tab" aria-controls="anneeFormation-hasmany-tabs-sessionFormation" aria-selected="false">{{ucfirst(__('PkgSessions::sessionFormation.plural'))}}</a>
+                        </li>
 
                        
                         </ul>
@@ -57,6 +60,9 @@
                             </div>
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-groupe-tab">
                                 @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
+                            </div>
+                            <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-sessionFormation" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-sessionFormation-tab">
+                                @include('PkgSessions::sessionFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
 
                            

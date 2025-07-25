@@ -55,27 +55,43 @@ class BaseWidgetUtilisateurService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('widgetUtilisateur');
         $this->fieldsFilterable = [];
-    
+        
+            
+                if (!array_key_exists('user_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgAutorisation::user.plural"), 
+                        'user_id', 
+                        \Modules\PkgAutorisation\Models\User::class, 
+                        'name'
+                    );
+                }
+            
+            
+                $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
+                $sectionWidgets = $sectionWidgetService->all();
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgWidgets::sectionWidget.plural"),
+                    'Widget.Section_widget_id', 
+                    \Modules\PkgWidgets\Models\SectionWidget::class,
+                    "id", 
+                    "id",
+                    $sectionWidgets
+                );
+            
+            
+                if (!array_key_exists('visible', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'visible', 
+                        'type'  => 'Boolean', 
+                        'label' => 'visible'
+                    ];
+                }
+            
 
-        if (!array_key_exists('user_id', $scopeVariables)) {
-        $this->fieldsFilterable[] = $this->generateManyToOneFilter(__("PkgAutorisation::user.plural"), 'user_id', \Modules\PkgAutorisation\Models\User::class, 'name');
-        }
 
-        if (!array_key_exists('visible', $scopeVariables)) {
-        $this->fieldsFilterable[] = ['field' => 'visible', 'type' => 'Boolean', 'label' => 'visible'];
-        }
 
-        $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
-        $sectionWidgets = $sectionWidgetService->all();
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgWidgets::sectionWidget.plural"),
-            'Widget.Section_widget_id', 
-            \Modules\PkgWidgets\Models\SectionWidget::class,
-            "id", 
-            "id",
-            $sectionWidgets
-        );
     }
+
 
     /**
      * Crée une nouvelle instance de widgetUtilisateur.

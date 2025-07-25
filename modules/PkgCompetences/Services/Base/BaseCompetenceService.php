@@ -54,19 +54,24 @@ class BaseCompetenceService extends BaseService
         // Initialiser les filtres configurables dynamiquement
         $scopeVariables = $this->viewState->getScopeVariables('competence');
         $this->fieldsFilterable = [];
-    
+        
+            
+                $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                $filieres = $filiereService->all();
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgFormation::filiere.plural"),
+                    'Module.Filiere_id', 
+                    \Modules\PkgFormation\Models\Filiere::class,
+                    "id", 
+                    "id",
+                    $filieres
+                );
+            
 
-        $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-        $filieres = $filiereService->all();
-        $this->fieldsFilterable[] = $this->generateRelationFilter(
-            __("PkgFormation::filiere.plural"),
-            'Module.Filiere_id', 
-            \Modules\PkgFormation\Models\Filiere::class,
-            "id", 
-            "id",
-            $filieres
-        );
+
+
     }
+
 
     /**
      * Crée une nouvelle instance de competence.
