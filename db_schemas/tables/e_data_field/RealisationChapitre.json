@@ -1,0 +1,16 @@
+[
+    {
+        "reference": "RealisationChapitre-apprenant",
+        "name": "apprenant",
+        "column_name": "apprenant",
+        "data_type": "String",
+        "field_order": 2,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 0,
+        "calculable": 1,
+        "calculable_sql": "SELECT CONCAT(a.nom, ' ', a.prenom)\r\nFROM realisation_chapitres rc\r\nJOIN realisation_uas rua ON rc.realisation_ua_id = rua.id\r\nJOIN realisation_micro_competences rmc ON rua.realisation_micro_competence_id = rmc.id\r\nJOIN apprenants a ON rmc.apprenant_id = a.id\r\nWHERE rc.id = realisation_chapitres.id",
+        "description": "<p>Afficher le nom et prénom de l'apprenant</p>",
+        "e_model_reference": "realisation_chapitres"
+    }
+]

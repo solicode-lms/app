@@ -543,5 +543,30 @@
         ],
         "e_data_field_reference": "RealisationChapitre_chapitre_id",
         "e_metadata_definition_reference": "relationFilter"
+    },
+    {
+        "reference": "RealisationChapitre-apprenant_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre-apprenant",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationChapitre-apprenant_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "RealisationChapitre-apprenant",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationChapitre-apprenant_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationChapitre-apprenant",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationChapitre-apprenant_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationChapitre-apprenant",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

@@ -40,6 +40,14 @@ class BaseRealisationChapitre extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : apprenant
+        $sql = "SELECT CONCAT(a.nom, ' ', a.prenom)
+        FROM realisation_chapitres rc
+        JOIN realisation_uas rua ON rc.realisation_ua_id = rua.id
+        JOIN realisation_micro_competences rmc ON rua.realisation_micro_competence_id = rmc.id
+        JOIN apprenants a ON rmc.apprenant_id = a.id
+        WHERE rc.id = realisation_chapitres.id";
+        static::addDynamicAttribute('apprenant', $sql);
     }
 
     
