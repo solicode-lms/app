@@ -13,7 +13,7 @@ class UniteApprentissageService extends BaseUniteApprentissageService
 {
 
         protected $dataSources = [
-        "apprenantSansTacheEnCours" => [
+        "uaNonAlignee" => [
             "title" => "Unité d'apprentissage non alignée",
             "method" => "uniteApprentissageNonAligneeQuery"
         ],
@@ -31,11 +31,15 @@ class UniteApprentissageService extends BaseUniteApprentissageService
     }
 
 
-     public function uniteApprentissageNonAligneeQuery(): Builder
+    public function uniteApprentissageNonAligneeQuery(): Builder
     {
-       
-
-        return $query;
+            return $this->model
+                ->newQuery()
+                ->whereNotExists(function ($query) {
+                    $query->selectRaw(1)
+                        ->from('alignement_uas')
+                        ->whereColumn('alignement_uas.unite_apprentissage_id', 'unite_apprentissages.id');
+                });
     }
    
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Modules\Core\Services\UserModelFilterService;
+use Modules\Core\Services\ViewStateService;
 
 trait QueryBuilderTrait
 {
@@ -19,6 +20,9 @@ trait QueryBuilderTrait
         //         "method" => "apprenantSansTacheEnCoursQuery"
         //     ],
         // ];
+
+        // $this->viewState = app(ViewStateService::class);
+        
         $dataSource = $this->viewState->getDataSourceVariables($this->modelName);
     
         if ($dataSource && isset($this->dataSources[$dataSource["code"]])) {

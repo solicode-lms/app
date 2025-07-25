@@ -47,6 +47,26 @@ CREATE TABLE `affectation_projets` (
   CONSTRAINT `affectation_projets_sous_groupe_id_foreign` FOREIGN KEY (`sous_groupe_id`) REFERENCES `sous_groupes` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `alignement_uas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `alignement_uas` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int NOT NULL DEFAULT '0',
+  `unite_apprentissage_id` bigint unsigned NOT NULL,
+  `session_formation_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `alignement_uas_reference_unique` (`reference`),
+  KEY `alignement_uas_unite_apprentissage_id_foreign` (`unite_apprentissage_id`),
+  KEY `alignement_uas_session_formation_id_foreign` (`session_formation_id`),
+  CONSTRAINT `alignement_uas_session_formation_id_foreign` FOREIGN KEY (`session_formation_id`) REFERENCES `session_formations` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `alignement_uas_unite_apprentissage_id_foreign` FOREIGN KEY (`unite_apprentissage_id`) REFERENCES `unite_apprentissages` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `annee_formations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -436,6 +456,7 @@ CREATE TABLE `etat_realisation_chapitres` (
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -456,6 +477,7 @@ CREATE TABLE `etat_realisation_micro_competences` (
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -500,6 +522,7 @@ CREATE TABLE `etat_realisation_uas` (
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -811,6 +834,27 @@ CREATE TABLE `jobs` (
   `created_at` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `livrable_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `livrable_sessions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `ordre` int NOT NULL DEFAULT '0',
+  `session_formation_id` bigint unsigned NOT NULL,
+  `nature_livrable_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `livrable_sessions_reference_unique` (`reference`),
+  KEY `livrable_sessions_session_formation_id_foreign` (`session_formation_id`),
+  KEY `livrable_sessions_nature_livrable_id_foreign` (`nature_livrable_id`),
+  CONSTRAINT `livrable_sessions_nature_livrable_id_foreign` FOREIGN KEY (`nature_livrable_id`) REFERENCES `nature_livrables` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `livrable_sessions_session_formation_id_foreign` FOREIGN KEY (`session_formation_id`) REFERENCES `session_formations` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `livrable_tache`;
@@ -1368,6 +1412,38 @@ CREATE TABLE `section_widgets` (
   CONSTRAINT `section_widgets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `session_formations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `session_formations` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ordre` int NOT NULL DEFAULT '0',
+  `date_debut` date DEFAULT NULL,
+  `date_fin` date DEFAULT NULL,
+  `jour_feries_vacances` text COLLATE utf8mb4_unicode_ci,
+  `thematique` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `objectifs_pedagogique` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarques` longtext COLLATE utf8mb4_unicode_ci,
+  `titre_prototype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_prototype` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contraintes_prototype` longtext COLLATE utf8mb4_unicode_ci,
+  `titre_projet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_projet` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contraintes_projet` longtext COLLATE utf8mb4_unicode_ci,
+  `filiere_id` bigint unsigned DEFAULT NULL,
+  `annee_formation_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `session_formations_reference_unique` (`reference`),
+  KEY `session_formations_filiere_id_foreign` (`filiere_id`),
+  KEY `session_formations_annee_formation_id_foreign` (`annee_formation_id`),
+  CONSTRAINT `session_formations_annee_formation_id_foreign` FOREIGN KEY (`annee_formation_id`) REFERENCES `annee_formations` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `session_formations_filiere_id_foreign` FOREIGN KEY (`filiere_id`) REFERENCES `filieres` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1802,3 +1878,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (153,'2025_07_24_09
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (155,'2025_07_24_090212_create_realisation_chapitres_table',39);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (156,'2025_07_24_090256_create_realisation_ua_prototypes_table',39);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (157,'2025_07_24_091203_create_realisation_ua_projets_table',40);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (158,'2025_07_24_095527_add_ordre_to_etat_realisation_micro_competences_table',41);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (159,'2025_07_24_095605_add_ordre_to_etat_realisation_chapitres_table',41);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (160,'2025_07_24_095656_add_ordre_to_etat_realisation_uas_table',41);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (162,'2025_07_25_130046_create_session_formations_table',42);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (163,'2025_07_25_131005_create_alignement_uas_table',42);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (164,'2025_07_25_131313_create_livrable_sessions_table',43);

@@ -8,7 +8,7 @@
         <ul class="projet-affectations">
                 <li>
                     Du {{ $entity->date_debut  }} au {{ $entity->date_fin    }}
-                    <small>Semaines : 41–42</small>
+                    <small>Semaines : </small>
                 </li>
                 @if(!empty($entity->jour_feries_vacances))
                     <li>
@@ -17,8 +17,7 @@
                 @endif
         </ul>
     </section>
-
     <footer class="projet-formateur">
-        <strong>aa :</strong> bbb
+        <strong>Filière :</strong>  {{ $entity->filiere  }}
     </footer>
 </article>

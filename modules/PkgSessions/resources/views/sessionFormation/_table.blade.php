@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.ordre'))!!}" />
                 <x-sortable-column :sortable="true" width="26"  field="titre" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.titre'))!!}" />
-                <x-sortable-column :sortable="true" width="26" field="filiere_id" modelname="sessionFormation" label="{!!ucfirst(__('PkgFormation::filiere.singular'))!!}" />
+                <x-sortable-column :sortable="false" width="26"  field="objectifs_pedagogique" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::sessionFormation.objectifs_pedagogique'))!!}" />
                 <x-sortable-column :sortable="false" width="26"  field="AlignementUa" modelname="sessionFormation" label="{!!ucfirst(__('PkgSessions::alignementUa.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -33,17 +33,11 @@
                     <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $sessionFormation->titre }}" >
                         @include('PkgSessions::sessionFormation.custom.fields.titre', ['entity' => $sessionFormation])
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="filiere_id"  data-toggle="tooltip" title="{{ $sessionFormation->filiere }}" >
-                        {{  $sessionFormation->filiere }}
-
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sessionFormation->id}}" data-field="objectifs_pedagogique"  data-toggle="tooltip" title="{{ $sessionFormation->objectifs_pedagogique }}" >
+                        @include('PkgSessions::sessionFormation.custom.fields.objectifs_pedagogique', ['entity' => $sessionFormation])
                     </td>
                     <td style="max-width: 26%;" class=" text-truncate" data-id="{{$sessionFormation->id}}" data-field="AlignementUa"  data-toggle="tooltip" title="{{ $sessionFormation->alignementUas }}" >
-                        <ul>
-                            @foreach ($sessionFormation->alignementUas as $alignementUa)
-                                <li>{{$alignementUa}} </li>
-                            @endforeach
-                        </ul>
-
+                        @include('PkgSessions::sessionFormation.custom.fields.alignementUas', ['entity' => $sessionFormation])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

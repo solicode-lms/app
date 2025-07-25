@@ -20,6 +20,11 @@ class AlignementUaController extends BaseAlignementUaController
         $bulkEdit = false;
 
 
+        // Ajouter dataSource 
+        $this->viewState->set("dataSource.uniteApprentissage.code","uaNonAlignee");
+
+
+
         $uniteApprentissageService =  new UniteApprentissageService();
         $uniteApprentissages_view_data = $uniteApprentissageService->prepareDataForIndexView();
         extract($uniteApprentissages_view_data);
