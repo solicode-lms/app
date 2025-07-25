@@ -166,9 +166,16 @@
         "realisation_ua_prototypes",
         "realisation_ua_projets"
     ]
+},
+
+"PkgSessions": {
+    "name": "PkgSessions",
+    "tables": [
+        "sessions",
+        "alignement_uas",
+        "livrable_sessions"
+    ]
 }
-
-
         
 }
 

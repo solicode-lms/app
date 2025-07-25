@@ -14,3 +14,4 @@
 "Evaluation de projets","PkgEvaluateurs","Contient les tables PkgEvaluateurs","1","12","1","danger","PkgEvaluateurs"
 "Gestion des tâches","PkgCreationTache","Contient les tables PkgCreationTache","1","11","1","danger","PkgCreationTache"
 "Gestion des apprentissages","PkgApprentissage","Contient les tables PkgApprentissage","1","11","1","danger","PkgApprentissage"
+"Gestion des sessions","PkgSessions","Contient les tables liées aux sessions, livrables et alignements UA","1","13","1","primary","PkgSessions"
