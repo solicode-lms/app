@@ -945,6 +945,29 @@ CREATE TABLE `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `mobilisation_uas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mobilisation_uas` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `criteres_evaluation_prototype` longtext COLLATE utf8mb4_unicode_ci,
+  `criteres_evaluation_projet` longtext COLLATE utf8mb4_unicode_ci,
+  `bareme_evaluation_prototype` double NOT NULL DEFAULT '0',
+  `bareme_evaluation_projet` double NOT NULL DEFAULT '0',
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `projet_id` bigint unsigned NOT NULL,
+  `unite_apprentissage_id` bigint unsigned NOT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mobilisation_uas_reference_unique` (`reference`),
+  KEY `mobilisation_uas_projet_id_foreign` (`projet_id`),
+  KEY `mobilisation_uas_unite_apprentissage_id_foreign` (`unite_apprentissage_id`),
+  CONSTRAINT `mobilisation_uas_projet_id_foreign` FOREIGN KEY (`projet_id`) REFERENCES `projets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `mobilisation_uas_unite_apprentissage_id_foreign` FOREIGN KEY (`unite_apprentissage_id`) REFERENCES `unite_apprentissages` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `model_has_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1141,9 +1164,9 @@ CREATE TABLE `projets` (
   `travail_a_faire` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `critere_de_travail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `nombre_jour` int NOT NULL,
   `formateur_id` bigint unsigned NOT NULL,
   `filiere_id` bigint unsigned NOT NULL,
+  `session_formation_id` bigint unsigned DEFAULT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1151,8 +1174,10 @@ CREATE TABLE `projets` (
   UNIQUE KEY `projets_reference_unique` (`reference`),
   KEY `projets_formateur_id_foreign` (`formateur_id`),
   KEY `projets_filiere_id_foreign` (`filiere_id`),
+  KEY `projets_session_formation_id_foreign` (`session_formation_id`),
   CONSTRAINT `projets_filiere_id_foreign` FOREIGN KEY (`filiere_id`) REFERENCES `filieres` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE RESTRICT
+  CONSTRAINT `projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `projets_session_formation_id_foreign` FOREIGN KEY (`session_formation_id`) REFERENCES `session_formations` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `realisation_chapitres`;
@@ -1884,3 +1909,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (160,'2025_07_24_09
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (162,'2025_07_25_130046_create_session_formations_table',42);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (163,'2025_07_25_131005_create_alignement_uas_table',42);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (164,'2025_07_25_131313_create_livrable_sessions_table',43);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (165,'2025_07_26_100252_update_projets_table',44);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (167,'2025_07_26_100429_create_mobilisation_uas_table',45);

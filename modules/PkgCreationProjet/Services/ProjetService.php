@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 use Illuminate\Support\Facades\DB;
+use Modules\PkgSessions\Models\SessionFormation;
+
 /**
  * Classe ProjetService pour gérer la persistance de l'entité Projet.
  */
@@ -26,13 +28,27 @@ class ProjetService extends BaseProjetService
 
     public function dataCalcul($projet)
     {
-        // En Cas d'édit
-        if(isset($projet->id)){
-          
+        // En cas de création
+        if (empty($projet->id) && $projet->session_formation_id) {
+            // Récupérer la session de formation liée
+            $session = SessionFormation::find($projet->session_formation_id);
+
+            if ($session) {
+                // Hydrater les champs du projet avec les données de la session
+                $projet->titre              = $session->titre_projet;
+                $projet->travail_a_faire    = $session->description_projet;
+                $projet->critere_de_travail = $session->contraintes_projet;
+
+                // Assigner la filière si présente
+                if (!empty($session->filiere_id)) {
+                    $projet->filiere_id = $session->filiere_id;
+                }
+            }
         }
-      
+
         return $projet;
     }
+
 
     public function defaultSort($query)
     {

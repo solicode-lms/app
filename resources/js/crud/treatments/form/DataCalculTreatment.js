@@ -135,7 +135,14 @@ export class DataCalculTreatment {
                 } 
                 // Vérifier si c'est un champ input classique ou textarea
                 else {
-                    field.val(value).trigger('change');
+                     field.val(value);
+
+                    // Si c'est un éditeur Summernote (richText)
+                    if (field.hasClass('richText') && typeof field.summernote === 'function') {
+                        field.summernote('code', value);
+                    } else {
+                        field.trigger('change');
+                    }
                 }
             }
         });

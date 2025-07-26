@@ -417,65 +417,39 @@ export class FormUI  {
             });
         });
     }
-    static initializeRichText(){
-
-        // Init sumernote
+    static initializeRichText() {
         $('.richText').each(function () {
             const $textarea = $(this);
             const isDisabled = $textarea.prop('disabled');
 
+            // Initialisation de Summernote
             $textarea.summernote({
                 height: 80,
-                // Si désactivé, masquer la toolbar et désactiver l’édition
                 toolbar: isDisabled ? false : undefined,
                 airMode: isDisabled ? false : undefined,
                 callbacks: isDisabled ? {
                     onInit: function () {
-                        // Rendre le contenu non éditable
                         $textarea
-                        .siblings('.note-editor')
-                        .find('.note-editable')
-                        .attr('contenteditable', false);
+                            .siblings('.note-editor')
+                            .find('.note-editable')
+                            .attr('contenteditable', false);
                     }
                 } : {}
             });
+
+            // Synchroniser le textarea => Summernote
+            $textarea.on('input', function () {
+                $textarea.summernote('code', $textarea.val());
+            });
+
+            // Synchroniser Summernote => textarea
+            $textarea.on('summernote.change', function (e, contents) {
+                $textarea.val(contents);
+            });
         });
-
-
-      
-        // $('.richText').each(function () {
-        //     var $textarea = $(this);
-            
-        //     // Vérifier si la textarea est désactivée
-        //     if ($textarea.prop('disabled')) {
-        //         $textarea.summernote({
-        //             height: 80,
-        //             toolbar: false,  // Désactive la barre d'outils
-        //             airMode: false,  // Mode édition désactivé
-        //             callbacks: {
-        //                 onInit: function () {
-        //                     // Désactiver le contenu pour éviter l'édition
-        //                     $('.note-editable').attr('contenteditable', false);
-        //                 }
-        //             }
-        //         });
-        //     } else {
-        //         $textarea.summernote({
-        //             height: 80
-        //         });
-        //     }
-        // });
-       
-
-        
-
-        // Utiliser EventUtil pour gérer l'événement `summernote.change`
-        EventUtil.bindEvent('summernote.change', '.richText', function() {
-            $(this).trigger('change'); // Déclenche le `change` sur le textarea caché
-        });
-
-
     }
+
+
 
     getFormDataArray() {
         const form = $(this.formSelector);

@@ -78,7 +78,7 @@
                       <select 
             id="session_formation_id" 
             
-            
+            data-calcul='true'
             
             name="session_formation_id" 
             class="form-control select2">

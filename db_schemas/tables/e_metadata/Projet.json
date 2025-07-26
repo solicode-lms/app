@@ -785,5 +785,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "Projet_session_formation_id_dataCalcul",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "dataCalcul"
     }
 ]
