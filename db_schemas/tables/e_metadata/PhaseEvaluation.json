@@ -440,5 +440,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "phase_evaluations_hasMany_critere_evaluations_phase_evaluation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "phase_evaluations_hasMany_taches_phase_evaluation_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "phase_evaluations_hasMany_taches_phase_evaluation_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "phase_evaluations_hasMany_taches_phase_evaluation_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "phase_evaluations_hasMany_taches_phase_evaluation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "phase_evaluations_hasMany_taches_phase_evaluation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "phase_evaluations_hasMany_taches_phase_evaluation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "phase_evaluations_hasMany_taches_phase_evaluation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "phase_evaluations_hasMany_taches_phase_evaluation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

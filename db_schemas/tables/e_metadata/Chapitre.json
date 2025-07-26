@@ -699,5 +699,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "chapitres_hasMany_realisation_chapitres_chapitre_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "chapitres_hasMany_taches_chapitre_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_taches_chapitre_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "chapitres_hasMany_taches_chapitre_id_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "chapitres_hasMany_taches_chapitre_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "chapitres_hasMany_taches_chapitre_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "chapitres_hasMany_taches_chapitre_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "chapitres_hasMany_taches_chapitre_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "chapitres_hasMany_taches_chapitre_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
