@@ -94,12 +94,6 @@
         "e_metadata_definition_reference": "ownedByUser"
     },
     {
-        "reference": "Projet_nombre_jour_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "Projet_nombre_jour",
-        "e_metadata_definition_reference": "required"
-    },
-    {
         "reference": "projets_hasMany_affectation_projets_projet_id_editHasMany",
         "value_boolean": 1,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
@@ -134,13 +128,6 @@
         "value_integer": 7,
         "value_float": 0,
         "e_data_field_reference": "Projet_description",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "Projet_nombre_jour_displayOrder",
-        "value_integer": 4,
-        "value_float": 0,
-        "e_data_field_reference": "Projet_nombre_jour",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
@@ -232,12 +219,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "Projet_nombre_jour_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "Projet_nombre_jour",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "Projet_formateur_id_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "Projet_formateur_id",
@@ -311,12 +292,6 @@
         "reference": "Projet_description_inputMdWidth",
         "value_integer": 12,
         "e_data_field_reference": "Projet_description",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "Projet_nombre_jour_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "Projet_nombre_jour",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
@@ -505,12 +480,6 @@
         "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference": "Projet_nombre_jour_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Projet_nombre_jour",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
         "reference": "Projet_reference_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "Projet_reference",
@@ -637,19 +606,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "Projet_nombre_jour_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "Projet_nombre_jour",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "Projet_nombre_jour_viewShowFieldVisible",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "Projet_nombre_jour",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "Projet_formateur_id_viewFormFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "Projet_formateur_id",
@@ -757,5 +713,77 @@
         ],
         "e_model_reference": "projets",
         "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "Projet_session_formation_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "Projet_session_formation_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "Projet_session_formation_id_displayOrder",
+        "value_integer": 8,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "Projet_session_formation_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "Projet_session_formation_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "Projet_session_formation_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "Projet_session_formation_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "Projet_session_formation_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "Projet_session_formation_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "projets_hasMany_mobilisation_uas_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "projets_hasMany_mobilisation_uas_projet_id_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "projets_hasMany_mobilisation_uas_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "projets_hasMany_mobilisation_uas_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
