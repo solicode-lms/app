@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="module-hasmany-tabs-competence-tab" data-toggle="pill" href="#module-hasmany-tabs-competence" role="tab" aria-controls="module-hasmany-tabs-competence" aria-selected="false">{{ucfirst(__('PkgCompetences::competence.plural'))}}</a>
+                            <a class="nav-link" id="module-hasmany-tabs-competence-tab" data-toggle="pill" href="#module-hasmany-tabs-competence" role="tab" aria-controls="module-hasmany-tabs-competence" aria-selected="false">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                {{ucfirst(__('PkgCompetences::competence.plural'))}}
+                            </a>
                         </li>
 
                        

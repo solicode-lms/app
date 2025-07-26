@@ -37,10 +37,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eDataField" role="tab" aria-controls="eModel-hasmany-tabs-eDataField" aria-selected="false">{{ucfirst(__('PkgGapp::eDataField.plural'))}}</a>
+                            <a class="nav-link" id="eModel-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eDataField" role="tab" aria-controls="eModel-hasmany-tabs-eDataField" aria-selected="false">
+                                <i class="nav-icon fas fa-th"></i>
+                                {{ucfirst(__('PkgGapp::eDataField.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="eModel-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eMetadatum" role="tab" aria-controls="eModel-hasmany-tabs-eMetadatum" aria-selected="false">{{ucfirst(__('PkgGapp::eMetadatum.plural'))}}</a>
+                            <a class="nav-link" id="eModel-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eModel-hasmany-tabs-eMetadatum" role="tab" aria-controls="eModel-hasmany-tabs-eMetadatum" aria-selected="false">
+                                <i class="nav-icon fas fa-th-list"></i>
+                                {{ucfirst(__('PkgGapp::eMetadatum.plural'))}}
+                            </a>
                         </li>
 
                        

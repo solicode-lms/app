@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="etatRealisationChapitre-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#etatRealisationChapitre-hasmany-tabs-realisationChapitre" role="tab" aria-controls="etatRealisationChapitre-hasmany-tabs-realisationChapitre" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}</a>
+                            <a class="nav-link" id="etatRealisationChapitre-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#etatRealisationChapitre-hasmany-tabs-realisationChapitre" role="tab" aria-controls="etatRealisationChapitre-hasmany-tabs-realisationChapitre" aria-selected="false">
+                                <i class="nav-icon fas fa-code"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}
+                            </a>
                         </li>
 
                        

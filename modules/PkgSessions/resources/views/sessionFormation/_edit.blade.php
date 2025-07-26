@@ -37,13 +37,22 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sessionFormation-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-alignementUa" role="tab" aria-controls="sessionFormation-hasmany-tabs-alignementUa" aria-selected="false">{{ucfirst(__('PkgSessions::alignementUa.plural'))}}</a>
+                            <a class="nav-link" id="sessionFormation-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-alignementUa" role="tab" aria-controls="sessionFormation-hasmany-tabs-alignementUa" aria-selected="false">
+                                <i class="nav-icon fas fa-road"></i>
+                                {{ucfirst(__('PkgSessions::alignementUa.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sessionFormation-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-livrableSession" role="tab" aria-controls="sessionFormation-hasmany-tabs-livrableSession" aria-selected="false">{{ucfirst(__('PkgSessions::livrableSession.plural'))}}</a>
+                            <a class="nav-link" id="sessionFormation-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-livrableSession" role="tab" aria-controls="sessionFormation-hasmany-tabs-livrableSession" aria-selected="false">
+                                <i class="nav-icon fas fa-folder"></i>
+                                {{ucfirst(__('PkgSessions::livrableSession.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sessionFormation-hasmany-tabs-projet-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-projet" role="tab" aria-controls="sessionFormation-hasmany-tabs-projet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.plural'))}}</a>
+                            <a class="nav-link" id="sessionFormation-hasmany-tabs-projet-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-projet" role="tab" aria-controls="sessionFormation-hasmany-tabs-projet" aria-selected="false">
+                                <i class="nav-icon fas fa-lightbulb"></i>
+                                {{ucfirst(__('PkgCreationProjet::projet.plural'))}}
+                            </a>
                         </li>
 
                        

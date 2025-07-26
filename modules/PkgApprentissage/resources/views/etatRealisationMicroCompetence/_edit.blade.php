@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}</a>
+                            <a class="nav-link" id="etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="etatRealisationMicroCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
+                                <i class="nav-icon fas fa-coffee"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}
+                            </a>
                         </li>
 
                        

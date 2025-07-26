@@ -37,13 +37,22 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgCompetences::chapitre.plural'))}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">
+                                <i class="nav-icon fas fa-chalkboard"></i>
+                                {{ucfirst(__('PkgCompetences::chapitre.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::etatRealisationTache.plural'))}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">
+                                <i class="nav-icon fas fa-check"></i>
+                                {{ucfirst(__('PkgRealisationTache::etatRealisationTache.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">{{ucfirst(__('PkgCreationTache::prioriteTache.plural'))}}</a>
+                            <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">
+                                <i class="nav-icon fas fa-list-ol"></i>
+                                {{ucfirst(__('PkgCreationTache::prioriteTache.plural'))}}
+                            </a>
                         </li>
 
                        

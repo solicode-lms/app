@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="evaluateur-hasmany-tabs-evaluationRealisationProjet-tab" data-toggle="pill" href="#evaluateur-hasmany-tabs-evaluationRealisationProjet" role="tab" aria-controls="evaluateur-hasmany-tabs-evaluationRealisationProjet" aria-selected="false">{{ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural'))}}</a>
+                            <a class="nav-link" id="evaluateur-hasmany-tabs-evaluationRealisationProjet-tab" data-toggle="pill" href="#evaluateur-hasmany-tabs-evaluationRealisationProjet" role="tab" aria-controls="evaluateur-hasmany-tabs-evaluationRealisationProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-check-square"></i>
+                                {{ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural'))}}
+                            </a>
                         </li>
 
                        

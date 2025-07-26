@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="featureDomain-hasmany-tabs-feature-tab" data-toggle="pill" href="#featureDomain-hasmany-tabs-feature" role="tab" aria-controls="featureDomain-hasmany-tabs-feature" aria-selected="false">{{ucfirst(__('Core::feature.plural'))}}</a>
+                            <a class="nav-link" id="featureDomain-hasmany-tabs-feature-tab" data-toggle="pill" href="#featureDomain-hasmany-tabs-feature" role="tab" aria-controls="featureDomain-hasmany-tabs-feature" aria-selected="false">
+                                <i class="nav-icon fas fa-plug"></i>
+                                {{ucfirst(__('Core::feature.plural'))}}
+                            </a>
                         </li>
 
                        

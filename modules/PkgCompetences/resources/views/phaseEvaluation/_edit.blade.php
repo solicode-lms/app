@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="phaseEvaluation-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-critereEvaluation" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-critereEvaluation" aria-selected="false">{{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}</a>
+                            <a class="nav-link" id="phaseEvaluation-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-critereEvaluation" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-critereEvaluation" aria-selected="false">
+                                <i class="nav-icon fas fa-check-circle"></i>
+                                {{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}
+                            </a>
                         </li>
 
                        

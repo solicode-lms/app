@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="competence-hasmany-tabs-microCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-microCompetence" role="tab" aria-controls="competence-hasmany-tabs-microCompetence" aria-selected="false">{{ucfirst(__('PkgCompetences::microCompetence.plural'))}}</a>
+                            <a class="nav-link" id="competence-hasmany-tabs-microCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-microCompetence" role="tab" aria-controls="competence-hasmany-tabs-microCompetence" aria-selected="false">
+                                <i class="nav-icon fas fa-book"></i>
+                                {{ucfirst(__('PkgCompetences::microCompetence.plural'))}}
+                            </a>
                         </li>
 
                        

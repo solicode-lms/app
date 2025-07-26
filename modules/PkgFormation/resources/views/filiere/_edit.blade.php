@@ -37,16 +37,28 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-groupe-tab" data-toggle="pill" href="#filiere-hasmany-tabs-groupe" role="tab" aria-controls="filiere-hasmany-tabs-groupe" aria-selected="false">{{ucfirst(__('PkgApprenants::groupe.plural'))}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-groupe-tab" data-toggle="pill" href="#filiere-hasmany-tabs-groupe" role="tab" aria-controls="filiere-hasmany-tabs-groupe" aria-selected="false">
+                                <i class="nav-icon fas fa-users"></i>
+                                {{ucfirst(__('PkgApprenants::groupe.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">{{ucfirst(__('PkgFormation::module.plural'))}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">
+                                <i class="nav-icon fas fa-puzzle-piece"></i>
+                                {{ucfirst(__('PkgFormation::module.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.plural'))}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">
+                                <i class="nav-icon fas fa-lightbulb"></i>
+                                {{ucfirst(__('PkgCreationProjet::projet.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="filiere-hasmany-tabs-sessionFormation-tab" data-toggle="pill" href="#filiere-hasmany-tabs-sessionFormation" role="tab" aria-controls="filiere-hasmany-tabs-sessionFormation" aria-selected="false">{{ucfirst(__('PkgSessions::sessionFormation.plural'))}}</a>
+                            <a class="nav-link" id="filiere-hasmany-tabs-sessionFormation-tab" data-toggle="pill" href="#filiere-hasmany-tabs-sessionFormation" role="tab" aria-controls="filiere-hasmany-tabs-sessionFormation" aria-selected="false">
+                                <i class="nav-icon fas fa-map"></i>
+                                {{ucfirst(__('PkgSessions::sessionFormation.plural'))}}
+                            </a>
                         </li>
 
                        

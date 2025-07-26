@@ -37,13 +37,22 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sysModule-hasmany-tabs-featureDomain-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-featureDomain" role="tab" aria-controls="sysModule-hasmany-tabs-featureDomain" aria-selected="false">{{ucfirst(__('Core::featureDomain.plural'))}}</a>
+                            <a class="nav-link" id="sysModule-hasmany-tabs-featureDomain-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-featureDomain" role="tab" aria-controls="sysModule-hasmany-tabs-featureDomain" aria-selected="false">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                {{ucfirst(__('Core::featureDomain.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysModule-hasmany-tabs-sysController-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysController" role="tab" aria-controls="sysModule-hasmany-tabs-sysController" aria-selected="false">{{ucfirst(__('Core::sysController.plural'))}}</a>
+                            <a class="nav-link" id="sysModule-hasmany-tabs-sysController-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysController" role="tab" aria-controls="sysModule-hasmany-tabs-sysController" aria-selected="false">
+                                <i class="nav-icon fas fa-server"></i>
+                                {{ucfirst(__('Core::sysController.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="sysModule-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysModel" role="tab" aria-controls="sysModule-hasmany-tabs-sysModel" aria-selected="false">{{ucfirst(__('Core::sysModel.plural'))}}</a>
+                            <a class="nav-link" id="sysModule-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysModel" role="tab" aria-controls="sysModule-hasmany-tabs-sysModel" aria-selected="false">
+                                <i class="nav-icon fas fa-cubes"></i>
+                                {{ucfirst(__('Core::sysModel.plural'))}}
+                            </a>
                         </li>
 
                        

@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="sousGroupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#sousGroupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="sousGroupe-hasmany-tabs-affectationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}</a>
+                            <a class="nav-link" id="sousGroupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#sousGroupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="sousGroupe-hasmany-tabs-affectationProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-calendar-check"></i>
+                                {{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}
+                            </a>
                         </li>
 
                        

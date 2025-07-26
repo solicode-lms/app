@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::realisationProjet.plural'))}}</a>
+                            <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-laptop"></i>
+                                {{ucfirst(__('PkgRealisationProjets::realisationProjet.plural'))}}
+                            </a>
                         </li>
 
                        

@@ -37,19 +37,34 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-alignementUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-alignementUa" aria-selected="false">{{ucfirst(__('PkgSessions::alignementUa.plural'))}}</a>
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-alignementUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-alignementUa" aria-selected="false">
+                                <i class="nav-icon fas fa-road"></i>
+                                {{ucfirst(__('PkgSessions::alignementUa.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-chapitre" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-chapitre" aria-selected="false">{{ucfirst(__('PkgCompetences::chapitre.plural'))}}</a>
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-chapitre" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-chapitre" aria-selected="false">
+                                <i class="nav-icon fas fa-chalkboard"></i>
+                                {{ucfirst(__('PkgCompetences::chapitre.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-critereEvaluation" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-critereEvaluation" aria-selected="false">{{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}</a>
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-critereEvaluation" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-critereEvaluation" aria-selected="false">
+                                <i class="nav-icon fas fa-check-circle"></i>
+                                {{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-realisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-realisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-realisationUa" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationUa.plural'))}}</a>
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-realisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-realisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-realisationUa" aria-selected="false">
+                                <i class="nav-icon fas fa-tools"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationUa.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-mobilisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-mobilisationUa" aria-selected="false">{{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}</a>
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-mobilisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-mobilisationUa" aria-selected="false">
+                                <i class="nav-icon fas  fa-seedling"></i>
+                                {{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}
+                            </a>
                         </li>
 
                        

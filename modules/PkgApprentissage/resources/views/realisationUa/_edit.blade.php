@@ -37,13 +37,22 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationChapitre" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationChapitre" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}</a>
+                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationChapitre" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationChapitre" aria-selected="false">
+                                <i class="nav-icon fas fa-code"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaProjet-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaProjet" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaProjet" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationUaProjet.plural'))}}</a>
+                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaProjet-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaProjet" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationUaProjet.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaPrototype-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaPrototype" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaPrototype" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationUaPrototype.plural'))}}</a>
+                            <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaPrototype-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaPrototype" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaPrototype" aria-selected="false">
+                                <i class="nav-icon fas fa-cog"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationUaPrototype.plural'))}}
+                            </a>
                         </li>
 
                        

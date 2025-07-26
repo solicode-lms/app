@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="widgetType-hasmany-tabs-widget-tab" data-toggle="pill" href="#widgetType-hasmany-tabs-widget" role="tab" aria-controls="widgetType-hasmany-tabs-widget" aria-selected="false">{{ucfirst(__('PkgWidgets::widget.plural'))}}</a>
+                            <a class="nav-link" id="widgetType-hasmany-tabs-widget-tab" data-toggle="pill" href="#widgetType-hasmany-tabs-widget" role="tab" aria-controls="widgetType-hasmany-tabs-widget" aria-selected="false">
+                                <i class="nav-icon fas fa-chart-bar"></i>
+                                {{ucfirst(__('PkgWidgets::widget.plural'))}}
+                            </a>
                         </li>
 
                        

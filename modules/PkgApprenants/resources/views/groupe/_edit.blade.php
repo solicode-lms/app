@@ -37,10 +37,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="groupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="groupe-hasmany-tabs-affectationProjet" aria-selected="false">{{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}</a>
+                            <a class="nav-link" id="groupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="groupe-hasmany-tabs-affectationProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-calendar-check"></i>
+                                {{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="groupe-hasmany-tabs-sousGroupe-tab" data-toggle="pill" href="#groupe-hasmany-tabs-sousGroupe" role="tab" aria-controls="groupe-hasmany-tabs-sousGroupe" aria-selected="false">{{ucfirst(__('PkgApprenants::sousGroupe.plural'))}}</a>
+                            <a class="nav-link" id="groupe-hasmany-tabs-sousGroupe-tab" data-toggle="pill" href="#groupe-hasmany-tabs-sousGroupe" role="tab" aria-controls="groupe-hasmany-tabs-sousGroupe" aria-selected="false">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                {{ucfirst(__('PkgApprenants::sousGroupe.plural'))}}
+                            </a>
                         </li>
 
                        

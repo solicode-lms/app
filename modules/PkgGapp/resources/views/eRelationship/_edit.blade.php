@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="eRelationship-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eRelationship-hasmany-tabs-eDataField" role="tab" aria-controls="eRelationship-hasmany-tabs-eDataField" aria-selected="false">{{ucfirst(__('PkgGapp::eDataField.plural'))}}</a>
+                            <a class="nav-link" id="eRelationship-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eRelationship-hasmany-tabs-eDataField" role="tab" aria-controls="eRelationship-hasmany-tabs-eDataField" aria-selected="false">
+                                <i class="nav-icon fas fa-th"></i>
+                                {{ucfirst(__('PkgGapp::eDataField.plural'))}}
+                            </a>
                         </li>
 
                        

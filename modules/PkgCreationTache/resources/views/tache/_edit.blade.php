@@ -37,7 +37,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">{{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}</a>
+                            <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">
+                                <i class="nav-icon fas fa-laptop-code"></i>
+                                {{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}
+                            </a>
                         </li>
 
                        

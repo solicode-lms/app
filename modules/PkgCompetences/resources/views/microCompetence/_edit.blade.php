@@ -37,10 +37,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="microCompetence-hasmany-tabs-uniteApprentissage-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-uniteApprentissage" role="tab" aria-controls="microCompetence-hasmany-tabs-uniteApprentissage" aria-selected="false">{{ucfirst(__('PkgCompetences::uniteApprentissage.plural'))}}</a>
+                            <a class="nav-link" id="microCompetence-hasmany-tabs-uniteApprentissage-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-uniteApprentissage" role="tab" aria-controls="microCompetence-hasmany-tabs-uniteApprentissage" aria-selected="false">
+                                <i class="nav-icon fas fa-puzzle-piece"></i>
+                                {{ucfirst(__('PkgCompetences::uniteApprentissage.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="microCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="microCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}</a>
+                            <a class="nav-link" id="microCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="microCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
+                                <i class="nav-icon fas fa-coffee"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}
+                            </a>
                         </li>
 
                        

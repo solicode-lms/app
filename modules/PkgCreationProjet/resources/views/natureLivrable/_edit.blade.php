@@ -37,10 +37,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="natureLivrable-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrableSession" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrableSession" aria-selected="false">{{ucfirst(__('PkgSessions::livrableSession.plural'))}}</a>
+                            <a class="nav-link" id="natureLivrable-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrableSession" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrableSession" aria-selected="false">
+                                <i class="nav-icon fas fa-folder"></i>
+                                {{ucfirst(__('PkgSessions::livrableSession.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="natureLivrable-hasmany-tabs-livrable-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrable" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrable" aria-selected="false">{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}</a>
+                            <a class="nav-link" id="natureLivrable-hasmany-tabs-livrable-tab" data-toggle="pill" href="#natureLivrable-hasmany-tabs-livrable" role="tab" aria-controls="natureLivrable-hasmany-tabs-livrable" aria-selected="false">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                {{ucfirst(__('PkgCreationProjet::livrable.plural'))}}
+                            </a>
                         </li>
 
                        
