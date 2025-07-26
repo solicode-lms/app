@@ -37,19 +37,34 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-affectationProjet" role="tab" aria-controls="projet-hasmany-tabs-affectationProjet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.affectationProjets'))}}</a>
+                            <a class="nav-link" id="projet-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-affectationProjet" role="tab" aria-controls="projet-hasmany-tabs-affectationProjet" aria-selected="false">
+                                <i class="nav-icon fas fa-calendar-check"></i>
+                                {{ucfirst(__('PkgCreationProjet::projet.affectationProjets'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#projet-hasmany-tabs-mobilisationUa" role="tab" aria-controls="projet-hasmany-tabs-mobilisationUa" aria-selected="false">{{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}</a>
+                            <a class="nav-link" id="projet-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#projet-hasmany-tabs-mobilisationUa" role="tab" aria-controls="projet-hasmany-tabs-mobilisationUa" aria-selected="false">
+                                <i class="nav-icon fas  fa-seedling"></i>
+                                {{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">{{ucfirst(__('PkgCreationTache::tache.plural'))}}</a>
+                            <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                {{ucfirst(__('PkgCreationTache::tache.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">{{ucfirst(__('PkgCreationProjet::livrable.plural'))}}</a>
+                            <a class="nav-link" id="projet-hasmany-tabs-livrable-tab" data-toggle="pill" href="#projet-hasmany-tabs-livrable" role="tab" aria-controls="projet-hasmany-tabs-livrable" aria-selected="false">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                {{ucfirst(__('PkgCreationProjet::livrable.plural'))}}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="projet-hasmany-tabs-resource-tab" data-toggle="pill" href="#projet-hasmany-tabs-resource" role="tab" aria-controls="projet-hasmany-tabs-resource" aria-selected="false">{{ucfirst(__('PkgCreationProjet::resource.plural'))}}</a>
+                            <a class="nav-link" id="projet-hasmany-tabs-resource-tab" data-toggle="pill" href="#projet-hasmany-tabs-resource" role="tab" aria-controls="projet-hasmany-tabs-resource" aria-selected="false">
+                                <i class="nav-icon fas fa-book"></i>
+                                {{ucfirst(__('PkgCreationProjet::resource.plural'))}}
+                            </a>
                         </li>
 
                        

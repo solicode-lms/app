@@ -2,7 +2,12 @@
     <header class="projet-titre">
         <h2>{{ $entity->titre }}</h2>
     </header>
-
+    <section class="projet-section">
+        <h3>Session de formation</h3>
+        <ul class="projet-ressources">
+            <li> {{ $entity->sessionFormation->titre }}</li>
+        </ul>
+    </section>
     <section class="projet-section">
         <h3>Affectations</h3>
         <ul class="projet-affectations">

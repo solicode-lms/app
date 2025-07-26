@@ -173,6 +173,14 @@ export class TableUI {
 
     static initTooltip(){
 
+
+        // $('.tooltip-inner').remove();
+
+        // // tooltip-inner
+        // // Supprimer tous les tooltips existants avant d'en créer de nouveaux
+        // $('[data-toggle="tooltip"]').tooltip('dispose');
+            
+
         // Supprime tous les tooltips actifs avant de les recréer
         const tooltips = $('[data-toggle="tooltip"]').tooltip({
              placement: "auto"

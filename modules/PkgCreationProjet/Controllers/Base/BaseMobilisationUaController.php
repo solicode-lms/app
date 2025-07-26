@@ -77,8 +77,8 @@ class BaseMobilisationUaController extends AdminController
         $itemMobilisationUa = $this->mobilisationUaService->createInstance();
         
 
-        $projets = $this->projetService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $projets = $this->projetService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -104,8 +104,8 @@ class BaseMobilisationUaController extends AdminController
          $itemMobilisationUa = $this->mobilisationUaService->find($mobilisationUa_ids[0]);
          
  
-        $projets = $this->projetService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $projets = $this->projetService->all();
 
         $bulkEdit = true;
 
@@ -168,8 +168,8 @@ class BaseMobilisationUaController extends AdminController
         $itemMobilisationUa = $this->mobilisationUaService->edit($id);
 
 
-        $projets = $this->projetService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $projets = $this->projetService->all();
 
 
         $bulkEdit = false;

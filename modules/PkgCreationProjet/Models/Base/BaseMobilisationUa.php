@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCompetences\Models\UniteApprentissage;
+use Modules\PkgCreationProjet\Models\Projet;
 
 /**
  * Classe BaseMobilisationUa
@@ -28,8 +28,8 @@ class BaseMobilisationUa extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'projet',
-      //  'uniteApprentissage'
+      //  'uniteApprentissage',
+      //  'projet'
     ];
 
 
@@ -45,31 +45,22 @@ class BaseMobilisationUa extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'criteres_evaluation_prototype', 'criteres_evaluation_projet', 'bareme_evaluation_prototype', 'bareme_evaluation_projet', 'description', 'projet_id', 'unite_apprentissage_id'
+        'unite_apprentissage_id', 'bareme_evaluation_prototype', 'criteres_evaluation_prototype', 'bareme_evaluation_projet', 'criteres_evaluation_projet', 'description', 'projet_id'
     ];
     public $manyToOne = [
-        'Projet' => [
-            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
-            'relation' => 'projets' , 
-            "foreign_key" => "projet_id", 
-            ],
         'UniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
             'relation' => 'uniteApprentissages' , 
             "foreign_key" => "unite_apprentissage_id", 
+            ],
+        'Projet' => [
+            'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
+            'relation' => 'projets' , 
+            "foreign_key" => "projet_id", 
             ]
     ];
 
 
-    /**
-     * Relation BelongsTo pour Projet.
-     *
-     * @return BelongsTo
-     */
-    public function projet(): BelongsTo
-    {
-        return $this->belongsTo(Projet::class, 'projet_id', 'id');
-    }
     /**
      * Relation BelongsTo pour UniteApprentissage.
      *
@@ -78,6 +69,15 @@ class BaseMobilisationUa extends BaseModel
     public function uniteApprentissage(): BelongsTo
     {
         return $this->belongsTo(UniteApprentissage::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Projet.
+     *
+     * @return BelongsTo
+     */
+    public function projet(): BelongsTo
+    {
+        return $this->belongsTo(Projet::class, 'projet_id', 'id');
     }
 
 

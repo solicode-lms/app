@@ -21,13 +21,13 @@ class BaseMobilisationUaService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'criteres_evaluation_prototype',
-        'criteres_evaluation_projet',
+        'unite_apprentissage_id',
         'bareme_evaluation_prototype',
+        'criteres_evaluation_prototype',
         'bareme_evaluation_projet',
+        'criteres_evaluation_projet',
         'description',
-        'projet_id',
-        'unite_apprentissage_id'
+        'projet_id'
     ];
 
     /**
@@ -58,22 +58,22 @@ class BaseMobilisationUaService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('projet_id', $scopeVariables)) {
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCreationProjet::projet.plural"), 
-                        'projet_id', 
-                        \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
-                    );
-                }
-            
-            
                 if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::uniteApprentissage.plural"), 
                         'unite_apprentissage_id', 
                         \Modules\PkgCompetences\Models\UniteApprentissage::class, 
                         'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('projet_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationProjet::projet.plural"), 
+                        'projet_id', 
+                        \Modules\PkgCreationProjet\Models\Projet::class, 
+                        'titre'
                     );
                 }
             

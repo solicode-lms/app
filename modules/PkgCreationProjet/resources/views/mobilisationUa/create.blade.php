@@ -13,7 +13,7 @@
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fa-solid fa-seedling"></i>
+                                <i class="nav-icon fas  fa-seedling"></i>
                                 {{ curd_index_add_label('PkgCreationProjet::mobilisationUa') }}
                             </h3>
                         </div>

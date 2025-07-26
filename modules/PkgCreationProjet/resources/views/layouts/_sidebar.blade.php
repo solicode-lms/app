@@ -15,7 +15,7 @@
         @can('index-mobilisationUa') 
         <li class="nav-item" id="menu-mobilisationUas">
             <a href="{{ route('mobilisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/mobilisationUas') ? 'active' : '' }}">
-                <i class="nav-icon fa-solid fa-seedling"></i>
+                <i class="nav-icon fas  fa-seedling"></i>
                 {{__('PkgCreationProjet::mobilisationUa.plural')}}
             </a>
         </li>

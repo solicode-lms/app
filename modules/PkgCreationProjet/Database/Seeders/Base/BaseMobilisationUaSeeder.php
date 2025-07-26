@@ -73,26 +73,26 @@ class BaseMobilisationUaSeeder extends Seeder
             if ($row) {
 
 
-                $projet_id = null;
-                if (!empty($row["projet_reference"])) {
-                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
-                        ->value('id');
-                }
                 $unite_apprentissage_id = null;
                 if (!empty($row["unite_apprentissage_reference"])) {
                     $unite_apprentissage_id = \Modules\PkgCompetences\Models\UniteApprentissage::where('reference', $row["unite_apprentissage_reference"])
                         ->value('id');
                 }
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
+                        ->value('id');
+                }
 
 
                 $mobilisationUaData =[
-                        "criteres_evaluation_prototype" => isset($row["criteres_evaluation_prototype"]) && $row["criteres_evaluation_prototype"] !== "" ? $row["criteres_evaluation_prototype"] : null,
-                        "criteres_evaluation_projet" => isset($row["criteres_evaluation_projet"]) && $row["criteres_evaluation_projet"] !== "" ? $row["criteres_evaluation_projet"] : null,
+                        "unite_apprentissage_id" => $unite_apprentissage_id,
                         "bareme_evaluation_prototype" => isset($row["bareme_evaluation_prototype"]) && $row["bareme_evaluation_prototype"] !== "" ? $row["bareme_evaluation_prototype"] : null,
+                        "criteres_evaluation_prototype" => isset($row["criteres_evaluation_prototype"]) && $row["criteres_evaluation_prototype"] !== "" ? $row["criteres_evaluation_prototype"] : null,
                         "bareme_evaluation_projet" => isset($row["bareme_evaluation_projet"]) && $row["bareme_evaluation_projet"] !== "" ? $row["bareme_evaluation_projet"] : null,
+                        "criteres_evaluation_projet" => isset($row["criteres_evaluation_projet"]) && $row["criteres_evaluation_projet"] !== "" ? $row["criteres_evaluation_projet"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "projet_id" => $projet_id,
-                        "unite_apprentissage_id" => $unite_apprentissage_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

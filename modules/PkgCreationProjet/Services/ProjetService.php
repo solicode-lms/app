@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 use Illuminate\Support\Facades\DB;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgSessions\Models\SessionFormation;
 
 /**
@@ -25,6 +26,124 @@ class ProjetService extends BaseProjetService
         'affectationProjets',
         'affectationProjets.groupe'
     ];
+
+
+
+
+
+    public function beforeUpdateRules($projet)
+    {
+        // Empêcher la modification de la session de formation
+        if (isset($projet['session_formation_id'])) {
+            $original = $this->model->find($projet['id'] ?? null);
+            if ($original && $original->session_formation_id != $projet['session_formation_id']) {
+                throw new \Exception('La session de formation ne peut pas être modifiée une fois le projet créé.');
+            }
+        }
+    }
+
+    public function afterCreateRules($projet)
+    {
+        $this->afterUpdateRules($projet);
+    }
+
+    public function afterUpdateRules($projet)
+    {
+        if (!$projet || !$projet->id) {
+            return;
+        }
+
+        if ($projet->session_formation_id) {
+            $session = SessionFormation::with([
+                'alignementUas.uniteApprentissage.critereEvaluations.phaseEvaluation',
+                'alignementUas.uniteApprentissage.chapitres'
+            ])->find($projet->session_formation_id);
+
+            if ($session) {
+                $this->updateMobilisationsUa($projet, $session);
+                $this->addProjectTasks($projet, $session);
+            }
+        }
+    }
+
+    protected function updateMobilisationsUa($projet, $session)
+    {
+        foreach ($session->alignementUas as $alignementUa) {
+            $mobilisation = \Modules\PkgCreationProjet\Models\MobilisationUa::firstOrNew([
+                'projet_id' => $projet->id,
+                'unite_apprentissage_id' => $alignementUa->unite_apprentissage_id,
+            ]);
+
+            [$criteresPrototype, $baremePrototype] = $this->getCriteresEtBareme($alignementUa, 'N2');
+            [$criteresProjet, $baremeProjet] = $this->getCriteresEtBareme($alignementUa, 'N3');
+
+            $mobilisation->criteres_evaluation_prototype = $this->formatCriteres($criteresPrototype);
+            $mobilisation->criteres_evaluation_projet = $this->formatCriteres($criteresProjet);
+            $mobilisation->bareme_evaluation_prototype = $baremePrototype;
+            $mobilisation->bareme_evaluation_projet = $baremeProjet;
+            $mobilisation->description = $alignementUa->description ?? '';
+            $mobilisation->save();
+        }
+    }
+
+    protected function addProjectTasks($projet, $session)
+    {
+        $defaultTasks = ['Prototype', 'Réalisation', 'Analyse', 'Conception'];
+
+        // Tâches pour chaque chapitre
+        foreach ($session->alignementUas as $alignementUa) {
+            foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
+                Tache::firstOrCreate([
+                    'projet_id' => $projet->id,
+                    'titre' => 'Chapitre : ' . $chapitre->nom,
+                ], [
+                    'description' => $chapitre->description ?? '',
+                    'reference' => (string) Str::uuid()
+                ]);
+            }
+        }
+
+        // Tâches par défaut
+        foreach ($defaultTasks as $taskTitle) {
+            \Modules\PkgCreationProjet\Models\Tache::firstOrCreate([
+                'projet_id' => $projet->id,
+                'titre' => $taskTitle,
+            ], [
+                'description' => $taskTitle . ' du projet',
+                'reference' => (string) Str::uuid()
+            ]);
+        }
+    }
+
+    protected function getCriteresEtBareme($alignementUa, $niveau)
+    {
+        $criteres = $alignementUa->uniteApprentissage->critereEvaluations
+            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === $niveau)
+            ->pluck('intitule')
+            ->toArray();
+
+        $bareme = $alignementUa->uniteApprentissage->critereEvaluations
+            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === $niveau)
+            ->sum('bareme');
+
+        return [$criteres, $bareme];
+    }
+
+    protected function formatCriteres(array $criteres): string
+    {
+        return '<ul><li>' . implode('</li><li>', $criteres) . '</li></ul>';
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public function dataCalcul($projet)
     {

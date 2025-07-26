@@ -29,54 +29,34 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="criteres_evaluation_prototype" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-12">
+      <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="criteres_evaluation_prototype" id="bulk_field_criteres_evaluation_prototype" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="criteres_evaluation_prototype">
-            {{ ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype')) }}
-            
+          <label for="unite_apprentissage_id">
+            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
+            <span class="text-danger">*</span>
           </label>
-                      <textarea rows="" cols=""
-                name="criteres_evaluation_prototype"
-                class="form-control richText"
-                
-                
-                
-                id="criteres_evaluation_prototype"
-                placeholder="{{ __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype') }}">{{ $itemMobilisationUa ? $itemMobilisationUa->criteres_evaluation_prototype : old('criteres_evaluation_prototype') }}</textarea>
-          @error('criteres_evaluation_prototype')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="criteres_evaluation_projet" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="criteres_evaluation_projet" id="bulk_field_criteres_evaluation_projet" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="criteres_evaluation_projet">
-            {{ ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet')) }}
+                      <select 
+            id="unite_apprentissage_id" 
+            required
             
-          </label>
-                      <textarea rows="" cols=""
-                name="criteres_evaluation_projet"
-                class="form-control richText"
-                
-                
-                
-                id="criteres_evaluation_projet"
-                placeholder="{{ __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet') }}">{{ $itemMobilisationUa ? $itemMobilisationUa->criteres_evaluation_projet : old('criteres_evaluation_projet') }}</textarea>
-          @error('criteres_evaluation_projet')
+            
+            name="unite_apprentissage_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($uniteApprentissages as $uniteApprentissage)
+                    <option value="{{ $uniteApprentissage->id }}"
+                        {{ (isset($itemMobilisationUa) && $itemMobilisationUa->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
+                        {{ $uniteApprentissage }}
+                    </option>
+                @endforeach
+            </select>
+          @error('unite_apprentissage_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -113,6 +93,33 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="criteres_evaluation_prototype" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="criteres_evaluation_prototype" id="bulk_field_criteres_evaluation_prototype" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="criteres_evaluation_prototype">
+            {{ ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="criteres_evaluation_prototype"
+                class="form-control richText"
+                
+                
+                
+                id="criteres_evaluation_prototype"
+                placeholder="{{ __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype') }}">{{ $itemMobilisationUa ? $itemMobilisationUa->criteres_evaluation_prototype : old('criteres_evaluation_prototype') }}</textarea>
+          @error('criteres_evaluation_prototype')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="bareme_evaluation_projet" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -137,6 +144,33 @@
         placeholder="{{ __('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet') }}"
         value="{{ $itemMobilisationUa ? number_format($itemMobilisationUa->bareme_evaluation_projet, 2, '.', '') : old('bareme_evaluation_projet') }}">
           @error('bareme_evaluation_projet')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="criteres_evaluation_projet" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="criteres_evaluation_projet" id="bulk_field_criteres_evaluation_projet" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="criteres_evaluation_projet">
+            {{ ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="criteres_evaluation_projet"
+                class="form-control richText"
+                
+                
+                
+                id="criteres_evaluation_projet"
+                placeholder="{{ __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet') }}">{{ $itemMobilisationUa ? $itemMobilisationUa->criteres_evaluation_projet : old('criteres_evaluation_projet') }}</textarea>
+          @error('criteres_evaluation_projet')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -198,40 +232,6 @@
                 @endforeach
             </select>
           @error('projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemMobilisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="unite_apprentissage_id">
-            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="unite_apprentissage_id" 
-            required
-            
-            
-            name="unite_apprentissage_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($uniteApprentissages as $uniteApprentissage)
-                    <option value="{{ $uniteApprentissage->id }}"
-                        {{ (isset($itemMobilisationUa) && $itemMobilisationUa->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
-                        {{ $uniteApprentissage }}
-                    </option>
-                @endforeach
-            </select>
-          @error('unite_apprentissage_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

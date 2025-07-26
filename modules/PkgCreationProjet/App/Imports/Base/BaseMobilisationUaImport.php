@@ -56,13 +56,13 @@ class BaseMobilisationUaImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new MobilisationUa([
-             'criteres_evaluation_prototype' => $values[0] ?? null,
-             'criteres_evaluation_projet' => $values[1] ?? null,
-             'bareme_evaluation_prototype' => $values[2] ?? null,
+             'unite_apprentissage_id' => $values[0] ?? null,
+             'bareme_evaluation_prototype' => $values[1] ?? null,
+             'criteres_evaluation_prototype' => $values[2] ?? null,
              'bareme_evaluation_projet' => $values[3] ?? null,
-             'description' => $values[4] ?? null,
-             'projet_id' => $values[5] ?? null,
-             'unite_apprentissage_id' => $values[6] ?? null,
+             'criteres_evaluation_projet' => $values[4] ?? null,
+             'description' => $values[5] ?? null,
+             'projet_id' => $values[6] ?? null,
              'reference' => $reference,
         ]);
 

@@ -32,24 +32,24 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
     {
         if ($this->format === 'csv') {
             return [
-                'criteres_evaluation_prototype' => 'criteres_evaluation_prototype',
-                'criteres_evaluation_projet' => 'criteres_evaluation_projet',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'bareme_evaluation_prototype' => 'bareme_evaluation_prototype',
+                'criteres_evaluation_prototype' => 'criteres_evaluation_prototype',
                 'bareme_evaluation_projet' => 'bareme_evaluation_projet',
+                'criteres_evaluation_projet' => 'criteres_evaluation_projet',
                 'description' => 'description',
                 'projet_reference' => 'projet_reference',
-                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'reference' => 'reference',
             ];
         } else {
             return [
-                'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
-                'criteres_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'),
+                'unite_apprentissage_reference' => __('PkgCreationProjet::mobilisationUa.unite_apprentissage_reference'),
                 'bareme_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_prototype'),
+                'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
                 'bareme_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet'),
+                'criteres_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'),
                 'description' => __('PkgCreationProjet::mobilisationUa.description'),
                 'projet_reference' => __('PkgCreationProjet::mobilisationUa.projet_reference'),
-                'unite_apprentissage_reference' => __('PkgCreationProjet::mobilisationUa.unite_apprentissage_reference'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -62,13 +62,13 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
     {
         return $this->data->map(function ($mobilisationUa) {
             return [
-                'criteres_evaluation_prototype' => $mobilisationUa->criteres_evaluation_prototype,
-                'criteres_evaluation_projet' => $mobilisationUa->criteres_evaluation_projet,
+                'unite_apprentissage_reference' => $mobilisationUa->uniteApprentissage?->reference,
                 'bareme_evaluation_prototype' => $mobilisationUa->bareme_evaluation_prototype,
+                'criteres_evaluation_prototype' => $mobilisationUa->criteres_evaluation_prototype,
                 'bareme_evaluation_projet' => $mobilisationUa->bareme_evaluation_projet,
+                'criteres_evaluation_projet' => $mobilisationUa->criteres_evaluation_projet,
                 'description' => $mobilisationUa->description,
                 'projet_reference' => $mobilisationUa->projet?->reference,
-                'unite_apprentissage_reference' => $mobilisationUa->uniteApprentissage?->reference,
                 'reference' => $mobilisationUa->reference,
             ];
         });
