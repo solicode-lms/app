@@ -7,6 +7,7 @@ use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgFormation\Services\FormateurService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
 use Modules\PkgApprentissage\Services\RealisationChapitreService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -159,11 +160,18 @@ class BaseChapitreController extends AdminController
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
+        $this->viewState->set('scope.tache.chapitre_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value));
+            return view('PkgCompetences::chapitre._show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value, $tache_compact_value));
         }
 
-        return view('PkgCompetences::chapitre.show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value));
+        return view('PkgCompetences::chapitre.show', array_merge(compact('itemChapitre'),$realisationChapitre_compact_value, $tache_compact_value));
 
     }
     /**
@@ -187,13 +195,20 @@ class BaseChapitreController extends AdminController
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
+        $this->viewState->set('scope.tache.chapitre_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::chapitre._edit', array_merge(compact('bulkEdit' , 'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value));
+            return view('PkgCompetences::chapitre._edit', array_merge(compact('bulkEdit' , 'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value, $tache_compact_value));
         }
 
-        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value));
+        return view('PkgCompetences::chapitre.edit', array_merge(compact('bulkEdit' ,'itemChapitre','formateurs', 'uniteApprentissages'),$realisationChapitre_compact_value, $tache_compact_value));
 
 
     }

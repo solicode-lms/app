@@ -13,6 +13,8 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationTache\Models\PrioriteTache;
 use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCompetences\Models\PhaseEvaluation;
+use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 
@@ -31,7 +33,9 @@ class BaseTache extends BaseModel
      */
     protected $with = [
       //  'prioriteTache',
-      //  'projet'
+      //  'projet',
+      //  'phaseEvaluation',
+      //  'chapitre'
     ];
 
 
@@ -47,7 +51,7 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'titre', 'priorite_tache_id', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note'
+        'ordre', 'titre', 'priorite_tache_id', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_evaluation_id', 'chapitre_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
@@ -62,6 +66,16 @@ class BaseTache extends BaseModel
             'model' => "Modules\\PkgCreationProjet\\Models\\Projet",
             'relation' => 'projets' , 
             "foreign_key" => "projet_id", 
+            ],
+        'PhaseEvaluation' => [
+            'model' => "Modules\\PkgCompetences\\Models\\PhaseEvaluation",
+            'relation' => 'phaseEvaluations' , 
+            "foreign_key" => "phase_evaluation_id", 
+            ],
+        'Chapitre' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
+            'relation' => 'chapitres' , 
+            "foreign_key" => "chapitre_id", 
             ]
     ];
 
@@ -83,6 +97,24 @@ class BaseTache extends BaseModel
     public function projet(): BelongsTo
     {
         return $this->belongsTo(Projet::class, 'projet_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour PhaseEvaluation.
+     *
+     * @return BelongsTo
+     */
+    public function phaseEvaluation(): BelongsTo
+    {
+        return $this->belongsTo(PhaseEvaluation::class, 'phase_evaluation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Chapitre.
+     *
+     * @return BelongsTo
+     */
+    public function chapitre(): BelongsTo
+    {
+        return $this->belongsTo(Chapitre::class, 'chapitre_id', 'id');
     }
 
     /**

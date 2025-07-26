@@ -83,6 +83,16 @@ class BaseTacheSeeder extends Seeder
                     $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
                         ->value('id');
                 }
+                $phase_evaluation_id = null;
+                if (!empty($row["phase_evaluation_reference"])) {
+                    $phase_evaluation_id = \Modules\PkgCompetences\Models\PhaseEvaluation::where('reference', $row["phase_evaluation_reference"])
+                        ->value('id');
+                }
+                $chapitre_id = null;
+                if (!empty($row["chapitre_reference"])) {
+                    $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
+                        ->value('id');
+                }
 
 
                 $tacheData =[
@@ -94,6 +104,8 @@ class BaseTacheSeeder extends Seeder
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
                         "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
+                        "phase_evaluation_id" => $phase_evaluation_id,
+                        "chapitre_id" => $chapitre_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

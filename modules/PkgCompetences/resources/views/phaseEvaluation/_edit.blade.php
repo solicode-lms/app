@@ -42,6 +42,12 @@
                                 {{ucfirst(__('PkgCompetences::critereEvaluation.plural'))}}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="phaseEvaluation-hasmany-tabs-tache-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-tache" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-tache" aria-selected="false">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                {{ucfirst(__('PkgCreationTache::tache.plural'))}}
+                            </a>
+                        </li>
 
                        
                         </ul>
@@ -54,6 +60,9 @@
 
                             <div class="tab-pane fade" id="phaseEvaluation-hasmany-tabs-critereEvaluation" role="tabpanel" aria-labelledby="phaseEvaluation-hasmany-tabs-critereEvaluation-tab">
                                 @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.edit_' . $itemPhaseEvaluation->id])
+                            </div>
+                            <div class="tab-pane fade" id="phaseEvaluation-hasmany-tabs-tache" role="tabpanel" aria-labelledby="phaseEvaluation-hasmany-tabs-tache-tab">
+                                @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.edit_' . $itemPhaseEvaluation->id])
                             </div>
 
                            

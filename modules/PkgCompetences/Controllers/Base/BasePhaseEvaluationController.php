@@ -5,6 +5,7 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\PhaseEvaluationService;
 use Modules\PkgCompetences\Services\CritereEvaluationService;
+use Modules\PkgCreationTache\Services\TacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -149,11 +150,18 @@ class BasePhaseEvaluationController extends AdminController
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
+        $this->viewState->set('scope.tache.phase_evaluation_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::phaseEvaluation._show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value));
+            return view('PkgCompetences::phaseEvaluation._show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value, $tache_compact_value));
         }
 
-        return view('PkgCompetences::phaseEvaluation.show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value));
+        return view('PkgCompetences::phaseEvaluation.show', array_merge(compact('itemPhaseEvaluation'),$critereEvaluation_compact_value, $tache_compact_value));
 
     }
     /**
@@ -175,13 +183,20 @@ class BasePhaseEvaluationController extends AdminController
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
+        $this->viewState->set('scope.tache.phase_evaluation_id', $id);
+        
+
+        $tacheService =  new TacheService();
+        $taches_view_data = $tacheService->prepareDataForIndexView();
+        extract($taches_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::phaseEvaluation._edit', array_merge(compact('bulkEdit' , 'itemPhaseEvaluation',),$critereEvaluation_compact_value));
+            return view('PkgCompetences::phaseEvaluation._edit', array_merge(compact('bulkEdit' , 'itemPhaseEvaluation',),$critereEvaluation_compact_value, $tache_compact_value));
         }
 
-        return view('PkgCompetences::phaseEvaluation.edit', array_merge(compact('bulkEdit' ,'itemPhaseEvaluation',),$critereEvaluation_compact_value));
+        return view('PkgCompetences::phaseEvaluation.edit', array_merge(compact('bulkEdit' ,'itemPhaseEvaluation',),$critereEvaluation_compact_value, $tache_compact_value));
 
 
     }

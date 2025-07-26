@@ -28,7 +28,9 @@ class BaseTacheService extends BaseService
         'description',
         'dateDebut',
         'dateFin',
-        'note'
+        'note',
+        'phase_evaluation_id',
+        'chapitre_id'
     ];
 
     /**
@@ -75,6 +77,26 @@ class BaseTacheService extends BaseService
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
                         'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::phaseEvaluation.plural"), 
+                        'phase_evaluation_id', 
+                        \Modules\PkgCompetences\Models\PhaseEvaluation::class, 
+                        'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('chapitre_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::chapitre.plural"), 
+                        'chapitre_id', 
+                        \Modules\PkgCompetences\Models\Chapitre::class, 
+                        'code'
                     );
                 }
             

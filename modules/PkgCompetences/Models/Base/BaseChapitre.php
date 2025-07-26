@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
+use Modules\PkgCreationTache\Models\Tache;
 
 /**
  * Classe BaseChapitre
@@ -90,6 +91,15 @@ class BaseChapitre extends BaseModel
     public function realisationChapitres(): HasMany
     {
         return $this->hasMany(RealisationChapitre::class, 'chapitre_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Chapitres.
+     *
+     * @return HasMany
+     */
+    public function taches(): HasMany
+    {
+        return $this->hasMany(Tache::class, 'chapitre_id', 'id');
     }
 
 

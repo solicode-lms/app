@@ -105,7 +105,7 @@ class ProjetService extends BaseProjetService
 
         // Tâches par défaut
         foreach ($defaultTasks as $taskTitle) {
-            \Modules\PkgCreationProjet\Models\Tache::firstOrCreate([
+            Tache::firstOrCreate([
                 'projet_id' => $projet->id,
                 'titre' => $taskTitle,
             ], [

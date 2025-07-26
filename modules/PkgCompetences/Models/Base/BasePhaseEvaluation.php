@@ -12,6 +12,7 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\CritereEvaluation;
+use Modules\PkgCreationTache\Models\Tache;
 
 /**
  * Classe BasePhaseEvaluation
@@ -48,6 +49,15 @@ class BasePhaseEvaluation extends BaseModel
     public function critereEvaluations(): HasMany
     {
         return $this->hasMany(CritereEvaluation::class, 'phase_evaluation_id', 'id');
+    }
+    /**
+     * Relation HasMany pour PhaseEvaluations.
+     *
+     * @return HasMany
+     */
+    public function taches(): HasMany
+    {
+        return $this->hasMany(Tache::class, 'phase_evaluation_id', 'id');
     }
 
 

@@ -42,6 +42,12 @@
                                 {{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="chapitre-hasmany-tabs-tache-tab" data-toggle="pill" href="#chapitre-hasmany-tabs-tache" role="tab" aria-controls="chapitre-hasmany-tabs-tache" aria-selected="false">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                {{ucfirst(__('PkgCreationTache::tache.plural'))}}
+                            </a>
+                        </li>
 
                        
                         </ul>
@@ -54,6 +60,9 @@
 
                             <div class="tab-pane fade" id="chapitre-hasmany-tabs-realisationChapitre" role="tabpanel" aria-labelledby="chapitre-hasmany-tabs-realisationChapitre-tab">
                                 @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'chapitre.edit_' . $itemChapitre->id])
+                            </div>
+                            <div class="tab-pane fade" id="chapitre-hasmany-tabs-tache" role="tabpanel" aria-labelledby="chapitre-hasmany-tabs-tache-tab">
+                                @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'chapitre.edit_' . $itemChapitre->id])
                             </div>
 
                            
