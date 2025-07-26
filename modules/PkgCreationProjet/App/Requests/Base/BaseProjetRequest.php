@@ -29,13 +29,13 @@ class BaseProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'filiere_id' => 'required',
+            'session_formation_id' => 'nullable',
             'titre' => 'required|string|max:255',
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
-            'filiere_id' => 'required',
             'formateur_id' => 'required',
-            'description' => 'nullable|string',
-            'session_formation_id' => 'nullable'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -47,14 +47,14 @@ class BaseProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
+            'session_formation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.session_formation_id')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),
             'critere_de_travail.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.critere_de_travail')]),
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
             'formateur_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.formateur_id')]),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')]),
-            'session_formation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.session_formation_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.description')])
         ];
     }
 

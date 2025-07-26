@@ -21,13 +21,13 @@ class BaseProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'filiere_id',
+        'session_formation_id',
         'titre',
         'travail_a_faire',
         'critere_de_travail',
-        'filiere_id',
         'formateur_id',
-        'description',
-        'session_formation_id'
+        'description'
     ];
 
     /**
@@ -68,22 +68,22 @@ class BaseProjetService extends BaseService
                 }
             
             
-                if (!array_key_exists('formateur_id', $scopeVariables)) {
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgFormation::formateur.plural"), 
-                        'formateur_id', 
-                        \Modules\PkgFormation\Models\Formateur::class, 
-                        'nom'
-                    );
-                }
-            
-            
                 if (!array_key_exists('session_formation_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgSessions::sessionFormation.plural"), 
                         'session_formation_id', 
                         \Modules\PkgSessions\Models\SessionFormation::class, 
                         'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('formateur_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::formateur.plural"), 
+                        'formateur_id', 
+                        \Modules\PkgFormation\Models\Formateur::class, 
+                        'nom'
                     );
                 }
             

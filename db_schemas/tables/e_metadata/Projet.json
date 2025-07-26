@@ -107,19 +107,19 @@
     },
     {
         "reference": "Projet_titre_displayOrder",
-        "value_integer": 1,
+        "value_integer": 3,
         "e_data_field_reference": "Projet_titre",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_travail_a_faire_displayOrder",
-        "value_integer": 2,
+        "value_integer": 4,
         "e_data_field_reference": "Projet_travail_a_faire",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Projet_critere_de_travail_displayOrder",
-        "value_integer": 3,
+        "value_integer": 5,
         "e_data_field_reference": "Projet_critere_de_travail",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -158,7 +158,7 @@
     },
     {
         "reference": "projets_hasMany_affectation_projets_projet_id_displayOrder",
-        "value_integer": 13,
+        "value_integer": 12,
         "value_float": 0,
         "e_data_field_reference": "projets_hasMany_affectation_projets_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -352,7 +352,7 @@
     {
         "reference": "Projet_filiere_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 5,
+        "value_integer": 1,
         "value_float": 0,
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -728,7 +728,7 @@
     },
     {
         "reference": "Projet_session_formation_id_displayOrder",
-        "value_integer": 8,
+        "value_integer": 2,
         "e_data_field_reference": "Projet_session_formation_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -770,7 +770,7 @@
     },
     {
         "reference": "projets_hasMany_mobilisation_uas_projet_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 13,
         "e_data_field_reference": "projets_hasMany_mobilisation_uas_projet_id",
         "e_metadata_definition_reference": "displayOrder"
     },

@@ -29,7 +29,75 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="titre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="filiere_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="filiere_id">
+            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="filiere_id" 
+            required
+            
+            
+            name="filiere_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($filieres as $filiere)
+                    <option value="{{ $filiere->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
+                        {{ $filiere }}
+                    </option>
+                @endforeach
+            </select>
+          @error('filiere_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="session_formation_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="session_formation_id" id="bulk_field_session_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="session_formation_id">
+            {{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}
+            
+          </label>
+                      <select 
+            id="session_formation_id" 
+            
+            
+            
+            name="session_formation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sessionFormations as $sessionFormation)
+                    <option value="{{ $sessionFormation->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->session_formation_id == $sessionFormation->id) || (old('session_formation_id>') == $sessionFormation->id) ? 'selected' : '' }}>
+                        {{ $sessionFormation }}
+                    </option>
+                @endforeach
+            </select>
+          @error('session_formation_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="titre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -112,40 +180,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="filiere_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="filiere_id" id="bulk_field_filiere_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="filiere_id">
-            {{ ucfirst(__('PkgFormation::filiere.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="filiere_id" 
-            required
-            
-            
-            name="filiere_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($filieres as $filiere)
-                    <option value="{{ $filiere->id }}"
-                        {{ (isset($itemProjet) && $itemProjet->filiere_id == $filiere->id) || (old('filiere_id>') == $filiere->id) ? 'selected' : '' }}>
-                        {{ $filiere }}
-                    </option>
-                @endforeach
-            </select>
-          @error('filiere_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="formateur_id" :bulkEdit="$bulkEdit">
       @php $canEditformateur_id = !$itemProjet || !$itemProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
@@ -176,40 +210,6 @@
                 @endforeach
             </select>
           @error('formateur_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="session_formation_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="session_formation_id" id="bulk_field_session_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="session_formation_id">
-            {{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}
-            
-          </label>
-                      <select 
-            id="session_formation_id" 
-            
-            
-            
-            name="session_formation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sessionFormations as $sessionFormation)
-                    <option value="{{ $sessionFormation->id }}"
-                        {{ (isset($itemProjet) && $itemProjet->session_formation_id == $sessionFormation->id) || (old('session_formation_id>') == $sessionFormation->id) ? 'selected' : '' }}>
-                        {{ $sessionFormation }}
-                    </option>
-                @endforeach
-            </select>
-          @error('session_formation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

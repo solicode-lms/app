@@ -32,24 +32,24 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         if ($this->format === 'csv') {
             return [
+                'filiere_reference' => 'filiere_reference',
+                'session_formation_reference' => 'session_formation_reference',
                 'titre' => 'titre',
                 'travail_a_faire' => 'travail_a_faire',
                 'critere_de_travail' => 'critere_de_travail',
-                'filiere_reference' => 'filiere_reference',
                 'formateur_reference' => 'formateur_reference',
                 'description' => 'description',
-                'session_formation_reference' => 'session_formation_reference',
                 'reference' => 'reference',
             ];
         } else {
             return [
+                'filiere_reference' => __('PkgCreationProjet::projet.filiere_reference'),
+                'session_formation_reference' => __('PkgCreationProjet::projet.session_formation_reference'),
                 'titre' => __('PkgCreationProjet::projet.titre'),
                 'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
                 'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
-                'filiere_reference' => __('PkgCreationProjet::projet.filiere_reference'),
                 'formateur_reference' => __('PkgCreationProjet::projet.formateur_reference'),
                 'description' => __('PkgCreationProjet::projet.description'),
-                'session_formation_reference' => __('PkgCreationProjet::projet.session_formation_reference'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -62,13 +62,13 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         return $this->data->map(function ($projet) {
             return [
+                'filiere_reference' => $projet->filiere?->reference,
+                'session_formation_reference' => $projet->sessionFormation?->reference,
                 'titre' => $projet->titre,
                 'travail_a_faire' => $projet->travail_a_faire,
                 'critere_de_travail' => $projet->critere_de_travail,
-                'filiere_reference' => $projet->filiere?->reference,
                 'formateur_reference' => $projet->formateur?->reference,
                 'description' => $projet->description,
-                'session_formation_reference' => $projet->sessionFormation?->reference,
                 'reference' => $projet->reference,
             ];
         });

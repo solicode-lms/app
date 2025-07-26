@@ -16,4 +16,9 @@ class SessionFormation extends BaseSessionFormation
         return Str::limit($slug, 200, '');
     }
 
+     public function __toString()
+    {
+        return ($this->ordre ?? "") . " " . ($this->titre ?? "");
+    }
+
 }

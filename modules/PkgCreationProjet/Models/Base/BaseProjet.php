@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Filiere;
-use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgSessions\Models\SessionFormation;
+use Modules\PkgFormation\Models\Formateur;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Modules\PkgCreationTache\Models\Tache;
@@ -35,8 +35,8 @@ class BaseProjet extends BaseModel
      */
     protected $with = [
       //  'filiere',
-      //  'formateur',
-      //  'sessionFormation'
+      //  'sessionFormation',
+      //  'formateur'
     ];
 
 
@@ -53,7 +53,7 @@ class BaseProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'titre', 'travail_a_faire', 'critere_de_travail', 'filiere_id', 'formateur_id', 'description', 'session_formation_id'
+        'filiere_id', 'session_formation_id', 'titre', 'travail_a_faire', 'critere_de_travail', 'formateur_id', 'description'
     ];
     public $manyToOne = [
         'Filiere' => [
@@ -61,15 +61,15 @@ class BaseProjet extends BaseModel
             'relation' => 'filieres' , 
             "foreign_key" => "filiere_id", 
             ],
-        'Formateur' => [
-            'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
-            "foreign_key" => "formateur_id", 
-            ],
         'SessionFormation' => [
             'model' => "Modules\\PkgSessions\\Models\\SessionFormation",
             'relation' => 'sessionFormations' , 
             "foreign_key" => "session_formation_id", 
+            ],
+        'Formateur' => [
+            'model' => "Modules\\PkgFormation\\Models\\Formateur",
+            'relation' => 'formateurs' , 
+            "foreign_key" => "formateur_id", 
             ]
     ];
 
@@ -84,15 +84,6 @@ class BaseProjet extends BaseModel
         return $this->belongsTo(Filiere::class, 'filiere_id', 'id');
     }
     /**
-     * Relation BelongsTo pour Formateur.
-     *
-     * @return BelongsTo
-     */
-    public function formateur(): BelongsTo
-    {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour SessionFormation.
      *
      * @return BelongsTo
@@ -100,6 +91,15 @@ class BaseProjet extends BaseModel
     public function sessionFormation(): BelongsTo
     {
         return $this->belongsTo(SessionFormation::class, 'session_formation_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Formateur.
+     *
+     * @return BelongsTo
+     */
+    public function formateur(): BelongsTo
+    {
+        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
     }
 
 

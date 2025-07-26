@@ -94,8 +94,8 @@ class BaseProjetController extends AdminController
         
 
         $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -126,8 +126,8 @@ class BaseProjetController extends AdminController
          
  
         $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $formateurs = $this->formateurService->all();
 
         $bulkEdit = true;
 
@@ -221,8 +221,8 @@ class BaseProjetController extends AdminController
 
 
         $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $formateurs = $this->formateurService->all();
 
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);

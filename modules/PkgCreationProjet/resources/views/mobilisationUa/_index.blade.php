@@ -43,7 +43,7 @@
        $titre = __("PkgCreationProjet::mobilisationUa.singular");
     @endphp
     <x-crud-header 
-        id="mobilisationUa-crud-header" icon="fa-table"  
+        id="mobilisationUa-crud-header" icon="fa-solid fa-seedling"  
         iconColor="text-info"
         title="{{ $mobilisationUa_title }}"
         :breadcrumbs="[

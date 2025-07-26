@@ -79,26 +79,26 @@ class BaseProjetSeeder extends Seeder
                     $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
                         ->value('id');
                 }
-                $formateur_id = null;
-                if (!empty($row["formateur_reference"])) {
-                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
-                        ->value('id');
-                }
                 $session_formation_id = null;
                 if (!empty($row["session_formation_reference"])) {
                     $session_formation_id = \Modules\PkgSessions\Models\SessionFormation::where('reference', $row["session_formation_reference"])
                         ->value('id');
                 }
+                $formateur_id = null;
+                if (!empty($row["formateur_reference"])) {
+                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
+                        ->value('id');
+                }
 
 
                 $projetData =[
+                        "filiere_id" => $filiere_id,
+                        "session_formation_id" => $session_formation_id,
                         "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "travail_a_faire" => isset($row["travail_a_faire"]) && $row["travail_a_faire"] !== "" ? $row["travail_a_faire"] : null,
                         "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,
-                        "filiere_id" => $filiere_id,
                         "formateur_id" => $formateur_id,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "session_formation_id" => $session_formation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
