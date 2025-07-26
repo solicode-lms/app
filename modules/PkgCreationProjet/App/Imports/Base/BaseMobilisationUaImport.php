@@ -5,30 +5,30 @@
 
 namespace Modules\PkgCreationProjet\App\Imports\Base;
 
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseProjetImport implements ToModel, WithHeadingRow
+class BaseMobilisationUaImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return Projet|null
+     * @return MobilisationUa|null
      */
-    private function findExistingRecord($reference): ?Projet
+    private function findExistingRecord($reference): ?MobilisationUa
     {
         if($reference == null) return null;
-        return Projet::where('reference', $reference)->first();
+        return MobilisationUa::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return Projet|null
+     * @return MobilisationUa|null
      */
     public function model(array $row)
     {
@@ -55,14 +55,14 @@ class BaseProjetImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new Projet([
-             'titre' => $values[0] ?? null,
-             'travail_a_faire' => $values[1] ?? null,
-             'critere_de_travail' => $values[2] ?? null,
-             'filiere_id' => $values[3] ?? null,
-             'formateur_id' => $values[4] ?? null,
-             'description' => $values[5] ?? null,
-             'session_formation_id' => $values[6] ?? null,
+        return new MobilisationUa([
+             'criteres_evaluation_prototype' => $values[0] ?? null,
+             'criteres_evaluation_projet' => $values[1] ?? null,
+             'bareme_evaluation_prototype' => $values[2] ?? null,
+             'bareme_evaluation_projet' => $values[3] ?? null,
+             'description' => $values[4] ?? null,
+             'projet_id' => $values[5] ?? null,
+             'unite_apprentissage_id' => $values[6] ?? null,
              'reference' => $reference,
         ]);
 

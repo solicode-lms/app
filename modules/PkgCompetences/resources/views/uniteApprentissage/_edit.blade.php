@@ -48,6 +48,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-realisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-realisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-realisationUa" aria-selected="false">{{ucfirst(__('PkgApprentissage::realisationUa.plural'))}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="uniteApprentissage-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-mobilisationUa" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-mobilisationUa" aria-selected="false">{{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}</a>
+                        </li>
 
                        
                         </ul>
@@ -69,6 +72,9 @@
                             </div>
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-realisationUa" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-realisationUa-tab">
                                 @include('PkgApprentissage::realisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
+                            </div>
+                            <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-mobilisationUa" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-mobilisationUa-tab">
+                                @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
 
                            

@@ -84,11 +84,34 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}</small>
+                              
+      @if($itemProjet->sessionFormation)
+        {{ $itemProjet->sessionFormation }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
             <div class="pt-2">
                   @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::mobilisationUa.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.show_' . $itemProjet->id])
             </div>
           </div>
       </div>

@@ -16,6 +16,7 @@ use Modules\PkgSessions\Models\AlignementUa;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCompetences\Models\CritereEvaluation;
 use Modules\PkgApprentissage\Models\RealisationUa;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
 
 /**
  * Classe BaseUniteApprentissage
@@ -104,6 +105,15 @@ class BaseUniteApprentissage extends BaseModel
     public function realisationUas(): HasMany
     {
         return $this->hasMany(RealisationUa::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation HasMany pour UniteApprentissages.
+     *
+     * @return HasMany
+     */
+    public function mobilisationUas(): HasMany
+    {
+        return $this->hasMany(MobilisationUa::class, 'unite_apprentissage_id', 'id');
     }
 
 

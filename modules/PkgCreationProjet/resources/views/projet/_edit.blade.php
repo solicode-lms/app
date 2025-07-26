@@ -40,6 +40,9 @@
                             <a class="nav-link" id="projet-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#projet-hasmany-tabs-affectationProjet" role="tab" aria-controls="projet-hasmany-tabs-affectationProjet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.affectationProjets'))}}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="projet-hasmany-tabs-mobilisationUa-tab" data-toggle="pill" href="#projet-hasmany-tabs-mobilisationUa" role="tab" aria-controls="projet-hasmany-tabs-mobilisationUa" aria-selected="false">{{ucfirst(__('PkgCreationProjet::mobilisationUa.plural'))}}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="projet-hasmany-tabs-tache-tab" data-toggle="pill" href="#projet-hasmany-tabs-tache" role="tab" aria-controls="projet-hasmany-tabs-tache" aria-selected="false">{{ucfirst(__('PkgCreationTache::tache.plural'))}}</a>
                         </li>
                         <li class="nav-item">
@@ -60,6 +63,9 @@
 
                             <div class="tab-pane fade" id="projet-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="projet-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
+                            </div>
+                            <div class="tab-pane fade" id="projet-hasmany-tabs-mobilisationUa" role="tabpanel" aria-labelledby="projet-hasmany-tabs-mobilisationUa-tab">
+                                @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])
                             </div>
                             <div class="tab-pane fade" id="projet-hasmany-tabs-tache" role="tabpanel" aria-labelledby="projet-hasmany-tabs-tache-tab">
                                 @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'projet.edit_' . $itemProjet->id])

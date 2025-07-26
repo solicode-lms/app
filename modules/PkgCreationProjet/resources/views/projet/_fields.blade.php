@@ -112,35 +112,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="nombre_jour" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="nombre_jour" id="bulk_field_nombre_jour" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="nombre_jour">
-            {{ ucfirst(__('PkgCreationProjet::projet.nombre_jour')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="nombre_jour"
-                type="number"
-                class="form-control"
-                required
-                
-                
-                id="nombre_jour"
-                placeholder="{{ __('PkgCreationProjet::projet.nombre_jour') }}"
-                value="{{ $itemProjet ? $itemProjet->nombre_jour : old('nombre_jour') }}">
-          @error('nombre_jour')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="filiere_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -205,6 +176,40 @@
                 @endforeach
             </select>
           @error('formateur_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemProjet" field="session_formation_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="session_formation_id" id="bulk_field_session_formation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="session_formation_id">
+            {{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}
+            
+          </label>
+                      <select 
+            id="session_formation_id" 
+            
+            
+            
+            name="session_formation_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sessionFormations as $sessionFormation)
+                    <option value="{{ $sessionFormation->id }}"
+                        {{ (isset($itemProjet) && $itemProjet->session_formation_id == $sessionFormation->id) || (old('session_formation_id>') == $sessionFormation->id) ? 'selected' : '' }}>
+                        {{ $sessionFormation }}
+                    </option>
+                @endforeach
+            </select>
+          @error('session_formation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

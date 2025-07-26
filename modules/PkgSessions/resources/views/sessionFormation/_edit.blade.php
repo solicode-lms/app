@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="sessionFormation-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-livrableSession" role="tab" aria-controls="sessionFormation-hasmany-tabs-livrableSession" aria-selected="false">{{ucfirst(__('PkgSessions::livrableSession.plural'))}}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="sessionFormation-hasmany-tabs-projet-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-projet" role="tab" aria-controls="sessionFormation-hasmany-tabs-projet" aria-selected="false">{{ucfirst(__('PkgCreationProjet::projet.plural'))}}</a>
+                        </li>
 
                        
                         </ul>
@@ -57,6 +60,9 @@
                             </div>
                             <div class="tab-pane fade" id="sessionFormation-hasmany-tabs-livrableSession" role="tabpanel" aria-labelledby="sessionFormation-hasmany-tabs-livrableSession-tab">
                                 @include('PkgSessions::livrableSession._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sessionFormation.edit_' . $itemSessionFormation->id])
+                            </div>
+                            <div class="tab-pane fade" id="sessionFormation-hasmany-tabs-projet" role="tabpanel" aria-labelledby="sessionFormation-hasmany-tabs-projet-tab">
+                                @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sessionFormation.edit_' . $itemSessionFormation->id])
                             </div>
 
                            

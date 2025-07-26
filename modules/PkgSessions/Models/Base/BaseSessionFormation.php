@@ -15,6 +15,7 @@ use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgSessions\Models\AlignementUa;
 use Modules\PkgSessions\Models\LivrableSession;
+use Modules\PkgCreationProjet\Models\Projet;
 
 /**
  * Classe BaseSessionFormation
@@ -100,6 +101,15 @@ class BaseSessionFormation extends BaseModel
     public function livrableSessions(): HasMany
     {
         return $this->hasMany(LivrableSession::class, 'session_formation_id', 'id');
+    }
+    /**
+     * Relation HasMany pour SessionFormations.
+     *
+     * @return HasMany
+     */
+    public function projets(): HasMany
+    {
+        return $this->hasMany(Projet::class, 'session_formation_id', 'id');
     }
 
 

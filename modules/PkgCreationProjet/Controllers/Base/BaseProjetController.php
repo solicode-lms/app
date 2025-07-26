@@ -6,7 +6,9 @@ namespace Modules\PkgCreationProjet\Controllers\Base;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgFormation\Services\FormateurService;
+use Modules\PkgSessions\Services\SessionFormationService;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
+use Modules\PkgCreationProjet\Services\MobilisationUaService;
 use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCreationProjet\Services\ResourceService;
@@ -26,13 +28,15 @@ class BaseProjetController extends AdminController
     protected $projetService;
     protected $filiereService;
     protected $formateurService;
+    protected $sessionFormationService;
 
-    public function __construct(ProjetService $projetService, FiliereService $filiereService, FormateurService $formateurService) {
+    public function __construct(ProjetService $projetService, FiliereService $filiereService, FormateurService $formateurService, SessionFormationService $sessionFormationService) {
         parent::__construct();
         $this->service  =  $projetService;
         $this->projetService = $projetService;
         $this->filiereService = $filiereService;
         $this->formateurService = $formateurService;
+        $this->sessionFormationService = $sessionFormationService;
     }
 
     /**
@@ -91,12 +95,13 @@ class BaseProjetController extends AdminController
 
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $sessionFormations = $this->sessionFormationService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
         }
-        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs'));
+        return view('PkgCreationProjet::projet.create', compact('bulkEdit' ,'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -122,6 +127,7 @@ class BaseProjetController extends AdminController
  
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $sessionFormations = $this->sessionFormationService->all();
 
         $bulkEdit = true;
 
@@ -129,9 +135,9 @@ class BaseProjetController extends AdminController
         $itemProjet = $this->projetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs'));
+            return view('PkgCreationProjet::projet._fields', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
         }
-        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs'));
+        return view('PkgCreationProjet::projet.bulk-edit', compact('bulkEdit', 'projet_ids', 'itemProjet', 'filieres', 'formateurs', 'sessionFormations'));
     }
     /**
      */
@@ -168,6 +174,13 @@ class BaseProjetController extends AdminController
         $this->authorize('view', $itemProjet);
 
 
+        $this->viewState->set('scope.mobilisationUa.projet_id', $id);
+        
+
+        $mobilisationUaService =  new MobilisationUaService();
+        $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
+        extract($mobilisationUas_view_data);
+
         $this->viewState->set('scope.tache.projet_id', $id);
         
 
@@ -190,10 +203,10 @@ class BaseProjetController extends AdminController
         extract($resources_view_data);
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.show', array_merge(compact('itemProjet'),$mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
     }
     /**
@@ -209,6 +222,7 @@ class BaseProjetController extends AdminController
 
         $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
+        $sessionFormations = $this->sessionFormationService->all();
 
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);
@@ -221,6 +235,13 @@ class BaseProjetController extends AdminController
         $affectationProjetService =  new AffectationProjetService();
         $affectationProjets_view_data = $affectationProjetService->prepareDataForIndexView();
         extract($affectationProjets_view_data);
+
+        $this->viewState->set('scope.mobilisationUa.projet_id', $id);
+        
+
+        $mobilisationUaService =  new MobilisationUaService();
+        $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
+        extract($mobilisationUas_view_data);
 
         $this->viewState->set('scope.tache.projet_id', $id);
         
@@ -246,10 +267,10 @@ class BaseProjetController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs'),$affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+            return view('PkgCreationProjet::projet._edit', array_merge(compact('bulkEdit' , 'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
         }
 
-        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs'),$affectationProjet_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
+        return view('PkgCreationProjet::projet.edit', array_merge(compact('bulkEdit' ,'itemProjet','filieres', 'formateurs', 'sessionFormations'),$affectationProjet_compact_value, $mobilisationUa_compact_value, $tache_compact_value, $livrable_compact_value, $resource_compact_value));
 
 
     }

@@ -8,6 +8,7 @@ use Modules\PkgFormation\Services\AnneeFormationService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgSessions\Services\AlignementUaService;
 use Modules\PkgSessions\Services\LivrableSessionService;
+use Modules\PkgCreationProjet\Services\ProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -167,11 +168,18 @@ class BaseSessionFormationController extends AdminController
         $livrableSessions_view_data = $livrableSessionService->prepareDataForIndexView();
         extract($livrableSessions_view_data);
 
+        $this->viewState->set('scope.projet.session_formation_id', $id);
+        
+
+        $projetService =  new ProjetService();
+        $projets_view_data = $projetService->prepareDataForIndexView();
+        extract($projets_view_data);
+
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value));
+            return view('PkgSessions::sessionFormation._show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
         }
 
-        return view('PkgSessions::sessionFormation.show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value));
+        return view('PkgSessions::sessionFormation.show', array_merge(compact('itemSessionFormation'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
 
     }
     /**
@@ -202,13 +210,20 @@ class BaseSessionFormationController extends AdminController
         $livrableSessions_view_data = $livrableSessionService->prepareDataForIndexView();
         extract($livrableSessions_view_data);
 
+        $this->viewState->set('scope.projet.session_formation_id', $id);
+        
+
+        $projetService =  new ProjetService();
+        $projets_view_data = $projetService->prepareDataForIndexView();
+        extract($projets_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgSessions::sessionFormation._edit', array_merge(compact('bulkEdit' , 'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value));
+            return view('PkgSessions::sessionFormation._edit', array_merge(compact('bulkEdit' , 'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
         }
 
-        return view('PkgSessions::sessionFormation.edit', array_merge(compact('bulkEdit' ,'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value));
+        return view('PkgSessions::sessionFormation.edit', array_merge(compact('bulkEdit' ,'itemSessionFormation','anneeFormations', 'filieres'),$alignementUa_compact_value, $livrableSession_compact_value, $projet_compact_value));
 
 
     }

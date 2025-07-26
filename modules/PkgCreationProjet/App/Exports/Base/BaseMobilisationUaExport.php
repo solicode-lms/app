@@ -5,7 +5,7 @@
 
 namespace Modules\PkgCreationProjet\App\Exports\Base;
 
-use Modules\PkgCreationProjet\Models\Projet;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $data;
     protected $format;
@@ -32,24 +32,24 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     {
         if ($this->format === 'csv') {
             return [
-                'titre' => 'titre',
-                'travail_a_faire' => 'travail_a_faire',
-                'critere_de_travail' => 'critere_de_travail',
-                'filiere_reference' => 'filiere_reference',
-                'formateur_reference' => 'formateur_reference',
+                'criteres_evaluation_prototype' => 'criteres_evaluation_prototype',
+                'criteres_evaluation_projet' => 'criteres_evaluation_projet',
+                'bareme_evaluation_prototype' => 'bareme_evaluation_prototype',
+                'bareme_evaluation_projet' => 'bareme_evaluation_projet',
                 'description' => 'description',
-                'session_formation_reference' => 'session_formation_reference',
+                'projet_reference' => 'projet_reference',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'reference' => 'reference',
             ];
         } else {
             return [
-                'titre' => __('PkgCreationProjet::projet.titre'),
-                'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
-                'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
-                'filiere_reference' => __('PkgCreationProjet::projet.filiere_reference'),
-                'formateur_reference' => __('PkgCreationProjet::projet.formateur_reference'),
-                'description' => __('PkgCreationProjet::projet.description'),
-                'session_formation_reference' => __('PkgCreationProjet::projet.session_formation_reference'),
+                'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
+                'criteres_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'),
+                'bareme_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_prototype'),
+                'bareme_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet'),
+                'description' => __('PkgCreationProjet::mobilisationUa.description'),
+                'projet_reference' => __('PkgCreationProjet::mobilisationUa.projet_reference'),
+                'unite_apprentissage_reference' => __('PkgCreationProjet::mobilisationUa.unite_apprentissage_reference'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -60,16 +60,16 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
      */
     public function collection()
     {
-        return $this->data->map(function ($projet) {
+        return $this->data->map(function ($mobilisationUa) {
             return [
-                'titre' => $projet->titre,
-                'travail_a_faire' => $projet->travail_a_faire,
-                'critere_de_travail' => $projet->critere_de_travail,
-                'filiere_reference' => $projet->filiere?->reference,
-                'formateur_reference' => $projet->formateur?->reference,
-                'description' => $projet->description,
-                'session_formation_reference' => $projet->sessionFormation?->reference,
-                'reference' => $projet->reference,
+                'criteres_evaluation_prototype' => $mobilisationUa->criteres_evaluation_prototype,
+                'criteres_evaluation_projet' => $mobilisationUa->criteres_evaluation_projet,
+                'bareme_evaluation_prototype' => $mobilisationUa->bareme_evaluation_prototype,
+                'bareme_evaluation_projet' => $mobilisationUa->bareme_evaluation_projet,
+                'description' => $mobilisationUa->description,
+                'projet_reference' => $mobilisationUa->projet?->reference,
+                'unite_apprentissage_reference' => $mobilisationUa->uniteApprentissage?->reference,
+                'reference' => $mobilisationUa->reference,
             ];
         });
     }

@@ -24,10 +24,10 @@ class BaseProjetService extends BaseService
         'titre',
         'travail_a_faire',
         'critere_de_travail',
-        'nombre_jour',
         'filiere_id',
         'formateur_id',
-        'description'
+        'description',
+        'session_formation_id'
     ];
 
     /**
@@ -74,6 +74,16 @@ class BaseProjetService extends BaseService
                         'formateur_id', 
                         \Modules\PkgFormation\Models\Formateur::class, 
                         'nom'
+                    );
+                }
+            
+            
+                if (!array_key_exists('session_formation_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgSessions::sessionFormation.plural"), 
+                        'session_formation_id', 
+                        \Modules\PkgSessions\Models\SessionFormation::class, 
+                        'titre'
                     );
                 }
             

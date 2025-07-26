@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgCreationProjet\Services\ProjetService;
+use Modules\PkgCreationProjet\Models\MobilisationUa;
+use Modules\PkgCreationProjet\Services\MobilisationUaService;
 
 
-class BaseProjetSeeder extends Seeder
+class BaseMobilisationUaSeeder extends Seeder
 {
-    public static int $order = 33;
+    public static int $order = 90;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -31,8 +31,7 @@ class BaseProjetSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
             'Extraction' => ['import', 'export'],
-            'clonerProjet' => ['clonerProjet'],
-            
+
         ];
 
     public function run(): void
@@ -48,7 +47,7 @@ class BaseProjetSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgCreationProjet/Database/data/projets.csv");
+        $filePath = base_path("modules/PkgCreationProjet/Database/data/mobilisationUas.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -66,7 +65,7 @@ class BaseProjetSeeder extends Seeder
             return;
         }
 
-        $projetService = new ProjetService();
+        $mobilisationUaService = new MobilisationUaService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
@@ -74,37 +73,32 @@ class BaseProjetSeeder extends Seeder
             if ($row) {
 
 
-                $filiere_id = null;
-                if (!empty($row["filiere_reference"])) {
-                    $filiere_id = \Modules\PkgFormation\Models\Filiere::where('reference', $row["filiere_reference"])
+                $projet_id = null;
+                if (!empty($row["projet_reference"])) {
+                    $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
                         ->value('id');
                 }
-                $formateur_id = null;
-                if (!empty($row["formateur_reference"])) {
-                    $formateur_id = \Modules\PkgFormation\Models\Formateur::where('reference', $row["formateur_reference"])
-                        ->value('id');
-                }
-                $session_formation_id = null;
-                if (!empty($row["session_formation_reference"])) {
-                    $session_formation_id = \Modules\PkgSessions\Models\SessionFormation::where('reference', $row["session_formation_reference"])
+                $unite_apprentissage_id = null;
+                if (!empty($row["unite_apprentissage_reference"])) {
+                    $unite_apprentissage_id = \Modules\PkgCompetences\Models\UniteApprentissage::where('reference', $row["unite_apprentissage_reference"])
                         ->value('id');
                 }
 
 
-                $projetData =[
-                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
-                        "travail_a_faire" => isset($row["travail_a_faire"]) && $row["travail_a_faire"] !== "" ? $row["travail_a_faire"] : null,
-                        "critere_de_travail" => isset($row["critere_de_travail"]) && $row["critere_de_travail"] !== "" ? $row["critere_de_travail"] : null,
-                        "filiere_id" => $filiere_id,
-                        "formateur_id" => $formateur_id,
+                $mobilisationUaData =[
+                        "criteres_evaluation_prototype" => isset($row["criteres_evaluation_prototype"]) && $row["criteres_evaluation_prototype"] !== "" ? $row["criteres_evaluation_prototype"] : null,
+                        "criteres_evaluation_projet" => isset($row["criteres_evaluation_projet"]) && $row["criteres_evaluation_projet"] !== "" ? $row["criteres_evaluation_projet"] : null,
+                        "bareme_evaluation_prototype" => isset($row["bareme_evaluation_prototype"]) && $row["bareme_evaluation_prototype"] !== "" ? $row["bareme_evaluation_prototype"] : null,
+                        "bareme_evaluation_projet" => isset($row["bareme_evaluation_projet"]) && $row["bareme_evaluation_projet"] !== "" ? $row["bareme_evaluation_projet"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "session_formation_id" => $session_formation_id,
+                        "projet_id" => $projet_id,
+                        "unite_apprentissage_id" => $unite_apprentissage_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $projetService->updateOrCreate(["reference" => $row["reference"]], $projetData);
+                    $mobilisationUaService->updateOrCreate(["reference" => $row["reference"]], $mobilisationUaData);
                 } else {
-                    $projetService->create($projetData);
+                    $mobilisationUaService->create($mobilisationUaData);
                 }
             }
         }
@@ -127,9 +121,9 @@ class BaseProjetSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'ProjetController';
-        $controllerBaseName = 'projet';
-        $domainName = 'Projet';
+        $controllerName = 'MobilisationUaController';
+        $controllerBaseName = 'mobilisationUa';
+        $domainName = 'MobilisationUa';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(
