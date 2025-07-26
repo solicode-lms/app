@@ -14,17 +14,20 @@ class FormField extends Component
     public bool $bulkEdit;
     public ?string $partial;
 
+    public array $definedVars = [];
+
     /**
      * @param  Model       $entity   L’instance Eloquent (ex : RealisationTache)
      * @param  string      $field    Le nom du champ (ex : "tache_id")
      * @param  string|null $partial  Un partial personnalisé (facultatif)
      */
-    public function __construct(Model $entity, string $field,$bulkEdit, string $partial = null)
+    public function __construct(Model $entity, string $field,$bulkEdit, string $partial = null, array $definedVars = [])
     {
         $this->entity  = $entity;
         $this->field   = $field;
         $this->partial = $partial;
         $this->bulkEdit = $bulkEdit;
+        $this->definedVars = $definedVars;
     }
 
     /**
@@ -45,17 +48,26 @@ class FormField extends Component
         return "{$package}::{$modelName}.custom.forms.{$this->field}";
     }
 
+
     public function render()
     {
         $partial = $this->resolvePartial();
 
         return function (array $viewData) use ($partial) {
             $default = trim($viewData['slot']);
-            $context = [
-                'entity'  => $this->entity,
-                'default' => $default,
-                'bulkEdit' => $this->bulkEdit,
-            ];
+
+            // Fusionner les variables de la vue parent avec celles du composant
+            $context = array_merge(
+                $this->definedVars, // Variables passées depuis la vue parent via get_defined_vars()
+                [
+                    'entity'   => $this->entity,
+                    'default'  => $default,
+                    'bulkEdit' => $this->bulkEdit,
+                ]
+            );
+
+            // Filtrer les variables techniques
+            $context = array_filter($context, fn($key) => !in_array($key, ['__env', '__data', '__path']), ARRAY_FILTER_USE_KEY);
 
             if (View::exists($partial)) {
                 return view($partial, $context)->render();

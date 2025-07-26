@@ -11,6 +11,8 @@ class AlignementUaController extends BaseAlignementUaController
     public function create() {
 
 
+        $this->viewState->setContextKey('alignementUa.create');
+
         $itemAlignementUa = $this->alignementUaService->createInstance();
         
 

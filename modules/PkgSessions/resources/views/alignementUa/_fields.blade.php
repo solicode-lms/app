@@ -22,8 +22,14 @@
     <div class="card-body">
 
 
+  
+
+  
+    
+
+    
     <div class="row">
-        <x-form-field :entity="$itemAlignementUa" field="ordre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAlignementUa" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -52,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :context="get_defined_vars()" :entity="$itemAlignementUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAlignementUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -86,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAlignementUa" field="session_formation_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAlignementUa" field="session_formation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -120,7 +126,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAlignementUa" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAlignementUa" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

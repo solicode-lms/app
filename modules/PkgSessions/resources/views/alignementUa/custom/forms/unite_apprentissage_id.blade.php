@@ -1,7 +1,11 @@
-@php
-    extract($context); 
-    // Maintenant toutes les variables de la vue parent (comme $uniteApprentissages) sont accessibles
-@endphp
+
+<div class="col-12 col-md-12">
+<label for="EvaluationRealisationTache">
+        Liste des unités d'apprentissage non alignées
+</label>
+    @include('PkgCompetences::uniteApprentissage._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'alignementUa.create'])
+</div>
+
 
 
 <div class="form-group col-12 col-md-6">
