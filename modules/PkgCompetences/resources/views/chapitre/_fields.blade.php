@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemChapitre" field="ordre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="code" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="code" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="nom" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="lien" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="lien" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -145,7 +145,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -172,7 +172,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="duree_en_heure" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="duree_en_heure" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -202,7 +202,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="isOfficiel" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="isOfficiel" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -232,7 +232,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -266,7 +266,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemChapitre" field="formateur_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="formateur_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

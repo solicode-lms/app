@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemERelationship" field="name" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="type" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="type" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="source_e_model_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="source_e_model_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="target_e_model_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="target_e_model_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -155,7 +155,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="cascade_on_delete" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="cascade_on_delete" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -185,7 +185,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="is_cascade" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="is_cascade" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -215,7 +215,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -242,7 +242,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="column_name" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="column_name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -271,7 +271,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="referenced_table" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="referenced_table" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -300,7 +300,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="referenced_column" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="referenced_column" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -329,7 +329,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="through" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="through" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -358,7 +358,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="with_column" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="with_column" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -387,7 +387,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemERelationship" field="morph_name" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemERelationship" field="morph_name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationProjet" field="affectation_projet_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="affectation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditaffectation_projet_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -65,7 +65,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationProjet" field="apprenant_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="apprenant_id" :bulkEdit="$bulkEdit">
       @php $canEditapprenant_id = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -101,7 +101,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationProjet" field="date_debut" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -131,7 +131,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationProjet" field="date_fin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_fin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -161,7 +161,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationProjet" field="etats_realisation_projet_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="etats_realisation_projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -195,7 +195,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationProjet" field="rapport" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="rapport" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

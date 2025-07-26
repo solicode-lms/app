@@ -53,7 +53,10 @@
 
                     </td>
                     <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
-                        {{ $microCompetence->lien }}
+    <a href="{{ $microCompetence->lien }}" target="_blank">
+         <i class="fas fa-link"></i>
+    </a>
+
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

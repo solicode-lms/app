@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemTache" field="ordre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="titre" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="titre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-8">
           @if ($bulkEdit)
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="priorite_tache_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="priorite_tache_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="projet_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="projet_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-4">
           @if ($bulkEdit)
@@ -155,7 +155,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -182,7 +182,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="dateDebut" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateDebut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -212,7 +212,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="dateFin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="dateFin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -242,7 +242,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="note" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="note" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -272,7 +272,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemTache" field="livrables" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="livrables" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

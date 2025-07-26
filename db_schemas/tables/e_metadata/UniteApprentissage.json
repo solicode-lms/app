@@ -177,6 +177,8 @@
     },
     {
         "reference": "UniteApprentissage_lien_nature",
+        "value_boolean": 0,
+        "value_float": 0,
         "value_json": {
             "nature": "lien"
         },

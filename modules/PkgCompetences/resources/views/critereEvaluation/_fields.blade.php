@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemCritereEvaluation" field="ordre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemCritereEvaluation" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemCritereEvaluation" field="intitule" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemCritereEvaluation" field="intitule" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -85,7 +85,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemCritereEvaluation" field="bareme" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemCritereEvaluation" field="bareme" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -115,7 +115,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemCritereEvaluation" field="phase_evaluation_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemCritereEvaluation" field="phase_evaluation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -149,7 +149,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemCritereEvaluation" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemCritereEvaluation" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

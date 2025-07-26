@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemSysModule" field="name" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="slug" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="slug" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -114,7 +114,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="is_active" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="is_active" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -143,7 +143,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="order" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="order" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -172,7 +172,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="version" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="version" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -201,7 +201,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemSysModule" field="sys_color_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="sys_color_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

@@ -40,7 +40,10 @@
 
                     </td>
                     <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
-                        {{ $chapitre->lien }}
+    <a href="{{ $chapitre->lien }}" target="_blank">
+         <i class="fas fa-link"></i>
+    </a>
+
 
                     </td>
                     <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >

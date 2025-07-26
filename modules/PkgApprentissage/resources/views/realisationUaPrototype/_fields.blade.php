@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationUaPrototype" field="note" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="note" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -59,7 +59,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="bareme" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="bareme" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -89,7 +89,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="remarque_formateur" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="remarque_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="date_debut" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -146,7 +146,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="date_fin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_fin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -176,7 +176,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="realisation_ua_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_ua_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -210,7 +210,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationUaPrototype" field="realisation_tache_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_tache_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

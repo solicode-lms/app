@@ -41,7 +41,10 @@
 
                     </td>
                     <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $uniteApprentissage->lien }}" >
-                        {{ $uniteApprentissage->lien }}
+    <a href="{{ $uniteApprentissage->lien }}" target="_blank">
+         <i class="fas fa-link"></i>
+    </a>
+
 
                     </td>
                     <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$uniteApprentissage->id}}" data-field="micro_competence_id"  data-toggle="tooltip" title="{{ $uniteApprentissage->microCompetence }}" >

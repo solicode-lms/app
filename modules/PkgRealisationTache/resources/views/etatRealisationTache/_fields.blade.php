@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEtatRealisationTache" field="nom" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatRealisationTache" field="workflow_tache_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="workflow_tache_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatRealisationTache" field="sys_color_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="sys_color_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -126,7 +126,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatRealisationTache" field="is_editable_only_by_formateur" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="is_editable_only_by_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -156,7 +156,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatRealisationTache" field="formateur_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="formateur_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -190,7 +190,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEtatRealisationTache" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

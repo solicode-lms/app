@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemWidget" field="ordre" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="icon" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="icon" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -87,7 +87,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="name" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-4">
           @if ($bulkEdit)
@@ -116,7 +116,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="label" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="label" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -145,7 +145,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="type_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="type_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -179,7 +179,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="model_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="model_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -213,7 +213,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="operation_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="operation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -247,7 +247,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="sys_color_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="sys_color_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -281,7 +281,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="roles" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="roles" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -315,7 +315,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="section_widget_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="section_widget_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -349,7 +349,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemWidget" field="parameters" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWidget" field="parameters" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

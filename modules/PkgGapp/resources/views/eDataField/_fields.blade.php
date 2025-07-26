@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemEDataField" field="name" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -58,7 +58,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="e_model_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="e_model_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="data_type" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="data_type" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -121,7 +121,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="default_value" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="default_value" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -150,7 +150,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="column_name" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="column_name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -179,7 +179,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="e_relationship_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="e_relationship_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -213,7 +213,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="field_order" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="field_order" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -242,7 +242,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="db_primaryKey" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="db_primaryKey" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -272,7 +272,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="db_nullable" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="db_nullable" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -302,7 +302,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="db_unique" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="db_unique" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -332,7 +332,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="calculable" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="calculable" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
@@ -362,7 +362,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="calculable_sql" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="calculable_sql" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -389,7 +389,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemEDataField" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEDataField" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

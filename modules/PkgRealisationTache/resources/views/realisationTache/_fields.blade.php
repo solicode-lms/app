@@ -32,7 +32,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationTache" field="tache_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="tache_id" :bulkEdit="$bulkEdit">
       @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -68,7 +68,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationTache" field="realisation_projet_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="realisation_projet_id" :bulkEdit="$bulkEdit">
       @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -114,7 +114,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationTache" field="dateDebut" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateDebut" :bulkEdit="$bulkEdit">
       @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
@@ -146,7 +146,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationTache" field="dateFin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateFin" :bulkEdit="$bulkEdit">
       @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
@@ -188,7 +188,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationTache" field="etat_realisation_tache_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="etat_realisation_tache_id" :bulkEdit="$bulkEdit">
       @php $canEditetat_realisation_tache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -224,7 +224,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationTache" field="note" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="note" :bulkEdit="$bulkEdit">
       @php $canEditnote = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,evaluateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -266,7 +266,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationTache" field="remarques_formateur" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="remarques_formateur" :bulkEdit="$bulkEdit">
       @php $canEditremarques_formateur = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -295,7 +295,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemRealisationTache" field="remarques_apprenant" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="remarques_apprenant" :bulkEdit="$bulkEdit">
       @php $canEditremarques_apprenant = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -332,7 +332,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemRealisationTache" field="remarque_evaluateur" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="remarque_evaluateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

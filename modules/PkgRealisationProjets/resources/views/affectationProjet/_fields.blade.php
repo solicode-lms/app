@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemAffectationProjet" field="projet_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="projet_id" :bulkEdit="$bulkEdit">
       @php $canEditprojet_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'admin,formateur')); @endphp
 
       <div class="form-group col-12 col-md-6">
@@ -65,7 +65,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="groupe_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="groupe_id" :bulkEdit="$bulkEdit">
       @php $canEditgroupe_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
@@ -104,7 +104,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="annee_formation_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="annee_formation_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -138,7 +138,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="date_debut" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -168,7 +168,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="date_fin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="date_fin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -198,7 +198,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="sous_groupe_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="sous_groupe_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -232,7 +232,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="echelle_note_cible" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="echelle_note_cible" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -261,7 +261,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -295,7 +295,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAffectationProjet" field="description" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="description" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)

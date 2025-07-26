@@ -28,7 +28,10 @@
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
-                        {{ $livrablesRealisation->lien }}
+    <a href="{{ $livrablesRealisation->lien }}" target="_blank">
+         <i class="fas fa-link"></i>
+    </a>
+
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $livrablesRealisation->titre }}" >

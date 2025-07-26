@@ -29,7 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemUserModelFilter" field="user_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemUserModelFilter" field="user_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -63,7 +63,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUserModelFilter" field="model_name" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemUserModelFilter" field="model_name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -92,7 +92,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemUserModelFilter" field="filters" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemUserModelFilter" field="filters" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

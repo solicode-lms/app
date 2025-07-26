@@ -34,7 +34,7 @@ export class InlineEdit extends Action {
         const selector = `${this.config.tableSelector} .editable-cell`;
 
         // Clic sur cellule
-        EventUtil.bindEvent('click', selector, e => {
+        EventUtil.bindEvent('dblclick', selector, e => {
             const $cell = $(e.currentTarget);
             e.preventDefault();
 
@@ -63,7 +63,7 @@ export class InlineEdit extends Action {
 
         // survol
         EventUtil.bindEvent('mouseenter', selector, e => {
-            $(e.currentTarget).css({ cursor: 'pointer', backgroundColor: '#e9ecef' });
+            $(e.currentTarget).css({ cursor: 'cell', backgroundColor: '#e9ecef' });
         });
         EventUtil.bindEvent('mouseleave', selector, e => {
             $(e.currentTarget).css({ cursor: '', backgroundColor: '' });

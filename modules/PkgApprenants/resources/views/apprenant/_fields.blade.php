@@ -32,7 +32,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemApprenant" field="nom" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -61,7 +61,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="nom_arab" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="nom_arab" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -90,7 +90,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="prenom" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="prenom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -119,7 +119,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="prenom_arab" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="prenom_arab" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -148,7 +148,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="cin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="cin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -177,7 +177,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="date_naissance" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="date_naissance" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -207,7 +207,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="sexe" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="sexe" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -236,7 +236,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="nationalite_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="nationalite_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -270,7 +270,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="lieu_naissance" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="lieu_naissance" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -299,7 +299,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="niveaux_scolaire_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="niveaux_scolaire_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-9">
           @if ($bulkEdit)
@@ -343,7 +343,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemApprenant" field="tele_num" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="tele_num" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -372,7 +372,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="user_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="user_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -416,7 +416,7 @@
       <hr class="debut-groupe-hr">
     
     <div class="row">
-        <x-form-field :entity="$itemApprenant" field="matricule" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="matricule" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -445,7 +445,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="groupes" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="groupes" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -479,7 +479,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="date_inscription" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="date_inscription" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -509,7 +509,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemApprenant" field="actif" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="actif" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -546,7 +546,7 @@
 
     
     <div class="row">
-        <x-form-field :entity="$itemApprenant" field="sousGroupes" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemApprenant" field="sousGroupes" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
