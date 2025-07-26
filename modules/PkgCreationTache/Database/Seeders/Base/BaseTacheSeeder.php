@@ -73,11 +73,6 @@ class BaseTacheSeeder extends Seeder
             if ($row) {
 
 
-                $priorite_tache_id = null;
-                if (!empty($row["priorite_tache_reference"])) {
-                    $priorite_tache_id = \Modules\PkgCreationTache\Models\PrioriteTache::where('reference', $row["priorite_tache_reference"])
-                        ->value('id');
-                }
                 $projet_id = null;
                 if (!empty($row["projet_reference"])) {
                     $projet_id = \Modules\PkgCreationProjet\Models\Projet::where('reference', $row["projet_reference"])
@@ -93,12 +88,17 @@ class BaseTacheSeeder extends Seeder
                     $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
                         ->value('id');
                 }
+                $priorite_tache_id = null;
+                if (!empty($row["priorite_tache_reference"])) {
+                    $priorite_tache_id = \Modules\PkgCreationTache\Models\PrioriteTache::where('reference', $row["priorite_tache_reference"])
+                        ->value('id');
+                }
 
 
                 $tacheData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
-                        "priorite_tache_id" => $priorite_tache_id,
+                        "priorite" => isset($row["priorite"]) && $row["priorite"] !== "" ? $row["priorite"] : null,
                         "projet_id" => $projet_id,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
@@ -106,6 +106,7 @@ class BaseTacheSeeder extends Seeder
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
                         "chapitre_id" => $chapitre_id,
+                        "priorite_tache_id" => $priorite_tache_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

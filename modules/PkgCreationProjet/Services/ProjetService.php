@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 use Illuminate\Support\Facades\DB;
+use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgSessions\Models\SessionFormation;
 
@@ -44,11 +45,6 @@ class ProjetService extends BaseProjetService
 
     public function afterCreateRules($projet)
     {
-        $this->afterUpdateRules($projet);
-    }
-
-    public function afterUpdateRules($projet)
-    {
         if (!$projet || !$projet->id) {
             return;
         }
@@ -64,6 +60,11 @@ class ProjetService extends BaseProjetService
                 $this->addProjectTasks($projet, $session);
             }
         }
+    }
+
+    public function afterUpdateRules($projet)
+    {
+       
     }
 
     protected function updateMobilisationsUa($projet, $session)
@@ -86,34 +87,113 @@ class ProjetService extends BaseProjetService
         }
     }
 
-    protected function addProjectTasks($projet, $session)
-    {
-        $defaultTasks = ['Prototype', 'Réalisation', 'Analyse', 'Conception'];
 
-        // Tâches pour chaque chapitre
-        foreach ($session->alignementUas as $alignementUa) {
-            foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
-                Tache::firstOrCreate([
+protected function addProjectTasks($projet, $session)
+{
+    $priorite = 1; // compteur de priorité progressive
+    $ordre = 1;   // compteur d'ordre
+
+    // Récupérer les IDs des phases d'évaluation (N1, N2, N3)
+    $phaseN1 = PhaseEvaluation::where('code', 'N1')->value('id');
+    $phaseN2 = PhaseEvaluation::where('code', 'N2')->value('id');
+    $phaseN3 = PhaseEvaluation::where('code', 'N3')->value('id');
+
+    // Calculer la note pour le prototype et la réalisation
+    $notePrototype = $session->alignementUas->sum(function ($alignementUa) {
+        return $alignementUa->uniteApprentissage->critereEvaluations
+            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N2')
+            ->sum('bareme');
+    });
+
+    $noteRealisation = $session->alignementUas->sum(function ($alignementUa) {
+        return $alignementUa->uniteApprentissage->critereEvaluations
+            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N3')
+            ->sum('bareme');
+    });
+
+    // Tâche Analyse
+    Tache::firstOrCreate(
+        [
+            'projet_id' => $projet->id,
+            'titre' => 'Analyse',
+        ],
+        [
+            'description' => 'Analyse du projet',
+            'priorite' => $priorite++,
+            'ordre' => $ordre++,
+            'phase_evaluation_id' => null,
+            'chapitre_id' => null
+        ]
+    );
+
+    // Tâches Chapitre
+    foreach ($session->alignementUas as $alignementUa) {
+        foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
+            Tache::firstOrCreate(
+                [
                     'projet_id' => $projet->id,
                     'titre' => 'Chapitre : ' . $chapitre->nom,
-                ], [
+                ],
+                [
                     'description' => $chapitre->description ?? '',
-                    'reference' => (string) Str::uuid()
-                ]);
-            }
-        }
-
-        // Tâches par défaut
-        foreach ($defaultTasks as $taskTitle) {
-            Tache::firstOrCreate([
-                'projet_id' => $projet->id,
-                'titre' => $taskTitle,
-            ], [
-                'description' => $taskTitle . ' du projet',
-                'reference' => (string) Str::uuid()
-            ]);
+                    'priorite' => $priorite++,
+                    'ordre' => $ordre++,
+                    'phase_evaluation_id' => $phaseN1,
+                    'chapitre_id' => $chapitre->id
+                ]
+            );
         }
     }
+
+    // Tâche Prototype
+    Tache::firstOrCreate(
+        [
+            'projet_id' => $projet->id,
+            'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype  :  'Prototype',
+        ],
+        [
+            'description' => trim(($session->description_prototype ?? '') . "<br>" . ($session->contraintes_prototype ?? '')),
+            'priorite' => $priorite++,
+            'ordre' => $ordre++,
+            'phase_evaluation_id' => $phaseN2,
+            'chapitre_id' => null,
+            'note' => $notePrototype
+        ]
+    );
+
+    // Tâche Conception
+    Tache::firstOrCreate(
+        [
+            'projet_id' => $projet->id,
+            'titre' => 'Conception',
+        ],
+        [
+            'description' => 'Conception du projet',
+            'priorite' => $priorite++,
+            'ordre' => $ordre++,
+            'phase_evaluation_id' => null,
+            'chapitre_id' => null
+        ]
+    );
+
+    // Tâche Réalisation
+    Tache::firstOrCreate(
+        [
+            'projet_id' => $projet->id,
+            'titre' => 'Réalisation',
+        ],
+        [
+            'description' => 'Réalisation du projet',
+            'priorite' => $priorite++,
+            'ordre' => $ordre++,
+            'phase_evaluation_id' => $phaseN3,
+            'chapitre_id' => null,
+            'note' => $noteRealisation
+        ]
+    );
+}
+
+
 
     protected function getCriteresEtBareme($alignementUa, $niveau)
     {

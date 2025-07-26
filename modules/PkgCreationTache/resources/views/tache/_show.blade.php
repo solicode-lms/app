@@ -17,6 +17,21 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemTache->priorite))
+          {{ $itemTache->priorite }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</small>
@@ -104,12 +119,12 @@
       </div>
   
 
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.singular')) }}</small>
                               
-      @if($itemTache->prioriteTache)
-        {{ $itemTache->prioriteTache }}
+      @if($itemTache->phaseEvaluation)
+        {{ $itemTache->phaseEvaluation }}
       @else
         —
       @endif
@@ -118,12 +133,12 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}</small>
                               
-      @if($itemTache->phaseEvaluation)
-        {{ $itemTache->phaseEvaluation }}
+      @if($itemTache->prioriteTache)
+        {{ $itemTache->prioriteTache }}
       @else
         —
       @endif

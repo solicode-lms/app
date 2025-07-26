@@ -87,19 +87,19 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->createInstance();
         
         // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet.formateur_id');
+        $key = 'scope.prioriteTache.formateur_id';
+        $this->viewState->set($key, $value);
 
-        $prioriteTaches = $this->prioriteTacheService->all();
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
+        $prioriteTaches = $this->prioriteTacheService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -125,19 +125,19 @@ class BaseTacheController extends AdminController
          $itemTache = $this->tacheService->find($tache_ids[0]);
          
         // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet.formateur_id');
+        $key = 'scope.prioriteTache.formateur_id';
+        $this->viewState->set($key, $value);
  
-        $prioriteTaches = $this->prioriteTacheService->all();
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
+        $prioriteTaches = $this->prioriteTacheService->all();
 
         $bulkEdit = true;
 
@@ -200,19 +200,19 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->edit($id);
 
         // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
-        // scopeDataInEditContext
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemTache->getNestedValue('projet.formateur_id');
+        $key = 'scope.prioriteTache.formateur_id';
+        $this->viewState->set($key, $value);
 
-        $prioriteTaches = $this->prioriteTacheService->all();
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
+        $prioriteTaches = $this->prioriteTacheService->all();
 
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);

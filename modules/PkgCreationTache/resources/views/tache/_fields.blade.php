@@ -87,34 +87,29 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="priorite_tache_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="priorite" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-3">
+      <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite_tache_id" id="bulk_field_priorite_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite" id="bulk_field_priorite" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="priorite_tache_id">
-            {{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}
+          <label for="priorite">
+            {{ ucfirst(__('PkgCreationTache::tache.priorite')) }}
             
           </label>
-                      <select 
-            id="priorite_tache_id" 
-            
-            
-            
-            name="priorite_tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($prioriteTaches as $prioriteTache)
-                    <option value="{{ $prioriteTache->id }}"
-                        {{ (isset($itemTache) && $itemTache->priorite_tache_id == $prioriteTache->id) || (old('priorite_tache_id>') == $prioriteTache->id) ? 'selected' : '' }}>
-                        {{ $prioriteTache }}
-                    </option>
-                @endforeach
-            </select>
-          @error('priorite_tache_id')
+                      <input
+                name="priorite"
+                type="number"
+                class="form-control"
+                
+                
+                
+                id="priorite"
+                placeholder="{{ __('PkgCreationTache::tache.priorite') }}"
+                value="{{ $itemTache ? $itemTache->priorite : old('priorite') }}">
+          @error('priorite')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -368,6 +363,40 @@
                 @endforeach
             </select>
           @error('livrables')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTache" field="priorite_tache_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-3">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="priorite_tache_id" id="bulk_field_priorite_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="priorite_tache_id">
+            {{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}
+            
+          </label>
+                      <select 
+            id="priorite_tache_id" 
+            
+            
+            
+            name="priorite_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($prioriteTaches as $prioriteTache)
+                    <option value="{{ $prioriteTache->id }}"
+                        {{ (isset($itemTache) && $itemTache->priorite_tache_id == $prioriteTache->id) || (old('priorite_tache_id>') == $prioriteTache->id) ? 'selected' : '' }}>
+                        {{ $prioriteTache }}
+                    </option>
+                @endforeach
+            </select>
+          @error('priorite_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

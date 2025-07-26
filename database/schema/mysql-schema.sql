@@ -1604,15 +1604,22 @@ CREATE TABLE `taches` (
   `dateFin` datetime DEFAULT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int DEFAULT NULL,
+  `priorite` int DEFAULT NULL COMMENT 'Niveau de priorité de la tâche, peut être NULL',
   `projet_id` bigint unsigned NOT NULL,
   `note` double DEFAULT NULL,
   `priorite_tache_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `phase_evaluation_id` bigint unsigned DEFAULT NULL,
+  `chapitre_id` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `taches_reference_unique` (`reference`),
   KEY `taches_projet_id_foreign` (`projet_id`),
   KEY `taches_priorite_tache_id_foreign` (`priorite_tache_id`),
+  KEY `taches_phase_evaluation_id_foreign` (`phase_evaluation_id`),
+  KEY `taches_chapitre_id_foreign` (`chapitre_id`),
+  CONSTRAINT `taches_chapitre_id_foreign` FOREIGN KEY (`chapitre_id`) REFERENCES `chapitres` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `taches_phase_evaluation_id_foreign` FOREIGN KEY (`phase_evaluation_id`) REFERENCES `phase_evaluations` (`id`) ON DELETE SET NULL,
   CONSTRAINT `taches_priorite_tache_id_foreign` FOREIGN KEY (`priorite_tache_id`) REFERENCES `priorite_taches` (`id`) ON DELETE SET NULL,
   CONSTRAINT `taches_projet_id_foreign` FOREIGN KEY (`projet_id`) REFERENCES `projets` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1911,3 +1918,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (163,'2025_07_25_13
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (164,'2025_07_25_131313_create_livrable_sessions_table',43);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (165,'2025_07_26_100252_update_projets_table',44);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (167,'2025_07_26_100429_create_mobilisation_uas_table',45);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (168,'2025_07_26_125311_add_phase_evaluation_and_chapitre_to_taches_table',46);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (169,'2025_07_26_130806_add_priorite_to_taches_table',47);

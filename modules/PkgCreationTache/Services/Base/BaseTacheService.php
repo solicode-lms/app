@@ -23,14 +23,15 @@ class BaseTacheService extends BaseService
     protected $fieldsSearchable = [
         'ordre',
         'titre',
-        'priorite_tache_id',
+        'priorite',
         'projet_id',
         'description',
         'dateDebut',
         'dateFin',
         'note',
         'phase_evaluation_id',
-        'chapitre_id'
+        'chapitre_id',
+        'priorite_tache_id'
     ];
 
     /**
@@ -61,16 +62,6 @@ class BaseTacheService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCreationTache::prioriteTache.plural"), 
-                        'priorite_tache_id', 
-                        \Modules\PkgCreationTache\Models\PrioriteTache::class, 
-                        'nom'
-                    );
-                }
-            
-            
                 if (!array_key_exists('projet_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
@@ -97,6 +88,16 @@ class BaseTacheService extends BaseService
                         'chapitre_id', 
                         \Modules\PkgCompetences\Models\Chapitre::class, 
                         'code'
+                    );
+                }
+            
+            
+                if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCreationTache::prioriteTache.plural"), 
+                        'priorite_tache_id', 
+                        \Modules\PkgCreationTache\Models\PrioriteTache::class, 
+                        'nom'
                     );
                 }
             

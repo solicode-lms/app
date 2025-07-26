@@ -66,8 +66,9 @@ class FormField extends Component
                 ]
             );
 
+            // il ralentit le rendu des vues en filtrant les variables techniques
             // Filtrer les variables techniques
-            $context = array_filter($context, fn($key) => !in_array($key, ['__env', '__data', '__path']), ARRAY_FILTER_USE_KEY);
+           // $context = array_filter($context, fn($key) => !in_array($key, ['__env', '__data', '__path']), ARRAY_FILTER_USE_KEY);
 
             if (View::exists($partial)) {
                 return view($partial, $context)->render();
