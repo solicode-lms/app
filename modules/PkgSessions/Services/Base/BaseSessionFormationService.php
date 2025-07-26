@@ -119,7 +119,17 @@ class BaseSessionFormationService extends BaseService
     }
 
 
-
+    public function add_projet(int $sessionFormationId)
+    {
+        $sessionFormation = $this->find($sessionFormationId);
+        if (!$sessionFormation) {
+            return false; 
+        }
+        $value =  $sessionFormation->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
@@ -175,7 +185,8 @@ class BaseSessionFormationService extends BaseService
         $this->viewState->set('stats.sessionFormation.stats', $sessionFormations_stats);
     
         $sessionFormations_permissions = [
-
+            'add_projet-sessionFormation' => Auth::user()->can('add_projet-sessionFormation'),           
+            
             'edit-sessionFormation' => Auth::user()->can('edit-sessionFormation'),
             'destroy-sessionFormation' => Auth::user()->can('destroy-sessionFormation'),
             'show-sessionFormation' => Auth::user()->can('show-sessionFormation'),

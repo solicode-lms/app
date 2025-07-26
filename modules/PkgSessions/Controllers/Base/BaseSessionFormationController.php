@@ -378,7 +378,20 @@ class BaseSessionFormationController extends AdminController
         ]);
     }
     
-
+    public function add_projet(Request $request, string $id) {
+        $sessionFormation = $this->sessionFormationService->add_projet($id);
+        if ($request->ajax()) {
+            $message = "Le projet a été ajouté avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('SessionFormation.index')->with(
+            'success',
+            "Le projet a été ajouté avec succès"
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

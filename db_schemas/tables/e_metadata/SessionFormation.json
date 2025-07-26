@@ -937,5 +937,21 @@
         "value_float": 0,
         "e_data_field_reference": "SessionFormation_objectifs_pedagogique",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "session_formations_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-folder-plus",
+                "title": "Ajouter le projet",
+                "methode": "add_projet",
+                "actionType": "confirm",
+                "successMessage": "Le projet a été ajouté avec succès"
+            }
+        ],
+        "e_model_reference": "session_formations",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

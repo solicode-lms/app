@@ -40,7 +40,19 @@
                         @include('PkgSessions::sessionFormation.custom.fields.alignementUas', ['entity' => $sessionFormation])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-
+                        @if($sessionFormations_permissions['add_projet-sessionFormation'])
+                        <a 
+                        data-toggle="tooltip" 
+                        title="Ajouter le projet" 
+                        href="{{ route('sessionFormations.add_projet', ['id' => $sessionFormation->id]) }}" 
+                        data-id="{{$sessionFormation->id}}" 
+                        data-url="{{ route('sessionFormations.add_projet', ['id' => $sessionFormation->id]) }}" 
+                        data-action-type="confirm"
+                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            <i class="fas fa-folder-plus"></i>
+                        </a>
+                        @endif
+                        
 
                        
 

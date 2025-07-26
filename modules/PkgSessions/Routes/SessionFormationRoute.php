@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('sessionFormations/data-calcul', [SessionFormationController::class, 'dataCalcul'])->name('sessionFormations.dataCalcul');
         Route::post('sessionFormations/update-attributes', [SessionFormationController::class, 'updateAttributes'])->name('sessionFormations.updateAttributes');
-
+        Route::get('sessionFormations/add_projet/{id}', [SessionFormationController::class, 'add_projet'])->name('sessionFormations.add_projet');
+    
     
 
     });

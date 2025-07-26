@@ -1,6 +1,5 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
-
+ 
 
 namespace Modules\PkgSessions\Services;
 use Modules\PkgSessions\Services\Base\BaseSessionFormationService;
@@ -18,6 +17,17 @@ class SessionFormationService extends BaseSessionFormationService
         }
       
         return $sessionFormation;
+    }
+
+    public function add_projet(int $sessionFormationId)
+    {
+        $sessionFormation = $this->find($sessionFormationId);
+        if (!$sessionFormation) {
+            return false; 
+        }
+        $value =  $sessionFormation->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
     }
    
 }
