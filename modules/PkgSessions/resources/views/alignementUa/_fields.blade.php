@@ -22,12 +22,6 @@
     <div class="card-body">
 
 
-  
-
-  
-    
-
-    
     <div class="row">
         <x-form-field :entity="$itemAlignementUa" field="ordre" :bulkEdit="$bulkEdit">
 
@@ -58,7 +52,7 @@
   
 </x-form-field>
 
-<x-form-field :entity="$itemAlignementUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+<x-form-field :context="get_defined_vars()" :entity="$itemAlignementUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)

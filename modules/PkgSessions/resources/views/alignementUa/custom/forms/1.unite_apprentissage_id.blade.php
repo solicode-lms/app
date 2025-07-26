@@ -1,3 +1,9 @@
+@php
+    extract($context); 
+    // Maintenant toutes les variables de la vue parent (comme $uniteApprentissages) sont accessibles
+@endphp
+
+
 <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
