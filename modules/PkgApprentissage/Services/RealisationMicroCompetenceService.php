@@ -2,6 +2,7 @@
 
 namespace Modules\PkgApprentissage\Services;
 
+use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\EtatRealisationUa;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationMicroCompetenceService;
@@ -46,6 +47,36 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
     }
 
   
+    /**
+     * Récupère ou crée une réalisation de micro-compétence pour un apprenant.
+     *
+     * @param  int $apprenantId
+     * @param  int $microCompetenceId
+     * @return RealisationMicroCompetence
+     */
+    public function getOrCreateByApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
+    {
+        // 1. Chercher si une réalisation existe déjà
+        $realisation = $this->model
+            ->where('apprenant_id', $apprenantId)
+            ->where('micro_competence_id', $microCompetenceId)
+            ->first();
+
+        if ($realisation) {
+            return $realisation;
+        }
+
+        // 2. Créer une nouvelle réalisation avec l'état initial
+        $ordreEtatInitial = EtatRealisationMicroCompetence::min('ordre');
+        $etatRealisationId = EtatRealisationMicroCompetence::where('ordre', $ordreEtatInitial)->value('id');
+
+        return $this->create([
+            'apprenant_id'                    => $apprenantId,
+            'micro_competence_id'             => $microCompetenceId,
+            'etat_realisation_micro_competence_id' => $etatRealisationId,
+            'date_debut' => now(),
+        ]);
+    }
 
 
 }

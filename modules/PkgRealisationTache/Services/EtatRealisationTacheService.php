@@ -3,6 +3,7 @@
 
 namespace Modules\PkgRealisationTache\Services;
 
+use Illuminate\Support\Facades\DB;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\Base\BaseEtatRealisationTacheService;
 
@@ -53,25 +54,58 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
         })->get();
     }
 
-    /**
+   /**
      * Récupère l'état par défaut (ordre minimal) défini par un formateur.
+     * S'il n'existe pas, les états sont créés à partir des workflows.
      *
      * @param int $formateurId
-     * @return \Modules\PkgRealisationTache\Models\EtatRealisationTache|null
+     * @return EtatRealisationTache|null
      */
     public function getDefaultEtatByFormateurId(int $formateurId)
     {
-        // Récupérer le workflow ayant l'ordre le plus bas
         $workflowTacheMin = WorkflowTache::orderBy('ordre', 'asc')->first();
-    
         if (!$workflowTacheMin) {
             return null;
         }
-    
-        return $this->model
+
+        $defaultEtat = $this->model
             ->where('formateur_id', $formateurId)
             ->where('workflow_tache_id', $workflowTacheMin->id)
             ->first();
+
+        if (!$defaultEtat) {
+            $this->createDefaultEtatsFromWorkflow($formateurId);
+            $defaultEtat = $this->model
+                ->where('formateur_id', $formateurId)
+                ->where('workflow_tache_id', $workflowTacheMin->id)
+                ->first();
+        }
+
+        return $defaultEtat;
+    }
+
+       /**
+     * Crée les états de réalisation par défaut à partir des workflows pour un formateur donné.
+     *
+     * @param int $formateurId
+     * @return void
+     */
+    protected function createDefaultEtatsFromWorkflow(int $formateurId): void
+    {
+        DB::transaction(function () use ($formateurId) {
+            $workflows = WorkflowTache::orderBy('ordre', 'asc')->get();
+
+            foreach ($workflows as $workflow) {
+                $this->create([
+                    'nom' => $workflow->titre,
+                    'ordre' => $workflow->ordre,
+                    'description' => $workflow->description,
+                    'formateur_id' => $formateurId,
+                    'workflow_tache_id' => $workflow->id,
+                    'sys_color_id' => $workflow?->sys_color_id ,
+                ]);
+            }
+        });
     }
     
    

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PkgRealisationTache\Database\Seeders;
+namespace Modules\PkgCreationTache\Database\Seeders;
 
 use Modules\PkgCreationTache\Database\Seeders\Base\BaseTacheSeeder;
 

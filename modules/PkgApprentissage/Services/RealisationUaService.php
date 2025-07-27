@@ -3,9 +3,11 @@
 
 namespace Modules\PkgApprentissage\Services;
 
+use Illuminate\Support\Facades\DB;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationUaService;
+use Modules\PkgCompetences\Models\UniteApprentissage;
 
 /**
  * Classe RealisationUaService pour gérer la persistance de l'entité RealisationUa.
@@ -46,5 +48,50 @@ class RealisationUaService extends BaseRealisationUaService
         }
     }
 
-   
+
+
+
+
+    /**
+     * Récupère la réalisation UA d'un apprenant pour une unité d'apprentissage donnée.
+     * Si elle n'existe pas, elle est générée automatiquement via la réalisation de micro-compétence.
+     *
+     * @param  int $apprenantId
+     * @param  int $uniteApprentissageId
+     * @return RealisationUa
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function getOrCreateApprenant(int $apprenantId, int $uniteApprentissageId): RealisationUa
+    {
+        // Vérifier si la réalisation UA existe déjà
+        $realisationUa = $this->model
+            ->where('unite_apprentissage_id', $uniteApprentissageId)
+            ->whereHas('realisationMicroCompetence', fn($query) =>
+                $query->where('apprenant_id', $apprenantId)
+            )
+            ->first();
+
+        if ($realisationUa) {
+            return $realisationUa;
+        }
+
+        // Identifier la micro-compétence liée à l'unité d'apprentissage
+        $microCompetenceId = UniteApprentissage::findOrFail($uniteApprentissageId)
+            ->micro_competence_id;
+
+        // Forcer la création via la réalisation de micro-compétence
+        (new RealisationMicroCompetenceService())
+            ->getOrCreateByApprenant($apprenantId, $microCompetenceId);
+
+        // Rechercher à nouveau la réalisation UA (elle est créée par afterCreateRules)
+        return $this->model
+            ->where('unite_apprentissage_id', $uniteApprentissageId)
+            ->whereHas('realisationMicroCompetence', fn($query) =>
+                $query->where('apprenant_id', $apprenantId)
+            )
+            ->firstOrFail();
+    }
+
+
 }

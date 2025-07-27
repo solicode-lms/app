@@ -3,6 +3,9 @@
 
 
 
+php artisan db:seed --class=Modules\PkgCreationTache\Database\Seeders\TacheSeeder
+
+
 php artisan db:seed --class=Modules\PkgApprenants\Database\Seeders\ApprenantKonosySeeder
 
 
