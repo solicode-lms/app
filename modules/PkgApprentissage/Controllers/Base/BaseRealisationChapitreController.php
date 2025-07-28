@@ -47,6 +47,13 @@ class BaseRealisationChapitreController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.realisationChapitre.RealisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id') == null){
+           $this->viewState->init('scope.realisationChapitre.RealisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.realisationChapitre.RealisationUa.RealisationMicroCompetence.Apprenant_id') == null){
+           $this->viewState->init('scope.realisationChapitre.RealisationUa.RealisationMicroCompetence.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
 
@@ -78,6 +85,13 @@ class BaseRealisationChapitreController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationChapitre.RealisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationChapitre.RealisationUa.RealisationMicroCompetence.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         $itemRealisationChapitre = $this->realisationChapitreService->createInstance();
@@ -108,6 +122,13 @@ class BaseRealisationChapitreController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationChapitre.RealisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationChapitre.RealisationUa.RealisationMicroCompetence.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
  
          $itemRealisationChapitre = $this->realisationChapitreService->find($realisationChapitre_ids[0]);
          
@@ -159,6 +180,7 @@ class BaseRealisationChapitreController extends AdminController
         $this->viewState->setContextKey('realisationChapitre.show_' . $id);
 
         $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
+        $this->authorize('view', $itemRealisationChapitre);
 
 
         if (request()->ajax()) {
@@ -176,6 +198,7 @@ class BaseRealisationChapitreController extends AdminController
 
 
         $itemRealisationChapitre = $this->realisationChapitreService->edit($id);
+        $this->authorize('edit', $itemRealisationChapitre);
 
 
         $chapitres = $this->chapitreService->all();
@@ -197,6 +220,9 @@ class BaseRealisationChapitreController extends AdminController
     /**
      */
     public function update(RealisationChapitreRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationChapitre = $this->realisationChapitreService->find($id);
+        $this->authorize('update', $realisationChapitre);
 
         $validatedData = $request->validated();
         $realisationChapitre = $this->realisationChapitreService->update($id, $validatedData);
@@ -258,6 +284,9 @@ class BaseRealisationChapitreController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationChapitre = $this->realisationChapitreService->find($id);
+        $this->authorize('delete', $realisationChapitre);
 
         $realisationChapitre = $this->realisationChapitreService->destroy($id);
 
@@ -292,6 +321,9 @@ class BaseRealisationChapitreController extends AdminController
         }
         foreach ($realisationChapitre_ids as $id) {
             $entity = $this->realisationChapitreService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $realisationChapitre = $this->realisationChapitreService->find($id);
+            $this->authorize('delete', $realisationChapitre);
             $this->realisationChapitreService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [
