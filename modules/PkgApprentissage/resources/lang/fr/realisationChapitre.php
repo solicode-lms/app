@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation de Chapitre',
-    'plural' => 'Réalisations de Chapitres',
+    'singular' => 'Chapitre',
+    'plural' => 'Chapitres',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'commentaire_formateur' => 'Commentaire du formateur',

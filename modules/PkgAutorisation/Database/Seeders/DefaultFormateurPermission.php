@@ -57,6 +57,7 @@ class DefaultFormateurPermission extends Seeder
             'realisationUaProjet' => 'Édition sans Ajouter',
             'realisationUaPrototype' => 'Édition sans Ajouter',
             'realisationMicroCompetence' => 'Lecture',
+            'sessionFormation' => 'Lecture',
         ];
 
         // Actions par type d'accès

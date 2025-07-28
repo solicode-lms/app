@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation d’UA Projet',
-    'plural' => 'Réalisations d’UAs Projets',
+    'singular' => 'Apprentissage UA Projet',
+    'plural' => 'Apprentissages UA Projets',
     'note' => 'Note',
     'bareme' => 'Barème',
     'remarque_formateur' => 'Remarque du formateur',

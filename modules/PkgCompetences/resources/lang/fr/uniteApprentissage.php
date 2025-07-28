@@ -2,8 +2,8 @@
 
  
 return [
-    'singular' => "Unité d'Apprentissage",
-    'plural' => "Unités d'Apprentissage",
+    'singular' => "Ressource Unité d'Apprentissage",
+    'plural' => "Ressources Unités d'Apprentissage",
     'ordre' => 'Ordre',
     'nom' => 'Nom',
     'lien' => 'Lien',

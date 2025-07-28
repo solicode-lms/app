@@ -103,6 +103,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
                     'formateur_id' => $formateurId,
                     'workflow_tache_id' => $workflow->id,
                     'sys_color_id' => $workflow?->sys_color_id ,
+                    'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur
                 ]);
             }
         });

@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Autoformation',
-    'plural' => 'Autoformations',
+    'singular' => 'Ressource Autoformation',
+    'plural' => 'Ressources Autoformations',
     'ordre' => 'Ordre',
     'titre' => 'Titre',
     'sous_titre' => 'Sous-titre',

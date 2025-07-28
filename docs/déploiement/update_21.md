@@ -2,6 +2,8 @@
 ````bash
 
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultApprenantPermission
+php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission
+
 
 php artisan db:seed --class=Modules\PkgCreationTache\Database\Seeders\TacheSeeder
 php artisan db:seed --class=Modules\PkgRealisationTache\Database\Seeders\WorkflowTacheSeeder

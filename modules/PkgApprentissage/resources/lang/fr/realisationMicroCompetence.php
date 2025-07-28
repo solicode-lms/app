@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation de l’autoformation',
-    'plural' => 'Réalisations de l’autoformation',
+    'singular' => 'Autoformation',
+    'plural' => 'Autoformation',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'progression_cache' => 'Progression (cache)',

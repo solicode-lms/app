@@ -21,13 +21,13 @@
         </li>
         @endcan
        
-        @can('index-affectationProjet')
+        {{-- @can('index-affectationProjet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'affectationProjets.index') }}" data-toggle="tooltip" title="Affectation de projets" class="nav-link">
             <i class="fas fa-calendar-check"></i>
           </a>
         </li>
-        @endcan
+        @endcan --}}
         @can('index-realisationProjet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'realisationProjets.index') }}" data-toggle="tooltip" title="Réalisation des projets" class="nav-link">
@@ -43,7 +43,13 @@
         </li>
         @endcan
 
-       
+        @can('index-realisationMicroCompetence')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="Réalisation autoformations" class="nav-link">
+           <i class="fas fas fa-coffee"></i>
+          </a>
+        </li>
+        @endcan
        
        
 

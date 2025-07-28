@@ -77,43 +77,48 @@ class ApprenantService extends BaseApprenantService
 
     public function afterCreateRules(Apprenant $apprenant): void
     {
-        $microCompetenceService = new MicroCompetenceService();
-        $realisationMicroCompetenceService = new RealisationMicroCompetenceService();
 
-        // Récupérer toutes les micro-compétences via le service
+        // Création de réalisations de micro-compétences pour l'apprenant
+        // Maintenant, nous allons créer des réalisations de micro-compétences pour l'apprenant à la création 
+        // de réalisation de projet
 
-        // TODO : il faut trouver le groupe de l'année de formation en cours
-        // Récupérer la filière de l'apprenant
-        $filiereId = $apprenant->groupes()->first()?->filiere_id;
-        if (!$filiereId) {
-                return; // Aucun groupe ou filière pour l'apprenant
-        }
+        // $microCompetenceService = new MicroCompetenceService();
+        // $realisationMicroCompetenceService = new RealisationMicroCompetenceService();
 
-         // Récupérer les micro-compétences liées à la filière
-        $microCompetences = $microCompetenceService->model
-        ->whereHas('competence.module', function ($query) use ($filiereId) {
-            $query->where('filiere_id', $filiereId);
-        })
-        ->get();
+        // // Récupérer toutes les micro-compétences via le service
 
-        $etat_realisation_micro_competence_id = EtatRealisationMicroCompetence::where('code', 'TODO')->value('id');
+        // // TODO : il faut trouver le groupe de l'année de formation en cours
+        // // Récupérer la filière de l'apprenant
+        // $filiereId = $apprenant->groupes()->first()?->filiere_id;
+        // if (!$filiereId) {
+        //         return; // Aucun groupe ou filière pour l'apprenant
+        // }
 
-        foreach ($microCompetences as $mc) {
-            // Vérifier si la réalisation existe déjà
-            $exists = $realisationMicroCompetenceService->model
-                ->where('apprenant_id', $apprenant->id)
-                ->where('micro_competence_id', $mc->id)
-                ->exists();
+        //  // Récupérer les micro-compétences liées à la filière
+        // $microCompetences = $microCompetenceService->model
+        // ->whereHas('competence.module', function ($query) use ($filiereId) {
+        //     $query->where('filiere_id', $filiereId);
+        // })
+        // ->get();
 
-            if (! $exists) {
-                // Créer la réalisation uniquement si elle n'existe pas
-                $realisationMicroCompetenceService->create([
-                    'apprenant_id' => $apprenant->id,
-                    'micro_competence_id' => $mc->id,
-                    'etat_realisation_micro_competence_id' => $etat_realisation_micro_competence_id,
-                ]);
-            }
-        }
+        // $etat_realisation_micro_competence_id = EtatRealisationMicroCompetence::where('code', 'TODO')->value('id');
+
+        // foreach ($microCompetences as $mc) {
+        //     // Vérifier si la réalisation existe déjà
+        //     $exists = $realisationMicroCompetenceService->model
+        //         ->where('apprenant_id', $apprenant->id)
+        //         ->where('micro_competence_id', $mc->id)
+        //         ->exists();
+
+        //     if (! $exists) {
+        //         // Créer la réalisation uniquement si elle n'existe pas
+        //         $realisationMicroCompetenceService->create([
+        //             'apprenant_id' => $apprenant->id,
+        //             'micro_competence_id' => $mc->id,
+        //             'etat_realisation_micro_competence_id' => $etat_realisation_micro_competence_id,
+        //         ]);
+        //     }
+        // }
     }
 
 

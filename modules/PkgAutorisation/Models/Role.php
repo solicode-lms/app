@@ -14,6 +14,14 @@ class Role extends ModelsRole
 
     use HasReference,HasDynamicContext;
     
+
+     protected $fillable = [
+        'name',
+        'guard_name',
+        'reference'
+    ];
+
+
     // TODO : ajouter ce code à GApp pour une rleation ManyToManyPolymorphique
     // il est déclarer dans : ModelsRole
     // Définir la relation inverse avec les modèles liés via morphique
