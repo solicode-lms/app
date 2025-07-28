@@ -10,4 +10,9 @@ class EtatRealisationUa extends BaseEtatRealisationUa
         'sysColor'
     ];
 
+    public function generateReference(): string
+    {
+        return  $this->code ?? ""; 
+    }
+
 }

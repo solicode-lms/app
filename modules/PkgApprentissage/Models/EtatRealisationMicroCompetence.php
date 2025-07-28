@@ -9,4 +9,9 @@ class EtatRealisationMicroCompetence extends BaseEtatRealisationMicroCompetence
      protected $with = [
         'sysColor'
     ];
+
+     public function generateReference(): string
+    {
+        return  $this->code ?? ""; 
+    }
 }

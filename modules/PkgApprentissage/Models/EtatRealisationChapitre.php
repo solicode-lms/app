@@ -9,5 +9,9 @@ class EtatRealisationChapitre extends BaseEtatRealisationChapitre
         'sysColor'
     ];
 
+    public function generateReference(): string
+    {
+        return  $this->code ?? ""; 
+    }
 
 }
