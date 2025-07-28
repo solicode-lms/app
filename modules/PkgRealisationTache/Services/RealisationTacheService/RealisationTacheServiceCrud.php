@@ -15,6 +15,8 @@ use Modules\PkgRealisationTache\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
+use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
@@ -37,7 +39,7 @@ trait RealisationTacheServiceCrud
 
         // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
         // Il test si $etat est null
-        // Il ne d'applique pas au formateur
+        // Il ne l'applique pas au formateur
         if (
             !Auth::user()->hasRole(Role::FORMATEUR_ROLE) &&
             isset($data["etat_realisation_tache_id"]) &&
@@ -183,53 +185,64 @@ trait RealisationTacheServiceCrud
    
 
     /**
-     * maintenant, l'évaluation s'effectuer dans EvaluationRealisationTacheService
      * @param  RealisationTache  $entity
      * @return void
      */
     public function afterUpdateRules(RealisationTache $entity): void
     {
-    //   maintenant, l'évaluation s'effectuer dans EvaluationRealisationTacheService
-    //     // Récupère les évaluateurs assignés au projet
-    //     $evaluateurs = $entity
-    //         ->realisationProjet
-    //         ->affectationProjet
-    //         ->evaluateurs
-    //         ->pluck('id');
+        // 1. Vérifier que l'état de la tâche a bien changé
+        if ($entity->wasChanged('etat_realisation_tache_id')) {
+            
+            // 2. Trouver les chapitres liés à cette tâche
+            $chapitres = RealisationChapitre::where('realisation_tache_id', $entity->id)->get();
 
-    //     // Si aucun évaluateur n'est défini, on ne fait rien (le formateur a déjà mis à jour la note)
-    //     if ($evaluateurs->isEmpty()) {
-    //         return;
-    //     }
+            if ($chapitres->isNotEmpty()) {
+                // 3. Récupérer l'état de chapitre correspondant à l'état de la tâche
+                $etatChapitre = $this->mapEtatTacheToEtatChapitre($entity->etat_realisation_tache_id);
 
-       
-
-    //     $user = Auth::user();
-
-    //      // Si l'utilisateur n'est pas un evaluateur ( Apprenant) on ne fait rien
-    //     if ( is_null($user->evaluateur )) {
-    //         return;
-    //     }
-
-
-    //     $evaluateurId = $user->evaluateur->id;
-
-    //      // Crée ou met à jour la note de l'évaluateur sur cette tâche
-    //     (new EvaluationRealisationTacheService())->updateOrCreate(
-    //         ['realisation_tache_id' => $entity->id, 'evaluateur_id' => $evaluateurId],
-    //         ['note' => $entity->note, 'message' => $entity->remarque_evaluateur]
-    //     );
-
-    //     // Recalcule et met à jour la moyenne
-    //     $moyenne = $entity
-    //         ->evaluationRealisationTaches()
-    //         ->avg('note');
-
-    //    // Mettre à jour le champ 'note' : arrondi à 2 décimales si existe, sinon null
-    //     $entity->update([
-    //         'note' => $moyenne !== null ? round($moyenne, 2) : null
-    //     ]);
+                if ($etatChapitre) {
+                    // 4. Mettre à jour tous les chapitres liés
+                    foreach ($chapitres as $chapitre) {
+                        $chapitre->update([
+                            'etat_realisation_chapitre_id' => $etatChapitre->id
+                        ]);
+                    }
+                }
+            }
+        }
     }
+
+    /**
+     * Mapper un état de tâche à un état de chapitre
+     */
+    private function mapEtatTacheToEtatChapitre(int $etatTacheId)
+    {
+        $etatTache = EtatRealisationTache::with('workflowTache')->find($etatTacheId);
+
+        if (!$etatTache || !$etatTache->workflowTache) {
+            return null;
+        }
+
+        // Table de mapping entre les codes
+        $mapping = [
+            'A_FAIRE'            => 'TODO',
+            'EN_COURS'           => 'IN_PROGRESS',
+            'EN_PAUSE'           => 'PAUSED',
+            'REVISION_NECESSAIRE'=> 'EN_PAUSE',
+            'EN_VALIDATION'      => 'TO_APPROVE',
+            'TERMINEE'           => 'DONE',
+        ];
+
+        $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;
+
+        if (!$codeChapitre) {
+            return null;
+        }
+
+        return EtatRealisationChapitre::where('code', $codeChapitre)->first();
+    }
+
+
 
      /**
      * Méthode utilisé pendant le calcule dynamique des champs pendant la l'édition et la création

@@ -47,6 +47,10 @@ class RealisationTacheService extends BaseRealisationTacheService
             'livrablesRealisations.livrable.taches',
         ];
 
+    /**
+     * Summary of initFieldsFilterable
+     * @return void
+     */
     public function initFieldsFilterable()
     {
 
