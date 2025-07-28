@@ -143,6 +143,36 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemWorkflowTache" field="is_editable_only_by_formateur" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_editable_only_by_formateur" id="bulk_field_is_editable_only_by_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_editable_only_by_formateur">
+            {{ ucfirst(__('PkgRealisationTache::workflowTache.is_editable_only_by_formateur')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input type="hidden" name="is_editable_only_by_formateur" value="0">
+            <input
+                name="is_editable_only_by_formateur"
+                type="checkbox"
+                class="form-control"
+                required
+                
+                
+                id="is_editable_only_by_formateur"
+                value="1"
+                {{ old('is_editable_only_by_formateur', $itemWorkflowTache ? $itemWorkflowTache->is_editable_only_by_formateur : 0) ? 'checked' : '' }}>
+          @error('is_editable_only_by_formateur')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemWorkflowTache" field="sys_color_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

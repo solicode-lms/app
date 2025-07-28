@@ -33,6 +33,7 @@ class BaseWorkflowTacheRequest extends FormRequest
             'code' => 'required|string|max:255',
             'titre' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'is_editable_only_by_formateur' => 'required|boolean',
             'sys_color_id' => 'nullable'
         ];
     }
@@ -51,6 +52,7 @@ class BaseWorkflowTacheRequest extends FormRequest
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.titre')]),
             'titre.max' => __('validation.titreMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.description')]),
+            'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.is_editable_only_by_formateur')]),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::WorkflowTache.sys_color_id')])
         ];
     }

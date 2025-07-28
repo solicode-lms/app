@@ -36,6 +36,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'code' => 'code',
                 'titre' => 'titre',
                 'description' => 'description',
+                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
                 'reference' => 'reference',
                 'sys_color_reference' => 'sys_color_reference',
             ];
@@ -45,6 +46,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'code' => __('PkgRealisationTache::workflowTache.code'),
                 'titre' => __('PkgRealisationTache::workflowTache.titre'),
                 'description' => __('PkgRealisationTache::workflowTache.description'),
+                'is_editable_only_by_formateur' => __('PkgRealisationTache::workflowTache.is_editable_only_by_formateur'),
                 'reference' => __('Core::msg.reference'),
                 'sys_color_reference' => __('PkgRealisationTache::workflowTache.sys_color_reference'),
             ];
@@ -62,6 +64,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'code' => $workflowTache->code,
                 'titre' => $workflowTache->titre,
                 'description' => $workflowTache->description,
+                'is_editable_only_by_formateur' => $workflowTache->is_editable_only_by_formateur,
                 'reference' => $workflowTache->reference,
                 'sys_color_reference' => $workflowTache->sysColor?->reference,
             ];

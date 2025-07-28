@@ -85,6 +85,7 @@ class BaseWorkflowTacheSeeder extends Seeder
                         "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                         "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
+                        "is_editable_only_by_formateur" => isset($row["is_editable_only_by_formateur"]) && $row["is_editable_only_by_formateur"] !== "" ? $row["is_editable_only_by_formateur"] : null,
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];

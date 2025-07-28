@@ -25,6 +25,7 @@ class BaseWorkflowTacheService extends BaseService
         'code',
         'titre',
         'description',
+        'is_editable_only_by_formateur',
         'sys_color_id'
     ];
 

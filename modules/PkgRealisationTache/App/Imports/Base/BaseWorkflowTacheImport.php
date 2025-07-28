@@ -60,8 +60,9 @@ class BaseWorkflowTacheImport implements ToModel, WithHeadingRow
              'code' => $values[1] ?? null,
              'titre' => $values[2] ?? null,
              'description' => $values[3] ?? null,
+             'is_editable_only_by_formateur' => $values[4] ?? null,
              'reference' => $reference,
-             'sys_color_id' => $values[5] ?? null,
+             'sys_color_id' => $values[6] ?? null,
         ]);
 
 

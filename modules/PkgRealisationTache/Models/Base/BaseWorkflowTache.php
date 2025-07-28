@@ -44,7 +44,7 @@ class BaseWorkflowTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'code', 'titre', 'description', 'sys_color_id'
+        'ordre', 'code', 'titre', 'description', 'is_editable_only_by_formateur', 'sys_color_id'
     ];
     public $manyToOne = [
         'SysColor' => [
