@@ -8767,9 +8767,9 @@
     },
     {
         "id": 672,
-        "reference": "SysModule_order",
-        "name": "order",
-        "column_name": "order",
+        "reference": "SysModule_ordre",
+        "name": "ordre",
+        "column_name": "ordre",
         "data_type": "Integer",
         "field_order": 6,
         "db_nullable": 0,

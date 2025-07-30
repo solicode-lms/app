@@ -48,12 +48,6 @@
         "e_metadata_definition_reference": "required"
     },
     {
-        "reference": "SysModule_order_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "SysModule_order",
-        "e_metadata_definition_reference": "required"
-    },
-    {
         "reference": "SysModule_version_required",
         "value_boolean": 1,
         "e_data_field_reference": "SysModule_version",
@@ -129,12 +123,6 @@
         "reference": "SysModule_is_active_displayOrder",
         "value_integer": 5,
         "e_data_field_reference": "SysModule_is_active",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "SysModule_order_displayOrder",
-        "value_integer": 6,
-        "e_data_field_reference": "SysModule_order",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
@@ -216,12 +204,6 @@
         "e_metadata_definition_reference": "displayInForm"
     },
     {
-        "reference": "SysModule_order_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "SysModule_order",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
         "reference": "SysModule_version_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "SysModule_version",
@@ -292,12 +274,6 @@
         "reference": "SysModule_is_active_inputMdWidth",
         "value_integer": 6,
         "e_data_field_reference": "SysModule_is_active",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "SysModule_order_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "SysModule_order",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
@@ -419,12 +395,6 @@
         "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference": "SysModule_order_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "SysModule_order",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
         "reference": "SysModule_version_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "SysModule_version",
@@ -509,18 +479,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "SysModule_order_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "SysModule_order",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "SysModule_order_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "SysModule_order",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "SysModule_version_viewFormFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "SysModule_version",
@@ -596,6 +554,68 @@
         "reference": "sys_modules_hasMany_sys_models_sys_module_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "sys_modules_hasMany_sys_models_sys_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "SysModule_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "SysModule_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "SysModule_ordre_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "SysModule_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "SysModule_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "SysModule_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "SysModule_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "SysModule_ordre_columnWidth",
+        "value_integer": 4,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "SysModule_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "SysModule_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "SysModule_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
