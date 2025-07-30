@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="titre" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.code'))!!}" />
-                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatsRealisationProjet" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="15"  field="titre" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="40"  field="description" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.description'))!!}" />
+                <x-sortable-column :sortable="true" width="15" field="sys_color_id" modelname="etatsRealisationProjet" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="15"  field="is_editable_by_formateur" modelname="etatsRealisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -30,19 +31,27 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->titre }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->titre }}" >
                         {{ $etatsRealisationProjet->titre }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->code }}" >
-                        {{ $etatsRealisationProjet->code }}
+                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="description"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->description }}" >
+                  
+                        {!! \App\Helpers\TextHelper::formatHtmlWithLineBreaks($etatsRealisationProjet->description, 30) !!}
+                   
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->sysColor }}" >
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->sysColor }}" >
                         <x-badge 
                         :text="$etatsRealisationProjet->sysColor->name ?? ''" 
                         :background="$etatsRealisationProjet->sysColor->hex ?? '#6c757d'" 
                         />
+
+                    </td>
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatsRealisationProjet->id}}" data-field="is_editable_by_formateur"  data-toggle="tooltip" title="{{ $etatsRealisationProjet->is_editable_by_formateur }}" >
+                        <span class="{{ $etatsRealisationProjet->is_editable_by_formateur ? 'text-success' : 'text-danger' }}">
+                            {{ $etatsRealisationProjet->is_editable_by_formateur ? 'Oui' : 'Non' }}
+                        </span>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

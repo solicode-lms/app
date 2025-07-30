@@ -39,9 +39,6 @@ class BaseEtatsRealisationProjetController extends AdminController
 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.etatsRealisationProjet.formateur_id') == null){
-           $this->viewState->init('scope.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
 
 
 
@@ -74,9 +71,6 @@ class BaseEtatsRealisationProjetController extends AdminController
      */
     public function create() {
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
 
 
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
@@ -105,9 +99,6 @@ class BaseEtatsRealisationProjetController extends AdminController
         // Même traitement de create 
 
         // ownedByUser
-        if(Auth::user()->hasRole('formateur')){
-           $this->viewState->set('scope_form.etatsRealisationProjet.formateur_id'  , $this->sessionState->get('formateur_id'));
-        }
  
          $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($etatsRealisationProjet_ids[0]);
          

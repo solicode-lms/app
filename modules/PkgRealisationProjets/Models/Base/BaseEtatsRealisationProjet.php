@@ -35,7 +35,7 @@ class BaseEtatsRealisationProjet extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
-        $this->ownerRelationPath = "formateur.user";
+        $this->ownerRelationPath = "";
     }
 
     
