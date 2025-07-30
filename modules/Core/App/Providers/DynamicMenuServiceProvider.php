@@ -10,30 +10,32 @@ class DynamicMenuServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Partager les menus dynamiques avec toutes les vues
-        View::composer('*', function ($view) {
-            $view->with('dynamicMenus', $this->loadDynamicMenus());
-        });
+        // // TODO : attention, il partage le menu avec tous les view et 
+        // // partials.
+        // // Partager les menus dynamiques avec toutes les vues
+        // View::composer('*', function ($view) {
+        //     $view->with('dynamicMenus', $this->loadDynamicMenus());
+        // });
     }
 
-    private function loadDynamicMenus(): array
-    {
-        $menuItems = [];
-        $modulesPath = base_path('modules');
-        $modules = File::directories($modulesPath);
+    // private function loadDynamicMenus(): array
+    // {
+    //     $menuItems = [];
+    //     $modulesPath = base_path('modules');
+    //     $modules = File::directories($modulesPath);
 
-        foreach ($modules as $module) {
-            $menuPath = $module . '/resources/views/layouts/_sidebar.blade.php';
+    //     foreach ($modules as $module) {
+    //         $menuPath = $module . '/resources/views/layouts/_sidebar.blade.php';
 
-            if (File::exists($menuPath)) {
-                $moduleName = basename($module);
-                $viewPath = $moduleName . '::layouts._sidebar';
+    //         if (File::exists($menuPath)) {
+    //             $moduleName = basename($module);
+    //             $viewPath = $moduleName . '::layouts._sidebar';
 
-                // Stocker la vue (pas de render() ici pour éviter les problèmes de traduction)
-                $menuItems[] = $viewPath;
-            }
-        }
+    //             // Stocker la vue (pas de render() ici pour éviter les problèmes de traduction)
+    //             $menuItems[] = $viewPath;
+    //         }
+    //     }
 
-        return $menuItems;
-    }
+    //     return $menuItems;
+    // }
 }
