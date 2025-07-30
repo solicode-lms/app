@@ -24,9 +24,14 @@ class DefaultFormateurPermission extends Seeder
         // Ajouter Édition 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'sysColor' => 'Lecture',
             'profile' => 'Édition sans Ajouter',
             'competence' => 'Lecture',
             'microCompetence' => 'Lecture',
+            'uniteApprentissage' => 'Afficher',
+            'chapitre' => 'Afficher',
+            'phaseEvaluation' => 'Afficher',
+            'critereEvaluation' => 'Afficher',
             'module' => 'Afficher',
             'anneeFormation' => 'Afficher',
             'specialite' => 'Afficher',
@@ -35,11 +40,13 @@ class DefaultFormateurPermission extends Seeder
             'niveauxScolaire' => 'Afficher',
             'nationalite' => 'Afficher',
             'groupe' => 'Afficher',
+            'sousGroupe' => 'Afficher',
             'apprenant' => 'Lecture,initPassword',
             'natureLivrable' => 'Afficher',
             'projet' => 'Édition,Extraction,clonerProjet',
             'livrable' => 'Édition',
             'resource' => 'Édition',
+            'mobilisationUa' => 'Édition',
             'affectationProjet' => 'Édition,Extraction',
             'etatsRealisationProjet' => 'Édition',
             'livrablesRealisation' => 'Édition',
@@ -52,12 +59,19 @@ class DefaultFormateurPermission extends Seeder
             'tache' => 'Édition',
             'notification' => 'Lecture',
             'widget' => 'Lecture',
+            'sectionWidget' => 'Afficher',
             'widgetUtilisateur' => 'Édition',
             'realisationChapitre' => 'Édition sans Ajouter',
             'realisationUaProjet' => 'Édition sans Ajouter',
             'realisationUaPrototype' => 'Édition sans Ajouter',
             'realisationMicroCompetence' => 'Lecture',
+            'etatRealisationMicroCompetence' => 'Lecture',
             'sessionFormation' => 'Lecture',
+            'etatRealisationUa' => 'Afficher',
+            'etatRealisationChapitre' => 'Afficher',
+            'realisationUa' => 'Lecture',
+            'alignementUa' => 'Lecture',
+            'livrableSession' => 'Lecture',
         ];
 
         // Actions par type d'accès

@@ -68,7 +68,7 @@
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="groupe_id" :bulkEdit="$bulkEdit">
       @php $canEditgroupe_id = !$itemAffectationProjet || !$itemAffectationProjet->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
-      <div class="form-group col-12 col-md-3">
+      <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="groupe_id" id="bulk_field_groupe_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -98,6 +98,40 @@
                 @endforeach
             </select>
           @error('groupe_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="sous_groupe_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sous_groupe_id" id="bulk_field_sous_groupe_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="sous_groupe_id">
+            {{ ucfirst(__('PkgApprenants::sousGroupe.singular')) }}
+            
+          </label>
+                      <select 
+            id="sous_groupe_id" 
+            
+            
+            
+            name="sous_groupe_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($sousGroupes as $sousGroupe)
+                    <option value="{{ $sousGroupe->id }}"
+                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->sous_groupe_id == $sousGroupe->id) || (old('sous_groupe_id>') == $sousGroupe->id) ? 'selected' : '' }}>
+                        {{ $sousGroupe }}
+                    </option>
+                @endforeach
+            </select>
+          @error('sous_groupe_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -198,40 +232,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="sous_groupe_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="sous_groupe_id" id="bulk_field_sous_groupe_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="sous_groupe_id">
-            {{ ucfirst(__('PkgApprenants::sousGroupe.singular')) }}
-            
-          </label>
-                      <select 
-            id="sous_groupe_id" 
-            
-            
-            
-            name="sous_groupe_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($sousGroupes as $sousGroupe)
-                    <option value="{{ $sousGroupe->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->sous_groupe_id == $sousGroupe->id) || (old('sous_groupe_id>') == $sousGroupe->id) ? 'selected' : '' }}>
-                        {{ $sousGroupe }}
-                    </option>
-                @endforeach
-            </select>
-          @error('sous_groupe_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="echelle_note_cible" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -255,40 +255,6 @@
                 placeholder="{{ __('PkgRealisationProjets::affectationProjet.echelle_note_cible') }}"
                 value="{{ $itemAffectationProjet ? $itemAffectationProjet->echelle_note_cible : old('echelle_note_cible') }}">
           @error('echelle_note_cible')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemAffectationProjet" field="evaluateurs" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="evaluateurs" id="bulk_field_evaluateurs" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="evaluateurs">
-            {{ ucfirst(__('PkgEvaluateurs::evaluateur.plural')) }}
-            
-          </label>
-                      <select
-                id="evaluateurs"
-                name="evaluateurs[]"
-                class="form-control select2"
-                
-                
-                multiple="multiple">
-               
-                @foreach ($evaluateurs as $evaluateur)
-                    <option value="{{ $evaluateur->id }}"
-                        {{ (isset($itemAffectationProjet) && $itemAffectationProjet->evaluateurs && $itemAffectationProjet->evaluateurs->contains('id', $evaluateur->id)) || (is_array(old('evaluateurs')) && in_array($evaluateur->id, old('evaluateurs'))) ? 'selected' : '' }}>
-                        {{ $evaluateur }}
-                    </option>
-                @endforeach
-            </select>
-          @error('evaluateurs')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

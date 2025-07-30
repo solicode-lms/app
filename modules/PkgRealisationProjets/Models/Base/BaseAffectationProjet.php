@@ -13,8 +13,8 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgApprenants\Models\Groupe;
-use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgApprenants\Models\SousGroupe;
+use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
@@ -34,8 +34,8 @@ class BaseAffectationProjet extends BaseModel
     protected $with = [
       //  'projet',
       //  'groupe',
-      //  'anneeFormation',
-      //  'sousGroupe'
+      //  'sousGroupe',
+      //  'anneeFormation'
     ];
 
 
@@ -52,7 +52,7 @@ class BaseAffectationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'projet_id', 'groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'sous_groupe_id', 'is_formateur_evaluateur', 'echelle_note_cible', 'description'
+        'projet_id', 'groupe_id', 'sous_groupe_id', 'annee_formation_id', 'date_debut', 'date_fin', 'is_formateur_evaluateur', 'echelle_note_cible', 'description'
     ];
     public $manyToMany = [
         'Evaluateur' => ['relation' => 'evaluateurs' , "foreign_key" => "evaluateur_id" ]
@@ -68,15 +68,15 @@ class BaseAffectationProjet extends BaseModel
             'relation' => 'groupes' , 
             "foreign_key" => "groupe_id", 
             ],
-        'AnneeFormation' => [
-            'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
-            'relation' => 'anneeFormations' , 
-            "foreign_key" => "annee_formation_id", 
-            ],
         'SousGroupe' => [
             'model' => "Modules\\PkgApprenants\\Models\\SousGroupe",
             'relation' => 'sousGroupes' , 
             "foreign_key" => "sous_groupe_id", 
+            ],
+        'AnneeFormation' => [
+            'model' => "Modules\\PkgFormation\\Models\\AnneeFormation",
+            'relation' => 'anneeFormations' , 
+            "foreign_key" => "annee_formation_id", 
             ]
     ];
 
@@ -100,15 +100,6 @@ class BaseAffectationProjet extends BaseModel
         return $this->belongsTo(Groupe::class, 'groupe_id', 'id');
     }
     /**
-     * Relation BelongsTo pour AnneeFormation.
-     *
-     * @return BelongsTo
-     */
-    public function anneeFormation(): BelongsTo
-    {
-        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour SousGroupe.
      *
      * @return BelongsTo
@@ -116,6 +107,15 @@ class BaseAffectationProjet extends BaseModel
     public function sousGroupe(): BelongsTo
     {
         return $this->belongsTo(SousGroupe::class, 'sous_groupe_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour AnneeFormation.
+     *
+     * @return BelongsTo
+     */
+    public function anneeFormation(): BelongsTo
+    {
+        return $this->belongsTo(AnneeFormation::class, 'annee_formation_id', 'id');
     }
 
     /**

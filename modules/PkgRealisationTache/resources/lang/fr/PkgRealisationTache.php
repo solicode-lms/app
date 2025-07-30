@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'Gestion des Tâches',
+    'name' => 'Suivi des Tâches',
     'icon' => 'fas fa-laptop-code'
 ];

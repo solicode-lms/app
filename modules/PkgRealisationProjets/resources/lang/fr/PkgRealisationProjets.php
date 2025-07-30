@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Réalisations de projets',
+    'name' => 'Suivi des projets',
     'icon' => 'fas fa-laptop'
 ];

@@ -16,6 +16,33 @@ class AffectationProjetService extends BaseAffectationProjetService
         'evaluateurs'
     ];
 
+    public function createInstance(array $data = [])
+    {
+        // Récupérer l'instance par défaut via la classe parent
+        $instance = parent::createInstance($data);
+
+        // Si le projet est défini, récupérer la session de formation
+        if (!empty($instance->projet_id)) {
+            $projet = \Modules\PkgCreationProjet\Models\Projet::with('sessionFormation')
+                ->find($instance->projet_id);
+
+            if ($projet && $projet->sessionFormation) {
+                // Initialiser date_debut si non fourni
+                if (empty($instance->date_debut)) {
+                    $instance->date_debut = $projet->sessionFormation->date_debut;
+                }
+
+                // Initialiser date_fin si non fourni
+                if (empty($instance->date_fin)) {
+                    $instance->date_fin = $projet->sessionFormation->date_fin;
+                }
+            }
+        }
+
+        return $instance;
+    }
+
+
     public function dataCalcul($affectationProjet)
     {
         // En Cas d'édit

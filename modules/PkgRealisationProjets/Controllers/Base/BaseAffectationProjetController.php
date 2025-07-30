@@ -110,8 +110,8 @@ class BaseAffectationProjetController extends AdminController
 
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
         $sousGroupes = $this->sousGroupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = false;
@@ -150,8 +150,8 @@ class BaseAffectationProjetController extends AdminController
  
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
         $sousGroupes = $this->sousGroupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $evaluateurs = $this->evaluateurService->all();
 
         $bulkEdit = true;
@@ -236,8 +236,8 @@ class BaseAffectationProjetController extends AdminController
 
         $projets = $this->projetService->all();
         $groupes = $this->groupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
         $sousGroupes = $this->sousGroupeService->all();
+        $anneeFormations = $this->anneeFormationService->all();
         $evaluateurs = $this->evaluateurService->all();
 
 

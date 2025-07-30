@@ -31,10 +31,10 @@ class BaseAffectationProjetRequest extends FormRequest
         return [
             'projet_id' => 'required',
             'groupe_id' => 'required',
+            'sous_groupe_id' => 'nullable',
             'annee_formation_id' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'sous_groupe_id' => 'nullable',
             'is_formateur_evaluateur' => 'nullable|boolean',
             'echelle_note_cible' => 'nullable|integer',
             'evaluateurs' => 'nullable|array',
@@ -52,10 +52,10 @@ class BaseAffectationProjetRequest extends FormRequest
         return [
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.projet_id')]),
             'groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.groupe_id')]),
+            'sous_groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.sous_groupe_id')]),
             'annee_formation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.annee_formation_id')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.date_fin')]),
-            'sous_groupe_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.sous_groupe_id')]),
             'is_formateur_evaluateur.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.is_formateur_evaluateur')]),
             'echelle_note_cible.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.echelle_note_cible')]),
             'evaluateurs.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::AffectationProjet.evaluateurs')]),

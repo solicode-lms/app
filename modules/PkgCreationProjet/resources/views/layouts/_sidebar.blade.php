@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-projet', 'index-mobilisationUa'])
+@accessiblePermissions(['index-projet'])
 @if($accessiblePermissions->isNotEmpty())
 <li id="menu-PkgCreationProjet" class="nav-item has-treeview  {{ Request::is('admin/PkgCreationProjet*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link nav-link {{ Request::is('admin/PkgCreationProjet*') ? 'active' : '' }}">
@@ -17,14 +17,6 @@
             <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-lightbulb"></i>
                 {{__('PkgCreationProjet::projet.plural')}}
-            </a>
-        </li>
-        @endcan
-        @can('index-mobilisationUa') 
-        <li class="nav-item" id="menu-mobilisationUas">
-            <a href="{{ route('mobilisationUas.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/mobilisationUas') ? 'active' : '' }}">
-                <i class="nav-icon fas  fa-seedling"></i>
-                {{__('PkgCreationProjet::mobilisationUa.plural')}}
             </a>
         </li>
         @endcan

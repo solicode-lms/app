@@ -84,14 +84,14 @@ class BaseAffectationProjetSeeder extends Seeder
                     $groupe_id = \Modules\PkgApprenants\Models\Groupe::where('reference', $row["groupe_reference"])
                         ->value('id');
                 }
-                $annee_formation_id = null;
-                if (!empty($row["annee_formation_reference"])) {
-                    $annee_formation_id = \Modules\PkgFormation\Models\AnneeFormation::where('reference', $row["annee_formation_reference"])
-                        ->value('id');
-                }
                 $sous_groupe_id = null;
                 if (!empty($row["sous_groupe_reference"])) {
                     $sous_groupe_id = \Modules\PkgApprenants\Models\SousGroupe::where('reference', $row["sous_groupe_reference"])
+                        ->value('id');
+                }
+                $annee_formation_id = null;
+                if (!empty($row["annee_formation_reference"])) {
+                    $annee_formation_id = \Modules\PkgFormation\Models\AnneeFormation::where('reference', $row["annee_formation_reference"])
                         ->value('id');
                 }
 
@@ -99,10 +99,10 @@ class BaseAffectationProjetSeeder extends Seeder
                 $affectationProjetData =[
                         "projet_id" => $projet_id,
                         "groupe_id" => $groupe_id,
+                        "sous_groupe_id" => $sous_groupe_id,
                         "annee_formation_id" => $annee_formation_id,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
-                        "sous_groupe_id" => $sous_groupe_id,
                         "is_formateur_evaluateur" => isset($row["is_formateur_evaluateur"]) && $row["is_formateur_evaluateur"] !== "" ? $row["is_formateur_evaluateur"] : null,
                         "echelle_note_cible" => isset($row["echelle_note_cible"]) && $row["echelle_note_cible"] !== "" ? $row["echelle_note_cible"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,

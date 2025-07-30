@@ -267,11 +267,18 @@ class RealisationProjetService extends BaseRealisationProjetService
         if (!$realisationProjet instanceof RealisationProjet) {
             return; // 🛡️ Vérification de sécurité
         }
-
-        // Étape 1 : Notification
+        // Étape 1 : Affecter l'état avec l'ordre minimal si aucun état n'est défini
+        if (empty($realisationProjet->etats_realisation_projet_id)) {
+            $etatDefaut = EtatsRealisationProjet::orderBy('ordre', 'asc')->first();
+            if ($etatDefaut) {
+                $realisationProjet->etats_realisation_projet_id = $etatDefaut->id;
+                $realisationProjet->save();
+            }
+        }
+        // Étape 2 : Notification
         $this->notifierApprenant($realisationProjet);
 
-        // Étape 2 : Création des RealisationTache
+        // Étape 3 : Création des RealisationTache
         $this->creerRealisationTaches($realisationProjet);
     }
 

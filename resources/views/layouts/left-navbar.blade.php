@@ -51,6 +51,13 @@
         </li>
         @endcan
        
+         @can('index-realisationChapitre')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationChapitres.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}" class="nav-link">
+           <i class="fas fas fa-code"></i>
+          </a>
+        </li>
+        @endcan
        
 
         @can('index-apprenant')

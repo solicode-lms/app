@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'singular' => 'Ressource Tâche',
-    'plural' => 'Ressources Tâches',
+    'singular' => 'Tâche',
+    'plural' => 'Tâches',
     'titre' => 'Titre',
     'description' => 'Description',
     'dateDebut' => 'Date de début',

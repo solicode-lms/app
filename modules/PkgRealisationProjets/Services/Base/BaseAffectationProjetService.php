@@ -23,10 +23,10 @@ class BaseAffectationProjetService extends BaseService
     protected $fieldsSearchable = [
         'projet_id',
         'groupe_id',
+        'sous_groupe_id',
         'annee_formation_id',
         'date_debut',
         'date_fin',
-        'sous_groupe_id',
         'is_formateur_evaluateur',
         'echelle_note_cible',
         'description'

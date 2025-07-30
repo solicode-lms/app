@@ -9,6 +9,7 @@ use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 use Illuminate\Support\Facades\DB;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCreationTache\Models\Tache;
+use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgSessions\Models\SessionFormation;
 
 /**
@@ -60,6 +61,7 @@ class ProjetService extends BaseProjetService
                 $this->addProjectTasks($projet, $session);
             }
         }
+
     }
 
     public function afterUpdateRules($projet)

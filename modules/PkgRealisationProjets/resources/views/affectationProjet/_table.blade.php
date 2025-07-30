@@ -11,9 +11,9 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="13.666666666666666" field="projet_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgCreationProjet::projet.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="13.666666666666666" field="groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::groupe.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="sous_groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::sousGroupe.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_debut" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_debut'))!!}" />
                 <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_fin" modelname="affectationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="sous_groupe_id" modelname="affectationProjet" label="{!!ucfirst(__('PkgApprenants::sousGroupe.singular'))!!}" />
                 <x-sortable-column :sortable="false" width="13.666666666666666"  field="evaluateurs" modelname="affectationProjet" label="{!!ucfirst(__('PkgEvaluateurs::evaluateur.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -34,17 +34,17 @@
                         {{  $affectationProjet->groupe }}
 
                     </td>
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="sous_groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->sousGroupe }}" >
+                        {{  $affectationProjet->sousGroupe }}
+
+                    </td>
                     <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $affectationProjet->date_debut }}" >
                         <x-deadline-display :value="$affectationProjet->date_debut" />
                     </td>
                     <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $affectationProjet->date_fin }}" >
                         <x-deadline-display :value="$affectationProjet->date_fin" />
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="sous_groupe_id"  data-toggle="tooltip" title="{{ $affectationProjet->sousGroupe }}" >
-                        {{  $affectationProjet->sousGroupe }}
-
-                    </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs"  data-toggle="tooltip" title="{{ $affectationProjet->evaluateurs }}" >
+                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$affectationProjet->id}}" data-field="evaluateurs"  data-toggle="tooltip" title="{{ $affectationProjet->evaluateurs }}" >
                         <ul>
                             @foreach ($affectationProjet->evaluateurs as $evaluateur)
                                 <li @if(strlen($evaluateur) > 30) data-toggle="tooltip" title="{{$evaluateur}}"  @endif>@limit($evaluateur, 30)</li>
