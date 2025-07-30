@@ -42,7 +42,6 @@ class BaseCompetenceController extends AdminController
         // ownedByUser
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.competence.module.filiere.groupes.formateurs.user_id') == null){
            $this->viewState->init('scope.competence.module.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
-           // $this->viewState->init('filter.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
         }
         if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.competence.module.filiere.groupes.apprenants.user_id') == null){
            $this->viewState->init('scope.competence.module.filiere.groupes.apprenants.user_id'  , $this->sessionState->get('user_id'));
