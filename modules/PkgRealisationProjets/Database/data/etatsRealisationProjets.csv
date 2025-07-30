@@ -1,1 +1,8 @@
-"formateur_reference","titre","description","reference","sys_color_reference","is_editable_by_formateur"
+"ordre","titre","code","description","reference","sys_color_reference","is_editable_by_formateur"
+1,"À faire","TODO","Le projet est prévu mais pas encore commencé","TODO","secondary",0
+2,"En cours","IN_PROGRESS","Le projet est en cours de réalisation","IN_PROGRESS","info",0
+3,"En pause","PAUSED","Le projet est temporairement suspendu","PAUSED","purple",0
+4,"Révision nécessaire","REVISION_NECESSAIRE","Le projet nécessite une révision ou correction","REVISION_NECESSAIRE","info",0
+5,"À valider","TO_APPROVE","Le projet est en attente de validation finale par le formateur","TO_APPROVE","warning",0
+6,"Terminé","DONE","Le projet a été validé définitivement par le formateur","DONE","success",1
+7,"Bloqué","BLOCKED","Le projet est bloqué (problèmes techniques ou pédagogiques)","BLOCKED","danger",1

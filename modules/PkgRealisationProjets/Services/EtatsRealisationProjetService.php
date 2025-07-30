@@ -13,9 +13,7 @@ use Modules\PkgRealisationProjets\Services\Base\BaseEtatsRealisationProjetServic
 class EtatsRealisationProjetService extends BaseEtatsRealisationProjetService
 {
     protected array $index_with_relations = [
-        'formateur',
         'sysColor',
-        'workflowProjet'
     ];
 
     public function dataCalcul($etatsRealisationProjet)

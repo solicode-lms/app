@@ -11,8 +11,6 @@ class EtatsRealisationProjet extends BaseEtatsRealisationProjet
         'sysColor',
     ];
 
-    public static $user_column_name = "formateur_id";
-
     // public function __toString()
     // {
     //     return ($this->titre ?? "") . "-" . ($this->formateur?->nom ?? "");
