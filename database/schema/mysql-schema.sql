@@ -52,8 +52,8 @@ DROP TABLE IF EXISTS `alignement_uas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alignement_uas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int NOT NULL DEFAULT '0',
   `unite_apprentissage_id` bigint unsigned NOT NULL,
   `session_formation_id` bigint unsigned DEFAULT NULL,
@@ -272,8 +272,8 @@ DROP TABLE IF EXISTS `critere_evaluations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `critere_evaluations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `intitule` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `intitule` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `bareme` double NOT NULL DEFAULT '1',
   `ordre` int NOT NULL DEFAULT '0',
   `phase_evaluation_id` bigint unsigned NOT NULL,
@@ -452,10 +452,10 @@ DROP TABLE IF EXISTS `etat_realisation_chapitres`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etat_realisation_chapitres` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
@@ -473,10 +473,10 @@ DROP TABLE IF EXISTS `etat_realisation_micro_competences`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etat_realisation_micro_competences` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
@@ -518,10 +518,10 @@ DROP TABLE IF EXISTS `etat_realisation_uas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etat_realisation_uas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int NOT NULL DEFAULT '0',
   `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
   `sys_color_id` bigint unsigned DEFAULT NULL,
@@ -539,9 +539,10 @@ DROP TABLE IF EXISTS `etats_realisation_projets`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `etats_realisation_projets` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `ordre` int NOT NULL DEFAULT '0',
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `formateur_id` bigint unsigned NOT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sys_color_id` bigint unsigned DEFAULT NULL,
   `is_editable_by_formateur` tinyint(1) NOT NULL DEFAULT '0',
@@ -549,9 +550,8 @@ CREATE TABLE `etats_realisation_projets` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `etats_realisation_projets_reference_unique` (`reference`),
-  KEY `etats_realisation_projets_formateur_id_foreign` (`formateur_id`),
+  UNIQUE KEY `etats_realisation_projets_code_unique` (`code`),
   KEY `etats_realisation_projets_sys_color_id_foreign` (`sys_color_id`),
-  CONSTRAINT `etats_realisation_projets_formateur_id_foreign` FOREIGN KEY (`formateur_id`) REFERENCES `formateurs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `etats_realisation_projets_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -841,9 +841,9 @@ DROP TABLE IF EXISTS `livrable_sessions`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `livrable_sessions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `ordre` int NOT NULL DEFAULT '0',
   `session_formation_id` bigint unsigned NOT NULL,
   `nature_livrable_id` bigint unsigned DEFAULT NULL,
@@ -950,14 +950,14 @@ DROP TABLE IF EXISTS `mobilisation_uas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mobilisation_uas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `criteres_evaluation_prototype` longtext COLLATE utf8mb4_unicode_ci,
-  `criteres_evaluation_projet` longtext COLLATE utf8mb4_unicode_ci,
+  `criteres_evaluation_prototype` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `criteres_evaluation_projet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `bareme_evaluation_prototype` double NOT NULL DEFAULT '0',
   `bareme_evaluation_projet` double NOT NULL DEFAULT '0',
-  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `projet_id` bigint unsigned NOT NULL,
   `unite_apprentissage_id` bigint unsigned NOT NULL,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1107,12 +1107,12 @@ DROP TABLE IF EXISTS `phase_evaluations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phase_evaluations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `libelle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `coefficient` double NOT NULL DEFAULT '1',
   `ordre` int NOT NULL DEFAULT '0',
-  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1185,10 +1185,10 @@ DROP TABLE IF EXISTS `realisation_chapitres`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realisation_chapitres` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
-  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `realisation_ua_id` bigint unsigned NOT NULL,
   `realisation_tache_id` bigint unsigned DEFAULT NULL,
   `chapitre_id` bigint unsigned NOT NULL,
@@ -1212,13 +1212,13 @@ DROP TABLE IF EXISTS `realisation_micro_competences`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realisation_micro_competences` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `progression_cache` double NOT NULL DEFAULT '0',
   `note_cache` double NOT NULL DEFAULT '0',
   `bareme_cache` double NOT NULL DEFAULT '0',
-  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `dernier_update` datetime DEFAULT NULL,
   `apprenant_id` bigint unsigned NOT NULL,
   `micro_competence_id` bigint unsigned NOT NULL,
@@ -1291,10 +1291,10 @@ DROP TABLE IF EXISTS `realisation_ua_projets`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realisation_ua_projets` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `note` double NOT NULL DEFAULT '0',
   `bareme` double NOT NULL DEFAULT '0',
-  `remarque_formateur` text COLLATE utf8mb4_unicode_ci,
+  `remarque_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `realisation_ua_id` bigint unsigned NOT NULL,
@@ -1314,10 +1314,10 @@ DROP TABLE IF EXISTS `realisation_ua_prototypes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realisation_ua_prototypes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `note` double NOT NULL DEFAULT '0',
   `bareme` double NOT NULL DEFAULT '0',
-  `remarque_formateur` text COLLATE utf8mb4_unicode_ci,
+  `remarque_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `realisation_ua_id` bigint unsigned NOT NULL,
@@ -1337,13 +1337,13 @@ DROP TABLE IF EXISTS `realisation_uas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `realisation_uas` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `progression_cache` double NOT NULL DEFAULT '0',
   `note_cache` double NOT NULL DEFAULT '0',
   `bareme_cache` double NOT NULL DEFAULT '0',
-  `commentaire_formateur` text COLLATE utf8mb4_unicode_ci,
+  `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `realisation_micro_competence_id` bigint unsigned NOT NULL,
   `unite_apprentissage_id` bigint unsigned NOT NULL,
   `etat_realisation_ua_id` bigint unsigned DEFAULT NULL,
@@ -1442,21 +1442,21 @@ DROP TABLE IF EXISTS `session_formations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session_formations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int NOT NULL DEFAULT '0',
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL,
-  `jour_feries_vacances` text COLLATE utf8mb4_unicode_ci,
-  `thematique` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `objectifs_pedagogique` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remarques` longtext COLLATE utf8mb4_unicode_ci,
-  `titre_prototype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_prototype` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contraintes_prototype` longtext COLLATE utf8mb4_unicode_ci,
-  `titre_projet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_projet` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contraintes_projet` longtext COLLATE utf8mb4_unicode_ci,
+  `jour_feries_vacances` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `thematique` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `objectifs_pedagogique` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarques` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `titre_prototype` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_prototype` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contraintes_prototype` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `titre_projet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_projet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contraintes_projet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `filiere_id` bigint unsigned DEFAULT NULL,
   `annee_formation_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1581,7 +1581,7 @@ CREATE TABLE `sys_modules` (
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `is_active` int NOT NULL,
-  `order` int NOT NULL,
+  `ordre` int NOT NULL,
   `version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sys_color_id` bigint unsigned NOT NULL,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1768,6 +1768,7 @@ CREATE TABLE `workflow_taches` (
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `is_editable_only_by_formateur` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Indique si cet état est modifiable uniquement par le formateur',
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ordre` int DEFAULT NULL,
   `sys_color_id` bigint unsigned DEFAULT NULL,
@@ -1920,3 +1921,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (165,'2025_07_26_10
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (167,'2025_07_26_100429_create_mobilisation_uas_table',45);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (168,'2025_07_26_125311_add_phase_evaluation_and_chapitre_to_taches_table',46);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (169,'2025_07_26_130806_add_priorite_to_taches_table',47);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (170,'2025_07_28_173221_add_is_editable_only_by_formateur_to_workflow_taches_table',48);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (171,'2025_07_30_102459_update_etats_realisation_projets_table',49);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (172,'2025_07_30_123128_rename_order_to_ordre_in_sys_modules_table',50);
