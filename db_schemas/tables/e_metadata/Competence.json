@@ -496,5 +496,26 @@
         "value_float": 0,
         "e_model_reference": "competences",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "competences_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "module.filiere.groupes.formateurs.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "module.filiere.groupes.apprenants.user"
+            }
+        ],
+        "e_model_reference": "competences",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

@@ -20,6 +20,15 @@ trait CrudReadTrait
     {
         return $this->model->withScope(fn() =>  $this->model::all());
     }
+
+    public function getByIds(array $ids, array $columns = ['*']): \Illuminate\Support\Collection
+    {
+        return $this->model->withScope(function () use ($ids, $columns) {
+            return $this->model::whereIn('id', $ids)->get($columns);
+        });
+    }
+
+
         /**
      * Récupère un élément par son identifiant.
      *

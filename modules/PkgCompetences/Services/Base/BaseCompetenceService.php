@@ -48,6 +48,23 @@ class BaseCompetenceService extends BaseService
         $this->title = __('PkgCompetences::competence.plural');
     }
 
+/**
+ * Extrait les valeurs utilisées pour une relation donnée dans un résultat paginé.
+ *
+ * @param string $relationPath  Chemin de la relation, ex: "Module.Filiere_id"
+ * @param \Illuminate\Contracts\Pagination\LengthAwarePaginator $queryResult
+ * @return array  Tableau de valeurs uniques
+ */
+// public function extractUsedRelationValues(string $relationPath, $collection): array
+// {
+//     // Exemple : "module.filiere_id"
+//     return $collection->map(function ($item) use ($relationPath) {
+//         $value = data_get($item, $relationPath);
+//         return is_object($value) ? null : $value;
+//     })->filter()->unique()->values()->all();
+// }
+
+
 
     public function initFieldsFilterable()
     {
@@ -57,7 +74,9 @@ class BaseCompetenceService extends BaseService
         
             
                 $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-                $filieres = $filiereService->all();
+                $filiereIds = $this->getAvailableFilterValues('Module.filiere_id', []);
+                $filieres = $filiereService->getByIds($filiereIds);
+
                 $this->fieldsFilterable[] = $this->generateRelationFilter(
                     __("PkgFormation::filiere.plural"),
                     'Module.Filiere_id', 
@@ -94,6 +113,11 @@ class BaseCompetenceService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
             $relationStatFiliere = parent::getStatsByRelation(
                 \Modules\PkgFormation\Models\Filiere::class,
@@ -105,6 +129,15 @@ class BaseCompetenceService extends BaseService
         return $stats;
     }
 
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
 
 
 

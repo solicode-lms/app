@@ -39,6 +39,14 @@ class BaseCompetenceController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.competence.module.filiere.groupes.formateurs.user_id') == null){
+           $this->viewState->init('scope.competence.module.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+           // $this->viewState->init('filter.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.competence.module.filiere.groupes.apprenants.user_id') == null){
+           $this->viewState->init('scope.competence.module.filiere.groupes.apprenants.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
 
@@ -70,6 +78,13 @@ class BaseCompetenceController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.competence.module.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.competence.module.filiere.groupes.apprenants.user_id'  , $this->sessionState->get('user_id'));
+        }
 
 
         $itemCompetence = $this->competenceService->createInstance();
@@ -97,6 +112,13 @@ class BaseCompetenceController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.competence.module.filiere.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.competence.module.filiere.groupes.apprenants.user_id'  , $this->sessionState->get('user_id'));
+        }
  
          $itemCompetence = $this->competenceService->find($competence_ids[0]);
          
@@ -145,6 +167,7 @@ class BaseCompetenceController extends AdminController
         $this->viewState->setContextKey('competence.show_' . $id);
 
         $itemCompetence = $this->competenceService->edit($id);
+        $this->authorize('view', $itemCompetence);
 
 
         $this->viewState->set('scope.microCompetence.competence_id', $id);
@@ -169,6 +192,7 @@ class BaseCompetenceController extends AdminController
 
 
         $itemCompetence = $this->competenceService->edit($id);
+        $this->authorize('edit', $itemCompetence);
 
 
         $modules = $this->moduleService->all();
@@ -194,6 +218,9 @@ class BaseCompetenceController extends AdminController
     /**
      */
     public function update(CompetenceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $competence = $this->competenceService->find($id);
+        $this->authorize('update', $competence);
 
         $validatedData = $request->validated();
         $competence = $this->competenceService->update($id, $validatedData);
@@ -255,6 +282,9 @@ class BaseCompetenceController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $competence = $this->competenceService->find($id);
+        $this->authorize('delete', $competence);
 
         $competence = $this->competenceService->destroy($id);
 
@@ -289,6 +319,9 @@ class BaseCompetenceController extends AdminController
         }
         foreach ($competence_ids as $id) {
             $entity = $this->competenceService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $competence = $this->competenceService->find($id);
+            $this->authorize('delete', $competence);
             $this->competenceService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

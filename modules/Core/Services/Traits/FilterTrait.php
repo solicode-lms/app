@@ -209,4 +209,27 @@ trait FilterTrait
             $userModelFilterService->storeLastFilter($context_key, $this->modelName, $filterVariables);
         }
     }
+
+     /**
+     * Extrait les valeurs DISTINCT d’un champ relationnel (ex: module.filiere.id) via jointures SQL dynamiques.
+     *
+     * @param string $relationPath  Exemple : "module.filiere.id" ou "module.filiere_id"
+     * @param array $params         Les paramètres de filtre (recherche, viewState, etc.)
+     * @return array                Liste de valeurs distinctes (ex: [1, 2, 3])
+     */
+    public function getAvailableFilterValues(string $relationPath, array $params = []): array
+    {
+        return $this->model->withScope(function () use ($relationPath, $params) {
+            $query = $this->newQuery();
+            $column = $this->applyDynamicJoins($query, $relationPath);
+
+            return $query->select($column)
+                ->distinct()
+                ->pluck($column)
+                ->filter()
+                ->unique()
+                ->values()
+                ->all();
+        });
+    }
 }

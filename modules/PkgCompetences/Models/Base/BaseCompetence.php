@@ -20,7 +20,7 @@ use Modules\PkgCompetences\Models\MicroCompetence;
  */
 class BaseCompetence extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -34,7 +34,8 @@ class BaseCompetence extends BaseModel
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "module.filiere.groupes.formateurs.user,module.filiere.groupes.apprenants.user";
     }
 
     

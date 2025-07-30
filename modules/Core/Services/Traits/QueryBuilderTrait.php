@@ -236,5 +236,52 @@ trait QueryBuilderTrait
         //     $builder->with(array_unique($relationsToLoad));
         // }
     }
+
+    /**
+     * Applique dynamiquement les jointures nécessaires à partir d’un chemin relationnel
+     * et retourne le nom de la colonne à sélectionner.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $relationPath  Exemple : "module.filiere.id"
+     * @return string               Colonne qualifiée à utiliser dans SELECT
+     */
+    protected function applyDynamicJoins($query, string $relationPath): string
+    {
+        $relations = explode('.', $relationPath);
+        $column = array_pop($relations);
+
+        $baseTable = $this->model->getTable();
+        $currentModel = $this->model;
+        $lastTable = $baseTable;
+
+        static $aliasCount = 0;
+
+        foreach ($relations as $relationName) {
+            if (!method_exists($currentModel, $relationName)) {
+                throw new \Exception("Relation [$relationName] non trouvée sur le modèle " . get_class($currentModel));
+            }
+
+            $relation = $currentModel->{$relationName}();
+            $relatedModel = $relation->getRelated();
+            $relatedTable = $relatedModel->getTable();
+            $alias = "{$relatedTable}_t" . $aliasCount++;
+
+            $foreignKey = method_exists($relation, 'getForeignKeyName')
+                ? $relation->getForeignKeyName()
+                : $relation->getQualifiedForeignPivotKeyName();
+
+            $ownerKey = method_exists($relation, 'getOwnerKeyName')
+                ? $relation->getOwnerKeyName()
+                : $relation->getQualifiedRelatedPivotKeyName();
+
+            $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$foreignKey}", '=', "{$alias}.{$ownerKey}");
+
+            $currentModel = $relatedModel;
+            $lastTable = $alias;
+        }
+
+        return "$lastTable.$column";
+    }
+
     
 }

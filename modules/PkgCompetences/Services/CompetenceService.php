@@ -9,6 +9,9 @@ use Modules\PkgCompetences\Services\Base\BaseCompetenceService;
  */
 class CompetenceService extends BaseCompetenceService
 {
+
+    protected array $index_with_relations = ['module.filiere', 'module.filiere.groupes.formateurs', 'module.filiere.groupes.apprenants'];
+
     public function dataCalcul($competence)
     {
         
