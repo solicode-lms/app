@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation de Tâche',
-    'plural' => 'Réalisations de Tâches',
+    'singular' => 'Suivi de Tâche',
+    'plural' => 'Suivis des Tâches',
     'dateDebut' => 'Date de début',
     'dateFin' => 'Date de fin',
     'tache_id' => 'Tâche',

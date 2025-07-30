@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Ressource Chapitre',
-    'plural' => 'Ressources Chapitres',
+    'singular' => 'Chapitre',
+    'plural' => 'Chapitres',
     'ordre' => 'Ordre',
     'nom' => 'Nom',
     'lien' => 'Lien',

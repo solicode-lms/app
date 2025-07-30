@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'Formation',
+    'name' => 'Formation Solicode',
     'icon' => 'fas fa-box'
 ];

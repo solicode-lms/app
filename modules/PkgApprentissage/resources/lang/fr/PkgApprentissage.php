@@ -2,6 +2,6 @@
 
 
 return [
-    'name' => 'Apprentissage',
+    'name' => 'Suivi d’Apprentissage',
     'icon' => 'fas fa-chalkboard-teacher'
 ];

@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Apprentissage UA Prototype',
-    'plural' => 'Apprentissages UA Prototypes',
+    'singular' => 'Suivi d’UA Prototype',
+    'plural' => 'Suivis des UAs Prototypes',
     'note' => 'Note',
     'bareme' => 'Barème',
     'remarque_formateur' => 'Remarque du formateur',

@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation de Projet',
-    'plural' => 'Réalisations de Projets',
+    'singular' => 'Suivi de Projet',
+    'plural' => 'Suivis des Projets',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'rapport' => 'Rapport',
