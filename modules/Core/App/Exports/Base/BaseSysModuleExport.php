@@ -32,22 +32,22 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
     {
         if ($this->format === 'csv') {
             return [
+                'ordre' => 'ordre',
                 'name' => 'name',
                 'slug' => 'slug',
                 'description' => 'description',
                 'is_active' => 'is_active',
-                'order' => 'order',
                 'version' => 'version',
                 'sys_color_reference' => 'sys_color_reference',
                 'reference' => 'reference',
             ];
         } else {
             return [
+                'ordre' => __('Core::sysModule.ordre'),
                 'name' => __('Core::sysModule.name'),
                 'slug' => __('Core::sysModule.slug'),
                 'description' => __('Core::sysModule.description'),
                 'is_active' => __('Core::sysModule.is_active'),
-                'order' => __('Core::sysModule.order'),
                 'version' => __('Core::sysModule.version'),
                 'sys_color_reference' => __('Core::sysModule.sys_color_reference'),
                 'reference' => __('Core::msg.reference'),
@@ -62,11 +62,11 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
     {
         return $this->data->map(function ($sysModule) {
             return [
+                'ordre' => (string) $sysModule->ordre,
                 'name' => $sysModule->name,
                 'slug' => $sysModule->slug,
                 'description' => $sysModule->description,
                 'is_active' => (string) $sysModule->is_active,
-                'order' => (string) $sysModule->order,
                 'version' => $sysModule->version,
                 'sys_color_reference' => $sysModule->sysColor?->reference,
                 'reference' => $sysModule->reference,

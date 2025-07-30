@@ -29,7 +29,36 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="name" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="ordre" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('Core::sysModule.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('Core::sysModule.ordre') }}"
+                value="{{ $itemSysModule ? $itemSysModule->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="name" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -137,35 +166,6 @@
                 placeholder="{{ __('Core::sysModule.is_active') }}"
                 value="{{ $itemSysModule ? $itemSysModule->is_active : old('is_active') }}">
           @error('is_active')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemSysModule" field="order" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="order" id="bulk_field_order" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="order">
-            {{ ucfirst(__('Core::sysModule.order')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="order"
-                type="number"
-                class="form-control"
-                required
-                
-                
-                id="order"
-                placeholder="{{ __('Core::sysModule.order') }}"
-                value="{{ $itemSysModule ? $itemSysModule->order : old('order') }}">
-          @error('order')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

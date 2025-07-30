@@ -9,9 +9,10 @@
                     $bulkEdit = $sysModules_permissions['edit-sysModule'] || $sysModules_permissions['destroy-sysModule'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="name" modelname="sysModule" label="{!!ucfirst(__('Core::sysModule.name'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332"  field="is_active" modelname="sysModule" label="{!!ucfirst(__('Core::sysModule.is_active'))!!}" />
-                <x-sortable-column :sortable="true" width="27.333333333333332" field="sys_color_id" modelname="sysModule" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="sysModule" label="{!!ucfirst(__('Core::sysModule.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="name" modelname="sysModule" label="{!!ucfirst(__('Core::sysModule.name'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="is_active" modelname="sysModule" label="{!!ucfirst(__('Core::sysModule.is_active'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="sysModule" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -23,15 +24,21 @@
                 @endphp
                 <tr id="sysModule-row-{{$sysModule->id}}" data-id="{{$sysModule->id}}">
                     <x-checkbox-row :item="$sysModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModule->name }}" >
+                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $sysModule->ordre }}" >
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $sysModule->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
+
+                    </td>
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="name"  data-toggle="tooltip" title="{{ $sysModule->name }}" >
                         {{ $sysModule->name }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="is_active"  data-toggle="tooltip" title="{{ $sysModule->is_active }}" >
                         {{ $sysModule->is_active }}
 
                     </td>
-                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$sysModule->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $sysModule->sysColor }}" >
                         <x-badge 
                         :text="$sysModule->sysColor->name ?? ''" 
                         :background="$sysModule->sysColor->hex ?? '#6c757d'" 

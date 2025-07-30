@@ -56,11 +56,11 @@ class BaseSysModuleImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new SysModule([
-             'name' => $values[0] ?? null,
-             'slug' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
-             'is_active' => $values[3] ?? null,
-             'order' => $values[4] ?? null,
+             'ordre' => $values[0] ?? null,
+             'name' => $values[1] ?? null,
+             'slug' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
+             'is_active' => $values[4] ?? null,
              'version' => $values[5] ?? null,
              'sys_color_id' => $values[6] ?? null,
              'reference' => $reference,

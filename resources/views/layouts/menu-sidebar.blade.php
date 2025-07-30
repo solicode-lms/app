@@ -6,7 +6,7 @@
 
     // Récupérer la liste des modules actifs, triés par la colonne 'order'
     $modules = DB::table('sys_modules')
-        ->orderBy('order', 'asc')
+        ->orderBy('ordre', 'asc')
         ->pluck('slug'); // 'slug' doit correspondre au nom du dossier
 
     foreach ($modules as $moduleName) {

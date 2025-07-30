@@ -6,6 +6,21 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.ordre')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemSysModule->ordre))
+          {{ $itemSysModule->ordre }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.name')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemSysModule->name) && $itemSysModule->name !== '')
@@ -50,21 +65,6 @@
       <span>
         @if(! is_null($itemSysModule->is_active))
           {{ $itemSysModule->is_active }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.order')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemSysModule->order))
-          {{ $itemSysModule->order }}
         @else
           —
         @endif

@@ -21,11 +21,11 @@ class BaseSysModuleService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'name',
         'slug',
         'description',
         'is_active',
-        'order',
         'version',
         'sys_color_id'
     ];

@@ -29,11 +29,11 @@ class BaseSysModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'required|integer',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'description' => 'nullable|string',
             'is_active' => 'required|integer',
-            'order' => 'required|integer',
             'version' => 'required|string|max:255',
             'sys_color_id' => 'required'
         ];
@@ -47,13 +47,13 @@ class BaseSysModuleRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('Core::SysModule.ordre')]),
             'name.required' => __('validation.required', ['attribute' => __('Core::SysModule.name')]),
             'name.max' => __('validation.nameMax'),
             'slug.required' => __('validation.required', ['attribute' => __('Core::SysModule.slug')]),
             'slug.max' => __('validation.slugMax'),
             'description.required' => __('validation.required', ['attribute' => __('Core::SysModule.description')]),
             'is_active.required' => __('validation.required', ['attribute' => __('Core::SysModule.is_active')]),
-            'order.required' => __('validation.required', ['attribute' => __('Core::SysModule.order')]),
             'version.required' => __('validation.required', ['attribute' => __('Core::SysModule.version')]),
             'version.max' => __('validation.versionMax'),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('Core::SysModule.sys_color_id')])
