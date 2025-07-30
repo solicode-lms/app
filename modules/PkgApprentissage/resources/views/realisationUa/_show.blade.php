@@ -6,94 +6,6 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.date_debut')) }}</small>
-                            
-    <span>
-      @if ($itemRealisationUa->date_debut)
-        {{ \Carbon\Carbon::parse($itemRealisationUa->date_debut)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.date_fin')) }}</small>
-                            
-    <span>
-      @if ($itemRealisationUa->date_fin)
-        {{ \Carbon\Carbon::parse($itemRealisationUa->date_fin)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.progression_cache')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemRealisationUa->progression_cache))
-          {{ number_format($itemRealisationUa->progression_cache, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.note_cache')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemRealisationUa->note_cache))
-          {{ number_format($itemRealisationUa->note_cache, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.bareme_cache')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemRealisationUa->bareme_cache))
-          {{ number_format($itemRealisationUa->bareme_cache, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.commentaire_formateur')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemRealisationUa->commentaire_formateur) && $itemRealisationUa->commentaire_formateur !== '')
-    {!! $itemRealisationUa->commentaire_formateur !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}</small>
                               
       @if($itemRealisationUa->realisationMicroCompetence)
@@ -134,7 +46,22 @@
       </div>
   
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.progression_cache')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemRealisationUa->progression_cache))
+          {{ number_format($itemRealisationUa->progression_cache, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
             <div class="pt-2">
@@ -143,7 +70,7 @@
           </div>
       </div>
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
             <div class="pt-2">
@@ -152,7 +79,7 @@
           </div>
       </div>
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
             <div class="pt-2">
@@ -160,6 +87,79 @@
             </div>
           </div>
       </div>
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.note_cache')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemRealisationUa->note_cache))
+          {{ number_format($itemRealisationUa->note_cache, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.bareme_cache')) }}</small>
+                              
+      <span>
+        @if(! is_null($itemRealisationUa->bareme_cache))
+          {{ number_format($itemRealisationUa->bareme_cache, 2, '.', '') }}
+        @else
+          —
+        @endif
+      </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.date_debut')) }}</small>
+                            
+    <span>
+      @if ($itemRealisationUa->date_debut)
+        {{ \Carbon\Carbon::parse($itemRealisationUa->date_debut)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.date_fin')) }}</small>
+                            
+    <span>
+      @if ($itemRealisationUa->date_fin)
+        {{ \Carbon\Carbon::parse($itemRealisationUa->date_fin)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.commentaire_formateur')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemRealisationUa->commentaire_formateur) && $itemRealisationUa->commentaire_formateur !== '')
+    {!! $itemRealisationUa->commentaire_formateur !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
+          </div>
+      </div>
+  
 
 
             </div>

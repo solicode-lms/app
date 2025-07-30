@@ -27,7 +27,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 12,
         "e_data_field_reference": "RealisationMicroCompetence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 13,
         "e_data_field_reference": "RealisationMicroCompetence_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -112,7 +112,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_debut_displayOrder",
-        "value_integer": 3,
+        "value_integer": 8,
         "e_data_field_reference": "RealisationMicroCompetence_date_debut",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -155,7 +155,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_fin_displayOrder",
-        "value_integer": 4,
+        "value_integer": 9,
         "e_data_field_reference": "RealisationMicroCompetence_date_fin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -197,7 +197,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_cache_displayOrder",
-        "value_integer": 5,
+        "value_integer": 4,
         "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -317,7 +317,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_commentaire_formateur_displayOrder",
-        "value_integer": 8,
+        "value_integer": 10,
         "e_data_field_reference": "RealisationMicroCompetence_commentaire_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -353,7 +353,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_dernier_update_displayOrder",
-        "value_integer": 9,
+        "value_integer": 11,
         "e_data_field_reference": "RealisationMicroCompetence_dernier_update",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -407,7 +407,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_apprenant_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 2,
         "e_data_field_reference": "RealisationMicroCompetence_apprenant_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -461,7 +461,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_micro_competence_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 1,
         "e_data_field_reference": "RealisationMicroCompetence_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -509,7 +509,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id_displayOrder",
-        "value_integer": 12,
+        "value_integer": 3,
         "e_data_field_reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -553,7 +553,7 @@
     },
     {
         "reference": "RealisationMicroCompetence_created_at_displayOrder",
-        "value_integer": 13,
+        "value_integer": 15,
         "e_data_field_reference": "RealisationMicroCompetence_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -631,13 +631,15 @@
     },
     {
         "reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id_displayOrder",
-        "value_integer": 15,
+        "value_integer": 5,
         "e_data_field_reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -667,5 +669,26 @@
         ],
         "e_model_reference": "realisation_micro_competences",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "realisation_micro_competences_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "realisation_micro_competences",
+        "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "RealisationMicroCompetence_progression_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_note_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_note_cache",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

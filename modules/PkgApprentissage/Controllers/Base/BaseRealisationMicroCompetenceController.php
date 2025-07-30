@@ -95,8 +95,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
         
 
-        $apprenants = $this->apprenantService->all();
         $microCompetences = $this->microCompetenceService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
 
         $bulkEdit = false;
@@ -130,8 +130,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
          $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->find($realisationMicroCompetence_ids[0]);
          
  
-        $apprenants = $this->apprenantService->all();
         $microCompetences = $this->microCompetenceService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
 
         $bulkEdit = true;
@@ -204,8 +204,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $this->authorize('edit', $itemRealisationMicroCompetence);
 
 
-        $apprenants = $this->apprenantService->all();
         $microCompetences = $this->microCompetenceService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
 
 

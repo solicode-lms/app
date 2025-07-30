@@ -73,14 +73,14 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
             if ($row) {
 
 
-                $apprenant_id = null;
-                if (!empty($row["apprenant_reference"])) {
-                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
-                        ->value('id');
-                }
                 $micro_competence_id = null;
                 if (!empty($row["micro_competence_reference"])) {
                     $micro_competence_id = \Modules\PkgCompetences\Models\MicroCompetence::where('reference', $row["micro_competence_reference"])
+                        ->value('id');
+                }
+                $apprenant_id = null;
+                if (!empty($row["apprenant_reference"])) {
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
                         ->value('id');
                 }
                 $etat_realisation_micro_competence_id = null;
@@ -91,16 +91,16 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
 
 
                 $realisationMicroCompetenceData =[
-                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
-                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "micro_competence_id" => $micro_competence_id,
+                        "apprenant_id" => $apprenant_id,
+                        "etat_realisation_micro_competence_id" => $etat_realisation_micro_competence_id,
                         "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
                         "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
-                        "apprenant_id" => $apprenant_id,
-                        "micro_competence_id" => $micro_competence_id,
-                        "etat_realisation_micro_competence_id" => $etat_realisation_micro_competence_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

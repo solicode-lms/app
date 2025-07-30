@@ -32,29 +32,29 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
     {
         if ($this->format === 'csv') {
             return [
-                'reference' => 'reference',
-                'date_debut' => 'date_debut',
-                'date_fin' => 'date_fin',
-                'progression_cache' => 'progression_cache',
-                'note_cache' => 'note_cache',
-                'bareme_cache' => 'bareme_cache',
-                'commentaire_formateur' => 'commentaire_formateur',
                 'realisation_micro_competence_reference' => 'realisation_micro_competence_reference',
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'etat_realisation_ua_reference' => 'etat_realisation_ua_reference',
+                'progression_cache' => 'progression_cache',
+                'note_cache' => 'note_cache',
+                'bareme_cache' => 'bareme_cache',
+                'date_debut' => 'date_debut',
+                'date_fin' => 'date_fin',
+                'commentaire_formateur' => 'commentaire_formateur',
+                'reference' => 'reference',
             ];
         } else {
             return [
-                'reference' => __('Core::msg.reference'),
-                'date_debut' => __('PkgApprentissage::realisationUa.date_debut'),
-                'date_fin' => __('PkgApprentissage::realisationUa.date_fin'),
-                'progression_cache' => __('PkgApprentissage::realisationUa.progression_cache'),
-                'note_cache' => __('PkgApprentissage::realisationUa.note_cache'),
-                'bareme_cache' => __('PkgApprentissage::realisationUa.bareme_cache'),
-                'commentaire_formateur' => __('PkgApprentissage::realisationUa.commentaire_formateur'),
                 'realisation_micro_competence_reference' => __('PkgApprentissage::realisationUa.realisation_micro_competence_reference'),
                 'unite_apprentissage_reference' => __('PkgApprentissage::realisationUa.unite_apprentissage_reference'),
                 'etat_realisation_ua_reference' => __('PkgApprentissage::realisationUa.etat_realisation_ua_reference'),
+                'progression_cache' => __('PkgApprentissage::realisationUa.progression_cache'),
+                'note_cache' => __('PkgApprentissage::realisationUa.note_cache'),
+                'bareme_cache' => __('PkgApprentissage::realisationUa.bareme_cache'),
+                'date_debut' => __('PkgApprentissage::realisationUa.date_debut'),
+                'date_fin' => __('PkgApprentissage::realisationUa.date_fin'),
+                'commentaire_formateur' => __('PkgApprentissage::realisationUa.commentaire_formateur'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -66,16 +66,16 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($realisationUa) {
             return [
-                'reference' => $realisationUa->reference,
-                'date_debut' => $realisationUa->date_debut,
-                'date_fin' => $realisationUa->date_fin,
-                'progression_cache' => $realisationUa->progression_cache,
-                'note_cache' => $realisationUa->note_cache,
-                'bareme_cache' => $realisationUa->bareme_cache,
-                'commentaire_formateur' => $realisationUa->commentaire_formateur,
                 'realisation_micro_competence_reference' => $realisationUa->realisationMicroCompetence?->reference,
                 'unite_apprentissage_reference' => $realisationUa->uniteApprentissage?->reference,
                 'etat_realisation_ua_reference' => $realisationUa->etatRealisationUa?->reference,
+                'progression_cache' => $realisationUa->progression_cache,
+                'note_cache' => $realisationUa->note_cache,
+                'bareme_cache' => $realisationUa->bareme_cache,
+                'date_debut' => $realisationUa->date_debut,
+                'date_fin' => $realisationUa->date_fin,
+                'commentaire_formateur' => $realisationUa->commentaire_formateur,
+                'reference' => $realisationUa->reference,
             ];
         });
     }

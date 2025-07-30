@@ -29,16 +29,16 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_debut' => 'nullable',
-            'date_fin' => 'nullable',
+            'micro_competence_id' => 'required',
+            'apprenant_id' => 'required',
+            'etat_realisation_micro_competence_id' => 'nullable',
             'progression_cache' => 'required',
             'note_cache' => 'required',
             'bareme_cache' => 'required',
+            'date_debut' => 'nullable',
+            'date_fin' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
-            'dernier_update' => 'nullable',
-            'apprenant_id' => 'required',
-            'micro_competence_id' => 'required',
-            'etat_realisation_micro_competence_id' => 'nullable'
+            'dernier_update' => 'nullable'
         ];
     }
 
@@ -50,16 +50,16 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_fin')]),
+            'micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.micro_competence_id')]),
+            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.apprenant_id')]),
+            'etat_realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.etat_realisation_micro_competence_id')]),
             'progression_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.progression_cache')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.note_cache')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.bareme_cache')]),
+            'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_debut')]),
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_fin')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.commentaire_formateur')]),
-            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')]),
-            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.apprenant_id')]),
-            'micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.micro_competence_id')]),
-            'etat_realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.etat_realisation_micro_competence_id')])
+            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')])
         ];
     }
 

@@ -50,7 +50,7 @@ class BaseRealisationUa extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'realisation_micro_competence_id', 'unite_apprentissage_id', 'etat_realisation_ua_id'
+        'realisation_micro_competence_id', 'unite_apprentissage_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'date_debut', 'date_fin', 'commentaire_formateur'
     ];
     public $manyToOne = [
         'RealisationMicroCompetence' => [

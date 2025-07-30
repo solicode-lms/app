@@ -6,30 +6,42 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}</small>
-                            
-    <span>
-      @if ($itemRealisationMicroCompetence->date_debut)
-        {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_debut)->isoFormat('LLL') }}
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
+                              
+      @if($itemRealisationMicroCompetence->microCompetence)
+        {{ $itemRealisationMicroCompetence->microCompetence }}
       @else
         —
       @endif
-    </span>
+
           </div>
       </div>
   
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin')) }}</small>
-                            
-    <span>
-      @if ($itemRealisationMicroCompetence->date_fin)
-        {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_fin)->isoFormat('LLL') }}
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
+                              
+      @if($itemRealisationMicroCompetence->apprenant)
+        {{ $itemRealisationMicroCompetence->apprenant }}
       @else
         —
       @endif
-    </span>
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular')) }}</small>
+                              
+      @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
+        {{ $itemRealisationMicroCompetence->etatRealisationMicroCompetence }}
+      @else
+        —
+      @endif
+
           </div>
       </div>
   
@@ -48,6 +60,15 @@
           </div>
       </div>
   
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprentissage::realisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationMicroCompetence.show_' . $itemRealisationMicroCompetence->id])
+            </div>
+          </div>
+      </div>
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
@@ -79,6 +100,36 @@
       </div>
   
 
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}</small>
+                            
+    <span>
+      @if ($itemRealisationMicroCompetence->date_debut)
+        {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_debut)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin')) }}</small>
+                            
+    <span>
+      @if ($itemRealisationMicroCompetence->date_fin)
+        {{ \Carbon\Carbon::parse($itemRealisationMicroCompetence->date_fin)->isoFormat('LLL') }}
+      @else
+        —
+      @endif
+    </span>
+          </div>
+      </div>
+  
+
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}</small>
@@ -106,57 +157,6 @@
           </div>
       </div>
   
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
-                              
-      @if($itemRealisationMicroCompetence->apprenant)
-        {{ $itemRealisationMicroCompetence->apprenant }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
-                              
-      @if($itemRealisationMicroCompetence->microCompetence)
-        {{ $itemRealisationMicroCompetence->microCompetence }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular')) }}</small>
-                              
-      @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
-        {{ $itemRealisationMicroCompetence->etatRealisationMicroCompetence }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationMicroCompetence.show_' . $itemRealisationMicroCompetence->id])
-            </div>
-          </div>
-      </div>
 
 
             </div>

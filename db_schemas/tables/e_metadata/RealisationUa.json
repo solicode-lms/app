@@ -28,7 +28,7 @@
     },
     {
         "reference": "RealisationUa_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 14,
         "e_data_field_reference": "RealisationUa_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -70,7 +70,7 @@
     },
     {
         "reference": "RealisationUa_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 13,
         "e_data_field_reference": "RealisationUa_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -113,7 +113,7 @@
     },
     {
         "reference": "RealisationUa_date_debut_displayOrder",
-        "value_integer": 3,
+        "value_integer": 10,
         "e_data_field_reference": "RealisationUa_date_debut",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -156,7 +156,7 @@
     },
     {
         "reference": "RealisationUa_date_fin_displayOrder",
-        "value_integer": 4,
+        "value_integer": 11,
         "e_data_field_reference": "RealisationUa_date_fin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -198,7 +198,7 @@
     },
     {
         "reference": "RealisationUa_progression_cache_displayOrder",
-        "value_integer": 5,
+        "value_integer": 4,
         "e_data_field_reference": "RealisationUa_progression_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -240,7 +240,7 @@
     },
     {
         "reference": "RealisationUa_note_cache_displayOrder",
-        "value_integer": 6,
+        "value_integer": 8,
         "e_data_field_reference": "RealisationUa_note_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -282,7 +282,7 @@
     },
     {
         "reference": "RealisationUa_bareme_cache_displayOrder",
-        "value_integer": 7,
+        "value_integer": 9,
         "e_data_field_reference": "RealisationUa_bareme_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -318,7 +318,7 @@
     },
     {
         "reference": "RealisationUa_commentaire_formateur_displayOrder",
-        "value_integer": 8,
+        "value_integer": 12,
         "e_data_field_reference": "RealisationUa_commentaire_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -354,7 +354,8 @@
     },
     {
         "reference": "RealisationUa_realisation_micro_competence_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUa_realisation_micro_competence_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -372,7 +373,7 @@
     },
     {
         "reference": "RealisationUa_realisation_micro_competence_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 1,
         "e_data_field_reference": "RealisationUa_realisation_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -426,7 +427,7 @@
     },
     {
         "reference": "RealisationUa_unite_apprentissage_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 2,
         "e_data_field_reference": "RealisationUa_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -474,7 +475,7 @@
     },
     {
         "reference": "RealisationUa_etat_realisation_ua_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 3,
         "e_data_field_reference": "RealisationUa_etat_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -518,7 +519,7 @@
     },
     {
         "reference": "RealisationUa_created_at_displayOrder",
-        "value_integer": 12,
+        "value_integer": 16,
         "e_data_field_reference": "RealisationUa_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -554,7 +555,7 @@
     },
     {
         "reference": "RealisationUa_updated_at_displayOrder",
-        "value_integer": 13,
+        "value_integer": 15,
         "e_data_field_reference": "RealisationUa_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -596,13 +597,15 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 5,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -620,13 +623,15 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id_displayOrder",
-        "value_integer": 15,
+        "value_integer": 6,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -644,13 +649,15 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id_displayOrder",
-        "value_integer": 16,
+        "value_integer": 7,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },

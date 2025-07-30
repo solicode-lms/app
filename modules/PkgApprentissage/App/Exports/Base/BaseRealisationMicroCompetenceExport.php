@@ -32,31 +32,31 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
     {
         if ($this->format === 'csv') {
             return [
-                'reference' => 'reference',
-                'date_debut' => 'date_debut',
-                'date_fin' => 'date_fin',
+                'micro_competence_reference' => 'micro_competence_reference',
+                'apprenant_reference' => 'apprenant_reference',
+                'etat_realisation_micro_competence_reference' => 'etat_realisation_micro_competence_reference',
                 'progression_cache' => 'progression_cache',
                 'note_cache' => 'note_cache',
                 'bareme_cache' => 'bareme_cache',
+                'date_debut' => 'date_debut',
+                'date_fin' => 'date_fin',
                 'commentaire_formateur' => 'commentaire_formateur',
                 'dernier_update' => 'dernier_update',
-                'apprenant_reference' => 'apprenant_reference',
-                'micro_competence_reference' => 'micro_competence_reference',
-                'etat_realisation_micro_competence_reference' => 'etat_realisation_micro_competence_reference',
+                'reference' => 'reference',
             ];
         } else {
             return [
-                'reference' => __('Core::msg.reference'),
-                'date_debut' => __('PkgApprentissage::realisationMicroCompetence.date_debut'),
-                'date_fin' => __('PkgApprentissage::realisationMicroCompetence.date_fin'),
+                'micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.micro_competence_reference'),
+                'apprenant_reference' => __('PkgApprentissage::realisationMicroCompetence.apprenant_reference'),
+                'etat_realisation_micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_reference'),
                 'progression_cache' => __('PkgApprentissage::realisationMicroCompetence.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationMicroCompetence.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationMicroCompetence.bareme_cache'),
+                'date_debut' => __('PkgApprentissage::realisationMicroCompetence.date_debut'),
+                'date_fin' => __('PkgApprentissage::realisationMicroCompetence.date_fin'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationMicroCompetence.commentaire_formateur'),
                 'dernier_update' => __('PkgApprentissage::realisationMicroCompetence.dernier_update'),
-                'apprenant_reference' => __('PkgApprentissage::realisationMicroCompetence.apprenant_reference'),
-                'micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.micro_competence_reference'),
-                'etat_realisation_micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_reference'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -68,17 +68,17 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
     {
         return $this->data->map(function ($realisationMicroCompetence) {
             return [
-                'reference' => $realisationMicroCompetence->reference,
-                'date_debut' => $realisationMicroCompetence->date_debut,
-                'date_fin' => $realisationMicroCompetence->date_fin,
+                'micro_competence_reference' => $realisationMicroCompetence->microCompetence?->reference,
+                'apprenant_reference' => $realisationMicroCompetence->apprenant?->reference,
+                'etat_realisation_micro_competence_reference' => $realisationMicroCompetence->etatRealisationMicroCompetence?->reference,
                 'progression_cache' => $realisationMicroCompetence->progression_cache,
                 'note_cache' => $realisationMicroCompetence->note_cache,
                 'bareme_cache' => $realisationMicroCompetence->bareme_cache,
+                'date_debut' => $realisationMicroCompetence->date_debut,
+                'date_fin' => $realisationMicroCompetence->date_fin,
                 'commentaire_formateur' => $realisationMicroCompetence->commentaire_formateur,
                 'dernier_update' => $realisationMicroCompetence->dernier_update,
-                'apprenant_reference' => $realisationMicroCompetence->apprenant?->reference,
-                'micro_competence_reference' => $realisationMicroCompetence->microCompetence?->reference,
-                'etat_realisation_micro_competence_reference' => $realisationMicroCompetence->etatRealisationMicroCompetence?->reference,
+                'reference' => $realisationMicroCompetence->reference,
             ];
         });
     }

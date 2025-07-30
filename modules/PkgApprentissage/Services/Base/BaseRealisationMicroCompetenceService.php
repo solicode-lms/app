@@ -21,16 +21,16 @@ class BaseRealisationMicroCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'date_debut',
-        'date_fin',
+        'micro_competence_id',
+        'apprenant_id',
+        'etat_realisation_micro_competence_id',
         'progression_cache',
         'note_cache',
         'bareme_cache',
+        'date_debut',
+        'date_fin',
         'commentaire_formateur',
-        'dernier_update',
-        'apprenant_id',
-        'micro_competence_id',
-        'etat_realisation_micro_competence_id'
+        'dernier_update'
     ];
 
     /**
@@ -61,22 +61,22 @@ class BaseRealisationMicroCompetenceService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('apprenant_id', $scopeVariables)) {
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgApprenants::apprenant.plural"), 
-                        'apprenant_id', 
-                        \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom'
-                    );
-                }
-            
-            
                 if (!array_key_exists('micro_competence_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::microCompetence.plural"), 
                         'micro_competence_id', 
                         \Modules\PkgCompetences\Models\MicroCompetence::class, 
                         'titre'
+                    );
+                }
+            
+            
+                if (!array_key_exists('apprenant_id', $scopeVariables)) {
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::apprenant.plural"), 
+                        'apprenant_id', 
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom'
                     );
                 }
             

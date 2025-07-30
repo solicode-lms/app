@@ -21,15 +21,15 @@ class BaseRealisationUaService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'date_debut',
-        'date_fin',
+        'realisation_micro_competence_id',
+        'unite_apprentissage_id',
+        'etat_realisation_ua_id',
         'progression_cache',
         'note_cache',
         'bareme_cache',
-        'commentaire_formateur',
-        'realisation_micro_competence_id',
-        'unite_apprentissage_id',
-        'etat_realisation_ua_id'
+        'date_debut',
+        'date_fin',
+        'commentaire_formateur'
     ];
 
     /**

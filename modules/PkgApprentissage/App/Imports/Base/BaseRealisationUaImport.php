@@ -56,16 +56,16 @@ class BaseRealisationUaImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new RealisationUa([
-             'reference' => $reference,
-             'date_debut' => $values[1] ?? null,
-             'date_fin' => $values[2] ?? null,
+             'realisation_micro_competence_id' => $values[0] ?? null,
+             'unite_apprentissage_id' => $values[1] ?? null,
+             'etat_realisation_ua_id' => $values[2] ?? null,
              'progression_cache' => $values[3] ?? null,
              'note_cache' => $values[4] ?? null,
              'bareme_cache' => $values[5] ?? null,
-             'commentaire_formateur' => $values[6] ?? null,
-             'realisation_micro_competence_id' => $values[7] ?? null,
-             'unite_apprentissage_id' => $values[8] ?? null,
-             'etat_realisation_ua_id' => $values[9] ?? null,
+             'date_debut' => $values[6] ?? null,
+             'date_fin' => $values[7] ?? null,
+             'commentaire_formateur' => $values[8] ?? null,
+             'reference' => $reference,
         ]);
 
 

@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgCompetences\Models\MicroCompetence;
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\RealisationUa;
 
@@ -30,8 +30,8 @@ class BaseRealisationMicroCompetence extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'apprenant',
       //  'microCompetence',
+      //  'apprenant',
       //  'etatRealisationMicroCompetence'
     ];
 
@@ -49,18 +49,18 @@ class BaseRealisationMicroCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'micro_competence_id', 'etat_realisation_micro_competence_id'
+        'micro_competence_id', 'apprenant_id', 'etat_realisation_micro_competence_id', 'progression_cache', 'note_cache', 'bareme_cache', 'date_debut', 'date_fin', 'commentaire_formateur', 'dernier_update'
     ];
     public $manyToOne = [
-        'Apprenant' => [
-            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
-            "foreign_key" => "apprenant_id", 
-            ],
         'MicroCompetence' => [
             'model' => "Modules\\PkgCompetences\\Models\\MicroCompetence",
             'relation' => 'microCompetences' , 
             "foreign_key" => "micro_competence_id", 
+            ],
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
             ],
         'EtatRealisationMicroCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationMicroCompetence",
@@ -71,15 +71,6 @@ class BaseRealisationMicroCompetence extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour Apprenant.
-     *
-     * @return BelongsTo
-     */
-    public function apprenant(): BelongsTo
-    {
-        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour MicroCompetence.
      *
      * @return BelongsTo
@@ -87,6 +78,15 @@ class BaseRealisationMicroCompetence extends BaseModel
     public function microCompetence(): BelongsTo
     {
         return $this->belongsTo(MicroCompetence::class, 'micro_competence_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Apprenant.
+     *
+     * @return BelongsTo
+     */
+    public function apprenant(): BelongsTo
+    {
+        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationMicroCompetence.

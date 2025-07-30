@@ -29,60 +29,102 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_debut" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="realisation_micro_competence_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_micro_competence_id" id="bulk_field_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="date_debut">
-            {{ ucfirst(__('PkgApprentissage::realisationUa.date_debut')) }}
-            
+          <label for="realisation_micro_competence_id">
+            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}
+            <span class="text-danger">*</span>
           </label>
-                      <input
-                name="date_debut"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_debut"
-                placeholder="{{ __('PkgApprentissage::realisationUa.date_debut') }}"
-                value="{{ $itemRealisationUa ? $itemRealisationUa->date_debut : old('date_debut') }}">
-
-          @error('date_debut')
+                      <select 
+            id="realisation_micro_competence_id" 
+            required
+            
+            
+            name="realisation_micro_competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationMicroCompetences as $realisationMicroCompetence)
+                    <option value="{{ $realisationMicroCompetence->id }}"
+                        {{ (isset($itemRealisationUa) && $itemRealisationUa->realisation_micro_competence_id == $realisationMicroCompetence->id) || (old('realisation_micro_competence_id>') == $realisationMicroCompetence->id) ? 'selected' : '' }}>
+                        {{ $realisationMicroCompetence }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_micro_competence_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_fin" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgApprentissage::realisationUa.date_fin')) }}
+          <label for="unite_apprentissage_id">
+            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="unite_apprentissage_id" 
+            required
+            
+            
+            name="unite_apprentissage_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($uniteApprentissages as $uniteApprentissage)
+                    <option value="{{ $uniteApprentissage->id }}"
+                        {{ (isset($itemRealisationUa) && $itemRealisationUa->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
+                        {{ $uniteApprentissage }}
+                    </option>
+                @endforeach
+            </select>
+          @error('unite_apprentissage_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="etat_realisation_ua_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_ua_id" id="bulk_field_etat_realisation_ua_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="etat_realisation_ua_id">
+            {{ ucfirst(__('PkgApprentissage::etatRealisationUa.singular')) }}
             
           </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                placeholder="{{ __('PkgApprentissage::realisationUa.date_fin') }}"
-                value="{{ $itemRealisationUa ? $itemRealisationUa->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
+                      <select 
+            id="etat_realisation_ua_id" 
+            
+            
+            
+            name="etat_realisation_ua_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($etatRealisationUas as $etatRealisationUa)
+                    <option value="{{ $etatRealisationUa->id }}"
+                        {{ (isset($itemRealisationUa) && $itemRealisationUa->etat_realisation_ua_id == $etatRealisationUa->id) || (old('etat_realisation_ua_id>') == $etatRealisationUa->id) ? 'selected' : '' }}>
+                        {{ $etatRealisationUa }}
+                    </option>
+                @endforeach
+            </select>
+          @error('etat_realisation_ua_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -179,6 +221,66 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_debut" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_debut">
+            {{ ucfirst(__('PkgApprentissage::realisationUa.date_debut')) }}
+            
+          </label>
+                      <input
+                name="date_debut"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_debut"
+                placeholder="{{ __('PkgApprentissage::realisationUa.date_debut') }}"
+                value="{{ $itemRealisationUa ? $itemRealisationUa->date_debut : old('date_debut') }}">
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="date_fin" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_fin">
+            {{ ucfirst(__('PkgApprentissage::realisationUa.date_fin')) }}
+            
+          </label>
+                      <input
+                name="date_fin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_fin"
+                placeholder="{{ __('PkgApprentissage::realisationUa.date_fin') }}"
+                value="{{ $itemRealisationUa ? $itemRealisationUa->date_fin : old('date_fin') }}">
+
+          @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="commentaire_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -200,108 +302,6 @@
                 id="commentaire_formateur"
                 placeholder="{{ __('PkgApprentissage::realisationUa.commentaire_formateur') }}">{{ $itemRealisationUa ? $itemRealisationUa->commentaire_formateur : old('commentaire_formateur') }}</textarea>
           @error('commentaire_formateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="realisation_micro_competence_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_micro_competence_id" id="bulk_field_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_micro_competence_id">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_micro_competence_id" 
-            required
-            
-            
-            name="realisation_micro_competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationMicroCompetences as $realisationMicroCompetence)
-                    <option value="{{ $realisationMicroCompetence->id }}"
-                        {{ (isset($itemRealisationUa) && $itemRealisationUa->realisation_micro_competence_id == $realisationMicroCompetence->id) || (old('realisation_micro_competence_id>') == $realisationMicroCompetence->id) ? 'selected' : '' }}>
-                        {{ $realisationMicroCompetence }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_micro_competence_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="unite_apprentissage_id">
-            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="unite_apprentissage_id" 
-            required
-            
-            
-            name="unite_apprentissage_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($uniteApprentissages as $uniteApprentissage)
-                    <option value="{{ $uniteApprentissage->id }}"
-                        {{ (isset($itemRealisationUa) && $itemRealisationUa->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
-                        {{ $uniteApprentissage }}
-                    </option>
-                @endforeach
-            </select>
-          @error('unite_apprentissage_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="etat_realisation_ua_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="etat_realisation_ua_id" id="bulk_field_etat_realisation_ua_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="etat_realisation_ua_id">
-            {{ ucfirst(__('PkgApprentissage::etatRealisationUa.singular')) }}
-            
-          </label>
-                      <select 
-            id="etat_realisation_ua_id" 
-            
-            
-            
-            name="etat_realisation_ua_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($etatRealisationUas as $etatRealisationUa)
-                    <option value="{{ $etatRealisationUa->id }}"
-                        {{ (isset($itemRealisationUa) && $itemRealisationUa->etat_realisation_ua_id == $etatRealisationUa->id) || (old('etat_realisation_ua_id>') == $etatRealisationUa->id) ? 'selected' : '' }}>
-                        {{ $etatRealisationUa }}
-                    </option>
-                @endforeach
-            </select>
-          @error('etat_realisation_ua_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
