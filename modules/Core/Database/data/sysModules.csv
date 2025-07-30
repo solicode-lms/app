@@ -1,4 +1,4 @@
-"name","slug","description","is_active","order","version","sys_color_reference","reference"
+"name","slug","description","is_active","ordre","version","sys_color_reference","reference"
 "Core","Core","Contient les tables principales du système","1","1","1","primary","Core"
 "Gestion des autorisations","PkgAutorisation","Contient les tables liées aux autorisations","1","2","1","secondary","PkgAutorisation"
 "Gestion des utilisateurs","PkgUtilisateurs","Contient les tables liées aux utilisateurs et leurs données associées","1","3","1","success","PkgUtilisateurs"
