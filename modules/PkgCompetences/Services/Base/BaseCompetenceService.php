@@ -74,7 +74,7 @@ class BaseCompetenceService extends BaseService
         
             
                 $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-                $filiereIds = $this->getAvailableFilterValues('Module.filiere_id', []);
+                $filiereIds = $this->getAvailableFilterValues('Module.filiere_id');
                 $filieres = $filiereService->getByIds($filiereIds);
 
                 $this->fieldsFilterable[] = $this->generateRelationFilter(

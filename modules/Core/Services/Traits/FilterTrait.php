@@ -217,9 +217,9 @@ trait FilterTrait
      * @param array $params         Les paramètres de filtre (recherche, viewState, etc.)
      * @return array                Liste de valeurs distinctes (ex: [1, 2, 3])
      */
-    public function getAvailableFilterValues(string $relationPath, array $params = []): array
+    public function getAvailableFilterValues(string $relationPath): array
     {
-        return $this->model->withScope(function () use ($relationPath, $params) {
+        return $this->model->withScope(function () use ($relationPath) {
             $query = $this->newQuery();
             $column = $this->applyDynamicJoins($query, $relationPath);
 
