@@ -68,6 +68,39 @@ trait QueryBuilderTrait
         // 2) Récupérer / initialiser les variables de filtre (ViewState + UserModelFilterService)
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
 
+
+        $this->loadLastFilterIfEmpty();
+        // // TODO : il faut applique seulement les champs filtrable pour que l'utilisateur
+        // // Il faut l'applique en création de filtre pour initialiser le filtre avec sa 
+        // // dernière valeur
+        // // Si vide, essayer de récupérer le filtre enregistré
+      
+        // // voir le filtre dans la bar de recherche 
+        // $userModelFilterService = new UserModelFilterService();
+        // $isReset = $this->viewState->isResetRequested($this->modelName);
+        // if ($isReset) {
+        //     // 🔄 Réinitialisation explicite demandée
+        //     $filterVariables = [];
+        //     $userModelFilterService->storeLastFilter($this->modelName, $filterVariables); // optionnel : reset base
+        //     $this->viewState->removeIsResetRequested($this->modelName);
+        // }
+        // elseif (!$this->userHasSentFilter) {
+        //     // 📂 Pas de filtre envoyé = chargement auto
+        //     $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+        //     $filterVariables = array_merge($saved_filter,$filterVariables);
+        //     foreach ($filterVariables as $key => $value) {
+        //         $this->viewState->set("filter.{$this->modelName}.{$key}", $value);
+        //     }
+        // } else {
+        //     // ✅ Filtre soumis → sauvegarder
+        //     $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
+        // }
+
+
+
+
+
+
         // 3) Appliquer les filtres "filter" (AND)
         $this->filter($query, $this->model, $filterVariables);
 

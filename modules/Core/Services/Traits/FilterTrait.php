@@ -186,6 +186,7 @@ trait FilterTrait
         // Si vide, essayer de récupérer le filtre enregistré
       
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
+        $context_key = $this->viewState->getContextKey()
         $this->userHasSentFilter = (count($filterVariables) != 0);
      
         // voir le filtre dans la bar de recherche 
@@ -194,8 +195,8 @@ trait FilterTrait
         if ($isReset) {
             // 🔄 Réinitialisation explicite demandée
             $filterVariables = [];
-            $userModelFilterService->storeLastFilter($this->modelName, []); // optionnel : reset base
-            $this->viewState->removeIsResetRequested($this->modelName);
+            $userModelFilterService->storeLastFilter($context_key, $this->modelName, []); // optionnel : reset base
+            $this->viewState->removeIsResetRequested($context_key, $this->modelName);
         }
         elseif (!$this->userHasSentFilter) {
             // 📂 Pas de filtre envoyé = chargement auto
