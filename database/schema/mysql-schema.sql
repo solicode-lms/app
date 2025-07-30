@@ -1652,6 +1652,7 @@ CREATE TABLE `user_model_filters` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
   `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `context_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `filters` json DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1924,3 +1925,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (169,'2025_07_26_13
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (170,'2025_07_28_173221_add_is_editable_only_by_formateur_to_workflow_taches_table',48);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (171,'2025_07_30_102459_update_etats_realisation_projets_table',49);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (172,'2025_07_30_123128_rename_order_to_ordre_in_sys_modules_table',50);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (173,'2025_07_30_161840_add_context_key_to_user_model_filter_table',51);

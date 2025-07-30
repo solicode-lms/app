@@ -34,12 +34,14 @@ class BaseUserModelFilterExport implements FromCollection, WithHeadings, ShouldA
             return [
                 'user_reference' => 'user_reference',
                 'model_name' => 'model_name',
+                'context_key' => 'context_key',
                 'filters' => 'filters',
             ];
         } else {
             return [
                 'user_reference' => __('Core::userModelFilter.user_reference'),
                 'model_name' => __('Core::userModelFilter.model_name'),
+                'context_key' => __('Core::userModelFilter.context_key'),
                 'filters' => __('Core::userModelFilter.filters'),
             ];
         }
@@ -54,6 +56,7 @@ class BaseUserModelFilterExport implements FromCollection, WithHeadings, ShouldA
             return [
                 'user_reference' => $userModelFilter->user?->reference,
                 'model_name' => $userModelFilter->model_name,
+                'context_key' => $userModelFilter->context_key,
                 'filters' => $userModelFilter->filters,
             ];
         });

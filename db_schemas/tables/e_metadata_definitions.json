@@ -521,9 +521,9 @@
         "name": "ownedByUser",
         "type": "Json",
         "scope": "model",
-        "default_value": "[\r\n  {\r\n    \"role\": \"formateur\",\r\n    \"dataScope\": \"filter\",\r\n    \"userModelName\": \"Formateur\",\r\n    \"ownerRelationPath\": \"RealisationProjet.AffectationProjet.Projet.Formateur.user\"\r\n  },\r\n  {\r\n    \"role\": \"apprenant\",\r\n    \"dataScope\": \"filter\",\r\n    \"userModelName\": \"Apprenant\",\r\n    \"ownerRelationPath\": \"RealisationProjet.Apprenant.user\"\r\n  }\r\n]",
+        "default_value": "[\r\n  {\r\n    \"role\": \"formateur\",\r\n    \"dataScope\": \"scope\",\r\n    \"userModelName\": \"User\",\r\n    \"ownerRelationPath\": \"apprenant.groupes.formateurs.user\"\r\n  },\r\n  {\r\n    \"role\": \"apprenant\",\r\n    \"dataScope\": \"filter\",\r\n    \"userModelName\": \"Apprenant\",\r\n    \"ownerRelationPath\": \"apprenant.user\"\r\n  }\r\n]",
         "groupe": "general",
-        "description": "Cette solution permet de gérer dynamiquement les permissions dans Laravel pour que seuls les utilisateurs propriétaires de certains objets puissent effectuer des actions spécifiques (par exemple, modifier, supprimer, ou afficher)",
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>La metadata <span style=\"color: #800000;\">`ownedByUser`</span> permet de <span style=\"color: #000080;font-weight: bold;\">**restreindre dynamiquement l’accès**</span> ou la <span style=\"color: #000080;font-weight: bold;\">**portée des données**</span> d’un modèle en fonction de l’utilisateur connecté. Elle est utilisée pour <span style=\"color: #000080;font-weight: bold;\">**appliquer des filtres automatiques**</span> sur les requêtes ou pour <span style=\"color: #000080;font-weight: bold;\">**scoper les formulaires**</span> lors de la création/édition d’entités.</div><br></div>",
         "created_at": null,
         "updated_at": null
     },

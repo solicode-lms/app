@@ -262,5 +262,41 @@
         "value_boolean": 1,
         "e_data_field_reference": "UserModelFilter_updated_at",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "UserModelFilter_context_key_displayOrder",
+        "value_integer": 4,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "UserModelFilter_context_key_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "UserModelFilter_context_key_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "UserModelFilter_context_key_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "UserModelFilter_context_key_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "UserModelFilter_context_key_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "UserModelFilter_context_key",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

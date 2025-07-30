@@ -92,6 +92,35 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemUserModelFilter" field="context_key" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="context_key" id="bulk_field_context_key" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="context_key">
+            {{ ucfirst(__('Core::userModelFilter.context_key')) }}
+            
+          </label>
+           <input
+                name="context_key"
+                type="input"
+                class="form-control"
+                
+                
+                
+                id="context_key"
+                placeholder="{{ __('Core::userModelFilter.context_key') }}"
+                value="{{ $itemUserModelFilter ? $itemUserModelFilter->context_key : old('context_key') }}">
+          @error('context_key')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemUserModelFilter" field="filters" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

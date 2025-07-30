@@ -180,13 +180,8 @@ trait FilterTrait
      */
     public function loadLastFilterIfEmpty(){
         
-         // TODO : il faut applique seulement les champs filtrable pour que l'utilisateur
-        // Il faut l'applique en création de filtre pour initialiser le filtre avec sa 
-        // dernière valeur
-        // Si vide, essayer de récupérer le filtre enregistré
-      
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
-        $context_key = $this->viewState->getContextKey()
+        $context_key = $this->viewState->getContextKey();
         $this->userHasSentFilter = (count($filterVariables) != 0);
      
         // voir le filtre dans la bar de recherche 
@@ -200,7 +195,7 @@ trait FilterTrait
         }
         elseif (!$this->userHasSentFilter) {
             // 📂 Pas de filtre envoyé = chargement auto
-            $saved_filter = $userModelFilterService->getLastSavedFilter($this->modelName) ?? [];
+            $saved_filter = $userModelFilterService->getLastSavedFilter($context_key, $this->modelName) ?? [];
             
             // Il faut vérifier que les données existe encors ans la base de données
             //  $this->checkIfDataExist($saved_filter);
@@ -211,7 +206,7 @@ trait FilterTrait
             }
         } else {
             // ✅ Filtre soumis → sauvegarder
-            $userModelFilterService->storeLastFilter($this->modelName, $filterVariables);
+            $userModelFilterService->storeLastFilter($context_key, $this->modelName, $filterVariables);
         }
     }
 }

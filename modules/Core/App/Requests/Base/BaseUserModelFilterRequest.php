@@ -31,6 +31,7 @@ class BaseUserModelFilterRequest extends FormRequest
         return [
             'user_id' => 'required',
             'model_name' => 'required|string|max:255',
+            'context_key' => 'nullable|string|max:255',
             'filters' => 'nullable'
         ];
     }
@@ -46,6 +47,8 @@ class BaseUserModelFilterRequest extends FormRequest
             'user_id.required' => __('validation.required', ['attribute' => __('Core::UserModelFilter.user_id')]),
             'model_name.required' => __('validation.required', ['attribute' => __('Core::UserModelFilter.model_name')]),
             'model_name.max' => __('validation.model_nameMax'),
+            'context_key.required' => __('validation.required', ['attribute' => __('Core::UserModelFilter.context_key')]),
+            'context_key.max' => __('validation.context_keyMax'),
             'filters.required' => __('validation.required', ['attribute' => __('Core::UserModelFilter.filters')])
         ];
     }

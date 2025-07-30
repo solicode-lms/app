@@ -43,7 +43,7 @@ class BaseUserModelFilter extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'model_name', 'filters'
+        'user_id', 'model_name', 'context_key', 'filters'
     ];
     public $manyToOne = [
         'User' => [

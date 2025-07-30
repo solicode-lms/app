@@ -58,7 +58,8 @@ class BaseUserModelFilterImport implements ToModel, WithHeadingRow
         return new UserModelFilter([
              'user_id' => $values[0] ?? null,
              'model_name' => $values[1] ?? null,
-             'filters' => $values[2] ?? null,
+             'context_key' => $values[2] ?? null,
+             'filters' => $values[3] ?? null,
         ]);
 
 

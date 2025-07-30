@@ -83,6 +83,7 @@ class BaseUserModelFilterSeeder extends Seeder
                 $userModelFilterData =[
                         "user_id" => $user_id,
                         "model_name" => isset($row["model_name"]) && $row["model_name"] !== "" ? $row["model_name"] : null,
+                        "context_key" => isset($row["context_key"]) && $row["context_key"] !== "" ? $row["context_key"] : null,
                         "filters" => isset($row["filters"]) && $row["filters"] !== "" ? $row["filters"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];

@@ -23,6 +23,7 @@ class BaseUserModelFilterService extends BaseService
     protected $fieldsSearchable = [
         'user_id',
         'model_name',
+        'context_key',
         'filters'
     ];
 
