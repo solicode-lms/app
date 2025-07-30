@@ -4,7 +4,6 @@
 
 namespace Modules\PkgRealisationProjets\Controllers\Base;
 use Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService;
-use Modules\PkgFormation\Services\FormateurService;
 use Modules\Core\Services\SysColorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +19,12 @@ use Modules\Core\Services\ContextState;
 class BaseEtatsRealisationProjetController extends AdminController
 {
     protected $etatsRealisationProjetService;
-    protected $formateurService;
     protected $sysColorService;
 
-    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, FormateurService $formateurService, SysColorService $sysColorService) {
+    public function __construct(EtatsRealisationProjetService $etatsRealisationProjetService, SysColorService $sysColorService) {
         parent::__construct();
         $this->service  =  $etatsRealisationProjetService;
         $this->etatsRealisationProjetService = $etatsRealisationProjetService;
-        $this->formateurService = $formateurService;
         $this->sysColorService = $sysColorService;
     }
 
@@ -85,14 +82,13 @@ class BaseEtatsRealisationProjetController extends AdminController
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         
 
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'formateurs', 'sysColors'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'sysColors'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'formateurs', 'sysColors'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.create', compact('bulkEdit' ,'itemEtatsRealisationProjet', 'sysColors'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -116,7 +112,6 @@ class BaseEtatsRealisationProjetController extends AdminController
          $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($etatsRealisationProjet_ids[0]);
          
  
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
         $bulkEdit = true;
@@ -125,9 +120,9 @@ class BaseEtatsRealisationProjetController extends AdminController
         $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit', 'etatsRealisationProjet_ids', 'itemEtatsRealisationProjet', 'formateurs', 'sysColors'));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', compact('bulkEdit', 'etatsRealisationProjet_ids', 'itemEtatsRealisationProjet', 'sysColors'));
         }
-        return view('PkgRealisationProjets::etatsRealisationProjet.bulk-edit', compact('bulkEdit', 'etatsRealisationProjet_ids', 'itemEtatsRealisationProjet', 'formateurs', 'sysColors'));
+        return view('PkgRealisationProjets::etatsRealisationProjet.bulk-edit', compact('bulkEdit', 'etatsRealisationProjet_ids', 'itemEtatsRealisationProjet', 'sysColors'));
     }
     /**
      */
@@ -182,17 +177,16 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->authorize('edit', $itemEtatsRealisationProjet);
 
 
-        $formateurs = $this->formateurService->all();
         $sysColors = $this->sysColorService->all();
 
 
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','formateurs', 'sysColors'),));
+            return view('PkgRealisationProjets::etatsRealisationProjet._fields', array_merge(compact('bulkEdit' , 'itemEtatsRealisationProjet','sysColors'),));
         }
 
-        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatsRealisationProjet','formateurs', 'sysColors'),));
+        return view('PkgRealisationProjets::etatsRealisationProjet.edit', array_merge(compact('bulkEdit' ,'itemEtatsRealisationProjet','sysColors'),));
 
 
     }

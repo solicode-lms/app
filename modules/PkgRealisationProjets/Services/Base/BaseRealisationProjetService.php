@@ -82,7 +82,7 @@ class BaseRealisationProjetService extends BaseService
                         __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
                         'etats_realisation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 
-                        'titre'
+                        'code'
                     );
                 }
             

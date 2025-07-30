@@ -32,8 +32,9 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
     {
         if ($this->format === 'csv') {
             return [
-                'formateur_reference' => 'formateur_reference',
+                'ordre' => 'ordre',
                 'titre' => 'titre',
+                'code' => 'code',
                 'description' => 'description',
                 'reference' => 'reference',
                 'sys_color_reference' => 'sys_color_reference',
@@ -41,8 +42,9 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
             ];
         } else {
             return [
-                'formateur_reference' => __('PkgRealisationProjets::etatsRealisationProjet.formateur_reference'),
+                'ordre' => __('PkgRealisationProjets::etatsRealisationProjet.ordre'),
                 'titre' => __('PkgRealisationProjets::etatsRealisationProjet.titre'),
+                'code' => __('PkgRealisationProjets::etatsRealisationProjet.code'),
                 'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
                 'reference' => __('Core::msg.reference'),
                 'sys_color_reference' => __('PkgRealisationProjets::etatsRealisationProjet.sys_color_reference'),
@@ -58,8 +60,9 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
     {
         return $this->data->map(function ($etatsRealisationProjet) {
             return [
-                'formateur_reference' => $etatsRealisationProjet->formateur?->reference,
+                'ordre' => (string) $etatsRealisationProjet->ordre,
                 'titre' => $etatsRealisationProjet->titre,
+                'code' => $etatsRealisationProjet->code,
                 'description' => $etatsRealisationProjet->description,
                 'reference' => $etatsRealisationProjet->reference,
                 'sys_color_reference' => $etatsRealisationProjet->sysColor?->reference,

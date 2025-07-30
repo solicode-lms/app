@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgAutorisation\Models\User;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\PkgApprenants\Models\Groupe;
-use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
@@ -95,15 +94,6 @@ class BaseFormateur extends BaseModel
         return $this->belongsToMany(Groupe::class, 'formateur_groupe');
     }
 
-    /**
-     * Relation HasMany pour Formateurs.
-     *
-     * @return HasMany
-     */
-    public function etatsRealisationProjets(): HasMany
-    {
-        return $this->hasMany(EtatsRealisationProjet::class, 'formateur_id', 'id');
-    }
     /**
      * Relation HasMany pour Formateurs.
      *

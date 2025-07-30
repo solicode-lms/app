@@ -29,8 +29,9 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'formateur_id' => 'required',
+            'ordre' => 'required|integer',
             'titre' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
             'description' => 'nullable|string',
             'sys_color_id' => 'nullable',
             'is_editable_by_formateur' => 'nullable|boolean'
@@ -45,9 +46,11 @@ class BaseEtatsRealisationProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'formateur_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.formateur_id')]),
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.ordre')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.titre')]),
             'titre.max' => __('validation.titreMax'),
+            'code.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.code')]),
+            'code.max' => __('validation.codeMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.description')]),
             'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.sys_color_id')]),
             'is_editable_by_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::EtatsRealisationProjet.is_editable_by_formateur')])

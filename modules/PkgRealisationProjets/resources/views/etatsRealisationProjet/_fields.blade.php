@@ -29,34 +29,29 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatsRealisationProjet" field="formateur_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatsRealisationProjet" field="ordre" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="formateur_id">
-            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+          <label for="ordre">
+            {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.ordre')) }}
             <span class="text-danger">*</span>
           </label>
-                      <select 
-            id="formateur_id" 
-            required
-            
-            
-            name="formateur_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemEtatsRealisationProjet) && $itemEtatsRealisationProjet->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
-                        {{ $formateur }}
-                    </option>
-                @endforeach
-            </select>
-          @error('formateur_id')
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.ordre') }}"
+                value="{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->ordre : old('ordre') }}">
+          @error('ordre')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -86,6 +81,35 @@
                 placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.titre') }}"
                 value="{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->titre : old('titre') }}">
           @error('titre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatsRealisationProjet" field="code" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="code">
+            {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="code"
+                placeholder="{{ __('PkgRealisationProjets::etatsRealisationProjet.code') }}"
+                value="{{ $itemEtatsRealisationProjet ? $itemEtatsRealisationProjet->code : old('code') }}">
+          @error('code')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

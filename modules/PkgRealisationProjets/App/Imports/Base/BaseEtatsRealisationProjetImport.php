@@ -56,12 +56,13 @@ class BaseEtatsRealisationProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new EtatsRealisationProjet([
-             'formateur_id' => $values[0] ?? null,
+             'ordre' => $values[0] ?? null,
              'titre' => $values[1] ?? null,
-             'description' => $values[2] ?? null,
+             'code' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
              'reference' => $reference,
-             'sys_color_id' => $values[4] ?? null,
-             'is_editable_by_formateur' => $values[5] ?? null,
+             'sys_color_id' => $values[5] ?? null,
+             'is_editable_by_formateur' => $values[6] ?? null,
         ]);
 
 

@@ -13,12 +13,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "EtatsRealisationProjet_titre_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_titre",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
         "reference": "EtatsRealisationProjet_titre_required",
         "value_boolean": 1,
         "e_data_field_reference": "EtatsRealisationProjet_titre",
@@ -44,24 +38,6 @@
         "e_metadata_definition_reference": "required"
     },
     {
-        "reference": "EtatsRealisationProjet_formateur_id_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_filterable",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "filterable"
-    },
-    {
         "reference": "EtatsRealisationProjet_id_displayOrder",
         "value_integer": 1,
         "e_data_field_reference": "EtatsRealisationProjet_id",
@@ -77,13 +53,6 @@
         "reference": "EtatsRealisationProjet_description_displayOrder",
         "value_integer": 3,
         "e_data_field_reference": "EtatsRealisationProjet_description",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_displayOrder",
-        "value_integer": 1,
-        "value_float": 0,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
@@ -126,12 +95,6 @@
         "reference": "EtatsRealisationProjet_description_displayInForm",
         "value_boolean": 1,
         "e_data_field_reference": "EtatsRealisationProjet_description",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_displayInForm",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
         "e_metadata_definition_reference": "displayInForm"
     },
     {
@@ -197,12 +160,6 @@
         "reference": "EtatsRealisationProjet_description_inputMdWidth",
         "value_integer": 12,
         "e_data_field_reference": "EtatsRealisationProjet_description",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_inputMdWidth",
-        "value_integer": 6,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
@@ -305,12 +262,6 @@
         "e_metadata_definition_reference": "sortable"
     },
     {
-        "reference": "EtatsRealisationProjet_formateur_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
         "reference": "EtatsRealisationProjet_sys_color_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "EtatsRealisationProjet_sys_color_id",
@@ -395,18 +346,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "EtatsRealisationProjet_formateur_id_viewFormFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "EtatsRealisationProjet_formateur_id_viewShowFieldVisible",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatsRealisationProjet_formateur_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "EtatsRealisationProjet_reference_viewFormFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "EtatsRealisationProjet_reference",
@@ -471,6 +410,122 @@
         "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "etats_realisation_projets_hasMany_realisation_projets_etats_realisation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_displayOrder",
+        "value_integer": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_nature",
+        "value_json": {
+            "nature": "ordre"
+        },
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_columnWidth",
+        "value_integer": 4,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatsRealisationProjet_ordre_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_ordre",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatsRealisationProjet_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatsRealisationProjet_code",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

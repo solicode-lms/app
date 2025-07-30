@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgFormation\Models\Formateur;
 use Modules\Core\Models\SysColor;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 
@@ -29,7 +28,6 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'formateur',
       //  'sysColor'
     ];
 
@@ -47,14 +45,9 @@ class BaseEtatsRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'formateur_id', 'titre', 'description', 'sys_color_id', 'is_editable_by_formateur'
+        'ordre', 'titre', 'code', 'description', 'sys_color_id', 'is_editable_by_formateur'
     ];
     public $manyToOne = [
-        'Formateur' => [
-            'model' => "Modules\\PkgFormation\\Models\\Formateur",
-            'relation' => 'formateurs' , 
-            "foreign_key" => "formateur_id", 
-            ],
         'SysColor' => [
             'model' => "Modules\\Core\\Models\\SysColor",
             'relation' => 'sysColors' , 
@@ -63,15 +56,6 @@ class BaseEtatsRealisationProjet extends BaseModel
     ];
 
 
-    /**
-     * Relation BelongsTo pour Formateur.
-     *
-     * @return BelongsTo
-     */
-    public function formateur(): BelongsTo
-    {
-        return $this->belongsTo(Formateur::class, 'formateur_id', 'id');
-    }
     /**
      * Relation BelongsTo pour SysColor.
      *
@@ -102,6 +86,6 @@ class BaseEtatsRealisationProjet extends BaseModel
      */
     public function __toString()
     {
-        return $this->titre ?? "";
+        return $this->code ?? "";
     }
 }
