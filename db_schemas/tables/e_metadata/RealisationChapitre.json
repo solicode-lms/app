@@ -623,5 +623,65 @@
         },
         "e_data_field_reference": "RealisationChapitre_chapitre_id",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_apprenant_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_apprenant",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_date_debut_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_date_debut",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_date_fin_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_date_fin",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_realisation_ua_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_realisation_ua_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_realisation_tache_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_realisation_tache_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationChapitre_commentaire_formateur_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "formateur"
+        },
+        "e_data_field_reference": "RealisationChapitre_commentaire_formateur",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

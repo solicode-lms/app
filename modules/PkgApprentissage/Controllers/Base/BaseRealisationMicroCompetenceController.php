@@ -45,6 +45,13 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.realisationMicroCompetence.apprenant.groupes.formateurs.user_id') == null){
+           $this->viewState->init('scope.realisationMicroCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.realisationMicroCompetence.apprenant_id') == null){
+           $this->viewState->init('scope.realisationMicroCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
 
@@ -76,6 +83,13 @@ class BaseRealisationMicroCompetenceController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationMicroCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationMicroCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
@@ -105,6 +119,13 @@ class BaseRealisationMicroCompetenceController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationMicroCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationMicroCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
  
          $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->find($realisationMicroCompetence_ids[0]);
          
@@ -155,6 +176,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $this->viewState->setContextKey('realisationMicroCompetence.show_' . $id);
 
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->edit($id);
+        $this->authorize('view', $itemRealisationMicroCompetence);
 
 
         $this->viewState->set('scope.realisationUa.realisation_micro_competence_id', $id);
@@ -179,6 +201,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
 
 
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->edit($id);
+        $this->authorize('edit', $itemRealisationMicroCompetence);
 
 
         $apprenants = $this->apprenantService->all();
@@ -206,6 +229,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
     /**
      */
     public function update(RealisationMicroCompetenceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationMicroCompetence = $this->realisationMicroCompetenceService->find($id);
+        $this->authorize('update', $realisationMicroCompetence);
 
         $validatedData = $request->validated();
         $realisationMicroCompetence = $this->realisationMicroCompetenceService->update($id, $validatedData);
@@ -267,6 +293,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationMicroCompetence = $this->realisationMicroCompetenceService->find($id);
+        $this->authorize('delete', $realisationMicroCompetence);
 
         $realisationMicroCompetence = $this->realisationMicroCompetenceService->destroy($id);
 
@@ -301,6 +330,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
         }
         foreach ($realisationMicroCompetence_ids as $id) {
             $entity = $this->realisationMicroCompetenceService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $realisationMicroCompetence = $this->realisationMicroCompetenceService->find($id);
+            $this->authorize('delete', $realisationMicroCompetence);
             $this->realisationMicroCompetenceService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

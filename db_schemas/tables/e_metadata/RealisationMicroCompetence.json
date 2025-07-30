@@ -646,5 +646,26 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_micro_competences_ownedByUser",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "apprenant.groupes.formateurs.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "scope",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "apprenant.user"
+            }
+        ],
+        "e_model_reference": "realisation_micro_competences",
+        "e_metadata_definition_reference": "ownedByUser"
     }
 ]

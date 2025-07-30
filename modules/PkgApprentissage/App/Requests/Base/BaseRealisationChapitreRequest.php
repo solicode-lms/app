@@ -67,6 +67,18 @@ class BaseRealisationChapitreRequest extends FormRequest
             
             'chapitre_id' => "root",
             
+            'apprenant' => "root",
+            
+            'date_debut' => "root",
+            
+            'date_fin' => "root",
+            
+            'realisation_ua_id' => "root",
+            
+            'realisation_tache_id' => "root",
+            
+            'commentaire_formateur' => "formateur",
+            
         ];
 
         // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)

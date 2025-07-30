@@ -100,6 +100,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="date_debut" :bulkEdit="$bulkEdit">
+      @php $canEditdate_debut = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -119,6 +120,7 @@
                 
                 
                 id="date_debut"
+                {{ $canEditdate_debut ? '' : 'disabled' }}
                 placeholder="{{ __('PkgApprentissage::realisationChapitre.date_debut') }}"
                 value="{{ $itemRealisationChapitre ? $itemRealisationChapitre->date_debut : old('date_debut') }}">
 
@@ -130,6 +132,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="date_fin" :bulkEdit="$bulkEdit">
+      @php $canEditdate_fin = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -149,6 +152,7 @@
                 
                 
                 id="date_fin"
+                {{ $canEditdate_fin ? '' : 'disabled' }}
                 placeholder="{{ __('PkgApprentissage::realisationChapitre.date_fin') }}"
                 value="{{ $itemRealisationChapitre ? $itemRealisationChapitre->date_fin : old('date_fin') }}">
 
@@ -160,6 +164,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="realisation_ua_id" :bulkEdit="$bulkEdit">
+      @php $canEditrealisation_ua_id = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -173,6 +178,7 @@
           </label>
                       <select 
             id="realisation_ua_id" 
+            {{ $canEditrealisation_ua_id ? '' : 'disabled' }}
             required
             
             
@@ -194,6 +200,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="realisation_tache_id" :bulkEdit="$bulkEdit">
+      @php $canEditrealisation_tache_id = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -207,6 +214,7 @@
           </label>
                       <select 
             id="realisation_tache_id" 
+            {{ $canEditrealisation_tache_id ? '' : 'disabled' }}
             
             
             
@@ -228,6 +236,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="commentaire_formateur" :bulkEdit="$bulkEdit">
+      @php $canEditcommentaire_formateur = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'formateur')); @endphp
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -242,6 +251,7 @@
                       <textarea rows="" cols=""
                 name="commentaire_formateur"
                 class="form-control richText"
+                {{ $canEditcommentaire_formateur ? '' : 'disabled' }}
                 
                 
                 
