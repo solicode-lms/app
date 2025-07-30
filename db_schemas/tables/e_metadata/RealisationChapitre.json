@@ -613,5 +613,15 @@
         ],
         "e_model_reference": "realisation_chapitres",
         "e_metadata_definition_reference": "ownedByUser"
+    },
+    {
+        "reference": "RealisationChapitre_chapitre_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationChapitre_chapitre_id",
+        "e_metadata_definition_reference": "editableByRoles"
     }
 ]

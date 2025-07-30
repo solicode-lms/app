@@ -58,4 +58,41 @@ class BaseRealisationChapitreRequest extends FormRequest
     }
 
     
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'chapitre_id' => "root",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $realisation_chapitre_id = $this->route('realisationChapitre'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (realisationChapitre existant dans l'URL)
+        if (!$realisation_chapitre_id) {
+            return;
+        }
+        
+        $model = RealisationChapitre::find($realisation_chapitre_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
+    
 }

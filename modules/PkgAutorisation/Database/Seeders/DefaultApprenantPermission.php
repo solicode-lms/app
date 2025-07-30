@@ -23,9 +23,14 @@ class DefaultApprenantPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
+            'sysColor' => 'Lecture',
             'profile' => 'Édition sans Ajouter',
             'competence' => 'Lecture',
             'microCompetence' => 'Lecture',
+            'uniteApprentissage' => 'Afficher',
+            'chapitre' => 'Afficher',
+            'phaseEvaluation' => 'Afficher',
+            'critereEvaluation' => 'Afficher',
             'module' => 'Afficher',
             'anneeFormation' => 'Afficher',
             'specialite' => 'Afficher',
@@ -34,6 +39,7 @@ class DefaultApprenantPermission extends Seeder
             'niveauxScolaire' => 'Afficher',
             'nationalite' => 'Afficher',
             'groupe' => 'Afficher',
+            'sousGroupe' => 'Afficher',
             'apprenant' => 'Afficher',
             'natureLivrable' => 'Afficher',
             'projet' => 'Afficher',
@@ -52,10 +58,17 @@ class DefaultApprenantPermission extends Seeder
             'notification' => 'Lecture',
             'widget' => 'Lecture',
             'widgetUtilisateur' => 'Édition',
-            'realisationChapitre' => 'Lecture',
+            'realisationChapitre' => 'Édition sans Ajouter',
             'realisationUaProjet' => 'Afficher',
             'realisationUaPrototype' => 'Afficher',
             'realisationMicroCompetence' => 'Lecture',
+            'etatRealisationMicroCompetence' => 'Lecture',
+            'sessionFormation' => 'Lecture',
+            'etatRealisationUa' => 'Afficher',
+            'etatRealisationChapitre' => 'Afficher',
+            'realisationUa' => 'Lecture',
+            'alignementUa' => 'Lecture',
+            'livrableSession' => 'Lecture',
         ];
 
         // Actions par type d'accès

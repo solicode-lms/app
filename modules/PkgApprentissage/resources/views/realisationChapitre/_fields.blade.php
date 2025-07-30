@@ -30,6 +30,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="chapitre_id" :bulkEdit="$bulkEdit">
+      @php $canEditchapitre_id = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -43,6 +44,7 @@
           </label>
                       <select 
             id="chapitre_id" 
+            {{ $canEditchapitre_id ? '' : 'disabled' }}
             required
             
             
