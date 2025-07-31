@@ -247,6 +247,7 @@ trait QueryBuilderTrait
      */
     protected function applyDynamicJoins($query, string $relationPath): string
     {
+        $relationPath = strtolower($relationPath);
         $relations = explode('.', $relationPath);
         $column = array_pop($relations);
 
@@ -280,6 +281,8 @@ trait QueryBuilderTrait
             $lastTable = $alias;
         }
 
+       // dd($query->select($column)->get()->toArray());
+         
         return "$lastTable.$column";
     }
 

@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Services\Traits;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Core\Services\UserModelFilterService;
 
 trait FilterTrait
@@ -210,7 +211,7 @@ trait FilterTrait
         }
     }
 
-     /**
+    /**
      * Extrait les valeurs DISTINCT d’un champ relationnel (ex: module.filiere.id) via jointures SQL dynamiques.
      *
      * @param string $relationPath  Exemple : "module.filiere.id" ou "module.filiere_id"
@@ -220,16 +221,45 @@ trait FilterTrait
     public function getAvailableFilterValues(string $relationPath): array
     {
         return $this->model->withScope(function () use ($relationPath) {
-            $query = $this->newQuery();
+
+            // ✅ On utilise `query()` pour créer un builder Eloquent avec les global scopes (comme DynamicContextScope)
+            // ✅ Ensuite `.toBase()` permet de convertir ce builder Eloquent en un Query\Builder "pur SQL"
+            // 👉 Cela évite de charger automatiquement les relations Eloquent tout en gardant les `join`, `where`, `scope`, etc.
+            $query = $this->model->query()->toBase();
+
+            // ⛓ Appliquer dynamiquement les jointures SQL selon le chemin relationnel
+            //    Exemple : "module.filiere.id" → jointure de module puis filiere
             $column = $this->applyDynamicJoins($query, $relationPath);
 
-            return $query->select($column)
-                ->distinct()
-                ->pluck($column)
+            // 🎯 On sélectionne uniquement la colonne ciblée
+            $query->select($column);
+
+            // 🧪 Pour debug :
+            // dd($query->toSql(), $query->getBindings());
+            // dd($query->get()->toArray());
+
+            // 🔁 Extraire les valeurs, les filtrer, les rendre uniques
+            return $query
+                ->pluck($column)    // ← colonne simple, pas besoin d'alias
                 ->filter()
                 ->unique()
                 ->values()
                 ->all();
         });
     }
+
+
+    protected function sanitizeSelectExpression(string $column): array
+{
+    // S'assure que le nom d'alias est toujours valide pour Laravel
+    $column = trim($column);
+
+    if (str_contains($column, '.')) {
+        $alias = 'filter_value';
+    } else {
+        $alias = $column;
+    }
+
+    return [$alias, $column];
+}
 }
