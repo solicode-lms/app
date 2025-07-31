@@ -167,6 +167,8 @@ class BaseAffectationProjetController extends AdminController
     /**
      */
     public function store(AffectationProjetRequest $request) {
+        
+        ini_set('max_execution_time', 120); // en secondes
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 

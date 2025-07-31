@@ -9,11 +9,20 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetsPV;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;
+use Modules\PkgRealisationProjets\App\Requests\AffectationProjetRequest;
 use Modules\PkgRealisationProjets\Controllers\Base\BaseAffectationProjetController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AffectationProjetController extends BaseAffectationProjetController
 {
+
+
+    public function store(AffectationProjetRequest $request) {
+        
+        ini_set('max_execution_time', 120); // en secondes
+        parent::store($request);
+         
+    }
    
     /**
      * @DynamicPermissionIgnore
