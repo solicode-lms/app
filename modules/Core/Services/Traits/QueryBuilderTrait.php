@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Modules\Core\Services\UserModelFilterService;
 use Modules\Core\Services\ViewStateService;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait QueryBuilderTrait
 {
@@ -245,28 +246,43 @@ trait QueryBuilderTrait
      * @param string $relationPath  Exemple : "module.filiere.id"
      * @return string               Colonne qualifiée à utiliser dans SELECT
      */
-    protected function applyDynamicJoins($query, string $relationPath): string
-    {
-        $relationPath = strtolower($relationPath);
-        $relations = explode('.', $relationPath);
-        $column = array_pop($relations);
 
-        $baseTable = $this->model->getTable();
-        $currentModel = $this->model;
-        $lastTable = $baseTable;
+protected function applyDynamicJoins($query, string $relationPath): string
+{
+    $relationPath = strtolower($relationPath);
+    $relations = explode('.', $relationPath);
+    $column = array_pop($relations);
 
-        static $aliasCount = 0;
+    $baseTable = $this->model->getTable();
+    $currentModel = $this->model;
+    $lastTable = $baseTable;
 
-        foreach ($relations as $relationName) {
-            if (!method_exists($currentModel, $relationName)) {
-                throw new \Exception("Relation [$relationName] non trouvée sur le modèle " . get_class($currentModel));
-            }
+    static $aliasCount = 0;
 
-            $relation = $currentModel->{$relationName}();
-            $relatedModel = $relation->getRelated();
-            $relatedTable = $relatedModel->getTable();
-            $alias = "{$relatedTable}_t" . $aliasCount++;
+    foreach ($relations as $relationName) {
+        if (!method_exists($currentModel, $relationName)) {
+            throw new \Exception("Relation [$relationName] non trouvée sur le modèle " . get_class($currentModel));
+        }
 
+        $relation = $currentModel->{$relationName}();
+        $relatedModel = $relation->getRelated();
+        $relatedTable = $relatedModel->getTable();
+        $alias = "{$relatedTable}_t" . $aliasCount++;
+
+        // --- 🔁 Gestion des relations BelongsToMany
+        if ($relation instanceof BelongsToMany) {
+            $pivotTable = $relation->getTable();
+            $pivotAlias = "{$pivotTable}_t" . $aliasCount++;
+            $foreignPivotKey = $relation->getQualifiedForeignPivotKeyName(); // table1.id
+            $relatedPivotKey = $relation->getQualifiedRelatedPivotKeyName(); // table2.id
+
+            $query
+                ->join("{$pivotTable} as {$pivotAlias}", "{$pivotAlias}.{$relation->getForeignPivotKeyName()}", '=', "{$lastTable}.id")
+                ->join("{$relatedTable} as {$alias}", "{$alias}.id", '=', "{$pivotAlias}.{$relation->getRelatedPivotKeyName()}");
+
+            $lastTable = $alias;
+        } else {
+            // 🔁 Gestion des relations standard
             $foreignKey = method_exists($relation, 'getForeignKeyName')
                 ? $relation->getForeignKeyName()
                 : $relation->getQualifiedForeignPivotKeyName();
@@ -276,15 +292,15 @@ trait QueryBuilderTrait
                 : $relation->getQualifiedRelatedPivotKeyName();
 
             $query->join("{$relatedTable} as {$alias}", "{$lastTable}.{$foreignKey}", '=', "{$alias}.{$ownerKey}");
-
-            $currentModel = $relatedModel;
             $lastTable = $alias;
         }
 
-       // dd($query->select($column)->get()->toArray());
-         
-        return "$lastTable.$column";
+        $currentModel = $relatedModel;
     }
+
+    return "$lastTable.$column";
+}
+
 
     
 }

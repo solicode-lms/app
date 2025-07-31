@@ -76,12 +76,18 @@ class BaseRealisationChapitreService extends BaseService
                 );
             
             
+               
+                $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
+                $chapitreIds = $this->getAvailableFilterValues('Chapitre.UniteApprentissage.Micro_competence_id');
+                $chapitres = $chapitreService->getByIds($chapitreIds);
+
                 if (!array_key_exists('chapitre_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::chapitre.plural"), 
                         'chapitre_id', 
                         \Modules\PkgCompetences\Models\Chapitre::class, 
-                        'code'
+                        'code',
+                        $chapitres
                     );
                 }
             
@@ -96,22 +102,22 @@ class BaseRealisationChapitreService extends BaseService
                 }
             
             
-                // $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
-                // $groupeIds = $this->getAvailableFilterValues('RealisationUa.RealisationMicroCompetence.Apprenant.Groupes.Id');
-                // $groupes = $groupeService->getByIds($groupeIds);
+                $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                $groupeIds = $this->getAvailableFilterValues('RealisationUa.RealisationMicroCompetence.Apprenant.Groupes.Id');
+                $groupes = $groupeService->getByIds($groupeIds);
 
-                // $this->fieldsFilterable[] = $this->generateRelationFilter(
-                //     __("PkgApprenants::groupe.plural"),
-                //     'RealisationUa.RealisationMicroCompetence.Apprenant.Groupes.Id', 
-                //     \Modules\PkgApprenants\Models\Groupe::class,
-                //     "id", 
-                //     "id",
-                //     $groupes,
-                //     "[name='RealisationUa.RealisationMicroCompetence.Apprenant_id']",
-                //     route('apprenants.getData'),
-                //     "Groupes.Id"
+                $this->fieldsFilterable[] = $this->generateRelationFilter(
+                    __("PkgApprenants::groupe.plural"),
+                    'RealisationUa.RealisationMicroCompetence.Apprenant.Groupes.Id', 
+                    \Modules\PkgApprenants\Models\Groupe::class,
+                    "id", 
+                    "id",
+                    $groupes,
+                    "[name='RealisationUa.RealisationMicroCompetence.Apprenant_id']",
+                    route('apprenants.getData'),
+                    "Groupes.Id"
                     
-                // );
+                );
             
             
                 $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
