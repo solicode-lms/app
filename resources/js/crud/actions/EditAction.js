@@ -2,6 +2,7 @@ import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
 import { NotificationHandler } from '../components/NotificationHandler';
+ 
 
 export class EditAction extends Action {
 
@@ -31,8 +32,9 @@ export class EditAction extends Action {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
         
-        
-        editUrl = this.appendParamsToUrl(
+   
+
+        editUrl = baseAction.appendParamsToUrl(
             editUrl,
             this.viewStateService.getContextParams()
         );

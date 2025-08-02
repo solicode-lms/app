@@ -2,6 +2,8 @@
 
 namespace Modules\PkgCompetences\Services;
 
+use Modules\Core\Services\ViewStateService;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 use Modules\PkgCompetences\Services\Base\BaseChapitreService;
 
@@ -165,4 +167,78 @@ class ChapitreService extends BaseChapitreService
 
         return $chapitre;
     }
+
+
+    public function getData(string $filter, $value)
+    {
+
+        $query = $this->allQuery(); // Créer une nouvelle requête
+
+        // Construire le tableau de filtres pour la méthode `filter()`
+        $filters = [$filter => $value];
+
+        // Appliquer le filtre existant du service
+        $this->filter($query, $this->model, $filters);
+
+        $viewState = app(ViewStateService::class);
+        $classServiceName =  $viewState->getModelNameFromContextKey() . "Service";
+        $classServiceName = "RealisationChapitreService";
+        $objetService = $this->resolveClassByName($classServiceName);
+     
+        $dataIds = $objetService->getAvailableFilterValues('chapitre_id');
+       
+        $data = $this->getByIds($dataIds);
+
+        $data =  $query->whereIn('id', $dataIds)->get();
+
+        return $data;
+
+         
+    }
+
+
+        /**
+         * Résout dynamiquement le nom de la classe à partir de son nom court (ex: "Apprenant"),
+         * en cherchant dans les namespaces des modules déclarés dans SoliLMS.
+         *
+         * @param string $className Nom court de la classe (ex: "Apprenant")
+         * @return object|null Instance de la classe si trouvée, sinon null
+         */
+        function resolveClassByName(string $className): ?object
+        {
+            $modulePaths = [
+                'PkgApprenants',
+                'PkgFormation',
+                'PkgCompetences',
+                'PkgCreationProjet',
+                'PkgRealisationProjets',
+                'PkgCreationTache',
+                'PkgRealisationTache',
+                'PkgApprentissage',
+                'PkgEvaluateurs',
+                'PkgNotification',
+                'PkgAutorisation',
+                'PkgWidgets',
+                'PkgSessions',
+                'PkgGapp',
+                'Core'
+            ];
+
+            foreach ($modulePaths as $module) {
+                $fqcn = "Modules\\$module\\Services\\$className";
+                if (class_exists($fqcn)) {
+                    return new $fqcn();
+                }
+
+                // En fallback, certains modules utilisent Entities à la place de Models
+                $fqcnEntity = "Modules\\$module\\Models\\$className";
+                if (class_exists($fqcnEntity)) {
+                    return new $fqcnEntity();
+                }
+            }
+
+            return null;
+        }
+    
+
 }

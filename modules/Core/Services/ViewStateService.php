@@ -227,4 +227,19 @@ class ViewStateService
     {
         $this->remove("param.{$modelName}.reset_filter");
     }
+
+    /**
+     * Extrait le nom du modèle à partir de la contextKey courante.
+     * Exemple : "table.Apprenant.index" → "Apprenant"
+     *
+     * @return string|null
+     */
+    public function getModelNameFromContextKey(): ?string
+    {
+        // Exemple : table.Apprenant.index → ['table', 'Apprenant', 'index']
+        $parts = explode('.', $this->currentContextKey);
+
+        // Par convention, le nom du modèle est souvent en 2ᵉ position
+        return $parts[1] ?? null;
+    }
 }

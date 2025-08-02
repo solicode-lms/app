@@ -226,6 +226,7 @@ trait FilterTrait
             // ✅ Ensuite `.toBase()` permet de convertir ce builder Eloquent en un Query\Builder "pur SQL"
             // 👉 Cela évite de charger automatiquement les relations Eloquent tout en gardant les `join`, `where`, `scope`, etc.
             $query = $this->model->query()->toBase();
+            
 
             // ⛓ Appliquer dynamiquement les jointures SQL selon le chemin relationnel
             //    Exemple : "module.filiere.id" → jointure de module puis filiere

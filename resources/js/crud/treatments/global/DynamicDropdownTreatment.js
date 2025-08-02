@@ -1,3 +1,4 @@
+import { BaseAction } from "../../actions/BaseAction";
 import { AjaxErrorHandler } from "../../components/AjaxErrorHandler";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
 import EventUtil from "../../utils/EventUtil";
@@ -111,8 +112,17 @@ export default class DynamicDropdownTreatment {
       // Chargement
       this.loader.showNomBloquante();
       try {
-        const url = `${tgt.apiUrl}?filter=${tgt.filterParam}&value=${encodeURIComponent(value)}`;
+
+        let url = `${tgt.apiUrl}?filter=${tgt.filterParam}&value=${encodeURIComponent(value)}`;
       
+        let baseAction = new BaseAction(this.config);
+
+        url = baseAction.appendParamsToUrl(
+            url,
+            this.config.viewStateService.getContextParams()
+        );
+        console.log(url);
+
         el.disabled = true;
         const resp = await fetch(url);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);

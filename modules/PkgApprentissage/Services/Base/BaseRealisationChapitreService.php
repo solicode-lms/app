@@ -78,7 +78,7 @@ class BaseRealisationChapitreService extends BaseService
             
                
                 $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
-                $chapitreIds = $this->getAvailableFilterValues('Chapitre.UniteApprentissage.Micro_competence_id');
+                $chapitreIds = $this->getAvailableFilterValues('chapitre_id');
                 $chapitres = $chapitreService->getByIds($chapitreIds);
 
                 if (!array_key_exists('chapitre_id', $scopeVariables)) {
@@ -91,13 +91,18 @@ class BaseRealisationChapitreService extends BaseService
                     );
                 }
             
+                $etatRealisationChapitreService = new \Modules\PkgApprentissage\Services\EtatRealisationChapitreService();
+                $etatRealisationChapitreIds = $this->getAvailableFilterValues('etat_realisation_chapitre_id');
+                $etatRealisationChapitres = $etatRealisationChapitreService->getByIds($etatRealisationChapitreIds);
+
             
                 if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::etatRealisationChapitre.plural"), 
                         'etat_realisation_chapitre_id', 
                         \Modules\PkgApprentissage\Models\EtatRealisationChapitre::class, 
-                        'nom'
+                        'nom',
+                        $etatRealisationChapitres
                     );
                 }
             
