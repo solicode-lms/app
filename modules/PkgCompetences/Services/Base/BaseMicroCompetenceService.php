@@ -198,7 +198,7 @@ class BaseMicroCompetenceService extends BaseService
         return [
             'microCompetences_data' => $microCompetences_data,
             'microCompetences_stats' => $microCompetences_stats,
-            'microCompetences_stats' => $microCompetences_total,
+            'microCompetences_total' => $microCompetences_total,
             'microCompetences_filters' => $microCompetences_filters,
             'microCompetence_instance' => $microCompetence_instance,
             'microCompetence_viewType' => $microCompetence_viewType,
