@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->name) && $itemERelationship->name !== '')
-          {{ $itemERelationship->name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->name) && $itemERelationship->name !== '')
+        {{ $itemERelationship->name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -20,12 +20,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.type')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->type) && $itemERelationship->type !== '')
-          {{ $itemERelationship->type }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->type) && $itemERelationship->type !== '')
+        {{ $itemERelationship->type }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -100,12 +100,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.column_name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->column_name) && $itemERelationship->column_name !== '')
-          {{ $itemERelationship->column_name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->column_name) && $itemERelationship->column_name !== '')
+        {{ $itemERelationship->column_name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -113,12 +113,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.referenced_table')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->referenced_table) && $itemERelationship->referenced_table !== '')
-          {{ $itemERelationship->referenced_table }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->referenced_table) && $itemERelationship->referenced_table !== '')
+        {{ $itemERelationship->referenced_table }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -126,12 +126,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.referenced_column')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->referenced_column) && $itemERelationship->referenced_column !== '')
-          {{ $itemERelationship->referenced_column }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->referenced_column) && $itemERelationship->referenced_column !== '')
+        {{ $itemERelationship->referenced_column }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -139,12 +139,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.through')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->through) && $itemERelationship->through !== '')
-          {{ $itemERelationship->through }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->through) && $itemERelationship->through !== '')
+        {{ $itemERelationship->through }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -152,12 +152,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.with_column')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->with_column) && $itemERelationship->with_column !== '')
-          {{ $itemERelationship->with_column }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->with_column) && $itemERelationship->with_column !== '')
+        {{ $itemERelationship->with_column }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -165,12 +165,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eRelationship.morph_name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemERelationship->morph_name) && $itemERelationship->morph_name !== '')
-          {{ $itemERelationship->morph_name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemERelationship->morph_name) && $itemERelationship->morph_name !== '')
+        {{ $itemERelationship->morph_name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

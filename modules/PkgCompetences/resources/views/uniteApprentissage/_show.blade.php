@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.code')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemUniteApprentissage->code) && $itemUniteApprentissage->code !== '')
-          {{ $itemUniteApprentissage->code }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemUniteApprentissage->code) && $itemUniteApprentissage->code !== '')
+        {{ $itemUniteApprentissage->code }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -20,12 +20,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.nom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemUniteApprentissage->nom) && $itemUniteApprentissage->nom !== '')
-          {{ $itemUniteApprentissage->nom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemUniteApprentissage->nom) && $itemUniteApprentissage->nom !== '')
+        {{ $itemUniteApprentissage->nom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -47,12 +47,15 @@
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.lien')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemUniteApprentissage->lien) && $itemUniteApprentissage->lien !== '')
+                              @if(! is_null($itemUniteApprentissage->lien) && $itemUniteApprentissage->lien !== '')
+        <a href="{{ $itemUniteApprentissage->lien }}" target="_blank">
+          <i class="fas fa-link mr-1"></i>
           {{ $itemUniteApprentissage->lien }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+        </a>
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

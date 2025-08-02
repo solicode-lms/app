@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.code')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemCompetence->code) && $itemCompetence->code !== '')
-          {{ $itemCompetence->code }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemCompetence->code) && $itemCompetence->code !== '')
+        {{ $itemCompetence->code }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -20,12 +20,12 @@
       <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemCompetence->mini_code) && $itemCompetence->mini_code !== '')
-          {{ $itemCompetence->mini_code }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemCompetence->mini_code) && $itemCompetence->mini_code !== '')
+        {{ $itemCompetence->mini_code }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -33,12 +33,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.nom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemCompetence->nom) && $itemCompetence->nom !== '')
-          {{ $itemCompetence->nom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemCompetence->nom) && $itemCompetence->nom !== '')
+        {{ $itemCompetence->nom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

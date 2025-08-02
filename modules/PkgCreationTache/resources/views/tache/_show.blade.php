@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-8 col-lg-8 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemTache->titre) && $itemTache->titre !== '')
-          {{ $itemTache->titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemTache->titre) && $itemTache->titre !== '')
+        {{ $itemTache->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

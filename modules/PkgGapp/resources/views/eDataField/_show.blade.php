@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEDataField->name) && $itemEDataField->name !== '')
-          {{ $itemEDataField->name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEDataField->name) && $itemEDataField->name !== '')
+        {{ $itemEDataField->name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -34,12 +34,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.data_type')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEDataField->data_type) && $itemEDataField->data_type !== '')
-          {{ $itemEDataField->data_type }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEDataField->data_type) && $itemEDataField->data_type !== '')
+        {{ $itemEDataField->data_type }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -47,12 +47,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.default_value')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEDataField->default_value) && $itemEDataField->default_value !== '')
-          {{ $itemEDataField->default_value }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEDataField->default_value) && $itemEDataField->default_value !== '')
+        {{ $itemEDataField->default_value }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -60,12 +60,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.column_name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEDataField->column_name) && $itemEDataField->column_name !== '')
-          {{ $itemEDataField->column_name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEDataField->column_name) && $itemEDataField->column_name !== '')
+        {{ $itemEDataField->column_name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

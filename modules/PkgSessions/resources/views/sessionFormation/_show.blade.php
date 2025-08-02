@@ -22,12 +22,12 @@
       <div class="col-12 col-md-10 col-lg-10 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSessionFormation->titre) && $itemSessionFormation->titre !== '')
-          {{ $itemSessionFormation->titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSessionFormation->titre) && $itemSessionFormation->titre !== '')
+        {{ $itemSessionFormation->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -35,12 +35,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.thematique')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSessionFormation->thematique) && $itemSessionFormation->thematique !== '')
-          {{ $itemSessionFormation->thematique }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSessionFormation->thematique) && $itemSessionFormation->thematique !== '')
+        {{ $itemSessionFormation->thematique }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -75,12 +75,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre_prototype')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSessionFormation->titre_prototype) && $itemSessionFormation->titre_prototype !== '')
-          {{ $itemSessionFormation->titre_prototype }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSessionFormation->titre_prototype) && $itemSessionFormation->titre_prototype !== '')
+        {{ $itemSessionFormation->titre_prototype }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -114,12 +114,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.titre_projet')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSessionFormation->titre_projet) && $itemSessionFormation->titre_projet !== '')
-          {{ $itemSessionFormation->titre_projet }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSessionFormation->titre_projet) && $itemSessionFormation->titre_projet !== '')
+        {{ $itemSessionFormation->titre_projet }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

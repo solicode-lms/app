@@ -22,12 +22,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.icon')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemWidget->icon) && $itemWidget->icon !== '')
-          {{ $itemWidget->icon }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemWidget->icon) && $itemWidget->icon !== '')
+        {{ $itemWidget->icon }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -35,12 +35,12 @@
       <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemWidget->name) && $itemWidget->name !== '')
-          {{ $itemWidget->name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemWidget->name) && $itemWidget->name !== '')
+        {{ $itemWidget->name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -48,12 +48,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.label')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemWidget->label) && $itemWidget->label !== '')
-          {{ $itemWidget->label }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemWidget->label) && $itemWidget->label !== '')
+        {{ $itemWidget->label }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -103,12 +103,12 @@
       <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.color')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemWidget->color) && $itemWidget->color !== '')
-          {{ $itemWidget->color }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemWidget->color) && $itemWidget->color !== '')
+        {{ $itemWidget->color }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

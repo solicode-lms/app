@@ -22,12 +22,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.code')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEtatEvaluationProjet->code) && $itemEtatEvaluationProjet->code !== '')
-          {{ $itemEtatEvaluationProjet->code }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEtatEvaluationProjet->code) && $itemEtatEvaluationProjet->code !== '')
+        {{ $itemEtatEvaluationProjet->code }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -35,12 +35,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::etatEvaluationProjet.titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemEtatEvaluationProjet->titre) && $itemEtatEvaluationProjet->titre !== '')
-          {{ $itemEtatEvaluationProjet->titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemEtatEvaluationProjet->titre) && $itemEtatEvaluationProjet->titre !== '')
+        {{ $itemEtatEvaluationProjet->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

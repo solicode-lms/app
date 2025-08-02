@@ -10,12 +10,12 @@
                       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->nom) && $itemApprenant->nom !== '')
-          {{ $itemApprenant->nom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->nom) && $itemApprenant->nom !== '')
+        {{ $itemApprenant->nom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -23,12 +23,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->nom_arab) && $itemApprenant->nom_arab !== '')
-          {{ $itemApprenant->nom_arab }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->nom_arab) && $itemApprenant->nom_arab !== '')
+        {{ $itemApprenant->nom_arab }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -36,12 +36,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->prenom) && $itemApprenant->prenom !== '')
-          {{ $itemApprenant->prenom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->prenom) && $itemApprenant->prenom !== '')
+        {{ $itemApprenant->prenom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -49,12 +49,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->prenom_arab) && $itemApprenant->prenom_arab !== '')
-          {{ $itemApprenant->prenom_arab }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->prenom_arab) && $itemApprenant->prenom_arab !== '')
+        {{ $itemApprenant->prenom_arab }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -62,12 +62,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.cin')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->cin) && $itemApprenant->cin !== '')
-          {{ $itemApprenant->cin }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->cin) && $itemApprenant->cin !== '')
+        {{ $itemApprenant->cin }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -90,12 +90,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->sexe) && $itemApprenant->sexe !== '')
-          {{ $itemApprenant->sexe }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->sexe) && $itemApprenant->sexe !== '')
+        {{ $itemApprenant->sexe }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -117,12 +117,12 @@
       <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->lieu_naissance) && $itemApprenant->lieu_naissance !== '')
-          {{ $itemApprenant->lieu_naissance }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->lieu_naissance) && $itemApprenant->lieu_naissance !== '')
+        {{ $itemApprenant->lieu_naissance }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -150,12 +150,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->tele_num) && $itemApprenant->tele_num !== '')
-          {{ $itemApprenant->tele_num }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->tele_num) && $itemApprenant->tele_num !== '')
+        {{ $itemApprenant->tele_num }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -183,12 +183,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->matricule) && $itemApprenant->matricule !== '')
-          {{ $itemApprenant->matricule }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->matricule) && $itemApprenant->matricule !== '')
+        {{ $itemApprenant->matricule }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -246,12 +246,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemApprenant->diplome) && $itemApprenant->diplome !== '')
-          {{ $itemApprenant->diplome }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemApprenant->diplome) && $itemApprenant->diplome !== '')
+        {{ $itemApprenant->diplome }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

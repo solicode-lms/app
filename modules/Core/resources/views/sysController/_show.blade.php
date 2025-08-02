@@ -21,12 +21,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('Core::sysController.name')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSysController->name) && $itemSysController->name !== '')
-          {{ $itemSysController->name }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSysController->name) && $itemSysController->name !== '')
+        {{ $itemSysController->name }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -34,12 +34,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('Core::sysController.slug')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemSysController->slug) && $itemSysController->slug !== '')
-          {{ $itemSysController->slug }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemSysController->slug) && $itemSysController->slug !== '')
+        {{ $itemSysController->slug }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

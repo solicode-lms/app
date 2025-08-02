@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.code')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemMicroCompetence->code) && $itemMicroCompetence->code !== '')
-          {{ $itemMicroCompetence->code }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemMicroCompetence->code) && $itemMicroCompetence->code !== '')
+        {{ $itemMicroCompetence->code }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -20,12 +20,12 @@
       <div class="col-12 col-md-8 col-lg-8 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemMicroCompetence->titre) && $itemMicroCompetence->titre !== '')
-          {{ $itemMicroCompetence->titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemMicroCompetence->titre) && $itemMicroCompetence->titre !== '')
+        {{ $itemMicroCompetence->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -33,12 +33,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.sous_titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemMicroCompetence->sous_titre) && $itemMicroCompetence->sous_titre !== '')
-          {{ $itemMicroCompetence->sous_titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemMicroCompetence->sous_titre) && $itemMicroCompetence->sous_titre !== '')
+        {{ $itemMicroCompetence->sous_titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -60,12 +60,15 @@
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.lien')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemMicroCompetence->lien) && $itemMicroCompetence->lien !== '')
+                              @if(! is_null($itemMicroCompetence->lien) && $itemMicroCompetence->lien !== '')
+        <a href="{{ $itemMicroCompetence->lien }}" target="_blank">
+          <i class="fas fa-link mr-1"></i>
           {{ $itemMicroCompetence->lien }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+        </a>
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

@@ -21,12 +21,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::livrable.titre')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemLivrable->titre) && $itemLivrable->titre !== '')
-          {{ $itemLivrable->titre }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemLivrable->titre) && $itemLivrable->titre !== '')
+        {{ $itemLivrable->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   

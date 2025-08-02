@@ -7,12 +7,12 @@
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.matricule')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->matricule) && $itemFormateur->matricule !== '')
-          {{ $itemFormateur->matricule }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->matricule) && $itemFormateur->matricule !== '')
+        {{ $itemFormateur->matricule }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -20,12 +20,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->nom) && $itemFormateur->nom !== '')
-          {{ $itemFormateur->nom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->nom) && $itemFormateur->nom !== '')
+        {{ $itemFormateur->nom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -33,12 +33,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->prenom) && $itemFormateur->prenom !== '')
-          {{ $itemFormateur->prenom }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->prenom) && $itemFormateur->prenom !== '')
+        {{ $itemFormateur->prenom }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -46,12 +46,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom_arab')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->prenom_arab) && $itemFormateur->prenom_arab !== '')
-          {{ $itemFormateur->prenom_arab }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->prenom_arab) && $itemFormateur->prenom_arab !== '')
+        {{ $itemFormateur->prenom_arab }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -78,12 +78,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom_arab')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->nom_arab) && $itemFormateur->nom_arab !== '')
-          {{ $itemFormateur->nom_arab }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->nom_arab) && $itemFormateur->nom_arab !== '')
+        {{ $itemFormateur->nom_arab }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -110,12 +110,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.email')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->email) && $itemFormateur->email !== '')
-          {{ $itemFormateur->email }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->email) && $itemFormateur->email !== '')
+        {{ $itemFormateur->email }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -123,12 +123,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.tele_num')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->tele_num) && $itemFormateur->tele_num !== '')
-          {{ $itemFormateur->tele_num }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->tele_num) && $itemFormateur->tele_num !== '')
+        {{ $itemFormateur->tele_num }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -136,12 +136,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.adresse')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->adresse) && $itemFormateur->adresse !== '')
-          {{ $itemFormateur->adresse }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->adresse) && $itemFormateur->adresse !== '')
+        {{ $itemFormateur->adresse }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -149,12 +149,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.diplome')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->diplome) && $itemFormateur->diplome !== '')
-          {{ $itemFormateur->diplome }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->diplome) && $itemFormateur->diplome !== '')
+        {{ $itemFormateur->diplome }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
@@ -192,12 +192,12 @@
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.profile_image')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemFormateur->profile_image) && $itemFormateur->profile_image !== '')
-          {{ $itemFormateur->profile_image }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
+                              @if(! is_null($itemFormateur->profile_image) && $itemFormateur->profile_image !== '')
+        {{ $itemFormateur->profile_image }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
           </div>
       </div>
   
