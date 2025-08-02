@@ -185,7 +185,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
         // Récupération des données
         $evaluationRealisationTaches_data = $this->paginate($params);
         $evaluationRealisationTaches_stats = $this->getevaluationRealisationTacheStats();
-        $evaluationRealisationTaches_total = collect($evaluationRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $evaluationRealisationTaches_total = $this->count();
         $evaluationRealisationTaches_filters = $this->getFieldsFilterable();
         $evaluationRealisationTache_instance = $this->createInstance();
         $evaluationRealisationTache_viewTypes = $this->getViewTypes();

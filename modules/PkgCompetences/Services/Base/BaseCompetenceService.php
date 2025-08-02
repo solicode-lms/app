@@ -168,7 +168,7 @@ class BaseCompetenceService extends BaseService
         // Récupération des données
         $competences_data = $this->paginate($params);
         $competences_stats = $this->getcompetenceStats();
-        $competences_total = collect($competences_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $competences_total = $this->count();
         $competences_filters = $this->getFieldsFilterable();
         $competence_instance = $this->createInstance();
         $competence_viewTypes = $this->getViewTypes();

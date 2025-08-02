@@ -168,7 +168,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         // Récupération des données
         $historiqueRealisationTaches_data = $this->paginate($params);
         $historiqueRealisationTaches_stats = $this->gethistoriqueRealisationTacheStats();
-        $historiqueRealisationTaches_total = collect($historiqueRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $historiqueRealisationTaches_total = $this->count();
         $historiqueRealisationTaches_filters = $this->getFieldsFilterable();
         $historiqueRealisationTache_instance = $this->createInstance();
         $historiqueRealisationTache_viewTypes = $this->getViewTypes();

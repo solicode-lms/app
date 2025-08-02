@@ -152,7 +152,7 @@ class BaseEtatRealisationUaService extends BaseService
         // Récupération des données
         $etatRealisationUas_data = $this->paginate($params);
         $etatRealisationUas_stats = $this->getetatRealisationUaStats();
-        $etatRealisationUas_total = collect($etatRealisationUas_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $etatRealisationUas_total = $this->count();
         $etatRealisationUas_filters = $this->getFieldsFilterable();
         $etatRealisationUa_instance = $this->createInstance();
         $etatRealisationUa_viewTypes = $this->getViewTypes();

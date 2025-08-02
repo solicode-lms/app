@@ -176,7 +176,7 @@ class BaseNotificationService extends BaseService
         // Récupération des données
         $notifications_data = $this->paginate($params);
         $notifications_stats = $this->getnotificationStats();
-        $notifications_total = collect($notifications_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $notifications_total = $this->count();
         $notifications_filters = $this->getFieldsFilterable();
         $notification_instance = $this->createInstance();
         $notification_viewTypes = $this->getViewTypes();

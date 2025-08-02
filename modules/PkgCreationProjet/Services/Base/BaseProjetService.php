@@ -211,7 +211,7 @@ class BaseProjetService extends BaseService
         // Récupération des données
         $projets_data = $this->paginate($params);
         $projets_stats = $this->getprojetStats();
-        $projets_total = collect($projets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $projets_total = $this->count();
         $projets_filters = $this->getFieldsFilterable();
         $projet_instance = $this->createInstance();
         $projet_viewTypes = $this->getViewTypes();

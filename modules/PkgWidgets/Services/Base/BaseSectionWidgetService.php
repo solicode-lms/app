@@ -151,7 +151,7 @@ class BaseSectionWidgetService extends BaseService
         // Récupération des données
         $sectionWidgets_data = $this->paginate($params);
         $sectionWidgets_stats = $this->getsectionWidgetStats();
-        $sectionWidgets_total = collect($sectionWidgets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $sectionWidgets_total = $this->count();
         $sectionWidgets_filters = $this->getFieldsFilterable();
         $sectionWidget_instance = $this->createInstance();
         $sectionWidget_viewTypes = $this->getViewTypes();

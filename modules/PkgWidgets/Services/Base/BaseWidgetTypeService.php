@@ -131,7 +131,7 @@ class BaseWidgetTypeService extends BaseService
         // Récupération des données
         $widgetTypes_data = $this->paginate($params);
         $widgetTypes_stats = $this->getwidgetTypeStats();
-        $widgetTypes_total = collect($widgetTypes_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $widgetTypes_total = $this->count();
         $widgetTypes_filters = $this->getFieldsFilterable();
         $widgetType_instance = $this->createInstance();
         $widgetType_viewTypes = $this->getViewTypes();

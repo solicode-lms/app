@@ -164,7 +164,7 @@ class BaseResourceService extends BaseService
         // Récupération des données
         $resources_data = $this->paginate($params);
         $resources_stats = $this->getresourceStats();
-        $resources_total = collect($resources_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $resources_total = $this->count();
         $resources_filters = $this->getFieldsFilterable();
         $resource_instance = $this->createInstance();
         $resource_viewTypes = $this->getViewTypes();

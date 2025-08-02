@@ -48,16 +48,18 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($formateurs_permissions['initPassword-formateur'])
-                        <a 
-                        data-toggle="tooltip" 
-                        title="Initialiser le mot de passe" 
-                        href="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
-                        data-id="{{$formateur->id}}" 
-                        data-url="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
-                        data-action-type="confirm"
-                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
-                            <i class="fas fa-unlock-alt"></i>
-                        </a>
+                        <x-action-button :entity="$formateur" actionName="initPassword">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Initialiser le mot de passe" 
+                            href="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
+                            data-id="{{$formateur->id}}" 
+                            data-url="{{ route('formateurs.initPassword', ['id' => $formateur->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                                <i class="fas fa-unlock-alt"></i>
+                            </a>
+                        </x-action-button>
                         @endif
                         
 

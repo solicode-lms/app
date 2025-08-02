@@ -182,7 +182,7 @@ class BaseLivrablesRealisationService extends BaseService
         // Récupération des données
         $livrablesRealisations_data = $this->paginate($params);
         $livrablesRealisations_stats = $this->getlivrablesRealisationStats();
-        $livrablesRealisations_total = collect($livrablesRealisations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $livrablesRealisations_total = $this->count();
         $livrablesRealisations_filters = $this->getFieldsFilterable();
         $livrablesRealisation_instance = $this->createInstance();
         $livrablesRealisation_viewTypes = $this->getViewTypes();

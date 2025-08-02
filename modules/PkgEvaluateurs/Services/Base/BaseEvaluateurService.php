@@ -162,7 +162,7 @@ class BaseEvaluateurService extends BaseService
         // Récupération des données
         $evaluateurs_data = $this->paginate($params);
         $evaluateurs_stats = $this->getevaluateurStats();
-        $evaluateurs_total = collect($evaluateurs_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $evaluateurs_total = $this->count();
         $evaluateurs_filters = $this->getFieldsFilterable();
         $evaluateur_instance = $this->createInstance();
         $evaluateur_viewTypes = $this->getViewTypes();

@@ -170,7 +170,7 @@ class BaseRealisationUaPrototypeService extends BaseService
         // Récupération des données
         $realisationUaPrototypes_data = $this->paginate($params);
         $realisationUaPrototypes_stats = $this->getrealisationUaPrototypeStats();
-        $realisationUaPrototypes_total = collect($realisationUaPrototypes_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $realisationUaPrototypes_total = $this->count();
         $realisationUaPrototypes_filters = $this->getFieldsFilterable();
         $realisationUaPrototype_instance = $this->createInstance();
         $realisationUaPrototype_viewTypes = $this->getViewTypes();

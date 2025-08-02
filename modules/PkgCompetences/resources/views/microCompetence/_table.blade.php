@@ -60,8 +60,6 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
-
-
                         @if($microCompetences_permissions['startFormation-microCompetence'])
                         <x-action-button :entity="$microCompetence" actionName="startFormation">
                             <a 

@@ -131,7 +131,7 @@ class BaseNatureLivrableService extends BaseService
         // Récupération des données
         $natureLivrables_data = $this->paginate($params);
         $natureLivrables_stats = $this->getnatureLivrableStats();
-        $natureLivrables_total = collect($natureLivrables_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $natureLivrables_total = $this->count();
         $natureLivrables_filters = $this->getFieldsFilterable();
         $natureLivrable_instance = $this->createInstance();
         $natureLivrable_viewTypes = $this->getViewTypes();

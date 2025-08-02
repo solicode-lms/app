@@ -165,7 +165,7 @@ class BaseProfileService extends BaseService
         // Récupération des données
         $profiles_data = $this->paginate($params);
         $profiles_stats = $this->getprofileStats();
-        $profiles_total = collect($profiles_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $profiles_total = $this->count();
         $profiles_filters = $this->getFieldsFilterable();
         $profile_instance = $this->createInstance();
         $profile_viewTypes = $this->getViewTypes();

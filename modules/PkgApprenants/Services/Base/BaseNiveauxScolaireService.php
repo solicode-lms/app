@@ -132,7 +132,7 @@ class BaseNiveauxScolaireService extends BaseService
         // Récupération des données
         $niveauxScolaires_data = $this->paginate($params);
         $niveauxScolaires_stats = $this->getniveauxScolaireStats();
-        $niveauxScolaires_total = collect($niveauxScolaires_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $niveauxScolaires_total = $this->count();
         $niveauxScolaires_filters = $this->getFieldsFilterable();
         $niveauxScolaire_instance = $this->createInstance();
         $niveauxScolaire_viewTypes = $this->getViewTypes();

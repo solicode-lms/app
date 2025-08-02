@@ -200,7 +200,7 @@ class BaseEtatRealisationTacheService extends BaseService
         // Récupération des données
         $etatRealisationTaches_data = $this->paginate($params);
         $etatRealisationTaches_stats = $this->getetatRealisationTacheStats();
-        $etatRealisationTaches_total = collect($etatRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $etatRealisationTaches_total = $this->count();
         $etatRealisationTaches_filters = $this->getFieldsFilterable();
         $etatRealisationTache_instance = $this->createInstance();
         $etatRealisationTache_viewTypes = $this->getViewTypes();

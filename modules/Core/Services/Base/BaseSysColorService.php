@@ -131,7 +131,7 @@ class BaseSysColorService extends BaseService
         // Récupération des données
         $sysColors_data = $this->paginate($params);
         $sysColors_stats = $this->getsysColorStats();
-        $sysColors_total = collect($sysColors_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $sysColors_total = $this->count();
         $sysColors_filters = $this->getFieldsFilterable();
         $sysColor_instance = $this->createInstance();
         $sysColor_viewTypes = $this->getViewTypes();

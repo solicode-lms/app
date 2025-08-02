@@ -152,7 +152,7 @@ class BaseEtatRealisationChapitreService extends BaseService
         // Récupération des données
         $etatRealisationChapitres_data = $this->paginate($params);
         $etatRealisationChapitres_stats = $this->getetatRealisationChapitreStats();
-        $etatRealisationChapitres_total = collect($etatRealisationChapitres_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $etatRealisationChapitres_total = $this->count();
         $etatRealisationChapitres_filters = $this->getFieldsFilterable();
         $etatRealisationChapitre_instance = $this->createInstance();
         $etatRealisationChapitre_viewTypes = $this->getViewTypes();

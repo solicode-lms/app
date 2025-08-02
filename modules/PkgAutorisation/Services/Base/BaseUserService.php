@@ -145,7 +145,7 @@ class BaseUserService extends BaseService
         // Récupération des données
         $users_data = $this->paginate($params);
         $users_stats = $this->getuserStats();
-        $users_total = collect($users_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $users_total = $this->count();
         $users_filters = $this->getFieldsFilterable();
         $user_instance = $this->createInstance();
         $user_viewTypes = $this->getViewTypes();

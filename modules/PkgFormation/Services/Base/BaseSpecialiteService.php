@@ -147,7 +147,7 @@ class BaseSpecialiteService extends BaseService
         // Récupération des données
         $specialites_data = $this->paginate($params);
         $specialites_stats = $this->getspecialiteStats();
-        $specialites_total = collect($specialites_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $specialites_total = $this->count();
         $specialites_filters = $this->getFieldsFilterable();
         $specialite_instance = $this->createInstance();
         $specialite_viewTypes = $this->getViewTypes();

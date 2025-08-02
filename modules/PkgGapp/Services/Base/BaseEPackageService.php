@@ -131,7 +131,7 @@ class BaseEPackageService extends BaseService
         // Récupération des données
         $ePackages_data = $this->paginate($params);
         $ePackages_stats = $this->getePackageStats();
-        $ePackages_total = collect($ePackages_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $ePackages_total = $this->count();
         $ePackages_filters = $this->getFieldsFilterable();
         $ePackage_instance = $this->createInstance();
         $ePackage_viewTypes = $this->getViewTypes();

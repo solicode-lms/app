@@ -195,7 +195,7 @@ class BaseWidgetUtilisateurService extends BaseService
         // Récupération des données
         $widgetUtilisateurs_data = $this->paginate($params);
         $widgetUtilisateurs_stats = $this->getwidgetUtilisateurStats();
-        $widgetUtilisateurs_total = collect($widgetUtilisateurs_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $widgetUtilisateurs_total = $this->count();
         $widgetUtilisateurs_filters = $this->getFieldsFilterable();
         $widgetUtilisateur_instance = $this->createInstance();
         $widgetUtilisateur_viewTypes = $this->getViewTypes();

@@ -134,7 +134,7 @@ class BasePhaseEvaluationService extends BaseService
         // Récupération des données
         $phaseEvaluations_data = $this->paginate($params);
         $phaseEvaluations_stats = $this->getphaseEvaluationStats();
-        $phaseEvaluations_total = collect($phaseEvaluations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $phaseEvaluations_total = $this->count();
         $phaseEvaluations_filters = $this->getFieldsFilterable();
         $phaseEvaluation_instance = $this->createInstance();
         $phaseEvaluation_viewTypes = $this->getViewTypes();

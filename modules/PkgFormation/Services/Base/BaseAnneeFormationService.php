@@ -132,7 +132,7 @@ class BaseAnneeFormationService extends BaseService
         // Récupération des données
         $anneeFormations_data = $this->paginate($params);
         $anneeFormations_stats = $this->getanneeFormationStats();
-        $anneeFormations_total = collect($anneeFormations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $anneeFormations_total = $this->count();
         $anneeFormations_filters = $this->getFieldsFilterable();
         $anneeFormation_instance = $this->createInstance();
         $anneeFormation_viewTypes = $this->getViewTypes();

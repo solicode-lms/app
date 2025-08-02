@@ -144,7 +144,7 @@ class BaseEMetadataDefinitionService extends BaseService
         // Récupération des données
         $eMetadataDefinitions_data = $this->paginate($params);
         $eMetadataDefinitions_stats = $this->geteMetadataDefinitionStats();
-        $eMetadataDefinitions_total = collect($eMetadataDefinitions_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $eMetadataDefinitions_total = $this->count();
         $eMetadataDefinitions_filters = $this->getFieldsFilterable();
         $eMetadataDefinition_instance = $this->createInstance();
         $eMetadataDefinition_viewTypes = $this->getViewTypes();

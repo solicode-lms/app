@@ -169,7 +169,7 @@ class BaseSysModelService extends BaseService
         // Récupération des données
         $sysModels_data = $this->paginate($params);
         $sysModels_stats = $this->getsysModelStats();
-        $sysModels_total = collect($sysModels_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $sysModels_total = $this->count();
         $sysModels_filters = $this->getFieldsFilterable();
         $sysModel_instance = $this->createInstance();
         $sysModel_viewTypes = $this->getViewTypes();

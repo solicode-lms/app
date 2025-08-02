@@ -200,7 +200,7 @@ class BaseRealisationProjetService extends BaseService
         // Récupération des données
         $realisationProjets_data = $this->paginate($params);
         $realisationProjets_stats = $this->getrealisationProjetStats();
-        $realisationProjets_total = collect($realisationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $realisationProjets_total = $this->count();
         $realisationProjets_filters = $this->getFieldsFilterable();
         $realisationProjet_instance = $this->createInstance();
         $realisationProjet_viewTypes = $this->getViewTypes();

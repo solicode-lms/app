@@ -182,7 +182,7 @@ class BaseLivrableService extends BaseService
         // Récupération des données
         $livrables_data = $this->paginate($params);
         $livrables_stats = $this->getlivrableStats();
-        $livrables_total = collect($livrables_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $livrables_total = $this->count();
         $livrables_filters = $this->getFieldsFilterable();
         $livrable_instance = $this->createInstance();
         $livrable_viewTypes = $this->getViewTypes();

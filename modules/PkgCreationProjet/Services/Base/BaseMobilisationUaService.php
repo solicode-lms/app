@@ -170,7 +170,7 @@ class BaseMobilisationUaService extends BaseService
         // Récupération des données
         $mobilisationUas_data = $this->paginate($params);
         $mobilisationUas_stats = $this->getmobilisationUaStats();
-        $mobilisationUas_total = collect($mobilisationUas_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $mobilisationUas_total = $this->count();
         $mobilisationUas_filters = $this->getFieldsFilterable();
         $mobilisationUa_instance = $this->createInstance();
         $mobilisationUa_viewTypes = $this->getViewTypes();

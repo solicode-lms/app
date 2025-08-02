@@ -152,7 +152,7 @@ class BaseEModelService extends BaseService
         // Récupération des données
         $eModels_data = $this->paginate($params);
         $eModels_stats = $this->geteModelStats();
-        $eModels_total = collect($eModels_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $eModels_total = $this->count();
         $eModels_filters = $this->getFieldsFilterable();
         $eModel_instance = $this->createInstance();
         $eModel_viewTypes = $this->getViewTypes();

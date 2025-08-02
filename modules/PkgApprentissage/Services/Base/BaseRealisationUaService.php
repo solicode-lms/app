@@ -189,7 +189,7 @@ class BaseRealisationUaService extends BaseService
         // Récupération des données
         $realisationUas_data = $this->paginate($params);
         $realisationUas_stats = $this->getrealisationUaStats();
-        $realisationUas_total = collect($realisationUas_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $realisationUas_total = $this->count();
         $realisationUas_filters = $this->getFieldsFilterable();
         $realisationUa_instance = $this->createInstance();
         $realisationUa_viewTypes = $this->getViewTypes();

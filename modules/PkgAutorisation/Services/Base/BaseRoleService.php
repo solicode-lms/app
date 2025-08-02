@@ -131,7 +131,7 @@ class BaseRoleService extends BaseService
         // Récupération des données
         $roles_data = $this->paginate($params);
         $roles_stats = $this->getroleStats();
-        $roles_total = collect($roles_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $roles_total = $this->count();
         $roles_filters = $this->getFieldsFilterable();
         $role_instance = $this->createInstance();
         $role_viewTypes = $this->getViewTypes();

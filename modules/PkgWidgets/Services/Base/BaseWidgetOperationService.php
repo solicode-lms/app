@@ -131,7 +131,7 @@ class BaseWidgetOperationService extends BaseService
         // Récupération des données
         $widgetOperations_data = $this->paginate($params);
         $widgetOperations_stats = $this->getwidgetOperationStats();
-        $widgetOperations_total = collect($widgetOperations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $widgetOperations_total = $this->count();
         $widgetOperations_filters = $this->getFieldsFilterable();
         $widgetOperation_instance = $this->createInstance();
         $widgetOperation_viewTypes = $this->getViewTypes();

@@ -177,7 +177,7 @@ class BaseEDataFieldService extends BaseService
         // Récupération des données
         $eDataFields_data = $this->paginate($params);
         $eDataFields_stats = $this->geteDataFieldStats();
-        $eDataFields_total = collect($eDataFields_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $eDataFields_total = $this->count();
         $eDataFields_filters = $this->getFieldsFilterable();
         $eDataField_instance = $this->createInstance();
         $eDataField_viewTypes = $this->getViewTypes();

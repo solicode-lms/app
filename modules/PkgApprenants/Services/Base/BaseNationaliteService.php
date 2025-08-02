@@ -132,7 +132,7 @@ class BaseNationaliteService extends BaseService
         // Récupération des données
         $nationalites_data = $this->paginate($params);
         $nationalites_stats = $this->getnationaliteStats();
-        $nationalites_total = collect($nationalites_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $nationalites_total = $this->count();
         $nationalites_filters = $this->getFieldsFilterable();
         $nationalite_instance = $this->createInstance();
         $nationalite_viewTypes = $this->getViewTypes();

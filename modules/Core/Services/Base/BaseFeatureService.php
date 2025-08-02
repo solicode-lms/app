@@ -149,7 +149,7 @@ class BaseFeatureService extends BaseService
         // Récupération des données
         $features_data = $this->paginate($params);
         $features_stats = $this->getfeatureStats();
-        $features_total = collect($features_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $features_total = $this->count();
         $features_filters = $this->getFieldsFilterable();
         $feature_instance = $this->createInstance();
         $feature_viewTypes = $this->getViewTypes();

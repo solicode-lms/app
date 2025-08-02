@@ -168,7 +168,7 @@ class BaseLivrableSessionService extends BaseService
         // Récupération des données
         $livrableSessions_data = $this->paginate($params);
         $livrableSessions_stats = $this->getlivrableSessionStats();
-        $livrableSessions_total = collect($livrableSessions_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $livrableSessions_total = $this->count();
         $livrableSessions_filters = $this->getFieldsFilterable();
         $livrableSession_instance = $this->createInstance();
         $livrableSession_viewTypes = $this->getViewTypes();

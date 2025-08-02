@@ -178,7 +178,7 @@ class BaseChapitreService extends BaseService
         // Récupération des données
         $chapitres_data = $this->paginate($params);
         $chapitres_stats = $this->getchapitreStats();
-        $chapitres_total = collect($chapitres_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $chapitres_total = $this->count();
         $chapitres_filters = $this->getFieldsFilterable();
         $chapitre_instance = $this->createInstance();
         $chapitre_viewTypes = $this->getViewTypes();

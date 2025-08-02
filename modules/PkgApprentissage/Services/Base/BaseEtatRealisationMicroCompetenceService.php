@@ -152,7 +152,7 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
         // Récupération des données
         $etatRealisationMicroCompetences_data = $this->paginate($params);
         $etatRealisationMicroCompetences_stats = $this->getetatRealisationMicroCompetenceStats();
-        $etatRealisationMicroCompetences_total = collect($etatRealisationMicroCompetences_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $etatRealisationMicroCompetences_total = $this->count();
         $etatRealisationMicroCompetences_filters = $this->getFieldsFilterable();
         $etatRealisationMicroCompetence_instance = $this->createInstance();
         $etatRealisationMicroCompetence_viewTypes = $this->getViewTypes();

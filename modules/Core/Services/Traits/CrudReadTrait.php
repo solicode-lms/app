@@ -21,6 +21,10 @@ trait CrudReadTrait
         return $this->model->withScope(fn() =>  $this->model::all());
     }
 
+    public function count(): int
+    {
+        return $this->model->withScope(fn () => $this->model::query())->count();
+    }
     public function getByIds(array $ids, array $columns = ['*']): \Illuminate\Support\Collection
     {
         return $this->model->withScope(function () use ($ids, $columns) {

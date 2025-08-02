@@ -174,7 +174,7 @@ class BaseGroupeService extends BaseService
         // Récupération des données
         $groupes_data = $this->paginate($params);
         $groupes_stats = $this->getgroupeStats();
-        $groupes_total = collect($groupes_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $groupes_total = $this->count();
         $groupes_filters = $this->getFieldsFilterable();
         $groupe_instance = $this->createInstance();
         $groupe_viewTypes = $this->getViewTypes();

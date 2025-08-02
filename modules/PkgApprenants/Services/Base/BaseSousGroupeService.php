@@ -149,7 +149,7 @@ class BaseSousGroupeService extends BaseService
         // Récupération des données
         $sousGroupes_data = $this->paginate($params);
         $sousGroupes_stats = $this->getsousGroupeStats();
-        $sousGroupes_total = collect($sousGroupes_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $sousGroupes_total = $this->count();
         $sousGroupes_filters = $this->getFieldsFilterable();
         $sousGroupe_instance = $this->createInstance();
         $sousGroupe_viewTypes = $this->getViewTypes();

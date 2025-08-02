@@ -42,16 +42,18 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($evaluateurs_permissions['initPassword-evaluateur'])
-                        <a 
-                        data-toggle="tooltip" 
-                        title="Initialiser le mot de passe" 
-                        href="{{ route('evaluateurs.initPassword', ['id' => $evaluateur->id]) }}" 
-                        data-id="{{$evaluateur->id}}" 
-                        data-url="{{ route('evaluateurs.initPassword', ['id' => $evaluateur->id]) }}" 
-                        data-action-type="confirm"
-                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
-                            <i class="fas fa-unlock-alt"></i>
-                        </a>
+                        <x-action-button :entity="$evaluateur" actionName="initPassword">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Initialiser le mot de passe" 
+                            href="{{ route('evaluateurs.initPassword', ['id' => $evaluateur->id]) }}" 
+                            data-id="{{$evaluateur->id}}" 
+                            data-url="{{ route('evaluateurs.initPassword', ['id' => $evaluateur->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                                <i class="fas fa-unlock-alt"></i>
+                            </a>
+                        </x-action-button>
                         @endif
                         
 

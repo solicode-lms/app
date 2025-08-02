@@ -213,7 +213,7 @@ class BaseAffectationProjetService extends BaseService
         // Récupération des données
         $affectationProjets_data = $this->paginate($params);
         $affectationProjets_stats = $this->getaffectationProjetStats();
-        $affectationProjets_total = collect($affectationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $affectationProjets_total = $this->count();
         $affectationProjets_filters = $this->getFieldsFilterable();
         $affectationProjet_instance = $this->createInstance();
         $affectationProjet_viewTypes = $this->getViewTypes();

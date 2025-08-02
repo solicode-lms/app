@@ -199,7 +199,7 @@ class BaseEvaluationRealisationProjetService extends BaseService
         // Récupération des données
         $evaluationRealisationProjets_data = $this->paginate($params);
         $evaluationRealisationProjets_stats = $this->getevaluationRealisationProjetStats();
-        $evaluationRealisationProjets_total = collect($evaluationRealisationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $evaluationRealisationProjets_total = $this->count();
         $evaluationRealisationProjets_filters = $this->getFieldsFilterable();
         $evaluationRealisationProjet_instance = $this->createInstance();
         $evaluationRealisationProjet_viewTypes = $this->getViewTypes();

@@ -168,7 +168,7 @@ class BaseCritereEvaluationService extends BaseService
         // Récupération des données
         $critereEvaluations_data = $this->paginate($params);
         $critereEvaluations_stats = $this->getcritereEvaluationStats();
-        $critereEvaluations_total = collect($critereEvaluations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $critereEvaluations_total = $this->count();
         $critereEvaluations_filters = $this->getFieldsFilterable();
         $critereEvaluation_instance = $this->createInstance();
         $critereEvaluation_viewTypes = $this->getViewTypes();

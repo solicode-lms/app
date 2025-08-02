@@ -150,7 +150,7 @@ class BaseFeatureDomainService extends BaseService
         // Récupération des données
         $featureDomains_data = $this->paginate($params);
         $featureDomains_stats = $this->getfeatureDomainStats();
-        $featureDomains_total = collect($featureDomains_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $featureDomains_total = $this->count();
         $featureDomains_filters = $this->getFieldsFilterable();
         $featureDomain_instance = $this->createInstance();
         $featureDomain_viewTypes = $this->getViewTypes();

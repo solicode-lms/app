@@ -204,7 +204,7 @@ class BaseRealisationMicroCompetenceService extends BaseService
         // Récupération des données
         $realisationMicroCompetences_data = $this->paginate($params);
         $realisationMicroCompetences_stats = $this->getrealisationMicroCompetenceStats();
-        $realisationMicroCompetences_total = collect($realisationMicroCompetences_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $realisationMicroCompetences_total = $this->count();
         $realisationMicroCompetences_filters = $this->getFieldsFilterable();
         $realisationMicroCompetence_instance = $this->createInstance();
         $realisationMicroCompetence_viewTypes = $this->getViewTypes();

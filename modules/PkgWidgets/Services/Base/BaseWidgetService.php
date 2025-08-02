@@ -190,7 +190,7 @@ class BaseWidgetService extends BaseService
         // Récupération des données
         $widgets_data = $this->paginate($params);
         $widgets_stats = $this->getwidgetStats();
-        $widgets_total = collect($widgets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $widgets_total = $this->count();
         $widgets_filters = $this->getFieldsFilterable();
         $widget_instance = $this->createInstance();
         $widget_viewTypes = $this->getViewTypes();

@@ -39,16 +39,18 @@
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
                         @if($projets_permissions['clonerProjet-projet'])
-                        <a 
-                        data-toggle="tooltip" 
-                        title="Cloner le projet" 
-                        href="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
-                        data-id="{{$projet->id}}" 
-                        data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
-                        data-action-type="confirm"
-                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
-                            <i class="fas fa-clone"></i>
-                        </a>
+                        <x-action-button :entity="$projet" actionName="clonerProjet">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Cloner le projet" 
+                            href="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                            data-id="{{$projet->id}}" 
+                            data-url="{{ route('projets.clonerProjet', ['id' => $projet->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                                <i class="fas fa-clone"></i>
+                            </a>
+                        </x-action-button>
                         @endif
                         
 

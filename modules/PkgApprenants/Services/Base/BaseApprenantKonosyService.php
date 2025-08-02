@@ -148,7 +148,7 @@ class BaseApprenantKonosyService extends BaseService
         // Récupération des données
         $apprenantKonosies_data = $this->paginate($params);
         $apprenantKonosies_stats = $this->getapprenantKonosyStats();
-        $apprenantKonosies_total = collect($apprenantKonosies_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $apprenantKonosies_total = $this->count();
         $apprenantKonosies_filters = $this->getFieldsFilterable();
         $apprenantKonosy_instance = $this->createInstance();
         $apprenantKonosy_viewTypes = $this->getViewTypes();

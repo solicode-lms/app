@@ -151,7 +151,7 @@ class BaseEtatEvaluationProjetService extends BaseService
         // Récupération des données
         $etatEvaluationProjets_data = $this->paginate($params);
         $etatEvaluationProjets_stats = $this->getetatEvaluationProjetStats();
-        $etatEvaluationProjets_total = collect($etatEvaluationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $etatEvaluationProjets_total = $this->count();
         $etatEvaluationProjets_filters = $this->getFieldsFilterable();
         $etatEvaluationProjet_instance = $this->createInstance();
         $etatEvaluationProjet_viewTypes = $this->getViewTypes();

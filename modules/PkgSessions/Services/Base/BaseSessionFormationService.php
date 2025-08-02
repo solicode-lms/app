@@ -189,7 +189,7 @@ class BaseSessionFormationService extends BaseService
         // Récupération des données
         $sessionFormations_data = $this->paginate($params);
         $sessionFormations_stats = $this->getsessionFormationStats();
-        $sessionFormations_total = collect($sessionFormations_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $sessionFormations_total = $this->count();
         $sessionFormations_filters = $this->getFieldsFilterable();
         $sessionFormation_instance = $this->createInstance();
         $sessionFormation_viewTypes = $this->getViewTypes();

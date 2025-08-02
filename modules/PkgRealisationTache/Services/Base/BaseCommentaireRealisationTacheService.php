@@ -185,7 +185,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
         // Récupération des données
         $commentaireRealisationTaches_data = $this->paginate($params);
         $commentaireRealisationTaches_stats = $this->getcommentaireRealisationTacheStats();
-        $commentaireRealisationTaches_total = collect($commentaireRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $commentaireRealisationTaches_total = $this->count();
         $commentaireRealisationTaches_filters = $this->getFieldsFilterable();
         $commentaireRealisationTache_instance = $this->createInstance();
         $commentaireRealisationTache_viewTypes = $this->getViewTypes();

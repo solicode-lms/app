@@ -182,7 +182,7 @@ class BaseApprenantService extends BaseService
         // Récupération des données
         $apprenants_data = $this->paginate($params);
         $apprenants_stats = $this->getapprenantStats();
-        $apprenants_total = collect($apprenants_stats)->firstWhere('code', 'total')['value'] ?? null;
+        $apprenants_total = $this->count();
         $apprenants_filters = $this->getFieldsFilterable();
         $apprenant_instance = $this->createInstance();
         $apprenant_viewTypes = $this->getViewTypes();
