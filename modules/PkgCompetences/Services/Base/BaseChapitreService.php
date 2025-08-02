@@ -24,11 +24,11 @@ class BaseChapitreService extends BaseService
         'ordre',
         'code',
         'nom',
-        'lien',
-        'description',
+        'unite_apprentissage_id',
         'duree_en_heure',
         'isOfficiel',
-        'unite_apprentissage_id',
+        'lien',
+        'description',
         'formateur_id'
     ];
 
@@ -60,15 +60,6 @@ class BaseChapitreService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('isOfficiel', $scopeVariables)) {
-                    $this->fieldsFilterable[] = [
-                        'field' => 'isOfficiel', 
-                        'type'  => 'Boolean', 
-                        'label' => 'isOfficiel'
-                    ];
-                }
-            
-            
                 $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
                 $microCompetenceIds = $this->getAvailableFilterValues('UniteApprentissage.Micro_competence_id');
                 $microCompetences = $microCompetenceService->getByIds($microCompetenceIds);
@@ -81,6 +72,15 @@ class BaseChapitreService extends BaseService
                     "id",
                     $microCompetences
                 );
+            
+            
+                if (!array_key_exists('isOfficiel', $scopeVariables)) {
+                    $this->fieldsFilterable[] = [
+                        'field' => 'isOfficiel', 
+                        'type'  => 'Boolean', 
+                        'label' => 'isOfficiel'
+                    ];
+                }
             
             
                 if (!array_key_exists('formateur_id', $scopeVariables)) {

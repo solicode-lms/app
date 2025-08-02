@@ -6,21 +6,6 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemChapitre->ordre))
-          {{ $itemChapitre->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.code')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemChapitre->code) && $itemChapitre->code !== '')
@@ -47,26 +32,14 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.lien')) }}</small>
-                                <!-- Valeur texte -->
-        @if(! is_null($itemChapitre->lien) && $itemChapitre->lien !== '')
-          {{ $itemChapitre->lien }}
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}</small>
+                              
+      @if($itemChapitre->uniteApprentissage)
+        {{ $itemChapitre->uniteApprentissage }}
+      @else
+        —
+      @endif
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemChapitre->description) && $itemChapitre->description !== '')
-    {!! $itemChapitre->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
           </div>
       </div>
   
@@ -99,51 +72,31 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}</small>
-                              
-      @if($itemChapitre->uniteApprentissage)
-        {{ $itemChapitre->uniteApprentissage }}
-      @else
-        —
-      @endif
-
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.lien')) }}</small>
+                                <!-- Valeur texte -->
+        @if(! is_null($itemChapitre->lien) && $itemChapitre->lien !== '')
+          {{ $itemChapitre->lien }}
+        @else
+          <span class="text-muted">—</span>
+        @endif
           </div>
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.singular')) }}</small>
-                              
-      @if($itemChapitre->formateur)
-        {{ $itemChapitre->formateur }}
-      @else
-        —
-      @endif
-
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.description')) }}</small>
+                          <!-- Valeur avec sauts de ligne -->
+  @if(! is_null($itemChapitre->description) && $itemChapitre->description !== '')
+    {!! $itemChapitre->description !!}
+  @else
+    <span class="text-muted">—</span>
+  @endif
           </div>
       </div>
   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'chapitre.show_' . $itemChapitre->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'chapitre.show_' . $itemChapitre->id])
-            </div>
-          </div>
-      </div>
 
 
             </div>

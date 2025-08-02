@@ -116,56 +116,34 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="lien" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="lien">
-            {{ ucfirst(__('PkgCompetences::chapitre.lien')) }}
+          <label for="unite_apprentissage_id">
+            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
             <span class="text-danger">*</span>
           </label>
-           <input
-                name="lien"
-                type="input"
-                class="form-control"
-                required
-                
-                
-                id="lien"
-                placeholder="{{ __('PkgCompetences::chapitre.lien') }}"
-                value="{{ $itemChapitre ? $itemChapitre->lien : old('lien') }}">
-          @error('lien')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="description" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="description">
-            {{ ucfirst(__('PkgCompetences::chapitre.description')) }}
+                      <select 
+            id="unite_apprentissage_id" 
+            required
             
-          </label>
-                      <textarea rows="" cols=""
-                name="description"
-                class="form-control richText"
-                
-                
-                
-                id="description"
-                placeholder="{{ __('PkgCompetences::chapitre.description') }}">{{ $itemChapitre ? $itemChapitre->description : old('description') }}</textarea>
-          @error('description')
+            
+            name="unite_apprentissage_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($uniteApprentissages as $uniteApprentissage)
+                    <option value="{{ $uniteApprentissage->id }}"
+                        {{ (isset($itemChapitre) && $itemChapitre->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
+                        {{ $uniteApprentissage }}
+                    </option>
+                @endforeach
+            </select>
+          @error('unite_apprentissage_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -232,68 +210,56 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="lien" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="unite_apprentissage_id" id="bulk_field_unite_apprentissage_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="unite_apprentissage_id">
-            {{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}
+          <label for="lien">
+            {{ ucfirst(__('PkgCompetences::chapitre.lien')) }}
             <span class="text-danger">*</span>
           </label>
-                      <select 
-            id="unite_apprentissage_id" 
-            required
-            
-            
-            name="unite_apprentissage_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($uniteApprentissages as $uniteApprentissage)
-                    <option value="{{ $uniteApprentissage->id }}"
-                        {{ (isset($itemChapitre) && $itemChapitre->unite_apprentissage_id == $uniteApprentissage->id) || (old('unite_apprentissage_id>') == $uniteApprentissage->id) ? 'selected' : '' }}>
-                        {{ $uniteApprentissage }}
-                    </option>
-                @endforeach
-            </select>
-          @error('unite_apprentissage_id')
+           <input
+                name="lien"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="lien"
+                placeholder="{{ __('PkgCompetences::chapitre.lien') }}"
+                value="{{ $itemChapitre ? $itemChapitre->lien : old('lien') }}">
+          @error('lien')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="formateur_id" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemChapitre" field="description" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="formateur_id" id="bulk_field_formateur_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="description" id="bulk_field_description" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="formateur_id">
-            {{ ucfirst(__('PkgFormation::formateur.singular')) }}
+          <label for="description">
+            {{ ucfirst(__('PkgCompetences::chapitre.description')) }}
             
           </label>
-                      <select 
-            id="formateur_id" 
-            
-            
-            
-            name="formateur_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($formateurs as $formateur)
-                    <option value="{{ $formateur->id }}"
-                        {{ (isset($itemChapitre) && $itemChapitre->formateur_id == $formateur->id) || (old('formateur_id>') == $formateur->id) ? 'selected' : '' }}>
-                        {{ $formateur }}
-                    </option>
-                @endforeach
-            </select>
-          @error('formateur_id')
+                      <textarea rows="" cols=""
+                name="description"
+                class="form-control richText"
+                
+                
+                
+                id="description"
+                placeholder="{{ __('PkgCompetences::chapitre.description') }}">{{ $itemChapitre ? $itemChapitre->description : old('description') }}</textarea>
+          @error('description')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

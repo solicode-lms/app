@@ -1,19 +1,10 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-chapitre', 'index-competence', 'index-critereEvaluation', 'index-microCompetence', 'index-phaseEvaluation', 'index-uniteApprentissage'])
+@accessiblePermissions(['index-competence', 'index-microCompetence'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-chapitre')
-            <li class="nav-item" id="menu-chapitres">
-                <a href="{{ route('chapitres.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCompetences/chapitres') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-chalkboard"></i>
-                    {{__('PkgCompetences::chapitre.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-competence')
             <li class="nav-item" id="menu-competences">
                 <a href="{{ route('competences.index') }}" 
@@ -23,39 +14,12 @@
                 </a>
             </li>
             @endcan
-            @can('index-critereEvaluation')
-            <li class="nav-item" id="menu-critereEvaluations">
-                <a href="{{ route('critereEvaluations.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCompetences/critereEvaluations') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-circle"></i>
-                    {{__('PkgCompetences::critereEvaluation.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-microCompetence')
             <li class="nav-item" id="menu-microCompetences">
                 <a href="{{ route('microCompetences.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgCompetences/microCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     {{__('PkgCompetences::microCompetence.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-phaseEvaluation')
-            <li class="nav-item" id="menu-phaseEvaluations">
-                <a href="{{ route('phaseEvaluations.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCompetences/phaseEvaluations') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-battery-three-quarters"></i>
-                    {{__('PkgCompetences::phaseEvaluation.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-uniteApprentissage')
-            <li class="nav-item" id="menu-uniteApprentissages">
-                <a href="{{ route('uniteApprentissages.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCompetences/uniteApprentissages') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-puzzle-piece"></i>
-                    {{__('PkgCompetences::uniteApprentissage.plural')}}
                 </a>
             </li>
             @endcan
@@ -70,14 +34,6 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-chapitre') 
-            <li class="nav-item" id="menu-chapitres">
-                <a href="{{ route('chapitres.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/chapitres') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-chalkboard"></i>
-                    {{__('PkgCompetences::chapitre.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-competence') 
             <li class="nav-item" id="menu-competences">
                 <a href="{{ route('competences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/competences') ? 'active' : '' }}">
@@ -86,35 +42,11 @@
                 </a>
             </li>
             @endcan
-            @can('index-critereEvaluation') 
-            <li class="nav-item" id="menu-critereEvaluations">
-                <a href="{{ route('critereEvaluations.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/critereEvaluations') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-check-circle"></i>
-                    {{__('PkgCompetences::critereEvaluation.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-microCompetence') 
             <li class="nav-item" id="menu-microCompetences">
                 <a href="{{ route('microCompetences.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/microCompetences') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     {{__('PkgCompetences::microCompetence.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-phaseEvaluation') 
-            <li class="nav-item" id="menu-phaseEvaluations">
-                <a href="{{ route('phaseEvaluations.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/phaseEvaluations') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-battery-three-quarters"></i>
-                    {{__('PkgCompetences::phaseEvaluation.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-uniteApprentissage') 
-            <li class="nav-item" id="menu-uniteApprentissages">
-                <a href="{{ route('uniteApprentissages.index') }}" class="nav-link {{ Request::is('admin/PkgCompetences/uniteApprentissages') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-puzzle-piece"></i>
-                    {{__('PkgCompetences::uniteApprentissage.plural')}}
                 </a>
             </li>
             @endcan

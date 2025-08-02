@@ -12,8 +12,8 @@
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.ordre'))!!}" />
                 <x-sortable-column :sortable="true" width="6"  field="code" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.code'))!!}" />
                 <x-sortable-column :sortable="true" width="30"  field="nom" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="7"  field="lien" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.lien'))!!}" />
                 <x-sortable-column :sortable="true" width="25" field="unite_apprentissage_id" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="7"  field="lien" modelname="chapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.lien'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -39,15 +39,15 @@
                         {{ $chapitre->nom }}
 
                     </td>
+                    <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
+                        {{  $chapitre->uniteApprentissage }}
+
+                    </td>
                     <td style="max-width: 7%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $chapitre->lien }}" >
     <a href="{{ $chapitre->lien }}" target="_blank">
          <i class="fas fa-link"></i>
     </a>
 
-
-                    </td>
-                    <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$chapitre->id}}" data-field="unite_apprentissage_id"  data-toggle="tooltip" title="{{ $chapitre->uniteApprentissage }}" >
-                        {{  $chapitre->uniteApprentissage }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

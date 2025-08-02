@@ -34,27 +34,27 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'ordre' => 'ordre',
                 'code' => 'code',
-                'reference' => 'reference',
                 'nom' => 'nom',
-                'lien' => 'lien',
-                'description' => 'description',
+                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
                 'duree_en_heure' => 'duree_en_heure',
                 'isOfficiel' => 'isOfficiel',
-                'unite_apprentissage_reference' => 'unite_apprentissage_reference',
+                'lien' => 'lien',
+                'description' => 'description',
                 'formateur_reference' => 'formateur_reference',
+                'reference' => 'reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgCompetences::chapitre.ordre'),
                 'code' => __('PkgCompetences::chapitre.code'),
-                'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgCompetences::chapitre.nom'),
-                'lien' => __('PkgCompetences::chapitre.lien'),
-                'description' => __('PkgCompetences::chapitre.description'),
+                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
                 'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
                 'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
-                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
+                'lien' => __('PkgCompetences::chapitre.lien'),
+                'description' => __('PkgCompetences::chapitre.description'),
                 'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -68,14 +68,14 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'ordre' => (string) $chapitre->ordre,
                 'code' => $chapitre->code,
-                'reference' => $chapitre->reference,
                 'nom' => $chapitre->nom,
-                'lien' => $chapitre->lien,
-                'description' => $chapitre->description,
+                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
                 'duree_en_heure' => $chapitre->duree_en_heure,
                 'isOfficiel' => $chapitre->isOfficiel,
-                'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
+                'lien' => $chapitre->lien,
+                'description' => $chapitre->description,
                 'formateur_reference' => $chapitre->formateur?->reference,
+                'reference' => $chapitre->reference,
             ];
         });
     }
