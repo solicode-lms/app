@@ -26,7 +26,7 @@ class DefaultApprenantPermission extends Seeder
             'sysColor' => 'Afficher',
             'profile' => 'Édition sans Ajouter',
             'competence' => 'Lecture',
-            'microCompetence' => 'Lecture',
+            'microCompetence' => 'Lecture,startFormation',
             'uniteApprentissage' => 'Lecture',
             'chapitre' => 'Lecture',
             'phaseEvaluation' => 'Afficher',
@@ -78,6 +78,7 @@ class DefaultApprenantPermission extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
             'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
             'Extraction' => ['import', 'export'],
+            'startFormation' => ['startFormation'],
         ];
 
 

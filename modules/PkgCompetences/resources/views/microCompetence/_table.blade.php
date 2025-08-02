@@ -60,17 +60,21 @@
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
+
+
                         @if($microCompetences_permissions['startFormation-microCompetence'])
-                        <a 
-                        data-toggle="tooltip" 
-                        title="Suivre la formation" 
-                        href="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
-                        data-id="{{$microCompetence->id}}" 
-                        data-url="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
-                        data-action-type="confirm"
-                        class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
-                            <i class="fas fa-graduation-cap"></i>
-                        </a>
+                        <x-action-button :entity="$microCompetence" actionName="startFormation">
+                            <a 
+                            data-toggle="tooltip" 
+                            title="Suivre la formation" 
+                            href="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
+                            data-id="{{$microCompetence->id}}" 
+                            data-url="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
+                            data-action-type="confirm"
+                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                                <i class="fas fa-graduation-cap"></i>
+                            </a>
+                        </x-action-button>
                         @endif
                         
 
