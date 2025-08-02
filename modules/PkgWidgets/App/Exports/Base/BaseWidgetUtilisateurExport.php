@@ -63,7 +63,7 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
                 'widget_reference' => $widgetUtilisateur->widget?->reference,
                 'titre' => $widgetUtilisateur->titre,
                 'sous_titre' => $widgetUtilisateur->sous_titre,
-                'visible' => $widgetUtilisateur->visible,
+                'visible' => $widgetUtilisateur->visible ? '1' : '0',
             ];
         });
     }

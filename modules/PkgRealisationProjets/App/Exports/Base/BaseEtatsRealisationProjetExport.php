@@ -66,7 +66,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
                 'description' => $etatsRealisationProjet->description,
                 'reference' => $etatsRealisationProjet->reference,
                 'sys_color_reference' => $etatsRealisationProjet->sysColor?->reference,
-                'is_editable_by_formateur' => $etatsRealisationProjet->is_editable_by_formateur,
+                'is_editable_by_formateur' => $etatsRealisationProjet->is_editable_by_formateur ? '1' : '0',
             ];
         });
     }

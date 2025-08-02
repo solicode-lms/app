@@ -64,7 +64,7 @@ class BaseNotificationExport implements FromCollection, WithHeadings, ShouldAuto
                 'type' => $notification->type,
                 'message' => $notification->message,
                 'sent_at' => $notification->sent_at,
-                'is_read' => $notification->is_read,
+                'is_read' => $notification->is_read ? '1' : '0',
                 'user_reference' => $notification->user?->reference,
                 'data' => $notification->data,
             ];

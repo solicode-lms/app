@@ -64,7 +64,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'code' => $workflowTache->code,
                 'titre' => $workflowTache->titre,
                 'description' => $workflowTache->description,
-                'is_editable_only_by_formateur' => $workflowTache->is_editable_only_by_formateur,
+                'is_editable_only_by_formateur' => $workflowTache->is_editable_only_by_formateur ? '1' : '0',
                 'reference' => $workflowTache->reference,
                 'sys_color_reference' => $workflowTache->sysColor?->reference,
             ];

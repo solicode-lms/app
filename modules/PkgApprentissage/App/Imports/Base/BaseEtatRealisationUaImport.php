@@ -57,12 +57,12 @@ class BaseEtatRealisationUaImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new EtatRealisationUa([
              'ordre' => $values[0] ?? null,
+             'nom' => $values[1] ?? null,
+             'code' => $values[2] ?? null,
+             'description' => $values[3] ?? null,
+             'is_editable_only_by_formateur' => $values[4] ?? null,
+             'sys_color_id' => $values[5] ?? null,
              'reference' => $reference,
-             'nom' => $values[2] ?? null,
-             'code' => $values[3] ?? null,
-             'description' => $values[4] ?? null,
-             'is_editable_only_by_formateur' => $values[5] ?? null,
-             'sys_color_id' => $values[6] ?? null,
         ]);
 
 

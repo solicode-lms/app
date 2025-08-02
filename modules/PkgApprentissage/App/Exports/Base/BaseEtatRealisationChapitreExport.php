@@ -65,7 +65,7 @@ class BaseEtatRealisationChapitreExport implements FromCollection, WithHeadings,
                 'nom' => $etatRealisationChapitre->nom,
                 'code' => $etatRealisationChapitre->code,
                 'description' => $etatRealisationChapitre->description,
-                'is_editable_only_by_formateur' => $etatRealisationChapitre->is_editable_only_by_formateur,
+                'is_editable_only_by_formateur' => $etatRealisationChapitre->is_editable_only_by_formateur ? '1' : '0',
                 'sys_color_reference' => $etatRealisationChapitre->sysColor?->reference,
             ];
         });

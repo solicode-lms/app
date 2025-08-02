@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="nom" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.code'))!!}" />
-                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="nom" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="code" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.code'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5" field="sys_color_id" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="is_editable_only_by_formateur" modelname="etatRealisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.is_editable_only_by_formateur'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -30,19 +31,25 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->nom }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->nom }}" >
                         {{ $etatRealisationMicroCompetence->nom }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->code }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->code }}" >
                         {{ $etatRealisationMicroCompetence->code }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->sysColor }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->sysColor }}" >
                         <x-badge 
                         :text="$etatRealisationMicroCompetence->sysColor->name ?? ''" 
                         :background="$etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
                         />
+
+                    </td>
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationMicroCompetence->id}}" data-field="is_editable_only_by_formateur"  data-toggle="tooltip" title="{{ $etatRealisationMicroCompetence->is_editable_only_by_formateur }}" >
+                        <span class="{{ $etatRealisationMicroCompetence->is_editable_only_by_formateur ? 'text-success' : 'text-danger' }}">
+                            {{ $etatRealisationMicroCompetence->is_editable_only_by_formateur ? 'Oui' : 'Non' }}
+                        </span>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

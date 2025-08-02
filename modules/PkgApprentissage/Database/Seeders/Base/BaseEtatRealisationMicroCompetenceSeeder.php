@@ -84,9 +84,9 @@ class BaseEtatRealisationMicroCompetenceSeeder extends Seeder
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
-                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "is_editable_only_by_formateur" => isset($row["is_editable_only_by_formateur"]) && $row["is_editable_only_by_formateur"] !== "" ? $row["is_editable_only_by_formateur"] : null,
                         "sys_color_id" => $sys_color_id,
+                        "is_editable_only_by_formateur" => isset($row["is_editable_only_by_formateur"]) && $row["is_editable_only_by_formateur"] !== "" ? $row["is_editable_only_by_formateur"] : null,
+                        "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

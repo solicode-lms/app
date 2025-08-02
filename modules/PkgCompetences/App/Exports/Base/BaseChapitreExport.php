@@ -71,7 +71,7 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nom' => $chapitre->nom,
                 'unite_apprentissage_reference' => $chapitre->uniteApprentissage?->reference,
                 'duree_en_heure' => $chapitre->duree_en_heure,
-                'isOfficiel' => $chapitre->isOfficiel,
+                'isOfficiel' => $chapitre->isOfficiel ? '1' : '0',
                 'lien' => $chapitre->lien,
                 'description' => $chapitre->description,
                 'formateur_reference' => $chapitre->formateur?->reference,

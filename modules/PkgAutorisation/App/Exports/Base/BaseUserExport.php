@@ -64,7 +64,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'email' => $user->email,
                 'email_verified_at' => $user->email_verified_at,
                 'password' => $user->password,
-                'must_change_password' => $user->must_change_password,
+                'must_change_password' => $user->must_change_password ? '1' : '0',
                 'remember_token' => $user->remember_token,
                 'reference' => $user->reference,
             ];

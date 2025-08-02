@@ -32,9 +32,9 @@ class BaseEtatRealisationMicroCompetenceRequest extends FormRequest
             'ordre' => 'required|integer',
             'nom' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'sys_color_id' => 'nullable',
             'is_editable_only_by_formateur' => 'nullable|boolean',
-            'sys_color_id' => 'nullable'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -51,9 +51,9 @@ class BaseEtatRealisationMicroCompetenceRequest extends FormRequest
             'nom.max' => __('validation.nomMax'),
             'code.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.code')]),
             'code.max' => __('validation.codeMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.description')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.sys_color_id')]),
             'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.is_editable_only_by_formateur')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.sys_color_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationMicroCompetence.description')])
         ];
     }
 

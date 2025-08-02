@@ -73,7 +73,7 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
         return $this->data->map(function ($eMetadatum) {
             return [
                 'reference' => $eMetadatum->reference,
-                'value_boolean' => $eMetadatum->value_boolean,
+                'value_boolean' => $eMetadatum->value_boolean ? '1' : '0',
                 'value_string' => $eMetadatum->value_string,
                 'value_integer' => (string) $eMetadatum->value_integer,
                 'value_float' => $eMetadatum->value_float,

@@ -63,7 +63,7 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'projet_reference' => $livrable->projet?->reference,
                 'description' => $livrable->description,
                 'reference' => $livrable->reference,
-                'is_affichable_seulement_par_formateur' => $livrable->is_affichable_seulement_par_formateur,
+                'is_affichable_seulement_par_formateur' => $livrable->is_affichable_seulement_par_formateur ? '1' : '0',
             ];
         });
     }

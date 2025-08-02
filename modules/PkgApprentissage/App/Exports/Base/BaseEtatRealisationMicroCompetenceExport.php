@@ -33,22 +33,22 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'reference' => 'reference',
                 'nom' => 'nom',
                 'code' => 'code',
-                'description' => 'description',
-                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
                 'sys_color_reference' => 'sys_color_reference',
+                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
+                'description' => 'description',
+                'reference' => 'reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgApprentissage::etatRealisationMicroCompetence.ordre'),
-                'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationMicroCompetence.nom'),
                 'code' => __('PkgApprentissage::etatRealisationMicroCompetence.code'),
-                'description' => __('PkgApprentissage::etatRealisationMicroCompetence.description'),
-                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationMicroCompetence.is_editable_only_by_formateur'),
                 'sys_color_reference' => __('PkgApprentissage::etatRealisationMicroCompetence.sys_color_reference'),
+                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationMicroCompetence.is_editable_only_by_formateur'),
+                'description' => __('PkgApprentissage::etatRealisationMicroCompetence.description'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -61,12 +61,12 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
         return $this->data->map(function ($etatRealisationMicroCompetence) {
             return [
                 'ordre' => (string) $etatRealisationMicroCompetence->ordre,
-                'reference' => $etatRealisationMicroCompetence->reference,
                 'nom' => $etatRealisationMicroCompetence->nom,
                 'code' => $etatRealisationMicroCompetence->code,
-                'description' => $etatRealisationMicroCompetence->description,
-                'is_editable_only_by_formateur' => $etatRealisationMicroCompetence->is_editable_only_by_formateur,
                 'sys_color_reference' => $etatRealisationMicroCompetence->sysColor?->reference,
+                'is_editable_only_by_formateur' => $etatRealisationMicroCompetence->is_editable_only_by_formateur ? '1' : '0',
+                'description' => $etatRealisationMicroCompetence->description,
+                'reference' => $etatRealisationMicroCompetence->reference,
             ];
         });
     }

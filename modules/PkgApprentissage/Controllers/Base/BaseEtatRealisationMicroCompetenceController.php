@@ -5,7 +5,6 @@
 namespace Modules\PkgApprentissage\Controllers\Base;
 use Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -130,7 +129,7 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
             );
         }
 
-        return redirect()->route('etatRealisationMicroCompetences.edit',['etatRealisationMicroCompetence' => $etatRealisationMicroCompetence->id])->with(
+        return redirect()->route('etatRealisationMicroCompetences.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationMicroCompetence,
@@ -147,18 +146,11 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->edit($id);
 
 
-        $this->viewState->set('scope.realisationMicroCompetence.etat_realisation_micro_competence_id', $id);
-        
-
-        $realisationMicroCompetenceService =  new RealisationMicroCompetenceService();
-        $realisationMicroCompetences_view_data = $realisationMicroCompetenceService->prepareDataForIndexView();
-        extract($realisationMicroCompetences_view_data);
-
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationMicroCompetence._show', array_merge(compact('itemEtatRealisationMicroCompetence'),$realisationMicroCompetence_compact_value));
+            return view('PkgApprentissage::etatRealisationMicroCompetence._show', array_merge(compact('itemEtatRealisationMicroCompetence'),));
         }
 
-        return view('PkgApprentissage::etatRealisationMicroCompetence.show', array_merge(compact('itemEtatRealisationMicroCompetence'),$realisationMicroCompetence_compact_value));
+        return view('PkgApprentissage::etatRealisationMicroCompetence.show', array_merge(compact('itemEtatRealisationMicroCompetence'),));
 
     }
     /**
@@ -174,20 +166,13 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
         $sysColors = $this->sysColorService->all();
 
 
-        $this->viewState->set('scope.realisationMicroCompetence.etat_realisation_micro_competence_id', $id);
-        
-
-        $realisationMicroCompetenceService =  new RealisationMicroCompetenceService();
-        $realisationMicroCompetences_view_data = $realisationMicroCompetenceService->prepareDataForIndexView();
-        extract($realisationMicroCompetences_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationMicroCompetence._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationMicroCompetence','sysColors'),$realisationMicroCompetence_compact_value));
+            return view('PkgApprentissage::etatRealisationMicroCompetence._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationMicroCompetence','sysColors'),));
         }
 
-        return view('PkgApprentissage::etatRealisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationMicroCompetence','sysColors'),$realisationMicroCompetence_compact_value));
+        return view('PkgApprentissage::etatRealisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationMicroCompetence','sysColors'),));
 
 
     }

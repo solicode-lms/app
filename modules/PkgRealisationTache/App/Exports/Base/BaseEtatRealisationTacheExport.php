@@ -63,7 +63,7 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
                 'nom' => $etatRealisationTache->nom,
                 'workflow_tache_reference' => $etatRealisationTache->workflowTache?->reference,
                 'sys_color_reference' => $etatRealisationTache->sysColor?->reference,
-                'is_editable_only_by_formateur' => $etatRealisationTache->is_editable_only_by_formateur,
+                'is_editable_only_by_formateur' => $etatRealisationTache->is_editable_only_by_formateur ? '1' : '0',
                 'reference' => $etatRealisationTache->reference,
                 'formateur_reference' => $etatRealisationTache->formateur?->reference,
                 'description' => $etatRealisationTache->description,

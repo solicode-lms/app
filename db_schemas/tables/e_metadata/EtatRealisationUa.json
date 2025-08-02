@@ -27,7 +27,7 @@
     },
     {
         "reference": "EtatRealisationUa_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 8,
         "e_data_field_reference": "EtatRealisationUa_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "EtatRealisationUa_reference_displayOrder",
-        "value_integer": 2,
+        "value_integer": 9,
         "e_data_field_reference": "EtatRealisationUa_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -123,7 +123,7 @@
     },
     {
         "reference": "EtatRealisationUa_nom_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "EtatRealisationUa_nom",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -171,7 +171,7 @@
     },
     {
         "reference": "EtatRealisationUa_code_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "e_data_field_reference": "EtatRealisationUa_code",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -207,7 +207,7 @@
     },
     {
         "reference": "EtatRealisationUa_description_displayOrder",
-        "value_integer": 5,
+        "value_integer": 4,
         "e_data_field_reference": "EtatRealisationUa_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -250,7 +250,7 @@
     },
     {
         "reference": "EtatRealisationUa_is_editable_only_by_formateur_displayOrder",
-        "value_integer": 6,
+        "value_integer": 5,
         "e_data_field_reference": "EtatRealisationUa_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -298,7 +298,7 @@
     },
     {
         "reference": "EtatRealisationUa_sys_color_id_displayOrder",
-        "value_integer": 7,
+        "value_integer": 6,
         "e_data_field_reference": "EtatRealisationUa_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -342,7 +342,7 @@
     },
     {
         "reference": "EtatRealisationUa_created_at_displayOrder",
-        "value_integer": 8,
+        "value_integer": 10,
         "e_data_field_reference": "EtatRealisationUa_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -378,7 +378,7 @@
     },
     {
         "reference": "EtatRealisationUa_updated_at_displayOrder",
-        "value_integer": 9,
+        "value_integer": 11,
         "e_data_field_reference": "EtatRealisationUa_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -420,7 +420,7 @@
     },
     {
         "reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 7,
         "e_data_field_reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },

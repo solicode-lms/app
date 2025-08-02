@@ -102,7 +102,7 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'reference' => $apprenant->reference,
                 'matricule' => $apprenant->matricule,
                 'date_inscription' => $apprenant->date_inscription,
-                'actif' => $apprenant->actif,
+                'actif' => $apprenant->actif ? '1' : '0',
             ];
         });
     }

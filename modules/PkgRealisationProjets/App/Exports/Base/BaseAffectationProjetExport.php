@@ -72,7 +72,7 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'annee_formation_reference' => $affectationProjet->anneeFormation?->reference,
                 'date_debut' => $affectationProjet->date_debut,
                 'date_fin' => $affectationProjet->date_fin,
-                'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur,
+                'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur ? '1' : '0',
                 'reference' => $affectationProjet->reference,
                 'echelle_note_cible' => (string) $affectationProjet->echelle_note_cible,
                 'description' => $affectationProjet->description,

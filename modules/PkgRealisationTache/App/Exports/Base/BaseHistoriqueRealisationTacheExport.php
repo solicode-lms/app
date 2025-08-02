@@ -63,7 +63,7 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
                 'realisation_tache_reference' => $historiqueRealisationTache->realisationTache?->reference,
                 'user_reference' => $historiqueRealisationTache->user?->reference,
                 'reference' => $historiqueRealisationTache->reference,
-                'isFeedback' => $historiqueRealisationTache->isFeedback,
+                'isFeedback' => $historiqueRealisationTache->isFeedback ? '1' : '0',
             ];
         });
     }

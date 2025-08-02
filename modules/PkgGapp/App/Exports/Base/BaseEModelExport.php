@@ -64,7 +64,7 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'name' => $eModel->name,
                 'table_name' => $eModel->table_name,
                 'icon' => $eModel->icon,
-                'is_pivot_table' => $eModel->is_pivot_table,
+                'is_pivot_table' => $eModel->is_pivot_table ? '1' : '0',
                 'description' => $eModel->description,
                 'e_package_reference' => $eModel->ePackage?->reference,
             ];

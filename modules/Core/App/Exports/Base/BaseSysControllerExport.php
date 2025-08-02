@@ -62,7 +62,7 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
                 'name' => $sysController->name,
                 'slug' => $sysController->slug,
                 'description' => $sysController->description,
-                'is_active' => $sysController->is_active,
+                'is_active' => $sysController->is_active ? '1' : '0',
                 'reference' => $sysController->reference,
             ];
         });
