@@ -23,7 +23,7 @@ trait CrudReadTrait
 
     public function count(): int
     {
-        return $this->model->withScope(fn () => $this->model::query())->count();
+        return $this->model->withScope(fn () => $this->model::query()->count());
     }
     public function getByIds(array $ids, array $columns = ['*']): \Illuminate\Support\Collection
     {
