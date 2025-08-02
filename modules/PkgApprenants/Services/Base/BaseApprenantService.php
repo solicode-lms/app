@@ -70,11 +70,17 @@ class BaseApprenantService extends BaseService
         
             
                 if (!array_key_exists('groupes', $scopeVariables)) {
+
+                    $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                    $groupeIds = $this->getAvailableFilterValues('groupes.id');
+                    $groupes = $groupeService->getByIds($groupeIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToManyFilter(
                         __("PkgApprenants::groupe.plural"), 
                         'groupe_id', 
                         \Modules\PkgApprenants\Models\Groupe::class, 
-                        'code'
+                        'code',
+                        $groupes
                     );
                 }
             

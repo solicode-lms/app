@@ -74,7 +74,6 @@ trait FilterTrait
     {
         $relatedInstance = new $relatedModel();
 
-
         // Appliquer `withScope()` pour activer les scopes si disponibles
         $data = $data ?? $relatedModel::withScope(fn() => $relatedModel::all(['id', $display_field]));
 
