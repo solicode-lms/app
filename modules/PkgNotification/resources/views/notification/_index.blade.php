@@ -90,6 +90,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$notification_viewTypes"
                                     :viewType="$notification_viewType"
+                                    :total="$notifications_total"
                                 />
                             </div>
 
@@ -100,6 +101,7 @@
                 </div>
                 @show
                 @section('notification-crud-filters')
+                @if(!empty($notifications_total) &&  $notifications_total > 10)
                 <div class="card-header">
                     <form id="notification-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($notifications_filters ?? [])}}">
@@ -129,6 +131,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="notification-data-container" class="data-container">
                     @if($notification_viewType != "widgets")

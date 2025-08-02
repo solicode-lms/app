@@ -149,6 +149,7 @@ class BasePermissionService extends BaseService
         // Récupération des données
         $permissions_data = $this->paginate($params);
         $permissions_stats = $this->getpermissionStats();
+        $permissions_total = collect($permissions_stats)->firstWhere('code', 'total')['value'] ?? null;
         $permissions_filters = $this->getFieldsFilterable();
         $permission_instance = $this->createInstance();
         $permission_viewTypes = $this->getViewTypes();
@@ -181,6 +182,7 @@ class BasePermissionService extends BaseService
             'permission_viewType',
             'permissions_data',
             'permissions_stats',
+            'permissions_total',
             'permissions_filters',
             'permission_instance',
             'permission_title',
@@ -192,6 +194,7 @@ class BasePermissionService extends BaseService
         return [
             'permissions_data' => $permissions_data,
             'permissions_stats' => $permissions_stats,
+            'permissions_total' => $permissions_total,
             'permissions_filters' => $permissions_filters,
             'permission_instance' => $permission_instance,
             'permission_viewType' => $permission_viewType,

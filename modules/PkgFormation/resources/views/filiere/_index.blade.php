@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$filiere_viewTypes"
                                     :viewType="$filiere_viewType"
+                                    :total="$filieres_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('filiere-crud-filters')
+                @if(!empty($filieres_total) &&  $filieres_total > 10)
                 <div class="card-header">
                     <form id="filiere-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($filieres_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="filiere-data-container" class="data-container">
                     @if($filiere_viewType != "widgets")

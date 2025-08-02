@@ -151,6 +151,7 @@ class BaseEtatEvaluationProjetService extends BaseService
         // Récupération des données
         $etatEvaluationProjets_data = $this->paginate($params);
         $etatEvaluationProjets_stats = $this->getetatEvaluationProjetStats();
+        $etatEvaluationProjets_total = collect($etatEvaluationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatEvaluationProjets_filters = $this->getFieldsFilterable();
         $etatEvaluationProjet_instance = $this->createInstance();
         $etatEvaluationProjet_viewTypes = $this->getViewTypes();
@@ -183,6 +184,7 @@ class BaseEtatEvaluationProjetService extends BaseService
             'etatEvaluationProjet_viewType',
             'etatEvaluationProjets_data',
             'etatEvaluationProjets_stats',
+            'etatEvaluationProjets_total',
             'etatEvaluationProjets_filters',
             'etatEvaluationProjet_instance',
             'etatEvaluationProjet_title',
@@ -194,6 +196,7 @@ class BaseEtatEvaluationProjetService extends BaseService
         return [
             'etatEvaluationProjets_data' => $etatEvaluationProjets_data,
             'etatEvaluationProjets_stats' => $etatEvaluationProjets_stats,
+            'etatEvaluationProjets_total' => $etatEvaluationProjets_total,
             'etatEvaluationProjets_filters' => $etatEvaluationProjets_filters,
             'etatEvaluationProjet_instance' => $etatEvaluationProjet_instance,
             'etatEvaluationProjet_viewType' => $etatEvaluationProjet_viewType,

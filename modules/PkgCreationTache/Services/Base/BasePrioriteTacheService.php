@@ -164,6 +164,7 @@ class BasePrioriteTacheService extends BaseService
         // Récupération des données
         $prioriteTaches_data = $this->paginate($params);
         $prioriteTaches_stats = $this->getprioriteTacheStats();
+        $prioriteTaches_total = collect($prioriteTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $prioriteTaches_filters = $this->getFieldsFilterable();
         $prioriteTache_instance = $this->createInstance();
         $prioriteTache_viewTypes = $this->getViewTypes();
@@ -196,6 +197,7 @@ class BasePrioriteTacheService extends BaseService
             'prioriteTache_viewType',
             'prioriteTaches_data',
             'prioriteTaches_stats',
+            'prioriteTaches_total',
             'prioriteTaches_filters',
             'prioriteTache_instance',
             'prioriteTache_title',
@@ -207,6 +209,7 @@ class BasePrioriteTacheService extends BaseService
         return [
             'prioriteTaches_data' => $prioriteTaches_data,
             'prioriteTaches_stats' => $prioriteTaches_stats,
+            'prioriteTaches_total' => $prioriteTaches_total,
             'prioriteTaches_filters' => $prioriteTaches_filters,
             'prioriteTache_instance' => $prioriteTache_instance,
             'prioriteTache_viewType' => $prioriteTache_viewType,

@@ -170,6 +170,7 @@ class BaseRealisationUaPrototypeService extends BaseService
         // Récupération des données
         $realisationUaPrototypes_data = $this->paginate($params);
         $realisationUaPrototypes_stats = $this->getrealisationUaPrototypeStats();
+        $realisationUaPrototypes_total = collect($realisationUaPrototypes_stats)->firstWhere('code', 'total')['value'] ?? null;
         $realisationUaPrototypes_filters = $this->getFieldsFilterable();
         $realisationUaPrototype_instance = $this->createInstance();
         $realisationUaPrototype_viewTypes = $this->getViewTypes();
@@ -202,6 +203,7 @@ class BaseRealisationUaPrototypeService extends BaseService
             'realisationUaPrototype_viewType',
             'realisationUaPrototypes_data',
             'realisationUaPrototypes_stats',
+            'realisationUaPrototypes_total',
             'realisationUaPrototypes_filters',
             'realisationUaPrototype_instance',
             'realisationUaPrototype_title',
@@ -213,6 +215,7 @@ class BaseRealisationUaPrototypeService extends BaseService
         return [
             'realisationUaPrototypes_data' => $realisationUaPrototypes_data,
             'realisationUaPrototypes_stats' => $realisationUaPrototypes_stats,
+            'realisationUaPrototypes_total' => $realisationUaPrototypes_total,
             'realisationUaPrototypes_filters' => $realisationUaPrototypes_filters,
             'realisationUaPrototype_instance' => $realisationUaPrototype_instance,
             'realisationUaPrototype_viewType' => $realisationUaPrototype_viewType,

@@ -132,6 +132,7 @@ class BaseAnneeFormationService extends BaseService
         // Récupération des données
         $anneeFormations_data = $this->paginate($params);
         $anneeFormations_stats = $this->getanneeFormationStats();
+        $anneeFormations_total = collect($anneeFormations_stats)->firstWhere('code', 'total')['value'] ?? null;
         $anneeFormations_filters = $this->getFieldsFilterable();
         $anneeFormation_instance = $this->createInstance();
         $anneeFormation_viewTypes = $this->getViewTypes();
@@ -164,6 +165,7 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormation_viewType',
             'anneeFormations_data',
             'anneeFormations_stats',
+            'anneeFormations_total',
             'anneeFormations_filters',
             'anneeFormation_instance',
             'anneeFormation_title',
@@ -175,6 +177,7 @@ class BaseAnneeFormationService extends BaseService
         return [
             'anneeFormations_data' => $anneeFormations_data,
             'anneeFormations_stats' => $anneeFormations_stats,
+            'anneeFormations_total' => $anneeFormations_total,
             'anneeFormations_filters' => $anneeFormations_filters,
             'anneeFormation_instance' => $anneeFormation_instance,
             'anneeFormation_viewType' => $anneeFormation_viewType,

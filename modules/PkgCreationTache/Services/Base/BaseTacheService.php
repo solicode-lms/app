@@ -208,6 +208,7 @@ class BaseTacheService extends BaseService
         // Récupération des données
         $taches_data = $this->paginate($params);
         $taches_stats = $this->gettacheStats();
+        $taches_total = collect($taches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $taches_filters = $this->getFieldsFilterable();
         $tache_instance = $this->createInstance();
         $tache_viewTypes = $this->getViewTypes();
@@ -240,6 +241,7 @@ class BaseTacheService extends BaseService
             'tache_viewType',
             'taches_data',
             'taches_stats',
+            'taches_total',
             'taches_filters',
             'tache_instance',
             'tache_title',
@@ -251,6 +253,7 @@ class BaseTacheService extends BaseService
         return [
             'taches_data' => $taches_data,
             'taches_stats' => $taches_stats,
+            'taches_total' => $taches_total,
             'taches_filters' => $taches_filters,
             'tache_instance' => $tache_instance,
             'tache_viewType' => $tache_viewType,

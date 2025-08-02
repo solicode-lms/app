@@ -168,6 +168,7 @@ class BaseLivrableSessionService extends BaseService
         // Récupération des données
         $livrableSessions_data = $this->paginate($params);
         $livrableSessions_stats = $this->getlivrableSessionStats();
+        $livrableSessions_total = collect($livrableSessions_stats)->firstWhere('code', 'total')['value'] ?? null;
         $livrableSessions_filters = $this->getFieldsFilterable();
         $livrableSession_instance = $this->createInstance();
         $livrableSession_viewTypes = $this->getViewTypes();
@@ -200,6 +201,7 @@ class BaseLivrableSessionService extends BaseService
             'livrableSession_viewType',
             'livrableSessions_data',
             'livrableSessions_stats',
+            'livrableSessions_total',
             'livrableSessions_filters',
             'livrableSession_instance',
             'livrableSession_title',
@@ -211,6 +213,7 @@ class BaseLivrableSessionService extends BaseService
         return [
             'livrableSessions_data' => $livrableSessions_data,
             'livrableSessions_stats' => $livrableSessions_stats,
+            'livrableSessions_total' => $livrableSessions_total,
             'livrableSessions_filters' => $livrableSessions_filters,
             'livrableSession_instance' => $livrableSession_instance,
             'livrableSession_viewType' => $livrableSession_viewType,

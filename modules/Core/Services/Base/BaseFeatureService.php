@@ -149,6 +149,7 @@ class BaseFeatureService extends BaseService
         // Récupération des données
         $features_data = $this->paginate($params);
         $features_stats = $this->getfeatureStats();
+        $features_total = collect($features_stats)->firstWhere('code', 'total')['value'] ?? null;
         $features_filters = $this->getFieldsFilterable();
         $feature_instance = $this->createInstance();
         $feature_viewTypes = $this->getViewTypes();
@@ -181,6 +182,7 @@ class BaseFeatureService extends BaseService
             'feature_viewType',
             'features_data',
             'features_stats',
+            'features_total',
             'features_filters',
             'feature_instance',
             'feature_title',
@@ -192,6 +194,7 @@ class BaseFeatureService extends BaseService
         return [
             'features_data' => $features_data,
             'features_stats' => $features_stats,
+            'features_total' => $features_total,
             'features_filters' => $features_filters,
             'feature_instance' => $feature_instance,
             'feature_viewType' => $feature_viewType,

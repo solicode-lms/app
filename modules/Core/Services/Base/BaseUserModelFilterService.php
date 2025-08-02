@@ -150,6 +150,7 @@ class BaseUserModelFilterService extends BaseService
         // Récupération des données
         $userModelFilters_data = $this->paginate($params);
         $userModelFilters_stats = $this->getuserModelFilterStats();
+        $userModelFilters_total = collect($userModelFilters_stats)->firstWhere('code', 'total')['value'] ?? null;
         $userModelFilters_filters = $this->getFieldsFilterable();
         $userModelFilter_instance = $this->createInstance();
         $userModelFilter_viewTypes = $this->getViewTypes();
@@ -182,6 +183,7 @@ class BaseUserModelFilterService extends BaseService
             'userModelFilter_viewType',
             'userModelFilters_data',
             'userModelFilters_stats',
+            'userModelFilters_total',
             'userModelFilters_filters',
             'userModelFilter_instance',
             'userModelFilter_title',
@@ -193,6 +195,7 @@ class BaseUserModelFilterService extends BaseService
         return [
             'userModelFilters_data' => $userModelFilters_data,
             'userModelFilters_stats' => $userModelFilters_stats,
+            'userModelFilters_total' => $userModelFilters_total,
             'userModelFilters_filters' => $userModelFilters_filters,
             'userModelFilter_instance' => $userModelFilter_instance,
             'userModelFilter_viewType' => $userModelFilter_viewType,

@@ -132,6 +132,7 @@ class BaseFiliereService extends BaseService
         // Récupération des données
         $filieres_data = $this->paginate($params);
         $filieres_stats = $this->getfiliereStats();
+        $filieres_total = collect($filieres_stats)->firstWhere('code', 'total')['value'] ?? null;
         $filieres_filters = $this->getFieldsFilterable();
         $filiere_instance = $this->createInstance();
         $filiere_viewTypes = $this->getViewTypes();
@@ -164,6 +165,7 @@ class BaseFiliereService extends BaseService
             'filiere_viewType',
             'filieres_data',
             'filieres_stats',
+            'filieres_total',
             'filieres_filters',
             'filiere_instance',
             'filiere_title',
@@ -175,6 +177,7 @@ class BaseFiliereService extends BaseService
         return [
             'filieres_data' => $filieres_data,
             'filieres_stats' => $filieres_stats,
+            'filieres_total' => $filieres_total,
             'filieres_filters' => $filieres_filters,
             'filiere_instance' => $filiere_instance,
             'filiere_viewType' => $filiere_viewType,

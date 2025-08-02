@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$niveauxScolaire_viewTypes"
                                     :viewType="$niveauxScolaire_viewType"
+                                    :total="$niveauxScolaires_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('niveauxScolaire-crud-filters')
+                @if(!empty($niveauxScolaires_total) &&  $niveauxScolaires_total > 10)
                 <div class="card-header">
                     <form id="niveauxScolaire-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($niveauxScolaires_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="niveauxScolaire-data-container" class="data-container">
                     @if($niveauxScolaire_viewType != "widgets")

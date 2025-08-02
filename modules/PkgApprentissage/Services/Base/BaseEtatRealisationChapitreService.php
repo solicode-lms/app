@@ -152,6 +152,7 @@ class BaseEtatRealisationChapitreService extends BaseService
         // Récupération des données
         $etatRealisationChapitres_data = $this->paginate($params);
         $etatRealisationChapitres_stats = $this->getetatRealisationChapitreStats();
+        $etatRealisationChapitres_total = collect($etatRealisationChapitres_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatRealisationChapitres_filters = $this->getFieldsFilterable();
         $etatRealisationChapitre_instance = $this->createInstance();
         $etatRealisationChapitre_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseEtatRealisationChapitreService extends BaseService
             'etatRealisationChapitre_viewType',
             'etatRealisationChapitres_data',
             'etatRealisationChapitres_stats',
+            'etatRealisationChapitres_total',
             'etatRealisationChapitres_filters',
             'etatRealisationChapitre_instance',
             'etatRealisationChapitre_title',
@@ -195,6 +197,7 @@ class BaseEtatRealisationChapitreService extends BaseService
         return [
             'etatRealisationChapitres_data' => $etatRealisationChapitres_data,
             'etatRealisationChapitres_stats' => $etatRealisationChapitres_stats,
+            'etatRealisationChapitres_total' => $etatRealisationChapitres_total,
             'etatRealisationChapitres_filters' => $etatRealisationChapitres_filters,
             'etatRealisationChapitre_instance' => $etatRealisationChapitre_instance,
             'etatRealisationChapitre_viewType' => $etatRealisationChapitre_viewType,

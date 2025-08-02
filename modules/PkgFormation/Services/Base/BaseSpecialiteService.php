@@ -147,6 +147,7 @@ class BaseSpecialiteService extends BaseService
         // Récupération des données
         $specialites_data = $this->paginate($params);
         $specialites_stats = $this->getspecialiteStats();
+        $specialites_total = collect($specialites_stats)->firstWhere('code', 'total')['value'] ?? null;
         $specialites_filters = $this->getFieldsFilterable();
         $specialite_instance = $this->createInstance();
         $specialite_viewTypes = $this->getViewTypes();
@@ -179,6 +180,7 @@ class BaseSpecialiteService extends BaseService
             'specialite_viewType',
             'specialites_data',
             'specialites_stats',
+            'specialites_total',
             'specialites_filters',
             'specialite_instance',
             'specialite_title',
@@ -190,6 +192,7 @@ class BaseSpecialiteService extends BaseService
         return [
             'specialites_data' => $specialites_data,
             'specialites_stats' => $specialites_stats,
+            'specialites_total' => $specialites_total,
             'specialites_filters' => $specialites_filters,
             'specialite_instance' => $specialite_instance,
             'specialite_viewType' => $specialite_viewType,

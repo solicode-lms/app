@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$evaluateur_viewTypes"
                                     :viewType="$evaluateur_viewType"
+                                    :total="$evaluateurs_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('evaluateur-crud-filters')
+                @if(!empty($evaluateurs_total) &&  $evaluateurs_total > 10)
                 <div class="card-header">
                     <form id="evaluateur-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($evaluateurs_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="evaluateur-data-container" class="data-container">
                     @if($evaluateur_viewType != "widgets")

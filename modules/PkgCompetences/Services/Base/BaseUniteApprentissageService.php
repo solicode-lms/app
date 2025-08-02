@@ -152,6 +152,7 @@ class BaseUniteApprentissageService extends BaseService
         // Récupération des données
         $uniteApprentissages_data = $this->paginate($params);
         $uniteApprentissages_stats = $this->getuniteApprentissageStats();
+        $uniteApprentissages_total = collect($uniteApprentissages_stats)->firstWhere('code', 'total')['value'] ?? null;
         $uniteApprentissages_filters = $this->getFieldsFilterable();
         $uniteApprentissage_instance = $this->createInstance();
         $uniteApprentissage_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseUniteApprentissageService extends BaseService
             'uniteApprentissage_viewType',
             'uniteApprentissages_data',
             'uniteApprentissages_stats',
+            'uniteApprentissages_total',
             'uniteApprentissages_filters',
             'uniteApprentissage_instance',
             'uniteApprentissage_title',
@@ -195,6 +197,7 @@ class BaseUniteApprentissageService extends BaseService
         return [
             'uniteApprentissages_data' => $uniteApprentissages_data,
             'uniteApprentissages_stats' => $uniteApprentissages_stats,
+            'uniteApprentissages_total' => $uniteApprentissages_total,
             'uniteApprentissages_filters' => $uniteApprentissages_filters,
             'uniteApprentissage_instance' => $uniteApprentissage_instance,
             'uniteApprentissage_viewType' => $uniteApprentissage_viewType,

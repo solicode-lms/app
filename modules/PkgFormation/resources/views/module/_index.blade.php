@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$module_viewTypes"
                                     :viewType="$module_viewType"
+                                    :total="$modules_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('module-crud-filters')
+                @if(!empty($modules_total) &&  $modules_total > 10)
                 <div class="card-header">
                     <form id="module-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($modules_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="module-data-container" class="data-container">
                     @if($module_viewType != "widgets")

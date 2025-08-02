@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$commentaireRealisationTache_viewTypes"
                                     :viewType="$commentaireRealisationTache_viewType"
+                                    :total="$commentaireRealisationTaches_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('commentaireRealisationTache-crud-filters')
+                @if(!empty($commentaireRealisationTaches_total) &&  $commentaireRealisationTaches_total > 10)
                 <div class="card-header">
                     <form id="commentaireRealisationTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($commentaireRealisationTaches_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="commentaireRealisationTache-data-container" class="data-container">
                     @if($commentaireRealisationTache_viewType != "widgets")

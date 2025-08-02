@@ -200,6 +200,7 @@ class BaseEtatRealisationTacheService extends BaseService
         // Récupération des données
         $etatRealisationTaches_data = $this->paginate($params);
         $etatRealisationTaches_stats = $this->getetatRealisationTacheStats();
+        $etatRealisationTaches_total = collect($etatRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatRealisationTaches_filters = $this->getFieldsFilterable();
         $etatRealisationTache_instance = $this->createInstance();
         $etatRealisationTache_viewTypes = $this->getViewTypes();
@@ -232,6 +233,7 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTache_viewType',
             'etatRealisationTaches_data',
             'etatRealisationTaches_stats',
+            'etatRealisationTaches_total',
             'etatRealisationTaches_filters',
             'etatRealisationTache_instance',
             'etatRealisationTache_title',
@@ -243,6 +245,7 @@ class BaseEtatRealisationTacheService extends BaseService
         return [
             'etatRealisationTaches_data' => $etatRealisationTaches_data,
             'etatRealisationTaches_stats' => $etatRealisationTaches_stats,
+            'etatRealisationTaches_total' => $etatRealisationTaches_total,
             'etatRealisationTaches_filters' => $etatRealisationTaches_filters,
             'etatRealisationTache_instance' => $etatRealisationTache_instance,
             'etatRealisationTache_viewType' => $etatRealisationTache_viewType,

@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$prioriteTache_viewTypes"
                                     :viewType="$prioriteTache_viewType"
+                                    :total="$prioriteTaches_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('prioriteTache-crud-filters')
+                @if(!empty($prioriteTaches_total) &&  $prioriteTaches_total > 10)
                 <div class="card-header">
                     <form id="prioriteTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($prioriteTaches_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="prioriteTache-data-container" class="data-container">
                     @if($prioriteTache_viewType != "widgets")

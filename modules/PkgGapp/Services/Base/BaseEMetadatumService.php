@@ -192,6 +192,7 @@ class BaseEMetadatumService extends BaseService
         // Récupération des données
         $eMetadata_data = $this->paginate($params);
         $eMetadata_stats = $this->geteMetadatumStats();
+        $eMetadata_total = collect($eMetadata_stats)->firstWhere('code', 'total')['value'] ?? null;
         $eMetadata_filters = $this->getFieldsFilterable();
         $eMetadatum_instance = $this->createInstance();
         $eMetadatum_viewTypes = $this->getViewTypes();
@@ -224,6 +225,7 @@ class BaseEMetadatumService extends BaseService
             'eMetadatum_viewType',
             'eMetadata_data',
             'eMetadata_stats',
+            'eMetadata_total',
             'eMetadata_filters',
             'eMetadatum_instance',
             'eMetadatum_title',
@@ -235,6 +237,7 @@ class BaseEMetadatumService extends BaseService
         return [
             'eMetadata_data' => $eMetadata_data,
             'eMetadata_stats' => $eMetadata_stats,
+            'eMetadata_total' => $eMetadata_total,
             'eMetadata_filters' => $eMetadata_filters,
             'eMetadatum_instance' => $eMetadatum_instance,
             'eMetadatum_viewType' => $eMetadatum_viewType,

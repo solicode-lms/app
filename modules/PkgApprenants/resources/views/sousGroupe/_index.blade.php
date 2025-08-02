@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$sousGroupe_viewTypes"
                                     :viewType="$sousGroupe_viewType"
+                                    :total="$sousGroupes_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('sousGroupe-crud-filters')
+                @if(!empty($sousGroupes_total) &&  $sousGroupes_total > 10)
                 <div class="card-header">
                     <form id="sousGroupe-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sousGroupes_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="sousGroupe-data-container" class="data-container">
                     @if($sousGroupe_viewType != "widgets")

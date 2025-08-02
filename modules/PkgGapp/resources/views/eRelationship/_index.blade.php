@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$eRelationship_viewTypes"
                                     :viewType="$eRelationship_viewType"
+                                    :total="$eRelationships_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('eRelationship-crud-filters')
+                @if(!empty($eRelationships_total) &&  $eRelationships_total > 10)
                 <div class="card-header">
                     <form id="eRelationship-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eRelationships_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="eRelationship-data-container" class="data-container">
                     @if($eRelationship_viewType != "widgets")

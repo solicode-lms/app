@@ -152,6 +152,7 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
         // Récupération des données
         $etatRealisationMicroCompetences_data = $this->paginate($params);
         $etatRealisationMicroCompetences_stats = $this->getetatRealisationMicroCompetenceStats();
+        $etatRealisationMicroCompetences_total = collect($etatRealisationMicroCompetences_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatRealisationMicroCompetences_filters = $this->getFieldsFilterable();
         $etatRealisationMicroCompetence_instance = $this->createInstance();
         $etatRealisationMicroCompetence_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
             'etatRealisationMicroCompetence_viewType',
             'etatRealisationMicroCompetences_data',
             'etatRealisationMicroCompetences_stats',
+            'etatRealisationMicroCompetences_total',
             'etatRealisationMicroCompetences_filters',
             'etatRealisationMicroCompetence_instance',
             'etatRealisationMicroCompetence_title',
@@ -195,6 +197,7 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
         return [
             'etatRealisationMicroCompetences_data' => $etatRealisationMicroCompetences_data,
             'etatRealisationMicroCompetences_stats' => $etatRealisationMicroCompetences_stats,
+            'etatRealisationMicroCompetences_total' => $etatRealisationMicroCompetences_total,
             'etatRealisationMicroCompetences_filters' => $etatRealisationMicroCompetences_filters,
             'etatRealisationMicroCompetence_instance' => $etatRealisationMicroCompetence_instance,
             'etatRealisationMicroCompetence_viewType' => $etatRealisationMicroCompetence_viewType,

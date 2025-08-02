@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$realisationProjet_viewTypes"
                                     :viewType="$realisationProjet_viewType"
+                                    :total="$realisationProjets_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('realisationProjet-crud-filters')
+                @if(!empty($realisationProjets_total) &&  $realisationProjets_total > 10)
                 <div class="card-header">
                     <form id="realisationProjet-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationProjets_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="realisationProjet-data-container" class="data-container">
                     @if($realisationProjet_viewType != "widgets")

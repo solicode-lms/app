@@ -170,6 +170,7 @@ class BaseRealisationUaProjetService extends BaseService
         // Récupération des données
         $realisationUaProjets_data = $this->paginate($params);
         $realisationUaProjets_stats = $this->getrealisationUaProjetStats();
+        $realisationUaProjets_total = collect($realisationUaProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $realisationUaProjets_filters = $this->getFieldsFilterable();
         $realisationUaProjet_instance = $this->createInstance();
         $realisationUaProjet_viewTypes = $this->getViewTypes();
@@ -202,6 +203,7 @@ class BaseRealisationUaProjetService extends BaseService
             'realisationUaProjet_viewType',
             'realisationUaProjets_data',
             'realisationUaProjets_stats',
+            'realisationUaProjets_total',
             'realisationUaProjets_filters',
             'realisationUaProjet_instance',
             'realisationUaProjet_title',
@@ -213,6 +215,7 @@ class BaseRealisationUaProjetService extends BaseService
         return [
             'realisationUaProjets_data' => $realisationUaProjets_data,
             'realisationUaProjets_stats' => $realisationUaProjets_stats,
+            'realisationUaProjets_total' => $realisationUaProjets_total,
             'realisationUaProjets_filters' => $realisationUaProjets_filters,
             'realisationUaProjet_instance' => $realisationUaProjet_instance,
             'realisationUaProjet_viewType' => $realisationUaProjet_viewType,

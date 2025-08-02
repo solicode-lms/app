@@ -153,6 +153,7 @@ class BaseSysModuleService extends BaseService
         // Récupération des données
         $sysModules_data = $this->paginate($params);
         $sysModules_stats = $this->getsysModuleStats();
+        $sysModules_total = collect($sysModules_stats)->firstWhere('code', 'total')['value'] ?? null;
         $sysModules_filters = $this->getFieldsFilterable();
         $sysModule_instance = $this->createInstance();
         $sysModule_viewTypes = $this->getViewTypes();
@@ -185,6 +186,7 @@ class BaseSysModuleService extends BaseService
             'sysModule_viewType',
             'sysModules_data',
             'sysModules_stats',
+            'sysModules_total',
             'sysModules_filters',
             'sysModule_instance',
             'sysModule_title',
@@ -196,6 +198,7 @@ class BaseSysModuleService extends BaseService
         return [
             'sysModules_data' => $sysModules_data,
             'sysModules_stats' => $sysModules_stats,
+            'sysModules_total' => $sysModules_total,
             'sysModules_filters' => $sysModules_filters,
             'sysModule_instance' => $sysModule_instance,
             'sysModule_viewType' => $sysModule_viewType,

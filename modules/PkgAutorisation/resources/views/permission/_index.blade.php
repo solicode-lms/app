@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$permission_viewTypes"
                                     :viewType="$permission_viewType"
+                                    :total="$permissions_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('permission-crud-filters')
+                @if(!empty($permissions_total) &&  $permissions_total > 10)
                 <div class="card-header">
                     <form id="permission-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($permissions_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="permission-data-container" class="data-container">
                     @if($permission_viewType != "widgets")

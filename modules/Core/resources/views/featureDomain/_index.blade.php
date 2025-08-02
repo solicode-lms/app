@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$featureDomain_viewTypes"
                                     :viewType="$featureDomain_viewType"
+                                    :total="$featureDomains_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('featureDomain-crud-filters')
+                @if(!empty($featureDomains_total) &&  $featureDomains_total > 10)
                 <div class="card-header">
                     <form id="featureDomain-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($featureDomains_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="featureDomain-data-container" class="data-container">
                     @if($featureDomain_viewType != "widgets")

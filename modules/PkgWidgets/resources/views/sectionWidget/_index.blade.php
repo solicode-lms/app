@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$sectionWidget_viewTypes"
                                     :viewType="$sectionWidget_viewType"
+                                    :total="$sectionWidgets_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('sectionWidget-crud-filters')
+                @if(!empty($sectionWidgets_total) &&  $sectionWidgets_total > 10)
                 <div class="card-header">
                     <form id="sectionWidget-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sectionWidgets_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="sectionWidget-data-container" class="data-container">
                     @if($sectionWidget_viewType != "widgets")

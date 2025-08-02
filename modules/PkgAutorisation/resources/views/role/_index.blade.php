@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$role_viewTypes"
                                     :viewType="$role_viewType"
+                                    :total="$roles_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('role-crud-filters')
+                @if(!empty($roles_total) &&  $roles_total > 10)
                 <div class="card-header">
                     <form id="role-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($roles_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="role-data-container" class="data-container">
                     @if($role_viewType != "widgets")

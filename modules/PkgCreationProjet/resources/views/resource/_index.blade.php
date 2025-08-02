@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$resource_viewTypes"
                                     :viewType="$resource_viewType"
+                                    :total="$resources_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('resource-crud-filters')
+                @if(!empty($resources_total) &&  $resources_total > 10)
                 <div class="card-header">
                     <form id="resource-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($resources_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="resource-data-container" class="data-container">
                     @if($resource_viewType != "widgets")

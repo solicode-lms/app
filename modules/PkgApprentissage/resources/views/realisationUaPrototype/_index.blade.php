@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$realisationUaPrototype_viewTypes"
                                     :viewType="$realisationUaPrototype_viewType"
+                                    :total="$realisationUaPrototypes_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('realisationUaPrototype-crud-filters')
+                @if(!empty($realisationUaPrototypes_total) &&  $realisationUaPrototypes_total > 10)
                 <div class="card-header">
                     <form id="realisationUaPrototype-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationUaPrototypes_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="realisationUaPrototype-data-container" class="data-container">
                     @if($realisationUaPrototype_viewType != "widgets")

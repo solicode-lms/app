@@ -152,6 +152,7 @@ class BaseEModelService extends BaseService
         // Récupération des données
         $eModels_data = $this->paginate($params);
         $eModels_stats = $this->geteModelStats();
+        $eModels_total = collect($eModels_stats)->firstWhere('code', 'total')['value'] ?? null;
         $eModels_filters = $this->getFieldsFilterable();
         $eModel_instance = $this->createInstance();
         $eModel_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseEModelService extends BaseService
             'eModel_viewType',
             'eModels_data',
             'eModels_stats',
+            'eModels_total',
             'eModels_filters',
             'eModel_instance',
             'eModel_title',
@@ -195,6 +197,7 @@ class BaseEModelService extends BaseService
         return [
             'eModels_data' => $eModels_data,
             'eModels_stats' => $eModels_stats,
+            'eModels_total' => $eModels_total,
             'eModels_filters' => $eModels_filters,
             'eModel_instance' => $eModel_instance,
             'eModel_viewType' => $eModel_viewType,

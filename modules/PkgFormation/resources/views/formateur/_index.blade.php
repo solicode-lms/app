@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$formateur_viewTypes"
                                     :viewType="$formateur_viewType"
+                                    :total="$formateurs_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('formateur-crud-filters')
+                @if(!empty($formateurs_total) &&  $formateurs_total > 10)
                 <div class="card-header">
                     <form id="formateur-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($formateurs_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="formateur-data-container" class="data-container">
                     @if($formateur_viewType != "widgets")

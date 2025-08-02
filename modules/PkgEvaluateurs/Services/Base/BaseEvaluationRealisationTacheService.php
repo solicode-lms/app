@@ -185,6 +185,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
         // Récupération des données
         $evaluationRealisationTaches_data = $this->paginate($params);
         $evaluationRealisationTaches_stats = $this->getevaluationRealisationTacheStats();
+        $evaluationRealisationTaches_total = collect($evaluationRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $evaluationRealisationTaches_filters = $this->getFieldsFilterable();
         $evaluationRealisationTache_instance = $this->createInstance();
         $evaluationRealisationTache_viewTypes = $this->getViewTypes();
@@ -217,6 +218,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
             'evaluationRealisationTache_viewType',
             'evaluationRealisationTaches_data',
             'evaluationRealisationTaches_stats',
+            'evaluationRealisationTaches_total',
             'evaluationRealisationTaches_filters',
             'evaluationRealisationTache_instance',
             'evaluationRealisationTache_title',
@@ -228,6 +230,7 @@ class BaseEvaluationRealisationTacheService extends BaseService
         return [
             'evaluationRealisationTaches_data' => $evaluationRealisationTaches_data,
             'evaluationRealisationTaches_stats' => $evaluationRealisationTaches_stats,
+            'evaluationRealisationTaches_total' => $evaluationRealisationTaches_total,
             'evaluationRealisationTaches_filters' => $evaluationRealisationTaches_filters,
             'evaluationRealisationTache_instance' => $evaluationRealisationTache_instance,
             'evaluationRealisationTache_viewType' => $evaluationRealisationTache_viewType,

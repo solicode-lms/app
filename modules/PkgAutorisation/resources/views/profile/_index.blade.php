@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$profile_viewTypes"
                                     :viewType="$profile_viewType"
+                                    :total="$profiles_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('profile-crud-filters')
+                @if(!empty($profiles_total) &&  $profiles_total > 10)
                 <div class="card-header">
                     <form id="profile-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($profiles_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="profile-data-container" class="data-container">
                     @if($profile_viewType != "widgets")

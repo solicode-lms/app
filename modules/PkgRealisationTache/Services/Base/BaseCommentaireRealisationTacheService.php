@@ -185,6 +185,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
         // Récupération des données
         $commentaireRealisationTaches_data = $this->paginate($params);
         $commentaireRealisationTaches_stats = $this->getcommentaireRealisationTacheStats();
+        $commentaireRealisationTaches_total = collect($commentaireRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $commentaireRealisationTaches_filters = $this->getFieldsFilterable();
         $commentaireRealisationTache_instance = $this->createInstance();
         $commentaireRealisationTache_viewTypes = $this->getViewTypes();
@@ -217,6 +218,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTache_viewType',
             'commentaireRealisationTaches_data',
             'commentaireRealisationTaches_stats',
+            'commentaireRealisationTaches_total',
             'commentaireRealisationTaches_filters',
             'commentaireRealisationTache_instance',
             'commentaireRealisationTache_title',
@@ -228,6 +230,7 @@ class BaseCommentaireRealisationTacheService extends BaseService
         return [
             'commentaireRealisationTaches_data' => $commentaireRealisationTaches_data,
             'commentaireRealisationTaches_stats' => $commentaireRealisationTaches_stats,
+            'commentaireRealisationTaches_total' => $commentaireRealisationTaches_total,
             'commentaireRealisationTaches_filters' => $commentaireRealisationTaches_filters,
             'commentaireRealisationTache_instance' => $commentaireRealisationTache_instance,
             'commentaireRealisationTache_viewType' => $commentaireRealisationTache_viewType,

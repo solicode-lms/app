@@ -174,6 +174,7 @@ class BaseGroupeService extends BaseService
         // Récupération des données
         $groupes_data = $this->paginate($params);
         $groupes_stats = $this->getgroupeStats();
+        $groupes_total = collect($groupes_stats)->firstWhere('code', 'total')['value'] ?? null;
         $groupes_filters = $this->getFieldsFilterable();
         $groupe_instance = $this->createInstance();
         $groupe_viewTypes = $this->getViewTypes();
@@ -206,6 +207,7 @@ class BaseGroupeService extends BaseService
             'groupe_viewType',
             'groupes_data',
             'groupes_stats',
+            'groupes_total',
             'groupes_filters',
             'groupe_instance',
             'groupe_title',
@@ -217,6 +219,7 @@ class BaseGroupeService extends BaseService
         return [
             'groupes_data' => $groupes_data,
             'groupes_stats' => $groupes_stats,
+            'groupes_total' => $groupes_total,
             'groupes_filters' => $groupes_filters,
             'groupe_instance' => $groupe_instance,
             'groupe_viewType' => $groupe_viewType,

@@ -152,6 +152,7 @@ class BaseEtatRealisationUaService extends BaseService
         // Récupération des données
         $etatRealisationUas_data = $this->paginate($params);
         $etatRealisationUas_stats = $this->getetatRealisationUaStats();
+        $etatRealisationUas_total = collect($etatRealisationUas_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatRealisationUas_filters = $this->getFieldsFilterable();
         $etatRealisationUa_instance = $this->createInstance();
         $etatRealisationUa_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseEtatRealisationUaService extends BaseService
             'etatRealisationUa_viewType',
             'etatRealisationUas_data',
             'etatRealisationUas_stats',
+            'etatRealisationUas_total',
             'etatRealisationUas_filters',
             'etatRealisationUa_instance',
             'etatRealisationUa_title',
@@ -195,6 +197,7 @@ class BaseEtatRealisationUaService extends BaseService
         return [
             'etatRealisationUas_data' => $etatRealisationUas_data,
             'etatRealisationUas_stats' => $etatRealisationUas_stats,
+            'etatRealisationUas_total' => $etatRealisationUas_total,
             'etatRealisationUas_filters' => $etatRealisationUas_filters,
             'etatRealisationUa_instance' => $etatRealisationUa_instance,
             'etatRealisationUa_viewType' => $etatRealisationUa_viewType,

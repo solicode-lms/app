@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$phaseEvaluation_viewTypes"
                                     :viewType="$phaseEvaluation_viewType"
+                                    :total="$phaseEvaluations_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('phaseEvaluation-crud-filters')
+                @if(!empty($phaseEvaluations_total) &&  $phaseEvaluations_total > 10)
                 <div class="card-header">
                     <form id="phaseEvaluation-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($phaseEvaluations_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="phaseEvaluation-data-container" class="data-container">
                     @if($phaseEvaluation_viewType != "widgets")

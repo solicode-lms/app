@@ -132,6 +132,7 @@ class BaseNationaliteService extends BaseService
         // Récupération des données
         $nationalites_data = $this->paginate($params);
         $nationalites_stats = $this->getnationaliteStats();
+        $nationalites_total = collect($nationalites_stats)->firstWhere('code', 'total')['value'] ?? null;
         $nationalites_filters = $this->getFieldsFilterable();
         $nationalite_instance = $this->createInstance();
         $nationalite_viewTypes = $this->getViewTypes();
@@ -164,6 +165,7 @@ class BaseNationaliteService extends BaseService
             'nationalite_viewType',
             'nationalites_data',
             'nationalites_stats',
+            'nationalites_total',
             'nationalites_filters',
             'nationalite_instance',
             'nationalite_title',
@@ -175,6 +177,7 @@ class BaseNationaliteService extends BaseService
         return [
             'nationalites_data' => $nationalites_data,
             'nationalites_stats' => $nationalites_stats,
+            'nationalites_total' => $nationalites_total,
             'nationalites_filters' => $nationalites_filters,
             'nationalite_instance' => $nationalite_instance,
             'nationalite_viewType' => $nationalite_viewType,

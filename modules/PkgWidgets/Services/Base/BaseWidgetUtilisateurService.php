@@ -195,6 +195,7 @@ class BaseWidgetUtilisateurService extends BaseService
         // Récupération des données
         $widgetUtilisateurs_data = $this->paginate($params);
         $widgetUtilisateurs_stats = $this->getwidgetUtilisateurStats();
+        $widgetUtilisateurs_total = collect($widgetUtilisateurs_stats)->firstWhere('code', 'total')['value'] ?? null;
         $widgetUtilisateurs_filters = $this->getFieldsFilterable();
         $widgetUtilisateur_instance = $this->createInstance();
         $widgetUtilisateur_viewTypes = $this->getViewTypes();
@@ -227,6 +228,7 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateur_viewType',
             'widgetUtilisateurs_data',
             'widgetUtilisateurs_stats',
+            'widgetUtilisateurs_total',
             'widgetUtilisateurs_filters',
             'widgetUtilisateur_instance',
             'widgetUtilisateur_title',
@@ -238,6 +240,7 @@ class BaseWidgetUtilisateurService extends BaseService
         return [
             'widgetUtilisateurs_data' => $widgetUtilisateurs_data,
             'widgetUtilisateurs_stats' => $widgetUtilisateurs_stats,
+            'widgetUtilisateurs_total' => $widgetUtilisateurs_total,
             'widgetUtilisateurs_filters' => $widgetUtilisateurs_filters,
             'widgetUtilisateur_instance' => $widgetUtilisateur_instance,
             'widgetUtilisateur_viewType' => $widgetUtilisateur_viewType,

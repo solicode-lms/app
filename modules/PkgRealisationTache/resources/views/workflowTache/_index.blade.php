@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$workflowTache_viewTypes"
                                     :viewType="$workflowTache_viewType"
+                                    :total="$workflowTaches_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('workflowTache-crud-filters')
+                @if(!empty($workflowTaches_total) &&  $workflowTaches_total > 10)
                 <div class="card-header">
                     <form id="workflowTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($workflowTaches_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="workflowTache-data-container" class="data-container">
                     @if($workflowTache_viewType != "widgets")

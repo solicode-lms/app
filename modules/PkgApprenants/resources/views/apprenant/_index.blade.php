@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$apprenant_viewTypes"
                                     :viewType="$apprenant_viewType"
+                                    :total="$apprenants_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('apprenant-crud-filters')
+                @if(!empty($apprenants_total) &&  $apprenants_total > 10)
                 <div class="card-header">
                     <form id="apprenant-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($apprenants_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="apprenant-data-container" class="data-container">
                     @if($apprenant_viewType != "widgets")

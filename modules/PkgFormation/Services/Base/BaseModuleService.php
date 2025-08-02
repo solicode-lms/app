@@ -157,6 +157,7 @@ class BaseModuleService extends BaseService
         // Récupération des données
         $modules_data = $this->paginate($params);
         $modules_stats = $this->getmoduleStats();
+        $modules_total = collect($modules_stats)->firstWhere('code', 'total')['value'] ?? null;
         $modules_filters = $this->getFieldsFilterable();
         $module_instance = $this->createInstance();
         $module_viewTypes = $this->getViewTypes();
@@ -189,6 +190,7 @@ class BaseModuleService extends BaseService
             'module_viewType',
             'modules_data',
             'modules_stats',
+            'modules_total',
             'modules_filters',
             'module_instance',
             'module_title',
@@ -200,6 +202,7 @@ class BaseModuleService extends BaseService
         return [
             'modules_data' => $modules_data,
             'modules_stats' => $modules_stats,
+            'modules_total' => $modules_total,
             'modules_filters' => $modules_filters,
             'module_instance' => $module_instance,
             'module_viewType' => $module_viewType,

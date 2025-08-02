@@ -168,6 +168,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         // Récupération des données
         $historiqueRealisationTaches_data = $this->paginate($params);
         $historiqueRealisationTaches_stats = $this->gethistoriqueRealisationTacheStats();
+        $historiqueRealisationTaches_total = collect($historiqueRealisationTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $historiqueRealisationTaches_filters = $this->getFieldsFilterable();
         $historiqueRealisationTache_instance = $this->createInstance();
         $historiqueRealisationTache_viewTypes = $this->getViewTypes();
@@ -200,6 +201,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTache_viewType',
             'historiqueRealisationTaches_data',
             'historiqueRealisationTaches_stats',
+            'historiqueRealisationTaches_total',
             'historiqueRealisationTaches_filters',
             'historiqueRealisationTache_instance',
             'historiqueRealisationTache_title',
@@ -211,6 +213,7 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         return [
             'historiqueRealisationTaches_data' => $historiqueRealisationTaches_data,
             'historiqueRealisationTaches_stats' => $historiqueRealisationTaches_stats,
+            'historiqueRealisationTaches_total' => $historiqueRealisationTaches_total,
             'historiqueRealisationTaches_filters' => $historiqueRealisationTaches_filters,
             'historiqueRealisationTache_instance' => $historiqueRealisationTache_instance,
             'historiqueRealisationTache_viewType' => $historiqueRealisationTache_viewType,

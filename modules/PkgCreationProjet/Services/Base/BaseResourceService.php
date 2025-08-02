@@ -164,6 +164,7 @@ class BaseResourceService extends BaseService
         // Récupération des données
         $resources_data = $this->paginate($params);
         $resources_stats = $this->getresourceStats();
+        $resources_total = collect($resources_stats)->firstWhere('code', 'total')['value'] ?? null;
         $resources_filters = $this->getFieldsFilterable();
         $resource_instance = $this->createInstance();
         $resource_viewTypes = $this->getViewTypes();
@@ -196,6 +197,7 @@ class BaseResourceService extends BaseService
             'resource_viewType',
             'resources_data',
             'resources_stats',
+            'resources_total',
             'resources_filters',
             'resource_instance',
             'resource_title',
@@ -207,6 +209,7 @@ class BaseResourceService extends BaseService
         return [
             'resources_data' => $resources_data,
             'resources_stats' => $resources_stats,
+            'resources_total' => $resources_total,
             'resources_filters' => $resources_filters,
             'resource_instance' => $resource_instance,
             'resource_viewType' => $resource_viewType,

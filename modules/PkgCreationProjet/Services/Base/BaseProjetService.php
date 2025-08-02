@@ -211,6 +211,7 @@ class BaseProjetService extends BaseService
         // Récupération des données
         $projets_data = $this->paginate($params);
         $projets_stats = $this->getprojetStats();
+        $projets_total = collect($projets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $projets_filters = $this->getFieldsFilterable();
         $projet_instance = $this->createInstance();
         $projet_viewTypes = $this->getViewTypes();
@@ -244,6 +245,7 @@ class BaseProjetService extends BaseService
             'projet_viewType',
             'projets_data',
             'projets_stats',
+            'projets_total',
             'projets_filters',
             'projet_instance',
             'projet_title',
@@ -255,6 +257,7 @@ class BaseProjetService extends BaseService
         return [
             'projets_data' => $projets_data,
             'projets_stats' => $projets_stats,
+            'projets_total' => $projets_total,
             'projets_filters' => $projets_filters,
             'projet_instance' => $projet_instance,
             'projet_viewType' => $projet_viewType,

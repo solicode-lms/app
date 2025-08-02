@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$sysModel_viewTypes"
                                     :viewType="$sysModel_viewType"
+                                    :total="$sysModels_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('sysModel-crud-filters')
+                @if(!empty($sysModels_total) &&  $sysModels_total > 10)
                 <div class="card-header">
                     <form id="sysModel-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sysModels_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="sysModel-data-container" class="data-container">
                     @if($sysModel_viewType != "widgets")

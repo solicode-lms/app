@@ -150,10 +150,7 @@ class BaseMicroCompetenceService extends BaseService
         // Récupération des données
         $microCompetences_data = $this->paginate($params);
         $microCompetences_stats = $this->getmicroCompetenceStats();
-       
         $microCompetences_total = collect($microCompetences_stats)->firstWhere('code', 'total')['value'] ?? null;
-
-
         $microCompetences_filters = $this->getFieldsFilterable();
         $microCompetence_instance = $this->createInstance();
         $microCompetence_viewTypes = $this->getViewTypes();

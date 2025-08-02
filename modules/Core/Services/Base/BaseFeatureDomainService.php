@@ -150,6 +150,7 @@ class BaseFeatureDomainService extends BaseService
         // Récupération des données
         $featureDomains_data = $this->paginate($params);
         $featureDomains_stats = $this->getfeatureDomainStats();
+        $featureDomains_total = collect($featureDomains_stats)->firstWhere('code', 'total')['value'] ?? null;
         $featureDomains_filters = $this->getFieldsFilterable();
         $featureDomain_instance = $this->createInstance();
         $featureDomain_viewTypes = $this->getViewTypes();
@@ -182,6 +183,7 @@ class BaseFeatureDomainService extends BaseService
             'featureDomain_viewType',
             'featureDomains_data',
             'featureDomains_stats',
+            'featureDomains_total',
             'featureDomains_filters',
             'featureDomain_instance',
             'featureDomain_title',
@@ -193,6 +195,7 @@ class BaseFeatureDomainService extends BaseService
         return [
             'featureDomains_data' => $featureDomains_data,
             'featureDomains_stats' => $featureDomains_stats,
+            'featureDomains_total' => $featureDomains_total,
             'featureDomains_filters' => $featureDomains_filters,
             'featureDomain_instance' => $featureDomain_instance,
             'featureDomain_viewType' => $featureDomain_viewType,

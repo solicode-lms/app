@@ -162,6 +162,7 @@ class BaseEvaluateurService extends BaseService
         // Récupération des données
         $evaluateurs_data = $this->paginate($params);
         $evaluateurs_stats = $this->getevaluateurStats();
+        $evaluateurs_total = collect($evaluateurs_stats)->firstWhere('code', 'total')['value'] ?? null;
         $evaluateurs_filters = $this->getFieldsFilterable();
         $evaluateur_instance = $this->createInstance();
         $evaluateur_viewTypes = $this->getViewTypes();
@@ -195,6 +196,7 @@ class BaseEvaluateurService extends BaseService
             'evaluateur_viewType',
             'evaluateurs_data',
             'evaluateurs_stats',
+            'evaluateurs_total',
             'evaluateurs_filters',
             'evaluateur_instance',
             'evaluateur_title',
@@ -206,6 +208,7 @@ class BaseEvaluateurService extends BaseService
         return [
             'evaluateurs_data' => $evaluateurs_data,
             'evaluateurs_stats' => $evaluateurs_stats,
+            'evaluateurs_total' => $evaluateurs_total,
             'evaluateurs_filters' => $evaluateurs_filters,
             'evaluateur_instance' => $evaluateur_instance,
             'evaluateur_viewType' => $evaluateur_viewType,

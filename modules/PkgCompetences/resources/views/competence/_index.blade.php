@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$competence_viewTypes"
                                     :viewType="$competence_viewType"
+                                    :total="$competences_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('competence-crud-filters')
+                @if(!empty($competences_total) &&  $competences_total > 10)
                 <div class="card-header">
                     <form id="competence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($competences_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="competence-data-container" class="data-container">
                     @if($competence_viewType != "widgets")

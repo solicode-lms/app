@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$realisationMicroCompetence_viewTypes"
                                     :viewType="$realisationMicroCompetence_viewType"
+                                    :total="$realisationMicroCompetences_total"
                                 />
                             </div>
 
@@ -95,7 +96,7 @@
                 </div>
                 @show
                 @section('realisationMicroCompetence-crud-filters')
-              
+                @if(!empty($realisationMicroCompetences_total) &&  $realisationMicroCompetences_total > 10)
                 <div class="card-header">
                     <form id="realisationMicroCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationMicroCompetences_filters ?? [])}}">
@@ -125,7 +126,7 @@
                         @show
                     </form>
                 </div>
-                
+                @endif
                 @show
                 <div id="realisationMicroCompetence-data-container" class="data-container">
                     @if($realisationMicroCompetence_viewType != "widgets")

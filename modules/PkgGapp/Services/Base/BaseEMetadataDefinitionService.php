@@ -144,6 +144,7 @@ class BaseEMetadataDefinitionService extends BaseService
         // Récupération des données
         $eMetadataDefinitions_data = $this->paginate($params);
         $eMetadataDefinitions_stats = $this->geteMetadataDefinitionStats();
+        $eMetadataDefinitions_total = collect($eMetadataDefinitions_stats)->firstWhere('code', 'total')['value'] ?? null;
         $eMetadataDefinitions_filters = $this->getFieldsFilterable();
         $eMetadataDefinition_instance = $this->createInstance();
         $eMetadataDefinition_viewTypes = $this->getViewTypes();
@@ -176,6 +177,7 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinition_viewType',
             'eMetadataDefinitions_data',
             'eMetadataDefinitions_stats',
+            'eMetadataDefinitions_total',
             'eMetadataDefinitions_filters',
             'eMetadataDefinition_instance',
             'eMetadataDefinition_title',
@@ -187,6 +189,7 @@ class BaseEMetadataDefinitionService extends BaseService
         return [
             'eMetadataDefinitions_data' => $eMetadataDefinitions_data,
             'eMetadataDefinitions_stats' => $eMetadataDefinitions_stats,
+            'eMetadataDefinitions_total' => $eMetadataDefinitions_total,
             'eMetadataDefinitions_filters' => $eMetadataDefinitions_filters,
             'eMetadataDefinition_instance' => $eMetadataDefinition_instance,
             'eMetadataDefinition_viewType' => $eMetadataDefinition_viewType,

@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$apprenantKonosy_viewTypes"
                                     :viewType="$apprenantKonosy_viewType"
+                                    :total="$apprenantKonosies_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('apprenantKonosy-crud-filters')
+                @if(!empty($apprenantKonosies_total) &&  $apprenantKonosies_total > 10)
                 <div class="card-header">
                     <form id="apprenantKonosy-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($apprenantKonosies_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="apprenantKonosy-data-container" class="data-container">
                     @if($apprenantKonosy_viewType != "widgets")

@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$tache_viewTypes"
                                     :viewType="$tache_viewType"
+                                    :total="$taches_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('tache-crud-filters')
+                @if(!empty($taches_total) &&  $taches_total > 10)
                 <div class="card-header">
                     <form id="tache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($taches_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="tache-data-container" class="data-container">
                     @if($tache_viewType != "widgets")

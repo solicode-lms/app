@@ -151,6 +151,7 @@ class BaseSysControllerService extends BaseService
         // Récupération des données
         $sysControllers_data = $this->paginate($params);
         $sysControllers_stats = $this->getsysControllerStats();
+        $sysControllers_total = collect($sysControllers_stats)->firstWhere('code', 'total')['value'] ?? null;
         $sysControllers_filters = $this->getFieldsFilterable();
         $sysController_instance = $this->createInstance();
         $sysController_viewTypes = $this->getViewTypes();
@@ -183,6 +184,7 @@ class BaseSysControllerService extends BaseService
             'sysController_viewType',
             'sysControllers_data',
             'sysControllers_stats',
+            'sysControllers_total',
             'sysControllers_filters',
             'sysController_instance',
             'sysController_title',
@@ -194,6 +196,7 @@ class BaseSysControllerService extends BaseService
         return [
             'sysControllers_data' => $sysControllers_data,
             'sysControllers_stats' => $sysControllers_stats,
+            'sysControllers_total' => $sysControllers_total,
             'sysControllers_filters' => $sysControllers_filters,
             'sysController_instance' => $sysController_instance,
             'sysController_viewType' => $sysController_viewType,

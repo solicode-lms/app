@@ -182,6 +182,7 @@ class BaseApprenantService extends BaseService
         // Récupération des données
         $apprenants_data = $this->paginate($params);
         $apprenants_stats = $this->getapprenantStats();
+        $apprenants_total = collect($apprenants_stats)->firstWhere('code', 'total')['value'] ?? null;
         $apprenants_filters = $this->getFieldsFilterable();
         $apprenant_instance = $this->createInstance();
         $apprenant_viewTypes = $this->getViewTypes();
@@ -215,6 +216,7 @@ class BaseApprenantService extends BaseService
             'apprenant_viewType',
             'apprenants_data',
             'apprenants_stats',
+            'apprenants_total',
             'apprenants_filters',
             'apprenant_instance',
             'apprenant_title',
@@ -226,6 +228,7 @@ class BaseApprenantService extends BaseService
         return [
             'apprenants_data' => $apprenants_data,
             'apprenants_stats' => $apprenants_stats,
+            'apprenants_total' => $apprenants_total,
             'apprenants_filters' => $apprenants_filters,
             'apprenant_instance' => $apprenant_instance,
             'apprenant_viewType' => $apprenant_viewType,

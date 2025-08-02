@@ -182,6 +182,7 @@ class BaseLivrablesRealisationService extends BaseService
         // Récupération des données
         $livrablesRealisations_data = $this->paginate($params);
         $livrablesRealisations_stats = $this->getlivrablesRealisationStats();
+        $livrablesRealisations_total = collect($livrablesRealisations_stats)->firstWhere('code', 'total')['value'] ?? null;
         $livrablesRealisations_filters = $this->getFieldsFilterable();
         $livrablesRealisation_instance = $this->createInstance();
         $livrablesRealisation_viewTypes = $this->getViewTypes();
@@ -214,6 +215,7 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisation_viewType',
             'livrablesRealisations_data',
             'livrablesRealisations_stats',
+            'livrablesRealisations_total',
             'livrablesRealisations_filters',
             'livrablesRealisation_instance',
             'livrablesRealisation_title',
@@ -225,6 +227,7 @@ class BaseLivrablesRealisationService extends BaseService
         return [
             'livrablesRealisations_data' => $livrablesRealisations_data,
             'livrablesRealisations_stats' => $livrablesRealisations_stats,
+            'livrablesRealisations_total' => $livrablesRealisations_total,
             'livrablesRealisations_filters' => $livrablesRealisations_filters,
             'livrablesRealisation_instance' => $livrablesRealisation_instance,
             'livrablesRealisation_viewType' => $livrablesRealisation_viewType,

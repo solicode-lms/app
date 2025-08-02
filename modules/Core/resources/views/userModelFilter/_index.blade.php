@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$userModelFilter_viewTypes"
                                     :viewType="$userModelFilter_viewType"
+                                    :total="$userModelFilters_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('userModelFilter-crud-filters')
+                @if(!empty($userModelFilters_total) &&  $userModelFilters_total > 10)
                 <div class="card-header">
                     <form id="userModelFilter-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($userModelFilters_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="userModelFilter-data-container" class="data-container">
                     @if($userModelFilter_viewType != "widgets")

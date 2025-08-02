@@ -168,6 +168,7 @@ class BaseCompetenceService extends BaseService
         // Récupération des données
         $competences_data = $this->paginate($params);
         $competences_stats = $this->getcompetenceStats();
+        $competences_total = collect($competences_stats)->firstWhere('code', 'total')['value'] ?? null;
         $competences_filters = $this->getFieldsFilterable();
         $competence_instance = $this->createInstance();
         $competence_viewTypes = $this->getViewTypes();
@@ -200,6 +201,7 @@ class BaseCompetenceService extends BaseService
             'competence_viewType',
             'competences_data',
             'competences_stats',
+            'competences_total',
             'competences_filters',
             'competence_instance',
             'competence_title',
@@ -211,6 +213,7 @@ class BaseCompetenceService extends BaseService
         return [
             'competences_data' => $competences_data,
             'competences_stats' => $competences_stats,
+            'competences_total' => $competences_total,
             'competences_filters' => $competences_filters,
             'competence_instance' => $competence_instance,
             'competence_viewType' => $competence_viewType,

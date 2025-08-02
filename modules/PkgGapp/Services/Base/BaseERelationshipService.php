@@ -185,6 +185,7 @@ class BaseERelationshipService extends BaseService
         // Récupération des données
         $eRelationships_data = $this->paginate($params);
         $eRelationships_stats = $this->geteRelationshipStats();
+        $eRelationships_total = collect($eRelationships_stats)->firstWhere('code', 'total')['value'] ?? null;
         $eRelationships_filters = $this->getFieldsFilterable();
         $eRelationship_instance = $this->createInstance();
         $eRelationship_viewTypes = $this->getViewTypes();
@@ -217,6 +218,7 @@ class BaseERelationshipService extends BaseService
             'eRelationship_viewType',
             'eRelationships_data',
             'eRelationships_stats',
+            'eRelationships_total',
             'eRelationships_filters',
             'eRelationship_instance',
             'eRelationship_title',
@@ -228,6 +230,7 @@ class BaseERelationshipService extends BaseService
         return [
             'eRelationships_data' => $eRelationships_data,
             'eRelationships_stats' => $eRelationships_stats,
+            'eRelationships_total' => $eRelationships_total,
             'eRelationships_filters' => $eRelationships_filters,
             'eRelationship_instance' => $eRelationship_instance,
             'eRelationship_viewType' => $eRelationship_viewType,

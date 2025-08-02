@@ -200,6 +200,7 @@ class BaseRealisationProjetService extends BaseService
         // Récupération des données
         $realisationProjets_data = $this->paginate($params);
         $realisationProjets_stats = $this->getrealisationProjetStats();
+        $realisationProjets_total = collect($realisationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $realisationProjets_filters = $this->getFieldsFilterable();
         $realisationProjet_instance = $this->createInstance();
         $realisationProjet_viewTypes = $this->getViewTypes();
@@ -232,6 +233,7 @@ class BaseRealisationProjetService extends BaseService
             'realisationProjet_viewType',
             'realisationProjets_data',
             'realisationProjets_stats',
+            'realisationProjets_total',
             'realisationProjets_filters',
             'realisationProjet_instance',
             'realisationProjet_title',
@@ -243,6 +245,7 @@ class BaseRealisationProjetService extends BaseService
         return [
             'realisationProjets_data' => $realisationProjets_data,
             'realisationProjets_stats' => $realisationProjets_stats,
+            'realisationProjets_total' => $realisationProjets_total,
             'realisationProjets_filters' => $realisationProjets_filters,
             'realisationProjet_instance' => $realisationProjet_instance,
             'realisationProjet_viewType' => $realisationProjet_viewType,

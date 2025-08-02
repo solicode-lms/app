@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$natureLivrable_viewTypes"
                                     :viewType="$natureLivrable_viewType"
+                                    :total="$natureLivrables_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('natureLivrable-crud-filters')
+                @if(!empty($natureLivrables_total) &&  $natureLivrables_total > 10)
                 <div class="card-header">
                     <form id="natureLivrable-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($natureLivrables_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="natureLivrable-data-container" class="data-container">
                     @if($natureLivrable_viewType != "widgets")

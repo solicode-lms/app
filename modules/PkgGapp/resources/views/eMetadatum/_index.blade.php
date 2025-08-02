@@ -85,6 +85,7 @@
                                     :exportText="__('Exporter')"
                                     :viewTypes="$eMetadatum_viewTypes"
                                     :viewType="$eMetadatum_viewType"
+                                    :total="$eMetadata_total"
                                 />
                             </div>
 
@@ -95,6 +96,7 @@
                 </div>
                 @show
                 @section('eMetadatum-crud-filters')
+                @if(!empty($eMetadata_total) &&  $eMetadata_total > 10)
                 <div class="card-header">
                     <form id="eMetadatum-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eMetadata_filters ?? [])}}">
@@ -124,6 +126,7 @@
                         @show
                     </form>
                 </div>
+                @endif
                 @show
                 <div id="eMetadatum-data-container" class="data-container">
                     @if($eMetadatum_viewType != "widgets")

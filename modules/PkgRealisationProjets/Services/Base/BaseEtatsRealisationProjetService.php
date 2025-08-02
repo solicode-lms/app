@@ -149,6 +149,7 @@ class BaseEtatsRealisationProjetService extends BaseService
         // Récupération des données
         $etatsRealisationProjets_data = $this->paginate($params);
         $etatsRealisationProjets_stats = $this->getetatsRealisationProjetStats();
+        $etatsRealisationProjets_total = collect($etatsRealisationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $etatsRealisationProjets_filters = $this->getFieldsFilterable();
         $etatsRealisationProjet_instance = $this->createInstance();
         $etatsRealisationProjet_viewTypes = $this->getViewTypes();
@@ -181,6 +182,7 @@ class BaseEtatsRealisationProjetService extends BaseService
             'etatsRealisationProjet_viewType',
             'etatsRealisationProjets_data',
             'etatsRealisationProjets_stats',
+            'etatsRealisationProjets_total',
             'etatsRealisationProjets_filters',
             'etatsRealisationProjet_instance',
             'etatsRealisationProjet_title',
@@ -192,6 +194,7 @@ class BaseEtatsRealisationProjetService extends BaseService
         return [
             'etatsRealisationProjets_data' => $etatsRealisationProjets_data,
             'etatsRealisationProjets_stats' => $etatsRealisationProjets_stats,
+            'etatsRealisationProjets_total' => $etatsRealisationProjets_total,
             'etatsRealisationProjets_filters' => $etatsRealisationProjets_filters,
             'etatsRealisationProjet_instance' => $etatsRealisationProjet_instance,
             'etatsRealisationProjet_viewType' => $etatsRealisationProjet_viewType,

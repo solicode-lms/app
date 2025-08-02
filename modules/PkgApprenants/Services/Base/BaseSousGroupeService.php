@@ -149,6 +149,7 @@ class BaseSousGroupeService extends BaseService
         // Récupération des données
         $sousGroupes_data = $this->paginate($params);
         $sousGroupes_stats = $this->getsousGroupeStats();
+        $sousGroupes_total = collect($sousGroupes_stats)->firstWhere('code', 'total')['value'] ?? null;
         $sousGroupes_filters = $this->getFieldsFilterable();
         $sousGroupe_instance = $this->createInstance();
         $sousGroupe_viewTypes = $this->getViewTypes();
@@ -181,6 +182,7 @@ class BaseSousGroupeService extends BaseService
             'sousGroupe_viewType',
             'sousGroupes_data',
             'sousGroupes_stats',
+            'sousGroupes_total',
             'sousGroupes_filters',
             'sousGroupe_instance',
             'sousGroupe_title',
@@ -192,6 +194,7 @@ class BaseSousGroupeService extends BaseService
         return [
             'sousGroupes_data' => $sousGroupes_data,
             'sousGroupes_stats' => $sousGroupes_stats,
+            'sousGroupes_total' => $sousGroupes_total,
             'sousGroupes_filters' => $sousGroupes_filters,
             'sousGroupe_instance' => $sousGroupe_instance,
             'sousGroupe_viewType' => $sousGroupe_viewType,

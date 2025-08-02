@@ -167,6 +167,7 @@ class BaseAlignementUaService extends BaseService
         // Récupération des données
         $alignementUas_data = $this->paginate($params);
         $alignementUas_stats = $this->getalignementUaStats();
+        $alignementUas_total = collect($alignementUas_stats)->firstWhere('code', 'total')['value'] ?? null;
         $alignementUas_filters = $this->getFieldsFilterable();
         $alignementUa_instance = $this->createInstance();
         $alignementUa_viewTypes = $this->getViewTypes();
@@ -199,6 +200,7 @@ class BaseAlignementUaService extends BaseService
             'alignementUa_viewType',
             'alignementUas_data',
             'alignementUas_stats',
+            'alignementUas_total',
             'alignementUas_filters',
             'alignementUa_instance',
             'alignementUa_title',
@@ -210,6 +212,7 @@ class BaseAlignementUaService extends BaseService
         return [
             'alignementUas_data' => $alignementUas_data,
             'alignementUas_stats' => $alignementUas_stats,
+            'alignementUas_total' => $alignementUas_total,
             'alignementUas_filters' => $alignementUas_filters,
             'alignementUa_instance' => $alignementUa_instance,
             'alignementUa_viewType' => $alignementUa_viewType,

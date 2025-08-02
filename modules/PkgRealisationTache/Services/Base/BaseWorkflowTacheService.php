@@ -152,6 +152,7 @@ class BaseWorkflowTacheService extends BaseService
         // Récupération des données
         $workflowTaches_data = $this->paginate($params);
         $workflowTaches_stats = $this->getworkflowTacheStats();
+        $workflowTaches_total = collect($workflowTaches_stats)->firstWhere('code', 'total')['value'] ?? null;
         $workflowTaches_filters = $this->getFieldsFilterable();
         $workflowTache_instance = $this->createInstance();
         $workflowTache_viewTypes = $this->getViewTypes();
@@ -184,6 +185,7 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTache_viewType',
             'workflowTaches_data',
             'workflowTaches_stats',
+            'workflowTaches_total',
             'workflowTaches_filters',
             'workflowTache_instance',
             'workflowTache_title',
@@ -195,6 +197,7 @@ class BaseWorkflowTacheService extends BaseService
         return [
             'workflowTaches_data' => $workflowTaches_data,
             'workflowTaches_stats' => $workflowTaches_stats,
+            'workflowTaches_total' => $workflowTaches_total,
             'workflowTaches_filters' => $workflowTaches_filters,
             'workflowTache_instance' => $workflowTache_instance,
             'workflowTache_viewType' => $workflowTache_viewType,

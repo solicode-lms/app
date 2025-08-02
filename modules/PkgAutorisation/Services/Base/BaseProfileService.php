@@ -165,6 +165,7 @@ class BaseProfileService extends BaseService
         // Récupération des données
         $profiles_data = $this->paginate($params);
         $profiles_stats = $this->getprofileStats();
+        $profiles_total = collect($profiles_stats)->firstWhere('code', 'total')['value'] ?? null;
         $profiles_filters = $this->getFieldsFilterable();
         $profile_instance = $this->createInstance();
         $profile_viewTypes = $this->getViewTypes();
@@ -197,6 +198,7 @@ class BaseProfileService extends BaseService
             'profile_viewType',
             'profiles_data',
             'profiles_stats',
+            'profiles_total',
             'profiles_filters',
             'profile_instance',
             'profile_title',
@@ -208,6 +210,7 @@ class BaseProfileService extends BaseService
         return [
             'profiles_data' => $profiles_data,
             'profiles_stats' => $profiles_stats,
+            'profiles_total' => $profiles_total,
             'profiles_filters' => $profiles_filters,
             'profile_instance' => $profile_instance,
             'profile_viewType' => $profile_viewType,

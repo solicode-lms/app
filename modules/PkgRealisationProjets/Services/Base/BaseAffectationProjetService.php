@@ -213,6 +213,7 @@ class BaseAffectationProjetService extends BaseService
         // Récupération des données
         $affectationProjets_data = $this->paginate($params);
         $affectationProjets_stats = $this->getaffectationProjetStats();
+        $affectationProjets_total = collect($affectationProjets_stats)->firstWhere('code', 'total')['value'] ?? null;
         $affectationProjets_filters = $this->getFieldsFilterable();
         $affectationProjet_instance = $this->createInstance();
         $affectationProjet_viewTypes = $this->getViewTypes();
@@ -246,6 +247,7 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjet_viewType',
             'affectationProjets_data',
             'affectationProjets_stats',
+            'affectationProjets_total',
             'affectationProjets_filters',
             'affectationProjet_instance',
             'affectationProjet_title',
@@ -257,6 +259,7 @@ class BaseAffectationProjetService extends BaseService
         return [
             'affectationProjets_data' => $affectationProjets_data,
             'affectationProjets_stats' => $affectationProjets_stats,
+            'affectationProjets_total' => $affectationProjets_total,
             'affectationProjets_filters' => $affectationProjets_filters,
             'affectationProjet_instance' => $affectationProjet_instance,
             'affectationProjet_viewType' => $affectationProjet_viewType,

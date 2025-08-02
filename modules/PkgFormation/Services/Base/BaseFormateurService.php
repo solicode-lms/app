@@ -190,6 +190,7 @@ class BaseFormateurService extends BaseService
         // Récupération des données
         $formateurs_data = $this->paginate($params);
         $formateurs_stats = $this->getformateurStats();
+        $formateurs_total = collect($formateurs_stats)->firstWhere('code', 'total')['value'] ?? null;
         $formateurs_filters = $this->getFieldsFilterable();
         $formateur_instance = $this->createInstance();
         $formateur_viewTypes = $this->getViewTypes();
@@ -223,6 +224,7 @@ class BaseFormateurService extends BaseService
             'formateur_viewType',
             'formateurs_data',
             'formateurs_stats',
+            'formateurs_total',
             'formateurs_filters',
             'formateur_instance',
             'formateur_title',
@@ -234,6 +236,7 @@ class BaseFormateurService extends BaseService
         return [
             'formateurs_data' => $formateurs_data,
             'formateurs_stats' => $formateurs_stats,
+            'formateurs_total' => $formateurs_total,
             'formateurs_filters' => $formateurs_filters,
             'formateur_instance' => $formateur_instance,
             'formateur_viewType' => $formateur_viewType,
