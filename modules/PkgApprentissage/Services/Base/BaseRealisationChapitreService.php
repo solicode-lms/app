@@ -76,12 +76,13 @@ class BaseRealisationChapitreService extends BaseService
                 );
             
             
-               
-                $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
-                $chapitreIds = $this->getAvailableFilterValues('chapitre_id');
-                $chapitres = $chapitreService->getByIds($chapitreIds);
-
                 if (!array_key_exists('chapitre_id', $scopeVariables)) {
+
+
+                    $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
+                    $chapitreIds = $this->getAvailableFilterValues('chapitre_id');
+                    $chapitres = $chapitreService->getByIds($chapitreIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::chapitre.plural"), 
                         'chapitre_id', 
@@ -91,12 +92,14 @@ class BaseRealisationChapitreService extends BaseService
                     );
                 }
             
-                $etatRealisationChapitreService = new \Modules\PkgApprentissage\Services\EtatRealisationChapitreService();
-                $etatRealisationChapitreIds = $this->getAvailableFilterValues('etat_realisation_chapitre_id');
-                $etatRealisationChapitres = $etatRealisationChapitreService->getByIds($etatRealisationChapitreIds);
-
             
                 if (!array_key_exists('etat_realisation_chapitre_id', $scopeVariables)) {
+
+
+                    $etatRealisationChapitreService = new \Modules\PkgApprentissage\Services\EtatRealisationChapitreService();
+                    $etatRealisationChapitreIds = $this->getAvailableFilterValues('etat_realisation_chapitre_id');
+                    $etatRealisationChapitres = $etatRealisationChapitreService->getByIds($etatRealisationChapitreIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::etatRealisationChapitre.plural"), 
                         'etat_realisation_chapitre_id', 
@@ -140,11 +143,18 @@ class BaseRealisationChapitreService extends BaseService
             
             
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+
+
+                    $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                    $realisationTacheIds = $this->getAvailableFilterValues('realisation_tache_id');
+                    $realisationTaches = $realisationTacheService->getByIds($realisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::realisationTache.plural"), 
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
-                        'id'
+                        'id',
+                        $realisationTaches
                     );
                 }
             

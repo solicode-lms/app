@@ -34,7 +34,7 @@ export class EditAction extends Action {
         
    
 
-        editUrl = baseAction.appendParamsToUrl(
+        editUrl = this.appendParamsToUrl(
             editUrl,
             this.viewStateService.getContextParams()
         );

@@ -66,6 +66,7 @@ trait FilterTrait
         string $field, 
         string $relatedModel, 
         string $display_field,
+        $data = null,
         $targetDynamicDropdown = null,
         $targetDynamicDropdownApiUrl = null,
         $targetDynamicDropdownFilter = null
@@ -73,11 +74,15 @@ trait FilterTrait
     {
         $relatedInstance = new $relatedModel();
 
+
+        // Appliquer `withScope()` pour activer les scopes si disponibles
+        $data = $data ?? $relatedModel::withScope(fn() => $relatedModel::all(['id', $display_field]));
+
         return [
             'label' => $label,
             'field' => $field,
             'type' => 'ManyToMany',
-            'options' => $relatedModel::all(['id', $display_field])
+            'options' => $data
                 ->map(fn($item) => ['id' => $item['id'], 'label' => $item[$display_field]])
                 ->toArray(),
             'sortable' => "{$relatedInstance->getTable()}.{$display_field}",
