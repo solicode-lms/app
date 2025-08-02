@@ -150,6 +150,10 @@ class BaseMicroCompetenceService extends BaseService
         // Récupération des données
         $microCompetences_data = $this->paginate($params);
         $microCompetences_stats = $this->getmicroCompetenceStats();
+       
+        $microCompetences_total = collect($microCompetences_stats)->firstWhere('code', 'total')['value'] ?? null;
+
+
         $microCompetences_filters = $this->getFieldsFilterable();
         $microCompetence_instance = $this->createInstance();
         $microCompetence_viewTypes = $this->getViewTypes();
@@ -182,6 +186,7 @@ class BaseMicroCompetenceService extends BaseService
             'microCompetence_viewType',
             'microCompetences_data',
             'microCompetences_stats',
+            'microCompetences_total',
             'microCompetences_filters',
             'microCompetence_instance',
             'microCompetence_title',
@@ -193,6 +198,7 @@ class BaseMicroCompetenceService extends BaseService
         return [
             'microCompetences_data' => $microCompetences_data,
             'microCompetences_stats' => $microCompetences_stats,
+            'microCompetences_stats' => $microCompetences_total,
             'microCompetences_filters' => $microCompetences_filters,
             'microCompetence_instance' => $microCompetence_instance,
             'microCompetence_viewType' => $microCompetence_viewType,

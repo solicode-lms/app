@@ -95,6 +95,7 @@
                 </div>
                 @show
                 @section('realisationMicroCompetence-crud-filters')
+              
                 <div class="card-header">
                     <form id="realisationMicroCompetence-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($realisationMicroCompetences_filters ?? [])}}">
@@ -124,6 +125,7 @@
                         @show
                     </form>
                 </div>
+                
                 @show
                 <div id="realisationMicroCompetence-data-container" class="data-container">
                     @if($realisationMicroCompetence_viewType != "widgets")

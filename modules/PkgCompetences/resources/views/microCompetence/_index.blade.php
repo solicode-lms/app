@@ -71,6 +71,7 @@
                         
                                 <div class="actions d-flex align-items-center crud-action">
                                 </div>
+                             
                                 <x-crud-actions
                                     :instanceItem="$microCompetence_instance"
                                     :createPermission="'create-microCompetence'"
@@ -84,7 +85,9 @@
                                     :exportCsvRoute="route('microCompetences.export', ['format' => 'csv']) "
                                     :exportText="__('Exporter')"
                                     :viewTypes="$microCompetence_viewTypes"
+                                    :total="$microCompetences_total"
                                     :viewType="$microCompetence_viewType"
+                                    
                                 />
                             </div>
 
@@ -95,35 +98,38 @@
                 </div>
                 @show
                 @section('microCompetence-crud-filters')
-                <div class="card-header">
-                    <form id="microCompetence-crud-filter-form" method="GET" class="row">
-                        <x-filter-group count="{{count($microCompetences_filters ?? [])}}">
-                            <!-- Filtres spécifiques -->
-                            @foreach ($microCompetences_filters as $filter)
-                                <x-filter-field 
-                                    :label="$filter['label']" 
-                                    :type="$filter['type']" 
-                                    :field="$filter['field']" 
-                                    :options="$filter['options'] ?? []"
-                                    :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
-                                    :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
-                                    :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
-                                    :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
-                            @endforeach
-                        </x-filter-group>
-                        @section('microCompetence-crud-search-bar')
-                        <div id="microCompetence-crud-search-bar"
-                            class="{{ count($microCompetences_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
-                            <x-search-bar
-                                :search="request('microCompetences_search')"
-                                name="microCompetences_search"
-                                id="microCompetences_search"
-                                placeholder="Recherche ..."
-                            />
-                        </div>
-                        @show
-                    </form>
-                </div>
+                    @if(!empty($microCompetences_total) &&  $microCompetences_total > 10)
+
+                    <div class="card-header">
+                        <form id="microCompetence-crud-filter-form" method="GET" class="row">
+                            <x-filter-group count="{{count($microCompetences_filters ?? [])}}">
+                                <!-- Filtres spécifiques -->
+                                @foreach ($microCompetences_filters as $filter)
+                                    <x-filter-field 
+                                        :label="$filter['label']" 
+                                        :type="$filter['type']" 
+                                        :field="$filter['field']" 
+                                        :options="$filter['options'] ?? []"
+                                        :placeholder="ucfirst(str_replace('_', ' ', $filter['field']))" 
+                                        :targetDynamicDropdown="isset($filter['targetDynamicDropdown']) ? $filter['targetDynamicDropdown'] : null"
+                                        :targetDynamicDropdownApiUrl="isset($filter['targetDynamicDropdownApiUrl']) ? $filter['targetDynamicDropdownApiUrl'] : null" 
+                                        :targetDynamicDropdownFilter="isset($filter['targetDynamicDropdownFilter']) ? $filter['targetDynamicDropdownFilter'] : null" />
+                                @endforeach
+                            </x-filter-group>
+                            @section('microCompetence-crud-search-bar')
+                            <div id="microCompetence-crud-search-bar"
+                                class="{{ count($microCompetences_filters) > 0 ? 'col-md-2' : 'col-md-6 mx-auto' }} text-md-right text-left">
+                                <x-search-bar
+                                    :search="request('microCompetences_search')"
+                                    name="microCompetences_search"
+                                    id="microCompetences_search"
+                                    placeholder="Recherche ..."
+                                />
+                            </div>
+                            @show
+                        </form>
+                    </div>
+                 @endif
                 @show
                 <div id="microCompetence-data-container" class="data-container">
                     @if($microCompetence_viewType != "widgets")

@@ -18,6 +18,7 @@ public function initStats(){
         [
             'icon' => 'fas fa-box',
             'label' => 'Total',
+            'code' => 'total',
             'value' => $total,
         ],
     ];

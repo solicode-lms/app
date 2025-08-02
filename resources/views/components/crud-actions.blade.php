@@ -78,10 +78,10 @@
     </div>
 @endif
 
-    
+    @if(!empty($total) && $total > 10)
     <button id="toggle-filter" class="btn btn-sm btn-outline-info ml-2" title="filtrer" data-toggle="tooltip" data-visible="1">
         <i class="fas fa-filter"></i> 
     </button>
-
+    @endif
 
 </div>
