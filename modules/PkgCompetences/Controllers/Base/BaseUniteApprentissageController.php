@@ -5,11 +5,8 @@
 namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
 use Modules\PkgCompetences\Services\MicroCompetenceService;
-use Modules\PkgSessions\Services\AlignementUaService;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgCompetences\Services\CritereEvaluationService;
-use Modules\PkgApprentissage\Services\RealisationUaService;
-use Modules\PkgCreationProjet\Services\MobilisationUaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -151,13 +148,6 @@ class BaseUniteApprentissageController extends AdminController
         $itemUniteApprentissage = $this->uniteApprentissageService->edit($id);
 
 
-        $this->viewState->set('scope.alignementUa.unite_apprentissage_id', $id);
-        
-
-        $alignementUaService =  new AlignementUaService();
-        $alignementUas_view_data = $alignementUaService->prepareDataForIndexView();
-        extract($alignementUas_view_data);
-
         $this->viewState->set('scope.chapitre.unite_apprentissage_id', $id);
         
 
@@ -172,25 +162,11 @@ class BaseUniteApprentissageController extends AdminController
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
-        $this->viewState->set('scope.realisationUa.unite_apprentissage_id', $id);
-        
-
-        $realisationUaService =  new RealisationUaService();
-        $realisationUas_view_data = $realisationUaService->prepareDataForIndexView();
-        extract($realisationUas_view_data);
-
-        $this->viewState->set('scope.mobilisationUa.unite_apprentissage_id', $id);
-        
-
-        $mobilisationUaService =  new MobilisationUaService();
-        $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
-        extract($mobilisationUas_view_data);
-
         if (request()->ajax()) {
-            return view('PkgCompetences::uniteApprentissage._show', array_merge(compact('itemUniteApprentissage'),$alignementUa_compact_value, $chapitre_compact_value, $critereEvaluation_compact_value, $realisationUa_compact_value, $mobilisationUa_compact_value));
+            return view('PkgCompetences::uniteApprentissage._show', array_merge(compact('itemUniteApprentissage'),$chapitre_compact_value, $critereEvaluation_compact_value));
         }
 
-        return view('PkgCompetences::uniteApprentissage.show', array_merge(compact('itemUniteApprentissage'),$alignementUa_compact_value, $chapitre_compact_value, $critereEvaluation_compact_value, $realisationUa_compact_value, $mobilisationUa_compact_value));
+        return view('PkgCompetences::uniteApprentissage.show', array_merge(compact('itemUniteApprentissage'),$chapitre_compact_value, $critereEvaluation_compact_value));
 
     }
     /**
@@ -206,13 +182,6 @@ class BaseUniteApprentissageController extends AdminController
         $microCompetences = $this->microCompetenceService->all();
 
 
-        $this->viewState->set('scope.alignementUa.unite_apprentissage_id', $id);
-        
-
-        $alignementUaService =  new AlignementUaService();
-        $alignementUas_view_data = $alignementUaService->prepareDataForIndexView();
-        extract($alignementUas_view_data);
-
         $this->viewState->set('scope.chapitre.unite_apprentissage_id', $id);
         
 
@@ -227,27 +196,13 @@ class BaseUniteApprentissageController extends AdminController
         $critereEvaluations_view_data = $critereEvaluationService->prepareDataForIndexView();
         extract($critereEvaluations_view_data);
 
-        $this->viewState->set('scope.realisationUa.unite_apprentissage_id', $id);
-        
-
-        $realisationUaService =  new RealisationUaService();
-        $realisationUas_view_data = $realisationUaService->prepareDataForIndexView();
-        extract($realisationUas_view_data);
-
-        $this->viewState->set('scope.mobilisationUa.unite_apprentissage_id', $id);
-        
-
-        $mobilisationUaService =  new MobilisationUaService();
-        $mobilisationUas_view_data = $mobilisationUaService->prepareDataForIndexView();
-        extract($mobilisationUas_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::uniteApprentissage._edit', array_merge(compact('bulkEdit' , 'itemUniteApprentissage','microCompetences'),$alignementUa_compact_value, $chapitre_compact_value, $critereEvaluation_compact_value, $realisationUa_compact_value, $mobilisationUa_compact_value));
+            return view('PkgCompetences::uniteApprentissage._edit', array_merge(compact('bulkEdit' , 'itemUniteApprentissage','microCompetences'),$chapitre_compact_value, $critereEvaluation_compact_value));
         }
 
-        return view('PkgCompetences::uniteApprentissage.edit', array_merge(compact('bulkEdit' ,'itemUniteApprentissage','microCompetences'),$alignementUa_compact_value, $chapitre_compact_value, $critereEvaluation_compact_value, $realisationUa_compact_value, $mobilisationUa_compact_value));
+        return view('PkgCompetences::uniteApprentissage.edit', array_merge(compact('bulkEdit' ,'itemUniteApprentissage','microCompetences'),$chapitre_compact_value, $critereEvaluation_compact_value));
 
 
     }

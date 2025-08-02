@@ -723,5 +723,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "chapitres_hasMany_taches_chapitre_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "chapitres_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "chapitres",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]

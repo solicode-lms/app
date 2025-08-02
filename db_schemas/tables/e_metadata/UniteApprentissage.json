@@ -27,7 +27,7 @@
     },
     {
         "reference": "UniteApprentissage_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 12,
         "e_data_field_reference": "UniteApprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -69,7 +69,7 @@
     },
     {
         "reference": "UniteApprentissage_reference_displayOrder",
-        "value_integer": 8,
+        "value_integer": 13,
         "e_data_field_reference": "UniteApprentissage_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -159,7 +159,7 @@
     },
     {
         "reference": "UniteApprentissage_lien_displayOrder",
-        "value_integer": 4,
+        "value_integer": 5,
         "e_data_field_reference": "UniteApprentissage_lien",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -171,7 +171,9 @@
     },
     {
         "reference": "UniteApprentissage_lien_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_lien",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -205,7 +207,7 @@
     },
     {
         "reference": "UniteApprentissage_description_displayOrder",
-        "value_integer": 5,
+        "value_integer": 11,
         "e_data_field_reference": "UniteApprentissage_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -297,7 +299,8 @@
     },
     {
         "reference": "UniteApprentissage_ordre_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "UniteApprentissage_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -321,7 +324,7 @@
     },
     {
         "reference": "UniteApprentissage_micro_competence_id_displayOrder",
-        "value_integer": 6,
+        "value_integer": 4,
         "e_data_field_reference": "UniteApprentissage_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -357,7 +360,7 @@
     },
     {
         "reference": "UniteApprentissage_created_at_displayOrder",
-        "value_integer": 7,
+        "value_integer": 14,
         "e_data_field_reference": "UniteApprentissage_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -393,7 +396,7 @@
     },
     {
         "reference": "UniteApprentissage_updated_at_displayOrder",
-        "value_integer": 10,
+        "value_integer": 15,
         "e_data_field_reference": "UniteApprentissage_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -435,13 +438,15 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 7,
         "e_data_field_reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_chapitres_unite_apprentissage_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -546,13 +551,15 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id_displayOrder",
-        "value_integer": 12,
+        "value_integer": 8,
         "e_data_field_reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_critere_evaluations_unite_apprentissage_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -564,13 +571,14 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "editHasMany"
     },
     {
         "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_displayOrder",
-        "value_integer": 13,
+        "value_integer": 9,
         "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -582,19 +590,21 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_realisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "editHasMany"
     },
     {
         "reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 6,
         "e_data_field_reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -606,19 +616,21 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_alignement_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "editHasMany"
     },
     {
         "reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 10,
         "e_data_field_reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -630,8 +642,16 @@
     },
     {
         "reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "unite_apprentissages_hasMany_mobilisation_uas_unite_apprentissage_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "unite_apprentissages_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "unite_apprentissages",
+        "e_metadata_definition_reference": "editOnFullScreen"
     }
 ]

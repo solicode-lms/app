@@ -6,7 +6,7 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
-        editOnFullScreen : false,
+        editOnFullScreen : true,
         entity_name: 'chapitre',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'chapitre.index' }}', 
         filterFormSelector: '#chapitre-crud-filter-form',

@@ -84,9 +84,9 @@ class BaseUniteApprentissageSeeder extends Seeder
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
+                        "micro_competence_id" => $micro_competence_id,
                         "lien" => isset($row["lien"]) && $row["lien"] !== "" ? $row["lien"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
-                        "micro_competence_id" => $micro_competence_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

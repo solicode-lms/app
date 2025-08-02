@@ -24,9 +24,9 @@ class BaseUniteApprentissageService extends BaseService
         'ordre',
         'code',
         'nom',
+        'micro_competence_id',
         'lien',
-        'description',
-        'micro_competence_id'
+        'description'
     ];
 
     /**

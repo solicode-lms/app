@@ -32,9 +32,9 @@ class BaseUniteApprentissageRequest extends FormRequest
             'ordre' => 'required|integer',
             'code' => 'nullable|string|max:255',
             'nom' => 'required|string|max:255',
+            'micro_competence_id' => 'required',
             'lien' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'micro_competence_id' => 'required'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -51,10 +51,10 @@ class BaseUniteApprentissageRequest extends FormRequest
             'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.nom')]),
             'nom.max' => __('validation.nomMax'),
+            'micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.micro_competence_id')]),
             'lien.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.lien')]),
             'lien.max' => __('validation.lienMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.description')]),
-            'micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.micro_competence_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgCompetences::UniteApprentissage.description')])
         ];
     }
 

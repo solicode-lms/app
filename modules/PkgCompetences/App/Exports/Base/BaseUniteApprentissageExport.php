@@ -35,9 +35,9 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
                 'ordre' => 'ordre',
                 'code' => 'code',
                 'nom' => 'nom',
+                'micro_competence_reference' => 'micro_competence_reference',
                 'lien' => 'lien',
                 'description' => 'description',
-                'micro_competence_reference' => 'micro_competence_reference',
                 'reference' => 'reference',
             ];
         } else {
@@ -45,9 +45,9 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
                 'ordre' => __('PkgCompetences::uniteApprentissage.ordre'),
                 'code' => __('PkgCompetences::uniteApprentissage.code'),
                 'nom' => __('PkgCompetences::uniteApprentissage.nom'),
+                'micro_competence_reference' => __('PkgCompetences::uniteApprentissage.micro_competence_reference'),
                 'lien' => __('PkgCompetences::uniteApprentissage.lien'),
                 'description' => __('PkgCompetences::uniteApprentissage.description'),
-                'micro_competence_reference' => __('PkgCompetences::uniteApprentissage.micro_competence_reference'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -63,9 +63,9 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
                 'ordre' => (string) $uniteApprentissage->ordre,
                 'code' => $uniteApprentissage->code,
                 'nom' => $uniteApprentissage->nom,
+                'micro_competence_reference' => $uniteApprentissage->microCompetence?->reference,
                 'lien' => $uniteApprentissage->lien,
                 'description' => $uniteApprentissage->description,
-                'micro_competence_reference' => $uniteApprentissage->microCompetence?->reference,
                 'reference' => $uniteApprentissage->reference,
             ];
         });

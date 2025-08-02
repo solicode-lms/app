@@ -6,21 +6,6 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemUniteApprentissage->ordre))
-          {{ $itemUniteApprentissage->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.code')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemUniteApprentissage->code) && $itemUniteApprentissage->code !== '')
@@ -47,6 +32,20 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
+                              
+      @if($itemUniteApprentissage->microCompetence)
+        {{ $itemUniteApprentissage->microCompetence }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.lien')) }}</small>
                                 <!-- Valeur texte -->
         @if(! is_null($itemUniteApprentissage->lien) && $itemUniteApprentissage->lien !== '')
@@ -57,6 +56,24 @@
           </div>
       </div>
   
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
+            </div>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
+            </div>
+          </div>
+      </div>
 
       <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
@@ -70,65 +87,6 @@
           </div>
       </div>
   
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
-                              
-      @if($itemUniteApprentissage->microCompetence)
-        {{ $itemUniteApprentissage->microCompetence }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::alignementUa.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgSessions::alignementUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::mobilisationUa.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationProjet::mobilisationUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.show_' . $itemUniteApprentissage->id])
-            </div>
-          </div>
-      </div>
 
 
             </div>
