@@ -13,5 +13,5 @@ return [
     'dernier_update' => 'Dernière mise à jour',
     'apprenant_id' => 'Apprenant',
     'micro_competence_id' => 'Micro-Compétence',
-    'etat_realisation_micro_competence_id' => 'État de réalisation de la micro-compétence',
+    'etat_realisation_micro_competence_id' => 'État',
 ];

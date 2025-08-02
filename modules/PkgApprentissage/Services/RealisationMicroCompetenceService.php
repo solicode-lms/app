@@ -23,6 +23,21 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         return $realisationMicroCompetence;
     }
 
+    public function create(array|object $data)
+    {
+        // Convertir en tableau si $data est un objet
+        $data = (array) $data;
+
+        // Vérifier si l'état est fourni, sinon assigner l'état par défaut
+        if (empty($data['etat_realisation_micro_competence_id'])) {
+            $ordreEtatInitial = EtatRealisationMicroCompetence::min('ordre');
+            $data['etat_realisation_micro_competence_id'] = EtatRealisationMicroCompetence::where('ordre', $ordreEtatInitial)->value('id');
+        }
+
+        return parent::create($data);
+    }
+
+
     public function afterCreateRules(RealisationMicroCompetence $realisationMicroCompetence): void
     {
         $realisationUAService = new RealisationUAService();

@@ -34,7 +34,7 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id')) }}</small>
                               
       @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
         {{ $itemRealisationMicroCompetence->etatRealisationMicroCompetence }}

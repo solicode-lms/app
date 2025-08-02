@@ -69,7 +69,7 @@
                             data-id="{{$microCompetence->id}}" 
                             data-url="{{ route('microCompetences.startFormation', ['id' => $microCompetence->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity">
                                 <i class="fas fa-graduation-cap"></i>
                             </a>
                         </x-action-button>

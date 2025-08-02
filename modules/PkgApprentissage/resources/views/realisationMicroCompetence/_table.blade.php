@@ -11,7 +11,7 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="note_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>

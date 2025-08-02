@@ -690,5 +690,13 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_note_cache",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id_metaLabel",
+        "value_boolean": 1,
+        "value_string": "etat_realisation_micro_competence_id",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id",
+        "e_metadata_definition_reference": "metaLabel"
     }
 ]

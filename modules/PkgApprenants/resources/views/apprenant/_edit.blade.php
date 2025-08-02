@@ -38,7 +38,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="apprenant-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
-                                <i class="nav-icon fas fa-coffee"></i>
+                                <i class="nav-icon fas fa-certificate"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}
                             </a>
                         </li>

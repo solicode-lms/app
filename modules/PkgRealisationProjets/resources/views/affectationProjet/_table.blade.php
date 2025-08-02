@@ -61,7 +61,7 @@
                             data-id="{{$affectationProjet->id}}" 
                             data-url="{{ route('affectationProjets.exportPV', ['id' => $affectationProjet->id]) }}" 
                             data-action-type="downloadMode"
-                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity">
                                 <i class="fas fa-file-excel"></i>
                             </a>
                         </x-action-button>

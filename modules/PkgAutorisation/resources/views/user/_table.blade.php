@@ -48,7 +48,7 @@
                             data-id="{{$user->id}}" 
                             data-url="{{ route('users.initPassword', ['id' => $user->id]) }}" 
                             data-action-type="confirm"
-                            class="btn btn-default btn-sm d-none d-md-inline d-lg-inline  context-state actionEntity">
+                            class="btn btn-default btn-sm context-state actionEntity">
                                 <i class="fa-unlock-alt"></i>
                             </a>
                         </x-action-button>
