@@ -13,8 +13,8 @@
                 <x-sortable-column :sortable="true" width="6"  field="code" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.code'))!!}" />
                 <x-sortable-column :sortable="true" width="27.5"  field="titre" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.titre'))!!}" />
                 <x-sortable-column :sortable="true" width="11" field="competence_id" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
-                <x-sortable-column :sortable="false" width="27.5"  field="UniteApprentissage" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.plural'))!!}" />
                 <x-sortable-column :sortable="true" width="6"  field="lien" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.lien'))!!}" />
+                <x-sortable-column :sortable="false" width="27.5"  field="UniteApprentissage" modelname="microCompetence" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -44,19 +44,19 @@
                         {{  $microCompetence->competence }}
 
                     </td>
+                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
+    <a href="{{ $microCompetence->lien }}" target="_blank">
+         <i class="fas fa-link"></i>
+    </a>
+
+
+                    </td>
                     <td style="max-width: 27.5%;" class=" text-truncate" data-id="{{$microCompetence->id}}" data-field="UniteApprentissage"  data-toggle="tooltip" title="{{ $microCompetence->uniteApprentissages }}" >
                         <ul>
                             @foreach ($microCompetence->uniteApprentissages as $uniteApprentissage)
                                 <li>{{$uniteApprentissage}} </li>
                             @endforeach
                         </ul>
-
-                    </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
-    <a href="{{ $microCompetence->lien }}" target="_blank">
-         <i class="fas fa-link"></i>
-    </a>
-
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

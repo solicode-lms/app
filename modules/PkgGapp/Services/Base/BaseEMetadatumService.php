@@ -64,31 +64,52 @@ class BaseEMetadatumService extends BaseService
         
             
                 if (!array_key_exists('e_model_id', $scopeVariables)) {
+
+
+                    $eModelService = new \Modules\PkgGapp\Services\EModelService();
+                    $eModelIds = $this->getAvailableFilterValues('e_model_id');
+                    $eModels = $eModelService->getByIds($eModelIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgGapp::eModel.plural"), 
                         'e_model_id', 
                         \Modules\PkgGapp\Models\EModel::class, 
-                        'name'
+                        'name',
+                        $eModels
                     );
                 }
             
             
                 if (!array_key_exists('e_data_field_id', $scopeVariables)) {
+
+
+                    $eDataFieldService = new \Modules\PkgGapp\Services\EDataFieldService();
+                    $eDataFieldIds = $this->getAvailableFilterValues('e_data_field_id');
+                    $eDataFields = $eDataFieldService->getByIds($eDataFieldIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgGapp::eDataField.plural"), 
                         'e_data_field_id', 
                         \Modules\PkgGapp\Models\EDataField::class, 
-                        'name'
+                        'name',
+                        $eDataFields
                     );
                 }
             
             
                 if (!array_key_exists('e_metadata_definition_id', $scopeVariables)) {
+
+
+                    $eMetadataDefinitionService = new \Modules\PkgGapp\Services\EMetadataDefinitionService();
+                    $eMetadataDefinitionIds = $this->getAvailableFilterValues('e_metadata_definition_id');
+                    $eMetadataDefinitions = $eMetadataDefinitionService->getByIds($eMetadataDefinitionIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgGapp::eMetadataDefinition.plural"), 
                         'e_metadata_definition_id', 
                         \Modules\PkgGapp\Models\EMetadataDefinition::class, 
-                        'name'
+                        'name',
+                        $eMetadataDefinitions
                     );
                 }
             

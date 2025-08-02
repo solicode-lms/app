@@ -65,11 +65,18 @@ class BaseEDataFieldService extends BaseService
         
             
                 if (!array_key_exists('e_model_id', $scopeVariables)) {
+
+
+                    $eModelService = new \Modules\PkgGapp\Services\EModelService();
+                    $eModelIds = $this->getAvailableFilterValues('e_model_id');
+                    $eModels = $eModelService->getByIds($eModelIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgGapp::eModel.plural"), 
                         'e_model_id', 
                         \Modules\PkgGapp\Models\EModel::class, 
-                        'name'
+                        'name',
+                        $eModels
                     );
                 }
             

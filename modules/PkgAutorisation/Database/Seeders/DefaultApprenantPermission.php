@@ -23,7 +23,7 @@ class DefaultApprenantPermission extends Seeder
 
         // Tableau de configuration : modèle et type d'accès
         $permissionsMap = [
-            'sysColor' => 'Lecture',
+            'sysColor' => 'Afficher',
             'profile' => 'Édition sans Ajouter',
             'competence' => 'Lecture',
             'microCompetence' => 'Lecture',

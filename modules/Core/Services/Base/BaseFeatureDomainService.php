@@ -56,11 +56,18 @@ class BaseFeatureDomainService extends BaseService
         
             
                 if (!array_key_exists('sys_module_id', $scopeVariables)) {
+
+
+                    $sysModuleService = new \Modules\Core\Services\SysModuleService();
+                    $sysModuleIds = $this->getAvailableFilterValues('sys_module_id');
+                    $sysModules = $sysModuleService->getByIds($sysModuleIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::sysModule.plural"), 
                         'sys_module_id', 
                         \Modules\Core\Models\SysModule::class, 
-                        'name'
+                        'name',
+                        $sysModules
                     );
                 }
             

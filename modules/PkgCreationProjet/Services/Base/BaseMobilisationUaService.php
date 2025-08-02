@@ -59,21 +59,35 @@ class BaseMobilisationUaService extends BaseService
         
             
                 if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+
+
+                    $uniteApprentissageService = new \Modules\PkgCompetences\Services\UniteApprentissageService();
+                    $uniteApprentissageIds = $this->getAvailableFilterValues('unite_apprentissage_id');
+                    $uniteApprentissages = $uniteApprentissageService->getByIds($uniteApprentissageIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::uniteApprentissage.plural"), 
                         'unite_apprentissage_id', 
                         \Modules\PkgCompetences\Models\UniteApprentissage::class, 
-                        'code'
+                        'code',
+                        $uniteApprentissages
                     );
                 }
             
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_id');
+                    $projets = $projetService->getByIds($projetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
+                        'titre',
+                        $projets
                     );
                 }
             

@@ -58,11 +58,18 @@ class BaseEtatRealisationChapitreService extends BaseService
         
             
                 if (!array_key_exists('sys_color_id', $scopeVariables)) {
+
+
+                    $sysColorService = new \Modules\Core\Services\SysColorService();
+                    $sysColorIds = $this->getAvailableFilterValues('sys_color_id');
+                    $sysColors = $sysColorService->getByIds($sysColorIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::sysColor.plural"), 
                         'sys_color_id', 
                         \Modules\Core\Models\SysColor::class, 
-                        'name'
+                        'name',
+                        $sysColors
                     );
                 }
             

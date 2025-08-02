@@ -61,31 +61,52 @@ class BaseRealisationUaService extends BaseService
         
             
                 if (!array_key_exists('realisation_micro_competence_id', $scopeVariables)) {
+
+
+                    $realisationMicroCompetenceService = new \Modules\PkgApprentissage\Services\RealisationMicroCompetenceService();
+                    $realisationMicroCompetenceIds = $this->getAvailableFilterValues('realisation_micro_competence_id');
+                    $realisationMicroCompetences = $realisationMicroCompetenceService->getByIds($realisationMicroCompetenceIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::realisationMicroCompetence.plural"), 
                         'realisation_micro_competence_id', 
                         \Modules\PkgApprentissage\Models\RealisationMicroCompetence::class, 
-                        'id'
+                        'id',
+                        $realisationMicroCompetences
                     );
                 }
             
             
                 if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+
+
+                    $uniteApprentissageService = new \Modules\PkgCompetences\Services\UniteApprentissageService();
+                    $uniteApprentissageIds = $this->getAvailableFilterValues('unite_apprentissage_id');
+                    $uniteApprentissages = $uniteApprentissageService->getByIds($uniteApprentissageIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::uniteApprentissage.plural"), 
                         'unite_apprentissage_id', 
                         \Modules\PkgCompetences\Models\UniteApprentissage::class, 
-                        'code'
+                        'code',
+                        $uniteApprentissages
                     );
                 }
             
             
                 if (!array_key_exists('etat_realisation_ua_id', $scopeVariables)) {
+
+
+                    $etatRealisationUaService = new \Modules\PkgApprentissage\Services\EtatRealisationUaService();
+                    $etatRealisationUaIds = $this->getAvailableFilterValues('etat_realisation_ua_id');
+                    $etatRealisationUas = $etatRealisationUaService->getByIds($etatRealisationUaIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::etatRealisationUa.plural"), 
                         'etat_realisation_ua_id', 
                         \Modules\PkgApprentissage\Models\EtatRealisationUa::class, 
-                        'nom'
+                        'nom',
+                        $etatRealisationUas
                     );
                 }
             

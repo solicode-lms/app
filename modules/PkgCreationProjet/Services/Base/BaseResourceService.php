@@ -56,11 +56,18 @@ class BaseResourceService extends BaseService
         
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_id');
+                    $projets = $projetService->getByIds($projetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
+                        'titre',
+                        $projets
                     );
                 }
             

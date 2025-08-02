@@ -57,21 +57,35 @@ class BaseGroupeService extends BaseService
         
             
                 if (!array_key_exists('filiere_id', $scopeVariables)) {
+
+
+                    $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                    $filiereIds = $this->getAvailableFilterValues('filiere_id');
+                    $filieres = $filiereService->getByIds($filiereIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::filiere.plural"), 
                         'filiere_id', 
                         \Modules\PkgFormation\Models\Filiere::class, 
-                        'code'
+                        'code',
+                        $filieres
                     );
                 }
             
             
                 if (!array_key_exists('annee_formation_id', $scopeVariables)) {
+
+
+                    $anneeFormationService = new \Modules\PkgFormation\Services\AnneeFormationService();
+                    $anneeFormationIds = $this->getAvailableFilterValues('annee_formation_id');
+                    $anneeFormations = $anneeFormationService->getByIds($anneeFormationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::anneeFormation.plural"), 
                         'annee_formation_id', 
                         \Modules\PkgFormation\Models\AnneeFormation::class, 
-                        'titre'
+                        'titre',
+                        $anneeFormations
                     );
                 }
             

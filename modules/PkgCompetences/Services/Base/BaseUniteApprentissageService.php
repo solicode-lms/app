@@ -58,11 +58,18 @@ class BaseUniteApprentissageService extends BaseService
         
             
                 if (!array_key_exists('micro_competence_id', $scopeVariables)) {
+
+
+                    $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+                    $microCompetenceIds = $this->getAvailableFilterValues('micro_competence_id');
+                    $microCompetences = $microCompetenceService->getByIds($microCompetenceIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::microCompetence.plural"), 
                         'micro_competence_id', 
                         \Modules\PkgCompetences\Models\MicroCompetence::class, 
-                        'titre'
+                        'titre',
+                        $microCompetences
                     );
                 }
             

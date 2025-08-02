@@ -62,31 +62,52 @@ class BaseRealisationMicroCompetenceService extends BaseService
         
             
                 if (!array_key_exists('micro_competence_id', $scopeVariables)) {
+
+
+                    $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
+                    $microCompetenceIds = $this->getAvailableFilterValues('micro_competence_id');
+                    $microCompetences = $microCompetenceService->getByIds($microCompetenceIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::microCompetence.plural"), 
                         'micro_competence_id', 
                         \Modules\PkgCompetences\Models\MicroCompetence::class, 
-                        'titre'
+                        'titre',
+                        $microCompetences
                     );
                 }
             
             
                 if (!array_key_exists('apprenant_id', $scopeVariables)) {
+
+
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprenants::apprenant.plural"), 
                         'apprenant_id', 
                         \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom'
+                        'nom',
+                        $apprenants
                     );
                 }
             
             
                 if (!array_key_exists('etat_realisation_micro_competence_id', $scopeVariables)) {
+
+
+                    $etatRealisationMicroCompetenceService = new \Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService();
+                    $etatRealisationMicroCompetenceIds = $this->getAvailableFilterValues('etat_realisation_micro_competence_id');
+                    $etatRealisationMicroCompetences = $etatRealisationMicroCompetenceService->getByIds($etatRealisationMicroCompetenceIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::etatRealisationMicroCompetence.plural"), 
                         'etat_realisation_micro_competence_id', 
                         \Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence::class, 
-                        'nom'
+                        'nom',
+                        $etatRealisationMicroCompetences
                     );
                 }
             

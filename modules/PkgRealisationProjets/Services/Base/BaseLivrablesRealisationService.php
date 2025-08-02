@@ -57,21 +57,35 @@ class BaseLivrablesRealisationService extends BaseService
         
             
                 if (!array_key_exists('livrable_id', $scopeVariables)) {
+
+
+                    $livrableService = new \Modules\PkgCreationProjet\Services\LivrableService();
+                    $livrableIds = $this->getAvailableFilterValues('livrable_id');
+                    $livrables = $livrableService->getByIds($livrableIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::livrable.plural"), 
                         'livrable_id', 
                         \Modules\PkgCreationProjet\Models\Livrable::class, 
-                        'titre'
+                        'titre',
+                        $livrables
                     );
                 }
             
             
                 if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+
+
+                    $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
+                    $realisationProjetIds = $this->getAvailableFilterValues('realisation_projet_id');
+                    $realisationProjets = $realisationProjetService->getByIds($realisationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationProjets::realisationProjet.plural"), 
                         'realisation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
-                        'id'
+                        'id',
+                        $realisationProjets
                     );
                 }
             

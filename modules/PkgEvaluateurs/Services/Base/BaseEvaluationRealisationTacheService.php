@@ -57,31 +57,52 @@ class BaseEvaluationRealisationTacheService extends BaseService
         
             
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+
+
+                    $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                    $realisationTacheIds = $this->getAvailableFilterValues('realisation_tache_id');
+                    $realisationTaches = $realisationTacheService->getByIds($realisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::realisationTache.plural"), 
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
-                        'id'
+                        'id',
+                        $realisationTaches
                     );
                 }
             
             
                 if (!array_key_exists('evaluateur_id', $scopeVariables)) {
+
+
+                    $evaluateurService = new \Modules\PkgEvaluateurs\Services\EvaluateurService();
+                    $evaluateurIds = $this->getAvailableFilterValues('evaluateur_id');
+                    $evaluateurs = $evaluateurService->getByIds($evaluateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgEvaluateurs::evaluateur.plural"), 
                         'evaluateur_id', 
                         \Modules\PkgEvaluateurs\Models\Evaluateur::class, 
-                        'nom'
+                        'nom',
+                        $evaluateurs
                     );
                 }
             
             
                 if (!array_key_exists('evaluation_realisation_projet_id', $scopeVariables)) {
+
+
+                    $evaluationRealisationProjetService = new \Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService();
+                    $evaluationRealisationProjetIds = $this->getAvailableFilterValues('evaluation_realisation_projet_id');
+                    $evaluationRealisationProjets = $evaluationRealisationProjetService->getByIds($evaluationRealisationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgEvaluateurs::evaluationRealisationProjet.plural"), 
                         'evaluation_realisation_projet_id', 
                         \Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet::class, 
-                        'id'
+                        'id',
+                        $evaluationRealisationProjets
                     );
                 }
             

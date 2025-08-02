@@ -61,31 +61,52 @@ class BaseAffectationProjetService extends BaseService
         
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_id');
+                    $projets = $projetService->getByIds($projetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
+                        'titre',
+                        $projets
                     );
                 }
             
             
                 if (!array_key_exists('groupe_id', $scopeVariables)) {
+
+
+                    $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                    $groupeIds = $this->getAvailableFilterValues('groupe_id');
+                    $groupes = $groupeService->getByIds($groupeIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprenants::groupe.plural"), 
                         'groupe_id', 
                         \Modules\PkgApprenants\Models\Groupe::class, 
-                        'code'
+                        'code',
+                        $groupes
                     );
                 }
             
             
                 if (!array_key_exists('sous_groupe_id', $scopeVariables)) {
+
+
+                    $sousGroupeService = new \Modules\PkgApprenants\Services\SousGroupeService();
+                    $sousGroupeIds = $this->getAvailableFilterValues('sous_groupe_id');
+                    $sousGroupes = $sousGroupeService->getByIds($sousGroupeIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprenants::sousGroupe.plural"), 
                         'sous_groupe_id', 
                         \Modules\PkgApprenants\Models\SousGroupe::class, 
-                        'nom'
+                        'nom',
+                        $sousGroupes
                     );
                 }
             

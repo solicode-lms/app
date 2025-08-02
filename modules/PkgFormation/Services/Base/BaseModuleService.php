@@ -57,11 +57,18 @@ class BaseModuleService extends BaseService
         
             
                 if (!array_key_exists('filiere_id', $scopeVariables)) {
+
+
+                    $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                    $filiereIds = $this->getAvailableFilterValues('filiere_id');
+                    $filieres = $filiereService->getByIds($filiereIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::filiere.plural"), 
                         'filiere_id', 
                         \Modules\PkgFormation\Models\Filiere::class, 
-                        'code'
+                        'code',
+                        $filieres
                     );
                 }
             

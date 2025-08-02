@@ -58,31 +58,52 @@ class BaseRealisationProjetService extends BaseService
         
             
                 if (!array_key_exists('affectation_projet_id', $scopeVariables)) {
+
+
+                    $affectationProjetService = new \Modules\PkgRealisationProjets\Services\AffectationProjetService();
+                    $affectationProjetIds = $this->getAvailableFilterValues('affectation_projet_id');
+                    $affectationProjets = $affectationProjetService->getByIds($affectationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationProjets::affectationProjet.plural"), 
                         'affectation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\AffectationProjet::class, 
-                        'id'
+                        'id',
+                        $affectationProjets
                     );
                 }
             
             
                 if (!array_key_exists('apprenant_id', $scopeVariables)) {
+
+
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprenants::apprenant.plural"), 
                         'apprenant_id', 
                         \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom'
+                        'nom',
+                        $apprenants
                     );
                 }
             
             
                 if (!array_key_exists('etats_realisation_projet_id', $scopeVariables)) {
+
+
+                    $etatsRealisationProjetService = new \Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService();
+                    $etatsRealisationProjetIds = $this->getAvailableFilterValues('etats_realisation_projet_id');
+                    $etatsRealisationProjets = $etatsRealisationProjetService->getByIds($etatsRealisationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
                         'etats_realisation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 
-                        'code'
+                        'code',
+                        $etatsRealisationProjets
                     );
                 }
             

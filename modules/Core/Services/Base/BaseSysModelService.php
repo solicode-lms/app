@@ -58,21 +58,35 @@ class BaseSysModelService extends BaseService
         
             
                 if (!array_key_exists('sys_module_id', $scopeVariables)) {
+
+
+                    $sysModuleService = new \Modules\Core\Services\SysModuleService();
+                    $sysModuleIds = $this->getAvailableFilterValues('sys_module_id');
+                    $sysModules = $sysModuleService->getByIds($sysModuleIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::sysModule.plural"), 
                         'sys_module_id', 
                         \Modules\Core\Models\SysModule::class, 
-                        'name'
+                        'name',
+                        $sysModules
                     );
                 }
             
             
                 if (!array_key_exists('sys_color_id', $scopeVariables)) {
+
+
+                    $sysColorService = new \Modules\Core\Services\SysColorService();
+                    $sysColorIds = $this->getAvailableFilterValues('sys_color_id');
+                    $sysColors = $sysColorService->getByIds($sysColorIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::sysColor.plural"), 
                         'sys_color_id', 
                         \Modules\Core\Models\SysColor::class, 
-                        'name'
+                        'name',
+                        $sysColors
                     );
                 }
             

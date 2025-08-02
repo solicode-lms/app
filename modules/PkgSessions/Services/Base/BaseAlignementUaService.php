@@ -56,21 +56,35 @@ class BaseAlignementUaService extends BaseService
         
             
                 if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+
+
+                    $uniteApprentissageService = new \Modules\PkgCompetences\Services\UniteApprentissageService();
+                    $uniteApprentissageIds = $this->getAvailableFilterValues('unite_apprentissage_id');
+                    $uniteApprentissages = $uniteApprentissageService->getByIds($uniteApprentissageIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::uniteApprentissage.plural"), 
                         'unite_apprentissage_id', 
                         \Modules\PkgCompetences\Models\UniteApprentissage::class, 
-                        'code'
+                        'code',
+                        $uniteApprentissages
                     );
                 }
             
             
                 if (!array_key_exists('session_formation_id', $scopeVariables)) {
+
+
+                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgSessions::sessionFormation.plural"), 
                         'session_formation_id', 
                         \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'titre'
+                        'titre',
+                        $sessionFormations
                     );
                 }
             

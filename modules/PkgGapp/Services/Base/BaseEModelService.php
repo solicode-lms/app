@@ -58,11 +58,18 @@ class BaseEModelService extends BaseService
         
             
                 if (!array_key_exists('e_package_id', $scopeVariables)) {
+
+
+                    $ePackageService = new \Modules\PkgGapp\Services\EPackageService();
+                    $ePackageIds = $this->getAvailableFilterValues('e_package_id');
+                    $ePackages = $ePackageService->getByIds($ePackageIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgGapp::ePackage.plural"), 
                         'e_package_id', 
                         \Modules\PkgGapp\Models\EPackage::class, 
-                        'name'
+                        'name',
+                        $ePackages
                     );
                 }
             

@@ -59,31 +59,52 @@ class BaseProjetService extends BaseService
         
             
                 if (!array_key_exists('filiere_id', $scopeVariables)) {
+
+
+                    $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                    $filiereIds = $this->getAvailableFilterValues('filiere_id');
+                    $filieres = $filiereService->getByIds($filiereIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::filiere.plural"), 
                         'filiere_id', 
                         \Modules\PkgFormation\Models\Filiere::class, 
-                        'code'
+                        'code',
+                        $filieres
                     );
                 }
             
             
                 if (!array_key_exists('session_formation_id', $scopeVariables)) {
+
+
+                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgSessions::sessionFormation.plural"), 
                         'session_formation_id', 
                         \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'titre'
+                        'titre',
+                        $sessionFormations
                     );
                 }
             
             
                 if (!array_key_exists('formateur_id', $scopeVariables)) {
+
+
+                    $formateurService = new \Modules\PkgFormation\Services\FormateurService();
+                    $formateurIds = $this->getAvailableFilterValues('formateur_id');
+                    $formateurs = $formateurService->getByIds($formateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::formateur.plural"), 
                         'formateur_id', 
                         \Modules\PkgFormation\Models\Formateur::class, 
-                        'nom'
+                        'nom',
+                        $formateurs
                     );
                 }
             

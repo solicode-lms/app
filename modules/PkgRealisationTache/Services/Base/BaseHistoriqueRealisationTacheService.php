@@ -57,21 +57,35 @@ class BaseHistoriqueRealisationTacheService extends BaseService
         
             
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+
+
+                    $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                    $realisationTacheIds = $this->getAvailableFilterValues('realisation_tache_id');
+                    $realisationTaches = $realisationTacheService->getByIds($realisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::realisationTache.plural"), 
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
-                        'id'
+                        'id',
+                        $realisationTaches
                     );
                 }
             
             
                 if (!array_key_exists('user_id', $scopeVariables)) {
+
+
+                    $userService = new \Modules\PkgAutorisation\Services\UserService();
+                    $userIds = $this->getAvailableFilterValues('user_id');
+                    $users = $userService->getByIds($userIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgAutorisation::user.plural"), 
                         'user_id', 
                         \Modules\PkgAutorisation\Models\User::class, 
-                        'name'
+                        'name',
+                        $users
                     );
                 }
             

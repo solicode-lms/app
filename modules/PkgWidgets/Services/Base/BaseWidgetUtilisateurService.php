@@ -58,17 +58,26 @@ class BaseWidgetUtilisateurService extends BaseService
         
             
                 if (!array_key_exists('user_id', $scopeVariables)) {
+
+
+                    $userService = new \Modules\PkgAutorisation\Services\UserService();
+                    $userIds = $this->getAvailableFilterValues('user_id');
+                    $users = $userService->getByIds($userIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgAutorisation::user.plural"), 
                         'user_id', 
                         \Modules\PkgAutorisation\Models\User::class, 
-                        'name'
+                        'name',
+                        $users
                     );
                 }
             
             
                 $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
-                $sectionWidgets = $sectionWidgetService->all();
+                $sectionWidgetIds = $this->getAvailableFilterValues('Widget.Section_widget_id');
+                $sectionWidgets = $sectionWidgetService->getByIds($sectionWidgetIds);
+
                 $this->fieldsFilterable[] = $this->generateRelationFilter(
                     __("PkgWidgets::sectionWidget.plural"),
                     'Widget.Section_widget_id', 

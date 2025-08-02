@@ -59,21 +59,35 @@ class BaseRealisationUaPrototypeService extends BaseService
         
             
                 if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
+
+
+                    $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
+                    $realisationUaIds = $this->getAvailableFilterValues('realisation_ua_id');
+                    $realisationUas = $realisationUaService->getByIds($realisationUaIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprentissage::realisationUa.plural"), 
                         'realisation_ua_id', 
                         \Modules\PkgApprentissage\Models\RealisationUa::class, 
-                        'id'
+                        'id',
+                        $realisationUas
                     );
                 }
             
             
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+
+
+                    $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                    $realisationTacheIds = $this->getAvailableFilterValues('realisation_tache_id');
+                    $realisationTaches = $realisationTacheService->getByIds($realisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::realisationTache.plural"), 
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
-                        'id'
+                        'id',
+                        $realisationTaches
                     );
                 }
             

@@ -57,21 +57,35 @@ class BaseCritereEvaluationService extends BaseService
         
             
                 if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
+
+
+                    $phaseEvaluationService = new \Modules\PkgCompetences\Services\PhaseEvaluationService();
+                    $phaseEvaluationIds = $this->getAvailableFilterValues('phase_evaluation_id');
+                    $phaseEvaluations = $phaseEvaluationService->getByIds($phaseEvaluationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::phaseEvaluation.plural"), 
                         'phase_evaluation_id', 
                         \Modules\PkgCompetences\Models\PhaseEvaluation::class, 
-                        'code'
+                        'code',
+                        $phaseEvaluations
                     );
                 }
             
             
                 if (!array_key_exists('unite_apprentissage_id', $scopeVariables)) {
+
+
+                    $uniteApprentissageService = new \Modules\PkgCompetences\Services\UniteApprentissageService();
+                    $uniteApprentissageIds = $this->getAvailableFilterValues('unite_apprentissage_id');
+                    $uniteApprentissages = $uniteApprentissageService->getByIds($uniteApprentissageIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::uniteApprentissage.plural"), 
                         'unite_apprentissage_id', 
                         \Modules\PkgCompetences\Models\UniteApprentissage::class, 
-                        'code'
+                        'code',
+                        $uniteApprentissages
                     );
                 }
             

@@ -57,31 +57,52 @@ class BaseCommentaireRealisationTacheService extends BaseService
         
             
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
+
+
+                    $realisationTacheService = new \Modules\PkgRealisationTache\Services\RealisationTacheService();
+                    $realisationTacheIds = $this->getAvailableFilterValues('realisation_tache_id');
+                    $realisationTaches = $realisationTacheService->getByIds($realisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::realisationTache.plural"), 
                         'realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
-                        'id'
+                        'id',
+                        $realisationTaches
                     );
                 }
             
             
                 if (!array_key_exists('formateur_id', $scopeVariables)) {
+
+
+                    $formateurService = new \Modules\PkgFormation\Services\FormateurService();
+                    $formateurIds = $this->getAvailableFilterValues('formateur_id');
+                    $formateurs = $formateurService->getByIds($formateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::formateur.plural"), 
                         'formateur_id', 
                         \Modules\PkgFormation\Models\Formateur::class, 
-                        'nom'
+                        'nom',
+                        $formateurs
                     );
                 }
             
             
                 if (!array_key_exists('apprenant_id', $scopeVariables)) {
+
+
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgApprenants::apprenant.plural"), 
                         'apprenant_id', 
                         \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom'
+                        'nom',
+                        $apprenants
                     );
                 }
             

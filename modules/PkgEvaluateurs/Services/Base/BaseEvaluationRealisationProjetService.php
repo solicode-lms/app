@@ -57,31 +57,52 @@ class BaseEvaluationRealisationProjetService extends BaseService
         
             
                 if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+
+
+                    $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
+                    $realisationProjetIds = $this->getAvailableFilterValues('realisation_projet_id');
+                    $realisationProjets = $realisationProjetService->getByIds($realisationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationProjets::realisationProjet.plural"), 
                         'realisation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
-                        'id'
+                        'id',
+                        $realisationProjets
                     );
                 }
             
             
                 if (!array_key_exists('evaluateur_id', $scopeVariables)) {
+
+
+                    $evaluateurService = new \Modules\PkgEvaluateurs\Services\EvaluateurService();
+                    $evaluateurIds = $this->getAvailableFilterValues('evaluateur_id');
+                    $evaluateurs = $evaluateurService->getByIds($evaluateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgEvaluateurs::evaluateur.plural"), 
                         'evaluateur_id', 
                         \Modules\PkgEvaluateurs\Models\Evaluateur::class, 
-                        'nom'
+                        'nom',
+                        $evaluateurs
                     );
                 }
             
             
                 if (!array_key_exists('etat_evaluation_projet_id', $scopeVariables)) {
+
+
+                    $etatEvaluationProjetService = new \Modules\PkgEvaluateurs\Services\EtatEvaluationProjetService();
+                    $etatEvaluationProjetIds = $this->getAvailableFilterValues('etat_evaluation_projet_id');
+                    $etatEvaluationProjets = $etatEvaluationProjetService->getByIds($etatEvaluationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgEvaluateurs::etatEvaluationProjet.plural"), 
                         'etat_evaluation_projet_id', 
                         \Modules\PkgEvaluateurs\Models\EtatEvaluationProjet::class, 
-                        'code'
+                        'code',
+                        $etatEvaluationProjets
                     );
                 }
             

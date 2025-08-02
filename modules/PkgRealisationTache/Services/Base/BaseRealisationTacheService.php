@@ -61,31 +61,52 @@ class BaseRealisationTacheService extends BaseService
         
             
                 if (!array_key_exists('tache_id', $scopeVariables)) {
+
+
+                    $tacheService = new \Modules\PkgCreationTache\Services\TacheService();
+                    $tacheIds = $this->getAvailableFilterValues('tache_id');
+                    $taches = $tacheService->getByIds($tacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationTache::tache.plural"), 
                         'tache_id', 
                         \Modules\PkgCreationTache\Models\Tache::class, 
-                        'titre'
+                        'titre',
+                        $taches
                     );
                 }
             
             
                 if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+
+
+                    $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
+                    $realisationProjetIds = $this->getAvailableFilterValues('realisation_projet_id');
+                    $realisationProjets = $realisationProjetService->getByIds($realisationProjetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationProjets::realisationProjet.plural"), 
                         'realisation_projet_id', 
                         \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
-                        'id'
+                        'id',
+                        $realisationProjets
                     );
                 }
             
             
                 if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
+
+
+                    $etatRealisationTacheService = new \Modules\PkgRealisationTache\Services\EtatRealisationTacheService();
+                    $etatRealisationTacheIds = $this->getAvailableFilterValues('etat_realisation_tache_id');
+                    $etatRealisationTaches = $etatRealisationTacheService->getByIds($etatRealisationTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgRealisationTache::etatRealisationTache.plural"), 
                         'etat_realisation_tache_id', 
                         \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 
-                        'nom'
+                        'nom',
+                        $etatRealisationTaches
                     );
                 }
             

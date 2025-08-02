@@ -55,11 +55,18 @@ class BaseFeatureService extends BaseService
         
             
                 if (!array_key_exists('feature_domain_id', $scopeVariables)) {
+
+
+                    $featureDomainService = new \Modules\Core\Services\FeatureDomainService();
+                    $featureDomainIds = $this->getAvailableFilterValues('feature_domain_id');
+                    $featureDomains = $featureDomainService->getByIds($featureDomainIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::featureDomain.plural"), 
                         'feature_domain_id', 
                         \Modules\Core\Models\FeatureDomain::class, 
-                        'name'
+                        'name',
+                        $featureDomains
                     );
                 }
             

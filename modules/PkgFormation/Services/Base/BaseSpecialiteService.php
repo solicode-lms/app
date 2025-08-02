@@ -54,11 +54,17 @@ class BaseSpecialiteService extends BaseService
         
             
                 if (!array_key_exists('formateurs', $scopeVariables)) {
+
+                    $formateurService = new \Modules\PkgFormation\Services\FormateurService();
+                    $formateurIds = $this->getAvailableFilterValues('formateurs.id');
+                    $formateurs = $formateurService->getByIds($formateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToManyFilter(
                         __("PkgFormation::formateur.plural"), 
                         'formateur_id', 
                         \Modules\PkgFormation\Models\Formateur::class, 
-                        'nom'
+                        'nom',
+                        $formateurs
                     );
                 }
             

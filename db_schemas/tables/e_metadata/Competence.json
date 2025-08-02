@@ -87,52 +87,52 @@
     },
     {
         "reference": "Competence_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 7,
         "e_data_field_reference": "Competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_code_displayOrder",
-        "value_integer": 2,
+        "value_integer": 1,
         "value_float": 0,
         "e_data_field_reference": "Competence_code",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_nom_displayOrder",
-        "value_integer": 4,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "Competence_nom",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_description_displayOrder",
-        "value_integer": 7,
+        "value_integer": 6,
         "value_float": 0,
         "e_data_field_reference": "Competence_description",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_created_at_displayOrder",
-        "value_integer": 11,
+        "value_integer": 8,
         "e_data_field_reference": "Competence_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_updated_at_displayOrder",
-        "value_integer": 10,
+        "value_integer": 9,
         "e_data_field_reference": "Competence_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_module_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 4,
         "e_data_field_reference": "Competence_module_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Competence_reference_displayOrder",
-        "value_integer": 12,
+        "value_integer": 10,
         "e_data_field_reference": "Competence_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -193,7 +193,7 @@
     },
     {
         "reference": "Competence_mini_code_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "Competence_mini_code",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -218,13 +218,17 @@
     },
     {
         "reference": "Competence_code_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "Competence_code",
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
         "reference": "Competence_mini_code_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 4,
+        "value_float": 0,
         "e_data_field_reference": "Competence_mini_code",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -442,7 +446,7 @@
     },
     {
         "reference": "competences_hasMany_micro_competences_competence_id_displayOrder",
-        "value_integer": 10,
+        "value_integer": 5,
         "e_data_field_reference": "competences_hasMany_micro_competences_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },

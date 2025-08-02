@@ -70,7 +70,9 @@ class BaseChapitreService extends BaseService
             
             
                 $microCompetenceService = new \Modules\PkgCompetences\Services\MicroCompetenceService();
-                $microCompetences = $microCompetenceService->all();
+                $microCompetenceIds = $this->getAvailableFilterValues('UniteApprentissage.Micro_competence_id');
+                $microCompetences = $microCompetenceService->getByIds($microCompetenceIds);
+
                 $this->fieldsFilterable[] = $this->generateRelationFilter(
                     __("PkgCompetences::microCompetence.plural"),
                     'UniteApprentissage.Micro_competence_id', 
@@ -82,11 +84,18 @@ class BaseChapitreService extends BaseService
             
             
                 if (!array_key_exists('formateur_id', $scopeVariables)) {
+
+
+                    $formateurService = new \Modules\PkgFormation\Services\FormateurService();
+                    $formateurIds = $this->getAvailableFilterValues('formateur_id');
+                    $formateurs = $formateurService->getByIds($formateurIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgFormation::formateur.plural"), 
                         'formateur_id', 
                         \Modules\PkgFormation\Models\Formateur::class, 
-                        'nom'
+                        'nom',
+                        $formateurs
                     );
                 }
             

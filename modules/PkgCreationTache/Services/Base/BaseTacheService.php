@@ -63,41 +63,69 @@ class BaseTacheService extends BaseService
         
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_id');
+                    $projets = $projetService->getByIds($projetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
+                        'titre',
+                        $projets
                     );
                 }
             
             
                 if (!array_key_exists('phase_evaluation_id', $scopeVariables)) {
+
+
+                    $phaseEvaluationService = new \Modules\PkgCompetences\Services\PhaseEvaluationService();
+                    $phaseEvaluationIds = $this->getAvailableFilterValues('phase_evaluation_id');
+                    $phaseEvaluations = $phaseEvaluationService->getByIds($phaseEvaluationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::phaseEvaluation.plural"), 
                         'phase_evaluation_id', 
                         \Modules\PkgCompetences\Models\PhaseEvaluation::class, 
-                        'code'
+                        'code',
+                        $phaseEvaluations
                     );
                 }
             
             
                 if (!array_key_exists('chapitre_id', $scopeVariables)) {
+
+
+                    $chapitreService = new \Modules\PkgCompetences\Services\ChapitreService();
+                    $chapitreIds = $this->getAvailableFilterValues('chapitre_id');
+                    $chapitres = $chapitreService->getByIds($chapitreIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCompetences::chapitre.plural"), 
                         'chapitre_id', 
                         \Modules\PkgCompetences\Models\Chapitre::class, 
-                        'code'
+                        'code',
+                        $chapitres
                     );
                 }
             
             
                 if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
+
+
+                    $prioriteTacheService = new \Modules\PkgCreationTache\Services\PrioriteTacheService();
+                    $prioriteTacheIds = $this->getAvailableFilterValues('priorite_tache_id');
+                    $prioriteTaches = $prioriteTacheService->getByIds($prioriteTacheIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationTache::prioriteTache.plural"), 
                         'priorite_tache_id', 
                         \Modules\PkgCreationTache\Models\PrioriteTache::class, 
-                        'nom'
+                        'nom',
+                        $prioriteTaches
                     );
                 }
             

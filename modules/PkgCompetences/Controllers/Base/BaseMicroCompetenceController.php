@@ -155,18 +155,11 @@ class BaseMicroCompetenceController extends AdminController
         $uniteApprentissages_view_data = $uniteApprentissageService->prepareDataForIndexView();
         extract($uniteApprentissages_view_data);
 
-        $this->viewState->set('scope.realisationMicroCompetence.micro_competence_id', $id);
-        
-
-        $realisationMicroCompetenceService =  new RealisationMicroCompetenceService();
-        $realisationMicroCompetences_view_data = $realisationMicroCompetenceService->prepareDataForIndexView();
-        extract($realisationMicroCompetences_view_data);
-
         if (request()->ajax()) {
-            return view('PkgCompetences::microCompetence._show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
+            return view('PkgCompetences::microCompetence._show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
         }
 
-        return view('PkgCompetences::microCompetence.show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value, $realisationMicroCompetence_compact_value));
+        return view('PkgCompetences::microCompetence.show', array_merge(compact('itemMicroCompetence'),$uniteApprentissage_compact_value));
 
     }
     /**

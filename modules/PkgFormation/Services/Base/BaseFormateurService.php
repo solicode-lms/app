@@ -65,21 +65,33 @@ class BaseFormateurService extends BaseService
         
             
                 if (!array_key_exists('specialites', $scopeVariables)) {
+
+                    $specialiteService = new \Modules\PkgFormation\Services\SpecialiteService();
+                    $specialiteIds = $this->getAvailableFilterValues('specialites.id');
+                    $specialites = $specialiteService->getByIds($specialiteIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToManyFilter(
                         __("PkgFormation::specialite.plural"), 
                         'specialite_id', 
                         \Modules\PkgFormation\Models\Specialite::class, 
-                        'nom'
+                        'nom',
+                        $specialites
                     );
                 }
             
             
                 if (!array_key_exists('groupes', $scopeVariables)) {
+
+                    $groupeService = new \Modules\PkgApprenants\Services\GroupeService();
+                    $groupeIds = $this->getAvailableFilterValues('groupes.id');
+                    $groupes = $groupeService->getByIds($groupeIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToManyFilter(
                         __("PkgApprenants::groupe.plural"), 
                         'groupe_id', 
                         \Modules\PkgApprenants\Models\Groupe::class, 
-                        'code'
+                        'code',
+                        $groupes
                     );
                 }
             

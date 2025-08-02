@@ -63,31 +63,51 @@ class BaseWidgetService extends BaseService
         
             
                 if (!array_key_exists('type_id', $scopeVariables)) {
+
+
+                    $widgetTypeService = new \Modules\PkgWidgets\Services\WidgetTypeService();
+                    $widgetTypeIds = $this->getAvailableFilterValues('type_id');
+                    $widgetTypes = $widgetTypeService->getByIds($widgetTypeIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgWidgets::widgetType.plural"), 
                         'type_id', 
                         \Modules\PkgWidgets\Models\WidgetType::class, 
-                        'type'
+                        'type',
+                        $widgetTypes
                     );
                 }
             
             
                 if (!array_key_exists('roles', $scopeVariables)) {
+
+                    $roleService = new \Modules\PkgAutorisation\Services\RoleService();
+                    $roleIds = $this->getAvailableFilterValues('roles.id');
+                    $roles = $roleService->getByIds($roleIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToManyFilter(
                         __("PkgAutorisation::role.plural"), 
                         'role_id', 
                         \Modules\PkgAutorisation\Models\Role::class, 
-                        'name'
+                        'name',
+                        $roles
                     );
                 }
             
             
                 if (!array_key_exists('section_widget_id', $scopeVariables)) {
+
+
+                    $sectionWidgetService = new \Modules\PkgWidgets\Services\SectionWidgetService();
+                    $sectionWidgetIds = $this->getAvailableFilterValues('section_widget_id');
+                    $sectionWidgets = $sectionWidgetService->getByIds($sectionWidgetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgWidgets::sectionWidget.plural"), 
                         'section_widget_id', 
                         \Modules\PkgWidgets\Models\SectionWidget::class, 
-                        'titre'
+                        'titre',
+                        $sectionWidgets
                     );
                 }
             

@@ -19,6 +19,8 @@ class AffectationProjetController extends BaseAffectationProjetController
 
     public function store(AffectationProjetRequest $request) {
         
+        // Augment le temps d'execution : à 2min, pardéfaut : 30 s
+        // il faut de temps pour la création des RealisationChapitre
         ini_set('max_execution_time', 120); // en secondes
         parent::store($request);
          

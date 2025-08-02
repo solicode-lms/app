@@ -55,11 +55,18 @@ class BasePermissionService extends BaseService
         
             
                 if (!array_key_exists('controller_id', $scopeVariables)) {
+
+
+                    $sysControllerService = new \Modules\Core\Services\SysControllerService();
+                    $sysControllerIds = $this->getAvailableFilterValues('controller_id');
+                    $sysControllers = $sysControllerService->getByIds($sysControllerIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("Core::sysController.plural"), 
                         'controller_id', 
                         \Modules\Core\Models\SysController::class, 
-                        'name'
+                        'name',
+                        $sysControllers
                     );
                 }
             

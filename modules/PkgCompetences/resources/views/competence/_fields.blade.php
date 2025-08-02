@@ -31,7 +31,7 @@
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemCompetence" field="code" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -60,7 +60,7 @@
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemCompetence" field="mini_code" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-4">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="mini_code" id="bulk_field_mini_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">

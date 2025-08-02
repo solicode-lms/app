@@ -59,7 +59,9 @@ class BaseMicroCompetenceService extends BaseService
         
             
                 $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-                $filieres = $filiereService->all();
+                $filiereIds = $this->getAvailableFilterValues('competence.module.filiere_id');
+                $filieres = $filiereService->getByIds($filiereIds);
+
                 $this->fieldsFilterable[] = $this->generateRelationFilter(
                     __("PkgFormation::filiere.plural"),
                     'competence.module.filiere_id', 

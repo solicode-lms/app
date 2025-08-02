@@ -57,21 +57,35 @@ class BaseLivrableService extends BaseService
         
             
                 if (!array_key_exists('nature_livrable_id', $scopeVariables)) {
+
+
+                    $natureLivrableService = new \Modules\PkgCreationProjet\Services\NatureLivrableService();
+                    $natureLivrableIds = $this->getAvailableFilterValues('nature_livrable_id');
+                    $natureLivrables = $natureLivrableService->getByIds($natureLivrableIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::natureLivrable.plural"), 
                         'nature_livrable_id', 
                         \Modules\PkgCreationProjet\Models\NatureLivrable::class, 
-                        'nom'
+                        'nom',
+                        $natureLivrables
                     );
                 }
             
             
                 if (!array_key_exists('projet_id', $scopeVariables)) {
+
+
+                    $projetService = new \Modules\PkgCreationProjet\Services\ProjetService();
+                    $projetIds = $this->getAvailableFilterValues('projet_id');
+                    $projets = $projetService->getByIds($projetIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::projet.plural"), 
                         'projet_id', 
                         \Modules\PkgCreationProjet\Models\Projet::class, 
-                        'titre'
+                        'titre',
+                        $projets
                     );
                 }
             

@@ -31,7 +31,7 @@
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMicroCompetence" field="ordre" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -60,7 +60,7 @@
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMicroCompetence" field="code" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-2">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -89,7 +89,7 @@
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMicroCompetence" field="titre" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-8">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="titre" id="bulk_field_titre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -181,7 +181,7 @@
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemMicroCompetence" field="lien" :bulkEdit="$bulkEdit">
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien" id="bulk_field_lien" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">

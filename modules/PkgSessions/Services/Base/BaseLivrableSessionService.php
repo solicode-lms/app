@@ -57,21 +57,35 @@ class BaseLivrableSessionService extends BaseService
         
             
                 if (!array_key_exists('session_formation_id', $scopeVariables)) {
+
+
+                    $sessionFormationService = new \Modules\PkgSessions\Services\SessionFormationService();
+                    $sessionFormationIds = $this->getAvailableFilterValues('session_formation_id');
+                    $sessionFormations = $sessionFormationService->getByIds($sessionFormationIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgSessions::sessionFormation.plural"), 
                         'session_formation_id', 
                         \Modules\PkgSessions\Models\SessionFormation::class, 
-                        'titre'
+                        'titre',
+                        $sessionFormations
                     );
                 }
             
             
                 if (!array_key_exists('nature_livrable_id', $scopeVariables)) {
+
+
+                    $natureLivrableService = new \Modules\PkgCreationProjet\Services\NatureLivrableService();
+                    $natureLivrableIds = $this->getAvailableFilterValues('nature_livrable_id');
+                    $natureLivrables = $natureLivrableService->getByIds($natureLivrableIds);
+
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
                         __("PkgCreationProjet::natureLivrable.plural"), 
                         'nature_livrable_id', 
                         \Modules\PkgCreationProjet\Models\NatureLivrable::class, 
-                        'nom'
+                        'nom',
+                        $natureLivrables
                     );
                 }
             
