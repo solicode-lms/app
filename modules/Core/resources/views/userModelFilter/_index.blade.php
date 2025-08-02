@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('userModelFilter-crud-filters')
-                @if(!empty($userModelFilters_total) &&  $userModelFilters_total > 10)
+                @if(!empty($userModelFilters_total) &&  $userModelFilters_total > 5)
                 <div class="card-header">
                     <form id="userModelFilter-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($userModelFilters_filters ?? [])}}">

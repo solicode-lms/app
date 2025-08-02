@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('mobilisationUa-crud-filters')
-                @if(!empty($mobilisationUas_total) &&  $mobilisationUas_total > 10)
+                @if(!empty($mobilisationUas_total) &&  $mobilisationUas_total > 5)
                 <div class="card-header">
                     <form id="mobilisationUa-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($mobilisationUas_filters ?? [])}}">

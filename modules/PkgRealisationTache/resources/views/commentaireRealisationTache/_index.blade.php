@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('commentaireRealisationTache-crud-filters')
-                @if(!empty($commentaireRealisationTaches_total) &&  $commentaireRealisationTaches_total > 10)
+                @if(!empty($commentaireRealisationTaches_total) &&  $commentaireRealisationTaches_total > 5)
                 <div class="card-header">
                     <form id="commentaireRealisationTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($commentaireRealisationTaches_filters ?? [])}}">

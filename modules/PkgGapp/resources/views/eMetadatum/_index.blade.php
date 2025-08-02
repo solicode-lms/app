@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('eMetadatum-crud-filters')
-                @if(!empty($eMetadata_total) &&  $eMetadata_total > 10)
+                @if(!empty($eMetadata_total) &&  $eMetadata_total > 5)
                 <div class="card-header">
                     <form id="eMetadatum-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($eMetadata_filters ?? [])}}">

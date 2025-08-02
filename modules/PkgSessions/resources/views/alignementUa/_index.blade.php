@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('alignementUa-crud-filters')
-                @if(!empty($alignementUas_total) &&  $alignementUas_total > 10)
+                @if(!empty($alignementUas_total) &&  $alignementUas_total > 5)
                 <div class="card-header">
                     <form id="alignementUa-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($alignementUas_filters ?? [])}}">

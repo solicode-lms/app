@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('livrable-crud-filters')
-                @if(!empty($livrables_total) &&  $livrables_total > 10)
+                @if(!empty($livrables_total) &&  $livrables_total > 5)
                 <div class="card-header">
                     <form id="livrable-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($livrables_filters ?? [])}}">

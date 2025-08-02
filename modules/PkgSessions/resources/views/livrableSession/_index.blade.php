@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('livrableSession-crud-filters')
-                @if(!empty($livrableSessions_total) &&  $livrableSessions_total > 10)
+                @if(!empty($livrableSessions_total) &&  $livrableSessions_total > 5)
                 <div class="card-header">
                     <form id="livrableSession-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($livrableSessions_filters ?? [])}}">

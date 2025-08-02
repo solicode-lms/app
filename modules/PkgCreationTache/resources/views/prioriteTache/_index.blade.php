@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('prioriteTache-crud-filters')
-                @if(!empty($prioriteTaches_total) &&  $prioriteTaches_total > 10)
+                @if(!empty($prioriteTaches_total) &&  $prioriteTaches_total > 5)
                 <div class="card-header">
                     <form id="prioriteTache-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($prioriteTaches_filters ?? [])}}">

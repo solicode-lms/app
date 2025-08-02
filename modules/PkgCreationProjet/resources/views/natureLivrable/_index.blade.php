@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('natureLivrable-crud-filters')
-                @if(!empty($natureLivrables_total) &&  $natureLivrables_total > 10)
+                @if(!empty($natureLivrables_total) &&  $natureLivrables_total > 5)
                 <div class="card-header">
                     <form id="natureLivrable-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($natureLivrables_filters ?? [])}}">

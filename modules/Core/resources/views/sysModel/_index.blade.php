@@ -96,7 +96,7 @@
                 </div>
                 @show
                 @section('sysModel-crud-filters')
-                @if(!empty($sysModels_total) &&  $sysModels_total > 10)
+                @if(!empty($sysModels_total) &&  $sysModels_total > 5)
                 <div class="card-header">
                     <form id="sysModel-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($sysModels_filters ?? [])}}">

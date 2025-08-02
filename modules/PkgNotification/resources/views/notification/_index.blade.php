@@ -101,7 +101,7 @@
                 </div>
                 @show
                 @section('notification-crud-filters')
-                @if(!empty($notifications_total) &&  $notifications_total > 10)
+                @if(!empty($notifications_total) &&  $notifications_total > 5)
                 <div class="card-header">
                     <form id="notification-crud-filter-form" method="GET" class="row">
                         <x-filter-group count="{{count($notifications_filters ?? [])}}">
