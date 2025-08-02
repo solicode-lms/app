@@ -25,9 +25,9 @@ php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\SessionFormatio
 php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\AlignementUaSeeder
 
 # PkgApprentissage
-php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationChapitreSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationMicroCompetenceSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationUaSeeder
+php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationChapitreSeeder
 
 # PkgCreationTache
 php artisan db:seed --class=Modules\PkgCreationTache\Database\Seeders\TacheSeeder

@@ -66,11 +66,13 @@ trait QueryBuilderTrait
             });
         }
 
+        $this->loadLastFilterIfEmpty();
+
         // 2) Récupérer / initialiser les variables de filtre (ViewState + UserModelFilterService)
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
 
 
-        $this->loadLastFilterIfEmpty();
+      
    
 
 

@@ -65,7 +65,7 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
                 'nom' => $etatRealisationUa->nom,
                 'code' => $etatRealisationUa->code,
                 'description' => $etatRealisationUa->description,
-                'is_editable_only_by_formateur' => $etatRealisationUa->is_editable_only_by_formateur,
+                'is_editable_only_by_formateur' => $etatRealisationUa->is_editable_only_by_formateur ? '1' : '0',
                 'sys_color_reference' => $etatRealisationUa->sysColor?->reference,
             ];
         });

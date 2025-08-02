@@ -33,7 +33,7 @@ class BaseEtatRealisationUaRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'code' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'is_editable_only_by_formateur' => 'required|boolean',
+            'is_editable_only_by_formateur' => 'nullable|boolean',
             'sys_color_id' => 'nullable'
         ];
     }

@@ -243,7 +243,8 @@
     },
     {
         "reference": "EtatRealisationUa_is_editable_only_by_formateur_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "EtatRealisationUa_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "required"
     },
