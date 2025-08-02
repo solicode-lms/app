@@ -3,7 +3,10 @@
 
 namespace Modules\PkgApprentissage\Services;
 
+use Illuminate\Support\Collection;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
+use Modules\PkgApprentissage\Models\EtatRealisationUa;
+use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationChapitreService;
 
 /**
@@ -21,7 +24,9 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     public function afterUpdateRules($entity): void
     {
         if ($entity->wasChanged('etat_realisation_chapitre_id')) {
-            // Trouver la tâche associée
+
+
+             // Synchronisation de la tâche liée
             if ($entity->realisation_tache_id) {
                 $realisationTache = RealisationTache::find($entity->realisation_tache_id);
                 if ($realisationTache) {
@@ -33,8 +38,55 @@ class RealisationChapitreService extends BaseRealisationChapitreService
                     }
                 }
             }
+
+             // Mise à jour de l'état de la RealisationUa
+            if ($entity->realisation_ua_id) {
+                $realisationUaService = new RealisationUaService();
+                $realisationUa = RealisationUa::with('realisationChapitres')->find($entity->realisation_ua_id);
+
+                if ($realisationUa) {
+                    $nouvelEtatCode = $this->calculerEtatUaDepuisChapitres($realisationUa->realisationChapitres);
+
+                    if ($nouvelEtatCode) {
+                        $etat = EtatRealisationUa::where('code', $nouvelEtatCode)->first();
+                        if ($etat && $realisationUa->etat_realisation_ua_id !== $etat->id) {
+                            $realisationUaService->update($realisationUa->id, [
+                                'etat_realisation_ua_id' => $etat->id
+                            ]);
+                        }
+                    }
+                }
+            }
+
         }
     }
+
+
+    private function calculerEtatUaDepuisChapitres(Collection $chapitres): ?string
+    {
+        if ($chapitres->isEmpty()) {
+            return 'TODO';
+        }
+
+        // On extrait les codes des états
+        $etatCodes = $chapitres->pluck('etatRealisationChapitre.code')->filter();
+
+        // 🎯 Cas 1 : au moins un chapitre a commencé → IN_PROGRESS_CHAPITRE
+        if ($etatCodes->contains('IN_PROGRESS')) {
+            return 'IN_PROGRESS_CHAPITRE';
+        }
+
+        // 🎯 Cas 2 : tous les chapitres sont terminés (== DONE) → IN_PROGRESS_PROTOTYPE
+        $tousDone = $chapitres->every(fn($chap) => optional($chap->etatRealisationChapitre)->code === 'DONE');
+        if ($tousDone) {
+            return 'IN_PROGRESS_PROTOTYPE';
+        }
+
+        // Aucun changement déclencheur → état inchangé
+        return null;
+    }
+
+
 
     /**
      * Mapping entre les états chapitre et tâche.

@@ -32,9 +32,9 @@ class BaseEtatRealisationChapitreRequest extends FormRequest
             'ordre' => 'required|integer',
             'nom' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'sys_color_id' => 'nullable',
             'is_editable_only_by_formateur' => 'nullable|boolean',
-            'sys_color_id' => 'nullable'
+            'description' => 'nullable|string'
         ];
     }
 
@@ -51,9 +51,9 @@ class BaseEtatRealisationChapitreRequest extends FormRequest
             'nom.max' => __('validation.nomMax'),
             'code.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.code')]),
             'code.max' => __('validation.codeMax'),
-            'description.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.description')]),
+            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.sys_color_id')]),
             'is_editable_only_by_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.is_editable_only_by_formateur')]),
-            'sys_color_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.sys_color_id')])
+            'description.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationChapitre.description')])
         ];
     }
 

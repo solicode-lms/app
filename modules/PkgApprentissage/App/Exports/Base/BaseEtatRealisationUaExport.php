@@ -35,9 +35,9 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
                 'ordre' => 'ordre',
                 'nom' => 'nom',
                 'code' => 'code',
-                'description' => 'description',
-                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
                 'sys_color_reference' => 'sys_color_reference',
+                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
+                'description' => 'description',
                 'reference' => 'reference',
             ];
         } else {
@@ -45,9 +45,9 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
                 'ordre' => __('PkgApprentissage::etatRealisationUa.ordre'),
                 'nom' => __('PkgApprentissage::etatRealisationUa.nom'),
                 'code' => __('PkgApprentissage::etatRealisationUa.code'),
-                'description' => __('PkgApprentissage::etatRealisationUa.description'),
-                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationUa.is_editable_only_by_formateur'),
                 'sys_color_reference' => __('PkgApprentissage::etatRealisationUa.sys_color_reference'),
+                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationUa.is_editable_only_by_formateur'),
+                'description' => __('PkgApprentissage::etatRealisationUa.description'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -63,9 +63,9 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
                 'ordre' => (string) $etatRealisationUa->ordre,
                 'nom' => $etatRealisationUa->nom,
                 'code' => $etatRealisationUa->code,
-                'description' => $etatRealisationUa->description,
-                'is_editable_only_by_formateur' => $etatRealisationUa->is_editable_only_by_formateur ? '1' : '0',
                 'sys_color_reference' => $etatRealisationUa->sysColor?->reference,
+                'is_editable_only_by_formateur' => $etatRealisationUa->is_editable_only_by_formateur ? '1' : '0',
+                'description' => $etatRealisationUa->description,
                 'reference' => $etatRealisationUa->reference,
             ];
         });

@@ -207,7 +207,7 @@
     },
     {
         "reference": "EtatRealisationUa_description_displayOrder",
-        "value_integer": 4,
+        "value_integer": 6,
         "e_data_field_reference": "EtatRealisationUa_description",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -298,7 +298,7 @@
     },
     {
         "reference": "EtatRealisationUa_sys_color_id_displayOrder",
-        "value_integer": 6,
+        "value_integer": 4,
         "e_data_field_reference": "EtatRealisationUa_sys_color_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -414,7 +414,8 @@
     },
     {
         "reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -432,7 +433,8 @@
     },
     {
         "reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "etat_realisation_uas_hasMany_realisation_uas_etat_realisation_ua_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -497,5 +499,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "EtatRealisationUa_ordre",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationUa_is_editable_only_by_formateur_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "EtatRealisationUa_is_editable_only_by_formateur",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

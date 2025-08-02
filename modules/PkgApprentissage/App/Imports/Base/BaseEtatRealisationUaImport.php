@@ -59,9 +59,9 @@ class BaseEtatRealisationUaImport implements ToModel, WithHeadingRow
              'ordre' => $values[0] ?? null,
              'nom' => $values[1] ?? null,
              'code' => $values[2] ?? null,
-             'description' => $values[3] ?? null,
+             'sys_color_id' => $values[3] ?? null,
              'is_editable_only_by_formateur' => $values[4] ?? null,
-             'sys_color_id' => $values[5] ?? null,
+             'description' => $values[5] ?? null,
              'reference' => $reference,
         ]);
 

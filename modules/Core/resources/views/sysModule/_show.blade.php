@@ -98,7 +98,7 @@
           class="badge" 
           style="background-color: {{ $related->hex }}; color: #fff;"
         >
-          {{ $related->sysColor }}
+          {{ $related }}
         </span>
       @else
         <span class="text-muted">—</span>

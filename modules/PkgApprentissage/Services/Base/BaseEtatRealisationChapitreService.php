@@ -24,9 +24,9 @@ class BaseEtatRealisationChapitreService extends BaseService
         'ordre',
         'nom',
         'code',
-        'description',
+        'sys_color_id',
         'is_editable_only_by_formateur',
-        'sys_color_id'
+        'description'
     ];
 
     /**

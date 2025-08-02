@@ -5,7 +5,6 @@
 namespace Modules\PkgApprentissage\Controllers\Base;
 use Modules\PkgApprentissage\Services\EtatRealisationChapitreService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -130,7 +129,7 @@ class BaseEtatRealisationChapitreController extends AdminController
             );
         }
 
-        return redirect()->route('etatRealisationChapitres.edit',['etatRealisationChapitre' => $etatRealisationChapitre->id])->with(
+        return redirect()->route('etatRealisationChapitres.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationChapitre,
@@ -147,18 +146,11 @@ class BaseEtatRealisationChapitreController extends AdminController
         $itemEtatRealisationChapitre = $this->etatRealisationChapitreService->edit($id);
 
 
-        $this->viewState->set('scope.realisationChapitre.etat_realisation_chapitre_id', $id);
-        
-
-        $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
-        extract($realisationChapitres_view_data);
-
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationChapitre._show', array_merge(compact('itemEtatRealisationChapitre'),$realisationChapitre_compact_value));
+            return view('PkgApprentissage::etatRealisationChapitre._show', array_merge(compact('itemEtatRealisationChapitre'),));
         }
 
-        return view('PkgApprentissage::etatRealisationChapitre.show', array_merge(compact('itemEtatRealisationChapitre'),$realisationChapitre_compact_value));
+        return view('PkgApprentissage::etatRealisationChapitre.show', array_merge(compact('itemEtatRealisationChapitre'),));
 
     }
     /**
@@ -174,20 +166,13 @@ class BaseEtatRealisationChapitreController extends AdminController
         $sysColors = $this->sysColorService->all();
 
 
-        $this->viewState->set('scope.realisationChapitre.etat_realisation_chapitre_id', $id);
-        
-
-        $realisationChapitreService =  new RealisationChapitreService();
-        $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
-        extract($realisationChapitres_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationChapitre._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationChapitre','sysColors'),$realisationChapitre_compact_value));
+            return view('PkgApprentissage::etatRealisationChapitre._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationChapitre','sysColors'),));
         }
 
-        return view('PkgApprentissage::etatRealisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationChapitre','sysColors'),$realisationChapitre_compact_value));
+        return view('PkgApprentissage::etatRealisationChapitre.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationChapitre','sysColors'),));
 
 
     }

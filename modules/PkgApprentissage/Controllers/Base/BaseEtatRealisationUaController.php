@@ -5,7 +5,6 @@
 namespace Modules\PkgApprentissage\Controllers\Base;
 use Modules\PkgApprentissage\Services\EtatRealisationUaService;
 use Modules\Core\Services\SysColorService;
-use Modules\PkgApprentissage\Services\RealisationUaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -130,7 +129,7 @@ class BaseEtatRealisationUaController extends AdminController
             );
         }
 
-        return redirect()->route('etatRealisationUas.edit',['etatRealisationUa' => $etatRealisationUa->id])->with(
+        return redirect()->route('etatRealisationUas.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $etatRealisationUa,
@@ -147,18 +146,11 @@ class BaseEtatRealisationUaController extends AdminController
         $itemEtatRealisationUa = $this->etatRealisationUaService->edit($id);
 
 
-        $this->viewState->set('scope.realisationUa.etat_realisation_ua_id', $id);
-        
-
-        $realisationUaService =  new RealisationUaService();
-        $realisationUas_view_data = $realisationUaService->prepareDataForIndexView();
-        extract($realisationUas_view_data);
-
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationUa._show', array_merge(compact('itemEtatRealisationUa'),$realisationUa_compact_value));
+            return view('PkgApprentissage::etatRealisationUa._show', array_merge(compact('itemEtatRealisationUa'),));
         }
 
-        return view('PkgApprentissage::etatRealisationUa.show', array_merge(compact('itemEtatRealisationUa'),$realisationUa_compact_value));
+        return view('PkgApprentissage::etatRealisationUa.show', array_merge(compact('itemEtatRealisationUa'),));
 
     }
     /**
@@ -174,20 +166,13 @@ class BaseEtatRealisationUaController extends AdminController
         $sysColors = $this->sysColorService->all();
 
 
-        $this->viewState->set('scope.realisationUa.etat_realisation_ua_id', $id);
-        
-
-        $realisationUaService =  new RealisationUaService();
-        $realisationUas_view_data = $realisationUaService->prepareDataForIndexView();
-        extract($realisationUas_view_data);
-
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::etatRealisationUa._edit', array_merge(compact('bulkEdit' , 'itemEtatRealisationUa','sysColors'),$realisationUa_compact_value));
+            return view('PkgApprentissage::etatRealisationUa._fields', array_merge(compact('bulkEdit' , 'itemEtatRealisationUa','sysColors'),));
         }
 
-        return view('PkgApprentissage::etatRealisationUa.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationUa','sysColors'),$realisationUa_compact_value));
+        return view('PkgApprentissage::etatRealisationUa.edit', array_merge(compact('bulkEdit' ,'itemEtatRealisationUa','sysColors'),));
 
 
     }

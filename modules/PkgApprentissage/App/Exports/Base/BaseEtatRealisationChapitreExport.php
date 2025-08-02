@@ -33,22 +33,22 @@ class BaseEtatRealisationChapitreExport implements FromCollection, WithHeadings,
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'reference' => 'reference',
                 'nom' => 'nom',
                 'code' => 'code',
-                'description' => 'description',
-                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
                 'sys_color_reference' => 'sys_color_reference',
+                'is_editable_only_by_formateur' => 'is_editable_only_by_formateur',
+                'description' => 'description',
+                'reference' => 'reference',
             ];
         } else {
             return [
                 'ordre' => __('PkgApprentissage::etatRealisationChapitre.ordre'),
-                'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationChapitre.nom'),
                 'code' => __('PkgApprentissage::etatRealisationChapitre.code'),
-                'description' => __('PkgApprentissage::etatRealisationChapitre.description'),
-                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationChapitre.is_editable_only_by_formateur'),
                 'sys_color_reference' => __('PkgApprentissage::etatRealisationChapitre.sys_color_reference'),
+                'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationChapitre.is_editable_only_by_formateur'),
+                'description' => __('PkgApprentissage::etatRealisationChapitre.description'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -61,12 +61,12 @@ class BaseEtatRealisationChapitreExport implements FromCollection, WithHeadings,
         return $this->data->map(function ($etatRealisationChapitre) {
             return [
                 'ordre' => (string) $etatRealisationChapitre->ordre,
-                'reference' => $etatRealisationChapitre->reference,
                 'nom' => $etatRealisationChapitre->nom,
                 'code' => $etatRealisationChapitre->code,
-                'description' => $etatRealisationChapitre->description,
-                'is_editable_only_by_formateur' => $etatRealisationChapitre->is_editable_only_by_formateur ? '1' : '0',
                 'sys_color_reference' => $etatRealisationChapitre->sysColor?->reference,
+                'is_editable_only_by_formateur' => $etatRealisationChapitre->is_editable_only_by_formateur ? '1' : '0',
+                'description' => $etatRealisationChapitre->description,
+                'reference' => $etatRealisationChapitre->reference,
             ];
         });
     }

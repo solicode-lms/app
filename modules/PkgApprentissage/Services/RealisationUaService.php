@@ -50,7 +50,11 @@ class RealisationUaService extends BaseRealisationUaService
 
 
 
-
+    public function afterUpdateRules($realisationUa): void
+    {
+        // Recalcul des agrégats
+        $this->calculerProgressionEtNote($realisationUa);
+    }
 
     /**
      * Récupère la réalisation UA d'un apprenant pour une unité d'apprentissage donnée.
@@ -92,6 +96,59 @@ class RealisationUaService extends BaseRealisationUaService
             )
             ->firstOrFail();
     }
+
+
+public function calculerProgressionEtNote(RealisationUa $realisationUa): void
+{
+    $realisationUa->loadMissing([
+        'realisationChapitres',
+        'realisationUaPrototypes',
+        'realisationUaProjets'
+    ]);
+
+    // Étape 1 : Agréger les trois types de réalisations
+    $parts = [
+        'chapitres' => [
+            'items' => $realisationUa->realisationChapitres,
+            'poids' => 20,
+        ],
+        'prototypes' => [
+            'items' => $realisationUa->realisationUaPrototypes,
+            'poids' => 30,
+        ],
+        'projets' => [
+            'items' => $realisationUa->realisationUaProjets,
+            'poids' => 50,
+        ],
+    ];
+
+    $totalNote = 0;
+    $totalBareme = 0;
+    $progression = 0;
+
+    foreach ($parts as $part) {
+        $items = $part['items'];
+        $poids = $part['poids'];
+
+        $baremePart = $items->sum(fn($e) => $e->bareme ?? 1);
+        $notePart = $items->sum(fn($e) => $e->note ?? 0);
+        $progressionPart = $items->filter(fn($e) => $this->isItemTermine($e))->count();
+        $totalPart = $items->count();
+
+        if ($totalPart > 0) {
+            $progression += ($progressionPart / $totalPart) * $poids;
+        }
+
+        $totalNote += $notePart * $poids / 100;
+        $totalBareme += $baremePart * $poids / 100;
+    }
+
+    $realisationUa->progression_cache = round($progression, 1);
+    $realisationUa->note_cache = round($totalNote, 2);
+    $realisationUa->bareme_cache = round($totalBareme, 2);
+    $realisationUa->save();
+}
+
 
 
 }

@@ -10,9 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="nom" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.code'))!!}" />
-                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatRealisationChapitre" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="nom" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="code" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.code'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5" field="sys_color_id" modelname="etatRealisationChapitre" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="is_editable_only_by_formateur" modelname="etatRealisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.is_editable_only_by_formateur'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -30,19 +31,25 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->nom }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->nom }}" >
                         {{ $etatRealisationChapitre->nom }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->code }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->code }}" >
                         {{ $etatRealisationChapitre->code }}
 
                     </td>
-                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->sysColor }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->sysColor }}" >
                         <x-badge 
                         :text="$etatRealisationChapitre->sysColor->name ?? ''" 
                         :background="$etatRealisationChapitre->sysColor->hex ?? '#6c757d'" 
                         />
+
+                    </td>
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationChapitre->id}}" data-field="is_editable_only_by_formateur"  data-toggle="tooltip" title="{{ $etatRealisationChapitre->is_editable_only_by_formateur }}" >
+                        <span class="{{ $etatRealisationChapitre->is_editable_only_by_formateur ? 'text-success' : 'text-danger' }}">
+                            {{ $etatRealisationChapitre->is_editable_only_by_formateur ? 'Oui' : 'Non' }}
+                        </span>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

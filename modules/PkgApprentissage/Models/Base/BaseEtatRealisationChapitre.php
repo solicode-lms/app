@@ -44,7 +44,7 @@ class BaseEtatRealisationChapitre extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'nom', 'code', 'description', 'is_editable_only_by_formateur', 'sys_color_id'
+        'ordre', 'nom', 'code', 'sys_color_id', 'is_editable_only_by_formateur', 'description'
     ];
     public $manyToOne = [
         'SysColor' => [
