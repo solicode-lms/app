@@ -93,5 +93,87 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         ]);
     }
 
+    public function afterUpdateRules(RealisationMicroCompetence $rmc): void
+    {
+        $this->calculerProgressionEtNote($rmc);
+    }
+    public function calculerProgressionEtNote(RealisationMicroCompetence $rmc): void
+    {
+        $rmc->loadMissing('realisationUas');
+
+        $uas = $rmc->realisationUas;
+        $totalUa = $uas->count();
+
+        if ($totalUa === 0) {
+            $rmc->progression_cache = 0;
+            $rmc->note_cache = 0;
+            $rmc->bareme_cache = 0;
+            $rmc->save();
+            return;
+        }
+
+        $totalNote = $uas->sum(fn($ua) => $ua->note_cache ?? 0);
+        $totalBareme = $uas->sum(fn($ua) => $ua->bareme_cache ?? 0);
+        $totalProgression = $uas->sum(fn($ua) => $ua->progression_cache ?? 0);
+
+        $rmc->progression_cache = round($totalProgression / $totalUa, 1);
+        $rmc->note_cache = round($totalNote, 2);
+        $rmc->bareme_cache = round($totalBareme, 2);
+
+
+        // Calcul de l’état global de la micro-compétence
+        $nouvelEtatCode = $this->calculerEtatDepuisUas($rmc);
+        if ($nouvelEtatCode) {
+            $nouvelEtat = EtatRealisationMicroCompetence::where('code', $nouvelEtatCode)->first();
+            if ($nouvelEtat && $rmc->etat_realisation_micro_competence_id !== $nouvelEtat->id) {
+                $rmc->etat_realisation_micro_competence_id = $nouvelEtat->id;
+            }
+        }
+
+        $rmc->save();
+
+
+    }
+
+    public function calculerEtatDepuisUas(RealisationMicroCompetence $rmc): ?string
+    {
+        $uas = $rmc->realisationUas;
+
+        if ($uas->isEmpty()) {
+            return 'TODO';
+        }
+
+        $etatCodes = $uas->pluck('etatRealisationUa.code')->filter()->unique();
+
+        // 🎯 Toutes les UA sont terminées
+        if ($etatCodes->count() === 1 && $etatCodes->first() === 'DONE') {
+            return 'DONE';
+        }
+
+        // 🎯 Présence de mini-projets (niveau 3)
+        if ($etatCodes->contains('IN_PROGRESS_PROJET')) {
+            return 'IN_PROGRESS_PROJET';
+        }
+
+        // 🎯 Présence de prototypes (niveau 2)
+        if ($etatCodes->contains('IN_PROGRESS_PROTOTYPE')) {
+            return 'IN_PROGRESS_PROTOTYPE';
+        }
+
+        // 🎯 Présence de chapitres (niveau 1)
+        if ($etatCodes->contains('IN_PROGRESS_CHAPITRE')) {
+            return 'IN_PROGRESS_CHAPITRE';
+        }
+
+        // 🎯 Si tout est encore non commencé
+        if ($etatCodes->every(fn($code) => $code === 'TODO')) {
+            return 'TODO';
+        }
+
+        // 🔁 Cas par défaut (au moins un en cours sans correspondance claire)
+        return 'IN_PROGRESS_CHAPITRE';
+    }
+
+
 
 }
