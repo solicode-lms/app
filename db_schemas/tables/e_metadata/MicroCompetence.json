@@ -657,5 +657,21 @@
         "value_float": 0,
         "e_model_reference": "micro_competences",
         "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "micro_competences_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-graduation-cap",
+                "title": "Suivre la formation",
+                "methode": "startFormation",
+                "actionType": "confirm",
+                "successMessage": "La formation a été lancée avec succès"
+            }
+        ],
+        "e_model_reference": "micro_competences",
+        "e_metadata_definition_reference": "entityActions"
     }
 ]

@@ -365,7 +365,20 @@ class BaseMicroCompetenceController extends AdminController
         ]);
     }
     
-
+    public function startFormation(Request $request, string $id) {
+        $microCompetence = $this->microCompetenceService->startFormation($id);
+        if ($request->ajax()) {
+            $message = "La formation a été lancée avec succès";
+            return JsonResponseHelper::success(
+                $message
+            );
+        }
+        return redirect()->route('MicroCompetence.index')->with(
+            'success',
+            "La formation a été lancée avec succès"
+        );
+    }
+    
 
     /**
      * @DynamicPermissionIgnore

@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('microCompetences/data-calcul', [MicroCompetenceController::class, 'dataCalcul'])->name('microCompetences.dataCalcul');
         Route::post('microCompetences/update-attributes', [MicroCompetenceController::class, 'updateAttributes'])->name('microCompetences.updateAttributes');
-
+        Route::get('microCompetences/startFormation/{id}', [MicroCompetenceController::class, 'startFormation'])->name('microCompetences.startFormation');
+    
     
 
     });

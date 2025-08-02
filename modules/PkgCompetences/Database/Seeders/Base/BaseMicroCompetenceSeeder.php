@@ -31,7 +31,8 @@ class BaseMicroCompetenceSeeder extends Seeder
             'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
             'Édition ' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
             'Extraction' => ['import', 'export'],
-
+            'startFormation' => ['startFormation'],
+            
         ];
 
     public function run(): void

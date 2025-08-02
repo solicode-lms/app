@@ -104,7 +104,17 @@ class BaseMicroCompetenceService extends BaseService
     }
 
 
-
+    public function startFormation(int $microCompetenceId)
+    {
+        $microCompetence = $this->find($microCompetenceId);
+        if (!$microCompetence) {
+            return false; 
+        }
+        $value =  $microCompetence->save();
+        $this->pushServiceMessage("info","Traitement title", "message : résultat de traitement");
+        return $value;
+    }
+    
 
     /**
      * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
@@ -161,7 +171,8 @@ class BaseMicroCompetenceService extends BaseService
         $this->viewState->set('stats.microCompetence.stats', $microCompetences_stats);
     
         $microCompetences_permissions = [
-
+            'startFormation-microCompetence' => Auth::user()->can('startFormation-microCompetence'),           
+            
             'edit-microCompetence' => Auth::user()->can('edit-microCompetence'),
             'destroy-microCompetence' => Auth::user()->can('destroy-microCompetence'),
             'show-microCompetence' => Auth::user()->can('show-microCompetence'),
