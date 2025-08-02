@@ -29,7 +29,7 @@
                         <ul class="nav nav-tabs mr-auto" id="edit-realisationMicroCompetence-tab" role="tablist">
                         <li class="pt-2 px-3">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-coffee"></i>
+                                <i class="nav-icon fas fa-certificate"></i>
                             </h3>
                         </li>
                         <li class="nav-item">

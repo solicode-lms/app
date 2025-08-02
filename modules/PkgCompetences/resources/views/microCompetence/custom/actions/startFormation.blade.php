@@ -15,7 +15,7 @@
                 'contextKey' => 'microCompetence.index',
                 'scope.realisationChapitre.RealisationUa.Realisation_micro_competence_id' => $realisation->id,
         ]) }}"
-        class="btn btn-info btn-sm context-state actionEntity showIndex d-none d-md-inline d-lg-inline "
+        class="btn btn-info btn-sm context-state actionEntity showIndex"
          data-id="{{ $entity->id }}" >
         <i class="fas fas fa-code"></i>
     </a>

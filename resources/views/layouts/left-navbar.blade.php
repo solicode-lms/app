@@ -46,7 +46,7 @@
         @can('index-realisationMicroCompetence')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}" class="nav-link">
-           <i class="fas fas fa-coffee"></i>
+           <i class="fas fa-certificate"></i>
           </a>
         </li>
         @endcan
