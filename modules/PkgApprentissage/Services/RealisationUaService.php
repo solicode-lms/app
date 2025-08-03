@@ -107,7 +107,7 @@ class RealisationUaService extends BaseRealisationUaService
             'realisationUaPrototypes',
             'realisationUaProjets'
         ]);
-
+        // TODO : Il faut paramètrer les Poids
         // Étape 1 : Agréger les trois types de réalisations
         $parts = [
             'chapitres' => [
@@ -193,6 +193,21 @@ class RealisationUaService extends BaseRealisationUaService
     }
 
 
+    /**
+     * Calcule l’état global d’une réalisation d’unité d’apprentissage (UA),
+     * en fonction de l’avancement des chapitres, prototypes et projets.
+     *
+     * Règles d'évaluation :
+     * - Si tous les chapitres sont en TODO → état = TODO
+     * - Si tous les chapitres, prototypes et projets sont en DONE → état = DONE
+     * - Si chapitres et prototypes sont DONE → état = IN_PROGRESS_PROJET
+     * - Si seuls les chapitres sont DONE → état = IN_PROGRESS_PROTOTYPE
+     * - Si au moins un chapitre est DONE → état = IN_PROGRESS_CHAPITRE
+     * - Sinon → état = TODO
+     *
+     * @param RealisationUa $ua  L’unité d’apprentissage à évaluer
+     * @return string|null       Le code de l’état calculé
+     */
     public function calculerEtat(RealisationUa $ua): ?string
     {
         $ua->loadMissing([
@@ -205,13 +220,13 @@ class RealisationUaService extends BaseRealisationUaService
         $prototypes = $ua->realisationUaPrototypes;
         $projets = $ua->realisationUaProjets;
 
-        // 🎯 Cas 1 : tous les chapitres sont TODO
+        // 🎯 Cas 1 : Tous les chapitres sont TODO
         if ($chapitres->count() > 0 &&
             $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'TODO')) {
             return 'TODO';
         }
 
-        // 🎯 Cas 2 : tout est DONE
+        // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
         $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
         $allPrototypesDone = $prototypes->every(fn($p) =>
             optional($p->realisationTache?->etatRealisationTache)->code === 'DONE'
@@ -224,30 +239,23 @@ class RealisationUaService extends BaseRealisationUaService
             return 'DONE';
         }
 
-        // 🎯 Cas 3 : au moins un projet est en IN_PROGRESS_PROJET
-        if ($projets->contains(fn($p) =>
-            optional($p->realisationTache?->etatRealisationTache)->code === 'IN_PROGRESS_PROJET'
-        )) {
+        if ($allChapitresDone && $allPrototypesDone) {
             return 'IN_PROGRESS_PROJET';
         }
 
-        // 🎯 Cas 4 : au moins un prototype est en IN_PROGRESS_PROTOTYPE
-        if ($prototypes->contains(fn($p) =>
-            optional($p->realisationTache?->etatRealisationTache)->code === 'IN_PROGRESS_PROTOTYPE'
-        )) {
+        if ($allChapitresDone) {
             return 'IN_PROGRESS_PROTOTYPE';
         }
 
-        // 🎯 Cas 5 : au moins un chapitre est en IN_PROGRESS_CHAPITRE (ou équivalent imitation)
-        if ($chapitres->contains(fn($c) =>
-            in_array(optional($c->etatRealisationChapitre)->code, ['IN_PROGRESS', 'IN_PROGRESS_CHAPITRE'])
-        )) {
+        // ✅ Cas ajouté : au moins un chapitre terminé
+        if ($chapitres->contains(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE')) {
             return 'IN_PROGRESS_CHAPITRE';
         }
 
-        // 🎯 Fallback : TODO par défaut
         return 'TODO';
     }
+
+
 
 
 
