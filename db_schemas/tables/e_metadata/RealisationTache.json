@@ -758,11 +758,15 @@
             },
             "Remarques": {
                 "label": "Remarques",
-                "order": 4
+                "order": 5
             },
             "Historique": {
                 "label": "Historique",
-                "order": 5
+                "order": 6
+            },
+            "Suivi et évaluation": {
+                "label": "Suivi et évaluation",
+                "order": 4
             },
             "Dates de réalisation": {
                 "label": "Dates de réalisation",
@@ -1210,7 +1214,8 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -1222,7 +1227,9 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -1234,7 +1241,8 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -1246,7 +1254,9 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -1258,7 +1268,8 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_editHasMany",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "e_metadata_definition_reference": "editHasMany"
     },
@@ -1270,7 +1281,9 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -1279,5 +1292,50 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayInForm",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
+    },
+    {
+        "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_viewFormFieldGroup",
+        "value_boolean": 1,
+        "value_string": "Suivi et évaluation",
+        "value_float": 0,
+        "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
+        "e_metadata_definition_reference": "viewFormFieldGroup"
     }
 ]

@@ -109,6 +109,42 @@
 
             </div>
             <h6 class="text-muted mb-2">
+                        <i class="fas fa-info-circle mr-1"></i>{{ __('Suivi et évaluation') }}
+            </h6>
+            <div class="row no-gutters mb-4">
+                      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+            </div>
+          </div>
+      </div>
+   
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+            </div>
+          </div>
+      </div>
+   
+
+      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+          <div class="border rounded p-2 h-100 " >
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
+            <div class="pt-2">
+                  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
+            </div>
+          </div>
+      </div>
+   
+
+
+            </div>
+            <h6 class="text-muted mb-2">
                         <i class="fas fa-info-circle mr-1"></i>{{ __('Remarques') }}
             </h6>
             <div class="row no-gutters mb-4">
@@ -162,6 +198,7 @@
             </div>
           </div>
       </div>
+   
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
@@ -171,33 +208,7 @@
             </div>
           </div>
       </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
-            </div>
-          </div>
-      </div>
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.show_' . $itemRealisationTache->id])
-            </div>
-          </div>
-      </div>
+   
 
 
             </div>

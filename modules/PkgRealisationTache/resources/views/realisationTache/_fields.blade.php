@@ -262,6 +262,70 @@
     
 
     
+      <h5 class="debut-groupe-title text-info">{{ __('Suivi et évaluation') }}</h5>
+      <hr class="debut-groupe-hr">
+    
+    <div class="row">
+        
+
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->realisationChapitres->count() > 0 || auth()->user()?->can('create-realisationChapitre'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationChapitre">
+            {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
+
+
+
+
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->realisationUaProjets->count() > 0 || auth()->user()?->can('create-realisationUaProjet'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationUaProjet">
+            {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
+
+
+
+
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->realisationUaPrototypes->count() > 0 || auth()->user()?->can('create-realisationUaPrototype'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationUaPrototype">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
+
+
+
+    </div>
+  
+    
+
+    
       <h5 class="debut-groupe-title text-info">{{ __('Remarques') }}</h5>
       <hr class="debut-groupe-hr">
     
@@ -367,6 +431,7 @@
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
             {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}
+            
     </label>
 
   @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
@@ -379,6 +444,7 @@
 
 
 @if($itemRealisationTache->id)
+@if($itemRealisationTache->historiqueRealisationTaches->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="HistoriqueRealisationTache">
@@ -388,6 +454,7 @@
 
   @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
+@endif
 @endif
 @endif
 
