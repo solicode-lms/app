@@ -183,35 +183,73 @@ trait RealisationTacheServiceCrud
     }
 
 
-
-   
-
-    /**
-     * @param  RealisationTache  $entity
-     * @return void
-     */
     public function afterUpdateRules(RealisationTache $entity): void
     {
-        // 1. Vérifier que l'état de la tâche a bien changé
+        // 1️⃣ Mettre à jour les chapitres si l’état a changé
         if ($entity->wasChanged('etat_realisation_tache_id')) {
-            
-            // 2. Trouver les chapitres liés à cette tâche
-            $chapitres = RealisationChapitre::where('realisation_tache_id', $entity->id)->get();
+            $this->synchroniserEtatsChapitreDepuisTache($entity);
 
-            if ($chapitres->isNotEmpty()) {
-                // 3. Récupérer l'état de chapitre correspondant à l'état de la tâche
-                $etatChapitre = $this->mapEtatTacheToEtatChapitre($entity->etat_realisation_tache_id);
 
-                if ($etatChapitre) {
-                    // 4. Mettre à jour tous les chapitres liés
-                    $realisationChapitreService = new RealisationChapitreService();
-                    foreach ($chapitres as $chapitre) {
-                        $realisationChapitreService->update($chapitre->id , [
-                            'etat_realisation_chapitre_id' => $etatChapitre->id
-                        ]);
-                    }
+            // 2️⃣ Recalculer les UA concernées
+            $uaIds = collect();
+
+            $entity->loadMissing(['realisationUaPrototypes', 'realisationUaProjets']);
+
+            foreach ($entity->realisationUaPrototypes as $proto) {
+                if ($proto->realisation_ua_id) {
+                    $uaIds->push($proto->realisation_ua_id);
                 }
             }
+
+            foreach ($entity->realisationUaProjets as $projet) {
+                if ($projet->realisation_ua_id) {
+                    $uaIds->push($projet->realisation_ua_id);
+                }
+            }
+
+            $uaIds = $uaIds->unique()->filter();
+
+            if ($uaIds->isNotEmpty()) {
+                $service = new \Modules\PkgApprentissage\Services\RealisationUaService();
+                $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
+
+                foreach ($uas as $ua) {
+                    $service->calculerProgressionEtNote($ua);
+                }
+            }
+
+        }
+
+        
+    }
+
+
+    /**
+     * Met à jour les états des chapitres liés à une tâche lorsque son état change.
+     *
+     * @param RealisationTache $tache
+     * @return void
+     */
+    private function synchroniserEtatsChapitreDepuisTache(RealisationTache $tache): void
+    {
+        $chapitres = RealisationChapitre::where('realisation_tache_id', $tache->id)->get();
+
+        if ($chapitres->isEmpty()) {
+            return;
+        }
+
+        $etatChapitre = $this->mapEtatTacheToEtatChapitre($tache->etat_realisation_tache_id);
+
+        if (!$etatChapitre) {
+            return;
+        }
+
+        $realisationChapitreService = new RealisationChapitreService();
+
+        foreach ($chapitres as $chapitre) {
+            $realisationChapitreService->update($chapitre->id, [
+                'etat_realisation_chapitre_id' => $etatChapitre->id,
+            ]);
         }
     }
 

@@ -15,6 +15,6 @@ class RealisationUa extends BaseRealisationUa
 
     public function __toString()
     {
-        return $this->uniteApprentissage->code . "-" . $this->realisationMicroCompetence->apprenant;
+        return $this->uniteApprentissage;
     }
 }
