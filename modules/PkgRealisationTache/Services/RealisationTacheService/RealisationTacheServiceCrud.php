@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprentissage\Services\RealisationChapitreService;
 use Modules\PkgAutorisation\Models\Role;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
@@ -17,6 +18,7 @@ use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
+use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
@@ -202,8 +204,9 @@ trait RealisationTacheServiceCrud
 
                 if ($etatChapitre) {
                     // 4. Mettre à jour tous les chapitres liés
+                    $realisationChapitreService = new RealisationChapitreService();
                     foreach ($chapitres as $chapitre) {
-                        $chapitre->update([
+                        $realisationChapitreService->update($chapitre->id , [
                             'etat_realisation_chapitre_id' => $etatChapitre->id
                         ]);
                     }
@@ -225,12 +228,15 @@ trait RealisationTacheServiceCrud
 
         // Table de mapping entre les codes
         $mapping = [
-            'A_FAIRE'            => 'TODO',
-            'EN_COURS'           => 'IN_PROGRESS',
-            'EN_PAUSE'           => 'PAUSED',
-            'REVISION_NECESSAIRE'=> 'EN_PAUSE',
-            'EN_VALIDATION'      => 'TO_APPROVE',
-            'TERMINEE'           => 'DONE',
+            'TODO'            => 'TODO',
+            'IN_PROGRESS'           => 'IN_PROGRESS',
+            'PAUSED'           => 'PAUSED',
+            'REVISION_NECESSAIRE'=> 'IN_PROGRESS',
+            'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
+            'IN_LIVE_CODING' => 'IN_LIVE_CODING',
+            'TO_APPROVE'      => 'TO_APPROVE',
+            'DONE'           => 'DONE',
+            'BLOCKED' => 'BLOCKED'
         ];
 
         $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;

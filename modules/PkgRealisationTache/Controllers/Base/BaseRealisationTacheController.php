@@ -243,6 +243,7 @@ class BaseRealisationTacheController extends AdminController
         $itemRealisationTache = $this->realisationTacheService->edit($id);
         $this->authorize('edit', $itemRealisationTache);
 
+        // dd($itemRealisationTache->etatRealisationTache->nom);
         // scopeDataInEditContext
         $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
         $key = 'scope.etatRealisationTache.formateur_id';

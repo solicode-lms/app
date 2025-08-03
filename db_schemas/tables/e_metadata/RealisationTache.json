@@ -506,7 +506,7 @@
     {
         "reference": "RealisationTache_tache_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 20,
+        "value_integer": 35,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -562,7 +562,7 @@
     },
     {
         "reference": "RealisationTache-projet_title_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache-projet_title",
         "e_metadata_definition_reference": "displayInTable"

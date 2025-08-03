@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="eRelationship-hasmany-tabs-home-tab" data-toggle="pill" href="#eRelationship-hasmany-tabs-home" role="tab" aria-controls="eRelationship-hasmany-tabs-home" aria-selected="true">{{__('PkgGapp::eRelationship.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->eDataFields->count() > 0 || auth()->user()?->can('create-eDataField'))
                         <li class="nav-item">
                             <a class="nav-link" id="eRelationship-hasmany-tabs-eDataField-tab" data-toggle="pill" href="#eRelationship-hasmany-tabs-eDataField" role="tab" aria-controls="eRelationship-hasmany-tabs-eDataField" aria-selected="false">
                                 <i class="nav-icon fas fa-th"></i>
                                 {{ucfirst(__('PkgGapp::eDataField.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgGapp::eRelationship._fields')
                             </div>
 
+                            @if($itemRealisationTache->eDataFields->count() > 0 || auth()->user()?->can('create-eDataField'))
                             <div class="tab-pane fade" id="eRelationship-hasmany-tabs-eDataField" role="tabpanel" aria-labelledby="eRelationship-hasmany-tabs-eDataField-tab">
                                 @include('PkgGapp::eDataField._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eRelationship.edit_' . $itemERelationship->id])
                             </div>
+                            @endif
 
                            
                         </div>

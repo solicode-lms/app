@@ -2,156 +2,109 @@
 
 namespace Modules\PkgRealisationTache\Services\RealisationTacheService;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Carbon;
+
 use Illuminate\Support\Facades\Auth;
-use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgAutorisation\Models\Role;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
-use Modules\PkgRealisationTache\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
-use Illuminate\Database\Eloquent\Builder;
-use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
-use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\WorkflowTacheService;
 
 trait RealisationTacheWorkflow
 {
     /**
      * Liste des codes de workflows imposant une validation de priorité après la modification
-     * d'un objet : realisationTache
-     * @param mixed $workflowCode
-     * @return bool
      */
     protected function workflowExigeRespectDesPriorites(?string $workflowCode): bool
     {
         if (!$workflowCode) {
             return false;
         }
-        // Liste des codes de workflows imposant une validation de priorité
+
         $workflowsBloquants = [
-            'EN_COURS', // adapte selon tes besoins
-            'EN_VALIDATION',
-            'TERMINEE'
+            'IN_PROGRESS',
+            'TO_APPROVE',
+            'DONE',
         ];
-        return in_array($workflowCode, $workflowsBloquants);
+
+        return in_array($workflowCode, $workflowsBloquants, true);
     }
 
     /**
-     * Vérifier que les tâches moins prioritaire sont terminé 
-     * @param $realisationTache
-     * @param mixed $workflowCode
-     * @return void
+     * Vérifie que toutes les tâches de priorité inférieure soient terminées
      */
-    protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache,$workflowCode): void
+    protected function verifierTachesMoinsPrioritairesTerminees(RealisationTache $realisationTache, $workflowCode): void
     {
-        // Charger les relations nécessaires
-        $realisationTache->loadMissing('etatRealisationTache.workflowTache', 'tache.prioriteTache');
-
-        // Appliquer la règle seulement si le workflow le demande
         if (!$this->workflowExigeRespectDesPriorites($workflowCode)) {
             return;
         }
 
-        $realisationProjetId = $realisationTache->realisation_projet_id;
-        $tache = $realisationTache->tache;
+        $realisationTache->loadMissing('etatRealisationTache.workflowTache', 'tache');
 
-        if ($tache && $tache->prioriteTache) {
-            $ordreActuel = $tache->prioriteTache->ordre;
+        $projetId = $realisationTache->realisation_projet_id;
+        $prioriteActuelle = $realisationTache->tache?->priorite ?? null;
 
-            // Les états considérés comme "terminés" ou non bloquants
-            $etatsFinaux = ['TERMINEE', 'EN_VALIDATION'];
-
-            $tachesBloquantes = RealisationTache::where('realisation_projet_id', $realisationProjetId)
-                ->whereHas('tache.prioriteTache', function ($query) use ($ordreActuel) {
-                    $query->where('ordre', '<', $ordreActuel);
-                })
-                ->where(function ($query) use ($etatsFinaux) {
-                    $query
-                        ->whereHas('etatRealisationTache.workflowTache', function ($q) use ($etatsFinaux) {
-                            $q->whereNotIn('code', $etatsFinaux);
-                        })
-                        ->orDoesntHave('etatRealisationTache');
-                })
-                ->with('tache') // Charger les noms des tâches
-                ->get();
-
-            if ($tachesBloquantes->isNotEmpty()) {
-                $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->map(function ($nom) {
-                    return "<li>" . e($nom) . "</li>";
-                })->join('');
-
-                $message = "<p> Impossible de passer à cet état : les tâches plus prioritaires  <br> suivantes ne sont pas encore terminées</p><ul>$nomsTaches</ul>";
-
-                throw ValidationException::withMessages([
-                    'etat_realisation_tache_id' => $message
-                ]);
-            }
-        }
-    }
-
-
-
-        /**
-     * Met à jour automatiquement l'état de la tâche en "Révision nécessaire"
-     * si l'attribut `remarques_formateur` est modifié par un formateur.
-     *
-     * - Si l'état "REVISION_NECESSAIRE" n'existe pas pour ce formateur,
-     *   il est automatiquement créé à partir du workflow correspondant.
-     * - Si l'état actuel est déjà "REVISION_NECESSAIRE", aucun changement n’est effectué.
-     *
-     * @param RealisationTache $record L'enregistrement de la réalisation de tâche concerné.
-     * @param array $data Les nouvelles données soumises contenant possiblement `remarques_formateur`.
-     *
-     * @return void
-     */
-    public function mettreAJourEtatRevisionSiRemarqueModifiee(RealisationTache $record, array &$data)
-    {
-
-        // 🛡️ Si l'utilisateur  n'est pas  formateur, on sort sans rien faire
-        if (!Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+        if ($prioriteActuelle === null) {
             return;
         }
 
-        // Vérifier si la remarque formateur a changé
+        $etatsFinaux = ['DONE', 'TO_APPROVE', 'READY_FOR_LIVE_CODING'];
+
+        $tachesBloquantes = RealisationTache::where('realisation_projet_id', $projetId)
+            ->whereHas('tache', function ($query) use ($prioriteActuelle) {
+                $query->whereNotNull('priorite')->where('priorite', '<', $prioriteActuelle);
+            })
+            ->where(function ($query) use ($etatsFinaux) {
+                $query->whereDoesntHave('etatRealisationTache')
+                      ->orWhereHas('etatRealisationTache.workflowTache', function ($q) use ($etatsFinaux) {
+                          $q->whereNotIn('code', $etatsFinaux);
+                      });
+            })
+            ->with('tache')
+            ->get();
+
+        if ($tachesBloquantes->isNotEmpty()) {
+            $nomsTaches = $tachesBloquantes->pluck('tache.titre')->filter()->map(fn($nom) => "<li>" . e($nom) . "</li>")->join('');
+
+            throw ValidationException::withMessages([
+                'etat_realisation_tache_id' => "<p>Impossible de passer à cet état : les tâches plus prioritaires suivantes ne sont pas encore terminées</p><ul>$nomsTaches</ul>"
+            ]);
+        }
+    }
+
+    /**
+     * Met à jour l’état de la tâche si une remarque formateur est ajoutée ou modifiée
+     */
+    public function mettreAJourEtatRevisionSiRemarqueModifiee(RealisationTache $record, array &$data): void
+    {
+        if (!Auth::user()?->hasRole(Role::FORMATEUR_ROLE)) {
+            return;
+        }
+
         if (!array_key_exists('remarques_formateur', $data)) {
             return;
         }
 
-        $ancienneRemarque = $record->remarques_formateur;
-        $nouvelleRemarque = $data['remarques_formateur'];
-
-        if ($ancienneRemarque === $nouvelleRemarque) {
+        if ($record->remarques_formateur === $data['remarques_formateur']) {
             return;
         }
 
-        // Vérifier l'état actuel
-        $etatActuel = $record->etatRealisationTache;
-        if ($etatActuel && $etatActuel->reference === 'REVISION_NECESSAIRE') {
-            return; // Déjà en "Révision nécessaire"
+        if ($record->etatRealisationTache?->reference === 'REVISION_NECESSAIRE') {
+            return;
         }
 
-        // Chercher ou créer l'état REVISION_NECESSAIRE pour le formateur connecté
-        $wk_revision_necessaire = (new WorkflowTacheService())->getOrCreateWorkflowRevision();
+        $wk = (new WorkflowTacheService())->getOrCreateWorkflowRevision();
 
         $etatRevision = EtatRealisationTache::firstOrCreate([
-            'workflow_tache_id' => $wk_revision_necessaire->id ,
-            'formateur_id' => Auth::user()->formateur->id ?? null,
+            'workflow_tache_id' => $wk->id,
+            'formateur_id' => Auth::user()?->formateur->id,
         ], [
-            'nom' => $wk_revision_necessaire->titre,
-            'description' => $wk_revision_necessaire->description,
+            'nom' => $wk->titre,
+            'description' => $wk->description,
             'is_editable_only_by_formateur' => false,
-            'sys_color_id' => $wk_revision_necessaire->sys_color_id, // Choisir une couleur par défaut appropriée
-            'workflow_tache_id' => $wk_revision_necessaire->id,
+            'sys_color_id' => $wk->sys_color_id,
         ]);
 
-        // La modifcation sera efectuer par update
-        $data["etat_realisation_tache_id"] = $etatRevision->id;
-        
-        
+        $data['etat_realisation_tache_id'] = $etatRevision->id;
     }
-
 }

@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="ePackage-hasmany-tabs-home-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-home" role="tab" aria-controls="ePackage-hasmany-tabs-home" aria-selected="true">{{__('PkgGapp::ePackage.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->eModels->count() > 0 || auth()->user()?->can('create-eModel'))
                         <li class="nav-item">
                             <a class="nav-link" id="ePackage-hasmany-tabs-eModel-tab" data-toggle="pill" href="#ePackage-hasmany-tabs-eModel" role="tab" aria-controls="ePackage-hasmany-tabs-eModel" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
                                 {{ucfirst(__('PkgGapp::eModel.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgGapp::ePackage._fields')
                             </div>
 
+                            @if($itemRealisationTache->eModels->count() > 0 || auth()->user()?->can('create-eModel'))
                             <div class="tab-pane fade" id="ePackage-hasmany-tabs-eModel" role="tabpanel" aria-labelledby="ePackage-hasmany-tabs-eModel-tab">
                                 @include('PkgGapp::eModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'ePackage.edit_' . $itemEPackage->id])
                             </div>
+                            @endif
 
                            
                         </div>

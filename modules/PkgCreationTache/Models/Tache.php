@@ -13,7 +13,7 @@ class Tache extends BaseTache
 
     public function __toString()
     {
-        return ($this->prioriteTache ? ($this->prioriteTache->nom . "-") : "") . ($this->titre ?? "");
+        return ($this->priorite ? $this->priorite . ' - ' : '') . ($this->titre ?? '');
     }
 
     public function generateReference(): string

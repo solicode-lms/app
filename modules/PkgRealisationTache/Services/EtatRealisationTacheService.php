@@ -108,6 +108,40 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
             }
         });
     }
+
+
+   /**
+     * Récupère un état par formateur et code workflow.
+     * Crée les états du formateur si aucun n'existe.
+     * Ne crée pas le WorkflowTache : il doit exister.
+     *
+     * @param int $formateurId
+     * @param string $workflowCode
+     * @return \Modules\PkgRealisationTache\Models\EtatRealisationTache|null
+     */
+    public function findByFormateurIdAndWorkflowCode(int $formateurId, string $workflowCode)
+    {
+        // 1. Trouver le workflow existant
+        $workflow = WorkflowTache::where('code', $workflowCode)->first();
+
+        if (!$workflow) {
+            return null; // ou throw new \Exception("Workflow introuvable")
+        }
+
+        // 2. Vérifier si le formateur a déjà des états
+        $etatCount = $this->model->where('formateur_id', $formateurId)->count();
+
+        if ($etatCount === 0) {
+            $this->createDefaultEtatsFromWorkflow($formateurId);
+        }
+
+        // 3. Renvoyer l’état associé à ce workflow
+        return $this->model
+            ->where('formateur_id', $formateurId)
+            ->where('workflow_tache_id', $workflow->id)
+            ->first();
+    }
+
     
    
 }

@@ -7,6 +7,8 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationChapitreService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Services\EtatRealisationTacheService;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 
 /**
  * Service métier pour la gestion des RealisationChapitre.
@@ -18,12 +20,13 @@ class RealisationChapitreService extends BaseRealisationChapitreService
      */
     public function afterUpdateRules($entity): void
     {
-        if (! $entity->wasChanged('etat_realisation_chapitre_id')) {
-            return;
+        if ($entity->wasChanged('etat_realisation_chapitre_id')) {
+             $this->synchroniserEtatTacheLiee($entity);
+             $this->recalculerProgressionEtNoteUa($entity);
         }
 
-        $this->synchroniserEtatTacheLiee($entity);
-        $this->recalculerProgressionEtNoteUa($entity);
+      
+       
     }
 
     /**
@@ -40,9 +43,10 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             return;
         }
 
-        $etatTache = $this->mapEtatChapitreToEtatTache($entity->etat_realisation_chapitre_id);
-        if ($etatTache) {
-            $realisationTache->update([
+        $etatTache = $this->mapEtatChapitreToEtatTache($entity->etat_realisation_chapitre_id, $realisationTache->realisationProjet->affectationProjet->projet->formateur_id);
+        $realisationTacheService = new RealisationTacheService();
+        if ($etatTache &&  $realisationTache->etat_realisation_tache_id != $etatTache->id) {
+            $realisationTacheService->update($realisationTache->id,[
                 'etat_realisation_tache_id' => $etatTache->id,
             ]);
         }
@@ -64,7 +68,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     /**
      * Règle de mapping : état chapitre → état tâche.
      */
-    private function mapEtatChapitreToEtatTache(int $etatChapitreId)
+    private function mapEtatChapitreToEtatTache(int $etatChapitreId, int $formateurId = null)
     {
         $etatChapitre = EtatRealisationChapitre::find($etatChapitreId);
         if (! $etatChapitre) {
@@ -72,14 +76,14 @@ class RealisationChapitreService extends BaseRealisationChapitreService
         }
 
         $mapping = [
-            'TODO'           => 'A_FAIRE',
-            'IN_PROGRESS'    => 'EN_COURS',
+            'TODO'           => 'TODO',
+            'IN_PROGRESS'    => 'IN_PROGRESS',
             'PAUSED'         => 'EN_PAUSE',
-            'IN_REVIEW'      => 'REVISION_NECESSAIRE',
-            'TO_APPROVE'     => 'EN_VALIDATION',
-            'DONE'           => 'TERMINEE',
-            'READY_FOR_LIVE' => 'EN_COURS',
-            'BLOCKED'        => 'EN_PAUSE',
+            'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
+            'IN_LIVE_CODING'      => 'IN_LIVE_CODING',
+            'TO_APPROVE'     => 'TO_APPROVE',
+            'DONE'           => 'DONE',
+            'BLOCKED' => 'BLOCKED'
         ];
 
         $codeTache = $mapping[$etatChapitre->code] ?? null;
@@ -87,8 +91,8 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             return null;
         }
 
-        return EtatRealisationTache::whereHas('workflowTache', function ($q) use ($codeTache) {
-            $q->where('code', $codeTache);
-        })->first();
+        $etatTacheService = new EtatRealisationTacheService();
+        return $etatTacheService->findByFormateurIdAndWorkflowCode($formateurId, $codeTache);
+
     }
 }

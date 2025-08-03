@@ -9,12 +9,11 @@
                     $bulkEdit = $realisationTaches_permissions['edit-realisationTache'] || $realisationTaches_permissions['destroy-realisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="12"  field="projet_title" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.projet_title'))!!}" />
-                <x-sortable-column :sortable="true" width="20" field="tache_id" modelname="realisationTache" label="{!!ucfirst(__('PkgCreationTache::tache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="35" field="tache_id" modelname="realisationTache" label="{!!ucfirst(__('PkgCreationTache::tache.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="12" field="etat_realisation_tache_id" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::etatRealisationTache.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="14"  field="nom_prenom_apprenant" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.nom_prenom_apprenant'))!!}" />
                 <x-sortable-column :sortable="true" width="9"  field="deadline" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.deadline'))!!}" />
-                <x-sortable-column :sortable="true" width="15"  field="nombre_livrables" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))!!}" />
+                <x-sortable-column :sortable="true" width="12"  field="nombre_livrables" modelname="realisationTache" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.nombre_livrables'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,13 +25,8 @@
                 @endphp
                 <tr id="realisationTache-row-{{$realisationTache->id}}" data-id="{{$realisationTache->id}}">
                     <x-checkbox-row :item="$realisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 12%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="projet_title"  data-toggle="tooltip" title="{{ $realisationTache->projet_title }}" >
-                        {{ $realisationTache->projet_title }}
-
-                    </td>
-                    <td style="max-width: 20%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
-                        {{  $realisationTache->tache }}
-
+                    <td style="max-width: 35%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $realisationTache->tache }}" >
+                        @include('PkgRealisationTache::realisationTache.custom.fields.tache', ['entity' => $realisationTache])
                     </td>
                     <td style="max-width: 12%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationTache->id}}" data-field="etat_realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationTache->etatRealisationTache }}" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', ['entity' => $realisationTache])
@@ -44,7 +38,7 @@
                     <td style="max-width: 9%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="deadline"  data-toggle="tooltip" title="{{ $realisationTache->deadline }}" >
                         <x-deadline-display :value="$realisationTache->deadline" />
                     </td>
-                    <td style="max-width: 15%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
+                    <td style="max-width: 12%;" class=" text-truncate" data-id="{{$realisationTache->id}}" data-field="nombre_livrables"  data-toggle="tooltip" title="{{ $realisationTache->nombre_livrables }}" >
                         @include('PkgRealisationTache::realisationTache.custom.fields.nombre_livrables', ['entity' => $realisationTache])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

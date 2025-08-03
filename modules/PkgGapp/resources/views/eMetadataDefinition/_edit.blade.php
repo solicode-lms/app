@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="eMetadataDefinition-hasmany-tabs-home-tab" data-toggle="pill" href="#eMetadataDefinition-hasmany-tabs-home" role="tab" aria-controls="eMetadataDefinition-hasmany-tabs-home" aria-selected="true">{{__('PkgGapp::eMetadataDefinition.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
                         <li class="nav-item">
                             <a class="nav-link" id="eMetadataDefinition-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eMetadataDefinition-hasmany-tabs-eMetadatum" role="tab" aria-controls="eMetadataDefinition-hasmany-tabs-eMetadatum" aria-selected="false">
                                 <i class="nav-icon fas fa-th-list"></i>
                                 {{ucfirst(__('PkgGapp::eMetadatum.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgGapp::eMetadataDefinition._fields')
                             </div>
 
+                            @if($itemRealisationTache->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
                             <div class="tab-pane fade" id="eMetadataDefinition-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eMetadataDefinition-hasmany-tabs-eMetadatum-tab">
                                 @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eMetadataDefinition.edit_' . $itemEMetadataDefinition->id])
                             </div>
+                            @endif
 
                            
                         </div>
