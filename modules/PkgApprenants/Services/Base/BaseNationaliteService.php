@@ -47,6 +47,16 @@ class BaseNationaliteService extends BaseService
     }
 
 
+    public function dataCalcul($nationalite)
+    {
+        // En Cas d'édit
+        if(isset($nationalite->id)){
+          
+        }
+      
+        return $nationalite;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

@@ -62,6 +62,16 @@ class BaseApprenantService extends BaseService
     }
 
 
+    public function dataCalcul($apprenant)
+    {
+        // En Cas d'édit
+        if(isset($apprenant->id)){
+          
+        }
+      
+        return $apprenant;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

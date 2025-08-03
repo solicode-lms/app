@@ -48,6 +48,16 @@ class BaseUserModelFilterService extends BaseService
     }
 
 
+    public function dataCalcul($userModelFilter)
+    {
+        // En Cas d'édit
+        if(isset($userModelFilter->id)){
+          
+        }
+      
+        return $userModelFilter;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

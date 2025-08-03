@@ -49,6 +49,16 @@ class BaseGroupeService extends BaseService
     }
 
 
+    public function dataCalcul($groupe)
+    {
+        // En Cas d'édit
+        if(isset($groupe->id)){
+          
+        }
+      
+        return $groupe;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

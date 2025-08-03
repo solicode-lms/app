@@ -10,14 +10,5 @@ use Modules\PkgRealisationTache\Services\Base\BaseCommentaireRealisationTacheSer
  */
 class CommentaireRealisationTacheService extends BaseCommentaireRealisationTacheService
 {
-    public function dataCalcul($commentaireRealisationTache)
-    {
-        // En Cas d'édit
-        if(isset($commentaireRealisationTache->id)){
-          
-        }
-      
-        return $commentaireRealisationTache;
-    }
-   
+
 }

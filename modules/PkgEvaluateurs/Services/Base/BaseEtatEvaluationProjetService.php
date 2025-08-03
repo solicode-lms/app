@@ -49,6 +49,16 @@ class BaseEtatEvaluationProjetService extends BaseService
     }
 
 
+    public function dataCalcul($etatEvaluationProjet)
+    {
+        // En Cas d'édit
+        if(isset($etatEvaluationProjet->id)){
+          
+        }
+      
+        return $etatEvaluationProjet;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

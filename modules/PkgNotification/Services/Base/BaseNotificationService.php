@@ -51,6 +51,16 @@ class BaseNotificationService extends BaseService
     }
 
 
+    public function dataCalcul($notification)
+    {
+        // En Cas d'édit
+        if(isset($notification->id)){
+          
+        }
+      
+        return $notification;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

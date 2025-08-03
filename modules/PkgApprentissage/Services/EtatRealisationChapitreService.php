@@ -10,14 +10,5 @@ use Modules\PkgApprentissage\Services\Base\BaseEtatRealisationChapitreService;
  */
 class EtatRealisationChapitreService extends BaseEtatRealisationChapitreService
 {
-    public function dataCalcul($etatRealisationChapitre)
-    {
-        // En Cas d'édit
-        if(isset($etatRealisationChapitre->id)){
-          
-        }
-      
-        return $etatRealisationChapitre;
-    }
-   
+
 }

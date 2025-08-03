@@ -47,6 +47,16 @@ class BaseFiliereService extends BaseService
     }
 
 
+    public function dataCalcul($filiere)
+    {
+        // En Cas d'édit
+        if(isset($filiere->id)){
+          
+        }
+      
+        return $filiere;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

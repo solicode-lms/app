@@ -57,6 +57,16 @@ class BaseERelationshipService extends BaseService
     }
 
 
+    public function dataCalcul($eRelationship)
+    {
+        // En Cas d'édit
+        if(isset($eRelationship->id)){
+          
+        }
+      
+        return $eRelationship;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

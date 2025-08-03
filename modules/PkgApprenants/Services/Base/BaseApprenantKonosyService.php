@@ -63,6 +63,16 @@ class BaseApprenantKonosyService extends BaseService
     }
 
 
+    public function dataCalcul($apprenantKonosy)
+    {
+        // En Cas d'édit
+        if(isset($apprenantKonosy->id)){
+          
+        }
+      
+        return $apprenantKonosy;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

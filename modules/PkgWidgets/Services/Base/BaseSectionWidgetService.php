@@ -49,6 +49,16 @@ class BaseSectionWidgetService extends BaseService
     }
 
 
+    public function dataCalcul($sectionWidget)
+    {
+        // En Cas d'édit
+        if(isset($sectionWidget->id)){
+          
+        }
+      
+        return $sectionWidget;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

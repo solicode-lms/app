@@ -46,6 +46,16 @@ class BaseEPackageService extends BaseService
     }
 
 
+    public function dataCalcul($ePackage)
+    {
+        // En Cas d'édit
+        if(isset($ePackage->id)){
+          
+        }
+      
+        return $ePackage;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

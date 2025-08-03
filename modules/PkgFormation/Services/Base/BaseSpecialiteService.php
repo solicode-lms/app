@@ -46,6 +46,16 @@ class BaseSpecialiteService extends BaseService
     }
 
 
+    public function dataCalcul($specialite)
+    {
+        // En Cas d'édit
+        if(isset($specialite->id)){
+          
+        }
+      
+        return $specialite;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

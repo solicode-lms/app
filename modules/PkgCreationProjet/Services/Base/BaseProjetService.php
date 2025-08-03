@@ -51,6 +51,16 @@ class BaseProjetService extends BaseService
     }
 
 
+    public function dataCalcul($projet)
+    {
+        // En Cas d'édit
+        if(isset($projet->id)){
+          
+        }
+      
+        return $projet;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

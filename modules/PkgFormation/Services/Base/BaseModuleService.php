@@ -49,6 +49,16 @@ class BaseModuleService extends BaseService
     }
 
 
+    public function dataCalcul($module)
+    {
+        // En Cas d'édit
+        if(isset($module->id)){
+          
+        }
+      
+        return $module;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

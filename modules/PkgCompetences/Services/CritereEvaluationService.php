@@ -10,14 +10,5 @@ use Modules\PkgCompetences\Services\Base\BaseCritereEvaluationService;
  */
 class CritereEvaluationService extends BaseCritereEvaluationService
 {
-    public function dataCalcul($critereEvaluation)
-    {
-        // En Cas d'édit
-        if(isset($critereEvaluation->id)){
-          
-        }
-      
-        return $critereEvaluation;
-    }
-   
+
 }

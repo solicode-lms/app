@@ -48,6 +48,16 @@ class BaseAlignementUaService extends BaseService
     }
 
 
+    public function dataCalcul($alignementUa)
+    {
+        // En Cas d'édit
+        if(isset($alignementUa->id)){
+          
+        }
+      
+        return $alignementUa;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

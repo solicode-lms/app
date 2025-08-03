@@ -55,6 +55,16 @@ class BaseWidgetService extends BaseService
     }
 
 
+    public function dataCalcul($widget)
+    {
+        // En Cas d'édit
+        if(isset($widget->id)){
+          
+        }
+      
+        return $widget;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

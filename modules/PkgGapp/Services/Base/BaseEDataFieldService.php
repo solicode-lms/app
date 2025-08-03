@@ -57,6 +57,16 @@ class BaseEDataFieldService extends BaseService
     }
 
 
+    public function dataCalcul($eDataField)
+    {
+        // En Cas d'édit
+        if(isset($eDataField->id)){
+          
+        }
+      
+        return $eDataField;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

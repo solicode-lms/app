@@ -50,6 +50,16 @@ class BaseWorkflowTacheService extends BaseService
     }
 
 
+    public function dataCalcul($workflowTache)
+    {
+        // En Cas d'édit
+        if(isset($workflowTache->id)){
+          
+        }
+      
+        return $workflowTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

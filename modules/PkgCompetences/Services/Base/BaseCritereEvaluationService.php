@@ -49,6 +49,16 @@ class BaseCritereEvaluationService extends BaseService
     }
 
 
+    public function dataCalcul($critereEvaluation)
+    {
+        // En Cas d'édit
+        if(isset($critereEvaluation->id)){
+          
+        }
+      
+        return $critereEvaluation;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

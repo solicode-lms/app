@@ -48,6 +48,16 @@ class BasePrioriteTacheService extends BaseService
     }
 
 
+    public function dataCalcul($prioriteTache)
+    {
+        // En Cas d'édit
+        if(isset($prioriteTache->id)){
+          
+        }
+      
+        return $prioriteTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

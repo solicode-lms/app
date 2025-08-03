@@ -53,6 +53,16 @@ class BaseRealisationUaService extends BaseService
     }
 
 
+    public function dataCalcul($realisationUa)
+    {
+        // En Cas d'édit
+        if(isset($realisationUa->id)){
+          
+        }
+      
+        return $realisationUa;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

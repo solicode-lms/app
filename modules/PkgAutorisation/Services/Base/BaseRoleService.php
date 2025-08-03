@@ -46,6 +46,16 @@ class BaseRoleService extends BaseService
     }
 
 
+    public function dataCalcul($role)
+    {
+        // En Cas d'édit
+        if(isset($role->id)){
+          
+        }
+      
+        return $role;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

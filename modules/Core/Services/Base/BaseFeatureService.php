@@ -47,6 +47,16 @@ class BaseFeatureService extends BaseService
     }
 
 
+    public function dataCalcul($feature)
+    {
+        // En Cas d'édit
+        if(isset($feature->id)){
+          
+        }
+      
+        return $feature;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

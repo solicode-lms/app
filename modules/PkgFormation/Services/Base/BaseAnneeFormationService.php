@@ -47,6 +47,16 @@ class BaseAnneeFormationService extends BaseService
     }
 
 
+    public function dataCalcul($anneeFormation)
+    {
+        // En Cas d'édit
+        if(isset($anneeFormation->id)){
+          
+        }
+      
+        return $anneeFormation;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

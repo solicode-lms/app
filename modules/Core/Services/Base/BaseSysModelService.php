@@ -50,6 +50,16 @@ class BaseSysModelService extends BaseService
     }
 
 
+    public function dataCalcul($sysModel)
+    {
+        // En Cas d'édit
+        if(isset($sysModel->id)){
+          
+        }
+      
+        return $sysModel;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

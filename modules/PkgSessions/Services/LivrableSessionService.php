@@ -10,14 +10,5 @@ use Modules\PkgSessions\Services\Base\BaseLivrableSessionService;
  */
 class LivrableSessionService extends BaseLivrableSessionService
 {
-    public function dataCalcul($livrableSession)
-    {
-        // En Cas d'édit
-        if(isset($livrableSession->id)){
-          
-        }
-      
-        return $livrableSession;
-    }
-   
+
 }

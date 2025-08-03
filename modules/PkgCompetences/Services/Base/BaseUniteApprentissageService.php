@@ -50,6 +50,16 @@ class BaseUniteApprentissageService extends BaseService
     }
 
 
+    public function dataCalcul($uniteApprentissage)
+    {
+        // En Cas d'édit
+        if(isset($uniteApprentissage->id)){
+          
+        }
+      
+        return $uniteApprentissage;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

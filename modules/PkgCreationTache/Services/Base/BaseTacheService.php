@@ -55,6 +55,16 @@ class BaseTacheService extends BaseService
     }
 
 
+    public function dataCalcul($tache)
+    {
+        // En Cas d'édit
+        if(isset($tache->id)){
+          
+        }
+      
+        return $tache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

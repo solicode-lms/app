@@ -10,14 +10,5 @@ use Modules\PkgApprenants\Services\Base\BaseNiveauxScolaireService;
  */
 class NiveauxScolaireService extends BaseNiveauxScolaireService
 {
-    public function dataCalcul($niveauxScolaire)
-    {
-        // En Cas d'édit
-        if(isset($niveauxScolaire->id)){
-          
-        }
-      
-        return $niveauxScolaire;
-    }
-   
+
 }

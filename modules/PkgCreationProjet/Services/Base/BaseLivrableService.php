@@ -49,6 +49,16 @@ class BaseLivrableService extends BaseService
     }
 
 
+    public function dataCalcul($livrable)
+    {
+        // En Cas d'édit
+        if(isset($livrable->id)){
+          
+        }
+      
+        return $livrable;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

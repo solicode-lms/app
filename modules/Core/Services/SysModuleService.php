@@ -10,14 +10,5 @@ use Modules\Core\Services\Base\BaseSysModuleService;
  */
 class SysModuleService extends BaseSysModuleService
 {
-    public function dataCalcul($sysModule)
-    {
-        // En Cas d'édit
-        if(isset($sysModule->id)){
-          
-        }
-      
-        return $sysModule;
-    }
-   
+
 }

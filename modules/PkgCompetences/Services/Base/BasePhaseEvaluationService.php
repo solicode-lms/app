@@ -49,6 +49,16 @@ class BasePhaseEvaluationService extends BaseService
     }
 
 
+    public function dataCalcul($phaseEvaluation)
+    {
+        // En Cas d'édit
+        if(isset($phaseEvaluation->id)){
+          
+        }
+      
+        return $phaseEvaluation;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

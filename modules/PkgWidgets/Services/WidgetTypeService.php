@@ -10,14 +10,5 @@ use Modules\PkgWidgets\Services\Base\BaseWidgetTypeService;
  */
 class WidgetTypeService extends BaseWidgetTypeService
 {
-    public function dataCalcul($widgetType)
-    {
-        // En Cas d'édit
-        if(isset($widgetType->id)){
-          
-        }
-      
-        return $widgetType;
-    }
-   
+
 }

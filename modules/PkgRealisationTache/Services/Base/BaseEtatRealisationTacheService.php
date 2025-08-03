@@ -50,6 +50,16 @@ class BaseEtatRealisationTacheService extends BaseService
     }
 
 
+    public function dataCalcul($etatRealisationTache)
+    {
+        // En Cas d'édit
+        if(isset($etatRealisationTache->id)){
+          
+        }
+      
+        return $etatRealisationTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

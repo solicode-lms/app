@@ -49,6 +49,16 @@ class BaseLivrableSessionService extends BaseService
     }
 
 
+    public function dataCalcul($livrableSession)
+    {
+        // En Cas d'édit
+        if(isset($livrableSession->id)){
+          
+        }
+      
+        return $livrableSession;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

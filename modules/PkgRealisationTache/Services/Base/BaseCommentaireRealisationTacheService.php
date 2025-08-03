@@ -49,6 +49,16 @@ class BaseCommentaireRealisationTacheService extends BaseService
     }
 
 
+    public function dataCalcul($commentaireRealisationTache)
+    {
+        // En Cas d'édit
+        if(isset($commentaireRealisationTache->id)){
+          
+        }
+      
+        return $commentaireRealisationTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

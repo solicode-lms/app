@@ -10,14 +10,5 @@ use Modules\Core\Services\Base\BaseFeatureService;
  */
 class FeatureService extends BaseFeatureService
 {
-    public function dataCalcul($feature)
-    {
-        // En Cas d'édit
-        if(isset($feature->id)){
-          
-        }
-      
-        return $feature;
-    }
-   
+
 }

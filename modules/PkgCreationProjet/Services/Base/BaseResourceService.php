@@ -48,6 +48,16 @@ class BaseResourceService extends BaseService
     }
 
 
+    public function dataCalcul($resource)
+    {
+        // En Cas d'édit
+        if(isset($resource->id)){
+          
+        }
+      
+        return $resource;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

@@ -10,14 +10,5 @@ use Modules\PkgSessions\Services\Base\BaseAlignementUaService;
  */
 class AlignementUaService extends BaseAlignementUaService
 {
-    public function dataCalcul($alignementUa)
-    {
-        // En Cas d'édit
-        if(isset($alignementUa->id)){
-          
-        }
-      
-        return $alignementUa;
-    }
-   
+
 }

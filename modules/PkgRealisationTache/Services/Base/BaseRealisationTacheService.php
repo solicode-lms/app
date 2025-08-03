@@ -53,6 +53,16 @@ class BaseRealisationTacheService extends BaseService
     }
 
 
+    public function dataCalcul($realisationTache)
+    {
+        // En Cas d'édit
+        if(isset($realisationTache->id)){
+          
+        }
+      
+        return $realisationTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

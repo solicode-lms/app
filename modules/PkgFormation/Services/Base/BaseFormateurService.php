@@ -57,6 +57,16 @@ class BaseFormateurService extends BaseService
     }
 
 
+    public function dataCalcul($formateur)
+    {
+        // En Cas d'édit
+        if(isset($formateur->id)){
+          
+        }
+      
+        return $formateur;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

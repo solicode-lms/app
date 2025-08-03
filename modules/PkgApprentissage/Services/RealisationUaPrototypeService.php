@@ -10,14 +10,5 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationUaPrototypeService;
  */
 class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
 {
-    public function dataCalcul($realisationUaPrototype)
-    {
-        // En Cas d'édit
-        if(isset($realisationUaPrototype->id)){
-          
-        }
-      
-        return $realisationUaPrototype;
-    }
-   
+
 }

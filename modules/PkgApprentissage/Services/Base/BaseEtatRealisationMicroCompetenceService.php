@@ -50,6 +50,16 @@ class BaseEtatRealisationMicroCompetenceService extends BaseService
     }
 
 
+    public function dataCalcul($etatRealisationMicroCompetence)
+    {
+        // En Cas d'édit
+        if(isset($etatRealisationMicroCompetence->id)){
+          
+        }
+      
+        return $etatRealisationMicroCompetence;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

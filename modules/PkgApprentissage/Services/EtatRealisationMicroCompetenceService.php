@@ -10,14 +10,5 @@ use Modules\PkgApprentissage\Services\Base\BaseEtatRealisationMicroCompetenceSer
  */
 class EtatRealisationMicroCompetenceService extends BaseEtatRealisationMicroCompetenceService
 {
-    public function dataCalcul($etatRealisationMicroCompetence)
-    {
-        // En Cas d'édit
-        if(isset($etatRealisationMicroCompetence->id)){
-          
-        }
-      
-        return $etatRealisationMicroCompetence;
-    }
-   
+
 }

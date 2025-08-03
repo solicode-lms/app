@@ -10,14 +10,5 @@ use Modules\PkgEvaluateurs\Services\Base\BaseEtatEvaluationProjetService;
  */
 class EtatEvaluationProjetService extends BaseEtatEvaluationProjetService
 {
-    public function dataCalcul($etatEvaluationProjet)
-    {
-        // En Cas d'édit
-        if(isset($etatEvaluationProjet->id)){
-          
-        }
-      
-        return $etatEvaluationProjet;
-    }
-   
+
 }

@@ -50,6 +50,16 @@ class BaseEtatRealisationChapitreService extends BaseService
     }
 
 
+    public function dataCalcul($etatRealisationChapitre)
+    {
+        // En Cas d'édit
+        if(isset($etatRealisationChapitre->id)){
+          
+        }
+      
+        return $etatRealisationChapitre;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

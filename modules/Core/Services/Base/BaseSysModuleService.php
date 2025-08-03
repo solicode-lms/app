@@ -51,6 +51,16 @@ class BaseSysModuleService extends BaseService
     }
 
 
+    public function dataCalcul($sysModule)
+    {
+        // En Cas d'édit
+        if(isset($sysModule->id)){
+          
+        }
+      
+        return $sysModule;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

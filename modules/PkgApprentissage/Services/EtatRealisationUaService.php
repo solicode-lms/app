@@ -10,14 +10,5 @@ use Modules\PkgApprentissage\Services\Base\BaseEtatRealisationUaService;
  */
 class EtatRealisationUaService extends BaseEtatRealisationUaService
 {
-    public function dataCalcul($etatRealisationUa)
-    {
-        // En Cas d'édit
-        if(isset($etatRealisationUa->id)){
-          
-        }
-      
-        return $etatRealisationUa;
-    }
-   
+
 }

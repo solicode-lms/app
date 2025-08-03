@@ -10,14 +10,5 @@ use Modules\PkgCreationProjet\Services\Base\BaseNatureLivrableService;
  */
 class NatureLivrableService extends BaseNatureLivrableService
 {
-    public function dataCalcul($natureLivrable)
-    {
-        // En Cas d'édit
-        if(isset($natureLivrable->id)){
-          
-        }
-      
-        return $natureLivrable;
-    }
-   
+
 }

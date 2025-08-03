@@ -50,6 +50,16 @@ class BaseRealisationProjetService extends BaseService
     }
 
 
+    public function dataCalcul($realisationProjet)
+    {
+        // En Cas d'édit
+        if(isset($realisationProjet->id)){
+          
+        }
+      
+        return $realisationProjet;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

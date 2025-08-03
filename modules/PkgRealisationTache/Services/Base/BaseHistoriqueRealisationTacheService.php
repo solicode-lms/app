@@ -49,6 +49,16 @@ class BaseHistoriqueRealisationTacheService extends BaseService
     }
 
 
+    public function dataCalcul($historiqueRealisationTache)
+    {
+        // En Cas d'édit
+        if(isset($historiqueRealisationTache->id)){
+          
+        }
+      
+        return $historiqueRealisationTache;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

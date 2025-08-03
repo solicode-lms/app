@@ -48,6 +48,16 @@ class BaseFeatureDomainService extends BaseService
     }
 
 
+    public function dataCalcul($featureDomain)
+    {
+        // En Cas d'édit
+        if(isset($featureDomain->id)){
+          
+        }
+      
+        return $featureDomain;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

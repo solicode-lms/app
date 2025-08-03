@@ -10,14 +10,5 @@ use Modules\PkgCompetences\Services\Base\BasePhaseEvaluationService;
  */
 class PhaseEvaluationService extends BasePhaseEvaluationService
 {
-    public function dataCalcul($phaseEvaluation)
-    {
-        // En Cas d'édit
-        if(isset($phaseEvaluation->id)){
-          
-        }
-      
-        return $phaseEvaluation;
-    }
-   
+
 }

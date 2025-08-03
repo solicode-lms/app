@@ -56,6 +56,16 @@ class BaseEMetadatumService extends BaseService
     }
 
 
+    public function dataCalcul($eMetadatum)
+    {
+        // En Cas d'édit
+        if(isset($eMetadatum->id)){
+          
+        }
+      
+        return $eMetadatum;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

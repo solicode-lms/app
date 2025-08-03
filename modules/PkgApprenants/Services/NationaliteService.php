@@ -10,14 +10,5 @@ use Modules\PkgApprenants\Services\Base\BaseNationaliteService;
  */
 class NationaliteService extends BaseNationaliteService
 {
-    public function dataCalcul($nationalite)
-    {
-        // En Cas d'édit
-        if(isset($nationalite->id)){
-          
-        }
-      
-        return $nationalite;
-    }
-   
+
 }

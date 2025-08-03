@@ -60,6 +60,16 @@ class BaseSessionFormationService extends BaseService
     }
 
 
+    public function dataCalcul($sessionFormation)
+    {
+        // En Cas d'édit
+        if(isset($sessionFormation->id)){
+          
+        }
+      
+        return $sessionFormation;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

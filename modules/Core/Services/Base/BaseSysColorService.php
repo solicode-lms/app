@@ -46,6 +46,16 @@ class BaseSysColorService extends BaseService
     }
 
 
+    public function dataCalcul($sysColor)
+    {
+        // En Cas d'édit
+        if(isset($sysColor->id)){
+          
+        }
+      
+        return $sysColor;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

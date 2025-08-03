@@ -53,6 +53,16 @@ class BaseAffectationProjetService extends BaseService
     }
 
 
+    public function dataCalcul($affectationProjet)
+    {
+        // En Cas d'édit
+        if(isset($affectationProjet->id)){
+          
+        }
+      
+        return $affectationProjet;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

@@ -49,6 +49,16 @@ class BaseCompetenceService extends BaseService
     }
 
 
+    public function dataCalcul($competence)
+    {
+        // En Cas d'édit
+        if(isset($competence->id)){
+          
+        }
+      
+        return $competence;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

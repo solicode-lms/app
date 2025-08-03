@@ -50,6 +50,16 @@ class BaseUserService extends BaseService
     }
 
 
+    public function dataCalcul($user)
+    {
+        // En Cas d'édit
+        if(isset($user->id)){
+          
+        }
+      
+        return $user;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

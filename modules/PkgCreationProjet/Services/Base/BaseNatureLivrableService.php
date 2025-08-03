@@ -46,6 +46,16 @@ class BaseNatureLivrableService extends BaseService
     }
 
 
+    public function dataCalcul($natureLivrable)
+    {
+        // En Cas d'édit
+        if(isset($natureLivrable->id)){
+          
+        }
+      
+        return $natureLivrable;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

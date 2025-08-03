@@ -49,6 +49,16 @@ class BaseSysControllerService extends BaseService
     }
 
 
+    public function dataCalcul($sysController)
+    {
+        // En Cas d'édit
+        if(isset($sysController->id)){
+          
+        }
+      
+        return $sysController;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

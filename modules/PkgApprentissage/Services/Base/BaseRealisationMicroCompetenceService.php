@@ -54,6 +54,16 @@ class BaseRealisationMicroCompetenceService extends BaseService
     }
 
 
+    public function dataCalcul($realisationMicroCompetence)
+    {
+        // En Cas d'édit
+        if(isset($realisationMicroCompetence->id)){
+          
+        }
+      
+        return $realisationMicroCompetence;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

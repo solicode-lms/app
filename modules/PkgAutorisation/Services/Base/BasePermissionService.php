@@ -47,6 +47,16 @@ class BasePermissionService extends BaseService
     }
 
 
+    public function dataCalcul($permission)
+    {
+        // En Cas d'édit
+        if(isset($permission->id)){
+          
+        }
+      
+        return $permission;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

@@ -51,6 +51,16 @@ class BaseMobilisationUaService extends BaseService
     }
 
 
+    public function dataCalcul($mobilisationUa)
+    {
+        // En Cas d'édit
+        if(isset($mobilisationUa->id)){
+          
+        }
+      
+        return $mobilisationUa;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

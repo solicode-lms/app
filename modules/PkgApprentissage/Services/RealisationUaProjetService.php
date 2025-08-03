@@ -10,14 +10,5 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationUaProjetService;
  */
 class RealisationUaProjetService extends BaseRealisationUaProjetService
 {
-    public function dataCalcul($realisationUaProjet)
-    {
-        // En Cas d'édit
-        if(isset($realisationUaProjet->id)){
-          
-        }
-      
-        return $realisationUaProjet;
-    }
-   
+
 }

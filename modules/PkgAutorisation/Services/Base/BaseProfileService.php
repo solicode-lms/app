@@ -49,6 +49,16 @@ class BaseProfileService extends BaseService
     }
 
 
+    public function dataCalcul($profile)
+    {
+        // En Cas d'édit
+        if(isset($profile->id)){
+          
+        }
+      
+        return $profile;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

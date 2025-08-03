@@ -10,14 +10,5 @@ use Modules\PkgGapp\Services\Base\BaseERelationshipService;
  */
 class ERelationshipService extends BaseERelationshipService
 {
-    public function dataCalcul($eRelationship)
-    {
-        // En Cas d'édit
-        if(isset($eRelationship->id)){
-          
-        }
-      
-        return $eRelationship;
-    }
-   
+
 }

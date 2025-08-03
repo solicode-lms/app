@@ -50,6 +50,16 @@ class BaseEMetadataDefinitionService extends BaseService
     }
 
 
+    public function dataCalcul($eMetadataDefinition)
+    {
+        // En Cas d'édit
+        if(isset($eMetadataDefinition->id)){
+          
+        }
+      
+        return $eMetadataDefinition;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

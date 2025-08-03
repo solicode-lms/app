@@ -53,6 +53,16 @@ class BaseChapitreService extends BaseService
     }
 
 
+    public function dataCalcul($chapitre)
+    {
+        // En Cas d'édit
+        if(isset($chapitre->id)){
+          
+        }
+      
+        return $chapitre;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

@@ -10,14 +10,5 @@ use Modules\PkgAutorisation\Services\Base\BaseRoleService;
  */
 class RoleService extends BaseRoleService
 {
-    public function dataCalcul($role)
-    {
-        // En Cas d'édit
-        if(isset($role->id)){
-          
-        }
-      
-        return $role;
-    }
-   
+
 }

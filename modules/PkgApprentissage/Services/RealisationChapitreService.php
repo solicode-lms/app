@@ -87,17 +87,4 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             $q->where('code', $codeTache);
         })->first();
     }
-
-
-
-    public function dataCalcul($realisationChapitre)
-    {
-        // En Cas d'édit
-        if(isset($realisationChapitre->id)){
-          
-        }
-      
-        return $realisationChapitre;
-    }
-   
 }

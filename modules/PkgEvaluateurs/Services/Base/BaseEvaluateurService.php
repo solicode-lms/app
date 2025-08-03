@@ -50,6 +50,16 @@ class BaseEvaluateurService extends BaseService
     }
 
 
+    public function dataCalcul($evaluateur)
+    {
+        // En Cas d'édit
+        if(isset($evaluateur->id)){
+          
+        }
+      
+        return $evaluateur;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

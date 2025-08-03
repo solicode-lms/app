@@ -47,6 +47,16 @@ class BaseNiveauxScolaireService extends BaseService
     }
 
 
+    public function dataCalcul($niveauxScolaire)
+    {
+        // En Cas d'édit
+        if(isset($niveauxScolaire->id)){
+          
+        }
+      
+        return $niveauxScolaire;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

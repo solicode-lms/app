@@ -10,14 +10,5 @@ use Modules\Core\Services\Base\BaseSysModelService;
  */
 class SysModelService extends BaseSysModelService
 {
-    public function dataCalcul($sysModel)
-    {
-        // En Cas d'édit
-        if(isset($sysModel->id)){
-          
-        }
-      
-        return $sysModel;
-    }
-   
+
 }

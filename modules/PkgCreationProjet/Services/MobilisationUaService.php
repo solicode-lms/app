@@ -10,14 +10,5 @@ use Modules\PkgCreationProjet\Services\Base\BaseMobilisationUaService;
  */
 class MobilisationUaService extends BaseMobilisationUaService
 {
-    public function dataCalcul($mobilisationUa)
-    {
-        // En Cas d'édit
-        if(isset($mobilisationUa->id)){
-          
-        }
-      
-        return $mobilisationUa;
-    }
-   
+
 }

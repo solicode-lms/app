@@ -10,14 +10,5 @@ use Modules\PkgApprenants\Services\Base\BaseSousGroupeService;
  */
 class SousGroupeService extends BaseSousGroupeService
 {
-    public function dataCalcul($sousGroupe)
-    {
-        // En Cas d'édit
-        if(isset($sousGroupe->id)){
-          
-        }
-      
-        return $sousGroupe;
-    }
-   
+
 }

@@ -50,6 +50,16 @@ class BaseEModelService extends BaseService
     }
 
 
+    public function dataCalcul($eModel)
+    {
+        // En Cas d'édit
+        if(isset($eModel->id)){
+          
+        }
+      
+        return $eModel;
+    }
+
     public function initFieldsFilterable()
     {
         // Initialiser les filtres configurables dynamiquement

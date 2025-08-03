@@ -10,14 +10,5 @@ use Modules\PkgWidgets\Services\Base\BaseSectionWidgetService;
  */
 class SectionWidgetService extends BaseSectionWidgetService
 {
-    public function dataCalcul($sectionWidget)
-    {
-        // En Cas d'édit
-        if(isset($sectionWidget->id)){
-          
-        }
-      
-        return $sectionWidget;
-    }
-   
+
 }
