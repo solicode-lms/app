@@ -142,7 +142,9 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
             continue;
         }
 
-        $bareme = $items->sum(fn($e) => $e->bareme ?? 0);
+        $bareme = $items->sum(function ($e) {
+            return $e->note !== null ? ($e->bareme ?? 0) : 0;
+        });
         $note = $items->sum(fn($e) => $e->note ?? 0);
         $termines = $items->filter(fn($e) => $this->isItemTermine($e))->count();
 

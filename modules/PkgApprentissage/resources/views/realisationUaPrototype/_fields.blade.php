@@ -107,13 +107,13 @@
           @endif
           <label for="note">
             {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.note')) }}
-            <span class="text-danger">*</span>
+            
           </label>
               <input
         name="note"
         type="number"
         class="form-control"
-        required
+        
         
         
         id="note"

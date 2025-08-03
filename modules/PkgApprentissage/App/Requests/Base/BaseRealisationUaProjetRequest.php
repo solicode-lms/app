@@ -29,7 +29,7 @@ class BaseRealisationUaProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'note' => 'required',
+            'note' => 'nullable',
             'bareme' => 'required',
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',

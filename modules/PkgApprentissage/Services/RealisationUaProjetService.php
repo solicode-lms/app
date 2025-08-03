@@ -9,7 +9,16 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationUaProjetService;
  */
 class RealisationUaProjetService extends BaseRealisationUaProjetService
 {
-
+    
+  public function afterUpdateRules($realisationUaProjet): void
+    {
+        // Détection du changement de note ou de barème
+        if ($realisationUaProjet->wasChanged(['note', 'bareme'])) {
+            if ($realisationUaProjet->realisationUa) {
+                (new RealisationUaService())->calculerProgressionEtNote($realisationUaProjet->realisationUa);
+            }
+        }
+    }
     
  
 }

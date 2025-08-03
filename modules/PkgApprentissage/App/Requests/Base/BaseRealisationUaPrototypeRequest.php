@@ -31,7 +31,7 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
         return [
             'realisation_ua_id' => 'required',
             'realisation_tache_id' => 'required',
-            'note' => 'required',
+            'note' => 'nullable',
             'bareme' => 'required',
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
