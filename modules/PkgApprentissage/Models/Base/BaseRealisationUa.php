@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgCompetences\Models\UniteApprentissage;
+use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\EtatRealisationUa;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
-use Modules\PkgApprentissage\Models\RealisationUaProjet;
 use Modules\PkgApprentissage\Models\RealisationUaPrototype;
+use Modules\PkgApprentissage\Models\RealisationUaProjet;
 
 /**
  * Classe BaseRealisationUa
@@ -32,8 +32,8 @@ class BaseRealisationUa extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'realisationMicroCompetence',
       //  'uniteApprentissage',
+      //  'realisationMicroCompetence',
       //  'etatRealisationUa'
     ];
 
@@ -50,18 +50,18 @@ class BaseRealisationUa extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'realisation_micro_competence_id', 'unite_apprentissage_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'date_debut', 'date_fin', 'commentaire_formateur'
+        'unite_apprentissage_id', 'realisation_micro_competence_id', 'etat_realisation_ua_id', 'progression_cache', 'note_cache', 'bareme_cache', 'date_debut', 'date_fin', 'commentaire_formateur'
     ];
     public $manyToOne = [
-        'RealisationMicroCompetence' => [
-            'model' => "Modules\\PkgApprentissage\\Models\\RealisationMicroCompetence",
-            'relation' => 'realisationMicroCompetences' , 
-            "foreign_key" => "realisation_micro_competence_id", 
-            ],
         'UniteApprentissage' => [
             'model' => "Modules\\PkgCompetences\\Models\\UniteApprentissage",
             'relation' => 'uniteApprentissages' , 
             "foreign_key" => "unite_apprentissage_id", 
+            ],
+        'RealisationMicroCompetence' => [
+            'model' => "Modules\\PkgApprentissage\\Models\\RealisationMicroCompetence",
+            'relation' => 'realisationMicroCompetences' , 
+            "foreign_key" => "realisation_micro_competence_id", 
             ],
         'EtatRealisationUa' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationUa",
@@ -72,15 +72,6 @@ class BaseRealisationUa extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour RealisationMicroCompetence.
-     *
-     * @return BelongsTo
-     */
-    public function realisationMicroCompetence(): BelongsTo
-    {
-        return $this->belongsTo(RealisationMicroCompetence::class, 'realisation_micro_competence_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour UniteApprentissage.
      *
      * @return BelongsTo
@@ -88,6 +79,15 @@ class BaseRealisationUa extends BaseModel
     public function uniteApprentissage(): BelongsTo
     {
         return $this->belongsTo(UniteApprentissage::class, 'unite_apprentissage_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationMicroCompetence.
+     *
+     * @return BelongsTo
+     */
+    public function realisationMicroCompetence(): BelongsTo
+    {
+        return $this->belongsTo(RealisationMicroCompetence::class, 'realisation_micro_competence_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationUa.
@@ -114,18 +114,18 @@ class BaseRealisationUa extends BaseModel
      *
      * @return HasMany
      */
-    public function realisationUaProjets(): HasMany
+    public function realisationUaPrototypes(): HasMany
     {
-        return $this->hasMany(RealisationUaProjet::class, 'realisation_ua_id', 'id');
+        return $this->hasMany(RealisationUaPrototype::class, 'realisation_ua_id', 'id');
     }
     /**
      * Relation HasMany pour RealisationUas.
      *
      * @return HasMany
      */
-    public function realisationUaPrototypes(): HasMany
+    public function realisationUaProjets(): HasMany
     {
-        return $this->hasMany(RealisationUaPrototype::class, 'realisation_ua_id', 'id');
+        return $this->hasMany(RealisationUaProjet::class, 'realisation_ua_id', 'id');
     }
 
 

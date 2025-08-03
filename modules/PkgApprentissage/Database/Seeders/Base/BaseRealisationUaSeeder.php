@@ -73,14 +73,14 @@ class BaseRealisationUaSeeder extends Seeder
             if ($row) {
 
 
-                $realisation_micro_competence_id = null;
-                if (!empty($row["realisation_micro_competence_reference"])) {
-                    $realisation_micro_competence_id = \Modules\PkgApprentissage\Models\RealisationMicroCompetence::where('reference', $row["realisation_micro_competence_reference"])
-                        ->value('id');
-                }
                 $unite_apprentissage_id = null;
                 if (!empty($row["unite_apprentissage_reference"])) {
                     $unite_apprentissage_id = \Modules\PkgCompetences\Models\UniteApprentissage::where('reference', $row["unite_apprentissage_reference"])
+                        ->value('id');
+                }
+                $realisation_micro_competence_id = null;
+                if (!empty($row["realisation_micro_competence_reference"])) {
+                    $realisation_micro_competence_id = \Modules\PkgApprentissage\Models\RealisationMicroCompetence::where('reference', $row["realisation_micro_competence_reference"])
                         ->value('id');
                 }
                 $etat_realisation_ua_id = null;
@@ -91,8 +91,8 @@ class BaseRealisationUaSeeder extends Seeder
 
 
                 $realisationUaData =[
-                        "realisation_micro_competence_id" => $realisation_micro_competence_id,
                         "unite_apprentissage_id" => $unite_apprentissage_id,
+                        "realisation_micro_competence_id" => $realisation_micro_competence_id,
                         "etat_realisation_ua_id" => $etat_realisation_ua_id,
                         "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,

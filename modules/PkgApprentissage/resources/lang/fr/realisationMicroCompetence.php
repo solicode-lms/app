@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Suivi d’Autoformation',
-    'plural' => 'Suivis des Autoformations',
+    'singular' => 'Réalisation d’Autoformation',
+    'plural' => 'Réalisations des Autoformations',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'progression_cache' => 'Progression',

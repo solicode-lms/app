@@ -32,8 +32,8 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
     {
         if ($this->format === 'csv') {
             return [
-                'realisation_micro_competence_reference' => 'realisation_micro_competence_reference',
                 'unite_apprentissage_reference' => 'unite_apprentissage_reference',
+                'realisation_micro_competence_reference' => 'realisation_micro_competence_reference',
                 'etat_realisation_ua_reference' => 'etat_realisation_ua_reference',
                 'progression_cache' => 'progression_cache',
                 'note_cache' => 'note_cache',
@@ -45,8 +45,8 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
             ];
         } else {
             return [
-                'realisation_micro_competence_reference' => __('PkgApprentissage::realisationUa.realisation_micro_competence_reference'),
                 'unite_apprentissage_reference' => __('PkgApprentissage::realisationUa.unite_apprentissage_reference'),
+                'realisation_micro_competence_reference' => __('PkgApprentissage::realisationUa.realisation_micro_competence_reference'),
                 'etat_realisation_ua_reference' => __('PkgApprentissage::realisationUa.etat_realisation_ua_reference'),
                 'progression_cache' => __('PkgApprentissage::realisationUa.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationUa.note_cache'),
@@ -66,8 +66,8 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
     {
         return $this->data->map(function ($realisationUa) {
             return [
-                'realisation_micro_competence_reference' => $realisationUa->realisationMicroCompetence?->reference,
                 'unite_apprentissage_reference' => $realisationUa->uniteApprentissage?->reference,
+                'realisation_micro_competence_reference' => $realisationUa->realisationMicroCompetence?->reference,
                 'etat_realisation_ua_reference' => $realisationUa->etatRealisationUa?->reference,
                 'progression_cache' => $realisationUa->progression_cache,
                 'note_cache' => $realisationUa->note_cache,

@@ -54,6 +54,11 @@ class RealisationUaService extends BaseRealisationUaService
 
     public function afterUpdateRules($realisationUa): void
     {
+        // ✅ Initialiser la date_debut si elle est encore vide
+        if (empty($realisationUa->date_debut)) {
+            $realisationUa->date_debut = now();
+            $realisationUa->save();
+        }
         // Recalcul des agrégats
         $this->calculerProgressionEtNote($realisationUa);
     }

@@ -135,6 +135,18 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
     }
 
+    /**
+     * Calcule l’état global d’une micro-compétence selon l’avancement de ses UAs.
+     *
+     * Progression stricte :
+     * - Si au moins une UA a un chapitre non terminé → IN_PROGRESS_CHAPITRE
+     * - Sinon, si au moins une UA a un prototype non terminé → IN_PROGRESS_PROTOTYPE
+     * - Sinon, si au moins une UA a un projet non terminé → IN_PROGRESS_PROJET
+     * - Sinon (tout est terminé) → DONE
+     *
+     * @param RealisationMicroCompetence $rmc
+     * @return string|null
+     */
     public function calculerEtatDepuisUas(RealisationMicroCompetence $rmc): ?string
     {
         $uas = $rmc->realisationUas;
@@ -143,35 +155,37 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             return 'TODO';
         }
 
-        $etatCodes = $uas->pluck('etatRealisationUa.code')->filter()->unique();
+        $uas->loadMissing([
+            'realisationChapitres.etatRealisationChapitre',
+            'realisationUaPrototypes.realisationTache.etatRealisationTache',
+            'realisationUaProjets.realisationTache.etatRealisationTache',
+        ]);
 
-        // 🎯 Toutes les UA sont terminées
-        if ($etatCodes->count() === 1 && $etatCodes->first() === 'DONE') {
-            return 'DONE';
+        foreach ($uas as $ua) {
+            if ($ua->realisationChapitres->contains(fn($c) =>
+                optional($c->etatRealisationChapitre)->code !== 'DONE'
+            )) {
+                return 'IN_PROGRESS_CHAPITRE';
+            }
         }
 
-        // 🎯 Présence de mini-projets (niveau 3)
-        if ($etatCodes->contains('IN_PROGRESS_PROJET')) {
-            return 'IN_PROGRESS_PROJET';
+        foreach ($uas as $ua) {
+            if ($ua->realisationUaPrototypes->contains(fn($p) =>
+                optional($p->realisationTache?->etatRealisationTache)->code !== 'DONE'
+            )) {
+                return 'IN_PROGRESS_PROTOTYPE';
+            }
         }
 
-        // 🎯 Présence de prototypes (niveau 2)
-        if ($etatCodes->contains('IN_PROGRESS_PROTOTYPE')) {
-            return 'IN_PROGRESS_PROTOTYPE';
+        foreach ($uas as $ua) {
+            if ($ua->realisationUaProjets->contains(fn($p) =>
+                optional($p->realisationTache?->etatRealisationTache)->code !== 'DONE'
+            )) {
+                return 'IN_PROGRESS_PROJET';
+            }
         }
 
-        // 🎯 Présence de chapitres (niveau 1)
-        if ($etatCodes->contains('IN_PROGRESS_CHAPITRE')) {
-            return 'IN_PROGRESS_CHAPITRE';
-        }
-
-        // 🎯 Si tout est encore non commencé
-        if ($etatCodes->every(fn($code) => $code === 'TODO')) {
-            return 'TODO';
-        }
-
-        // 🔁 Cas par défaut (au moins un en cours sans correspondance claire)
-        return 'IN_PROGRESS_CHAPITRE';
+        return 'DONE';
     }
 
 

@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Suivi d’UA',
-    'plural' => 'Suivis des UAs',
+    'singular' => 'Réalisation d’UA',
+    'plural' => 'Réalisations des UAs',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'progression_cache' => 'Progression (cache)',

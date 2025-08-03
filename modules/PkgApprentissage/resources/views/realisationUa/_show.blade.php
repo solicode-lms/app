@@ -6,10 +6,10 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}</small>
                               
-      @if($itemRealisationUa->realisationMicroCompetence)
-        {{ $itemRealisationUa->realisationMicroCompetence }}
+      @if($itemRealisationUa->uniteApprentissage)
+        {{ $itemRealisationUa->uniteApprentissage }}
       @else
         —
       @endif
@@ -20,10 +20,10 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::uniteApprentissage.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}</small>
                               
-      @if($itemRealisationUa->uniteApprentissage)
-        {{ $itemRealisationUa->uniteApprentissage }}
+      @if($itemRealisationUa->realisationMicroCompetence)
+        {{ $itemRealisationUa->realisationMicroCompetence }}
       @else
         —
       @endif
@@ -73,9 +73,9 @@
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.show_' . $itemRealisationUa->id])
+                  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.show_' . $itemRealisationUa->id])
             </div>
           </div>
       </div>
@@ -83,9 +83,9 @@
 
       <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}</small>
+            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUaProjet.plural')) }}</small>
             <div class="pt-2">
-                  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.show_' . $itemRealisationUa->id])
+                  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.show_' . $itemRealisationUa->id])
             </div>
           </div>
       </div>

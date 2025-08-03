@@ -56,14 +56,14 @@ class BaseRealisationUaPrototypeImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new RealisationUaPrototype([
+             'realisation_ua_id' => $values[0] ?? null,
+             'realisation_tache_id' => $values[1] ?? null,
+             'note' => $values[2] ?? null,
+             'bareme' => $values[3] ?? null,
+             'remarque_formateur' => $values[4] ?? null,
+             'date_debut' => $values[5] ?? null,
+             'date_fin' => $values[6] ?? null,
              'reference' => $reference,
-             'note' => $values[1] ?? null,
-             'bareme' => $values[2] ?? null,
-             'remarque_formateur' => $values[3] ?? null,
-             'date_debut' => $values[4] ?? null,
-             'date_fin' => $values[5] ?? null,
-             'realisation_ua_id' => $values[6] ?? null,
-             'realisation_tache_id' => $values[7] ?? null,
         ]);
 
 

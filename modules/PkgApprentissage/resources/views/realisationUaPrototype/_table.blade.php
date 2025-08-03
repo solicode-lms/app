@@ -9,11 +9,9 @@
                     $bulkEdit = $realisationUaPrototypes_permissions['edit-realisationUaPrototype'] || $realisationUaPrototypes_permissions['destroy-realisationUaPrototype'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_ua_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="realisation_ua_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,22 +23,16 @@
                 @endphp
                 <tr id="realisationUaPrototype-row-{{$realisationUaPrototype->id}}" data-id="{{$realisationUaPrototype->id}}">
                     <x-checkbox-row :item="$realisationUaPrototype" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
-                        {{ $realisationUaPrototype->note }}
-
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationUaPrototype->date_debut }}" >
-                        <x-deadline-display :value="$realisationUaPrototype->date_debut" />
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationUaPrototype->date_fin }}" >
-                        <x-deadline-display :value="$realisationUaPrototype->date_fin" />
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationUa }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationUa }}" >
                         {{  $realisationUaPrototype->realisationUa }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationTache }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationTache }}" >
                         {{  $realisationUaPrototype->realisationTache }}
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
+                        {{ $realisationUaPrototype->note }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

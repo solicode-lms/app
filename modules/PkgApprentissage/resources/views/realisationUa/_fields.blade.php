@@ -29,41 +29,7 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="realisation_micro_competence_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_micro_competence_id" id="bulk_field_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_micro_competence_id">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_micro_competence_id" 
-            required
-            
-            
-            name="realisation_micro_competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationMicroCompetences as $realisationMicroCompetence)
-                    <option value="{{ $realisationMicroCompetence->id }}"
-                        {{ (isset($itemRealisationUa) && $itemRealisationUa->realisation_micro_competence_id == $realisationMicroCompetence->id) || (old('realisation_micro_competence_id>') == $realisationMicroCompetence->id) ? 'selected' : '' }}>
-                        {{ $realisationMicroCompetence }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_micro_competence_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="unite_apprentissage_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -91,6 +57,40 @@
                 @endforeach
             </select>
           @error('unite_apprentissage_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUa" field="realisation_micro_competence_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_micro_competence_id" id="bulk_field_realisation_micro_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_micro_competence_id">
+            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_micro_competence_id" 
+            required
+            
+            
+            name="realisation_micro_competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationMicroCompetences as $realisationMicroCompetence)
+                    <option value="{{ $realisationMicroCompetence->id }}"
+                        {{ (isset($itemRealisationUa) && $itemRealisationUa->realisation_micro_competence_id == $realisationMicroCompetence->id) || (old('realisation_micro_competence_id>') == $realisationMicroCompetence->id) ? 'selected' : '' }}>
+                        {{ $realisationMicroCompetence }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_micro_competence_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

@@ -6,6 +6,34 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.singular')) }}</small>
+                              
+      @if($itemRealisationUaPrototype->realisationUa)
+        {{ $itemRealisationUaPrototype->realisationUa }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
+                              
+      @if($itemRealisationUaPrototype->realisationTache)
+        {{ $itemRealisationUaPrototype->realisationTache }}
+      @else
+        —
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.note')) }}</small>
                               
       <span>
@@ -73,34 +101,6 @@
         —
       @endif
     </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.singular')) }}</small>
-                              
-      @if($itemRealisationUaPrototype->realisationUa)
-        {{ $itemRealisationUaPrototype->realisationUa }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
-                              
-      @if($itemRealisationUaPrototype->realisationTache)
-        {{ $itemRealisationUaPrototype->realisationTache }}
-      @else
-        —
-      @endif
-
           </div>
       </div>
   

@@ -21,13 +21,13 @@ class BaseRealisationUaPrototypeService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'realisation_ua_id',
+        'realisation_tache_id',
         'note',
         'bareme',
         'remarque_formateur',
         'date_debut',
-        'date_fin',
-        'realisation_ua_id',
-        'realisation_tache_id'
+        'date_fin'
     ];
 
     /**

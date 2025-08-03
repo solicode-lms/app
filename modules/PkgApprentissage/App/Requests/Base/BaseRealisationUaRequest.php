@@ -29,8 +29,8 @@ class BaseRealisationUaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'realisation_micro_competence_id' => 'required',
             'unite_apprentissage_id' => 'required',
+            'realisation_micro_competence_id' => 'required',
             'etat_realisation_ua_id' => 'nullable',
             'progression_cache' => 'required',
             'note_cache' => 'required',
@@ -49,8 +49,8 @@ class BaseRealisationUaRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.realisation_micro_competence_id')]),
             'unite_apprentissage_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.unite_apprentissage_id')]),
+            'realisation_micro_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.realisation_micro_competence_id')]),
             'etat_realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.etat_realisation_ua_id')]),
             'progression_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.progression_cache')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.note_cache')]),

@@ -373,7 +373,7 @@
     },
     {
         "reference": "RealisationUa_realisation_micro_competence_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 2,
         "e_data_field_reference": "RealisationUa_realisation_micro_competence_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -427,7 +427,7 @@
     },
     {
         "reference": "RealisationUa_unite_apprentissage_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 1,
         "e_data_field_reference": "RealisationUa_unite_apprentissage_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -623,7 +623,7 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id_displayOrder",
-        "value_integer": 6,
+        "value_integer": 7,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -649,7 +649,7 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id_displayOrder",
-        "value_integer": 7,
+        "value_integer": 6,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -666,5 +666,19 @@
         "value_boolean": 1,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_uas_editOnFullScreen",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_model_reference": "realisation_uas",
+        "e_metadata_definition_reference": "editOnFullScreen"
+    },
+    {
+        "reference": "RealisationUa_progression_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_progression_cache",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

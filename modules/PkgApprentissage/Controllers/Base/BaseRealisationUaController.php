@@ -8,8 +8,8 @@ use Modules\PkgApprentissage\Services\EtatRealisationUaService;
 use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
 use Modules\PkgCompetences\Services\UniteApprentissageService;
 use Modules\PkgApprentissage\Services\RealisationChapitreService;
-use Modules\PkgApprentissage\Services\RealisationUaProjetService;
 use Modules\PkgApprentissage\Services\RealisationUaPrototypeService;
+use Modules\PkgApprentissage\Services\RealisationUaProjetService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -83,8 +83,8 @@ class BaseRealisationUaController extends AdminController
         $itemRealisationUa = $this->realisationUaService->createInstance();
         
 
-        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $etatRealisationUas = $this->etatRealisationUaService->all();
 
         $bulkEdit = false;
@@ -111,8 +111,8 @@ class BaseRealisationUaController extends AdminController
          $itemRealisationUa = $this->realisationUaService->find($realisationUa_ids[0]);
          
  
-        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $etatRealisationUas = $this->etatRealisationUaService->all();
 
         $bulkEdit = true;
@@ -166,13 +166,6 @@ class BaseRealisationUaController extends AdminController
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
-        $this->viewState->set('scope.realisationUaProjet.realisation_ua_id', $id);
-        
-
-        $realisationUaProjetService =  new RealisationUaProjetService();
-        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
-        extract($realisationUaProjets_view_data);
-
         $this->viewState->set('scope.realisationUaPrototype.realisation_ua_id', $id);
         
 
@@ -180,11 +173,18 @@ class BaseRealisationUaController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
+        $this->viewState->set('scope.realisationUaProjet.realisation_ua_id', $id);
+        
+
+        $realisationUaProjetService =  new RealisationUaProjetService();
+        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
+        extract($realisationUaProjets_view_data);
+
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUa._show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+            return view('PkgApprentissage::realisationUa._show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
         }
 
-        return view('PkgApprentissage::realisationUa.show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+        return view('PkgApprentissage::realisationUa.show', array_merge(compact('itemRealisationUa'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
 
     }
     /**
@@ -197,8 +197,8 @@ class BaseRealisationUaController extends AdminController
         $itemRealisationUa = $this->realisationUaService->edit($id);
 
 
-        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $uniteApprentissages = $this->uniteApprentissageService->all();
+        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
         $etatRealisationUas = $this->etatRealisationUaService->all();
 
 
@@ -209,13 +209,6 @@ class BaseRealisationUaController extends AdminController
         $realisationChapitres_view_data = $realisationChapitreService->prepareDataForIndexView();
         extract($realisationChapitres_view_data);
 
-        $this->viewState->set('scope.realisationUaProjet.realisation_ua_id', $id);
-        
-
-        $realisationUaProjetService =  new RealisationUaProjetService();
-        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
-        extract($realisationUaProjets_view_data);
-
         $this->viewState->set('scope.realisationUaPrototype.realisation_ua_id', $id);
         
 
@@ -223,13 +216,20 @@ class BaseRealisationUaController extends AdminController
         $realisationUaPrototypes_view_data = $realisationUaPrototypeService->prepareDataForIndexView();
         extract($realisationUaPrototypes_view_data);
 
+        $this->viewState->set('scope.realisationUaProjet.realisation_ua_id', $id);
+        
+
+        $realisationUaProjetService =  new RealisationUaProjetService();
+        $realisationUaProjets_view_data = $realisationUaProjetService->prepareDataForIndexView();
+        extract($realisationUaProjets_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationUa._edit', array_merge(compact('bulkEdit' , 'itemRealisationUa','etatRealisationUas', 'realisationMicroCompetences', 'uniteApprentissages'),$realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+            return view('PkgApprentissage::realisationUa._edit', array_merge(compact('bulkEdit' , 'itemRealisationUa','etatRealisationUas', 'realisationMicroCompetences', 'uniteApprentissages'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
         }
 
-        return view('PkgApprentissage::realisationUa.edit', array_merge(compact('bulkEdit' ,'itemRealisationUa','etatRealisationUas', 'realisationMicroCompetences', 'uniteApprentissages'),$realisationChapitre_compact_value, $realisationUaProjet_compact_value, $realisationUaPrototype_compact_value));
+        return view('PkgApprentissage::realisationUa.edit', array_merge(compact('bulkEdit' ,'itemRealisationUa','etatRealisationUas', 'realisationMicroCompetences', 'uniteApprentissages'),$realisationChapitre_compact_value, $realisationUaPrototype_compact_value, $realisationUaProjet_compact_value));
 
 
     }
