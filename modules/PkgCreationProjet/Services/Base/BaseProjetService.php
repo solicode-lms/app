@@ -21,8 +21,8 @@ class BaseProjetService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'filiere_id',
         'session_formation_id',
+        'filiere_id',
         'titre',
         'travail_a_faire',
         'critere_de_travail',
@@ -68,23 +68,6 @@ class BaseProjetService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('filiere_id', $scopeVariables)) {
-
-
-                    $filiereService = new \Modules\PkgFormation\Services\FiliereService();
-                    $filiereIds = $this->getAvailableFilterValues('filiere_id');
-                    $filieres = $filiereService->getByIds($filiereIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgFormation::filiere.plural"), 
-                        'filiere_id', 
-                        \Modules\PkgFormation\Models\Filiere::class, 
-                        'code',
-                        $filieres
-                    );
-                }
-            
-            
                 if (!array_key_exists('session_formation_id', $scopeVariables)) {
 
 
@@ -98,6 +81,23 @@ class BaseProjetService extends BaseService
                         \Modules\PkgSessions\Models\SessionFormation::class, 
                         'titre',
                         $sessionFormations
+                    );
+                }
+            
+            
+                if (!array_key_exists('filiere_id', $scopeVariables)) {
+
+
+                    $filiereService = new \Modules\PkgFormation\Services\FiliereService();
+                    $filiereIds = $this->getAvailableFilterValues('filiere_id');
+                    $filieres = $filiereService->getByIds($filiereIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgFormation::filiere.plural"), 
+                        'filiere_id', 
+                        \Modules\PkgFormation\Models\Filiere::class, 
+                        'code',
+                        $filieres
                     );
                 }
             

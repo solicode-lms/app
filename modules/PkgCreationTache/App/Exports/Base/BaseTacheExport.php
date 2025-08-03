@@ -33,8 +33,8 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
-                'titre' => 'titre',
                 'priorite' => 'priorite',
+                'titre' => 'titre',
                 'projet_reference' => 'projet_reference',
                 'description' => 'description',
                 'dateDebut' => 'dateDebut',
@@ -48,8 +48,8 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         } else {
             return [
                 'ordre' => __('PkgCreationTache::tache.ordre'),
-                'titre' => __('PkgCreationTache::tache.titre'),
                 'priorite' => __('PkgCreationTache::tache.priorite'),
+                'titre' => __('PkgCreationTache::tache.titre'),
                 'projet_reference' => __('PkgCreationTache::tache.projet_reference'),
                 'description' => __('PkgCreationTache::tache.description'),
                 'dateDebut' => __('PkgCreationTache::tache.dateDebut'),
@@ -71,8 +71,8 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         return $this->data->map(function ($tache) {
             return [
                 'ordre' => (string) $tache->ordre,
-                'titre' => $tache->titre,
                 'priorite' => (string) $tache->priorite,
+                'titre' => $tache->titre,
                 'projet_reference' => $tache->projet?->reference,
                 'description' => $tache->description,
                 'dateDebut' => $tache->dateDebut,

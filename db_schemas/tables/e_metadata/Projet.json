@@ -356,7 +356,7 @@
     {
         "reference": "Projet_filiere_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 1,
+        "value_integer": 2,
         "value_float": 0,
         "e_data_field_reference": "Projet_filiere_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -733,7 +733,7 @@
     },
     {
         "reference": "Projet_session_formation_id_displayOrder",
-        "value_integer": 2,
+        "value_integer": 1,
         "e_data_field_reference": "Projet_session_formation_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -799,5 +799,19 @@
         "value_float": 0,
         "e_data_field_reference": "Projet_session_formation_id",
         "e_metadata_definition_reference": "dataCalcul"
+    },
+    {
+        "reference": "Projet_filiere_id_scopeDataByRole",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "key": "scope.filiere.groupes.formateurs.id",
+                "role": "formateur",
+                "value": "formateur_id"
+            }
+        ],
+        "e_data_field_reference": "Projet_filiere_id",
+        "e_metadata_definition_reference": "scopeDataByRole"
     }
 ]

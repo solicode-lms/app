@@ -64,7 +64,7 @@
     },
     {
         "reference": "Tache_titre_displayOrder",
-        "value_integer": 2,
+        "value_integer": 3,
         "e_data_field_reference": "Tache_titre",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -77,7 +77,7 @@
     {
         "reference": "Tache_titre_inputMdWidth",
         "value_boolean": 0,
-        "value_integer": 8,
+        "value_integer": 12,
         "value_float": 0,
         "e_data_field_reference": "Tache_titre",
         "e_metadata_definition_reference": "inputMdWidth"
@@ -194,7 +194,7 @@
     {
         "reference": "Tache_projet_id_inputMdWidth",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 12,
         "value_float": 0,
         "e_data_field_reference": "Tache_projet_id",
         "e_metadata_definition_reference": "inputMdWidth"
@@ -220,7 +220,8 @@
     },
     {
         "reference": "Tache_priorite_tache_id_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -474,7 +475,7 @@
     },
     {
         "reference": "Tache_dateFin_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
         "value_float": 0,
         "e_data_field_reference": "Tache_dateFin",
         "e_metadata_definition_reference": "displayInTable"
@@ -500,7 +501,7 @@
     {
         "reference": "Tache_titre_columnWidth",
         "value_boolean": 1,
-        "value_integer": 20,
+        "value_integer": 40,
         "value_float": 0,
         "e_data_field_reference": "Tache_titre",
         "e_metadata_definition_reference": "columnWidth"
@@ -610,7 +611,8 @@
     },
     {
         "reference": "Tache_priorite_tache_id_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -724,7 +726,8 @@
     },
     {
         "reference": "Tache_phase_evaluation_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_phase_evaluation_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -772,7 +775,8 @@
     },
     {
         "reference": "Tache_chapitre_id_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "Tache_chapitre_id",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -820,7 +824,7 @@
     },
     {
         "reference": "Tache_priorite_displayOrder",
-        "value_integer": 3,
+        "value_integer": 2,
         "e_data_field_reference": "Tache_priorite",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -832,7 +836,9 @@
     },
     {
         "reference": "Tache_priorite_inputMdWidth",
-        "value_integer": 6,
+        "value_boolean": 0,
+        "value_integer": 2,
+        "value_float": 0,
         "e_data_field_reference": "Tache_priorite",
         "e_metadata_definition_reference": "inputMdWidth"
     },
@@ -872,7 +878,7 @@
     {
         "reference": "Tache_note_columnWidth",
         "value_boolean": 1,
-        "value_integer": 5,
+        "value_integer": 10,
         "value_float": 0,
         "e_data_field_reference": "Tache_note",
         "e_metadata_definition_reference": "columnWidth"

@@ -22,8 +22,8 @@ class BaseTacheService extends BaseService
      */
     protected $fieldsSearchable = [
         'ordre',
-        'titre',
         'priorite',
+        'titre',
         'projet_id',
         'description',
         'dateDebut',

@@ -10,13 +10,10 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="5"  field="ordre" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="20"  field="titre" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.titre'))!!}" />
                 <x-sortable-column :sortable="true" width="5"  field="priorite" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.priorite'))!!}" />
-                <x-sortable-column :sortable="true" width="11.75"  field="dateFin" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.dateFin'))!!}" />
-                <x-sortable-column :sortable="true" width="5"  field="note" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.note'))!!}" />
-                <x-sortable-column :sortable="true" width="11.75" field="phase_evaluation_id" modelname="tache" label="{!!ucfirst(__('PkgCompetences::phaseEvaluation.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="11.75" field="chapitre_id" modelname="tache" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="11.75"  field="livrables" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="40"  field="titre" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.titre'))!!}" />
+                <x-sortable-column :sortable="true" width="10"  field="note" modelname="tache" label="{!!ucfirst(__('PkgCreationTache::tache.note'))!!}" />
+                <x-sortable-column :sortable="true" width="22"  field="livrables" modelname="tache" label="{!!ucfirst(__('PkgCreationProjet::livrable.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -34,29 +31,17 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 20%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
-                        {{ $tache->titre }}
-
-                    </td>
                     <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="priorite"  data-toggle="tooltip" title="{{ $tache->priorite }}" >
                         {{ $tache->priorite }}
 
                     </td>
-                    <td style="max-width: 11.75%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="dateFin"  data-toggle="tooltip" title="{{ $tache->dateFin }}" >
-                        <x-deadline-display :value="$tache->dateFin" />
+                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="titre"  data-toggle="tooltip" title="{{ $tache->titre }}" >
+                        @include('PkgCreationTache::tache.custom.fields.titre', ['entity' => $tache])
                     </td>
-                    <td style="max-width: 5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="note"  data-toggle="tooltip" title="{{ $tache->note }}" >
                         @include('PkgCreationTache::tache.custom.fields.note', ['entity' => $tache])
                     </td>
-                    <td style="max-width: 11.75%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="phase_evaluation_id"  data-toggle="tooltip" title="{{ $tache->phaseEvaluation }}" >
-                        {{  $tache->phaseEvaluation }}
-
-                    </td>
-                    <td style="max-width: 11.75%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $tache->chapitre }}" >
-                        {{  $tache->chapitre }}
-
-                    </td>
-                    <td style="max-width: 11.75%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
+                    <td style="max-width: 22%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tache->id}}" data-field="livrables"  data-toggle="tooltip" title="{{ $tache->livrables }}" >
                         <ul>
                             @foreach ($tache->livrables as $livrable)
                                 <li @if(strlen($livrable) > 30) data-toggle="tooltip" title="{{$livrable}}"  @endif>@limit($livrable, 30)</li>

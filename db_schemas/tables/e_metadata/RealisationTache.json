@@ -1130,7 +1130,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "apprenant,formateur,admin"
+            "roles": "formateur,admin"
         },
         "e_data_field_reference": "RealisationTache_dateDebut",
         "e_metadata_definition_reference": "editableByRoles"
@@ -1140,7 +1140,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "apprenant,formateur,admin"
+            "roles": "formateur,admin"
         },
         "e_data_field_reference": "RealisationTache_dateFin",
         "e_metadata_definition_reference": "editableByRoles"

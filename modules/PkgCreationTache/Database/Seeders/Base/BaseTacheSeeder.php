@@ -97,8 +97,8 @@ class BaseTacheSeeder extends Seeder
 
                 $tacheData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
-                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "priorite" => isset($row["priorite"]) && $row["priorite"] !== "" ? $row["priorite"] : null,
+                        "titre" => isset($row["titre"]) && $row["titre"] !== "" ? $row["titre"] : null,
                         "projet_id" => $projet_id,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,

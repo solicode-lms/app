@@ -56,8 +56,8 @@ class BaseProjetImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new Projet([
-             'filiere_id' => $values[0] ?? null,
-             'session_formation_id' => $values[1] ?? null,
+             'session_formation_id' => $values[0] ?? null,
+             'filiere_id' => $values[1] ?? null,
              'titre' => $values[2] ?? null,
              'travail_a_faire' => $values[3] ?? null,
              'critere_de_travail' => $values[4] ?? null,

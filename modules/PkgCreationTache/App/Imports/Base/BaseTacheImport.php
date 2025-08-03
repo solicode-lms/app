@@ -57,8 +57,8 @@ class BaseTacheImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new Tache([
              'ordre' => $values[0] ?? null,
-             'titre' => $values[1] ?? null,
-             'priorite' => $values[2] ?? null,
+             'priorite' => $values[1] ?? null,
+             'titre' => $values[2] ?? null,
              'projet_id' => $values[3] ?? null,
              'description' => $values[4] ?? null,
              'dateDebut' => $values[5] ?? null,

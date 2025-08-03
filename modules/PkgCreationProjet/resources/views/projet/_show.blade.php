@@ -6,10 +6,10 @@
             <div class="row no-gutters mb-4">
                       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}</small>
                               
-      @if($itemProjet->filiere)
-        {{ $itemProjet->filiere }}
+      @if($itemProjet->sessionFormation)
+        {{ $itemProjet->sessionFormation }}
       @else
         —
       @endif
@@ -20,10 +20,10 @@
 
       <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}</small>
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
                               
-      @if($itemProjet->sessionFormation)
-        {{ $itemProjet->sessionFormation }}
+      @if($itemProjet->filiere)
+        {{ $itemProjet->filiere }}
       @else
         —
       @endif

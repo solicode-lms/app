@@ -9,7 +9,7 @@ return [
     'dateFin' => 'Date de fin',
     'projet_id' => 'Projet',
     'priorite_tache_id' => 'Priorité',
-    'ordre' => 'Ordre',
+    'ordre' => '#',
     'note' => 'Note',
     'priorite' => 'Priorité'
 ];

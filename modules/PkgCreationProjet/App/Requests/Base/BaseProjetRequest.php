@@ -29,8 +29,8 @@ class BaseProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filiere_id' => 'required',
             'session_formation_id' => 'nullable',
+            'filiere_id' => 'required',
             'titre' => 'required|string|max:255',
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
@@ -47,8 +47,8 @@ class BaseProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
             'session_formation_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.session_formation_id')]),
+            'filiere_id.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.filiere_id')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.titre')]),
             'titre.max' => __('validation.titreMax'),
             'travail_a_faire.required' => __('validation.required', ['attribute' => __('PkgCreationProjet::Projet.travail_a_faire')]),

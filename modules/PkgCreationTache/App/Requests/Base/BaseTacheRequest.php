@@ -30,8 +30,8 @@ class BaseTacheRequest extends FormRequest
     {
         return [
             'ordre' => 'nullable|integer',
-            'titre' => 'required|string|max:255',
             'priorite' => 'nullable|integer',
+            'titre' => 'required|string|max:255',
             'projet_id' => 'required',
             'description' => 'nullable|string',
             'dateDebut' => 'nullable',
@@ -53,9 +53,9 @@ class BaseTacheRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.ordre')]),
+            'priorite.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.priorite')]),
             'titre.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.titre')]),
             'titre.max' => __('validation.titreMax'),
-            'priorite.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.priorite')]),
             'projet_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.projet_id')]),
             'description.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.description')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.dateDebut')]),

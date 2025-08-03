@@ -115,7 +115,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateDebut" :bulkEdit="$bulkEdit">
-      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
+      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -147,7 +147,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateFin" :bulkEdit="$bulkEdit">
-      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'apprenant,formateur,admin')); @endphp
+      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -362,15 +362,16 @@
 
 
 @if($itemRealisationTache->id)
+@if($itemRealisationTache->evaluationRealisationTaches->count() > 0 || auth()->user()?->can('create-evaluationRealisationTache'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
             {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.plural')) }}
-            
     </label>
 
   @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
+@endif
 @endif
 @endif
 

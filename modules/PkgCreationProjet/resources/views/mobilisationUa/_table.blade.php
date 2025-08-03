@@ -10,9 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="30" field="unite_apprentissage_id" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCompetences::uniteApprentissage.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="6"  field="bareme_evaluation_prototype" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCreationProjet::mobilisationUa.bareme_evaluation_prototype'))!!}" />
                 <x-sortable-column :sortable="false" width="25"  field="criteres_evaluation_prototype" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'))!!}" />
-                <x-sortable-column :sortable="true" width="6"  field="bareme_evaluation_projet" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet'))!!}" />
                 <x-sortable-column :sortable="false" width="25"  field="criteres_evaluation_projet" modelname="mobilisationUa" label="{!!ucfirst(__('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
@@ -29,16 +27,8 @@
                         {{  $mobilisationUa->uniteApprentissage }}
 
                     </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="bareme_evaluation_prototype"  data-toggle="tooltip" title="{{ $mobilisationUa->bareme_evaluation_prototype }}" >
-                        {{ $mobilisationUa->bareme_evaluation_prototype }}
-
-                    </td>
                     <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_prototype"  data-toggle="tooltip" title="{{ $mobilisationUa->criteres_evaluation_prototype }}" >
                         @include('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_prototype', ['entity' => $mobilisationUa])
-                    </td>
-                    <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="bareme_evaluation_projet"  data-toggle="tooltip" title="{{ $mobilisationUa->bareme_evaluation_projet }}" >
-                        {{ $mobilisationUa->bareme_evaluation_projet }}
-
                     </td>
                     <td style="max-width: 25%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$mobilisationUa->id}}" data-field="criteres_evaluation_projet"  data-toggle="tooltip" title="{{ $mobilisationUa->criteres_evaluation_projet }}" >
                         @include('PkgCreationProjet::mobilisationUa.custom.fields.criteres_evaluation_projet', ['entity' => $mobilisationUa])

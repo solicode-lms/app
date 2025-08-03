@@ -4,20 +4,7 @@
 <div id="tache-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-8 col-lg-8 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.titre')) }}</small>
-                              @if(! is_null($itemTache->titre) && $itemTache->titre !== '')
-        {{ $itemTache->titre }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                      <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite')) }}</small>
                               
@@ -32,7 +19,20 @@
       </div>
   
 
-      <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+          <div class="border rounded p-2 h-100">
+                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.titre')) }}</small>
+                              @if(! is_null($itemTache->titre) && $itemTache->titre !== '')
+        {{ $itemTache->titre }}
+      @else
+        <span class="text-muted">—</span>
+      @endif
+
+          </div>
+      </div>
+  
+
+      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::projet.singular')) }}</small>
                               
@@ -125,20 +125,6 @@
                               
       @if($itemTache->phaseEvaluation)
         {{ $itemTache->phaseEvaluation }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.priorite_tache_id')) }}</small>
-                              
-      @if($itemTache->prioriteTache)
-        {{ $itemTache->prioriteTache }}
       @else
         —
       @endif

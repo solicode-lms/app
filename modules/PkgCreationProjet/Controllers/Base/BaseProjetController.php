@@ -55,6 +55,10 @@ class BaseProjetController extends AdminController
         }
 
 
+        // scopeDataByRole
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+        }
 
          // Extraire les paramètres de recherche, pagination, filtres
         $projets_params = array_merge(
@@ -90,11 +94,14 @@ class BaseProjetController extends AdminController
         }
 
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+        }
         $itemProjet = $this->projetService->createInstance();
         
 
-        $filieres = $this->filiereService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = false;
@@ -122,11 +129,14 @@ class BaseProjetController extends AdminController
            $this->viewState->set('scope_form.projet.formateur_id'  , $this->sessionState->get('formateur_id'));
         }
  
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->init('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+        }
          $itemProjet = $this->projetService->find($projet_ids[0]);
          
  
-        $filieres = $this->filiereService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
         $bulkEdit = true;
@@ -215,13 +225,16 @@ class BaseProjetController extends AdminController
 
         $this->viewState->setContextKey('projet.edit_' . $id);
 
+        if(Auth::user()->hasRole('formateur')){
+            $this->viewState->set('scope.filiere.groupes.formateurs.id'  , $this->sessionState->get('formateur_id'));
+        }
 
         $itemProjet = $this->projetService->edit($id);
         $this->authorize('edit', $itemProjet);
 
 
-        $filieres = $this->filiereService->all();
         $sessionFormations = $this->sessionFormationService->all();
+        $filieres = $this->filiereService->all();
         $formateurs = $this->formateurService->all();
 
 
