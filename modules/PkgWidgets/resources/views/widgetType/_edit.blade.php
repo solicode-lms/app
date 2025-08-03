@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="widgetType-hasmany-tabs-home-tab" data-toggle="pill" href="#widgetType-hasmany-tabs-home" role="tab" aria-controls="widgetType-hasmany-tabs-home" aria-selected="true">{{__('PkgWidgets::widgetType.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
+                         @if($itemWidgetType->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                         <li class="nav-item">
                             <a class="nav-link" id="widgetType-hasmany-tabs-widget-tab" data-toggle="pill" href="#widgetType-hasmany-tabs-widget" role="tab" aria-controls="widgetType-hasmany-tabs-widget" aria-selected="false">
                                 <i class="nav-icon fas fa-chart-bar"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgWidgets::widgetType._fields')
                             </div>
 
-                            @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
+                            @if($itemWidgetType->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                             <div class="tab-pane fade" id="widgetType-hasmany-tabs-widget" role="tabpanel" aria-labelledby="widgetType-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'widgetType.edit_' . $itemWidgetType->id])
                             </div>

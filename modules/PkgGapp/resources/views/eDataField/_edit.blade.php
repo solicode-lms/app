@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="eDataField-hasmany-tabs-home-tab" data-toggle="pill" href="#eDataField-hasmany-tabs-home" role="tab" aria-controls="eDataField-hasmany-tabs-home" aria-selected="true">{{__('PkgGapp::eDataField.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
+                         @if($itemEDataField->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
                         <li class="nav-item">
                             <a class="nav-link" id="eDataField-hasmany-tabs-eMetadatum-tab" data-toggle="pill" href="#eDataField-hasmany-tabs-eMetadatum" role="tab" aria-controls="eDataField-hasmany-tabs-eMetadatum" aria-selected="false">
                                 <i class="nav-icon fas fa-th-list"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgGapp::eDataField._fields')
                             </div>
 
-                            @if($itemRealisationTache->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
+                            @if($itemEDataField->eMetadata->count() > 0 || auth()->user()?->can('create-eMetadatum'))
                             <div class="tab-pane fade" id="eDataField-hasmany-tabs-eMetadatum" role="tabpanel" aria-labelledby="eDataField-hasmany-tabs-eMetadatum-tab">
                                 @include('PkgGapp::eMetadatum._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'eDataField.edit_' . $itemEDataField->id])
                             </div>

@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="apprenant-hasmany-tabs-home-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-home" role="tab" aria-controls="apprenant-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::apprenant.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
+                         @if($itemApprenant->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="apprenant-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-certificate"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgApprenants::apprenant._fields')
                             </div>
 
-                            @if($itemRealisationTache->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
+                            @if($itemApprenant->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                             <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationMicroCompetence" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationMicroCompetence-tab">
                                 @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
                             </div>

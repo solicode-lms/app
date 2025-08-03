@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="sysModule-hasmany-tabs-home-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-home" role="tab" aria-controls="sysModule-hasmany-tabs-home" aria-selected="true">{{__('Core::sysModule.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->featureDomains->count() > 0 || auth()->user()?->can('create-featureDomain'))
+                         @if($itemSysModule->featureDomains->count() > 0 || auth()->user()?->can('create-featureDomain'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysModule-hasmany-tabs-featureDomain-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-featureDomain" role="tab" aria-controls="sysModule-hasmany-tabs-featureDomain" aria-selected="false">
                                 <i class="nav-icon fas fa-th-large"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->sysControllers->count() > 0 || auth()->user()?->can('create-sysController'))
+                         @if($itemSysModule->sysControllers->count() > 0 || auth()->user()?->can('create-sysController'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysModule-hasmany-tabs-sysController-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysController" role="tab" aria-controls="sysModule-hasmany-tabs-sysController" aria-selected="false">
                                 <i class="nav-icon fas fa-server"></i>
@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->sysModels->count() > 0 || auth()->user()?->can('create-sysModel'))
+                         @if($itemSysModule->sysModels->count() > 0 || auth()->user()?->can('create-sysModel'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysModule-hasmany-tabs-sysModel-tab" data-toggle="pill" href="#sysModule-hasmany-tabs-sysModel" role="tab" aria-controls="sysModule-hasmany-tabs-sysModel" aria-selected="false">
                                 <i class="nav-icon fas fa-cubes"></i>
@@ -70,17 +70,17 @@
                                 @include('Core::sysModule._fields')
                             </div>
 
-                            @if($itemRealisationTache->featureDomains->count() > 0 || auth()->user()?->can('create-featureDomain'))
+                            @if($itemSysModule->featureDomains->count() > 0 || auth()->user()?->can('create-featureDomain'))
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-featureDomain" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-featureDomain-tab">
                                 @include('Core::featureDomain._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->sysControllers->count() > 0 || auth()->user()?->can('create-sysController'))
+                            @if($itemSysModule->sysControllers->count() > 0 || auth()->user()?->can('create-sysController'))
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysController" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysController-tab">
                                 @include('Core::sysController._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->sysModels->count() > 0 || auth()->user()?->can('create-sysModel'))
+                            @if($itemSysModule->sysModels->count() > 0 || auth()->user()?->can('create-sysModel'))
                             <div class="tab-pane fade" id="sysModule-hasmany-tabs-sysModel" role="tabpanel" aria-labelledby="sysModule-hasmany-tabs-sysModel-tab">
                                 @include('Core::sysModel._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModule.edit_' . $itemSysModule->id])
                             </div>

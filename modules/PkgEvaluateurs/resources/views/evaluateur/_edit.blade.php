@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="evaluateur-hasmany-tabs-home-tab" data-toggle="pill" href="#evaluateur-hasmany-tabs-home" role="tab" aria-controls="evaluateur-hasmany-tabs-home" aria-selected="true">{{__('PkgEvaluateurs::evaluateur.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
+                         @if($itemEvaluateur->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="evaluateur-hasmany-tabs-evaluationRealisationProjet-tab" data-toggle="pill" href="#evaluateur-hasmany-tabs-evaluationRealisationProjet" role="tab" aria-controls="evaluateur-hasmany-tabs-evaluationRealisationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-check-square"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgEvaluateurs::evaluateur._fields')
                             </div>
 
-                            @if($itemRealisationTache->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
+                            @if($itemEvaluateur->evaluationRealisationProjets->count() > 0 || auth()->user()?->can('create-evaluationRealisationProjet'))
                             <div class="tab-pane fade" id="evaluateur-hasmany-tabs-evaluationRealisationProjet" role="tabpanel" aria-labelledby="evaluateur-hasmany-tabs-evaluationRealisationProjet-tab">
                                 @include('PkgEvaluateurs::evaluationRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'evaluateur.edit_' . $itemEvaluateur->id])
                             </div>

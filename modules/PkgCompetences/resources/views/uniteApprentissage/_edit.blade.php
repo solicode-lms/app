@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="uniteApprentissage-hasmany-tabs-home-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-home" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-home" aria-selected="true">{{__('PkgCompetences::uniteApprentissage.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
+                         @if($itemUniteApprentissage->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
                         <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-chapitre" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-chapitre" aria-selected="false">
                                 <i class="nav-icon fas fa-chalkboard"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
+                         @if($itemUniteApprentissage->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
                         <li class="nav-item">
                             <a class="nav-link" id="uniteApprentissage-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#uniteApprentissage-hasmany-tabs-critereEvaluation" role="tab" aria-controls="uniteApprentissage-hasmany-tabs-critereEvaluation" aria-selected="false">
                                 <i class="nav-icon fas fa-check-circle"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgCompetences::uniteApprentissage._fields')
                             </div>
 
-                            @if($itemRealisationTache->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
+                            @if($itemUniteApprentissage->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-chapitre-tab">
                                 @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
+                            @if($itemUniteApprentissage->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
                             <div class="tab-pane fade" id="uniteApprentissage-hasmany-tabs-critereEvaluation" role="tabpanel" aria-labelledby="uniteApprentissage-hasmany-tabs-critereEvaluation-tab">
                                 @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'uniteApprentissage.edit_' . $itemUniteApprentissage->id])
                             </div>

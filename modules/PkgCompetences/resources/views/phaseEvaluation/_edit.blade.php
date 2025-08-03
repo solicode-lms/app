@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="phaseEvaluation-hasmany-tabs-home-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-home" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-home" aria-selected="true">{{__('PkgCompetences::phaseEvaluation.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
+                         @if($itemPhaseEvaluation->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
                         <li class="nav-item">
                             <a class="nav-link" id="phaseEvaluation-hasmany-tabs-critereEvaluation-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-critereEvaluation" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-critereEvaluation" aria-selected="false">
                                 <i class="nav-icon fas fa-check-circle"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->taches->count() > 0 || auth()->user()?->can('create-tache'))
+                         @if($itemPhaseEvaluation->taches->count() > 0 || auth()->user()?->can('create-tache'))
                         <li class="nav-item">
                             <a class="nav-link" id="phaseEvaluation-hasmany-tabs-tache-tab" data-toggle="pill" href="#phaseEvaluation-hasmany-tabs-tache" role="tab" aria-controls="phaseEvaluation-hasmany-tabs-tache" aria-selected="false">
                                 <i class="nav-icon fas fa-tasks"></i>
@@ -62,12 +62,12 @@
                                 @include('PkgCompetences::phaseEvaluation._fields')
                             </div>
 
-                            @if($itemRealisationTache->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
+                            @if($itemPhaseEvaluation->critereEvaluations->count() > 0 || auth()->user()?->can('create-critereEvaluation'))
                             <div class="tab-pane fade" id="phaseEvaluation-hasmany-tabs-critereEvaluation" role="tabpanel" aria-labelledby="phaseEvaluation-hasmany-tabs-critereEvaluation-tab">
                                 @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.edit_' . $itemPhaseEvaluation->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->taches->count() > 0 || auth()->user()?->can('create-tache'))
+                            @if($itemPhaseEvaluation->taches->count() > 0 || auth()->user()?->can('create-tache'))
                             <div class="tab-pane fade" id="phaseEvaluation-hasmany-tabs-tache" role="tabpanel" aria-labelledby="phaseEvaluation-hasmany-tabs-tache-tab">
                                 @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.edit_' . $itemPhaseEvaluation->id])
                             </div>

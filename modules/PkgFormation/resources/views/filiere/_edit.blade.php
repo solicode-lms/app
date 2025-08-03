@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="filiere-hasmany-tabs-home-tab" data-toggle="pill" href="#filiere-hasmany-tabs-home" role="tab" aria-controls="filiere-hasmany-tabs-home" aria-selected="true">{{__('PkgFormation::filiere.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
+                         @if($itemFiliere->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
                         <li class="nav-item">
                             <a class="nav-link" id="filiere-hasmany-tabs-groupe-tab" data-toggle="pill" href="#filiere-hasmany-tabs-groupe" role="tab" aria-controls="filiere-hasmany-tabs-groupe" aria-selected="false">
                                 <i class="nav-icon fas fa-users"></i>
@@ -44,7 +44,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->modules->count() > 0 || auth()->user()?->can('create-module'))
+                         @if($itemFiliere->modules->count() > 0 || auth()->user()?->can('create-module'))
                         <li class="nav-item">
                             <a class="nav-link" id="filiere-hasmany-tabs-module-tab" data-toggle="pill" href="#filiere-hasmany-tabs-module" role="tab" aria-controls="filiere-hasmany-tabs-module" aria-selected="false">
                                 <i class="nav-icon fas fa-puzzle-piece"></i>
@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->projets->count() > 0 || auth()->user()?->can('create-projet'))
+                         @if($itemFiliere->projets->count() > 0 || auth()->user()?->can('create-projet'))
                         <li class="nav-item">
                             <a class="nav-link" id="filiere-hasmany-tabs-projet-tab" data-toggle="pill" href="#filiere-hasmany-tabs-projet" role="tab" aria-controls="filiere-hasmany-tabs-projet" aria-selected="false">
                                 <i class="nav-icon fas fa-lightbulb"></i>
@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemRealisationTache->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
+                         @if($itemFiliere->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
                         <li class="nav-item">
                             <a class="nav-link" id="filiere-hasmany-tabs-sessionFormation-tab" data-toggle="pill" href="#filiere-hasmany-tabs-sessionFormation" role="tab" aria-controls="filiere-hasmany-tabs-sessionFormation" aria-selected="false">
                                 <i class="nav-icon fas fa-map"></i>
@@ -78,22 +78,22 @@
                                 @include('PkgFormation::filiere._fields')
                             </div>
 
-                            @if($itemRealisationTache->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
+                            @if($itemFiliere->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-groupe-tab">
                                 @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->modules->count() > 0 || auth()->user()?->can('create-module'))
+                            @if($itemFiliere->modules->count() > 0 || auth()->user()?->can('create-module'))
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-module" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-module-tab">
                                 @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->projets->count() > 0 || auth()->user()?->can('create-projet'))
+                            @if($itemFiliere->projets->count() > 0 || auth()->user()?->can('create-projet'))
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-projet" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-projet-tab">
                                 @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>
                             @endif
-                            @if($itemRealisationTache->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
+                            @if($itemFiliere->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
                             <div class="tab-pane fade" id="filiere-hasmany-tabs-sessionFormation" role="tabpanel" aria-labelledby="filiere-hasmany-tabs-sessionFormation-tab">
                                 @include('PkgSessions::sessionFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.edit_' . $itemFiliere->id])
                             </div>

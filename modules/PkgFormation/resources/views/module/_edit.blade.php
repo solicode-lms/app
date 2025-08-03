@@ -36,7 +36,7 @@
                             <a class="nav-link active" id="module-hasmany-tabs-home-tab" data-toggle="pill" href="#module-hasmany-tabs-home" role="tab" aria-controls="module-hasmany-tabs-home" aria-selected="true">{{__('PkgFormation::module.singular')}}</a>
                         </li>
 
-                         @if($itemRealisationTache->competences->count() > 0 || auth()->user()?->can('create-competence'))
+                         @if($itemModule->competences->count() > 0 || auth()->user()?->can('create-competence'))
                         <li class="nav-item">
                             <a class="nav-link" id="module-hasmany-tabs-competence-tab" data-toggle="pill" href="#module-hasmany-tabs-competence" role="tab" aria-controls="module-hasmany-tabs-competence" aria-selected="false">
                                 <i class="nav-icon fas fa-user-graduate"></i>
@@ -54,7 +54,7 @@
                                 @include('PkgFormation::module._fields')
                             </div>
 
-                            @if($itemRealisationTache->competences->count() > 0 || auth()->user()?->can('create-competence'))
+                            @if($itemModule->competences->count() > 0 || auth()->user()?->can('create-competence'))
                             <div class="tab-pane fade" id="module-hasmany-tabs-competence" role="tabpanel" aria-labelledby="module-hasmany-tabs-competence-tab">
                                 @include('PkgCompetences::competence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.edit_' . $itemModule->id])
                             </div>
