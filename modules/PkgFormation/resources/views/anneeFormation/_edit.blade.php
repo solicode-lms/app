@@ -36,24 +36,30 @@
                             <a class="nav-link active" id="anneeFormation-hasmany-tabs-home-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-home" role="tab" aria-controls="anneeFormation-hasmany-tabs-home" aria-selected="true">{{__('PkgFormation::anneeFormation.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="anneeFormation-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-affectationProjet" role="tab" aria-controls="anneeFormation-hasmany-tabs-affectationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-calendar-check"></i>
                                 {{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
                         <li class="nav-item">
                             <a class="nav-link" id="anneeFormation-hasmany-tabs-groupe-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-groupe" role="tab" aria-controls="anneeFormation-hasmany-tabs-groupe" aria-selected="false">
                                 <i class="nav-icon fas fa-users"></i>
                                 {{ucfirst(__('PkgApprenants::groupe.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
                         <li class="nav-item">
                             <a class="nav-link" id="anneeFormation-hasmany-tabs-sessionFormation-tab" data-toggle="pill" href="#anneeFormation-hasmany-tabs-sessionFormation" role="tab" aria-controls="anneeFormation-hasmany-tabs-sessionFormation" aria-selected="false">
                                 <i class="nav-icon fas fa-map"></i>
                                 {{ucfirst(__('PkgSessions::sessionFormation.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -64,15 +70,21 @@
                                 @include('PkgFormation::anneeFormation._fields')
                             </div>
 
+                            @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->groupes->count() > 0 || auth()->user()?->can('create-groupe'))
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-groupe" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-groupe-tab">
                                 @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->sessionFormations->count() > 0 || auth()->user()?->can('create-sessionFormation'))
                             <div class="tab-pane fade" id="anneeFormation-hasmany-tabs-sessionFormation" role="tabpanel" aria-labelledby="anneeFormation-hasmany-tabs-sessionFormation-tab">
                                 @include('PkgSessions::sessionFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'anneeFormation.edit_' . $itemAnneeFormation->id])
                             </div>
+                            @endif
 
                            
                         </div>

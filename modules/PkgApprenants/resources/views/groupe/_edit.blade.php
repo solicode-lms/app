@@ -36,18 +36,22 @@
                             <a class="nav-link active" id="groupe-hasmany-tabs-home-tab" data-toggle="pill" href="#groupe-hasmany-tabs-home" role="tab" aria-controls="groupe-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::groupe.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="groupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#groupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="groupe-hasmany-tabs-affectationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-calendar-check"></i>
                                 {{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->sousGroupes->count() > 0 || auth()->user()?->can('create-sousGroupe'))
                         <li class="nav-item">
                             <a class="nav-link" id="groupe-hasmany-tabs-sousGroupe-tab" data-toggle="pill" href="#groupe-hasmany-tabs-sousGroupe" role="tab" aria-controls="groupe-hasmany-tabs-sousGroupe" aria-selected="false">
                                 <i class="nav-icon fas fa-user-friends"></i>
                                 {{ucfirst(__('PkgApprenants::sousGroupe.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -58,12 +62,16 @@
                                 @include('PkgApprenants::groupe._fields')
                             </div>
 
+                            @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="groupe-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->sousGroupes->count() > 0 || auth()->user()?->can('create-sousGroupe'))
                             <div class="tab-pane fade" id="groupe-hasmany-tabs-sousGroupe" role="tabpanel" aria-labelledby="groupe-hasmany-tabs-sousGroupe-tab">
                                 @include('PkgApprenants::sousGroupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'groupe.edit_' . $itemGroupe->id])
                             </div>
+                            @endif
 
                            
                         </div>

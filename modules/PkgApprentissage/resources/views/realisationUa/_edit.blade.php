@@ -36,24 +36,30 @@
                             <a class="nav-link active" id="realisationUa-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-home" role="tab" aria-controls="realisationUa-hasmany-tabs-home" aria-selected="true">{{__('PkgApprentissage::realisationUa.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->realisationChapitres->count() > 0 || auth()->user()?->can('create-realisationChapitre'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationUa-hasmany-tabs-realisationChapitre-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationChapitre" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationChapitre" aria-selected="false">
                                 <i class="nav-icon fas fa-code"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationChapitre.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->realisationUaProjets->count() > 0 || auth()->user()?->can('create-realisationUaProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaProjet-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaProjet" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-cogs"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationUaProjet.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->realisationUaPrototypes->count() > 0 || auth()->user()?->can('create-realisationUaPrototype'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationUa-hasmany-tabs-realisationUaPrototype-tab" data-toggle="pill" href="#realisationUa-hasmany-tabs-realisationUaPrototype" role="tab" aria-controls="realisationUa-hasmany-tabs-realisationUaPrototype" aria-selected="false">
                                 <i class="nav-icon fas fa-cog"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationUaPrototype.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -64,15 +70,21 @@
                                 @include('PkgApprentissage::realisationUa._fields')
                             </div>
 
+                            @if($itemRealisationTache->realisationChapitres->count() > 0 || auth()->user()?->can('create-realisationChapitre'))
                             <div class="tab-pane fade" id="realisationUa-hasmany-tabs-realisationChapitre" role="tabpanel" aria-labelledby="realisationUa-hasmany-tabs-realisationChapitre-tab">
                                 @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.edit_' . $itemRealisationUa->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->realisationUaProjets->count() > 0 || auth()->user()?->can('create-realisationUaProjet'))
                             <div class="tab-pane fade" id="realisationUa-hasmany-tabs-realisationUaProjet" role="tabpanel" aria-labelledby="realisationUa-hasmany-tabs-realisationUaProjet-tab">
                                 @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.edit_' . $itemRealisationUa->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->realisationUaPrototypes->count() > 0 || auth()->user()?->can('create-realisationUaPrototype'))
                             <div class="tab-pane fade" id="realisationUa-hasmany-tabs-realisationUaPrototype" role="tabpanel" aria-labelledby="realisationUa-hasmany-tabs-realisationUaPrototype-tab">
                                 @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationUa.edit_' . $itemRealisationUa->id])
                             </div>
+                            @endif
 
                            
                         </div>

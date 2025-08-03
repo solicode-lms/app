@@ -36,18 +36,22 @@
                             <a class="nav-link active" id="microCompetence-hasmany-tabs-home-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-home" role="tab" aria-controls="microCompetence-hasmany-tabs-home" aria-selected="true">{{__('PkgCompetences::microCompetence.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->uniteApprentissages->count() > 0 || auth()->user()?->can('create-uniteApprentissage'))
                         <li class="nav-item">
                             <a class="nav-link" id="microCompetence-hasmany-tabs-uniteApprentissage-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-uniteApprentissage" role="tab" aria-controls="microCompetence-hasmany-tabs-uniteApprentissage" aria-selected="false">
                                 <i class="nav-icon fas fa-puzzle-piece"></i>
                                 {{ucfirst(__('PkgCompetences::uniteApprentissage.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="microCompetence-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#microCompetence-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="microCompetence-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-certificate"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -58,12 +62,16 @@
                                 @include('PkgCompetences::microCompetence._fields')
                             </div>
 
+                            @if($itemRealisationTache->uniteApprentissages->count() > 0 || auth()->user()?->can('create-uniteApprentissage'))
                             <div class="tab-pane fade" id="microCompetence-hasmany-tabs-uniteApprentissage" role="tabpanel" aria-labelledby="microCompetence-hasmany-tabs-uniteApprentissage-tab">
                                 @include('PkgCompetences::uniteApprentissage._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'microCompetence.edit_' . $itemMicroCompetence->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                             <div class="tab-pane fade" id="microCompetence-hasmany-tabs-realisationMicroCompetence" role="tabpanel" aria-labelledby="microCompetence-hasmany-tabs-realisationMicroCompetence-tab">
                                 @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'microCompetence.edit_' . $itemMicroCompetence->id])
                             </div>
+                            @endif
 
                            
                         </div>

@@ -172,6 +172,7 @@
 
 
 @if($itemEvaluationRealisationProjet->id)
+@if($itemRealisationTache->evaluationRealisationTaches->count() > 0 || auth()->user()?->can('create-evaluationRealisationTache'))
 @if (empty($bulkEdit))
 <div class="col-12 col-md-12">
    <label for="EvaluationRealisationTache">
@@ -181,6 +182,7 @@
 
   @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
 </div>
+@endif
 @endif
 @endif
 

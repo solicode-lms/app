@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="affectationProjet-hasmany-tabs-home-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-home" role="tab" aria-controls="affectationProjet-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationProjets::affectationProjet.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->realisationProjets->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="affectationProjet-hasmany-tabs-realisationProjet-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-realisationProjet" role="tab" aria-controls="affectationProjet-hasmany-tabs-realisationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop"></i>
                                 {{ucfirst(__('PkgRealisationProjets::realisationProjet.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgRealisationProjets::affectationProjet._fields')
                             </div>
 
+                            @if($itemRealisationTache->realisationProjets->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                             <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-realisationProjet-tab">
                                 @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
                             </div>
+                            @endif
 
                            
                         </div>

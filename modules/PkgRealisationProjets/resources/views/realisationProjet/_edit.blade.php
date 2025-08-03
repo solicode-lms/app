@@ -36,18 +36,22 @@
                             <a class="nav-link active" id="realisationProjet-hasmany-tabs-home-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-home" role="tab" aria-controls="realisationProjet-hasmany-tabs-home" aria-selected="true">{{__('PkgRealisationProjets::realisationProjet.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-realisationTache" role="tab" aria-controls="realisationProjet-hasmany-tabs-realisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop-code"></i>
                                 {{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->livrablesRealisations->count() > 0 || auth()->user()?->can('create-livrablesRealisation'))
                         <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-livrablesRealisation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-livrablesRealisation" role="tab" aria-controls="realisationProjet-hasmany-tabs-livrablesRealisation" aria-selected="false">
                                 <i class="nav-icon fas fa-file-code"></i>
                                 {{ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -58,12 +62,16 @@
                                 @include('PkgRealisationProjets::realisationProjet._fields')
                             </div>
 
+                            @if($itemRealisationTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-realisationTache-tab">
                                 @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->livrablesRealisations->count() > 0 || auth()->user()?->can('create-livrablesRealisation'))
                             <div class="tab-pane fade" id="realisationProjet-hasmany-tabs-livrablesRealisation" role="tabpanel" aria-labelledby="realisationProjet-hasmany-tabs-livrablesRealisation-tab">
                                 @include('PkgRealisationProjets::livrablesRealisation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.edit_' . $itemRealisationProjet->id])
                             </div>
+                            @endif
 
                            
                         </div>

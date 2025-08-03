@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="sysModel-hasmany-tabs-home-tab" data-toggle="pill" href="#sysModel-hasmany-tabs-home" role="tab" aria-controls="sysModel-hasmany-tabs-home" aria-selected="true">{{__('Core::sysModel.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysModel-hasmany-tabs-widget-tab" data-toggle="pill" href="#sysModel-hasmany-tabs-widget" role="tab" aria-controls="sysModel-hasmany-tabs-widget" aria-selected="false">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 {{ucfirst(__('PkgWidgets::widget.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('Core::sysModel._fields')
                             </div>
 
+                            @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                             <div class="tab-pane fade" id="sysModel-hasmany-tabs-widget" role="tabpanel" aria-labelledby="sysModel-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModel.edit_' . $itemSysModel->id])
                             </div>
+                            @endif
 
                            
                         </div>

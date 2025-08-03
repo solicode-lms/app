@@ -36,54 +36,70 @@
                             <a class="nav-link active" id="user-hasmany-tabs-home-tab" data-toggle="pill" href="#user-hasmany-tabs-home" role="tab" aria-controls="user-hasmany-tabs-home" aria-selected="true">{{__('PkgAutorisation::user.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#user-hasmany-tabs-apprenant" role="tab" aria-controls="user-hasmany-tabs-apprenant" aria-selected="false">
                                 <i class="nav-icon fas fa-id-card"></i>
                                 {{ucfirst(__('PkgApprenants::apprenant.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->formateurs->count() > 0 || auth()->user()?->can('create-formateur'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-formateur-tab" data-toggle="pill" href="#user-hasmany-tabs-formateur" role="tab" aria-controls="user-hasmany-tabs-formateur" aria-selected="false">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 {{ucfirst(__('PkgFormation::formateur.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->evaluateurs->count() > 0 || auth()->user()?->can('create-evaluateur'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-evaluateur-tab" data-toggle="pill" href="#user-hasmany-tabs-evaluateur" role="tab" aria-controls="user-hasmany-tabs-evaluateur" aria-selected="false">
                                 <i class="nav-icon fas fa-user-check"></i>
                                 {{ucfirst(__('PkgEvaluateurs::evaluateur.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->profiles->count() > 0 || auth()->user()?->can('create-profile'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-profile-tab" data-toggle="pill" href="#user-hasmany-tabs-profile" role="tab" aria-controls="user-hasmany-tabs-profile" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
                                 {{ucfirst(__('PkgAutorisation::profile.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->historiqueRealisationTaches->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-historiqueRealisationTache-tab" data-toggle="pill" href="#user-hasmany-tabs-historiqueRealisationTache" role="tab" aria-controls="user-hasmany-tabs-historiqueRealisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-history"></i>
                                 {{ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->notifications->count() > 0 || auth()->user()?->can('create-notification'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-notification-tab" data-toggle="pill" href="#user-hasmany-tabs-notification" role="tab" aria-controls="user-hasmany-tabs-notification" aria-selected="false">
                                 <i class="nav-icon fas fa-bell"></i>
                                 {{ucfirst(__('PkgNotification::notification.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->userModelFilters->count() > 0 || auth()->user()?->can('create-userModelFilter'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-userModelFilter-tab" data-toggle="pill" href="#user-hasmany-tabs-userModelFilter" role="tab" aria-controls="user-hasmany-tabs-userModelFilter" aria-selected="false">
                                 <i class="nav-icon fas fa-table"></i>
                                 {{ucfirst(__('Core::userModelFilter.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->widgetUtilisateurs->count() > 0 || auth()->user()?->can('create-widgetUtilisateur'))
                         <li class="nav-item">
                             <a class="nav-link" id="user-hasmany-tabs-widgetUtilisateur-tab" data-toggle="pill" href="#user-hasmany-tabs-widgetUtilisateur" role="tab" aria-controls="user-hasmany-tabs-widgetUtilisateur" aria-selected="false">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 {{ucfirst(__('PkgWidgets::widgetUtilisateur.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -94,30 +110,46 @@
                                 @include('PkgAutorisation::user._fields')
                             </div>
 
+                            @if($itemRealisationTache->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="user-hasmany-tabs-apprenant-tab">
                                 @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->formateurs->count() > 0 || auth()->user()?->can('create-formateur'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-formateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-formateur-tab">
                                 @include('PkgFormation::formateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->evaluateurs->count() > 0 || auth()->user()?->can('create-evaluateur'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-evaluateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-evaluateur-tab">
                                 @include('PkgEvaluateurs::evaluateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->profiles->count() > 0 || auth()->user()?->can('create-profile'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-profile" role="tabpanel" aria-labelledby="user-hasmany-tabs-profile-tab">
                                 @include('PkgAutorisation::profile._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->historiqueRealisationTaches->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-historiqueRealisationTache" role="tabpanel" aria-labelledby="user-hasmany-tabs-historiqueRealisationTache-tab">
                                 @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->notifications->count() > 0 || auth()->user()?->can('create-notification'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-notification" role="tabpanel" aria-labelledby="user-hasmany-tabs-notification-tab">
                                 @include('PkgNotification::notification._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->userModelFilters->count() > 0 || auth()->user()?->can('create-userModelFilter'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-userModelFilter" role="tabpanel" aria-labelledby="user-hasmany-tabs-userModelFilter-tab">
                                 @include('Core::userModelFilter._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->widgetUtilisateurs->count() > 0 || auth()->user()?->can('create-widgetUtilisateur'))
                             <div class="tab-pane fade" id="user-hasmany-tabs-widgetUtilisateur" role="tabpanel" aria-labelledby="user-hasmany-tabs-widgetUtilisateur-tab">
                                 @include('PkgWidgets::widgetUtilisateur._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'user.edit_' . $itemUser->id])
                             </div>
+                            @endif
 
                            
                         </div>

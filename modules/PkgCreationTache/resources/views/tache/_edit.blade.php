@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="tache-hasmany-tabs-home-tab" data-toggle="pill" href="#tache-hasmany-tabs-home" role="tab" aria-controls="tache-hasmany-tabs-home" aria-selected="true">{{__('PkgCreationTache::tache.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="tache-hasmany-tabs-realisationTache-tab" data-toggle="pill" href="#tache-hasmany-tabs-realisationTache" role="tab" aria-controls="tache-hasmany-tabs-realisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-laptop-code"></i>
                                 {{ucfirst(__('PkgRealisationTache::realisationTache.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgCreationTache::tache._fields')
                             </div>
 
+                            @if($itemRealisationTache->realisationTaches->count() > 0 || auth()->user()?->can('create-realisationTache'))
                             <div class="tab-pane fade" id="tache-hasmany-tabs-realisationTache" role="tabpanel" aria-labelledby="tache-hasmany-tabs-realisationTache-tab">
                                 @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'tache.edit_' . $itemTache->id])
                             </div>
+                            @endif
 
                            
                         </div>

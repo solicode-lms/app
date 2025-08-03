@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="competence-hasmany-tabs-home-tab" data-toggle="pill" href="#competence-hasmany-tabs-home" role="tab" aria-controls="competence-hasmany-tabs-home" aria-selected="true">{{__('PkgCompetences::competence.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->microCompetences->count() > 0 || auth()->user()?->can('create-microCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-microCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-microCompetence" role="tab" aria-controls="competence-hasmany-tabs-microCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-book"></i>
                                 {{ucfirst(__('PkgCompetences::microCompetence.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgCompetences::competence._fields')
                             </div>
 
+                            @if($itemRealisationTache->microCompetences->count() > 0 || auth()->user()?->can('create-microCompetence'))
                             <div class="tab-pane fade" id="competence-hasmany-tabs-microCompetence" role="tabpanel" aria-labelledby="competence-hasmany-tabs-microCompetence-tab">
                                 @include('PkgCompetences::microCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.edit_' . $itemCompetence->id])
                             </div>
+                            @endif
 
                            
                         </div>

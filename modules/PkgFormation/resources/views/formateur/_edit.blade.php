@@ -36,24 +36,30 @@
                             <a class="nav-link active" id="formateur-hasmany-tabs-home-tab" data-toggle="pill" href="#formateur-hasmany-tabs-home" role="tab" aria-controls="formateur-hasmany-tabs-home" aria-selected="true">{{__('PkgFormation::formateur.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-chapitre-tab" data-toggle="pill" href="#formateur-hasmany-tabs-chapitre" role="tab" aria-controls="formateur-hasmany-tabs-chapitre" aria-selected="false">
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 {{ucfirst(__('PkgCompetences::chapitre.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->etatRealisationTaches->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-etatRealisationTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-etatRealisationTache" role="tab" aria-controls="formateur-hasmany-tabs-etatRealisationTache" aria-selected="false">
                                 <i class="nav-icon fas fa-check"></i>
                                 {{ucfirst(__('PkgRealisationTache::etatRealisationTache.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->prioriteTaches->count() > 0 || auth()->user()?->can('create-prioriteTache'))
                         <li class="nav-item">
                             <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">
                                 <i class="nav-icon fas fa-list-ol"></i>
                                 {{ucfirst(__('PkgCreationTache::prioriteTache.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -64,15 +70,21 @@
                                 @include('PkgFormation::formateur._fields')
                             </div>
 
+                            @if($itemRealisationTache->chapitres->count() > 0 || auth()->user()?->can('create-chapitre'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-chapitre" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-chapitre-tab">
                                 @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->etatRealisationTaches->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->prioriteTaches->count() > 0 || auth()->user()?->can('create-prioriteTache'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-prioriteTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-prioriteTache-tab">
                                 @include('PkgCreationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
+                            @endif
 
                            
                         </div>

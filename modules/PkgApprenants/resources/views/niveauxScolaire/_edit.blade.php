@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="niveauxScolaire-hasmany-tabs-home-tab" data-toggle="pill" href="#niveauxScolaire-hasmany-tabs-home" role="tab" aria-controls="niveauxScolaire-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::niveauxScolaire.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
                         <li class="nav-item">
                             <a class="nav-link" id="niveauxScolaire-hasmany-tabs-apprenant-tab" data-toggle="pill" href="#niveauxScolaire-hasmany-tabs-apprenant" role="tab" aria-controls="niveauxScolaire-hasmany-tabs-apprenant" aria-selected="false">
                                 <i class="nav-icon fas fa-id-card"></i>
                                 {{ucfirst(__('PkgApprenants::apprenant.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgApprenants::niveauxScolaire._fields')
                             </div>
 
+                            @if($itemRealisationTache->apprenants->count() > 0 || auth()->user()?->can('create-apprenant'))
                             <div class="tab-pane fade" id="niveauxScolaire-hasmany-tabs-apprenant" role="tabpanel" aria-labelledby="niveauxScolaire-hasmany-tabs-apprenant-tab">
                                 @include('PkgApprenants::apprenant._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'niveauxScolaire.edit_' . $itemNiveauxScolaire->id])
                             </div>
+                            @endif
 
                            
                         </div>

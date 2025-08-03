@@ -36,24 +36,30 @@
                             <a class="nav-link active" id="sessionFormation-hasmany-tabs-home-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-home" role="tab" aria-controls="sessionFormation-hasmany-tabs-home" aria-selected="true">{{__('PkgSessions::sessionFormation.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->alignementUas->count() > 0 || auth()->user()?->can('create-alignementUa'))
                         <li class="nav-item">
                             <a class="nav-link" id="sessionFormation-hasmany-tabs-alignementUa-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-alignementUa" role="tab" aria-controls="sessionFormation-hasmany-tabs-alignementUa" aria-selected="false">
                                 <i class="nav-icon fas fa-road"></i>
                                 {{ucfirst(__('PkgSessions::alignementUa.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->livrableSessions->count() > 0 || auth()->user()?->can('create-livrableSession'))
                         <li class="nav-item">
                             <a class="nav-link" id="sessionFormation-hasmany-tabs-livrableSession-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-livrableSession" role="tab" aria-controls="sessionFormation-hasmany-tabs-livrableSession" aria-selected="false">
                                 <i class="nav-icon fas fa-folder"></i>
                                 {{ucfirst(__('PkgSessions::livrableSession.plural'))}}
                             </a>
                         </li>
+                        @endif
+                         @if($itemRealisationTache->projets->count() > 0 || auth()->user()?->can('create-projet'))
                         <li class="nav-item">
                             <a class="nav-link" id="sessionFormation-hasmany-tabs-projet-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-projet" role="tab" aria-controls="sessionFormation-hasmany-tabs-projet" aria-selected="false">
                                 <i class="nav-icon fas fa-lightbulb"></i>
                                 {{ucfirst(__('PkgCreationProjet::projet.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -64,15 +70,21 @@
                                 @include('PkgSessions::sessionFormation._fields')
                             </div>
 
+                            @if($itemRealisationTache->alignementUas->count() > 0 || auth()->user()?->can('create-alignementUa'))
                             <div class="tab-pane fade" id="sessionFormation-hasmany-tabs-alignementUa" role="tabpanel" aria-labelledby="sessionFormation-hasmany-tabs-alignementUa-tab">
                                 @include('PkgSessions::alignementUa._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sessionFormation.edit_' . $itemSessionFormation->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->livrableSessions->count() > 0 || auth()->user()?->can('create-livrableSession'))
                             <div class="tab-pane fade" id="sessionFormation-hasmany-tabs-livrableSession" role="tabpanel" aria-labelledby="sessionFormation-hasmany-tabs-livrableSession-tab">
                                 @include('PkgSessions::livrableSession._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sessionFormation.edit_' . $itemSessionFormation->id])
                             </div>
+                            @endif
+                            @if($itemRealisationTache->projets->count() > 0 || auth()->user()?->can('create-projet'))
                             <div class="tab-pane fade" id="sessionFormation-hasmany-tabs-projet" role="tabpanel" aria-labelledby="sessionFormation-hasmany-tabs-projet-tab">
                                 @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sessionFormation.edit_' . $itemSessionFormation->id])
                             </div>
+                            @endif
 
                            
                         </div>

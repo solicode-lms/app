@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="sousGroupe-hasmany-tabs-home-tab" data-toggle="pill" href="#sousGroupe-hasmany-tabs-home" role="tab" aria-controls="sousGroupe-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::sousGroupe.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                         <li class="nav-item">
                             <a class="nav-link" id="sousGroupe-hasmany-tabs-affectationProjet-tab" data-toggle="pill" href="#sousGroupe-hasmany-tabs-affectationProjet" role="tab" aria-controls="sousGroupe-hasmany-tabs-affectationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-calendar-check"></i>
                                 {{ucfirst(__('PkgRealisationProjets::affectationProjet.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgApprenants::sousGroupe._fields')
                             </div>
 
+                            @if($itemRealisationTache->affectationProjets->count() > 0 || auth()->user()?->can('create-affectationProjet'))
                             <div class="tab-pane fade" id="sousGroupe-hasmany-tabs-affectationProjet" role="tabpanel" aria-labelledby="sousGroupe-hasmany-tabs-affectationProjet-tab">
                                 @include('PkgRealisationProjets::affectationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sousGroupe.edit_' . $itemSousGroupe->id])
                             </div>
+                            @endif
 
                            
                         </div>

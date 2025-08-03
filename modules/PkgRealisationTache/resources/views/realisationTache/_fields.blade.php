@@ -201,15 +201,14 @@
             {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}
             <span class="text-danger">*</span>
           </label>
-        {{$itemRealisationTache->etat_realisation_tache_id}}
-        {{ $etatRealisationTaches->pluck('id')->implode(', ') }}
-          <select 
+                      <select 
             id="etat_realisation_tache_id" 
             {{ $canEditetat_realisation_tache_id ? '' : 'disabled' }}
             required
-
+            
+            
             name="etat_realisation_tache_id" 
-            class="form-control ">
+            class="form-control select2">
              <option value="">Sélectionnez une option</option>
                 @foreach ($etatRealisationTaches as $etatRealisationTache)
                     <option value="{{ $etatRealisationTache->id }}"
@@ -269,6 +268,20 @@
     <div class="row">
         
 
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->realisationChapitres->count() > 0 || auth()->user()?->can('create-realisationChapitre'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationChapitre">
+            {{ ucfirst(__('PkgApprentissage::realisationChapitre.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
 
 
 
@@ -291,6 +304,20 @@
 
 
 
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->realisationUaPrototypes->count() > 0 || auth()->user()?->can('create-realisationUaPrototype'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="RealisationUaPrototype">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.plural')) }}
+            
+    </label>
+
+  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
 
 
 
@@ -416,6 +443,20 @@
 
 
 
+@if($itemRealisationTache->id)
+@if($itemRealisationTache->historiqueRealisationTaches->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
+@if (empty($bulkEdit))
+<div class="col-12 col-md-12">
+   <label for="HistoriqueRealisationTache">
+            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}
+            
+    </label>
+
+  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+</div>
+@endif
+@endif
+@endif
 
 
 

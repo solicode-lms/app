@@ -36,12 +36,14 @@
                             <a class="nav-link active" id="widgetOperation-hasmany-tabs-home-tab" data-toggle="pill" href="#widgetOperation-hasmany-tabs-home" role="tab" aria-controls="widgetOperation-hasmany-tabs-home" aria-selected="true">{{__('PkgWidgets::widgetOperation.singular')}}</a>
                         </li>
 
+                         @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                         <li class="nav-item">
                             <a class="nav-link" id="widgetOperation-hasmany-tabs-widget-tab" data-toggle="pill" href="#widgetOperation-hasmany-tabs-widget" role="tab" aria-controls="widgetOperation-hasmany-tabs-widget" aria-selected="false">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 {{ucfirst(__('PkgWidgets::widget.plural'))}}
                             </a>
                         </li>
+                        @endif
 
                        
                         </ul>
@@ -52,9 +54,11 @@
                                 @include('PkgWidgets::widgetOperation._fields')
                             </div>
 
+                            @if($itemRealisationTache->widgets->count() > 0 || auth()->user()?->can('create-widget'))
                             <div class="tab-pane fade" id="widgetOperation-hasmany-tabs-widget" role="tabpanel" aria-labelledby="widgetOperation-hasmany-tabs-widget-tab">
                                 @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'widgetOperation.edit_' . $itemWidgetOperation->id])
                             </div>
+                            @endif
 
                            
                         </div>
