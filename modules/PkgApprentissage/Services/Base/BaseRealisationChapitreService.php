@@ -50,6 +50,15 @@ class BaseRealisationChapitreService extends BaseService
         $this->title = __('PkgApprentissage::realisationChapitre.plural');
     }
 
+    public function dataCalcul($realisationChapitre)
+    {
+        // En Cas d'édit
+        if(isset($realisationChapitre->id)){
+          
+        }
+      
+        return $realisationChapitre;
+    }
 
     public function initFieldsFilterable()
     {
