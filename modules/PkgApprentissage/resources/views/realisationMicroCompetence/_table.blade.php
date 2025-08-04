@@ -43,12 +43,17 @@
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->progression_cache }}" >
-                        {{ $realisationMicroCompetence->progression_cache }}
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationMicroCompetence->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationMicroCompetence->progression_cache }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{ $realisationMicroCompetence->progression_cache }}% Terminé
+                        </small>
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->note_cache }}" >
-                        {{ $realisationMicroCompetence->note_cache }}
-
+                        @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', ['entity' => $realisationMicroCompetence])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

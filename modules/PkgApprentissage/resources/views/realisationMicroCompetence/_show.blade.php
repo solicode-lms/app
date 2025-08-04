@@ -4,7 +4,7 @@
 <div id="realisationMicroCompetence-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
                               
@@ -18,7 +18,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
                               
@@ -32,7 +32,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id')) }}</small>
                               
@@ -46,22 +46,22 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemRealisationMicroCompetence->progression_cache))
-          {{ number_format($itemRealisationMicroCompetence->progression_cache, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
+                                                <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationMicroCompetence->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationMicroCompetence->progression_cache }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{$itemRealisationMicroCompetence->progression_cache }}% Terminé
+                        </small>
+
           </div>
       </div>
   
 
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                              <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
           <div class="border rounded p-2 h-100 " >
             <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
             <div class="pt-2">
@@ -71,37 +71,37 @@
       </div>
    
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache')) }}</small>
-                              
-      <span>
+                              <span>
         @if(! is_null($itemRealisationMicroCompetence->note_cache))
           {{ number_format($itemRealisationMicroCompetence->note_cache, 2, '.', '') }}
         @else
           —
         @endif
       </span>
+
           </div>
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.bareme_cache')) }}</small>
-                              
-      <span>
+                              <span>
         @if(! is_null($itemRealisationMicroCompetence->bareme_cache))
           {{ number_format($itemRealisationMicroCompetence->bareme_cache, 2, '.', '') }}
         @else
           —
         @endif
       </span>
+
           </div>
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}</small>
                             
@@ -116,7 +116,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin')) }}</small>
                             
@@ -131,7 +131,7 @@
       </div>
   
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                              <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}</small>
                           <!-- Valeur avec sauts de ligne -->
@@ -144,7 +144,7 @@
       </div>
   
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                              <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
           <div class="border rounded p-2 h-100">
                         <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.dernier_update')) }}</small>
                             
@@ -158,7 +158,6 @@
           </div>
       </div>
   
-
 
             </div>
         </div>
