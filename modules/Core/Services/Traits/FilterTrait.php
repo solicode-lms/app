@@ -187,8 +187,7 @@ trait FilterTrait
         
         $filterVariables = $this->viewState->getFilterVariables($this->modelName);
         $context_key = $this->viewState->getContextKey();
-        $this->userHasSentFilter = (count($filterVariables) != 0);
-     
+
         // voir le filtre dans la bar de recherche 
         $userModelFilterService = new UserModelFilterService();
         $isReset = $this->viewState->isResetRequested($this->modelName);

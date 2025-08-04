@@ -11,7 +11,7 @@ class RealisationUaPrototype extends BaseRealisationUaPrototype
     {
         static::saving(function ($model) {
             // Charger la tâche liée
-            $tache = $model->realisationTache ?: \Modules\PkgRealisationTache\Models\RealisationTache::find($model->realisation_tache_id);
+            $tache =  \Modules\PkgRealisationTache\Models\RealisationTache::find($model->realisation_tache_id);
 
             // Récupérer l’état actuel de la tâche (et son workflow)
             $etat = $tache?->etatRealisationTache;

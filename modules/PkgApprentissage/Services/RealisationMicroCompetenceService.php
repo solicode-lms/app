@@ -171,7 +171,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationUaPrototypes->contains(fn($p) =>
-                optional($p->realisationTache?->etatRealisationTache)->code !== 'DONE'
+                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'DONE'
             )) {
                 return 'IN_PROGRESS_PROTOTYPE';
             }
@@ -179,7 +179,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationUaProjets->contains(fn($p) =>
-                optional($p->realisationTache?->etatRealisationTache)->code !== 'DONE'
+                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'DONE'
             )) {
                 return 'IN_PROGRESS_PROJET';
             }

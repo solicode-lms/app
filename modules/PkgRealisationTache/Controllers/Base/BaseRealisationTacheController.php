@@ -45,6 +45,8 @@ class BaseRealisationTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationTache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationTache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 

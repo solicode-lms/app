@@ -18,8 +18,7 @@ class RealisationMicroCompetence extends BaseRealisationMicroCompetence
     {
         static::saving(function ($model) {
             // Charger l’état actuel (relation ou fallback)
-            $etatActuel = $model->etatRealisationMicroCompetence
-                ?: EtatRealisationMicroCompetence::find($model->etat_realisation_micro_competence_id);
+            $etatActuel =  EtatRealisationMicroCompetence::find($model->etat_realisation_micro_competence_id);
 
             if (!$etatActuel) return;
 

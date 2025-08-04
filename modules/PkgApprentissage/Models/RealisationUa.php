@@ -18,8 +18,7 @@ class RealisationUa extends BaseRealisationUa
     {
         static::saving(function ($model) {
             // Récupérer l’état actuel (relation ou fallback)
-            $etatActuel = $model->etatRealisationUa
-                ?: EtatRealisationUa::find($model->etat_realisation_ua_id);
+            $etatActuel =  EtatRealisationUa::find($model->etat_realisation_ua_id);
 
             if (!$etatActuel) return;
 

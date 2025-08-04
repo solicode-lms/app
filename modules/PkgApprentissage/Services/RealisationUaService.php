@@ -226,10 +226,10 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
         // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
         $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
         $allPrototypesDone = $prototypes->every(fn($p) =>
-            optional($p->realisationTache?->etatRealisationTache)->code === 'DONE'
+            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'DONE'
         );
         $allProjetsDone = $projets->every(fn($p) =>
-            optional($p->realisationTache?->etatRealisationTache)->code === 'DONE'
+            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'DONE'
         );
 
         if ($allChapitresDone && $allPrototypesDone && $allProjetsDone) {

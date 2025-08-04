@@ -19,8 +19,7 @@ class RealisationChapitre extends BaseRealisationChapitre
     {
         static::saving(function ($model) {
             // Charger l’état actuel (relation ou par ID direct)
-            $etatActuel = $model->etatRealisationChapitre
-                ?: EtatRealisationChapitre::find($model->etat_realisation_chapitre_id);
+            $etatActuel =  EtatRealisationChapitre::find($model->etat_realisation_chapitre_id);
 
             if (!$etatActuel) return;
 

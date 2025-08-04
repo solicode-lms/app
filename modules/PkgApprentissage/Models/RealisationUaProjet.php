@@ -11,7 +11,7 @@ class RealisationUaProjet extends BaseRealisationUaProjet
     {
         static::saving(function ($model) {
             // Récupérer la tâche liée
-            $tache = $model->realisationTache ?: \Modules\PkgRealisationTache\Models\RealisationTache::find($model->realisation_tache_id);
+            $tache = \Modules\PkgRealisationTache\Models\RealisationTache::find($model->realisation_tache_id);
 
             // Récupérer l’état de la tâche et son workflow
             $etat = $tache?->etatRealisationTache;
