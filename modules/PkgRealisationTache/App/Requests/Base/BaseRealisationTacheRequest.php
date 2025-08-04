@@ -69,13 +69,13 @@ class BaseRealisationTacheRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'tache_id' => "formateur,admin",
+            'tache_id' => "admin",
             
-            'realisation_projet_id' => "formateur,admin",
+            'realisation_projet_id' => "admin",
             
-            'dateDebut' => "formateur,admin",
+            'dateDebut' => "admin",
             
-            'dateFin' => "formateur,admin",
+            'dateFin' => "admin",
             
             'etat_realisation_tache_id' => "apprenant,formateur,admin",
             

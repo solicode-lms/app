@@ -10,7 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="40" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="42"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
+                <x-sortable-column :sortable="true" width="10"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
+                <x-sortable-column :sortable="false" width="32"  field="criteres_evaluation" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.criteres_evaluation'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,8 +26,11 @@
                     <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationTache }}" >
                         @include('PkgApprentissage::realisationUaPrototype.custom.fields.realisationTache', ['entity' => $realisationUaPrototype])
                     </td>
-                    <td style="max-width: 42%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
+                    <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
                         @include('PkgApprentissage::realisationUaPrototype.custom.fields.note', ['entity' => $realisationUaPrototype])
+                    </td>
+                    <td style="max-width: 32%;" class=" text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="criteres_evaluation"  data-toggle="tooltip" title="{{ $realisationUaPrototype->criteres_evaluation }}" >
+                        @include('PkgApprentissage::realisationUaPrototype.custom.fields.criteres_evaluation', ['entity' => $realisationUaPrototype])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

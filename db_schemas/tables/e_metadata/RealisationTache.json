@@ -27,7 +27,7 @@
     },
     {
         "reference": "RealisationTache_id_displayOrder",
-        "value_integer": 3,
+        "value_integer": 20,
         "e_data_field_reference": "RealisationTache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -46,7 +46,7 @@
     {
         "reference": "RealisationTache_dateDebut_displayOrder",
         "value_boolean": 0,
-        "value_integer": 5,
+        "value_integer": 4,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateDebut",
         "e_metadata_definition_reference": "displayOrder"
@@ -68,7 +68,7 @@
     {
         "reference": "RealisationTache_dateFin_displayOrder",
         "value_boolean": 0,
-        "value_integer": 6,
+        "value_integer": 5,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateFin",
         "e_metadata_definition_reference": "displayOrder"
@@ -171,7 +171,7 @@
     {
         "reference": "RealisationTache_realisation_projet_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 3,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -263,7 +263,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 18,
+        "value_integer": 19,
         "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -334,7 +334,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "formateur,admin"
+            "roles": "admin"
         },
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "editableByRoles"
@@ -344,7 +344,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "formateur,admin"
+            "roles": "admin"
         },
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "editableByRoles"
@@ -492,7 +492,7 @@
     },
     {
         "reference": "RealisationTache-nombre_livrables_displayOrder",
-        "value_integer": 19,
+        "value_integer": 23,
         "e_data_field_reference": "RealisationTache-nombre_livrables",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1134,7 +1134,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "formateur,admin"
+            "roles": "admin"
         },
         "e_data_field_reference": "RealisationTache_dateDebut",
         "e_metadata_definition_reference": "editableByRoles"
@@ -1144,7 +1144,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "roles": "formateur,admin"
+            "roles": "admin"
         },
         "e_data_field_reference": "RealisationTache_dateFin",
         "e_metadata_definition_reference": "editableByRoles"
@@ -1171,7 +1171,7 @@
     },
     {
         "reference": "RealisationTache_remarque_evaluateur_displayOrder",
-        "value_integer": 7,
+        "value_integer": 6,
         "e_data_field_reference": "RealisationTache_remarque_evaluateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1221,7 +1221,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayOrder",
-        "value_integer": 17,
+        "value_integer": 18,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1248,7 +1248,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayOrder",
-        "value_integer": 18,
+        "value_integer": 21,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1275,7 +1275,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayOrder",
-        "value_integer": 19,
+        "value_integer": 22,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },

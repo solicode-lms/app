@@ -36,6 +36,11 @@ class BaseRealisationUaPrototype extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : criteres_evaluation
+        $sql = "SELECT rup.id 
+        FROM realisation_ua_prototypes rup 
+        WHERE rup.id = realisation_ua_prototypes.id";
+        static::addDynamicAttribute('criteres_evaluation', $sql);
     }
 
     
@@ -45,7 +50,7 @@ class BaseRealisationUaPrototype extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'realisation_tache_id', 'realisation_ua_id', 'note', 'bareme', 'date_debut', 'date_fin', 'remarque_formateur'
+        'realisation_tache_id', 'realisation_ua_id', 'bareme', 'note', 'remarque_formateur', 'date_debut', 'date_fin'
     ];
     public $manyToOne = [
         'RealisationTache' => [

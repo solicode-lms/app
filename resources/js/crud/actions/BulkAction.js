@@ -33,7 +33,9 @@ export class BulkAction extends BaseAction {
             const selectedCount = selectedIds.length;
 
             if (selectedCount === 0) {
-                NotificationHandler.showError('Veuillez sélectionner au moins une ligne.');
+                // Confussion avec edit note il affiche le message on click entrer dans la note
+                // in table
+                // NotificationHandler.showError('Veuillez sélectionner au moins une ligne.');
                 return;
             }
 

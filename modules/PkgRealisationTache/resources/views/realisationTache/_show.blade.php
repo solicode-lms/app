@@ -10,13 +10,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::tache.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationTache->tache)
-                  {{ $itemRealisationTache->tache }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgRealisationTache::realisationTache.custom.fields.tache',['entity' => $itemRealisationTache])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
@@ -66,16 +60,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationTache->etatRealisationTache)
-                  <x-badge 
-                    :text="$itemRealisationTache->etatRealisationTache" 
-                    :background="$itemRealisationTache->etatRealisationTache->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache',['entity' => $itemRealisationTache])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">

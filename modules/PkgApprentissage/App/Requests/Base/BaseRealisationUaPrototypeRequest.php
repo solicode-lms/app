@@ -31,11 +31,11 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
         return [
             'realisation_tache_id' => 'required',
             'realisation_ua_id' => 'required',
-            'note' => 'nullable',
             'bareme' => 'required',
+            'note' => 'nullable',
+            'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable',
-            'remarque_formateur' => 'nullable|string'
+            'date_fin' => 'nullable'
         ];
     }
 
@@ -49,13 +49,58 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
         return [
             'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.realisation_tache_id')]),
             'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.realisation_ua_id')]),
-            'note.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.note')]),
             'bareme.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.bareme')]),
+            'note.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.note')]),
+            'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')]),
-            'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')])
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'realisation_tache_id' => "admin",
+            
+            'realisation_ua_id' => "admin",
+            
+            'bareme' => "admin",
+            
+            'date_debut' => "admin",
+            
+            'date_fin' => "admin",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $realisation_ua_prototype_id = $this->route('realisationUaPrototype'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (realisationUaPrototype existant dans l'URL)
+        if (!$realisation_ua_prototype_id) {
+            return;
+        }
+        
+        $model = RealisationUaPrototype::find($realisation_ua_prototype_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

@@ -23,11 +23,11 @@ class BaseRealisationUaPrototypeService extends BaseService
     protected $fieldsSearchable = [
         'realisation_tache_id',
         'realisation_ua_id',
-        'note',
         'bareme',
+        'note',
+        'remarque_formateur',
         'date_debut',
-        'date_fin',
-        'remarque_formateur'
+        'date_fin'
     ];
 
     /**

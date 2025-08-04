@@ -33,7 +33,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="tache_id" :bulkEdit="$bulkEdit">
-      @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEdittache_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -69,7 +69,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="realisation_projet_id" :bulkEdit="$bulkEdit">
-      @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -115,7 +115,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateDebut" :bulkEdit="$bulkEdit">
-      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)
@@ -147,7 +147,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateFin" :bulkEdit="$bulkEdit">
-      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-3">
           @if ($bulkEdit)

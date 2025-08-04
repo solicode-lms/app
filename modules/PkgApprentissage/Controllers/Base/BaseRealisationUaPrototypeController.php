@@ -37,6 +37,8 @@ class BaseRealisationUaPrototypeController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationUaPrototype.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationUaPrototype');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 

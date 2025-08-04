@@ -88,11 +88,11 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                 $realisationUaPrototypeData =[
                         "realisation_tache_id" => $realisation_tache_id,
                         "realisation_ua_id" => $realisation_ua_id,
-                        "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "bareme" => isset($row["bareme"]) && $row["bareme"] !== "" ? $row["bareme"] : null,
+                        "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
+                        "remarque_formateur" => isset($row["remarque_formateur"]) && $row["remarque_formateur"] !== "" ? $row["remarque_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
-                        "remarque_formateur" => isset($row["remarque_formateur"]) && $row["remarque_formateur"] !== "" ? $row["remarque_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

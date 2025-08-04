@@ -30,6 +30,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_tache_id" :bulkEdit="$bulkEdit">
+      @php $canEditrealisation_tache_id = !$itemRealisationUaPrototype || !$itemRealisationUaPrototype->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -43,6 +44,7 @@
           </label>
                       <select 
             id="realisation_tache_id" 
+            {{ $canEditrealisation_tache_id ? '' : 'disabled' }}
             required
             
             
@@ -64,6 +66,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_ua_id" :bulkEdit="$bulkEdit">
+      @php $canEditrealisation_ua_id = !$itemRealisationUaPrototype || !$itemRealisationUaPrototype->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -77,6 +80,7 @@
           </label>
                       <select 
             id="realisation_ua_id" 
+            {{ $canEditrealisation_ua_id ? '' : 'disabled' }}
             required
             
             
@@ -91,6 +95,38 @@
                 @endforeach
             </select>
           @error('realisation_ua_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="bareme" :bulkEdit="$bulkEdit">
+      @php $canEditbareme = !$itemRealisationUaPrototype || !$itemRealisationUaPrototype->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme" id="bulk_field_bareme" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.bareme')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="bareme"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="bareme"
+        {{ $canEditbareme ? '' : 'disabled' }}
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationUaPrototype.bareme') }}"
+        value="{{ $itemRealisationUaPrototype ? number_format($itemRealisationUaPrototype->bareme, 2, '.', '') : old('bareme') }}">
+          @error('bareme')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -127,96 +163,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="bareme" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme" id="bulk_field_bareme" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="bareme">
-            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.bareme')) }}
-            <span class="text-danger">*</span>
-          </label>
-              <input
-        name="bareme"
-        type="number"
-        class="form-control"
-        required
-        
-        
-        id="bareme"
-        step="0.01"
-        placeholder="{{ __('PkgApprentissage::realisationUaPrototype.bareme') }}"
-        value="{{ $itemRealisationUaPrototype ? number_format($itemRealisationUaPrototype->bareme, 2, '.', '') : old('bareme') }}">
-          @error('bareme')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_debut" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_debut">
-            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.date_debut')) }}
-            
-          </label>
-                      <input
-                name="date_debut"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_debut"
-                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.date_debut') }}"
-                value="{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->date_debut : old('date_debut') }}">
-
-          @error('date_debut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_fin" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.date_fin')) }}
-            
-          </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.date_fin') }}"
-                value="{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="remarque_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -238,6 +184,70 @@
                 id="remarque_formateur"
                 placeholder="{{ __('PkgApprentissage::realisationUaPrototype.remarque_formateur') }}">{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->remarque_formateur : old('remarque_formateur') }}</textarea>
           @error('remarque_formateur')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_debut" :bulkEdit="$bulkEdit">
+      @php $canEditdate_debut = !$itemRealisationUaPrototype || !$itemRealisationUaPrototype->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_debut">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.date_debut')) }}
+            
+          </label>
+                      <input
+                name="date_debut"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_debut"
+                {{ $canEditdate_debut ? '' : 'disabled' }}
+                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.date_debut') }}"
+                value="{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->date_debut : old('date_debut') }}">
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_fin" :bulkEdit="$bulkEdit">
+      @php $canEditdate_fin = !$itemRealisationUaPrototype || !$itemRealisationUaPrototype->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_fin">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.date_fin')) }}
+            
+          </label>
+                      <input
+                name="date_fin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_fin"
+                {{ $canEditdate_fin ? '' : 'disabled' }}
+                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.date_fin') }}"
+                value="{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->date_fin : old('date_fin') }}">
+
+          @error('date_fin')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
