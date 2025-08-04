@@ -240,7 +240,7 @@
     },
     {
         "reference": "RealisationUa_note_cache_displayOrder",
-        "value_integer": 8,
+        "value_integer": 5,
         "e_data_field_reference": "RealisationUa_note_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -282,7 +282,7 @@
     },
     {
         "reference": "RealisationUa_bareme_cache_displayOrder",
-        "value_integer": 9,
+        "value_integer": 6,
         "e_data_field_reference": "RealisationUa_bareme_cache",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -597,7 +597,7 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id_displayOrder",
-        "value_integer": 5,
+        "value_integer": 7,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_chapitres_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -623,7 +623,7 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id_displayOrder",
-        "value_integer": 7,
+        "value_integer": 9,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_projets_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -649,7 +649,7 @@
     },
     {
         "reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id_displayOrder",
-        "value_integer": 6,
+        "value_integer": 8,
         "e_data_field_reference": "realisation_uas_hasMany_realisation_ua_prototypes_realisation_ua_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -679,6 +679,13 @@
         "value_boolean": 1,
         "value_float": 0,
         "e_data_field_reference": "RealisationUa_progression_cache",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationUa_note_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_note_cache",
         "e_metadata_definition_reference": "displayInTable"
     }
 ]

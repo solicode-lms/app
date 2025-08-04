@@ -4,34 +4,34 @@
 <div id="realisationMicroCompetence-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::microCompetence.singular')) }}</small>
-                  @if($itemRealisationMicroCompetence->microCompetence)
-                    {{ $itemRealisationMicroCompetence->microCompetence }}
-                  @else
-                    —
-                  @endif
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationMicroCompetence->microCompetence)
+                  {{ $itemRealisationMicroCompetence->microCompetence }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
-                  @if($itemRealisationMicroCompetence->apprenant)
-                    {{ $itemRealisationMicroCompetence->apprenant }}
-                  @else
-                    —
-                  @endif
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationMicroCompetence->apprenant)
+                  {{ $itemRealisationMicroCompetence->apprenant }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id')) }}</small>
-                  @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
-                    {{ $itemRealisationMicroCompetence->etatRealisationMicroCompetence }}
-                  @else
-                    —
-                  @endif
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache')) }}</small>
+@include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache',['entity' => $itemRealisationMicroCompetence])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
@@ -46,6 +46,21 @@
                   </small>
                 </div>
             </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id')) }}</small>
+
+                {{-- Affichage sous forme de badge --}}
+                @if($itemRealisationMicroCompetence->etatRealisationMicroCompetence)
+                  <x-badge 
+                    :text="$itemRealisationMicroCompetence->etatRealisationMicroCompetence" 
+                    :background="$itemRealisationMicroCompetence->etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
+                  />
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationUa.plural')) }}</small>
@@ -55,23 +70,15 @@
                   </div>
             </div>
 
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache')) }}</small>
-@include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache',['entity' => $itemRealisationMicroCompetence])
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.bareme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationMicroCompetence->bareme_cache))
-                  {{ number_format($itemRealisationMicroCompetence->bareme_cache, 2, '.', '') }}
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemRealisationMicroCompetence->commentaire_formateur) && $itemRealisationMicroCompetence->commentaire_formateur !== '')
+                    {!! $itemRealisationMicroCompetence->commentaire_formateur !!}
                   @else
-                  —
-                  @endif
-                  </span>
-                </div>
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
@@ -94,16 +101,6 @@
                     —
                     @endif
                   </span>                </div>
-            </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationMicroCompetence->commentaire_formateur) && $itemRealisationMicroCompetence->commentaire_formateur !== '')
-                    {!! $itemRealisationMicroCompetence->commentaire_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">

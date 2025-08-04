@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation d’UA',
-    'plural' => 'Réalisations des UAs',
+    'singular' => 'Réalisation d’Unité d’apprentissage',
+    'plural' => 'Réalisations des Unités d’apprentissages',
     'date_debut' => 'Date de début',
     'date_fin' => 'Date de fin',
     'progression_cache' => 'Progression (cache)',

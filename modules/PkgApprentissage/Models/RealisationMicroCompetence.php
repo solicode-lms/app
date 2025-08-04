@@ -13,6 +13,14 @@ class RealisationMicroCompetence extends BaseRealisationMicroCompetence
         'etatRealisationMicroCompetence'
     ];
 
+
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            $model->dernier_update = now();
+        });
+    }
+
     public function __toString()
     {
         return $this->microCompetence->titre . "-" . $this->apprenant;

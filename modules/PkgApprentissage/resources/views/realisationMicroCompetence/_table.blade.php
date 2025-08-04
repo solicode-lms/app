@@ -11,9 +11,9 @@
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="16.4" field="micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgCompetences::microCompetence.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4"  field="note_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_micro_competence_id" modelname="realisationMicroCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_id'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -33,14 +33,8 @@
                         {{  $realisationMicroCompetence->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="etat_realisation_micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->etatRealisationMicroCompetence }}" >
-                        @if(!empty($realisationMicroCompetence->etatRealisationMicroCompetence))
-                        <x-badge 
-                        :text="$realisationMicroCompetence->etatRealisationMicroCompetence" 
-                        :background="$realisationMicroCompetence->etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
-                        />
-                        @endif
-
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->note_cache }}" >
+                        @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', ['entity' => $realisationMicroCompetence])
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->progression_cache }}" >
                         <div class="progress progress-sm">
@@ -52,8 +46,14 @@
                         </small>
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->note_cache }}" >
-                        @include('PkgApprentissage::realisationMicroCompetence.custom.fields.note_cache', ['entity' => $realisationMicroCompetence])
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationMicroCompetence->id}}" data-field="etat_realisation_micro_competence_id"  data-toggle="tooltip" title="{{ $realisationMicroCompetence->etatRealisationMicroCompetence }}" >
+                        @if(!empty($realisationMicroCompetence->etatRealisationMicroCompetence))
+                        <x-badge 
+                        :text="$realisationMicroCompetence->etatRealisationMicroCompetence" 
+                        :background="$realisationMicroCompetence->etatRealisationMicroCompetence->sysColor->hex ?? '#6c757d'" 
+                        />
+                        @endif
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

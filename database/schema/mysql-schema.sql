@@ -1216,8 +1216,8 @@ CREATE TABLE `realisation_micro_competences` (
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `progression_cache` double NOT NULL DEFAULT '0',
-  `note_cache` double NOT NULL DEFAULT '0',
-  `bareme_cache` double NOT NULL DEFAULT '0',
+  `note_cache` double DEFAULT NULL,
+  `bareme_cache` double DEFAULT NULL,
   `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `dernier_update` datetime DEFAULT NULL,
   `apprenant_id` bigint unsigned NOT NULL,
@@ -1292,7 +1292,7 @@ DROP TABLE IF EXISTS `realisation_ua_projets`;
 CREATE TABLE `realisation_ua_projets` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` double NOT NULL DEFAULT '0',
+  `note` double DEFAULT NULL,
   `bareme` double NOT NULL DEFAULT '0',
   `remarque_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `date_debut` datetime DEFAULT NULL,
@@ -1315,7 +1315,7 @@ DROP TABLE IF EXISTS `realisation_ua_prototypes`;
 CREATE TABLE `realisation_ua_prototypes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` double NOT NULL DEFAULT '0',
+  `note` double DEFAULT NULL,
   `bareme` double NOT NULL DEFAULT '0',
   `remarque_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `date_debut` datetime DEFAULT NULL,
@@ -1341,8 +1341,8 @@ CREATE TABLE `realisation_uas` (
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
   `progression_cache` double NOT NULL DEFAULT '0',
-  `note_cache` double NOT NULL DEFAULT '0',
-  `bareme_cache` double NOT NULL DEFAULT '0',
+  `note_cache` double DEFAULT NULL,
+  `bareme_cache` double DEFAULT NULL,
   `commentaire_formateur` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `realisation_micro_competence_id` bigint unsigned NOT NULL,
   `unite_apprentissage_id` bigint unsigned NOT NULL,
@@ -1657,7 +1657,7 @@ CREATE TABLE `user_model_filters` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_model_filters_user_id_model_name_unique` (`user_id`,`model_name`),
+  UNIQUE KEY `user_model_filters_user_id_model_name_context_key_unique` (`user_id`,`model_name`,`context_key`),
   CONSTRAINT `user_model_filters_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1926,3 +1926,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (170,'2025_07_28_17
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (171,'2025_07_30_102459_update_etats_realisation_projets_table',49);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (172,'2025_07_30_123128_rename_order_to_ordre_in_sys_modules_table',50);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (173,'2025_07_30_161840_add_context_key_to_user_model_filter_table',51);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (174,'2025_07_30_162549_update_unique_key_on_user_model_filters_table',52);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (175,'2025_08_03_205207_alter_note_nullable_in_realisation_ua_tables',53);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (176,'2025_08_04_105012_update_realisation_uas_and_micro_competences_nullable_note',54);

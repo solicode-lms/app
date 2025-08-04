@@ -93,13 +93,13 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                 $realisationMicroCompetenceData =[
                         "micro_competence_id" => $micro_competence_id,
                         "apprenant_id" => $apprenant_id,
-                        "etat_realisation_micro_competence_id" => $etat_realisation_micro_competence_id,
-                        "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
+                        "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
+                        "etat_realisation_micro_competence_id" => $etat_realisation_micro_competence_id,
                         "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
+                        "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
-                        "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];

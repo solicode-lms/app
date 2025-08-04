@@ -23,13 +23,13 @@ class BaseRealisationMicroCompetenceService extends BaseService
     protected $fieldsSearchable = [
         'micro_competence_id',
         'apprenant_id',
-        'etat_realisation_micro_competence_id',
-        'progression_cache',
         'note_cache',
+        'progression_cache',
+        'etat_realisation_micro_competence_id',
         'bareme_cache',
+        'commentaire_formateur',
         'date_debut',
         'date_fin',
-        'commentaire_formateur',
         'dernier_update'
     ];
 
