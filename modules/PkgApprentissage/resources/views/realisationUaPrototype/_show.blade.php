@@ -4,63 +4,17 @@
 <div id="realisationUaPrototype-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationUaPrototype->realisationUa)
-                  {{ $itemRealisationUaPrototype->realisationUa }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationUaPrototype->realisationTache)
-                  {{ $itemRealisationUaPrototype->realisationTache }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgApprentissage::realisationUaPrototype.custom.fields.realisationTache',['entity' => $itemRealisationUaPrototype])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.note')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUaPrototype->note))
-                  {{ number_format($itemRealisationUaPrototype->note, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+@include('PkgApprentissage::realisationUaPrototype.custom.fields.note',['entity' => $itemRealisationUaPrototype])
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.bareme')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUaPrototype->bareme))
-                  {{ number_format($itemRealisationUaPrototype->bareme, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.remarque_formateur')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationUaPrototype->remarque_formateur) && $itemRealisationUaPrototype->remarque_formateur !== '')
-                    {!! $itemRealisationUaPrototype->remarque_formateur !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
@@ -83,6 +37,16 @@
                     —
                     @endif
                   </span>                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUaPrototype.remarque_formateur')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemRealisationUaPrototype->remarque_formateur) && $itemRealisationUaPrototype->remarque_formateur !== '')
+                    {!! $itemRealisationUaPrototype->remarque_formateur !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
             </div>
         </div>

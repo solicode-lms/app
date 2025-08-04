@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgApprentissage\Models\RealisationUa;
 
 /**
  * Classe BaseRealisationUaPrototype
@@ -28,8 +28,8 @@ class BaseRealisationUaPrototype extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'realisationUa',
-      //  'realisationTache'
+      //  'realisationTache',
+      //  'realisationUa'
     ];
 
 
@@ -45,31 +45,22 @@ class BaseRealisationUaPrototype extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'realisation_ua_id', 'realisation_tache_id', 'note', 'bareme', 'remarque_formateur', 'date_debut', 'date_fin'
+        'realisation_tache_id', 'realisation_ua_id', 'note', 'bareme', 'date_debut', 'date_fin', 'remarque_formateur'
     ];
     public $manyToOne = [
-        'RealisationUa' => [
-            'model' => "Modules\\PkgApprentissage\\Models\\RealisationUa",
-            'relation' => 'realisationUas' , 
-            "foreign_key" => "realisation_ua_id", 
-            ],
         'RealisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\RealisationTache",
             'relation' => 'realisationTaches' , 
             "foreign_key" => "realisation_tache_id", 
+            ],
+        'RealisationUa' => [
+            'model' => "Modules\\PkgApprentissage\\Models\\RealisationUa",
+            'relation' => 'realisationUas' , 
+            "foreign_key" => "realisation_ua_id", 
             ]
     ];
 
 
-    /**
-     * Relation BelongsTo pour RealisationUa.
-     *
-     * @return BelongsTo
-     */
-    public function realisationUa(): BelongsTo
-    {
-        return $this->belongsTo(RealisationUa::class, 'realisation_ua_id', 'id');
-    }
     /**
      * Relation BelongsTo pour RealisationTache.
      *
@@ -78,6 +69,15 @@ class BaseRealisationUaPrototype extends BaseModel
     public function realisationTache(): BelongsTo
     {
         return $this->belongsTo(RealisationTache::class, 'realisation_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationUa.
+     *
+     * @return BelongsTo
+     */
+    public function realisationUa(): BelongsTo
+    {
+        return $this->belongsTo(RealisationUa::class, 'realisation_ua_id', 'id');
     }
 
 

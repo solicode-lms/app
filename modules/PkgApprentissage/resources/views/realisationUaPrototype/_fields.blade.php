@@ -29,7 +29,41 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_ua_id" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_tache_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_tache_id" id="bulk_field_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_tache_id">
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_tache_id" 
+            required
+            
+            
+            name="realisation_tache_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationTaches as $realisationTache)
+                    <option value="{{ $realisationTache->id }}"
+                        {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->realisation_tache_id == $realisationTache->id) || (old('realisation_tache_id>') == $realisationTache->id) ? 'selected' : '' }}>
+                        {{ $realisationTache }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_tache_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_ua_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -57,40 +91,6 @@
                 @endforeach
             </select>
           @error('realisation_ua_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="realisation_tache_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_tache_id" id="bulk_field_realisation_tache_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_tache_id">
-            {{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_tache_id" 
-            required
-            
-            
-            name="realisation_tache_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationTaches as $realisationTache)
-                    <option value="{{ $realisationTache->id }}"
-                        {{ (isset($itemRealisationUaPrototype) && $itemRealisationUaPrototype->realisation_tache_id == $realisationTache->id) || (old('realisation_tache_id>') == $realisationTache->id) ? 'selected' : '' }}>
-                        {{ $realisationTache }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_tache_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -157,33 +157,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="remarque_formateur" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-12">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarque_formateur" id="bulk_field_remarque_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="remarque_formateur">
-            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.remarque_formateur')) }}
-            
-          </label>
-                      <textarea rows="" cols=""
-                name="remarque_formateur"
-                class="form-control richText"
-                
-                
-                
-                id="remarque_formateur"
-                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.remarque_formateur') }}">{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->remarque_formateur : old('remarque_formateur') }}</textarea>
-          @error('remarque_formateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="date_debut" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -238,6 +211,33 @@
                 value="{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->date_fin : old('date_fin') }}">
 
           @error('date_fin')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationUaPrototype" field="remarque_formateur" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-12">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="remarque_formateur" id="bulk_field_remarque_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="remarque_formateur">
+            {{ ucfirst(__('PkgApprentissage::realisationUaPrototype.remarque_formateur')) }}
+            
+          </label>
+                      <textarea rows="" cols=""
+                name="remarque_formateur"
+                class="form-control richText"
+                
+                
+                
+                id="remarque_formateur"
+                placeholder="{{ __('PkgApprentissage::realisationUaPrototype.remarque_formateur') }}">{{ $itemRealisationUaPrototype ? $itemRealisationUaPrototype->remarque_formateur : old('remarque_formateur') }}</textarea>
+          @error('remarque_formateur')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

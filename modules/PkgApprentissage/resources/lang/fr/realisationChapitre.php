@@ -10,6 +10,6 @@ return [
     'realisation_ua_id' => 'Réalisation UA',
     'realisation_tache_id' => 'Réalisation de tâche',
     'chapitre_id' => 'Chapitre',
-    'etat_realisation_chapitre_id' => 'État de réalisation du chapitre',
+    'etat_realisation_chapitre_id' => 'État',
     "apprenant" => "Apprenant"
 ];

@@ -9,8 +9,8 @@
                     $bulkEdit = $realisationUaPrototypes_permissions['edit-realisationUaPrototype'] || $realisationUaPrototypes_permissions['destroy-realisationUaPrototype'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41" field="realisation_ua_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="41"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
+                <x-sortable-column :sortable="true" width="40" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="42"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,13 +22,11 @@
                 @endphp
                 <tr id="realisationUaPrototype-row-{{$realisationUaPrototype->id}}" data-id="{{$realisationUaPrototype->id}}">
                     <x-checkbox-row :item="$realisationUaPrototype" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationUa }}" >
-                        {{  $realisationUaPrototype->realisationUa }}
-
+                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaPrototype->realisationTache }}" >
+                        @include('PkgApprentissage::realisationUaPrototype.custom.fields.realisationTache', ['entity' => $realisationUaPrototype])
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
-                        {{ $realisationUaPrototype->note }}
-
+                    <td style="max-width: 42%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaPrototype->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaPrototype->note }}" >
+                        @include('PkgApprentissage::realisationUaPrototype.custom.fields.note', ['entity' => $realisationUaPrototype])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

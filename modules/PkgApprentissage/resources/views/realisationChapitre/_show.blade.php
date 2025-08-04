@@ -7,13 +7,7 @@
             <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationChapitre->chapitre)
-                  {{ $itemRealisationChapitre->chapitre }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgApprentissage::realisationChapitre.custom.fields.chapitre',['entity' => $itemRealisationChapitre])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
@@ -52,30 +46,6 @@
                     —
                     @endif
                   </span>                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationChapitre->realisationUa)
-                  {{ $itemRealisationChapitre->realisationUa }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationChapitre->realisationTache)
-                  {{ $itemRealisationChapitre->realisationTache }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
             </div>
             <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">

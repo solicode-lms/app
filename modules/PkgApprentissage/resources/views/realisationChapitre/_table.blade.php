@@ -9,11 +9,9 @@
                     $bulkEdit = $realisationChapitres_permissions['edit-realisationChapitre'] || $realisationChapitres_permissions['destroy-realisationChapitre'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="30" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="40" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="10" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id'))!!}" />
-                <x-sortable-column :sortable="true" width="14"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
-                <x-sortable-column :sortable="true" width="14" field="realisation_ua_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="14" field="realisation_tache_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="32"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,9 +23,8 @@
                 @endphp
                 <tr id="realisationChapitre-row-{{$realisationChapitre->id}}" data-id="{{$realisationChapitre->id}}">
                     <x-checkbox-row :item="$realisationChapitre" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 30%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
-                        {{  $realisationChapitre->chapitre }}
-
+                    <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->chapitre }}" >
+                        @include('PkgApprentissage::realisationChapitre.custom.fields.chapitre', ['entity' => $realisationChapitre])
                     </td>
                     <td style="max-width: 10%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="etat_realisation_chapitre_id"  data-toggle="tooltip" title="{{ $realisationChapitre->etatRealisationChapitre }}" >
                         @if(!empty($realisationChapitre->etatRealisationChapitre))
@@ -38,15 +35,8 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 14%;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant"  data-toggle="tooltip" title="{{ $realisationChapitre->apprenant }}" >
+                    <td style="max-width: 32%;" class=" text-truncate" data-id="{{$realisationChapitre->id}}" data-field="apprenant"  data-toggle="tooltip" title="{{ $realisationChapitre->apprenant }}" >
                         {{ $realisationChapitre->apprenant }}
-
-                    </td>
-                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_ua_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationUa }}" >
-                        @include('PkgApprentissage::realisationChapitre.custom.fields.realisationUa', ['entity' => $realisationChapitre])
-                    </td>
-                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationChapitre->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationChapitre->realisationTache }}" >
-                        {{  $realisationChapitre->realisationTache }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

@@ -29,13 +29,13 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'realisation_ua_id' => 'required',
             'realisation_tache_id' => 'required',
+            'realisation_ua_id' => 'required',
             'note' => 'nullable',
             'bareme' => 'required',
-            'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable'
+            'date_fin' => 'nullable',
+            'remarque_formateur' => 'nullable|string'
         ];
     }
 
@@ -47,13 +47,13 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.realisation_ua_id')]),
             'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.realisation_tache_id')]),
+            'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.realisation_ua_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.note')]),
             'bareme.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.bareme')]),
-            'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.date_fin')]),
+            'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaPrototype.remarque_formateur')])
         ];
     }
 

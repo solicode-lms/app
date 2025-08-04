@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation d’UA Prototype',
-    'plural' => 'Réalisations des UAs Prototypes',
+    'singular' => 'Réalisation de Prototype',
+    'plural' => 'Réalisations des Prototypes',
     'note' => 'Note',
     'bareme' => 'Barème',
     'remarque_formateur' => 'Remarque du formateur',

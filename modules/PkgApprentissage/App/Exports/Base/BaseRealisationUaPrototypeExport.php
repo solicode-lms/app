@@ -32,24 +32,24 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
     {
         if ($this->format === 'csv') {
             return [
-                'realisation_ua_reference' => 'realisation_ua_reference',
                 'realisation_tache_reference' => 'realisation_tache_reference',
+                'realisation_ua_reference' => 'realisation_ua_reference',
                 'note' => 'note',
                 'bareme' => 'bareme',
-                'remarque_formateur' => 'remarque_formateur',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
+                'remarque_formateur' => 'remarque_formateur',
                 'reference' => 'reference',
             ];
         } else {
             return [
-                'realisation_ua_reference' => __('PkgApprentissage::realisationUaPrototype.realisation_ua_reference'),
                 'realisation_tache_reference' => __('PkgApprentissage::realisationUaPrototype.realisation_tache_reference'),
+                'realisation_ua_reference' => __('PkgApprentissage::realisationUaPrototype.realisation_ua_reference'),
                 'note' => __('PkgApprentissage::realisationUaPrototype.note'),
                 'bareme' => __('PkgApprentissage::realisationUaPrototype.bareme'),
-                'remarque_formateur' => __('PkgApprentissage::realisationUaPrototype.remarque_formateur'),
                 'date_debut' => __('PkgApprentissage::realisationUaPrototype.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUaPrototype.date_fin'),
+                'remarque_formateur' => __('PkgApprentissage::realisationUaPrototype.remarque_formateur'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -62,13 +62,13 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
     {
         return $this->data->map(function ($realisationUaPrototype) {
             return [
-                'realisation_ua_reference' => $realisationUaPrototype->realisationUa?->reference,
                 'realisation_tache_reference' => $realisationUaPrototype->realisationTache?->reference,
+                'realisation_ua_reference' => $realisationUaPrototype->realisationUa?->reference,
                 'note' => $realisationUaPrototype->note,
                 'bareme' => $realisationUaPrototype->bareme,
-                'remarque_formateur' => $realisationUaPrototype->remarque_formateur,
                 'date_debut' => $realisationUaPrototype->date_debut,
                 'date_fin' => $realisationUaPrototype->date_fin,
+                'remarque_formateur' => $realisationUaPrototype->remarque_formateur,
                 'reference' => $realisationUaPrototype->reference,
             ];
         });

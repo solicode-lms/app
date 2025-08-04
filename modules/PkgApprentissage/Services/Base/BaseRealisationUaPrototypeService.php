@@ -21,13 +21,13 @@ class BaseRealisationUaPrototypeService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'realisation_ua_id',
         'realisation_tache_id',
+        'realisation_ua_id',
         'note',
         'bareme',
-        'remarque_formateur',
         'date_debut',
-        'date_fin'
+        'date_fin',
+        'remarque_formateur'
     ];
 
     /**
@@ -68,23 +68,6 @@ class BaseRealisationUaPrototypeService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
-
-
-                    $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
-                    $realisationUaIds = $this->getAvailableFilterValues('realisation_ua_id');
-                    $realisationUas = $realisationUaService->getByIds($realisationUaIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgApprentissage::realisationUa.plural"), 
-                        'realisation_ua_id', 
-                        \Modules\PkgApprentissage\Models\RealisationUa::class, 
-                        'id',
-                        $realisationUas
-                    );
-                }
-            
-            
                 if (!array_key_exists('realisation_tache_id', $scopeVariables)) {
 
 
@@ -98,6 +81,23 @@ class BaseRealisationUaPrototypeService extends BaseService
                         \Modules\PkgRealisationTache\Models\RealisationTache::class, 
                         'id',
                         $realisationTaches
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_ua_id', $scopeVariables)) {
+
+
+                    $realisationUaService = new \Modules\PkgApprentissage\Services\RealisationUaService();
+                    $realisationUaIds = $this->getAvailableFilterValues('realisation_ua_id');
+                    $realisationUas = $realisationUaService->getByIds($realisationUaIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::realisationUa.plural"), 
+                        'realisation_ua_id', 
+                        \Modules\PkgApprentissage\Models\RealisationUa::class, 
+                        'id',
+                        $realisationUas
                     );
                 }
             
