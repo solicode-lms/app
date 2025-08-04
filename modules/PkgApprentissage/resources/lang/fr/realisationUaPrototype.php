@@ -2,8 +2,8 @@
 
 
 return [
-    'singular' => 'Réalisation de Prototype',
-    'plural' => 'Réalisations des Prototypes',
+    'singular' => 'Réalisation d’une unité dans Prototype',
+    'plural' => 'Réalisations des unités dans Prototypes',
     'note' => 'Note',
     'bareme' => 'Barème',
     'remarque_formateur' => 'Remarque du formateur',

@@ -304,5 +304,47 @@ protected function applyDynamicJoins($query, string $relationPath): string
 }
 
 
+/**
+ * Vérifie que les valeurs des filtres sauvegardés existent encore dans la base.
+ *
+ * @param array $filters Liste des filtres chargés depuis l’historique (key => id)
+ * @return array Filtres filtrés avec uniquement les entrées encore valides
+ */
+public function checkIfDataExist(array $filters): array
+{
+    $validatedFilters = [];
+
+    foreach ($filters as $key => $value) {
+        // 🧪 Vérifie si la valeur est un identifiant numérique ou tableau d’identifiants
+        $ids = is_array($value) ? $value : [$value];
+
+        // ⛔ Si vide ou null, on garde tel quel (évite des filtres booléens ou textuels)
+        if (empty($ids)) {
+            $validatedFilters[$key] = $value;
+            continue;
+        }
+
+        // 🔍 Recherche dynamique du modèle via relationPath
+        try {
+            $query = $this->model->query()->toBase(); // base SQL
+            $column = $this->applyDynamicJoins($query, $key); // ex: module.filiere.id
+            $query->select($column)->whereIn($column, $ids);
+            $existingValues = $query->pluck($column)->toArray();
+
+            // ✅ Garde uniquement les valeurs existantes
+            if (!empty($existingValues)) {
+                $validatedFilters[$key] = is_array($value)
+                    ? array_values(array_intersect($value, $existingValues))
+                    : (in_array($value, $existingValues) ? $value : null);
+            }
+        } catch (\Throwable $e) {
+            // 🚧 En cas d'erreur sur la jointure ou colonne (ex: champ supprimé), on ignore ce filtre
+            continue;
+        }
+    }
+
+    return $validatedFilters;
+}
+
     
 }

@@ -21,4 +21,9 @@ class EtatsRealisationProjet extends BaseEtatsRealisationProjet
 
         return $this->titre;
     }
+
+     public function __toString()
+    {
+        return $this->titre ?? "";
+    }
 }

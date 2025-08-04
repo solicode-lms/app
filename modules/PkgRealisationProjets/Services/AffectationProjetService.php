@@ -270,4 +270,18 @@ class AffectationProjetService extends BaseAffectationProjetService
         return $query->get();
     }
 
+    public function beforeDeleteRules($affectationProjet)
+    {
+        // Vérifier s’il existe des réalisations liées dont l'état ≠ "TODO"
+        $realisationProjets = $affectationProjet->realisationProjets()->with('etatsRealisationProjet')->get();
+
+        $hasNonTodo = $realisationProjets->contains(function ($realisation) {
+            return optional($realisation->etatsRealisationProjet)->code !== 'TODO'; // état initial
+        });
+
+        if ($hasNonTodo) {
+            throw new \Exception("Impossible de supprimer cette affectation : au moins une réalisation de projet a un état différent de 'À faire'. Veuillez réinitialiser tous les états à 'À faire' avant de procéder à la suppression.");
+        }
+    }
+
 }

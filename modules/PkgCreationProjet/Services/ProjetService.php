@@ -30,7 +30,15 @@ class ProjetService extends BaseProjetService
     ];
 
 
+    public function beforeDeleteRules($projet)
+    {
+        // Vérification des affectations liées au projet
+        $affectations = $projet->affectationProjets()->count();
 
+        if ($affectations > 0) {
+            throw new \Exception("Impossible de supprimer ce projet : il est encore affecté à un ou plusieurs groupes. Supprimez d'abord les affectations avant de supprimer le projet.");
+        }
+    }
 
 
     public function beforeUpdateRules($projet)
