@@ -4,62 +4,50 @@
 <div id="prioriteTache-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemPrioriteTache->ordre))
-          {{ $itemPrioriteTache->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.nom')) }}</small>
-                              @if(! is_null($itemPrioriteTache->nom) && $itemPrioriteTache->nom !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemPrioriteTache->ordre))
+                      {{ $itemPrioriteTache->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemPrioriteTache->nom) && $itemPrioriteTache->nom !== '')
         {{ $itemPrioriteTache->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemPrioriteTache->description) && $itemPrioriteTache->description !== '')
+                    {!! $itemPrioriteTache->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationTache::prioriteTache.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemPrioriteTache->description) && $itemPrioriteTache->description !== '')
-    {!! $itemPrioriteTache->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.singular')) }}</small>
-                              
-      @if($itemPrioriteTache->formateur)
-        {{ $itemPrioriteTache->formateur }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemPrioriteTache->formateur)
+                  {{ $itemPrioriteTache->formateur }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

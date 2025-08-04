@@ -4,82 +4,69 @@
 <div id="module-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.code')) }}</small>
-                              @if(! is_null($itemModule->code) && $itemModule->code !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemModule->code) && $itemModule->code !== '')
         {{ $itemModule->code }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.nom')) }}</small>
-                              @if(! is_null($itemModule->nom) && $itemModule->nom !== '')
-        {{ $itemModule->nom }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemModule->description) && $itemModule->description !== '')
-    {!! $itemModule->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}</small>
-                              @if(! is_null($itemModule->masse_horaire) && $itemModule->masse_horaire !== '')
-        {{ $itemModule->masse_horaire }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
-                              
-      @if($itemModule->filiere)
-        {{ $itemModule->filiere }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::competence.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::competence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.show_' . $itemModule->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemModule->nom) && $itemModule->nom !== '')
+        {{ $itemModule->nom }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemModule->description) && $itemModule->description !== '')
+                    {!! $itemModule->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.masse_horaire')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemModule->masse_horaire) && $itemModule->masse_horaire !== '')
+        {{ $itemModule->masse_horaire }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.singular')) }}</small>
 
+                {{-- Affichage texte classique --}}
+                @if($itemModule->filiere)
+                  {{ $itemModule->filiere }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::competence.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCompetences::competence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'module.show_' . $itemModule->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

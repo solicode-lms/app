@@ -4,76 +4,62 @@
 <div id="livrableSession-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemLivrableSession->ordre))
-          {{ $itemLivrableSession->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.titre')) }}</small>
-                              @if(! is_null($itemLivrableSession->titre) && $itemLivrableSession->titre !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemLivrableSession->ordre))
+                      {{ $itemLivrableSession->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.titre')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemLivrableSession->titre) && $itemLivrableSession->titre !== '')
         {{ $itemLivrableSession->titre }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemLivrableSession->description) && $itemLivrableSession->description !== '')
+                    {!! $itemLivrableSession->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}</small>
 
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemLivrableSession->sessionFormation)
+                  {{ $itemLivrableSession->sessionFormation }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}</small>
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::livrableSession.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemLivrableSession->description) && $itemLivrableSession->description !== '')
-    {!! $itemLivrableSession->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgSessions::sessionFormation.singular')) }}</small>
-                              
-      @if($itemLivrableSession->sessionFormation)
-        {{ $itemLivrableSession->sessionFormation }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCreationProjet::natureLivrable.singular')) }}</small>
-                              
-      @if($itemLivrableSession->natureLivrable)
-        {{ $itemLivrableSession->natureLivrable }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemLivrableSession->natureLivrable)
+                  {{ $itemLivrableSession->natureLivrable }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

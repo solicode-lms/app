@@ -7,307 +7,254 @@
                         <i class="fas fa-user mr-1"></i>{{ __('État Civil') }}
             </h6>
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}</small>
-                              @if(! is_null($itemApprenant->nom) && $itemApprenant->nom !== '')
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->nom) && $itemApprenant->nom !== '')
         {{ $itemApprenant->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}</small>
-                              @if(! is_null($itemApprenant->nom_arab) && $itemApprenant->nom_arab !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.nom_arab')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->nom_arab) && $itemApprenant->nom_arab !== '')
         {{ $itemApprenant->nom_arab }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}</small>
-                              @if(! is_null($itemApprenant->prenom) && $itemApprenant->prenom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->prenom) && $itemApprenant->prenom !== '')
         {{ $itemApprenant->prenom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}</small>
-                              @if(! is_null($itemApprenant->prenom_arab) && $itemApprenant->prenom_arab !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.prenom_arab')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->prenom_arab) && $itemApprenant->prenom_arab !== '')
         {{ $itemApprenant->prenom_arab }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.cin')) }}</small>
-                              @if(! is_null($itemApprenant->cin) && $itemApprenant->cin !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.cin')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->cin) && $itemApprenant->cin !== '')
         {{ $itemApprenant->cin }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_naissance')) }}</small>
-                            
-    <span>
-      @if ($itemApprenant->date_naissance)
-        {{ \Carbon\Carbon::parse($itemApprenant->date_naissance)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}</small>
-                              @if(! is_null($itemApprenant->sexe) && $itemApprenant->sexe !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_naissance')) }}</small>
+                  <span>
+                    @if ($itemApprenant->date_naissance)
+                    {{ \Carbon\Carbon::parse($itemApprenant->date_naissance)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.sexe')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->sexe) && $itemApprenant->sexe !== '')
         {{ $itemApprenant->sexe }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::nationalite.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::nationalite.singular')) }}</small>
-                              
-      @if($itemApprenant->nationalite)
-        {{ $itemApprenant->nationalite }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}</small>
-                              @if(! is_null($itemApprenant->lieu_naissance) && $itemApprenant->lieu_naissance !== '')
+                {{-- Affichage texte classique --}}
+                @if($itemApprenant->nationalite)
+                  {{ $itemApprenant->nationalite }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-3 col-lg-3 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.lieu_naissance')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->lieu_naissance) && $itemApprenant->lieu_naissance !== '')
         {{ $itemApprenant->lieu_naissance }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-9 col-lg-9 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-9 col-lg-9 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::niveauxScolaire.singular')) }}</small>
-                              
-      @if($itemApprenant->niveauxScolaire)
-        {{ $itemApprenant->niveauxScolaire }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemApprenant->niveauxScolaire)
+                  {{ $itemApprenant->niveauxScolaire }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
             <h6 class="text-muted mb-2">
                         <i class="fas fa-address-book mr-1"></i>{{ __('Informations de Contact') }}
             </h6>
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}</small>
-                              @if(! is_null($itemApprenant->tele_num) && $itemApprenant->tele_num !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.tele_num')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->tele_num) && $itemApprenant->tele_num !== '')
         {{ $itemApprenant->tele_num }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
-                              
-      @if($itemApprenant->user)
-        {{ $itemApprenant->user }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemApprenant->user)
+                  {{ $itemApprenant->user }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
             <h6 class="text-muted mb-2">
                         <i class="fas fa-graduation-cap mr-1"></i>{{ __('Informations Académiques') }}
             </h6>
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}</small>
-                              @if(! is_null($itemApprenant->matricule) && $itemApprenant->matricule !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.matricule')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->matricule) && $itemApprenant->matricule !== '')
         {{ $itemApprenant->matricule }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemApprenant->groupes->isNotEmpty())
-          <div>
-            @foreach($itemApprenant->groupes as $groupe)
-              <span class="badge badge-info mr-1">
-                {{ $groupe }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}</small>
-                            
-    <span>
-      @if ($itemApprenant->date_inscription)
-        {{ \Carbon\Carbon::parse($itemApprenant->date_inscription)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.actif')) }}</small>
-                              
-      @if($itemApprenant->actif)
-        <span class="badge badge-success">{{ __('Oui') }}</span>
-      @else
-        <span class="badge badge-secondary">{{ __('Non') }}</span>
-      @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemApprenant->groupes->isNotEmpty())
+                  <div>
+                    @foreach($itemApprenant->groupes as $groupe)
+                      <span class="badge badge-info mr-1">
+                        {{ $groupe }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.date_inscription')) }}</small>
+                  <span>
+                    @if ($itemApprenant->date_inscription)
+                    {{ \Carbon\Carbon::parse($itemApprenant->date_inscription)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.actif')) }}</small>
+                  @if($itemApprenant->actif)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
             </div>
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}</small>
-                              @if(! is_null($itemApprenant->diplome) && $itemApprenant->diplome !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.diplome')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenant->diplome) && $itemApprenant->diplome !== '')
         {{ $itemApprenant->diplome }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.adresse')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemApprenant->adresse) && $itemApprenant->adresse !== '')
-    {!! $itemApprenant->adresse !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::sousGroupe.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemApprenant->sousGroupes->isNotEmpty())
-          <div>
-            @foreach($itemApprenant->sousGroupes as $sousGroupe)
-              <span class="badge badge-info mr-1">
-                {{ $sousGroupe }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.adresse')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemApprenant->adresse) && $itemApprenant->adresse !== '')
+                    {!! $itemApprenant->adresse !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::sousGroupe.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemApprenant->sousGroupes->isNotEmpty())
+                  <div>
+                    @foreach($itemApprenant->sousGroupes as $sousGroupe)
+                      <span class="badge badge-info mr-1">
+                        {{ $sousGroupe }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
+                  </div>
+                  </div>
+            </div>
 
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.show_' . $itemApprenant->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

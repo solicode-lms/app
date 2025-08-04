@@ -171,13 +171,13 @@
           @endif
           <label for="note_cache">
             {{ ucfirst(__('PkgApprentissage::realisationUa.note_cache')) }}
-            <span class="text-danger">*</span>
+            
           </label>
               <input
         name="note_cache"
         type="number"
         class="form-control"
-        required
+        
         
         
         id="note_cache"
@@ -201,13 +201,13 @@
           @endif
           <label for="bareme_cache">
             {{ ucfirst(__('PkgApprentissage::realisationUa.bareme_cache')) }}
-            <span class="text-danger">*</span>
+            
           </label>
               <input
         name="bareme_cache"
         type="number"
         class="form-control"
-        required
+        
         
         
         id="bareme_cache"

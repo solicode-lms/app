@@ -4,73 +4,61 @@
 <div id="profile-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
-                              
-      @if($itemProfile->user)
-        {{ $itemProfile->user }}
-      @else
-        —
-      @endif
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.phone')) }}</small>
-                              @if(! is_null($itemProfile->phone) && $itemProfile->phone !== '')
+                {{-- Affichage texte classique --}}
+                @if($itemProfile->user)
+                  {{ $itemProfile->user }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.phone')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemProfile->phone) && $itemProfile->phone !== '')
         {{ $itemProfile->phone }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.address')) }}</small>
-                              @if(! is_null($itemProfile->address) && $itemProfile->address !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.address')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemProfile->address) && $itemProfile->address !== '')
         {{ $itemProfile->address }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.profile_picture')) }}</small>
-                              @if(! is_null($itemProfile->profile_picture) && $itemProfile->profile_picture !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.profile_picture')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemProfile->profile_picture) && $itemProfile->profile_picture !== '')
         {{ $itemProfile->profile_picture }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.bio')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemProfile->bio) && $itemProfile->bio !== '')
-    {!! $itemProfile->bio !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::profile.bio')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemProfile->bio) && $itemProfile->bio !== '')
+                    {!! $itemProfile->bio !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

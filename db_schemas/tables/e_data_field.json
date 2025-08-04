@@ -6693,11 +6693,10 @@
         "column_name": "note_cache",
         "data_type": "Float",
         "field_order": 6,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table realisation_micro_competences"
     },
     {
@@ -6707,11 +6706,10 @@
         "column_name": "bareme_cache",
         "data_type": "Float",
         "field_order": 7,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table realisation_micro_competences"
     },
     {
@@ -7465,11 +7463,10 @@
         "column_name": "note_cache",
         "data_type": "Float",
         "field_order": 6,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table realisation_uas"
     },
     {
@@ -7479,11 +7476,10 @@
         "column_name": "bareme_cache",
         "data_type": "Float",
         "field_order": 7,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0",
         "description": "Field in table realisation_uas"
     },
     {

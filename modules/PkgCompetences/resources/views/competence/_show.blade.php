@@ -4,83 +4,70 @@
 <div id="competence-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.code')) }}</small>
-                              @if(! is_null($itemCompetence->code) && $itemCompetence->code !== '')
+            <div class="col-12 col-md-2 col-lg-2 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemCompetence->code) && $itemCompetence->code !== '')
         {{ $itemCompetence->code }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}</small>
-                              @if(! is_null($itemCompetence->mini_code) && $itemCompetence->mini_code !== '')
-        {{ $itemCompetence->mini_code }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.nom')) }}</small>
-                              @if(! is_null($itemCompetence->nom) && $itemCompetence->nom !== '')
-        {{ $itemCompetence->nom }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.singular')) }}</small>
-                              
-      @if($itemCompetence->module)
-        {{ $itemCompetence->module }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::microCompetence.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::microCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.show_' . $itemCompetence->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-4 col-lg-4 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.mini_code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemCompetence->mini_code) && $itemCompetence->mini_code !== '')
+        {{ $itemCompetence->mini_code }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemCompetence->nom) && $itemCompetence->nom !== '')
+        {{ $itemCompetence->nom }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.singular')) }}</small>
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemCompetence->description) && $itemCompetence->description !== '')
-    {!! $itemCompetence->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemCompetence->module)
+                  {{ $itemCompetence->module }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::microCompetence.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCompetences::microCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'competence.show_' . $itemCompetence->id])
+                  </div>
+                  </div>
+            </div>
 
-
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemCompetence->description) && $itemCompetence->description !== '')
+                    {!! $itemCompetence->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -234,7 +234,8 @@
     },
     {
         "reference": "RealisationUa_note_cache_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUa_note_cache",
         "e_metadata_definition_reference": "required"
     },
@@ -276,7 +277,8 @@
     },
     {
         "reference": "RealisationUa_bareme_cache_required",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUa_bareme_cache",
         "e_metadata_definition_reference": "required"
     },

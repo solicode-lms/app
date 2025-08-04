@@ -4,175 +4,139 @@
 <div id="eMetadatum-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}</small>
-                              
-      @if($itemEMetadatum->value_boolean)
-        <span class="badge badge-success">{{ __('Oui') }}</span>
-      @else
-        <span class="badge badge-secondary">{{ __('Non') }}</span>
-      @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}</small>
-                              @if(! is_null($itemEMetadatum->value_string) && $itemEMetadatum->value_string !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_boolean')) }}</small>
+                  @if($itemEMetadatum->value_boolean)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_string')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemEMetadatum->value_string) && $itemEMetadatum->value_string !== '')
         {{ $itemEMetadatum->value_string }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemEMetadatum->value_integer))
-          {{ $itemEMetadatum->value_integer }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemEMetadatum->value_float))
-          {{ number_format($itemEMetadatum->value_float, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}</small>
-                            
-    <span>
-      @if ($itemEMetadatum->value_date)
-        {{ \Carbon\Carbon::parse($itemEMetadatum->value_date)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}</small>
-                            
-    <span>
-      @if ($itemEMetadatum->value_datetime)
-        {{ \Carbon\Carbon::parse($itemEMetadatum->value_datetime)->isoFormat('LLL') }}
-      @else
-        —
-      @endif
-    </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}</small>
-                              @if(! is_null($itemEMetadatum->value_enum) && $itemEMetadatum->value_enum !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_integer')) }}</small>
+                  <span>
+                    @if(! is_null($itemEMetadatum->value_integer))
+                      {{ $itemEMetadatum->value_integer }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_float')) }}</small>
+                  <span>
+                  @if(! is_null($itemEMetadatum->value_float))
+                  {{ number_format($itemEMetadatum->value_float, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_date')) }}</small>
+                  <span>
+                    @if ($itemEMetadatum->value_date)
+                    {{ \Carbon\Carbon::parse($itemEMetadatum->value_date)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_datetime')) }}</small>
+                  <span>
+                    @if ($itemEMetadatum->value_datetime)
+                    {{ \Carbon\Carbon::parse($itemEMetadatum->value_datetime)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_enum')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemEMetadatum->value_enum) && $itemEMetadatum->value_enum !== '')
         {{ $itemEMetadatum->value_enum }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}</small>
+                  @if(! is_null($itemEMetadatum->value_json))
+                    <pre class="border rounded p-2 bg-light" style="overflow:auto;">
+                  {!! json_encode($itemEMetadatum->value_json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) !!}
+                    </pre>
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemEMetadatum->value_text) && $itemEMetadatum->value_text !== '')
+                    {!! $itemEMetadatum->value_text !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.singular')) }}</small>
 
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemEMetadatum->eModel)
+                  {{ $itemEMetadatum->eModel }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.singular')) }}</small>
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_json')) }}</small>
-                              @if(! is_null($itemEMetadatum->value_json))
-          <pre class="border rounded p-2 bg-light" style="overflow:auto;">
-      {!! json_encode($itemEMetadatum->value_json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) !!}
-          </pre>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemEMetadatum->eDataField)
+                  {{ $itemEMetadatum->eDataField }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}</small>
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadatum.value_text')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemEMetadatum->value_text) && $itemEMetadatum->value_text !== '')
-    {!! $itemEMetadatum->value_text !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eModel.singular')) }}</small>
-                              
-      @if($itemEMetadatum->eModel)
-        {{ $itemEMetadatum->eModel }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eDataField.singular')) }}</small>
-                              
-      @if($itemEMetadatum->eDataField)
-        {{ $itemEMetadatum->eDataField }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgGapp::eMetadataDefinition.singular')) }}</small>
-                              
-      @if($itemEMetadatum->eMetadataDefinition)
-        {{ $itemEMetadatum->eMetadataDefinition }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemEMetadatum->eMetadataDefinition)
+                  {{ $itemEMetadatum->eMetadataDefinition }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -4,52 +4,43 @@
 <div id="specialite-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.nom')) }}</small>
-                              @if(! is_null($itemSpecialite->nom) && $itemSpecialite->nom !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemSpecialite->nom) && $itemSpecialite->nom !== '')
         {{ $itemSpecialite->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemSpecialite->description) && $itemSpecialite->description !== '')
-    {!! $itemSpecialite->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemSpecialite->formateurs->isNotEmpty())
-          <div>
-            @foreach($itemSpecialite->formateurs as $formateur)
-              <span class="badge badge-info mr-1">
-                {{ $formateur }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemSpecialite->description) && $itemSpecialite->description !== '')
+                    {!! $itemSpecialite->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemSpecialite->formateurs->isNotEmpty())
+                  <div>
+                    @foreach($itemSpecialite->formateurs as $formateur)
+                      <span class="badge badge-info mr-1">
+                        {{ $formateur }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -4,77 +4,58 @@
 <div id="evaluationRealisationTache-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_id')) }}</small>
-                              
-      @if($itemEvaluationRealisationTache->realisationTache)
-        {{ $itemEvaluationRealisationTache->realisationTache }}
-      @else
-        —
-      @endif
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_id')) }}</small>
 
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemEvaluationRealisationTache->realisationTache)
+                  {{ $itemEvaluationRealisationTache->realisationTache }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.singular')) }}</small>
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluateur.singular')) }}</small>
-                              
-      @if($itemEvaluationRealisationTache->evaluateur)
-        {{ $itemEvaluationRealisationTache->evaluateur }}
-      @else
-        —
-      @endif
+                {{-- Affichage texte classique --}}
+                @if($itemEvaluationRealisationTache->evaluateur)
+                  {{ $itemEvaluationRealisationTache->evaluateur }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.note')) }}</small>
+@include('PkgEvaluateurs::evaluationRealisationTache.custom.fields.note',['entity' => $itemEvaluationRealisationTache])
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.message')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemEvaluationRealisationTache->message) && $itemEvaluationRealisationTache->message !== '')
+                    {!! $itemEvaluationRealisationTache->message !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.note')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemEvaluationRealisationTache->note))
-          {{ number_format($itemEvaluationRealisationTache->note, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationTache.message')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemEvaluationRealisationTache->message) && $itemEvaluationRealisationTache->message !== '')
-    {!! $itemEvaluationRealisationTache->message !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.singular')) }}</small>
-                              
-      @if($itemEvaluationRealisationTache->evaluationRealisationProjet)
-        {{ $itemEvaluationRealisationTache->evaluationRealisationProjet }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-
+                {{-- Affichage texte classique --}}
+                @if($itemEvaluationRealisationTache->evaluationRealisationProjet)
+                  {{ $itemEvaluationRealisationTache->evaluationRealisationProjet }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -4,96 +4,76 @@
 <div id="etatRealisationChapitre-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemEtatRealisationChapitre->ordre))
-          {{ $itemEtatRealisationChapitre->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.nom')) }}</small>
-                              @if(! is_null($itemEtatRealisationChapitre->nom) && $itemEtatRealisationChapitre->nom !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemEtatRealisationChapitre->ordre))
+                      {{ $itemEtatRealisationChapitre->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemEtatRealisationChapitre->nom) && $itemEtatRealisationChapitre->nom !== '')
         {{ $itemEtatRealisationChapitre->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.code')) }}</small>
-                              @if(! is_null($itemEtatRealisationChapitre->code) && $itemEtatRealisationChapitre->code !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemEtatRealisationChapitre->code) && $itemEtatRealisationChapitre->code !== '')
         {{ $itemEtatRealisationChapitre->code }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
-                              
-      @if($itemEtatRealisationChapitre->sysColor)
-        @php
-          $related = $itemEtatRealisationChapitre->sysColor;
-        @endphp
-        <span 
-          class="badge" 
-          style="background-color: {{ $related->hex }}; color: #fff;"
-        >
-          {{ $related }}
-        </span>
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.is_editable_only_by_formateur')) }}</small>
-                              
-      @if($itemEtatRealisationChapitre->is_editable_only_by_formateur)
-        <span class="badge badge-success">{{ __('Oui') }}</span>
-      @else
-        <span class="badge badge-secondary">{{ __('Non') }}</span>
-      @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemEtatRealisationChapitre->description) && $itemEtatRealisationChapitre->description !== '')
-    {!! $itemEtatRealisationChapitre->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
+                  @if($itemEtatRealisationChapitre->sysColor)
+                  @php
+                    $related = $itemEtatRealisationChapitre->sysColor;
+                  @endphp
+                  <span 
+                    class="badge" 
+                    style="background-color: {{ $related->hex }}; color: #fff;"
+                  >
+                    {{ $related }}
+                  </span>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.is_editable_only_by_formateur')) }}</small>
+                  @if($itemEtatRealisationChapitre->is_editable_only_by_formateur)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemEtatRealisationChapitre->description) && $itemEtatRealisationChapitre->description !== '')
+                    {!! $itemEtatRealisationChapitre->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

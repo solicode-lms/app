@@ -4,42 +4,35 @@
 <div id="widgetOperation-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}</small>
-                              @if(! is_null($itemWidgetOperation->operation) && $itemWidgetOperation->operation !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.operation')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemWidgetOperation->operation) && $itemWidgetOperation->operation !== '')
         {{ $itemWidgetOperation->operation }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemWidgetOperation->description) && $itemWidgetOperation->description !== '')
-    {!! $itemWidgetOperation->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'widgetOperation.show_' . $itemWidgetOperation->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
-
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetOperation.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemWidgetOperation->description) && $itemWidgetOperation->description !== '')
+                    {!! $itemWidgetOperation->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'widgetOperation.show_' . $itemWidgetOperation->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

@@ -4,95 +4,78 @@
 <div id="phaseEvaluation-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemPhaseEvaluation->ordre))
-          {{ $itemPhaseEvaluation->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.code')) }}</small>
-                              @if(! is_null($itemPhaseEvaluation->code) && $itemPhaseEvaluation->code !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemPhaseEvaluation->ordre))
+                      {{ $itemPhaseEvaluation->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemPhaseEvaluation->code) && $itemPhaseEvaluation->code !== '')
         {{ $itemPhaseEvaluation->code }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.libelle')) }}</small>
-                              @if(! is_null($itemPhaseEvaluation->libelle) && $itemPhaseEvaluation->libelle !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.libelle')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemPhaseEvaluation->libelle) && $itemPhaseEvaluation->libelle !== '')
         {{ $itemPhaseEvaluation->libelle }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.coefficient')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemPhaseEvaluation->coefficient))
-          {{ number_format($itemPhaseEvaluation->coefficient, 2, '.', '') }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemPhaseEvaluation->description) && $itemPhaseEvaluation->description !== '')
-    {!! $itemPhaseEvaluation->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.show_' . $itemPhaseEvaluation->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.show_' . $itemPhaseEvaluation->id])
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.coefficient')) }}</small>
+                  <span>
+                  @if(! is_null($itemPhaseEvaluation->coefficient))
+                  {{ number_format($itemPhaseEvaluation->coefficient, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::phaseEvaluation.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemPhaseEvaluation->description) && $itemPhaseEvaluation->description !== '')
+                    {!! $itemPhaseEvaluation->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::critereEvaluation.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCompetences::critereEvaluation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.show_' . $itemPhaseEvaluation->id])
+                  </div>
+                  </div>
+            </div>
 
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::tache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationTache::tache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'phaseEvaluation.show_' . $itemPhaseEvaluation->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

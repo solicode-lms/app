@@ -4,268 +4,226 @@
 <div id="formateur-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.matricule')) }}</small>
-                              @if(! is_null($itemFormateur->matricule) && $itemFormateur->matricule !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.matricule')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->matricule) && $itemFormateur->matricule !== '')
         {{ $itemFormateur->matricule }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom')) }}</small>
-                              @if(! is_null($itemFormateur->nom) && $itemFormateur->nom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->nom) && $itemFormateur->nom !== '')
         {{ $itemFormateur->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom')) }}</small>
-                              @if(! is_null($itemFormateur->prenom) && $itemFormateur->prenom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->prenom) && $itemFormateur->prenom !== '')
         {{ $itemFormateur->prenom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom_arab')) }}</small>
-                              @if(! is_null($itemFormateur->prenom_arab) && $itemFormateur->prenom_arab !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.prenom_arab')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->prenom_arab) && $itemFormateur->prenom_arab !== '')
         {{ $itemFormateur->prenom_arab }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemFormateur->specialites->isNotEmpty())
-          <div>
-            @foreach($itemFormateur->specialites as $specialite)
-              <span class="badge badge-info mr-1">
-                {{ $specialite }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom_arab')) }}</small>
-                              @if(! is_null($itemFormateur->nom_arab) && $itemFormateur->nom_arab !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::specialite.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemFormateur->specialites->isNotEmpty())
+                  <div>
+                    @foreach($itemFormateur->specialites as $specialite)
+                      <span class="badge badge-info mr-1">
+                        {{ $specialite }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.nom_arab')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->nom_arab) && $itemFormateur->nom_arab !== '')
         {{ $itemFormateur->nom_arab }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
-                              <!-- Valeurs many-to-many -->
-        @if($itemFormateur->groupes->isNotEmpty())
-          <div>
-            @foreach($itemFormateur->groupes as $groupe)
-              <span class="badge badge-info mr-1">
-                {{ $groupe }}
-              </span>
-            @endforeach
-          </div>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.email')) }}</small>
-                              @if(! is_null($itemFormateur->email) && $itemFormateur->email !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
+                  <!-- Valeurs many-to-many -->
+                  @if($itemFormateur->groupes->isNotEmpty())
+                  <div>
+                    @foreach($itemFormateur->groupes as $groupe)
+                      <span class="badge badge-info mr-1">
+                        {{ $groupe }}
+                      </span>
+                    @endforeach
+                  </div>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.email')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->email) && $itemFormateur->email !== '')
         {{ $itemFormateur->email }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.tele_num')) }}</small>
-                              @if(! is_null($itemFormateur->tele_num) && $itemFormateur->tele_num !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.tele_num')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->tele_num) && $itemFormateur->tele_num !== '')
         {{ $itemFormateur->tele_num }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.adresse')) }}</small>
-                              @if(! is_null($itemFormateur->adresse) && $itemFormateur->adresse !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.adresse')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->adresse) && $itemFormateur->adresse !== '')
         {{ $itemFormateur->adresse }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.diplome')) }}</small>
-                              @if(! is_null($itemFormateur->diplome) && $itemFormateur->diplome !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.diplome')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->diplome) && $itemFormateur->diplome !== '')
         {{ $itemFormateur->diplome }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelle')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemFormateur->echelle))
-          {{ $itemFormateur->echelle }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelon')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemFormateur->echelon))
-          {{ $itemFormateur->echelon }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.profile_image')) }}</small>
-                              @if(! is_null($itemFormateur->profile_image) && $itemFormateur->profile_image !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelle')) }}</small>
+                  <span>
+                    @if(! is_null($itemFormateur->echelle))
+                      {{ $itemFormateur->echelle }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.echelon')) }}</small>
+                  <span>
+                    @if(! is_null($itemFormateur->echelon))
+                      {{ $itemFormateur->echelon }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::formateur.profile_image')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFormateur->profile_image) && $itemFormateur->profile_image !== '')
         {{ $itemFormateur->profile_image }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
-                              
-      @if($itemFormateur->user)
-        {{ $itemFormateur->user }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgRealisationTache::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                {{-- Affichage texte classique --}}
+                @if($itemFormateur->user)
+                  {{ $itemFormateur->user }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCompetences::chapitre.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCompetences::chapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
             </div>
-          </div>
-      </div>
-   
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::commentaireRealisationTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationTache::commentaireRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
             </div>
-          </div>
-      </div>
-   
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::prioriteTache.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
             </div>
-          </div>
-      </div>
-   
 
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationTache::prioriteTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.show_' . $itemFormateur->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

@@ -4,89 +4,72 @@
 <div id="widgetUtilisateur-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemWidgetUtilisateur->ordre))
-          {{ $itemWidgetUtilisateur->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemWidgetUtilisateur->ordre))
+                      {{ $itemWidgetUtilisateur->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
-                              
-      @if($itemWidgetUtilisateur->user)
-        {{ $itemWidgetUtilisateur->user }}
-      @else
-        —
-      @endif
+                {{-- Affichage texte classique --}}
+                @if($itemWidgetUtilisateur->user)
+                  {{ $itemWidgetUtilisateur->user }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widget.singular')) }}</small>
-                              
-      @if($itemWidgetUtilisateur->widget)
-        {{ $itemWidgetUtilisateur->widget }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}</small>
-                              @if(! is_null($itemWidgetUtilisateur->titre) && $itemWidgetUtilisateur->titre !== '')
+                {{-- Affichage texte classique --}}
+                @if($itemWidgetUtilisateur->widget)
+                  {{ $itemWidgetUtilisateur->widget }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.titre')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemWidgetUtilisateur->titre) && $itemWidgetUtilisateur->titre !== '')
         {{ $itemWidgetUtilisateur->titre }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}</small>
-                              @if(! is_null($itemWidgetUtilisateur->sous_titre) && $itemWidgetUtilisateur->sous_titre !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.sous_titre')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemWidgetUtilisateur->sous_titre) && $itemWidgetUtilisateur->sous_titre !== '')
         {{ $itemWidgetUtilisateur->sous_titre }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}</small>
-                              
-      @if($itemWidgetUtilisateur->visible)
-        <span class="badge badge-success">{{ __('Oui') }}</span>
-      @else
-        <span class="badge badge-secondary">{{ __('Non') }}</span>
-      @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::widgetUtilisateur.visible')) }}</small>
+                  @if($itemWidgetUtilisateur->visible)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

@@ -4,105 +4,91 @@
 <div id="sysModel-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.name')) }}</small>
-                              @if(! is_null($itemSysModel->name) && $itemSysModel->name !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.name')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemSysModel->name) && $itemSysModel->name !== '')
         {{ $itemSysModel->name }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.model')) }}</small>
-                              @if(! is_null($itemSysModel->model) && $itemSysModel->model !== '')
-        {{ $itemSysModel->model }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.singular')) }}</small>
-                              
-      @if($itemSysModel->sysModule)
-        {{ $itemSysModel->sysModule }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
-                              
-      @if($itemSysModel->sysColor)
-        @php
-          $related = $itemSysModel->sysColor;
-        @endphp
-        <span 
-          class="badge" 
-          style="background-color: {{ $related->hex }}; color: #fff;"
-        >
-          {{ $related }}
-        </span>
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.icone')) }}</small>
-                              @if(! is_null($itemSysModel->icone) && $itemSysModel->icone !== '')
-        {{ $itemSysModel->icone }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModel.show_' . $itemSysModel->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.model')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemSysModel->model) && $itemSysModel->model !== '')
+        {{ $itemSysModel->model }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.singular')) }}</small>
 
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemSysModel->description) && $itemSysModel->description !== '')
-    {!! $itemSysModel->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
+                {{-- Affichage texte classique --}}
+                @if($itemSysModel->sysModule)
+                  {{ $itemSysModel->sysModule }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
+                  @if($itemSysModel->sysColor)
+                  @php
+                    $related = $itemSysModel->sysColor;
+                  @endphp
+                  <span 
+                    class="badge" 
+                    style="background-color: {{ $related->hex }}; color: #fff;"
+                  >
+                    {{ $related }}
+                  </span>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.icone')) }}</small>
+    {{-- Icône centrée --}}
+    @if(!is_null($itemSysModel->icone) && $itemSysModel->icone !== '')
+        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+            <i class="{{ $itemSysModel->icone }}"></i>
+        </div>
+    @else
+        <span class="text-muted">—</span>
+    @endif
 
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysModel.show_' . $itemSysModel->id])
+                  </div>
+                  </div>
+            </div>
 
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModel.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemSysModel->description) && $itemSysModel->description !== '')
+                    {!! $itemSysModel->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

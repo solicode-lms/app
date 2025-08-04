@@ -4,61 +4,51 @@
 <div id="userModelFilter-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
-                              
-      @if($itemUserModelFilter->user)
-        {{ $itemUserModelFilter->user }}
-      @else
-        —
-      @endif
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgAutorisation::user.singular')) }}</small>
 
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.model_name')) }}</small>
-                              @if(! is_null($itemUserModelFilter->model_name) && $itemUserModelFilter->model_name !== '')
+                {{-- Affichage texte classique --}}
+                @if($itemUserModelFilter->user)
+                  {{ $itemUserModelFilter->user }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.model_name')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemUserModelFilter->model_name) && $itemUserModelFilter->model_name !== '')
         {{ $itemUserModelFilter->model_name }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.context_key')) }}</small>
-                              @if(! is_null($itemUserModelFilter->context_key) && $itemUserModelFilter->context_key !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.context_key')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemUserModelFilter->context_key) && $itemUserModelFilter->context_key !== '')
         {{ $itemUserModelFilter->context_key }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.filters')) }}</small>
-                              @if(! is_null($itemUserModelFilter->filters))
-          <pre class="border rounded p-2 bg-light" style="overflow:auto;">
-      {!! json_encode($itemUserModelFilter->filters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) !!}
-          </pre>
-        @else
-          <span class="text-muted">—</span>
-        @endif
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::userModelFilter.filters')) }}</small>
+                  @if(! is_null($itemUserModelFilter->filters))
+                    <pre class="border rounded p-2 bg-light" style="overflow:auto;">
+                  {!! json_encode($itemUserModelFilter->filters, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) !!}
+                    </pre>
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

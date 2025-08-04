@@ -4,92 +4,79 @@
 <div id="sectionWidget-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}</small>
-                              
-      <span>
-        @if(! is_null($itemSectionWidget->ordre))
-          {{ $itemSectionWidget->ordre }}
-        @else
-          —
-        @endif
-      </span>
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}</small>
-                              @if(! is_null($itemSectionWidget->icone) && $itemSectionWidget->icone !== '')
-        {{ $itemSectionWidget->icone }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}</small>
-                              @if(! is_null($itemSectionWidget->titre) && $itemSectionWidget->titre !== '')
-        {{ $itemSectionWidget->titre }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.sous_titre')) }}</small>
-                              @if(! is_null($itemSectionWidget->sous_titre) && $itemSectionWidget->sous_titre !== '')
-        {{ $itemSectionWidget->sous_titre }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
-                              
-      @if($itemSectionWidget->sysColor)
-        @php
-          $related = $itemSectionWidget->sysColor;
-        @endphp
-        <span 
-          class="badge" 
-          style="background-color: {{ $related->hex }}; color: #fff;"
-        >
-          {{ $related }}
-        </span>
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sectionWidget.show_' . $itemSectionWidget->id])
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemSectionWidget->ordre))
+                      {{ $itemSectionWidget->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.icone')) }}</small>
+    {{-- Icône centrée --}}
+    @if(!is_null($itemSectionWidget->icone) && $itemSectionWidget->icone !== '')
+        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+            <i class="{{ $itemSectionWidget->icone }}"></i>
+        </div>
+    @else
+        <span class="text-muted">—</span>
+    @endif
 
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.titre')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemSectionWidget->titre) && $itemSectionWidget->titre !== '')
+        {{ $itemSectionWidget->titre }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgWidgets::sectionWidget.sous_titre')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemSectionWidget->sous_titre) && $itemSectionWidget->sous_titre !== '')
+        {{ $itemSectionWidget->sous_titre }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysColor.singular')) }}</small>
+                  @if($itemSectionWidget->sysColor)
+                  @php
+                    $related = $itemSectionWidget->sysColor;
+                  @endphp
+                  <span 
+                    class="badge" 
+                    style="background-color: {{ $related->hex }}; color: #fff;"
+                  >
+                    {{ $related }}
+                  </span>
+                  @else
+                  <span class="text-muted">—</span>
+                  @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgWidgets::widget.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgWidgets::widget._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sectionWidget.show_' . $itemSectionWidget->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

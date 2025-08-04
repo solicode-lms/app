@@ -4,254 +4,214 @@
 <div id="apprenantKonosy-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.MatriculeEtudiant')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->MatriculeEtudiant) && $itemApprenantKonosy->MatriculeEtudiant !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.MatriculeEtudiant')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->MatriculeEtudiant) && $itemApprenantKonosy->MatriculeEtudiant !== '')
         {{ $itemApprenantKonosy->MatriculeEtudiant }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Nom) && $itemApprenantKonosy->Nom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Nom) && $itemApprenantKonosy->Nom !== '')
         {{ $itemApprenantKonosy->Nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Prenom) && $itemApprenantKonosy->Prenom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Prenom) && $itemApprenantKonosy->Prenom !== '')
         {{ $itemApprenantKonosy->Prenom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Sexe')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Sexe) && $itemApprenantKonosy->Sexe !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Sexe')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Sexe) && $itemApprenantKonosy->Sexe !== '')
         {{ $itemApprenantKonosy->Sexe }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.EtudiantActif')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->EtudiantActif) && $itemApprenantKonosy->EtudiantActif !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.EtudiantActif')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->EtudiantActif) && $itemApprenantKonosy->EtudiantActif !== '')
         {{ $itemApprenantKonosy->EtudiantActif }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Diplome')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Diplome) && $itemApprenantKonosy->Diplome !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Diplome')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Diplome) && $itemApprenantKonosy->Diplome !== '')
         {{ $itemApprenantKonosy->Diplome }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Principale')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Principale) && $itemApprenantKonosy->Principale !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Principale')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Principale) && $itemApprenantKonosy->Principale !== '')
         {{ $itemApprenantKonosy->Principale }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.LibelleLong')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->LibelleLong) && $itemApprenantKonosy->LibelleLong !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.LibelleLong')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->LibelleLong) && $itemApprenantKonosy->LibelleLong !== '')
         {{ $itemApprenantKonosy->LibelleLong }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.CodeDiplome')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->CodeDiplome) && $itemApprenantKonosy->CodeDiplome !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.CodeDiplome')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->CodeDiplome) && $itemApprenantKonosy->CodeDiplome !== '')
         {{ $itemApprenantKonosy->CodeDiplome }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.DateNaissance')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->DateNaissance) && $itemApprenantKonosy->DateNaissance !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.DateNaissance')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->DateNaissance) && $itemApprenantKonosy->DateNaissance !== '')
         {{ $itemApprenantKonosy->DateNaissance }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.DateInscription')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->DateInscription) && $itemApprenantKonosy->DateInscription !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.DateInscription')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->DateInscription) && $itemApprenantKonosy->DateInscription !== '')
         {{ $itemApprenantKonosy->DateInscription }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.LieuNaissance')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->LieuNaissance) && $itemApprenantKonosy->LieuNaissance !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.LieuNaissance')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->LieuNaissance) && $itemApprenantKonosy->LieuNaissance !== '')
         {{ $itemApprenantKonosy->LieuNaissance }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.CIN')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->CIN) && $itemApprenantKonosy->CIN !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.CIN')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->CIN) && $itemApprenantKonosy->CIN !== '')
         {{ $itemApprenantKonosy->CIN }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.NTelephone')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->NTelephone) && $itemApprenantKonosy->NTelephone !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.NTelephone')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->NTelephone) && $itemApprenantKonosy->NTelephone !== '')
         {{ $itemApprenantKonosy->NTelephone }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Adresse')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemApprenantKonosy->Adresse) && $itemApprenantKonosy->Adresse !== '')
-    {!! $itemApprenantKonosy->Adresse !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nationalite')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Nationalite) && $itemApprenantKonosy->Nationalite !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Adresse')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemApprenantKonosy->Adresse) && $itemApprenantKonosy->Adresse !== '')
+                    {!! $itemApprenantKonosy->Adresse !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nationalite')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Nationalite) && $itemApprenantKonosy->Nationalite !== '')
         {{ $itemApprenantKonosy->Nationalite }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom_Arabe')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Nom_Arabe) && $itemApprenantKonosy->Nom_Arabe !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Nom_Arabe')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Nom_Arabe) && $itemApprenantKonosy->Nom_Arabe !== '')
         {{ $itemApprenantKonosy->Nom_Arabe }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom_Arabe')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->Prenom_Arabe) && $itemApprenantKonosy->Prenom_Arabe !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.Prenom_Arabe')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->Prenom_Arabe) && $itemApprenantKonosy->Prenom_Arabe !== '')
         {{ $itemApprenantKonosy->Prenom_Arabe }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.NiveauScolaire')) }}</small>
-                              @if(! is_null($itemApprenantKonosy->NiveauScolaire) && $itemApprenantKonosy->NiveauScolaire !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenantKonosy.NiveauScolaire')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemApprenantKonosy->NiveauScolaire) && $itemApprenantKonosy->NiveauScolaire !== '')
         {{ $itemApprenantKonosy->NiveauScolaire }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-
+    @endif
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

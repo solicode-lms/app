@@ -4,69 +4,58 @@
 <div id="featureDomain-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.name')) }}</small>
-                              @if(! is_null($itemFeatureDomain->name) && $itemFeatureDomain->name !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.name')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFeatureDomain->name) && $itemFeatureDomain->name !== '')
         {{ $itemFeatureDomain->name }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.slug')) }}</small>
-                              @if(! is_null($itemFeatureDomain->slug) && $itemFeatureDomain->slug !== '')
-        {{ $itemFeatureDomain->slug }}
-      @else
-        <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemFeatureDomain->description) && $itemFeatureDomain->description !== '')
-    {!! $itemFeatureDomain->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.singular')) }}</small>
-                              
-      @if($itemFeatureDomain->sysModule)
-        {{ $itemFeatureDomain->sysModule }}
-      @else
-        —
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('Core::feature.plural')) }}</small>
-            <div class="pt-2">
-                  @include('Core::feature._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'featureDomain.show_' . $itemFeatureDomain->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.slug')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFeatureDomain->slug) && $itemFeatureDomain->slug !== '')
+        {{ $itemFeatureDomain->slug }}
+    @else
+        <span class="text-muted">—</span>
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::featureDomain.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemFeatureDomain->description) && $itemFeatureDomain->description !== '')
+                    {!! $itemFeatureDomain->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('Core::sysModule.singular')) }}</small>
 
+                {{-- Affichage texte classique --}}
+                @if($itemFeatureDomain->sysModule)
+                  {{ $itemFeatureDomain->sysModule }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('Core::feature.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('Core::feature._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'featureDomain.show_' . $itemFeatureDomain->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

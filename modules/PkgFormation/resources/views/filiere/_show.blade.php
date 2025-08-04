@@ -4,85 +4,73 @@
 <div id="filiere-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-                      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.code')) }}</small>
-                              @if(! is_null($itemFiliere->code) && $itemFiliere->code !== '')
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.code')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFiliere->code) && $itemFiliere->code !== '')
         {{ $itemFiliere->code }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.nom')) }}</small>
-                              @if(! is_null($itemFiliere->nom) && $itemFiliere->nom !== '')
+    @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.nom')) }}</small>
+    {{-- Affichage texte par défaut --}}
+    @if(!is_null($itemFiliere->nom) && $itemFiliere->nom !== '')
         {{ $itemFiliere->nom }}
-      @else
+    @else
         <span class="text-muted">—</span>
-      @endif
-
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-          <div class="border rounded p-2 h-100">
-                        <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.description')) }}</small>
-                          <!-- Valeur avec sauts de ligne -->
-  @if(! is_null($itemFiliere->description) && $itemFiliere->description !== '')
-    {!! $itemFiliere->description !!}
-  @else
-    <span class="text-muted">—</span>
-  @endif
-          </div>
-      </div>
-  
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+    @endif
+                </div>
             </div>
-          </div>
-      </div>
-   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgFormation::module.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::filiere.description')) }}</small>
+                  <!-- Valeur avec sauts de ligne -->
+                  @if(! is_null($itemFiliere->description) && $itemFiliere->description !== '')
+                    {!! $itemFiliere->description !!}
+                  @else
+                    <span class="text-muted">—</span>
+                  @endif                </div>
             </div>
-          </div>
-      </div>
-   
-
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgApprenants::groupe.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgApprenants::groupe._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+                  </div>
+                  </div>
             </div>
-          </div>
-      </div>
-   
 
-      <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
-          <div class="border rounded p-2 h-100 " >
-            <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::sessionFormation.plural')) }}</small>
-            <div class="pt-2">
-                  @include('PkgSessions::sessionFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgFormation::module.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgFormation::module._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+                  </div>
+                  </div>
             </div>
-          </div>
-      </div>
-   
 
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgCreationProjet::projet.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgCreationProjet::projet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+                  </div>
+                  </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgSessions::sessionFormation.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgSessions::sessionFormation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'filiere.show_' . $itemFiliere->id])
+                  </div>
+                  </div>
+            </div>
 
             </div>
         </div>

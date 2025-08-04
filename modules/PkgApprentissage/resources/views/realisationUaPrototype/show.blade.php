@@ -13,8 +13,8 @@
                     <div class="card card-info crud-show">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-laptop-code"></i>
-                                {{ __('Core::msg.show') }}
+                                <i class="nav-icon fas fa-cog"></i>
+                                 {{__("Core::msg.show") . " : " . __("PkgApprentissage::realisationUaPrototype.singular") }} - {{ $itemRealisationMicroCompetence }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

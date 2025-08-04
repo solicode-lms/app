@@ -33,8 +33,8 @@ class BaseRealisationUaRequest extends FormRequest
             'realisation_micro_competence_id' => 'required',
             'etat_realisation_ua_id' => 'nullable',
             'progression_cache' => 'required',
-            'note_cache' => 'required',
-            'bareme_cache' => 'required',
+            'note_cache' => 'nullable',
+            'bareme_cache' => 'nullable',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
             'commentaire_formateur' => 'nullable|string'
