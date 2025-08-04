@@ -594,5 +594,13 @@
         },
         "e_data_field_reference": "RealisationUaPrototype_date_fin",
         "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationUaPrototype_realisation_tache_id_metaLabel",
+        "value_boolean": 1,
+        "value_string": "realisation_tache_id",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUaPrototype_realisation_tache_id",
+        "e_metadata_definition_reference": "metaLabel"
     }
 ]

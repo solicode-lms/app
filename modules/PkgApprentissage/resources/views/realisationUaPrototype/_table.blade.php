@@ -9,7 +9,7 @@
                     $bulkEdit = $realisationUaPrototypes_permissions['edit-realisationUaPrototype'] || $realisationUaPrototypes_permissions['destroy-realisationUaPrototype'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="40" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="40" field="realisation_tache_id" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.realisation_tache_id'))!!}" />
                 <x-sortable-column :sortable="true" width="10"  field="note" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.note'))!!}" />
                 <x-sortable-column :sortable="false" width="32"  field="criteres_evaluation" modelname="realisationUaPrototype" label="{!!ucfirst(__('PkgApprentissage::realisationUaPrototype.criteres_evaluation'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>

@@ -99,7 +99,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
     }
     public function calculerProgressionEtNote(RealisationMicroCompetence $rmc): void
     {
-        $rmc->loadMissing('realisationUas');
+        $rmc->load('realisationUas');
 
         $uas = $rmc->realisationUas;
         $totalUa = $uas->count();
