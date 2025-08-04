@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-calendar-plus"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgFormation::anneeFormation.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgFormation::anneeFormation.singular") }} - {{ $itemAnneeFormation }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-battery-three-quarters"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgCompetences::phaseEvaluation.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgCompetences::phaseEvaluation.singular") }} - {{ $itemPhaseEvaluation }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

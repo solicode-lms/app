@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-chart-pie"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgWidgets::widgetUtilisateur.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgWidgets::widgetUtilisateur.singular") }} - {{ $itemWidgetUtilisateur }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

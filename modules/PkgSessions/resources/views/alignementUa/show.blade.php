@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-road"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgSessions::alignementUa.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgSessions::alignementUa.singular") }} - {{ $itemAlignementUa }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

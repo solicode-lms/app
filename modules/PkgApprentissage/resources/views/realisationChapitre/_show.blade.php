@@ -4,7 +4,7 @@
 <div id="realisationChapitre-crud-show">
         <div class="card-body">
             <div class="row no-gutters mb-4">
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::chapitre.singular')) }}</small>
 
@@ -18,7 +18,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular')) }}</small>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id')) }}</small>
 
                 {{-- Affichage sous forme de badge --}}
                 @if($itemRealisationChapitre->etatRealisationChapitre)

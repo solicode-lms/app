@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-laptop"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgRealisationProjets::realisationProjet.singular") }} - {{ $itemRealisationProjet }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

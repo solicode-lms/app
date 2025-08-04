@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-table"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgGapp::eModel.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgGapp::eModel.singular") }} - {{ $itemEModel }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

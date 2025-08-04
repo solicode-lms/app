@@ -30,7 +30,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationUa.singular')) }}</small>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.etat_realisation_ua_id')) }}</small>
 
                 {{-- Affichage sous forme de badge --}}
                 @if($itemRealisationUa->etatRealisationUa)
@@ -46,37 +46,19 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.progression_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUa->progression_cache))
-                  {{ number_format($itemRealisationUa->progression_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+                  <div class="progress progress-sm">
+                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationUa->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationUa->progression_cache }}%">
+                      </div>
+                  </div>
+                  <small>
+                      {{$itemRealisationUa->progression_cache }}% Terminé
+                  </small>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.note_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUa->note_cache))
-                  {{ number_format($itemRealisationUa->note_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.bareme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationUa->bareme_cache))
-                  {{ number_format($itemRealisationUa->bareme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+@include('PkgApprentissage::realisationUa.custom.fields.note_cache',['entity' => $itemRealisationUa])
                 </div>
             </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">

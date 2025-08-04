@@ -32,7 +32,7 @@
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationChapitre" field="chapitre_id" :bulkEdit="$bulkEdit">
       @php $canEditchapitre_id = !$itemRealisationChapitre || !$itemRealisationChapitre->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
-      <div class="form-group col-12 col-md-6">
+      <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
               <input type="checkbox" class="check-input" name="fields_modifiables[]" value="chapitre_id" id="bulk_field_chapitre_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
@@ -74,7 +74,7 @@
           </div>
           @endif
           <label for="etat_realisation_chapitre_id">
-            {{ ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular')) }}
+            {{ ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id')) }}
             
           </label>
                       <select 

@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-bell"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgNotification::notification.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgNotification::notification.singular") }} - {{ $itemNotification }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

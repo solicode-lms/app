@@ -106,7 +106,7 @@
           </div>
           @endif
           <label for="etat_realisation_ua_id">
-            {{ ucfirst(__('PkgApprentissage::etatRealisationUa.singular')) }}
+            {{ ucfirst(__('PkgApprentissage::realisationUa.etat_realisation_ua_id')) }}
             
           </label>
                       <select 

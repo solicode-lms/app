@@ -10,7 +10,7 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="30" field="chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgCompetences::chapitre.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="10" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::etatRealisationChapitre.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="10" field="etat_realisation_chapitre_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_id'))!!}" />
                 <x-sortable-column :sortable="true" width="14"  field="apprenant" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationChapitre.apprenant'))!!}" />
                 <x-sortable-column :sortable="true" width="14" field="realisation_ua_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgApprentissage::realisationUa.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="14" field="realisation_tache_id" modelname="realisationChapitre" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />

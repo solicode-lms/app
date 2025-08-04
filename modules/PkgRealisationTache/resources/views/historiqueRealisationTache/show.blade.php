@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-history"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgRealisationTache::historiqueRealisationTache.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgRealisationTache::historiqueRealisationTache.singular") }} - {{ $itemHistoriqueRealisationTache }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

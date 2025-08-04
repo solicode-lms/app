@@ -314,7 +314,8 @@
     },
     {
         "reference": "RealisationUa_bareme_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUa_bareme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -689,5 +690,31 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationUa_note_cache",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationUa_etat_realisation_ua_id_metaLabel",
+        "value_boolean": 1,
+        "value_string": "etat_realisation_ua_id",
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_etat_realisation_ua_id",
+        "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "RealisationUa_progression_cache_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "progression"
+        },
+        "e_data_field_reference": "RealisationUa_progression_cache",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "RealisationUa_unite_apprentissage_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 35,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_unite_apprentissage_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

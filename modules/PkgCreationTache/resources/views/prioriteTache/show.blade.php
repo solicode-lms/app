@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-list-ol"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgCreationTache::prioriteTache.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgCreationTache::prioriteTache.singular") }} - {{ $itemPrioriteTache }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

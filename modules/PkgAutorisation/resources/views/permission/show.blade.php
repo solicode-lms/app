@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-lock-open"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgAutorisation::permission.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgAutorisation::permission.singular") }} - {{ $itemPermission }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->

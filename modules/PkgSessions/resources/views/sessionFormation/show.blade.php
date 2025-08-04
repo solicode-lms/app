@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="nav-icon fas fa-map"></i>
-                                 {{__("Core::msg.show") . " : " . __("PkgSessions::sessionFormation.singular") }} - {{ $itemRealisationMicroCompetence }}
+                                 {{__("Core::msg.show") . " : " . __("PkgSessions::sessionFormation.singular") }} - {{ $itemSessionFormation }}
                             </h3>
                         </div>
                         <!-- Inclure le formulaire -->
