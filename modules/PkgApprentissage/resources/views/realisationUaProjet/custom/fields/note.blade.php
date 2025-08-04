@@ -1,1 +1,1 @@
- -- {{ $entity->note }} 
+{{ $entity->note }} / {{ $entity->bareme }}

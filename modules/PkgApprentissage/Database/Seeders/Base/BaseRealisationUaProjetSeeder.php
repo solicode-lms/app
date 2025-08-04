@@ -73,26 +73,26 @@ class BaseRealisationUaProjetSeeder extends Seeder
             if ($row) {
 
 
-                $realisation_ua_id = null;
-                if (!empty($row["realisation_ua_reference"])) {
-                    $realisation_ua_id = \Modules\PkgApprentissage\Models\RealisationUa::where('reference', $row["realisation_ua_reference"])
-                        ->value('id');
-                }
                 $realisation_tache_id = null;
                 if (!empty($row["realisation_tache_reference"])) {
                     $realisation_tache_id = \Modules\PkgRealisationTache\Models\RealisationTache::where('reference', $row["realisation_tache_reference"])
                         ->value('id');
                 }
+                $realisation_ua_id = null;
+                if (!empty($row["realisation_ua_reference"])) {
+                    $realisation_ua_id = \Modules\PkgApprentissage\Models\RealisationUa::where('reference', $row["realisation_ua_reference"])
+                        ->value('id');
+                }
 
 
                 $realisationUaProjetData =[
+                        "realisation_tache_id" => $realisation_tache_id,
+                        "realisation_ua_id" => $realisation_ua_id,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "bareme" => isset($row["bareme"]) && $row["bareme"] !== "" ? $row["bareme"] : null,
                         "remarque_formateur" => isset($row["remarque_formateur"]) && $row["remarque_formateur"] !== "" ? $row["remarque_formateur"] : null,
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
-                        "realisation_ua_id" => $realisation_ua_id,
-                        "realisation_tache_id" => $realisation_tache_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

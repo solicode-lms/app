@@ -32,25 +32,25 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
     {
         if ($this->format === 'csv') {
             return [
-                'reference' => 'reference',
+                'realisation_tache_reference' => 'realisation_tache_reference',
+                'realisation_ua_reference' => 'realisation_ua_reference',
                 'note' => 'note',
                 'bareme' => 'bareme',
                 'remarque_formateur' => 'remarque_formateur',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
-                'realisation_ua_reference' => 'realisation_ua_reference',
-                'realisation_tache_reference' => 'realisation_tache_reference',
+                'reference' => 'reference',
             ];
         } else {
             return [
-                'reference' => __('Core::msg.reference'),
+                'realisation_tache_reference' => __('PkgApprentissage::realisationUaProjet.realisation_tache_reference'),
+                'realisation_ua_reference' => __('PkgApprentissage::realisationUaProjet.realisation_ua_reference'),
                 'note' => __('PkgApprentissage::realisationUaProjet.note'),
                 'bareme' => __('PkgApprentissage::realisationUaProjet.bareme'),
                 'remarque_formateur' => __('PkgApprentissage::realisationUaProjet.remarque_formateur'),
                 'date_debut' => __('PkgApprentissage::realisationUaProjet.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationUaProjet.date_fin'),
-                'realisation_ua_reference' => __('PkgApprentissage::realisationUaProjet.realisation_ua_reference'),
-                'realisation_tache_reference' => __('PkgApprentissage::realisationUaProjet.realisation_tache_reference'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -62,14 +62,14 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
     {
         return $this->data->map(function ($realisationUaProjet) {
             return [
-                'reference' => $realisationUaProjet->reference,
+                'realisation_tache_reference' => $realisationUaProjet->realisationTache?->reference,
+                'realisation_ua_reference' => $realisationUaProjet->realisationUa?->reference,
                 'note' => $realisationUaProjet->note,
                 'bareme' => $realisationUaProjet->bareme,
                 'remarque_formateur' => $realisationUaProjet->remarque_formateur,
                 'date_debut' => $realisationUaProjet->date_debut,
                 'date_fin' => $realisationUaProjet->date_fin,
-                'realisation_ua_reference' => $realisationUaProjet->realisationUa?->reference,
-                'realisation_tache_reference' => $realisationUaProjet->realisationTache?->reference,
+                'reference' => $realisationUaProjet->reference,
             ];
         });
     }

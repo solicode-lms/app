@@ -77,8 +77,8 @@ class BaseRealisationUaProjetController extends AdminController
         $itemRealisationUaProjet = $this->realisationUaProjetService->createInstance();
         
 
-        $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
+        $realisationUas = $this->realisationUaService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
@@ -104,8 +104,8 @@ class BaseRealisationUaProjetController extends AdminController
          $itemRealisationUaProjet = $this->realisationUaProjetService->find($realisationUaProjet_ids[0]);
          
  
-        $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
+        $realisationUas = $this->realisationUaService->all();
 
         $bulkEdit = true;
 
@@ -168,8 +168,8 @@ class BaseRealisationUaProjetController extends AdminController
         $itemRealisationUaProjet = $this->realisationUaProjetService->edit($id);
 
 
-        $realisationUas = $this->realisationUaService->all();
         $realisationTaches = $this->realisationTacheService->all();
+        $realisationUas = $this->realisationUaService->all();
 
 
         $bulkEdit = false;

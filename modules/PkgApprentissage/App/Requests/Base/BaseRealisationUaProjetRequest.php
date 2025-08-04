@@ -29,13 +29,13 @@ class BaseRealisationUaProjetRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'realisation_tache_id' => 'required',
+            'realisation_ua_id' => 'required',
             'note' => 'nullable',
             'bareme' => 'required',
             'remarque_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable',
-            'realisation_ua_id' => 'required',
-            'realisation_tache_id' => 'required'
+            'date_fin' => 'nullable'
         ];
     }
 
@@ -47,13 +47,13 @@ class BaseRealisationUaProjetRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.realisation_tache_id')]),
+            'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.realisation_ua_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.note')]),
             'bareme.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.bareme')]),
             'remarque_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.remarque_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_fin')]),
-            'realisation_ua_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.realisation_ua_id')]),
-            'realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.realisation_tache_id')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUaProjet.date_fin')])
         ];
     }
 

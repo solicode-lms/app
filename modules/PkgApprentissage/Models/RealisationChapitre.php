@@ -15,32 +15,31 @@ class RealisationChapitre extends BaseRealisationChapitre
     ];
 
 
-  protected static function booted()
-  {
-      static::saving(function ($model) {
-          // État actuel (nouvellement affecté)
-          $etatActuel = $model->etatRealisationChapitre ?: EtatRealisationChapitre::find($model->etat_realisation_chapitre_id);
+    protected static function booted()
+    {
+        static::saving(function ($model) {
+            // Charger l’état actuel (relation ou par ID direct)
+            $etatActuel = $model->etatRealisationChapitre
+                ?: EtatRealisationChapitre::find($model->etat_realisation_chapitre_id);
 
-          if (!$etatActuel) return;
+            if (!$etatActuel) return;
 
-          // Récupération de l’ordre de l’état IN_PROGRESS
-          static $ordreInProgress = null;
-          if (is_null($ordreInProgress)) {
-              $ordreInProgress = EtatRealisationChapitre::where('code', 'IN_PROGRESS')->value('ordre');
-          }
+            // Charger l’ordre de référence de l’état IN_PROGRESS une seule fois
+            static $ordreInProgress = null;
+            if (is_null($ordreInProgress)) {
+                $ordreInProgress = EtatRealisationChapitre::where('code', 'IN_PROGRESS')->value('ordre');
+            }
 
+            // Affecter date_debut si non définie et état >= IN_PROGRESS
+            if (is_null($model->date_debut) && $etatActuel->ordre >= $ordreInProgress) {
+                $model->date_debut = now();
+            }
 
-          $toOrdre = $etatActuel->ordre;
-
-          if (is_null($model->date_debut) && $toOrdre >= $ordreInProgress) {
-              $model->date_debut = now();
-          }
-
-          // Affecter date_fin uniquement si on passe vers DONE
-          if (is_null($model->date_fin) && $etatActuel->code === 'DONE') {
-              $model->date_fin = now();
-          }
-      });
-  }
+            // Affecter date_fin si non définie et état = DONE
+            if (is_null($model->date_fin) && $etatActuel->code === 'DONE') {
+                $model->date_fin = now();
+            }
+        });
+    }
 
 }
