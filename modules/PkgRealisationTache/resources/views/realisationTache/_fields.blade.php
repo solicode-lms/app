@@ -314,7 +314,7 @@
             
     </label>
 
-  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,  "parent_manager_id" => "realisationTache-crud", "contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
