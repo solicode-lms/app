@@ -36,6 +36,11 @@ class BaseRealisationUaProjet extends BaseModel
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
         $this->isOwnedByUser =  false;
+        // Colonne dynamique : criteres_evaluation
+        $sql = "SELECT rup.id 
+        FROM realisation_ua_projets rup 
+        WHERE rup.id = realisation_ua_projets.id";
+        static::addDynamicAttribute('criteres_evaluation', $sql);
     }
 
     

@@ -10,9 +10,8 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="40" field="realisation_tache_id" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgRealisationTache::realisationTache.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="14"  field="note" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.note'))!!}" />
-                <x-sortable-column :sortable="true" width="14"  field="date_debut" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="14"  field="date_fin" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.date_fin'))!!}" />
+                <x-sortable-column :sortable="true" width="21"  field="note" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.note'))!!}" />
+                <x-sortable-column :sortable="false" width="21"  field="criteres_evaluation" modelname="realisationUaProjet" label="{!!ucfirst(__('PkgApprentissage::realisationUaProjet.criteres_evaluation'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -27,14 +26,12 @@
                     <td style="max-width: 40%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="realisation_tache_id"  data-toggle="tooltip" title="{{ $realisationUaProjet->realisationTache }}" >
                         @include('PkgApprentissage::realisationUaProjet.custom.fields.realisationTache', ['entity' => $realisationUaProjet])
                     </td>
-                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaProjet->note }}" >
+                    <td style="max-width: 21%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationUaProjet->note }}" >
                         @include('PkgApprentissage::realisationUaProjet.custom.fields.note', ['entity' => $realisationUaProjet])
                     </td>
-                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationUaProjet->date_debut }}" >
-                        <x-deadline-display :value="$realisationUaProjet->date_debut" />
-                    </td>
-                    <td style="max-width: 14%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationUaProjet->date_fin }}" >
-                        <x-deadline-display :value="$realisationUaProjet->date_fin" />
+                    <td style="max-width: 21%;" class=" text-truncate" data-id="{{$realisationUaProjet->id}}" data-field="criteres_evaluation"  data-toggle="tooltip" title="{{ $realisationUaProjet->criteres_evaluation }}" >
+                        {{ $realisationUaProjet->criteres_evaluation }}
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

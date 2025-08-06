@@ -233,7 +233,8 @@
     },
     {
         "reference": "RealisationUaProjet_date_debut_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUaProjet_date_debut",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -275,7 +276,8 @@
     },
     {
         "reference": "RealisationUaProjet_date_fin_displayInTable",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationUaProjet_date_fin",
         "e_metadata_definition_reference": "displayInTable"
     },
@@ -504,5 +506,31 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationUaProjet_realisation_tache_id",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "RealisationUaProjet_criteres_evaluation_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationUaProjet_criteres_evaluation",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationUaProjet_criteres_evaluation_displayOrder",
+        "value_integer": 3,
+        "e_data_field_reference": "RealisationUaProjet_criteres_evaluation",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationUaProjet_criteres_evaluation_sortable",
+        "value_boolean": 0,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUaProjet_criteres_evaluation",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationUaProjet_criteres_evaluation_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUaProjet_criteres_evaluation",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

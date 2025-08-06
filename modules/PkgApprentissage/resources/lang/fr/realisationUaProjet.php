@@ -11,4 +11,6 @@ return [
     'date_fin' => 'Date de fin',
     'realisation_ua_id' => 'Réalisation de l’UA',
     'realisation_tache_id' => 'Réalisation de tâche',
+    'criteres_evaluation' => 'Critères d’évaluation'
+
 ];

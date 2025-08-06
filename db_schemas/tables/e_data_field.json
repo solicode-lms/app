@@ -11972,5 +11972,19 @@
         "calculable": 1,
         "calculable_sql": "SELECT rup.id \r\nFROM realisation_ua_prototypes rup \r\nWHERE rup.id = realisation_ua_prototypes.id",
         "description": ""
+    },
+    {
+        "id": 917,
+        "reference": "RealisationUaProjet_criteres_evaluation",
+        "name": "criteres_evaluation",
+        "column_name": "criteres_evaluation",
+        "data_type": "Integer",
+        "field_order": 3,
+        "db_nullable": 0,
+        "db_primaryKey": 0,
+        "db_unique": 1,
+        "calculable": 1,
+        "calculable_sql": "SELECT rup.id \r\nFROM realisation_ua_projets rup \r\nWHERE rup.id = realisation_ua_projets.id",
+        "description": ""
     }
 ]
