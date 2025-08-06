@@ -443,24 +443,6 @@
 
 
 
-
-@if($itemRealisationTache->id)
-@if($itemRealisationTache->historiqueRealisationTaches->count() > 0 || auth()->user()?->can('create-historiqueRealisationTache'))
-@if (empty($bulkEdit))
-<div class="col-12 col-md-12">
-   <label for="HistoriqueRealisationTache">
-            {{ ucfirst(__('PkgRealisationTache::historiqueRealisationTache.plural')) }}
-            
-    </label>
-
-  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "realisationTache-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
-</div>
-@endif
-@endif
-@endif
-
-
-
     </div>
   
 

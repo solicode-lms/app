@@ -16,7 +16,7 @@
         @can('index-projet')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'projets.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgCreationProjet::projet.plural')) }}" class="nav-link">
-            <i class="fas fa-lightbulb"></i>
+            <i class="fas fa-rocket"></i>
           </a>
         </li>
         @endcan
@@ -43,13 +43,7 @@
         </li>
         @endcan
 
-        @can('index-realisationMicroCompetence')
-        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
-          <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}" class="nav-link">
-           <i class="fas fa-certificate"></i>
-          </a>
-        </li>
-        @endcan
+       
        
          @can('index-realisationChapitre')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
@@ -59,7 +53,13 @@
         </li>
         @endcan
        
-
+        @can('index-realisationMicroCompetence')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationMicroCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}" class="nav-link">
+           <i class="fas fa-certificate"></i>
+          </a>
+        </li>
+        @endcan
         @can('index-apprenant')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'apprenants.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprenants::apprenant.plural')) }}" class="nav-link">

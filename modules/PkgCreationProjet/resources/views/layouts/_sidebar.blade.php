@@ -9,7 +9,7 @@
             <li class="nav-item" id="menu-projets">
                 <a href="{{ route('projets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-lightbulb"></i>
+                    <i class="nav-icon fas fa-rocket"></i>
                     {{__('PkgCreationProjet::projet.plural')}}
                 </a>
             </li>
@@ -28,7 +28,7 @@
             @can('index-projet') 
             <li class="nav-item" id="menu-projets">
                 <a href="{{ route('projets.index') }}" class="nav-link {{ Request::is('admin/PkgCreationProjet/projets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-lightbulb"></i>
+                    <i class="nav-icon fas fa-rocket"></i>
                     {{__('PkgCreationProjet::projet.plural')}}
                 </a>
             </li>

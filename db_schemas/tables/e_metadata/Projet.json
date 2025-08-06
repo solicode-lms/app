@@ -182,7 +182,7 @@
     {
         "reference": "projets_iconModel",
         "value_boolean": 0,
-        "value_string": "fas fa-lightbulb",
+        "value_string": "fas fa-rocket",
         "value_float": 0,
         "e_model_reference": "projets",
         "e_metadata_definition_reference": "iconModel"
