@@ -68,7 +68,10 @@ export class LoadListAction extends BaseAction {
                 // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
 
-                this.config.managerInstance.parent_manager.formUI.loadData("aa");
+                if(this.config.data_calcul && this.config.isMany && this.config.managerInstance.parent_manager){
+                    this.config.managerInstance.parent_manager.formUI.reloadData();
+                }
+               
                  
             })
             .fail((xhr) => {

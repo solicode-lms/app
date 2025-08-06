@@ -17,6 +17,7 @@ export class DataCalculTreatment {
         this.currentRequest = null; // Stocke la requête en cours
         this.lastSentData = null; // Stocke les dernières données envoyées
         this.loader = new LoadingIndicator(this.config.formSelector);
+        this.disableCalcul = true;
     }
 
     /**
@@ -39,6 +40,7 @@ export class DataCalculTreatment {
      * @param {HTMLElement} field - Champ modifié.
      */
     debouncedCalculate(field) {
+        if (!this.disableCalcul) return; // ⛔ Ne pas exécuter si verrou actif
         clearTimeout(this.debounceTimeout);
         this.debounceTimeout = setTimeout(() => {
             this.triggerCalculation(field);
@@ -105,62 +107,9 @@ export class DataCalculTreatment {
 
         const { hasManyInputsToUpdate, ...fields } = response;
 
-        Object.entries(fields).forEach(([key, value]) => {
-         
-        // Sélectionner le champ en tenant compte des crochets `[]` pour `select multiple`
-        const field = $(`${this.config.formSelector} [name="${key}"], ${this.config.formSelector} [name="${key}[]"]`);
-
-        // Vérifier si c'est le champ qui a déclenché l'événement, éviter de le mettre à jour
-        if (field.is(sourceField)) {
-            return;
-        }
-
-            if (field.length > 0) {
-
-                // Vérifier si c'est un select multiple
-                if (field.is('select[multiple]')) {
-                    let values = [];
-
-                    if (Array.isArray(value)) {
-                        // Extraire uniquement les IDs si les valeurs sont des objets
-                        values = value.map(v => (typeof v === 'object' && v !== null ? v.id : v));
-                    }
-                    field.val(values).trigger('change');
-                }
-
-                // Vérifier si c'est un select2
-                else if (!field.is('select[multiple]') && field.is('select')) {
-                    field.val(value).trigger('change'); // Mettre à jour et déclencher l'événement
-                } 
-                // Vérifier si c'est un champ de type checkbox ou radio
-                else if (field.is(':checkbox, :radio')) {
-                    field.prop('checked', !!value);
-                } 
-                // Vérifier si c'est un champ input classique ou textarea
-                else {
-                     field.val(value);
-
-                    // Si c'est un éditeur Summernote (richText)
-                    if (field.hasClass('richText') && typeof field.summernote === 'function') {
-                        field.summernote('code', value);
-                    } else {
-                        field.trigger('change');
-                    }
-                }
-            }
-        });
-
-        // Mise à jour des composants hasMany
-        if (hasManyInputsToUpdate && typeof hasManyInputsToUpdate === 'object') {
-            Object.entries(hasManyInputsToUpdate).forEach(([key, managerId]) => {
-                const crudManager = window.crudModalManagers?.[managerId];
-                if (crudManager) {
-                    crudManager.tableUI.entityLoader.loadEntities(); // recharge les entités
-                } else {
-                  //  console.warn(`⚠️ Composant hasMany non trouvé pour "${managerId}"`);
-                }
-            });
-        }
+        this.formUI.showFields(fields,sourceField, hasManyInputsToUpdate);
+       
+       
     }
     
 }

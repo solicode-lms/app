@@ -25,6 +25,7 @@ export default class ConfigHelper {
 
         this.indexUrl = config.indexUrl;
         this.editUrl = config.editUrl;
+        this.getEntityUrl = config.getEntityUrl;
         this.csrfToken = config.csrfToken;
         this.editTitle = config.edit_title;
         this.getUserNotificationsUrl = config.getUserNotificationsUrl;

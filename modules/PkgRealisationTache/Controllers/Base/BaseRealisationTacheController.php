@@ -458,6 +458,24 @@ class BaseRealisationTacheController extends AdminController
     }
 
 
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationTache) par ID, en format JSON.
+     */
+    public function getRealisationTache(Request $request, $id)
+    {
+        try {
+            $realisationTache = $this->realisationTacheService->find($id);
+            return response()->json($realisationTache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tâche non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+
     public function dataCalcul(Request $request)
     {
         $data = $request->all();

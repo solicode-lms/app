@@ -104,8 +104,8 @@ export class EditAction extends Action {
                         onSuccess();
                     }
 
-                   
-                    this.tableUI.entityLoader.loadEntities(); // Recharger les entités
+                    // Déja après Close Modal : il aura l'execution de loadEntities()
+                    // this.tableUI.entityLoader.loadEntities(); // Recharger les entités
                     
                    
                    

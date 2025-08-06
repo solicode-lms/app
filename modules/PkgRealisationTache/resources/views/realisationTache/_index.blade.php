@@ -6,6 +6,7 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
         editOnFullScreen : true,
         entity_name: 'realisationTache',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationTache.index' }}', 
@@ -18,6 +19,7 @@
         createUrl: '{{ route('realisationTaches.create') }}',
         editUrl: '{{ route('realisationTaches.edit',  ['realisationTache' => ':id']) }}',
         showUrl: '{{ route('realisationTaches.show',  ['realisationTache' => ':id']) }}',
+        getEntityUrl: '{{ route("realisationTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('realisationTaches.store') }}', 
         updateAttributesUrl: '{{ route('realisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationTaches.destroy',  ['realisationTache' => ':id']) }}', 

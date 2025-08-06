@@ -38,7 +38,9 @@ export class FormUI  {
         this.loader = new LoadingIndicator(this.formSelector);
         this.dynamicCalculationTreatment = new DataCalculTreatment(config,this);
         this.localStorageDefaultTreatment = new LocalStorageDefaultTreatment(config,this)
-
+        
+        // Update HasManyComponsats on reloadData
+        this.reloadHasManyComposants = true;
         
     }
 
@@ -572,8 +574,123 @@ export class FormUI  {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    loadData(data){
-        alert("Load Data");
+    /**
+     * Recharge les données d'une entité dans le formulaire via une requête AJAX,
+     * en utilisant l'ID présent dans le champ `name="id"`.
+     *
+     * Cette méthode appelle l'URL définie dans `config.getEntityUrl` (ex: `/realisationTaches/json/:id`),
+     * remplit automatiquement les champs du formulaire via `showFields()`,
+     * et recharge également les composants `hasMany` si la réponse les contient.
+     *
+     * @returns {void}
+     */
+    reloadData() {
+        const form = document.querySelector(this.formSelector);
+        if (!form) return;
+
+        const idInput = form.querySelector('[name="id"]');
+        if (!idInput || !idInput.value) {
+            NotificationHandler.showError("Aucun ID trouvé pour le rechargement.");
+            return;
+        }
+
+        const id = idInput.value;
+        const url = this.config.getEntityUrl.replace(':id', id); // URL: /realisationTaches/json/:id
+
+        this.loader.show();
+
+        // Désactiver temporairement le calcul
+        this.dynamicCalculationTreatment.disableCalcul = false;
+        this.reloadHasManyComposants = false;
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+        })
+            .done((response) => {
+                // Tu peux enrichir ici si le back ne retourne pas { entity: ..., hasManyInputsToUpdate: ... }
+                this.showFields(response, "", {}); // on suppose aucun hasMany à recharger ici
+                NotificationHandler.showSuccess("Formulaire mis à jour avec succès.");
+            })
+            .fail((xhr) => {
+                const message = xhr.responseJSON?.message || "Erreur lors du chargement des données.";
+                NotificationHandler.showError(message);
+            })
+            .always(() => {
+                this.loader.hide();
+
+                // Réactiver le calcul après un petit délai (évite les conflits)
+                setTimeout(() => {
+                    this.dynamicCalculationTreatment.disableCalcul = true;
+
+                    this.reloadHasManyComposants = true;
+                }, 200);
+            });
+    }
+
+    showFields(fields,elseField = "", hasManyInputsToUpdate){
+         Object.entries(fields).forEach(([key, value]) => {
+         
+        // Sélectionner le champ en tenant compte des crochets `[]` pour `select multiple`
+        const field = $(`${this.config.formSelector} [name="${key}"], ${this.config.formSelector} [name="${key}[]"]`);
+
+        // Vérifier si c'est le champ qui a déclenché l'événement, éviter de le mettre à jour
+        if (field.is(elseField)) {
+            return;
+        }
+
+            if (field.length > 0) {
+
+                // Vérifier si c'est un select multiple
+                if (field.is('select[multiple]')) {
+                    let values = [];
+
+                    if (Array.isArray(value)) {
+                        // Extraire uniquement les IDs si les valeurs sont des objets
+                        values = value.map(v => (typeof v === 'object' && v !== null ? v.id : v));
+                    }
+                    field.val(values).trigger('change');
+                }
+
+                // Vérifier si c'est un select2
+                else if (!field.is('select[multiple]') && field.is('select')) {
+                    field.val(value).trigger('change'); // Mettre à jour et déclencher l'événement
+                } 
+                // Vérifier si c'est un champ de type checkbox ou radio
+                else if (field.is(':checkbox, :radio')) {
+                    field.prop('checked', !!value);
+                } 
+                // Vérifier si c'est un champ input classique ou textarea
+                else {
+                     field.val(value);
+
+                    // Si c'est un éditeur Summernote (richText)
+                    if (field.hasClass('richText') && typeof field.summernote === 'function') {
+                        field.summernote('code', value);
+                    } else {
+                        field.trigger('change');
+                    }
+                }
+            }
+        });
+
+         // Mise à jour des composants hasMany
+         
+        if (
+            this.reloadHasManyComposants 
+            && hasManyInputsToUpdate 
+            && typeof hasManyInputsToUpdate === 'object'
+        ) {
+            Object.entries(hasManyInputsToUpdate).forEach(([key, managerId]) => {
+                const crudManager = window.crudModalManagers?.[managerId];
+                if (crudManager) {
+                    crudManager.tableUI.entityLoader.loadEntities(); // recharge les entités
+                } else {
+                  //  console.warn(`⚠️ Composant hasMany non trouvé pour "${managerId}"`);
+                }
+            });
+        }
     }
   
 
