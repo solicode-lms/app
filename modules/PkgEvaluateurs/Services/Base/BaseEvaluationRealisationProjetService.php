@@ -75,6 +75,7 @@ class BaseEvaluationRealisationProjetService extends BaseService
         if (!empty($realisationTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
             $realisationTache->hasManyInputsToUpdate = [
+                    'evaluationRealisationTaches' => 'evaluationRealisationTache-crud',
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
