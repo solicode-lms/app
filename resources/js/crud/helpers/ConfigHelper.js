@@ -11,7 +11,7 @@ export default class ConfigHelper {
         this.isDebug = false;
         this.isDebugInfo = true;
         this.managerInstance = null;
-      
+        this.parent_manager_id = null;
 
         this.entity_name = config.entity_name;
         this.view_type_variable = `${this.entity_name}_view_type` 

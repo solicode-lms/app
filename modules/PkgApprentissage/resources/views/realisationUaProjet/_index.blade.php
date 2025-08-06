@@ -6,6 +6,7 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        parent_manager  :  '{{ $parent_manager  ?? 'null' }}',
         editOnFullScreen : false,
         entity_name: 'realisationUaProjet',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationUaProjet.index' }}', 

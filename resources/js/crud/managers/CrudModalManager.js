@@ -19,6 +19,7 @@ export class CrudModalManager {
      */
     constructor(config) {
         this.config = config;
+        this.parent_manager = null;
 
         // Initialisation des composants UI
         this.notificationUI = new NotificationUI(config, this);
@@ -30,6 +31,11 @@ export class CrudModalManager {
         this.showUI = new ShowUI(config,this);
         this.modalUI = new ModalUI(config,this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
+
+        if(this.config.parent_manager_id){
+            this.parent_manager =  window.crudModalManagers[this.config.parent_manager_id];
+        }
+       
     }
 
     /**
