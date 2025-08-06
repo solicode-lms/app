@@ -323,12 +323,15 @@ trait RealisationTacheServiceCrud
             return;
         }
 
+        // ✅ Définition de la constante d’arrondi
+        $STEP_ROUNDING = 0.5;
+
         // ⚠️ Ne garder que les prototypes avec un barème > 0
         $prototypes = $prototypes->filter(fn($p) => $p->bareme > 0);
         if ($prototypes->isEmpty()) return;
 
         // 🧮 Fonction pour arrondir à un multiple de 0.25
-        $roundToQuarter = fn($value) => round($value * 4) / 4;
+        $roundToStep =  fn($value) => round($value / $STEP_ROUNDING) * $STEP_ROUNDING;
 
         // 🎯 Étape 1 : calcul du total des taux de remplissage (note actuelle / barème)
         $totalRemplissage = $prototypes->sum(function ($p) {
@@ -348,9 +351,9 @@ trait RealisationTacheServiceCrud
             $note = $p->note ?? 0;
             $remplissage = $note / $p->bareme; // Exemple : 3 / 5 = 0.6
             $ratio = $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
-            $noteProposee = $roundToQuarter($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
+            $noteProposee = $roundToStep($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
             $noteAppliquee = min($noteProposee, $p->bareme);
-            $noteAppliquee = $roundToQuarter($noteAppliquee);
+            $noteAppliquee = $roundToStep($noteAppliquee);
 
             $repartitions[] = [
                 'proto' => $p,
@@ -402,11 +405,30 @@ trait RealisationTacheServiceCrud
                     if (!$modification) break;
                     $i++;
                 }
+
+                // ✅ Si l'écart résiduel est exactement ±0.25 → appliquer une dernière correction
+                if (abs($ecart) === 0.25) {
+                    foreach ($repartitions as &$entry) {
+                        $proto = $entry['proto'];
+                        $note = $entry['note_appliquee'];
+
+                        if ($ecart > 0 && $note + 0.25 <= $proto->bareme) {
+                            $entry['note_appliquee'] += 0.25;
+                            break;
+                        }
+
+                        if ($ecart < 0 && $note - 0.25 >= 0) {
+                            $entry['note_appliquee'] -= 0.25;
+                            break;
+                        }
+                    }
+                    unset($entry);
+                }
             }
 
         // 3️⃣ Application finale (arrondi garanti à 0.25)
         foreach ($repartitions as $entry) {
-            $entry['proto']->note = $roundToQuarter($entry['note_appliquee']);
+            $entry['proto']->note = $entry['note_appliquee'];
             $entry['proto']->save();
         }
     }
