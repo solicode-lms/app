@@ -181,7 +181,7 @@
             
     </label>
 
-  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "evaluationRealisationTache-crud","contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
+  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "evaluationRealisationProjet-crud","contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
 </div>
 @endif
 @endif
