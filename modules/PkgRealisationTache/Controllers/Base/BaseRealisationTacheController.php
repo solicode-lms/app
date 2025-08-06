@@ -457,7 +457,6 @@ class BaseRealisationTacheController extends AdminController
         return response()->json($realisationTaches);
     }
 
-
     /**
      * @DynamicPermissionIgnore
      * Retourne une tâche (RealisationTache) par ID, en format JSON.
@@ -470,12 +469,12 @@ class BaseRealisationTacheController extends AdminController
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tâche non trouvée ou erreur.',
+                'message' => 'Entité non trouvée ou erreur.',
                 'error' => $e->getMessage()
             ], 404);
         }
     }
-
+    
     public function dataCalcul(Request $request)
     {
         $data = $request->all();
@@ -488,7 +487,6 @@ class BaseRealisationTacheController extends AdminController
             'entity' => $updatedRealisationTache
         ]);
     }
-
     
 
 
