@@ -11,8 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
         Route::get('realisationUaPrototypes/getData', [RealisationUaPrototypeController::class, 'getData'])->name('realisationUaPrototypes.getData');
         // ✅ Route JSON
-        Route::get('realisationTaches/json/{id}', [RealisationTacheController::class, 'getRealisationTache'])
-            ->name('realisationTaches.getById');
+        Route::get('realisationUaPrototypes/json/{id}', [RealisationUaPrototypeController::class, 'getRealisationUaPrototype'])
+            ->name('realisationUaPrototypes.getById');
         // bulk - edit and delete
         Route::post('realisationUaPrototypes/bulk-delete', [RealisationUaPrototypeController::class, 'bulkDelete'])
         ->name('realisationUaPrototypes.bulkDelete');
