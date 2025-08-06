@@ -296,7 +296,7 @@
             
     </label>
 
-  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "realisationUaProjet-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"parent_manager_id" => "realisationUaProjet-crud","contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif

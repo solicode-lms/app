@@ -79,6 +79,10 @@ class BaseRealisationTacheService extends BaseService
         if (!empty($realisationTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
             $realisationTache->hasManyInputsToUpdate = [
+                    'evaluationRealisationTaches' => 'evaluationRealisationTache-crud',
+                    'historiqueRealisationTaches' => 'historiqueRealisationTache-crud',
+                    'realisationChapitres' => 'realisationChapitre-crud',
+                    'realisationUaProjets' => 'realisationUaProjet-crud',
                     'realisationUaPrototypes' => 'realisationUaPrototype-crud',
             ];
 

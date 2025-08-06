@@ -223,8 +223,16 @@ trait RealisationTacheServiceCrud
         }
 
         if ($entity->wasChanged('note')) {
-            // 3️⃣ Répartir la note sur les prototypes associés
-            $this->repartirNoteDansRealisationUaPrototypes($entity);
+
+            if($entity->tache->phaseEvaluation->code == "N2"){
+                // 3️⃣ Répartir la note sur les prototypes associés
+                $this->repartirNoteDansRealisationUaPrototypes($entity);
+            }
+             if($entity->tache->phaseEvaluation->code == "N3"){
+                // 3️⃣ Répartir la note sur les prototypes associés
+                $this->repartirNoteDansRealisationUaProjets($entity);
+            }
+          
         }
           
 
@@ -295,11 +303,19 @@ trait RealisationTacheServiceCrud
     }
 
 
-    
+    public function repartirNoteDansRealisationUaPrototypes(RealisationTache $tache): void
+    {
+        $this->repartirNoteDansElements($tache->realisationUaPrototypes, $tache->note ?? 0);
+    }
+
+    public function repartirNoteDansRealisationUaProjets(RealisationTache $tache): void
+    {
+        $this->repartirNoteDansElements($tache->realisationUaProjets, $tache->note ?? 0);
+    }
 
 
     /**
-     * Répartit la note de la tâche sur les RealisationUaPrototypes associés,
+     * Répartit la note de la tâche sur les éléments liés (prototypes ou projets),
      * en fonction du taux de remplissage (note / barème),
      * tout en respectant les barèmes et en arrondissant à 0.25.
      *
@@ -315,11 +331,11 @@ trait RealisationTacheServiceCrud
      *      P1 ≈ 2.73 → arrondi à 2.75
      *      P2 ≈ 2.27 → arrondi à 2.25
      */
-    public function repartirNoteDansRealisationUaPrototypes(RealisationTache $entity): void
+    public function repartirNoteDansElements(Collection $elements, float $noteTotale): void
     {
-        $prototypes = $entity->realisationUaPrototypes;
 
-        if ($prototypes->isEmpty() || $entity->note === null) {
+
+        if ($elements->isEmpty() || $noteTotale === null) {
             return;
         }
 
@@ -327,30 +343,34 @@ trait RealisationTacheServiceCrud
         $STEP_ROUNDING = 0.5;
 
         // ⚠️ Ne garder que les prototypes avec un barème > 0
-        $prototypes = $prototypes->filter(fn($p) => $p->bareme > 0);
-        if ($prototypes->isEmpty()) return;
+        $elements = $elements->filter(fn($p) => $p->bareme > 0);
+        if ($elements->isEmpty()) return;
 
         // 🧮 Fonction pour arrondir à un multiple de 0.25
         $roundToStep =  fn($value) => round($value / $STEP_ROUNDING) * $STEP_ROUNDING;
 
         // 🎯 Étape 1 : calcul du total des taux de remplissage (note actuelle / barème)
-        $totalRemplissage = $prototypes->sum(function ($p) {
+        $totalRemplissage = $elements->sum(function ($p) {
             $note = $p->note ?? 0;
             return $note / $p->bareme;
         });
 
         // Si aucun taux valide → on sort
-        if ($totalRemplissage <= 0) return;
+        $useBareme = false;
+        if ($totalRemplissage <= 0) {
+            // Aucun remplissage → on répartit selon le barème
+            $totalRemplissage = $elements->sum(fn($p) => $p->bareme);
+            $useBareme = true;
+        }
 
-        $noteTotale = $entity->note;
         $repartitions = [];
 
         // 1️⃣ Répartition initiale avec arrondi à 0.25
         $totalAttribue = 0;
-        foreach ($prototypes as $p) {
+        foreach ($elements as $p) {
             $note = $p->note ?? 0;
             $remplissage = $note / $p->bareme; // Exemple : 3 / 5 = 0.6
-            $ratio = $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
+            $ratio = $useBareme ? $p->bareme / $totalRemplissage :  $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
             $noteProposee = $roundToStep($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
             $noteAppliquee = min($noteProposee, $p->bareme);
             $noteAppliquee = $roundToStep($noteAppliquee);
