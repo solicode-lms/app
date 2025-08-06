@@ -39,9 +39,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarque_evaluateur' => 'remarque_evaluateur',
                 'etat_realisation_tache_reference' => 'etat_realisation_tache_reference',
                 'note' => 'note',
-                'reference' => 'reference',
                 'remarques_formateur' => 'remarques_formateur',
                 'remarques_apprenant' => 'remarques_apprenant',
+                'reference' => 'reference',
             ];
         } else {
             return [
@@ -52,9 +52,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarque_evaluateur' => __('PkgRealisationTache::realisationTache.remarque_evaluateur'),
                 'etat_realisation_tache_reference' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_reference'),
                 'note' => __('PkgRealisationTache::realisationTache.note'),
-                'reference' => __('Core::msg.reference'),
                 'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
                 'remarques_apprenant' => __('PkgRealisationTache::realisationTache.remarques_apprenant'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -73,9 +73,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'remarque_evaluateur' => $realisationTache->remarque_evaluateur,
                 'etat_realisation_tache_reference' => $realisationTache->etatRealisationTache?->reference,
                 'note' => $realisationTache->note,
-                'reference' => $realisationTache->reference,
                 'remarques_formateur' => $realisationTache->remarques_formateur,
                 'remarques_apprenant' => $realisationTache->remarques_apprenant,
+                'reference' => $realisationTache->reference,
             ];
         });
     }
