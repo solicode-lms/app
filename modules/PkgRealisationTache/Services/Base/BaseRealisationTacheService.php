@@ -52,6 +52,7 @@ class BaseRealisationTacheService extends BaseService
         $this->title = __('PkgRealisationTache::realisationTache.plural');
     }
 
+
     /**
      * Applique les calculs dynamiques sur les champs marqués avec l’attribut `data-calcule`
      * pendant l’édition ou la création d’une entité.
@@ -78,9 +79,7 @@ class BaseRealisationTacheService extends BaseService
         if (!empty($realisationTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
             $realisationTache->hasManyInputsToUpdate = [
-                'realisationUaPrototypes' => 'realisationUaPrototype-crud',
-                'realisationUaProjets'    => 'realisationUaProjet-crud',
-                'realisationChapitres'    => 'realisationChapitre-crud',
+                    'realisationUaPrototypes' => 'realisationUaPrototype-crud',
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
