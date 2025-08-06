@@ -102,12 +102,15 @@ export class DataCalculTreatment {
      * @param {Object} response - Données mises à jour reçues du serveur.
      */
     updateDependentFields(sourceField, response) {
-        Object.entries(response).forEach(([key, value]) => {
-         
-             // Sélectionner le champ en tenant compte des crochets `[]` pour `select multiple`
-            const field = $(`${this.config.formSelector} [name="${key}"], ${this.config.formSelector} [name="${key}[]"]`);
 
-           // Vérifier si c'est le champ qui a déclenché l'événement, éviter de le mettre à jour
+        const { hasManyInputsToUpdate, ...fields } = response;
+
+        Object.entries(fields).forEach(([key, value]) => {
+         
+        // Sélectionner le champ en tenant compte des crochets `[]` pour `select multiple`
+        const field = $(`${this.config.formSelector} [name="${key}"], ${this.config.formSelector} [name="${key}[]"]`);
+
+        // Vérifier si c'est le champ qui a déclenché l'événement, éviter de le mettre à jour
         if (field.is(sourceField)) {
             return;
         }
@@ -146,6 +149,18 @@ export class DataCalculTreatment {
                 }
             }
         });
+
+        // Mise à jour des composants hasMany
+        if (hasManyInputsToUpdate && typeof hasManyInputsToUpdate === 'object') {
+            Object.entries(hasManyInputsToUpdate).forEach(([key, managerId]) => {
+                const crudManager = window.crudModalManagers?.[managerId];
+                if (crudManager) {
+                    crudManager.tableUI.entityLoader.loadEntities(); // recharge les entités
+                } else {
+                  //  console.warn(`⚠️ Composant hasMany non trouvé pour "${managerId}"`);
+                }
+            });
+        }
     }
     
 }

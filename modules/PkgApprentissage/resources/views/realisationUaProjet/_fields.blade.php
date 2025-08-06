@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemRealisationUaProjet->id)
+      
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($realisationUaProjet_ids))

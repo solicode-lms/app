@@ -460,20 +460,17 @@ class BaseRealisationTacheController extends AdminController
 
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationTache = $this->realisationTacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationTache = $this->realisationTacheService->dataCalcul($realisationTache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationTache = $this->realisationTacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationTache
         ]);
     }
+
     
 
 

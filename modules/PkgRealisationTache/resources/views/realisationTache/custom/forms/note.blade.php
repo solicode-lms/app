@@ -48,6 +48,7 @@
         min="0"
         max="{{ $maxNote }}"
         id="note"
+        data-calcul='true'
         {{ $canEditnote ? '' : 'disabled' }}
         step="0.25"
         value="{{ $inputValue }}"

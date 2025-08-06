@@ -10,6 +10,7 @@ export default class ConfigHelper {
 
         this.isDebug = false;
         this.isDebugInfo = true;
+        this.managerInstance = null;
       
 
         this.entity_name = config.entity_name;

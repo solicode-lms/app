@@ -301,13 +301,42 @@ trait RealisationTacheServiceCrud
      * si le champs a le data : data-calcule
      * @param mixed $realisationTache
      */
-    public function dataCalcul($realisationTache)
+    public function dataCalcul($data)
     {
+
+        // Si l'ID est présent : on récupère l'entité existante sans la modifier en base
+        if (!empty($data['id'])) {
+            $realisationTache = $this->find($data['id']);
+            // On applique les valeurs du formulaire sans persister
+            $realisationTache->fill($data);
+        } else {
+            // Sinon, on initialise une instance vide avec les données
+            $realisationTache = $this->realisationTacheService->createInstance($data);
+        }
+
+
         // En Cas d'édit
+        // TODO : le id n'exist pas dans dataCalcule URL
         if(isset($realisationTache->id)){
           
+
+
+           
+            // Enregistrer les composants liés en mode hasMany à mettre à jour
+            $realisationTache->hasManyInputsToUpdate = [
+                'realisationUaPrototypes' => 'realisationUaPrototype-crud',
+                'realisationUaProjets' => 'realisationUaProjet-crud',
+                'realisationChapitres' => 'realisationChapitre-crud',
+            ]; 
+
+            if($realisationTache->hasManyInputsToUpdate && count($realisationTache->hasManyInputsToUpdate) > 0){
+                // Enregistrement pour affichere les nouvelle valeurs dans les input : HasMany
+                $this->updateOnlyExistanteAttribute($realisationTache->id,$data);
+            }
         }
-      
+
+       
+
         return $realisationTache;
     }
 

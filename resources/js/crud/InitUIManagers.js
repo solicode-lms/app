@@ -41,6 +41,7 @@ export default class InitUIManagers {
                 if (!window.crudModalManagers) {
                     window.crudModalManagers = {};
                 }
+                configHelper.managerInstance = crudModalManager;
                 window.crudModalManagers[configHelper.id] = crudModalManager;
 
             // }

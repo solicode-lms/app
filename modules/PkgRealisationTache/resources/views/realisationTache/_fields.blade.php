@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemRealisationTache->id)
+        <input type="hidden" name="id" value="{{ $itemRealisationTache->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($realisationTache_ids))
@@ -242,7 +243,7 @@
         type="number"
         class="form-control"
         
-        
+        data-calcul='true'
         
         id="note"
         {{ $canEditnote ? '' : 'disabled' }}
