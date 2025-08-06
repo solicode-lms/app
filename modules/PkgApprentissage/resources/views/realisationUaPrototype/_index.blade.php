@@ -20,6 +20,7 @@
         createUrl: '{{ route('realisationUaPrototypes.create') }}',
         editUrl: '{{ route('realisationUaPrototypes.edit',  ['realisationUaPrototype' => ':id']) }}',
         showUrl: '{{ route('realisationUaPrototypes.show',  ['realisationUaPrototype' => ':id']) }}',
+        getEntityUrl: '{{ route("realisationUaPrototypes.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('realisationUaPrototypes.store') }}', 
         updateAttributesUrl: '{{ route('realisationUaPrototypes.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationUaPrototypes.destroy',  ['realisationUaPrototype' => ':id']) }}', 

@@ -332,18 +332,31 @@ class BaseRealisationUaPrototypeController extends AdminController
         return response()->json($realisationUaPrototypes);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationUaPrototype) par ID, en format JSON.
+     */
+    public function getRealisationUaPrototype(Request $request, $id)
+    {
+        try {
+            $realisationUaPrototype = $this->realisationUaPrototypeService->find($id);
+            return response()->json($realisationUaPrototype);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationUaPrototype = $this->realisationUaPrototypeService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationUaPrototype = $this->realisationUaPrototypeService->dataCalcul($realisationUaPrototype);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationUaPrototype = $this->realisationUaPrototypeService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationUaPrototype
