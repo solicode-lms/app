@@ -278,7 +278,7 @@
             
     </label>
 
-  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgApprentissage::realisationChapitre._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
@@ -296,7 +296,7 @@
             
     </label>
 
-  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgApprentissage::realisationUaProjet._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
@@ -314,7 +314,7 @@
             
     </label>
 
-  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true , "contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id, "parent_manager_id" => "realisationTache-crud"]  )
+  @include('PkgApprentissage::realisationUaPrototype._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => true ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
@@ -435,7 +435,7 @@
             
     </label>
 
-  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
@@ -453,7 +453,7 @@
             
     </label>
 
-  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
+  @include('PkgRealisationTache::historiqueRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"contextKey" => 'realisationTache.edit_' . $itemRealisationTache->id])
 </div>
 @endif
 @endif
