@@ -362,36 +362,47 @@ trait RealisationTacheServiceCrud
         }
 
         // 2️⃣ Correction finale : forcer la somme exacte = note de la tâche
-        $écart = round($noteTotale - $totalAttribue, 2); // positif ou négatif
+        $ecart = round($noteTotale - $totalAttribue, 2); // positif ou négatif
+        $step = 0.25;
+        if (abs($ecart) >= 0.01) {
+                $maxIterations = 1000;
+                $i = 0;
 
-        if (abs($écart) >= 0.01) {
-            // Trier selon capacité (si ajout) ou poids (si retrait)
-            usort($repartitions, function ($a, $b) use ($écart) {
-                return $écart > 0
-                    ? $b['reste_possible'] <=> $a['reste_possible']
-                    : $b['note_appliquee'] <=> $a['note_appliquee'];
-            });
+                while (abs($ecart) >= 0.01 && $i < $maxIterations) {
+                    // Trier les prototypes par reste possible (ajout) ou note actuelle (retrait)
+                    usort($repartitions, function ($a, $b) use ($ecart) {
+                        return $ecart > 0
+                            ? $b['reste_possible'] <=> $a['reste_possible']
+                            : $b['note_appliquee'] <=> $a['note_appliquee'];
+                    });
 
-            $step = 0.25;
-            $iterations = abs(round($écart / $step));
+                    $modification = false;
 
-            foreach ($repartitions as &$entry) {
-                if ($iterations <= 0) break;
+                    foreach ($repartitions as &$entry) {
+                        $proto = $entry['proto'];
+                        $note = $entry['note_appliquee'];
 
-                $proto = $entry['proto'];
-                $note = $entry['note_appliquee'];
+                        if ($ecart > 0 && $note + $step <= $proto->bareme) {
+                            $entry['note_appliquee'] += $step;
+                            $ecart = round($ecart - $step, 2);
+                            $modification = true;
+                            break;
+                        }
 
-                if ($écart > 0 && $note + $step <= $proto->bareme) {
-                    $entry['note_appliquee'] += $step;
-                    $iterations--;
-                }
+                        if ($ecart < 0 && $note - $step >= 0) {
+                            $entry['note_appliquee'] -= $step;
+                            $ecart = round($ecart + $step, 2);
+                            $modification = true;
+                            break;
+                        }
+                    }
 
-                if ($écart < 0 && $note - $step >= 0) {
-                    $entry['note_appliquee'] -= $step;
-                    $iterations--;
+                    unset($entry); // Sécurité
+
+                    if (!$modification) break;
+                    $i++;
                 }
             }
-        }
 
         // 3️⃣ Application finale (arrondi garanti à 0.25)
         foreach ($repartitions as $entry) {

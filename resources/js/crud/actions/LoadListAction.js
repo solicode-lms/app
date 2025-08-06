@@ -67,6 +67,8 @@ export class LoadListAction extends BaseAction {
                 this.tableUI.indexUI.notificationUI.init();
                 // Afficher un message de succès (optionnel)
                 // NotificationHandler.showSuccess('Données chargées avec succès.');
+
+                
                  
             })
             .fail((xhr) => {

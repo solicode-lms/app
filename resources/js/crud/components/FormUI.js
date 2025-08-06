@@ -571,6 +571,10 @@ export class FormUI  {
     static initTooltip(){
         $('[data-toggle="tooltip"]').tooltip();
     }
+
+    loadData(data){
+        alert("Load Data");
+    }
   
 
 }
