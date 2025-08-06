@@ -10,6 +10,9 @@ use Modules\Core\Controllers\FeatureDomainController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
         Route::get('featureDomains/getData', [FeatureDomainController::class, 'getData'])->name('featureDomains.getData');
+        // ✅ Route JSON
+        Route::get('featureDomains/json/{id}', [FeatureDomainController::class, 'getFeatureDomain'])
+            ->name('featureDomains.getById');
         // bulk - edit and delete
         Route::post('featureDomains/bulk-delete', [FeatureDomainController::class, 'bulkDelete'])
         ->name('featureDomains.bulkDelete');

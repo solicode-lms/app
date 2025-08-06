@@ -10,6 +10,9 @@ use Modules\PkgApprenants\Controllers\GroupeController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
         Route::get('groupes/getData', [GroupeController::class, 'getData'])->name('groupes.getData');
+        // ✅ Route JSON
+        Route::get('groupes/json/{id}', [GroupeController::class, 'getGroupe'])
+            ->name('groupes.getById');
         // bulk - edit and delete
         Route::post('groupes/bulk-delete', [GroupeController::class, 'bulkDelete'])
         ->name('groupes.bulkDelete');

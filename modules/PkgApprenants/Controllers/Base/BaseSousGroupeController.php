@@ -38,6 +38,8 @@ class BaseSousGroupeController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sousGroupe.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sousGroupe');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -345,18 +347,31 @@ class BaseSousGroupeController extends AdminController
         return response()->json($sousGroupes);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SousGroupe) par ID, en format JSON.
+     */
+    public function getSousGroupe(Request $request, $id)
+    {
+        try {
+            $sousGroupe = $this->sousGroupeService->find($id);
+            return response()->json($sousGroupe);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sousGroupe = $this->sousGroupeService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSousGroupe = $this->sousGroupeService->dataCalcul($sousGroupe);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSousGroupe = $this->sousGroupeService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSousGroupe

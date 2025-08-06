@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'sousGroupe',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'sousGroupe.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('sousGroupes.create') }}',
         editUrl: '{{ route('sousGroupes.edit',  ['sousGroupe' => ':id']) }}',
         showUrl: '{{ route('sousGroupes.show',  ['sousGroupe' => ':id']) }}',
+        getEntityUrl: '{{ route("sousGroupes.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sousGroupes.store') }}', 
         updateAttributesUrl: '{{ route('sousGroupes.updateAttributes') }}', 
         deleteUrl: '{{ route('sousGroupes.destroy',  ['sousGroupe' => ':id']) }}', 

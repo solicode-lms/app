@@ -10,6 +10,9 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationMicroCompetenceControlle
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
         Route::get('etatRealisationMicroCompetences/getData', [EtatRealisationMicroCompetenceController::class, 'getData'])->name('etatRealisationMicroCompetences.getData');
+        // ✅ Route JSON
+        Route::get('etatRealisationMicroCompetences/json/{id}', [EtatRealisationMicroCompetenceController::class, 'getEtatRealisationMicroCompetence'])
+            ->name('etatRealisationMicroCompetences.getById');
         // bulk - edit and delete
         Route::post('etatRealisationMicroCompetences/bulk-delete', [EtatRealisationMicroCompetenceController::class, 'bulkDelete'])
         ->name('etatRealisationMicroCompetences.bulkDelete');

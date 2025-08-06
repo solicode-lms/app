@@ -40,6 +40,8 @@ class BaseSessionFormationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sessionFormation.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sessionFormation');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -375,18 +377,31 @@ class BaseSessionFormationController extends AdminController
         return response()->json($sessionFormations);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SessionFormation) par ID, en format JSON.
+     */
+    public function getSessionFormation(Request $request, $id)
+    {
+        try {
+            $sessionFormation = $this->sessionFormationService->find($id);
+            return response()->json($sessionFormation);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sessionFormation = $this->sessionFormationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSessionFormation = $this->sessionFormationService->dataCalcul($sessionFormation);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSessionFormation = $this->sessionFormationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSessionFormation

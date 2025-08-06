@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'phaseEvaluation',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'phaseEvaluation.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('phaseEvaluations.create') }}',
         editUrl: '{{ route('phaseEvaluations.edit',  ['phaseEvaluation' => ':id']) }}',
         showUrl: '{{ route('phaseEvaluations.show',  ['phaseEvaluation' => ':id']) }}',
+        getEntityUrl: '{{ route("phaseEvaluations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('phaseEvaluations.store') }}', 
         updateAttributesUrl: '{{ route('phaseEvaluations.updateAttributes') }}', 
         deleteUrl: '{{ route('phaseEvaluations.destroy',  ['phaseEvaluation' => ':id']) }}', 

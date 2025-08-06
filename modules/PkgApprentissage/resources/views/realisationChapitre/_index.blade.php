@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'realisationChapitre',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationChapitre.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('realisationChapitres.create') }}',
         editUrl: '{{ route('realisationChapitres.edit',  ['realisationChapitre' => ':id']) }}',
         showUrl: '{{ route('realisationChapitres.show',  ['realisationChapitre' => ':id']) }}',
+        getEntityUrl: '{{ route("realisationChapitres.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('realisationChapitres.store') }}', 
         updateAttributesUrl: '{{ route('realisationChapitres.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationChapitres.destroy',  ['realisationChapitre' => ':id']) }}', 

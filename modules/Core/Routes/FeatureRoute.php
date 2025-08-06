@@ -10,6 +10,9 @@ use Modules\Core\Controllers\FeatureController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
         Route::get('features/getData', [FeatureController::class, 'getData'])->name('features.getData');
+        // ✅ Route JSON
+        Route::get('features/json/{id}', [FeatureController::class, 'getFeature'])
+            ->name('features.getById');
         // bulk - edit and delete
         Route::post('features/bulk-delete', [FeatureController::class, 'bulkDelete'])
         ->name('features.bulkDelete');

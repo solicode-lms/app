@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'role',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'role.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('roles.create') }}',
         editUrl: '{{ route('roles.edit',  ['role' => ':id']) }}',
         showUrl: '{{ route('roles.show',  ['role' => ':id']) }}',
+        getEntityUrl: '{{ route("roles.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('roles.store') }}', 
         updateAttributesUrl: '{{ route('roles.updateAttributes') }}', 
         deleteUrl: '{{ route('roles.destroy',  ['role' => ':id']) }}', 

@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemEvaluationRealisationProjet->id)
+        <input type="hidden" name="id" value="{{ $itemEvaluationRealisationProjet->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($evaluationRealisationProjet_ids))
@@ -180,7 +181,7 @@
             
     </label>
 
-  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
+  @include('PkgEvaluateurs::evaluationRealisationTache._index',['isMany' => true, "edit_has_many" => false, "data_calcul" => false ,"parent_manager_id" => "evaluationRealisationTache-crud","contextKey" => 'evaluationRealisationProjet.edit_' . $itemEvaluationRealisationProjet->id])
 </div>
 @endif
 @endif

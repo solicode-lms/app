@@ -10,6 +10,9 @@ use Modules\PkgGapp\Controllers\EDataFieldController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
         Route::get('eDataFields/getData', [EDataFieldController::class, 'getData'])->name('eDataFields.getData');
+        // ✅ Route JSON
+        Route::get('eDataFields/json/{id}', [EDataFieldController::class, 'getEDataField'])
+            ->name('eDataFields.getById');
         // bulk - edit and delete
         Route::post('eDataFields/bulk-delete', [EDataFieldController::class, 'bulkDelete'])
         ->name('eDataFields.bulkDelete');

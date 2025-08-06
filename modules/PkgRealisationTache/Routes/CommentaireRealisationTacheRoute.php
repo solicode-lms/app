@@ -10,6 +10,9 @@ use Modules\PkgRealisationTache\Controllers\CommentaireRealisationTacheControlle
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('commentaireRealisationTaches/getData', [CommentaireRealisationTacheController::class, 'getData'])->name('commentaireRealisationTaches.getData');
+        // ✅ Route JSON
+        Route::get('commentaireRealisationTaches/json/{id}', [CommentaireRealisationTacheController::class, 'getCommentaireRealisationTache'])
+            ->name('commentaireRealisationTaches.getById');
         // bulk - edit and delete
         Route::post('commentaireRealisationTaches/bulk-delete', [CommentaireRealisationTacheController::class, 'bulkDelete'])
         ->name('commentaireRealisationTaches.bulkDelete');

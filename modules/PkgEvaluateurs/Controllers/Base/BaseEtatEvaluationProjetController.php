@@ -35,6 +35,8 @@ class BaseEtatEvaluationProjetController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('etatEvaluationProjet.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('etatEvaluationProjet');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -339,18 +341,31 @@ class BaseEtatEvaluationProjetController extends AdminController
         return response()->json($etatEvaluationProjets);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EtatEvaluationProjet) par ID, en format JSON.
+     */
+    public function getEtatEvaluationProjet(Request $request, $id)
+    {
+        try {
+            $etatEvaluationProjet = $this->etatEvaluationProjetService->find($id);
+            return response()->json($etatEvaluationProjet);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $etatEvaluationProjet = $this->etatEvaluationProjetService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEtatEvaluationProjet = $this->etatEvaluationProjetService->dataCalcul($etatEvaluationProjet);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEtatEvaluationProjet = $this->etatEvaluationProjetService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEtatEvaluationProjet

@@ -37,6 +37,8 @@ class BaseCritereEvaluationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('critereEvaluation.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('critereEvaluation');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseCritereEvaluationController extends AdminController
         return response()->json($critereEvaluations);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (CritereEvaluation) par ID, en format JSON.
+     */
+    public function getCritereEvaluation(Request $request, $id)
+    {
+        try {
+            $critereEvaluation = $this->critereEvaluationService->find($id);
+            return response()->json($critereEvaluation);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $critereEvaluation = $this->critereEvaluationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedCritereEvaluation = $this->critereEvaluationService->dataCalcul($critereEvaluation);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedCritereEvaluation = $this->critereEvaluationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedCritereEvaluation

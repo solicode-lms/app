@@ -34,6 +34,8 @@ class BaseNotificationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('notification.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('notification');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -356,18 +358,31 @@ class BaseNotificationController extends AdminController
         return response()->json($notifications);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Notification) par ID, en format JSON.
+     */
+    public function getNotification(Request $request, $id)
+    {
+        try {
+            $notification = $this->notificationService->find($id);
+            return response()->json($notification);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $notification = $this->notificationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedNotification = $this->notificationService->dataCalcul($notification);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedNotification = $this->notificationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedNotification

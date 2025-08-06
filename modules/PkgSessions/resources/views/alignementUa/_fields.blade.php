@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemAlignementUa->id)
+        <input type="hidden" name="id" value="{{ $itemAlignementUa->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($alignementUa_ids))

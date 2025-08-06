@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'sysColor',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'sysColor.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('sysColors.create') }}',
         editUrl: '{{ route('sysColors.edit',  ['sysColor' => ':id']) }}',
         showUrl: '{{ route('sysColors.show',  ['sysColor' => ':id']) }}',
+        getEntityUrl: '{{ route("sysColors.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sysColors.store') }}', 
         updateAttributesUrl: '{{ route('sysColors.updateAttributes') }}', 
         deleteUrl: '{{ route('sysColors.destroy',  ['sysColor' => ':id']) }}', 

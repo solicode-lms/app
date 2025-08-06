@@ -10,6 +10,9 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationUaController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
         Route::get('etatRealisationUas/getData', [EtatRealisationUaController::class, 'getData'])->name('etatRealisationUas.getData');
+        // ✅ Route JSON
+        Route::get('etatRealisationUas/json/{id}', [EtatRealisationUaController::class, 'getEtatRealisationUa'])
+            ->name('etatRealisationUas.getById');
         // bulk - edit and delete
         Route::post('etatRealisationUas/bulk-delete', [EtatRealisationUaController::class, 'bulkDelete'])
         ->name('etatRealisationUas.bulkDelete');

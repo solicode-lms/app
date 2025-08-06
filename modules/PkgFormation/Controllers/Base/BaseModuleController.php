@@ -35,6 +35,8 @@ class BaseModuleController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('module.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('module');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -339,18 +341,31 @@ class BaseModuleController extends AdminController
         return response()->json($modules);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Module) par ID, en format JSON.
+     */
+    public function getModule(Request $request, $id)
+    {
+        try {
+            $module = $this->moduleService->find($id);
+            return response()->json($module);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $module = $this->moduleService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedModule = $this->moduleService->dataCalcul($module);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedModule = $this->moduleService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedModule

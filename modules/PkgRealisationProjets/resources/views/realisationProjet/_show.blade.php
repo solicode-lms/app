@@ -7,13 +7,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::affectationProjet.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationProjet->affectationProjet)
-                  {{ $itemRealisationProjet->affectationProjet }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet',['entity' => $itemRealisationProjet])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">

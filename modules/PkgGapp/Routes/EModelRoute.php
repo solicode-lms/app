@@ -10,6 +10,9 @@ use Modules\PkgGapp\Controllers\EModelController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
         Route::get('eModels/getData', [EModelController::class, 'getData'])->name('eModels.getData');
+        // ✅ Route JSON
+        Route::get('eModels/json/{id}', [EModelController::class, 'getEModel'])
+            ->name('eModels.getById');
         // bulk - edit and delete
         Route::post('eModels/bulk-delete', [EModelController::class, 'bulkDelete'])
         ->name('eModels.bulkDelete');

@@ -38,6 +38,8 @@ class BaseEDataFieldController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('eDataField.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('eDataField');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -345,18 +347,31 @@ class BaseEDataFieldController extends AdminController
         return response()->json($eDataFields);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EDataField) par ID, en format JSON.
+     */
+    public function getEDataField(Request $request, $id)
+    {
+        try {
+            $eDataField = $this->eDataFieldService->find($id);
+            return response()->json($eDataField);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $eDataField = $this->eDataFieldService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEDataField = $this->eDataFieldService->dataCalcul($eDataField);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEDataField = $this->eDataFieldService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEDataField

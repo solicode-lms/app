@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'evaluateur',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'evaluateur.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('evaluateurs.create') }}',
         editUrl: '{{ route('evaluateurs.edit',  ['evaluateur' => ':id']) }}',
         showUrl: '{{ route('evaluateurs.show',  ['evaluateur' => ':id']) }}',
+        getEntityUrl: '{{ route("evaluateurs.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('evaluateurs.store') }}', 
         updateAttributesUrl: '{{ route('evaluateurs.updateAttributes') }}', 
         deleteUrl: '{{ route('evaluateurs.destroy',  ['evaluateur' => ':id']) }}', 

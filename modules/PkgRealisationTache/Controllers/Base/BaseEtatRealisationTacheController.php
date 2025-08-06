@@ -40,6 +40,8 @@ class BaseEtatRealisationTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('etatRealisationTache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('etatRealisationTache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -359,18 +361,31 @@ class BaseEtatRealisationTacheController extends AdminController
         return response()->json($etatRealisationTaches);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EtatRealisationTache) par ID, en format JSON.
+     */
+    public function getEtatRealisationTache(Request $request, $id)
+    {
+        try {
+            $etatRealisationTache = $this->etatRealisationTacheService->find($id);
+            return response()->json($etatRealisationTache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $etatRealisationTache = $this->etatRealisationTacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEtatRealisationTache = $this->etatRealisationTacheService->dataCalcul($etatRealisationTache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEtatRealisationTache = $this->etatRealisationTacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEtatRealisationTache

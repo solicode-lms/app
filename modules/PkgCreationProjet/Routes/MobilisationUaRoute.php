@@ -10,6 +10,9 @@ use Modules\PkgCreationProjet\Controllers\MobilisationUaController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
         Route::get('mobilisationUas/getData', [MobilisationUaController::class, 'getData'])->name('mobilisationUas.getData');
+        // ✅ Route JSON
+        Route::get('mobilisationUas/json/{id}', [MobilisationUaController::class, 'getMobilisationUa'])
+            ->name('mobilisationUas.getById');
         // bulk - edit and delete
         Route::post('mobilisationUas/bulk-delete', [MobilisationUaController::class, 'bulkDelete'])
         ->name('mobilisationUas.bulkDelete');

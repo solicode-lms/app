@@ -10,6 +10,9 @@ use Modules\PkgFormation\Controllers\SpecialiteController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
         Route::get('specialites/getData', [SpecialiteController::class, 'getData'])->name('specialites.getData');
+        // ✅ Route JSON
+        Route::get('specialites/json/{id}', [SpecialiteController::class, 'getSpecialite'])
+            ->name('specialites.getById');
         // bulk - edit and delete
         Route::post('specialites/bulk-delete', [SpecialiteController::class, 'bulkDelete'])
         ->name('specialites.bulkDelete');

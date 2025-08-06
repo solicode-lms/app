@@ -34,6 +34,8 @@ class BaseProfileController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('profile.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('profile');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -381,18 +383,31 @@ class BaseProfileController extends AdminController
         return response()->json($profiles);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Profile) par ID, en format JSON.
+     */
+    public function getProfile(Request $request, $id)
+    {
+        try {
+            $profile = $this->profileService->find($id);
+            return response()->json($profile);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $profile = $this->profileService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedProfile = $this->profileService->dataCalcul($profile);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedProfile = $this->profileService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedProfile

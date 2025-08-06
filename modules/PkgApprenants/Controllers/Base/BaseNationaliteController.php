@@ -32,6 +32,8 @@ class BaseNationaliteController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('nationalite.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('nationalite');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -333,18 +335,31 @@ class BaseNationaliteController extends AdminController
         return response()->json($nationalites);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Nationalite) par ID, en format JSON.
+     */
+    public function getNationalite(Request $request, $id)
+    {
+        try {
+            $nationalite = $this->nationaliteService->find($id);
+            return response()->json($nationalite);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $nationalite = $this->nationaliteService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedNationalite = $this->nationaliteService->dataCalcul($nationalite);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedNationalite = $this->nationaliteService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedNationalite

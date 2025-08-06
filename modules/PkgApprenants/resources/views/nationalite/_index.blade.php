@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'nationalite',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'nationalite.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('nationalites.create') }}',
         editUrl: '{{ route('nationalites.edit',  ['nationalite' => ':id']) }}',
         showUrl: '{{ route('nationalites.show',  ['nationalite' => ':id']) }}',
+        getEntityUrl: '{{ route("nationalites.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('nationalites.store') }}', 
         updateAttributesUrl: '{{ route('nationalites.updateAttributes') }}', 
         deleteUrl: '{{ route('nationalites.destroy',  ['nationalite' => ':id']) }}', 

@@ -34,6 +34,8 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('etatRealisationMicroCompetence.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('etatRealisationMicroCompetence');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -324,18 +326,31 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
         return response()->json($etatRealisationMicroCompetences);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EtatRealisationMicroCompetence) par ID, en format JSON.
+     */
+    public function getEtatRealisationMicroCompetence(Request $request, $id)
+    {
+        try {
+            $etatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->find($id);
+            return response()->json($etatRealisationMicroCompetence);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $etatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->dataCalcul($etatRealisationMicroCompetence);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEtatRealisationMicroCompetence

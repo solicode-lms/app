@@ -35,6 +35,8 @@ class BaseSectionWidgetController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sectionWidget.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sectionWidget');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -339,18 +341,31 @@ class BaseSectionWidgetController extends AdminController
         return response()->json($sectionWidgets);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SectionWidget) par ID, en format JSON.
+     */
+    public function getSectionWidget(Request $request, $id)
+    {
+        try {
+            $sectionWidget = $this->sectionWidgetService->find($id);
+            return response()->json($sectionWidget);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sectionWidget = $this->sectionWidgetService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSectionWidget = $this->sectionWidgetService->dataCalcul($sectionWidget);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSectionWidget = $this->sectionWidgetService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSectionWidget

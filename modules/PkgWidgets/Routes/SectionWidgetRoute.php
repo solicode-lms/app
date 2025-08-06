@@ -10,6 +10,9 @@ use Modules\PkgWidgets\Controllers\SectionWidgetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
         Route::get('sectionWidgets/getData', [SectionWidgetController::class, 'getData'])->name('sectionWidgets.getData');
+        // ✅ Route JSON
+        Route::get('sectionWidgets/json/{id}', [SectionWidgetController::class, 'getSectionWidget'])
+            ->name('sectionWidgets.getById');
         // bulk - edit and delete
         Route::post('sectionWidgets/bulk-delete', [SectionWidgetController::class, 'bulkDelete'])
         ->name('sectionWidgets.bulkDelete');

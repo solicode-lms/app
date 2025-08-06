@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemEtatRealisationMicroCompetence->id)
+        <input type="hidden" name="id" value="{{ $itemEtatRealisationMicroCompetence->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($etatRealisationMicroCompetence_ids))

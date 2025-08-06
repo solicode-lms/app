@@ -41,6 +41,8 @@ class BaseEvaluationRealisationProjetController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('evaluationRealisationProjet.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('evaluationRealisationProjet');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -374,18 +376,31 @@ class BaseEvaluationRealisationProjetController extends AdminController
         return response()->json($evaluationRealisationProjets);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EvaluationRealisationProjet) par ID, en format JSON.
+     */
+    public function getEvaluationRealisationProjet(Request $request, $id)
+    {
+        try {
+            $evaluationRealisationProjet = $this->evaluationRealisationProjetService->find($id);
+            return response()->json($evaluationRealisationProjet);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $evaluationRealisationProjet = $this->evaluationRealisationProjetService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEvaluationRealisationProjet = $this->evaluationRealisationProjetService->dataCalcul($evaluationRealisationProjet);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEvaluationRealisationProjet = $this->evaluationRealisationProjetService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEvaluationRealisationProjet

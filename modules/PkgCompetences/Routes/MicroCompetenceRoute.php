@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\MicroCompetenceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('microCompetences/getData', [MicroCompetenceController::class, 'getData'])->name('microCompetences.getData');
+        // ✅ Route JSON
+        Route::get('microCompetences/json/{id}', [MicroCompetenceController::class, 'getMicroCompetence'])
+            ->name('microCompetences.getById');
         // bulk - edit and delete
         Route::post('microCompetences/bulk-delete', [MicroCompetenceController::class, 'bulkDelete'])
         ->name('microCompetences.bulkDelete');

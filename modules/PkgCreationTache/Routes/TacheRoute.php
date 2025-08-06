@@ -10,6 +10,9 @@ use Modules\PkgCreationTache\Controllers\TacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationTache')->group(function () {
         Route::get('taches/getData', [TacheController::class, 'getData'])->name('taches.getData');
+        // ✅ Route JSON
+        Route::get('taches/json/{id}', [TacheController::class, 'getTache'])
+            ->name('taches.getById');
         // bulk - edit and delete
         Route::post('taches/bulk-delete', [TacheController::class, 'bulkDelete'])
         ->name('taches.bulkDelete');

@@ -10,6 +10,9 @@ use Modules\PkgApprenants\Controllers\ApprenantKonosyController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
         Route::get('apprenantKonosies/getData', [ApprenantKonosyController::class, 'getData'])->name('apprenantKonosies.getData');
+        // ✅ Route JSON
+        Route::get('apprenantKonosies/json/{id}', [ApprenantKonosyController::class, 'getApprenantKonosy'])
+            ->name('apprenantKonosies.getById');
         // bulk - edit and delete
         Route::post('apprenantKonosies/bulk-delete', [ApprenantKonosyController::class, 'bulkDelete'])
         ->name('apprenantKonosies.bulkDelete');

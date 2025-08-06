@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\ChapitreController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('chapitres/getData', [ChapitreController::class, 'getData'])->name('chapitres.getData');
+        // ✅ Route JSON
+        Route::get('chapitres/json/{id}', [ChapitreController::class, 'getChapitre'])
+            ->name('chapitres.getById');
         // bulk - edit and delete
         Route::post('chapitres/bulk-delete', [ChapitreController::class, 'bulkDelete'])
         ->name('chapitres.bulkDelete');

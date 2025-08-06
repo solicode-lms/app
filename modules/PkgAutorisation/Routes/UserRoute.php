@@ -10,6 +10,9 @@ use Modules\PkgAutorisation\Controllers\UserController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
         Route::get('users/getData', [UserController::class, 'getData'])->name('users.getData');
+        // ✅ Route JSON
+        Route::get('users/json/{id}', [UserController::class, 'getUser'])
+            ->name('users.getById');
         // bulk - edit and delete
         Route::post('users/bulk-delete', [UserController::class, 'bulkDelete'])
         ->name('users.bulkDelete');

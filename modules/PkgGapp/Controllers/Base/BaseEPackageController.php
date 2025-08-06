@@ -32,6 +32,8 @@ class BaseEPackageController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('ePackage.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('ePackage');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -333,18 +335,31 @@ class BaseEPackageController extends AdminController
         return response()->json($ePackages);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EPackage) par ID, en format JSON.
+     */
+    public function getEPackage(Request $request, $id)
+    {
+        try {
+            $ePackage = $this->ePackageService->find($id);
+            return response()->json($ePackage);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $ePackage = $this->ePackageService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEPackage = $this->ePackageService->dataCalcul($ePackage);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEPackage = $this->ePackageService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEPackage

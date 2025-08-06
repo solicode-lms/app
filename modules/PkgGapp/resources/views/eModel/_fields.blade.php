@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemEModel->id)
+        <input type="hidden" name="id" value="{{ $itemEModel->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($eModel_ids))

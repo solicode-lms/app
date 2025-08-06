@@ -6,7 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
-        parent_manager  :  '{{ $parent_manager  ?? 'null' }}',
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'realisationUaProjet',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationUaProjet.index' }}', 
@@ -19,6 +20,7 @@
         createUrl: '{{ route('realisationUaProjets.create') }}',
         editUrl: '{{ route('realisationUaProjets.edit',  ['realisationUaProjet' => ':id']) }}',
         showUrl: '{{ route('realisationUaProjets.show',  ['realisationUaProjet' => ':id']) }}',
+        getEntityUrl: '{{ route("realisationUaProjets.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('realisationUaProjets.store') }}', 
         updateAttributesUrl: '{{ route('realisationUaProjets.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationUaProjets.destroy',  ['realisationUaProjet' => ':id']) }}', 

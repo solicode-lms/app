@@ -10,6 +10,9 @@ use Modules\PkgRealisationTache\Controllers\EtatRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('etatRealisationTaches/getData', [EtatRealisationTacheController::class, 'getData'])->name('etatRealisationTaches.getData');
+        // ✅ Route JSON
+        Route::get('etatRealisationTaches/json/{id}', [EtatRealisationTacheController::class, 'getEtatRealisationTache'])
+            ->name('etatRealisationTaches.getById');
         // bulk - edit and delete
         Route::post('etatRealisationTaches/bulk-delete', [EtatRealisationTacheController::class, 'bulkDelete'])
         ->name('etatRealisationTaches.bulkDelete');

@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\PhaseEvaluationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('phaseEvaluations/getData', [PhaseEvaluationController::class, 'getData'])->name('phaseEvaluations.getData');
+        // ✅ Route JSON
+        Route::get('phaseEvaluations/json/{id}', [PhaseEvaluationController::class, 'getPhaseEvaluation'])
+            ->name('phaseEvaluations.getById');
         // bulk - edit and delete
         Route::post('phaseEvaluations/bulk-delete', [PhaseEvaluationController::class, 'bulkDelete'])
         ->name('phaseEvaluations.bulkDelete');

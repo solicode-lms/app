@@ -41,6 +41,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationMicroCompetence.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationMicroCompetence');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -383,18 +385,31 @@ class BaseRealisationMicroCompetenceController extends AdminController
         return response()->json($realisationMicroCompetences);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationMicroCompetence) par ID, en format JSON.
+     */
+    public function getRealisationMicroCompetence(Request $request, $id)
+    {
+        try {
+            $realisationMicroCompetence = $this->realisationMicroCompetenceService->find($id);
+            return response()->json($realisationMicroCompetence);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationMicroCompetence = $this->realisationMicroCompetenceService->dataCalcul($realisationMicroCompetence);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationMicroCompetence = $this->realisationMicroCompetenceService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationMicroCompetence

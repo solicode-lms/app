@@ -34,6 +34,8 @@ class BaseAnneeFormationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('anneeFormation.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('anneeFormation');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -363,18 +365,31 @@ class BaseAnneeFormationController extends AdminController
         return response()->json($anneeFormations);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (AnneeFormation) par ID, en format JSON.
+     */
+    public function getAnneeFormation(Request $request, $id)
+    {
+        try {
+            $anneeFormation = $this->anneeFormationService->find($id);
+            return response()->json($anneeFormation);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $anneeFormation = $this->anneeFormationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedAnneeFormation = $this->anneeFormationService->dataCalcul($anneeFormation);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedAnneeFormation = $this->anneeFormationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedAnneeFormation

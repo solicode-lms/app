@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemWidgetUtilisateur->id)
+        <input type="hidden" name="id" value="{{ $itemWidgetUtilisateur->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($widgetUtilisateur_ids))

@@ -43,6 +43,8 @@ class BaseRealisationProjetController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationProjet.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationProjet');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -426,18 +428,31 @@ class BaseRealisationProjetController extends AdminController
         return response()->json($realisationProjets);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationProjet) par ID, en format JSON.
+     */
+    public function getRealisationProjet(Request $request, $id)
+    {
+        try {
+            $realisationProjet = $this->realisationProjetService->find($id);
+            return response()->json($realisationProjet);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationProjet = $this->realisationProjetService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationProjet = $this->realisationProjetService->dataCalcul($realisationProjet);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationProjet = $this->realisationProjetService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationProjet

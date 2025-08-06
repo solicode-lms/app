@@ -10,6 +10,9 @@ use Modules\PkgEvaluateurs\Controllers\EvaluationRealisationTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
         Route::get('evaluationRealisationTaches/getData', [EvaluationRealisationTacheController::class, 'getData'])->name('evaluationRealisationTaches.getData');
+        // ✅ Route JSON
+        Route::get('evaluationRealisationTaches/json/{id}', [EvaluationRealisationTacheController::class, 'getEvaluationRealisationTache'])
+            ->name('evaluationRealisationTaches.getById');
         // bulk - edit and delete
         Route::post('evaluationRealisationTaches/bulk-delete', [EvaluationRealisationTacheController::class, 'bulkDelete'])
         ->name('evaluationRealisationTaches.bulkDelete');

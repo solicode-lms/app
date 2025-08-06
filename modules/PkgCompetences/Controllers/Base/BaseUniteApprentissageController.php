@@ -36,6 +36,8 @@ class BaseUniteApprentissageController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('uniteApprentissage.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('uniteApprentissage');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -354,18 +356,31 @@ class BaseUniteApprentissageController extends AdminController
         return response()->json($uniteApprentissages);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (UniteApprentissage) par ID, en format JSON.
+     */
+    public function getUniteApprentissage(Request $request, $id)
+    {
+        try {
+            $uniteApprentissage = $this->uniteApprentissageService->find($id);
+            return response()->json($uniteApprentissage);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $uniteApprentissage = $this->uniteApprentissageService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedUniteApprentissage = $this->uniteApprentissageService->dataCalcul($uniteApprentissage);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedUniteApprentissage = $this->uniteApprentissageService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedUniteApprentissage

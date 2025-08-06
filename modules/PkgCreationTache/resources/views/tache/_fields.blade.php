@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemTache->id)
+        <input type="hidden" name="id" value="{{ $itemTache->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($tache_ids))

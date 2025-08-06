@@ -45,6 +45,8 @@ class BaseGroupeController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('groupe.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('groupe');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -372,18 +374,31 @@ class BaseGroupeController extends AdminController
         return response()->json($groupes);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Groupe) par ID, en format JSON.
+     */
+    public function getGroupe(Request $request, $id)
+    {
+        try {
+            $groupe = $this->groupeService->find($id);
+            return response()->json($groupe);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $groupe = $this->groupeService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedGroupe = $this->groupeService->dataCalcul($groupe);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedGroupe = $this->groupeService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedGroupe

@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemFeatureDomain->id)
+        <input type="hidden" name="id" value="{{ $itemFeatureDomain->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($featureDomain_ids))

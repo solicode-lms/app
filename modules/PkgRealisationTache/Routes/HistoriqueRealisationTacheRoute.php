@@ -10,6 +10,9 @@ use Modules\PkgRealisationTache\Controllers\HistoriqueRealisationTacheController
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('historiqueRealisationTaches/getData', [HistoriqueRealisationTacheController::class, 'getData'])->name('historiqueRealisationTaches.getData');
+        // ✅ Route JSON
+        Route::get('historiqueRealisationTaches/json/{id}', [HistoriqueRealisationTacheController::class, 'getHistoriqueRealisationTache'])
+            ->name('historiqueRealisationTaches.getById');
         // bulk - edit and delete
         Route::post('historiqueRealisationTaches/bulk-delete', [HistoriqueRealisationTacheController::class, 'bulkDelete'])
         ->name('historiqueRealisationTaches.bulkDelete');

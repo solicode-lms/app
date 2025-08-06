@@ -55,14 +55,41 @@ class BaseWidgetService extends BaseService
     }
 
 
-    public function dataCalcul($widget)
+    /**
+     * Applique les calculs dynamiques sur les champs marqués avec l’attribut `data-calcule`
+     * pendant l’édition ou la création d’une entité.
+     *
+     * Cette méthode est utilisée dans les formulaires dynamiques pour recalculer certains champs
+     * (ex : note, barème, état, progression...) en fonction des valeurs saisies ou modifiées.
+     *
+     * Elle est déclenchée automatiquement lorsqu’un champ du formulaire possède l’attribut `data-calcule`.
+     *
+     * @param mixed $data Données en cours d’édition (array ou modèle hydraté sans persistance).
+     * @return mixed L’entité enrichie avec les champs recalculés.
+     */
+    public function dataCalcul($data)
     {
-        // En Cas d'édit
-        if(isset($widget->id)){
-          
+        // 🧾 Chargement ou initialisation de l'entité
+        if (!empty($data['id'])) {
+            $realisationTache = $this->find($data['id']);
+            $realisationTache->fill($data);
+        } else {
+            $realisationTache = $this->createInstance($data);
         }
-      
-        return $widget;
+
+        // 🛠️ Traitement spécifique en mode édition
+        if (!empty($realisationTache->id)) {
+            // 🔄 Déclaration des composants hasMany à mettre à jour
+            $realisationTache->hasManyInputsToUpdate = [
+            ];
+
+            // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
+            if (!empty($realisationTache->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            }
+        }
+
+        return $realisationTache;
     }
 
     public function initFieldsFilterable()

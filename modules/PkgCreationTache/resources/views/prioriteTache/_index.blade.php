@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'prioriteTache',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'prioriteTache.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('prioriteTaches.create') }}',
         editUrl: '{{ route('prioriteTaches.edit',  ['prioriteTache' => ':id']) }}',
         showUrl: '{{ route('prioriteTaches.show',  ['prioriteTache' => ':id']) }}',
+        getEntityUrl: '{{ route("prioriteTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('prioriteTaches.store') }}', 
         updateAttributesUrl: '{{ route('prioriteTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('prioriteTaches.destroy',  ['prioriteTache' => ':id']) }}', 

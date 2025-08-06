@@ -34,6 +34,8 @@ class BaseResourceController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('resource.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('resource');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -347,18 +349,31 @@ class BaseResourceController extends AdminController
         return response()->json($resources);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Resource) par ID, en format JSON.
+     */
+    public function getResource(Request $request, $id)
+    {
+        try {
+            $resource = $this->resourceService->find($id);
+            return response()->json($resource);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $resource = $this->resourceService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedResource = $this->resourceService->dataCalcul($resource);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedResource = $this->resourceService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedResource

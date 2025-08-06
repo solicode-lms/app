@@ -10,6 +10,9 @@ use Modules\Core\Controllers\SysColorController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
         Route::get('sysColors/getData', [SysColorController::class, 'getData'])->name('sysColors.getData');
+        // ✅ Route JSON
+        Route::get('sysColors/json/{id}', [SysColorController::class, 'getSysColor'])
+            ->name('sysColors.getById');
         // bulk - edit and delete
         Route::post('sysColors/bulk-delete', [SysColorController::class, 'bulkDelete'])
         ->name('sysColors.bulkDelete');

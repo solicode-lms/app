@@ -377,18 +377,31 @@ class BaseApprenantController extends AdminController
         return response()->json($apprenants);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Apprenant) par ID, en format JSON.
+     */
+    public function getApprenant(Request $request, $id)
+    {
+        try {
+            $apprenant = $this->apprenantService->find($id);
+            return response()->json($apprenant);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $apprenant = $this->apprenantService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedApprenant = $this->apprenantService->dataCalcul($apprenant);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedApprenant = $this->apprenantService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedApprenant

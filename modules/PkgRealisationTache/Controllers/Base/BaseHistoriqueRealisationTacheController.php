@@ -37,6 +37,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('historiqueRealisationTache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('historiqueRealisationTache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         return response()->json($historiqueRealisationTaches);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (HistoriqueRealisationTache) par ID, en format JSON.
+     */
+    public function getHistoriqueRealisationTache(Request $request, $id)
+    {
+        try {
+            $historiqueRealisationTache = $this->historiqueRealisationTacheService->find($id);
+            return response()->json($historiqueRealisationTache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $historiqueRealisationTache = $this->historiqueRealisationTacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedHistoriqueRealisationTache = $this->historiqueRealisationTacheService->dataCalcul($historiqueRealisationTache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedHistoriqueRealisationTache = $this->historiqueRealisationTacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedHistoriqueRealisationTache

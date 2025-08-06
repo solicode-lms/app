@@ -10,6 +10,9 @@ use Modules\Core\Controllers\SysControllerController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
         Route::get('sysControllers/getData', [SysControllerController::class, 'getData'])->name('sysControllers.getData');
+        // ✅ Route JSON
+        Route::get('sysControllers/json/{id}', [SysControllerController::class, 'getSysController'])
+            ->name('sysControllers.getById');
         // bulk - edit and delete
         Route::post('sysControllers/bulk-delete', [SysControllerController::class, 'bulkDelete'])
         ->name('sysControllers.bulkDelete');

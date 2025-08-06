@@ -40,6 +40,8 @@ class BaseWidgetUtilisateurController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('widgetUtilisateur.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetUtilisateur');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -395,18 +397,31 @@ class BaseWidgetUtilisateurController extends AdminController
         return response()->json($widgetUtilisateurs);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (WidgetUtilisateur) par ID, en format JSON.
+     */
+    public function getWidgetUtilisateur(Request $request, $id)
+    {
+        try {
+            $widgetUtilisateur = $this->widgetUtilisateurService->find($id);
+            return response()->json($widgetUtilisateur);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $widgetUtilisateur = $this->widgetUtilisateurService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedWidgetUtilisateur = $this->widgetUtilisateurService->dataCalcul($widgetUtilisateur);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedWidgetUtilisateur = $this->widgetUtilisateurService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedWidgetUtilisateur

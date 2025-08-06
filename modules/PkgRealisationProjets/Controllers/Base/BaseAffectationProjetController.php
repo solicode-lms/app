@@ -47,6 +47,8 @@ class BaseAffectationProjetController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('affectationProjet.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('affectationProjet');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -419,18 +421,31 @@ class BaseAffectationProjetController extends AdminController
         return response()->json($affectationProjets);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (AffectationProjet) par ID, en format JSON.
+     */
+    public function getAffectationProjet(Request $request, $id)
+    {
+        try {
+            $affectationProjet = $this->affectationProjetService->find($id);
+            return response()->json($affectationProjet);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $affectationProjet = $this->affectationProjetService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedAffectationProjet = $this->affectationProjetService->dataCalcul($affectationProjet);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedAffectationProjet = $this->affectationProjetService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedAffectationProjet

@@ -31,6 +31,8 @@ class BaseApprenantKonosyController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('apprenantKonosy.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('apprenantKonosy');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -318,18 +320,31 @@ class BaseApprenantKonosyController extends AdminController
         return response()->json($apprenantKonosies);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (ApprenantKonosy) par ID, en format JSON.
+     */
+    public function getApprenantKonosy(Request $request, $id)
+    {
+        try {
+            $apprenantKonosy = $this->apprenantKonosyService->find($id);
+            return response()->json($apprenantKonosy);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $apprenantKonosy = $this->apprenantKonosyService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedApprenantKonosy = $this->apprenantKonosyService->dataCalcul($apprenantKonosy);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedApprenantKonosy = $this->apprenantKonosyService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedApprenantKonosy

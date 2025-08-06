@@ -37,6 +37,8 @@ class BaseChapitreController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('chapitre.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('chapitre');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseChapitreController extends AdminController
         return response()->json($chapitres);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Chapitre) par ID, en format JSON.
+     */
+    public function getChapitre(Request $request, $id)
+    {
+        try {
+            $chapitre = $this->chapitreService->find($id);
+            return response()->json($chapitre);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $chapitre = $this->chapitreService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedChapitre = $this->chapitreService->dataCalcul($chapitre);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedChapitre = $this->chapitreService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedChapitre

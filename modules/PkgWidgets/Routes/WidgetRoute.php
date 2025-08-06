@@ -10,6 +10,9 @@ use Modules\PkgWidgets\Controllers\WidgetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgWidgets')->group(function () {
         Route::get('widgets/getData', [WidgetController::class, 'getData'])->name('widgets.getData');
+        // ✅ Route JSON
+        Route::get('widgets/json/{id}', [WidgetController::class, 'getWidget'])
+            ->name('widgets.getById');
         // bulk - edit and delete
         Route::post('widgets/bulk-delete', [WidgetController::class, 'bulkDelete'])
         ->name('widgets.bulkDelete');

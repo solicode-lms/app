@@ -47,6 +47,8 @@ class BaseTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('tache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('tache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -380,18 +382,31 @@ class BaseTacheController extends AdminController
         return response()->json($taches);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Tache) par ID, en format JSON.
+     */
+    public function getTache(Request $request, $id)
+    {
+        try {
+            $tache = $this->tacheService->find($id);
+            return response()->json($tache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $tache = $this->tacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedTache = $this->tacheService->dataCalcul($tache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedTache = $this->tacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedTache

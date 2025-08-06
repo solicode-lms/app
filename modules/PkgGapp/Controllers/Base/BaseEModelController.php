@@ -37,6 +37,8 @@ class BaseEModelController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('eModel.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('eModel');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -369,18 +371,31 @@ class BaseEModelController extends AdminController
         return response()->json($eModels);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EModel) par ID, en format JSON.
+     */
+    public function getEModel(Request $request, $id)
+    {
+        try {
+            $eModel = $this->eModelService->find($id);
+            return response()->json($eModel);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $eModel = $this->eModelService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEModel = $this->eModelService->dataCalcul($eModel);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEModel = $this->eModelService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEModel

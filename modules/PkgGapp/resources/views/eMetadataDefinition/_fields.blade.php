@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemEMetadataDefinition->id)
+        <input type="hidden" name="id" value="{{ $itemEMetadataDefinition->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($eMetadataDefinition_ids))

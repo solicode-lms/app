@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : true,
         entity_name: 'competence',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'competence.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('competences.create') }}',
         editUrl: '{{ route('competences.edit',  ['competence' => ':id']) }}',
         showUrl: '{{ route('competences.show',  ['competence' => ':id']) }}',
+        getEntityUrl: '{{ route("competences.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('competences.store') }}', 
         updateAttributesUrl: '{{ route('competences.updateAttributes') }}', 
         deleteUrl: '{{ route('competences.destroy',  ['competence' => ':id']) }}', 

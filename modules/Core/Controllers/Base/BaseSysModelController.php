@@ -38,6 +38,8 @@ class BaseSysModelController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sysModel.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sysModel');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -345,18 +347,31 @@ class BaseSysModelController extends AdminController
         return response()->json($sysModels);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SysModel) par ID, en format JSON.
+     */
+    public function getSysModel(Request $request, $id)
+    {
+        try {
+            $sysModel = $this->sysModelService->find($id);
+            return response()->json($sysModel);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sysModel = $this->sysModelService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSysModel = $this->sysModelService->dataCalcul($sysModel);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSysModel = $this->sysModelService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSysModel

@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\CompetenceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('competences/getData', [CompetenceController::class, 'getData'])->name('competences.getData');
+        // ✅ Route JSON
+        Route::get('competences/json/{id}', [CompetenceController::class, 'getCompetence'])
+            ->name('competences.getById');
         // bulk - edit and delete
         Route::post('competences/bulk-delete', [CompetenceController::class, 'bulkDelete'])
         ->name('competences.bulkDelete');

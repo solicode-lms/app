@@ -10,6 +10,9 @@ use Modules\PkgFormation\Controllers\FiliereController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
         Route::get('filieres/getData', [FiliereController::class, 'getData'])->name('filieres.getData');
+        // ✅ Route JSON
+        Route::get('filieres/json/{id}', [FiliereController::class, 'getFiliere'])
+            ->name('filieres.getById');
         // bulk - edit and delete
         Route::post('filieres/bulk-delete', [FiliereController::class, 'bulkDelete'])
         ->name('filieres.bulkDelete');

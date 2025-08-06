@@ -10,6 +10,9 @@ use Modules\PkgSessions\Controllers\AlignementUaController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
         Route::get('alignementUas/getData', [AlignementUaController::class, 'getData'])->name('alignementUas.getData');
+        // ✅ Route JSON
+        Route::get('alignementUas/json/{id}', [AlignementUaController::class, 'getAlignementUa'])
+            ->name('alignementUas.getById');
         // bulk - edit and delete
         Route::post('alignementUas/bulk-delete', [AlignementUaController::class, 'bulkDelete'])
         ->name('alignementUas.bulkDelete');

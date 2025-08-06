@@ -33,6 +33,8 @@ class BasePhaseEvaluationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('phaseEvaluation.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('phaseEvaluation');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -348,18 +350,31 @@ class BasePhaseEvaluationController extends AdminController
         return response()->json($phaseEvaluations);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (PhaseEvaluation) par ID, en format JSON.
+     */
+    public function getPhaseEvaluation(Request $request, $id)
+    {
+        try {
+            $phaseEvaluation = $this->phaseEvaluationService->find($id);
+            return response()->json($phaseEvaluation);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $phaseEvaluation = $this->phaseEvaluationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedPhaseEvaluation = $this->phaseEvaluationService->dataCalcul($phaseEvaluation);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedPhaseEvaluation = $this->phaseEvaluationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedPhaseEvaluation

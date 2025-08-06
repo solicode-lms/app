@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemNotification->id)
+        <input type="hidden" name="id" value="{{ $itemNotification->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($notification_ids))

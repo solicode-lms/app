@@ -10,6 +10,9 @@ use Modules\PkgApprentissage\Controllers\RealisationUaProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
         Route::get('realisationUaProjets/getData', [RealisationUaProjetController::class, 'getData'])->name('realisationUaProjets.getData');
+        // ✅ Route JSON
+        Route::get('realisationUaProjets/json/{id}', [RealisationUaProjetController::class, 'getRealisationUaProjet'])
+            ->name('realisationUaProjets.getById');
         // bulk - edit and delete
         Route::post('realisationUaProjets/bulk-delete', [RealisationUaProjetController::class, 'bulkDelete'])
         ->name('realisationUaProjets.bulkDelete');

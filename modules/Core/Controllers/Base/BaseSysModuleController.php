@@ -37,6 +37,8 @@ class BaseSysModuleController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sysModule.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sysModule');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -369,18 +371,31 @@ class BaseSysModuleController extends AdminController
         return response()->json($sysModules);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SysModule) par ID, en format JSON.
+     */
+    public function getSysModule(Request $request, $id)
+    {
+        try {
+            $sysModule = $this->sysModuleService->find($id);
+            return response()->json($sysModule);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sysModule = $this->sysModuleService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSysModule = $this->sysModuleService->dataCalcul($sysModule);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSysModule = $this->sysModuleService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSysModule

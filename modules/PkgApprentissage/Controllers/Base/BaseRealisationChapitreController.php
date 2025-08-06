@@ -43,6 +43,8 @@ class BaseRealisationChapitreController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationChapitre.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationChapitre');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -374,18 +376,31 @@ class BaseRealisationChapitreController extends AdminController
         return response()->json($realisationChapitres);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationChapitre) par ID, en format JSON.
+     */
+    public function getRealisationChapitre(Request $request, $id)
+    {
+        try {
+            $realisationChapitre = $this->realisationChapitreService->find($id);
+            return response()->json($realisationChapitre);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationChapitre = $this->realisationChapitreService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationChapitre = $this->realisationChapitreService->dataCalcul($realisationChapitre);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationChapitre = $this->realisationChapitreService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationChapitre

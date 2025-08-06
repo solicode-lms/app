@@ -43,6 +43,8 @@ class BaseRealisationUaController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('realisationUa.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('realisationUa');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -381,18 +383,31 @@ class BaseRealisationUaController extends AdminController
         return response()->json($realisationUas);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (RealisationUa) par ID, en format JSON.
+     */
+    public function getRealisationUa(Request $request, $id)
+    {
+        try {
+            $realisationUa = $this->realisationUaService->find($id);
+            return response()->json($realisationUa);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $realisationUa = $this->realisationUaService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRealisationUa = $this->realisationUaService->dataCalcul($realisationUa);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRealisationUa = $this->realisationUaService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRealisationUa

@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'evaluationRealisationTache',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'evaluationRealisationTache.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('evaluationRealisationTaches.create') }}',
         editUrl: '{{ route('evaluationRealisationTaches.edit',  ['evaluationRealisationTache' => ':id']) }}',
         showUrl: '{{ route('evaluationRealisationTaches.show',  ['evaluationRealisationTache' => ':id']) }}',
+        getEntityUrl: '{{ route("evaluationRealisationTaches.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('evaluationRealisationTaches.store') }}', 
         updateAttributesUrl: '{{ route('evaluationRealisationTaches.updateAttributes') }}', 
         deleteUrl: '{{ route('evaluationRealisationTaches.destroy',  ['evaluationRealisationTache' => ':id']) }}', 

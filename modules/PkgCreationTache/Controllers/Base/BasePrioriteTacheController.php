@@ -34,6 +34,8 @@ class BasePrioriteTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('prioriteTache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('prioriteTache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -347,18 +349,31 @@ class BasePrioriteTacheController extends AdminController
         return response()->json($prioriteTaches);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (PrioriteTache) par ID, en format JSON.
+     */
+    public function getPrioriteTache(Request $request, $id)
+    {
+        try {
+            $prioriteTache = $this->prioriteTacheService->find($id);
+            return response()->json($prioriteTache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $prioriteTache = $this->prioriteTacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedPrioriteTache = $this->prioriteTacheService->dataCalcul($prioriteTache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedPrioriteTache = $this->prioriteTacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedPrioriteTache

@@ -37,6 +37,8 @@ class BaseLivrableSessionController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('livrableSession.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('livrableSession');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseLivrableSessionController extends AdminController
         return response()->json($livrableSessions);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (LivrableSession) par ID, en format JSON.
+     */
+    public function getLivrableSession(Request $request, $id)
+    {
+        try {
+            $livrableSession = $this->livrableSessionService->find($id);
+            return response()->json($livrableSession);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $livrableSession = $this->livrableSessionService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedLivrableSession = $this->livrableSessionService->dataCalcul($livrableSession);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedLivrableSession = $this->livrableSessionService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedLivrableSession

@@ -10,6 +10,9 @@ use Modules\PkgApprentissage\Controllers\EtatRealisationChapitreController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprentissage')->group(function () {
         Route::get('etatRealisationChapitres/getData', [EtatRealisationChapitreController::class, 'getData'])->name('etatRealisationChapitres.getData');
+        // ✅ Route JSON
+        Route::get('etatRealisationChapitres/json/{id}', [EtatRealisationChapitreController::class, 'getEtatRealisationChapitre'])
+            ->name('etatRealisationChapitres.getById');
         // bulk - edit and delete
         Route::post('etatRealisationChapitres/bulk-delete', [EtatRealisationChapitreController::class, 'bulkDelete'])
         ->name('etatRealisationChapitres.bulkDelete');

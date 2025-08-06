@@ -10,6 +10,9 @@ use Modules\PkgSessions\Controllers\LivrableSessionController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
         Route::get('livrableSessions/getData', [LivrableSessionController::class, 'getData'])->name('livrableSessions.getData');
+        // ✅ Route JSON
+        Route::get('livrableSessions/json/{id}', [LivrableSessionController::class, 'getLivrableSession'])
+            ->name('livrableSessions.getById');
         // bulk - edit and delete
         Route::post('livrableSessions/bulk-delete', [LivrableSessionController::class, 'bulkDelete'])
         ->name('livrableSessions.bulkDelete');

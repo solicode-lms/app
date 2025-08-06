@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'widgetType',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'widgetType.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('widgetTypes.create') }}',
         editUrl: '{{ route('widgetTypes.edit',  ['widgetType' => ':id']) }}',
         showUrl: '{{ route('widgetTypes.show',  ['widgetType' => ':id']) }}',
+        getEntityUrl: '{{ route("widgetTypes.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('widgetTypes.store') }}', 
         updateAttributesUrl: '{{ route('widgetTypes.updateAttributes') }}', 
         deleteUrl: '{{ route('widgetTypes.destroy',  ['widgetType' => ':id']) }}', 

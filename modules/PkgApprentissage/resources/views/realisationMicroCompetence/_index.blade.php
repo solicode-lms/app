@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : true,
         entity_name: 'realisationMicroCompetence',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'realisationMicroCompetence.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('realisationMicroCompetences.create') }}',
         editUrl: '{{ route('realisationMicroCompetences.edit',  ['realisationMicroCompetence' => ':id']) }}',
         showUrl: '{{ route('realisationMicroCompetences.show',  ['realisationMicroCompetence' => ':id']) }}',
+        getEntityUrl: '{{ route("realisationMicroCompetences.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('realisationMicroCompetences.store') }}', 
         updateAttributesUrl: '{{ route('realisationMicroCompetences.updateAttributes') }}', 
         deleteUrl: '{{ route('realisationMicroCompetences.destroy',  ['realisationMicroCompetence' => ':id']) }}', 

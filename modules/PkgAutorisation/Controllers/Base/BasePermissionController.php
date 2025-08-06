@@ -40,6 +40,8 @@ class BasePermissionController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('permission.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('permission');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -336,18 +338,31 @@ class BasePermissionController extends AdminController
         return response()->json($permissions);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Permission) par ID, en format JSON.
+     */
+    public function getPermission(Request $request, $id)
+    {
+        try {
+            $permission = $this->permissionService->find($id);
+            return response()->json($permission);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $permission = $this->permissionService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedPermission = $this->permissionService->dataCalcul($permission);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedPermission = $this->permissionService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedPermission

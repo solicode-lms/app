@@ -37,6 +37,8 @@ class BaseAlignementUaController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('alignementUa.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('alignementUa');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseAlignementUaController extends AdminController
         return response()->json($alignementUas);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (AlignementUa) par ID, en format JSON.
+     */
+    public function getAlignementUa(Request $request, $id)
+    {
+        try {
+            $alignementUa = $this->alignementUaService->find($id);
+            return response()->json($alignementUa);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $alignementUa = $this->alignementUaService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedAlignementUa = $this->alignementUaService->dataCalcul($alignementUa);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedAlignementUa = $this->alignementUaService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedAlignementUa

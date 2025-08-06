@@ -10,6 +10,9 @@ use Modules\PkgFormation\Controllers\AnneeFormationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
         Route::get('anneeFormations/getData', [AnneeFormationController::class, 'getData'])->name('anneeFormations.getData');
+        // ✅ Route JSON
+        Route::get('anneeFormations/json/{id}', [AnneeFormationController::class, 'getAnneeFormation'])
+            ->name('anneeFormations.getById');
         // bulk - edit and delete
         Route::post('anneeFormations/bulk-delete', [AnneeFormationController::class, 'bulkDelete'])
         ->name('anneeFormations.bulkDelete');

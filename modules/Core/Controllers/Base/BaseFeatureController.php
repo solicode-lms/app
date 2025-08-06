@@ -37,6 +37,8 @@ class BaseFeatureController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('feature.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('feature');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseFeatureController extends AdminController
         return response()->json($features);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Feature) par ID, en format JSON.
+     */
+    public function getFeature(Request $request, $id)
+    {
+        try {
+            $feature = $this->featureService->find($id);
+            return response()->json($feature);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $feature = $this->featureService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedFeature = $this->featureService->dataCalcul($feature);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedFeature = $this->featureService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedFeature

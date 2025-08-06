@@ -10,6 +10,9 @@ use Modules\PkgEvaluateurs\Controllers\EtatEvaluationProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgEvaluateurs')->group(function () {
         Route::get('etatEvaluationProjets/getData', [EtatEvaluationProjetController::class, 'getData'])->name('etatEvaluationProjets.getData');
+        // ✅ Route JSON
+        Route::get('etatEvaluationProjets/json/{id}', [EtatEvaluationProjetController::class, 'getEtatEvaluationProjet'])
+            ->name('etatEvaluationProjets.getById');
         // bulk - edit and delete
         Route::post('etatEvaluationProjets/bulk-delete', [EtatEvaluationProjetController::class, 'bulkDelete'])
         ->name('etatEvaluationProjets.bulkDelete');

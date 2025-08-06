@@ -40,6 +40,8 @@ class BaseEvaluationRealisationTacheController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('evaluationRealisationTache.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('evaluationRealisationTache');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -336,18 +338,31 @@ class BaseEvaluationRealisationTacheController extends AdminController
         return response()->json($evaluationRealisationTaches);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EvaluationRealisationTache) par ID, en format JSON.
+     */
+    public function getEvaluationRealisationTache(Request $request, $id)
+    {
+        try {
+            $evaluationRealisationTache = $this->evaluationRealisationTacheService->find($id);
+            return response()->json($evaluationRealisationTache);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $evaluationRealisationTache = $this->evaluationRealisationTacheService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEvaluationRealisationTache = $this->evaluationRealisationTacheService->dataCalcul($evaluationRealisationTache);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEvaluationRealisationTache = $this->evaluationRealisationTacheService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEvaluationRealisationTache

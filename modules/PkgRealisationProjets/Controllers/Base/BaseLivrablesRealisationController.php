@@ -37,6 +37,8 @@ class BaseLivrablesRealisationController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('livrablesRealisation.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('livrablesRealisation');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -353,18 +355,31 @@ class BaseLivrablesRealisationController extends AdminController
         return response()->json($livrablesRealisations);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (LivrablesRealisation) par ID, en format JSON.
+     */
+    public function getLivrablesRealisation(Request $request, $id)
+    {
+        try {
+            $livrablesRealisation = $this->livrablesRealisationService->find($id);
+            return response()->json($livrablesRealisation);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $livrablesRealisation = $this->livrablesRealisationService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedLivrablesRealisation = $this->livrablesRealisationService->dataCalcul($livrablesRealisation);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedLivrablesRealisation = $this->livrablesRealisationService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedLivrablesRealisation

@@ -36,6 +36,8 @@ class BaseMicroCompetenceController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('microCompetence.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('microCompetence');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -347,18 +349,31 @@ class BaseMicroCompetenceController extends AdminController
         return response()->json($microCompetences);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (MicroCompetence) par ID, en format JSON.
+     */
+    public function getMicroCompetence(Request $request, $id)
+    {
+        try {
+            $microCompetence = $this->microCompetenceService->find($id);
+            return response()->json($microCompetence);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $microCompetence = $this->microCompetenceService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedMicroCompetence = $this->microCompetenceService->dataCalcul($microCompetence);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedMicroCompetence = $this->microCompetenceService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedMicroCompetence

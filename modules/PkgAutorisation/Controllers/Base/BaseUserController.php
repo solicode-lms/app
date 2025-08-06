@@ -42,6 +42,8 @@ class BaseUserController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('user.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('user');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -444,18 +446,31 @@ class BaseUserController extends AdminController
         return response()->json($users);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (User) par ID, en format JSON.
+     */
+    public function getUser(Request $request, $id)
+    {
+        try {
+            $user = $this->userService->find($id);
+            return response()->json($user);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $user = $this->userService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedUser = $this->userService->dataCalcul($user);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedUser = $this->userService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedUser

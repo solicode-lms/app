@@ -10,6 +10,9 @@ use Modules\Core\Controllers\UserModelFilterController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/Core')->group(function () {
         Route::get('userModelFilters/getData', [UserModelFilterController::class, 'getData'])->name('userModelFilters.getData');
+        // ✅ Route JSON
+        Route::get('userModelFilters/json/{id}', [UserModelFilterController::class, 'getUserModelFilter'])
+            ->name('userModelFilters.getById');
         // bulk - edit and delete
         Route::post('userModelFilters/bulk-delete', [UserModelFilterController::class, 'bulkDelete'])
         ->name('userModelFilters.bulkDelete');

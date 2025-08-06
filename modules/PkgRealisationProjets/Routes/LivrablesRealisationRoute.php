@@ -10,6 +10,9 @@ use Modules\PkgRealisationProjets\Controllers\LivrablesRealisationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
         Route::get('livrablesRealisations/getData', [LivrablesRealisationController::class, 'getData'])->name('livrablesRealisations.getData');
+        // ✅ Route JSON
+        Route::get('livrablesRealisations/json/{id}', [LivrablesRealisationController::class, 'getLivrablesRealisation'])
+            ->name('livrablesRealisations.getById');
         // bulk - edit and delete
         Route::post('livrablesRealisations/bulk-delete', [LivrablesRealisationController::class, 'bulkDelete'])
         ->name('livrablesRealisations.bulkDelete');

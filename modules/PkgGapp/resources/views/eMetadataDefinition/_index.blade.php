@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'eMetadataDefinition',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'eMetadataDefinition.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('eMetadataDefinitions.create') }}',
         editUrl: '{{ route('eMetadataDefinitions.edit',  ['eMetadataDefinition' => ':id']) }}',
         showUrl: '{{ route('eMetadataDefinitions.show',  ['eMetadataDefinition' => ':id']) }}',
+        getEntityUrl: '{{ route("eMetadataDefinitions.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eMetadataDefinitions.store') }}', 
         updateAttributesUrl: '{{ route('eMetadataDefinitions.updateAttributes') }}', 
         deleteUrl: '{{ route('eMetadataDefinitions.destroy',  ['eMetadataDefinition' => ':id']) }}', 

@@ -45,6 +45,8 @@ class BaseFormateurController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('formateur.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('formateur');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -397,18 +399,31 @@ class BaseFormateurController extends AdminController
         return response()->json($formateurs);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Formateur) par ID, en format JSON.
+     */
+    public function getFormateur(Request $request, $id)
+    {
+        try {
+            $formateur = $this->formateurService->find($id);
+            return response()->json($formateur);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $formateur = $this->formateurService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedFormateur = $this->formateurService->dataCalcul($formateur);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedFormateur = $this->formateurService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedFormateur

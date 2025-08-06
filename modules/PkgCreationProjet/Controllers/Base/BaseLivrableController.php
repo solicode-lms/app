@@ -41,6 +41,8 @@ class BaseLivrableController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('livrable.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('livrable');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -379,18 +381,31 @@ class BaseLivrableController extends AdminController
         return response()->json($livrables);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Livrable) par ID, en format JSON.
+     */
+    public function getLivrable(Request $request, $id)
+    {
+        try {
+            $livrable = $this->livrableService->find($id);
+            return response()->json($livrable);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $livrable = $this->livrableService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedLivrable = $this->livrableService->dataCalcul($livrable);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedLivrable = $this->livrableService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedLivrable

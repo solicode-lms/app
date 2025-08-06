@@ -33,6 +33,8 @@ class BaseNatureLivrableController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('natureLivrable.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('natureLivrable');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -348,18 +350,31 @@ class BaseNatureLivrableController extends AdminController
         return response()->json($natureLivrables);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (NatureLivrable) par ID, en format JSON.
+     */
+    public function getNatureLivrable(Request $request, $id)
+    {
+        try {
+            $natureLivrable = $this->natureLivrableService->find($id);
+            return response()->json($natureLivrable);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $natureLivrable = $this->natureLivrableService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedNatureLivrable = $this->natureLivrableService->dataCalcul($natureLivrable);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedNatureLivrable = $this->natureLivrableService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedNatureLivrable

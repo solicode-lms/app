@@ -10,6 +10,9 @@ use Modules\PkgCreationTache\Controllers\PrioriteTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationTache')->group(function () {
         Route::get('prioriteTaches/getData', [PrioriteTacheController::class, 'getData'])->name('prioriteTaches.getData');
+        // ✅ Route JSON
+        Route::get('prioriteTaches/json/{id}', [PrioriteTacheController::class, 'getPrioriteTache'])
+            ->name('prioriteTaches.getById');
         // bulk - edit and delete
         Route::post('prioriteTaches/bulk-delete', [PrioriteTacheController::class, 'bulkDelete'])
         ->name('prioriteTaches.bulkDelete');

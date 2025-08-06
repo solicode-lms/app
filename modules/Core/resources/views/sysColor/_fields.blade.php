@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemSysColor->id)
+        <input type="hidden" name="id" value="{{ $itemSysColor->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($sysColor_ids))

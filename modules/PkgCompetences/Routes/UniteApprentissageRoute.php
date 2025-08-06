@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\UniteApprentissageController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('uniteApprentissages/getData', [UniteApprentissageController::class, 'getData'])->name('uniteApprentissages.getData');
+        // ✅ Route JSON
+        Route::get('uniteApprentissages/json/{id}', [UniteApprentissageController::class, 'getUniteApprentissage'])
+            ->name('uniteApprentissages.getById');
         // bulk - edit and delete
         Route::post('uniteApprentissages/bulk-delete', [UniteApprentissageController::class, 'bulkDelete'])
         ->name('uniteApprentissages.bulkDelete');

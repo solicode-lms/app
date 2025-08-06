@@ -42,6 +42,8 @@ class BaseSysColorController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('sysColor.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('sysColor');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -483,18 +485,31 @@ class BaseSysColorController extends AdminController
         return response()->json($sysColors);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (SysColor) par ID, en format JSON.
+     */
+    public function getSysColor(Request $request, $id)
+    {
+        try {
+            $sysColor = $this->sysColorService->find($id);
+            return response()->json($sysColor);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $sysColor = $this->sysColorService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSysColor = $this->sysColorService->dataCalcul($sysColor);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSysColor = $this->sysColorService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSysColor

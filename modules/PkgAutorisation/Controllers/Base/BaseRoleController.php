@@ -40,6 +40,8 @@ class BaseRoleController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('role.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('role');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -336,18 +338,31 @@ class BaseRoleController extends AdminController
         return response()->json($roles);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Role) par ID, en format JSON.
+     */
+    public function getRole(Request $request, $id)
+    {
+        try {
+            $role = $this->roleService->find($id);
+            return response()->json($role);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $role = $this->roleService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedRole = $this->roleService->dataCalcul($role);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedRole = $this->roleService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedRole

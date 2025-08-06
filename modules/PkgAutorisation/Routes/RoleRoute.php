@@ -10,6 +10,9 @@ use Modules\PkgAutorisation\Controllers\RoleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgAutorisation')->group(function () {
         Route::get('roles/getData', [RoleController::class, 'getData'])->name('roles.getData');
+        // ✅ Route JSON
+        Route::get('roles/json/{id}', [RoleController::class, 'getRole'])
+            ->name('roles.getById');
         // bulk - edit and delete
         Route::post('roles/bulk-delete', [RoleController::class, 'bulkDelete'])
         ->name('roles.bulkDelete');

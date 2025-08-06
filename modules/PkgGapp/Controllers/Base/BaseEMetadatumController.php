@@ -40,6 +40,8 @@ class BaseEMetadatumController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('eMetadatum.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('eMetadatum');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -336,18 +338,31 @@ class BaseEMetadatumController extends AdminController
         return response()->json($eMetadata);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (EMetadatum) par ID, en format JSON.
+     */
+    public function getEMetadatum(Request $request, $id)
+    {
+        try {
+            $eMetadatum = $this->eMetadatumService->find($id);
+            return response()->json($eMetadatum);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $eMetadatum = $this->eMetadatumService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedEMetadatum = $this->eMetadatumService->dataCalcul($eMetadatum);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedEMetadatum = $this->eMetadatumService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedEMetadatum

@@ -10,6 +10,9 @@ use Modules\PkgRealisationTache\Controllers\WorkflowTacheController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
         Route::get('workflowTaches/getData', [WorkflowTacheController::class, 'getData'])->name('workflowTaches.getData');
+        // ✅ Route JSON
+        Route::get('workflowTaches/json/{id}', [WorkflowTacheController::class, 'getWorkflowTache'])
+            ->name('workflowTaches.getById');
         // bulk - edit and delete
         Route::post('workflowTaches/bulk-delete', [WorkflowTacheController::class, 'bulkDelete'])
         ->name('workflowTaches.bulkDelete');

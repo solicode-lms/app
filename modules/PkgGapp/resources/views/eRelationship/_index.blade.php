@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'eRelationship',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'eRelationship.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('eRelationships.create') }}',
         editUrl: '{{ route('eRelationships.edit',  ['eRelationship' => ':id']) }}',
         showUrl: '{{ route('eRelationships.show',  ['eRelationship' => ':id']) }}',
+        getEntityUrl: '{{ route("eRelationships.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('eRelationships.store') }}', 
         updateAttributesUrl: '{{ route('eRelationships.updateAttributes') }}', 
         deleteUrl: '{{ route('eRelationships.destroy',  ['eRelationship' => ':id']) }}', 

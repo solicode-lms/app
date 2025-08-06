@@ -10,6 +10,9 @@ use Modules\PkgApprenants\Controllers\NationaliteController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
         Route::get('nationalites/getData', [NationaliteController::class, 'getData'])->name('nationalites.getData');
+        // ✅ Route JSON
+        Route::get('nationalites/json/{id}', [NationaliteController::class, 'getNationalite'])
+            ->name('nationalites.getById');
         // bulk - edit and delete
         Route::post('nationalites/bulk-delete', [NationaliteController::class, 'bulkDelete'])
         ->name('nationalites.bulkDelete');

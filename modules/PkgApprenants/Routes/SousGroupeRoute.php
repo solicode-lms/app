@@ -10,6 +10,9 @@ use Modules\PkgApprenants\Controllers\SousGroupeController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgApprenants')->group(function () {
         Route::get('sousGroupes/getData', [SousGroupeController::class, 'getData'])->name('sousGroupes.getData');
+        // ✅ Route JSON
+        Route::get('sousGroupes/json/{id}', [SousGroupeController::class, 'getSousGroupe'])
+            ->name('sousGroupes.getById');
         // bulk - edit and delete
         Route::post('sousGroupes/bulk-delete', [SousGroupeController::class, 'bulkDelete'])
         ->name('sousGroupes.bulkDelete');

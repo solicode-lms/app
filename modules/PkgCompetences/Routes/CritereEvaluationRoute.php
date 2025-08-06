@@ -10,6 +10,9 @@ use Modules\PkgCompetences\Controllers\CritereEvaluationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCompetences')->group(function () {
         Route::get('critereEvaluations/getData', [CritereEvaluationController::class, 'getData'])->name('critereEvaluations.getData');
+        // ✅ Route JSON
+        Route::get('critereEvaluations/json/{id}', [CritereEvaluationController::class, 'getCritereEvaluation'])
+            ->name('critereEvaluations.getById');
         // bulk - edit and delete
         Route::post('critereEvaluations/bulk-delete', [CritereEvaluationController::class, 'bulkDelete'])
         ->name('critereEvaluations.bulkDelete');

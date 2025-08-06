@@ -32,6 +32,8 @@ class BaseNiveauxScolaireController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('niveauxScolaire.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('niveauxScolaire');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -333,18 +335,31 @@ class BaseNiveauxScolaireController extends AdminController
         return response()->json($niveauxScolaires);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (NiveauxScolaire) par ID, en format JSON.
+     */
+    public function getNiveauxScolaire(Request $request, $id)
+    {
+        try {
+            $niveauxScolaire = $this->niveauxScolaireService->find($id);
+            return response()->json($niveauxScolaire);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $niveauxScolaire = $this->niveauxScolaireService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedNiveauxScolaire = $this->niveauxScolaireService->dataCalcul($niveauxScolaire);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedNiveauxScolaire = $this->niveauxScolaireService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedNiveauxScolaire

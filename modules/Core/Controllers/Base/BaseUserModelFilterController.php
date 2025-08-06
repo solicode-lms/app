@@ -34,6 +34,8 @@ class BaseUserModelFilterController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('userModelFilter.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('userModelFilter');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -324,18 +326,31 @@ class BaseUserModelFilterController extends AdminController
         return response()->json($userModelFilters);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (UserModelFilter) par ID, en format JSON.
+     */
+    public function getUserModelFilter(Request $request, $id)
+    {
+        try {
+            $userModelFilter = $this->userModelFilterService->find($id);
+            return response()->json($userModelFilter);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $userModelFilter = $this->userModelFilterService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedUserModelFilter = $this->userModelFilterService->dataCalcul($userModelFilter);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedUserModelFilter = $this->userModelFilterService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedUserModelFilter

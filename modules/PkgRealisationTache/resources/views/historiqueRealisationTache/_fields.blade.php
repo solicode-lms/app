@@ -11,6 +11,7 @@
     @csrf
 
     @if ($itemHistoriqueRealisationTache->id)
+        <input type="hidden" name="id" value="{{ $itemHistoriqueRealisationTache->id }}">
         @method('PUT')
     @endif
     @if ($bulkEdit && !empty($historiqueRealisationTache_ids))

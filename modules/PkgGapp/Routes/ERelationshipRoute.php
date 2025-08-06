@@ -10,6 +10,9 @@ use Modules\PkgGapp\Controllers\ERelationshipController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgGapp')->group(function () {
         Route::get('eRelationships/getData', [ERelationshipController::class, 'getData'])->name('eRelationships.getData');
+        // ✅ Route JSON
+        Route::get('eRelationships/json/{id}', [ERelationshipController::class, 'getERelationship'])
+            ->name('eRelationships.getById');
         // bulk - edit and delete
         Route::post('eRelationships/bulk-delete', [ERelationshipController::class, 'bulkDelete'])
         ->name('eRelationships.bulkDelete');

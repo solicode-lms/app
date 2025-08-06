@@ -34,6 +34,8 @@ class BaseSpecialiteController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('specialite.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('specialite');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -324,18 +326,31 @@ class BaseSpecialiteController extends AdminController
         return response()->json($specialites);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (Specialite) par ID, en format JSON.
+     */
+    public function getSpecialite(Request $request, $id)
+    {
+        try {
+            $specialite = $this->specialiteService->find($id);
+            return response()->json($specialite);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $specialite = $this->specialiteService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedSpecialite = $this->specialiteService->dataCalcul($specialite);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedSpecialite = $this->specialiteService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedSpecialite

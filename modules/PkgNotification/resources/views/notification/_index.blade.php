@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'notification',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'notification.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('notifications.create') }}',
         editUrl: '{{ route('notifications.edit',  ['notification' => ':id']) }}',
         showUrl: '{{ route('notifications.show',  ['notification' => ':id']) }}',
+        getEntityUrl: '{{ route("notifications.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('notifications.store') }}', 
         updateAttributesUrl: '{{ route('notifications.updateAttributes') }}', 
         deleteUrl: '{{ route('notifications.destroy',  ['notification' => ':id']) }}', 

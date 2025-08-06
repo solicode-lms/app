@@ -10,6 +10,9 @@ use Modules\PkgCreationProjet\Controllers\LivrableController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
         Route::get('livrables/getData', [LivrableController::class, 'getData'])->name('livrables.getData');
+        // ✅ Route JSON
+        Route::get('livrables/json/{id}', [LivrableController::class, 'getLivrable'])
+            ->name('livrables.getById');
         // bulk - edit and delete
         Route::post('livrables/bulk-delete', [LivrableController::class, 'bulkDelete'])
         ->name('livrables.bulkDelete');

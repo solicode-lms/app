@@ -10,6 +10,9 @@ use Modules\PkgCreationProjet\Controllers\ResourceController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
         Route::get('resources/getData', [ResourceController::class, 'getData'])->name('resources.getData');
+        // ✅ Route JSON
+        Route::get('resources/json/{id}', [ResourceController::class, 'getResource'])
+            ->name('resources.getById');
         // bulk - edit and delete
         Route::post('resources/bulk-delete', [ResourceController::class, 'bulkDelete'])
         ->name('resources.bulkDelete');

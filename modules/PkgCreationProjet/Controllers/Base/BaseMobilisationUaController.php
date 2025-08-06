@@ -37,6 +37,8 @@ class BaseMobilisationUaController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('mobilisationUa.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('mobilisationUa');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -330,18 +332,31 @@ class BaseMobilisationUaController extends AdminController
         return response()->json($mobilisationUas);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (MobilisationUa) par ID, en format JSON.
+     */
+    public function getMobilisationUa(Request $request, $id)
+    {
+        try {
+            $mobilisationUa = $this->mobilisationUaService->find($id);
+            return response()->json($mobilisationUa);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $mobilisationUa = $this->mobilisationUaService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedMobilisationUa = $this->mobilisationUaService->dataCalcul($mobilisationUa);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedMobilisationUa = $this->mobilisationUaService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedMobilisationUa

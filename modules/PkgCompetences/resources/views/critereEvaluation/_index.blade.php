@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'critereEvaluation',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'critereEvaluation.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('critereEvaluations.create') }}',
         editUrl: '{{ route('critereEvaluations.edit',  ['critereEvaluation' => ':id']) }}',
         showUrl: '{{ route('critereEvaluations.show',  ['critereEvaluation' => ':id']) }}',
+        getEntityUrl: '{{ route("critereEvaluations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('critereEvaluations.store') }}', 
         updateAttributesUrl: '{{ route('critereEvaluations.updateAttributes') }}', 
         deleteUrl: '{{ route('critereEvaluations.destroy',  ['critereEvaluation' => ':id']) }}', 

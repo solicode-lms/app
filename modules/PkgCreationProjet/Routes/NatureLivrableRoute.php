@@ -10,6 +10,9 @@ use Modules\PkgCreationProjet\Controllers\NatureLivrableController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
         Route::get('natureLivrables/getData', [NatureLivrableController::class, 'getData'])->name('natureLivrables.getData');
+        // ✅ Route JSON
+        Route::get('natureLivrables/json/{id}', [NatureLivrableController::class, 'getNatureLivrable'])
+            ->name('natureLivrables.getById');
         // bulk - edit and delete
         Route::post('natureLivrables/bulk-delete', [NatureLivrableController::class, 'bulkDelete'])
         ->name('natureLivrables.bulkDelete');

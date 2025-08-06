@@ -35,6 +35,8 @@ class BaseFeatureDomainController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('featureDomain.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('featureDomain');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -339,18 +341,31 @@ class BaseFeatureDomainController extends AdminController
         return response()->json($featureDomains);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (FeatureDomain) par ID, en format JSON.
+     */
+    public function getFeatureDomain(Request $request, $id)
+    {
+        try {
+            $featureDomain = $this->featureDomainService->find($id);
+            return response()->json($featureDomain);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $featureDomain = $this->featureDomainService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedFeatureDomain = $this->featureDomainService->dataCalcul($featureDomain);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedFeatureDomain = $this->featureDomainService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedFeatureDomain

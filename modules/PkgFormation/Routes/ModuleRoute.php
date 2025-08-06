@@ -10,6 +10,9 @@ use Modules\PkgFormation\Controllers\ModuleController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
         Route::get('modules/getData', [ModuleController::class, 'getData'])->name('modules.getData');
+        // ✅ Route JSON
+        Route::get('modules/json/{id}', [ModuleController::class, 'getModule'])
+            ->name('modules.getById');
         // bulk - edit and delete
         Route::post('modules/bulk-delete', [ModuleController::class, 'bulkDelete'])
         ->name('modules.bulkDelete');

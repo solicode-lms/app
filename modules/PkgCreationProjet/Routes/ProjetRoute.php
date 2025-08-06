@@ -10,6 +10,9 @@ use Modules\PkgCreationProjet\Controllers\ProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgCreationProjet')->group(function () {
         Route::get('projets/getData', [ProjetController::class, 'getData'])->name('projets.getData');
+        // ✅ Route JSON
+        Route::get('projets/json/{id}', [ProjetController::class, 'getProjet'])
+            ->name('projets.getById');
         // bulk - edit and delete
         Route::post('projets/bulk-delete', [ProjetController::class, 'bulkDelete'])
         ->name('projets.bulkDelete');

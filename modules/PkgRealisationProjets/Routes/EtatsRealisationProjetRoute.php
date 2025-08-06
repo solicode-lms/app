@@ -10,6 +10,9 @@ use Modules\PkgRealisationProjets\Controllers\EtatsRealisationProjetController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationProjets')->group(function () {
         Route::get('etatsRealisationProjets/getData', [EtatsRealisationProjetController::class, 'getData'])->name('etatsRealisationProjets.getData');
+        // ✅ Route JSON
+        Route::get('etatsRealisationProjets/json/{id}', [EtatsRealisationProjetController::class, 'getEtatsRealisationProjet'])
+            ->name('etatsRealisationProjets.getById');
         // bulk - edit and delete
         Route::post('etatsRealisationProjets/bulk-delete', [EtatsRealisationProjetController::class, 'bulkDelete'])
         ->name('etatsRealisationProjets.bulkDelete');

@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'natureLivrable',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'natureLivrable.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('natureLivrables.create') }}',
         editUrl: '{{ route('natureLivrables.edit',  ['natureLivrable' => ':id']) }}',
         showUrl: '{{ route('natureLivrables.show',  ['natureLivrable' => ':id']) }}',
+        getEntityUrl: '{{ route("natureLivrables.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('natureLivrables.store') }}', 
         updateAttributesUrl: '{{ route('natureLivrables.updateAttributes') }}', 
         deleteUrl: '{{ route('natureLivrables.destroy',  ['natureLivrable' => ':id']) }}', 

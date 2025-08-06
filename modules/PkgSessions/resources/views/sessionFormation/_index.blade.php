@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : true,
         entity_name: 'sessionFormation',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'sessionFormation.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('sessionFormations.create') }}',
         editUrl: '{{ route('sessionFormations.edit',  ['sessionFormation' => ':id']) }}',
         showUrl: '{{ route('sessionFormations.show',  ['sessionFormation' => ':id']) }}',
+        getEntityUrl: '{{ route("sessionFormations.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('sessionFormations.store') }}', 
         updateAttributesUrl: '{{ route('sessionFormations.updateAttributes') }}', 
         deleteUrl: '{{ route('sessionFormations.destroy',  ['sessionFormation' => ':id']) }}', 

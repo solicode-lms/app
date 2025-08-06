@@ -32,6 +32,8 @@ class BaseWidgetTypeController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('widgetType.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('widgetType');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
@@ -333,18 +335,31 @@ class BaseWidgetTypeController extends AdminController
         return response()->json($widgetTypes);
     }
 
-
+    /**
+     * @DynamicPermissionIgnore
+     * Retourne une tâche (WidgetType) par ID, en format JSON.
+     */
+    public function getWidgetType(Request $request, $id)
+    {
+        try {
+            $widgetType = $this->widgetTypeService->find($id);
+            return response()->json($widgetType);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Entité non trouvée ou erreur.',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    
     public function dataCalcul(Request $request)
     {
-
-        // Extraire les données de la requête
         $data = $request->all();
 
-        $widgetType = $this->widgetTypeService->createInstance($data);
-    
-        // Mise à jour des attributs via le service
-        $updatedWidgetType = $this->widgetTypeService->dataCalcul($widgetType);
-    
+        // Traitement métier personnalisé (ne modifie pas la base)
+        $updatedWidgetType = $this->widgetTypeService->dataCalcul($data);
+
         return response()->json([
             'success' => true,
             'entity' => $updatedWidgetType

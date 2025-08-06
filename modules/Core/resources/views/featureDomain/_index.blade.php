@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'featureDomain',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'featureDomain.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('featureDomains.create') }}',
         editUrl: '{{ route('featureDomains.edit',  ['featureDomain' => ':id']) }}',
         showUrl: '{{ route('featureDomains.show',  ['featureDomain' => ':id']) }}',
+        getEntityUrl: '{{ route("featureDomains.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('featureDomains.store') }}', 
         updateAttributesUrl: '{{ route('featureDomains.updateAttributes') }}', 
         deleteUrl: '{{ route('featureDomains.destroy',  ['featureDomain' => ':id']) }}', 

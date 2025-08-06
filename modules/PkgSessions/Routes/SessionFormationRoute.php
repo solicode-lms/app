@@ -10,6 +10,9 @@ use Modules\PkgSessions\Controllers\SessionFormationController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgSessions')->group(function () {
         Route::get('sessionFormations/getData', [SessionFormationController::class, 'getData'])->name('sessionFormations.getData');
+        // ✅ Route JSON
+        Route::get('sessionFormations/json/{id}', [SessionFormationController::class, 'getSessionFormation'])
+            ->name('sessionFormations.getById');
         // bulk - edit and delete
         Route::post('sessionFormations/bulk-delete', [SessionFormationController::class, 'bulkDelete'])
         ->name('sessionFormations.bulkDelete');

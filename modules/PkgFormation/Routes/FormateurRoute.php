@@ -10,6 +10,9 @@ use Modules\PkgFormation\Controllers\FormateurController;
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgFormation')->group(function () {
         Route::get('formateurs/getData', [FormateurController::class, 'getData'])->name('formateurs.getData');
+        // ✅ Route JSON
+        Route::get('formateurs/json/{id}', [FormateurController::class, 'getFormateur'])
+            ->name('formateurs.getById');
         // bulk - edit and delete
         Route::post('formateurs/bulk-delete', [FormateurController::class, 'bulkDelete'])
         ->name('formateurs.bulkDelete');

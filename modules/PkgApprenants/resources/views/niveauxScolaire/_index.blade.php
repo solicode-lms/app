@@ -6,6 +6,8 @@
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'true' :  ($edit_has_many ? "true": "false") }},
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
+        data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
+        parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},
         editOnFullScreen : false,
         entity_name: 'niveauxScolaire',
         contextKey: '{{ isset($contextKey) ? $contextKey : 'niveauxScolaire.index' }}', 
@@ -18,6 +20,7 @@
         createUrl: '{{ route('niveauxScolaires.create') }}',
         editUrl: '{{ route('niveauxScolaires.edit',  ['niveauxScolaire' => ':id']) }}',
         showUrl: '{{ route('niveauxScolaires.show',  ['niveauxScolaire' => ':id']) }}',
+        getEntityUrl: '{{ route("niveauxScolaires.getById", ["id" => ":id"]) }}',
         storeUrl: '{{ route('niveauxScolaires.store') }}', 
         updateAttributesUrl: '{{ route('niveauxScolaires.updateAttributes') }}', 
         deleteUrl: '{{ route('niveauxScolaires.destroy',  ['niveauxScolaire' => ':id']) }}', 
