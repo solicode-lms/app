@@ -1,7 +1,7 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-apprenantKonosy', 'index-niveauxScolaire', 'index-nationalite', 'index-groupe', 'index-apprenant', 'index-sousGroupe'])
+@accessiblePermissions(['index-apprenantKonosy', 'index-apprenant', 'index-groupe', 'index-nationalite', 'index-niveauxScolaire', 'index-sousGroupe'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
@@ -14,21 +14,12 @@
                 </a>
             </li>
             @endcan
-            @can('index-niveauxScolaire')
-            <li class="nav-item" id="menu-niveauxScolaires">
-                <a href="{{ route('niveauxScolaires.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgApprenants::niveauxScolaire.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-nationalite')
-            <li class="nav-item" id="menu-nationalites">
-                <a href="{{ route('nationalites.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-map-marked-alt"></i>
-                    {{__('PkgApprenants::nationalite.plural')}}
+            @can('index-apprenant')
+            <li class="nav-item" id="menu-apprenants">
+                <a href="{{ route('apprenants.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-id-card"></i>
+                    {{__('PkgApprenants::apprenant.plural')}}
                 </a>
             </li>
             @endcan
@@ -41,12 +32,21 @@
                 </a>
             </li>
             @endcan
-            @can('index-apprenant')
-            <li class="nav-item" id="menu-apprenants">
-                <a href="{{ route('apprenants.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-id-card"></i>
-                    {{__('PkgApprenants::apprenant.plural')}}
+            @can('index-nationalite')
+            <li class="nav-item" id="menu-nationalites">
+                <a href="{{ route('nationalites.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-map-marked-alt"></i>
+                    {{__('PkgApprenants::nationalite.plural')}}
+                </a>
+            </li>
+            @endcan
+            @can('index-niveauxScolaire')
+            <li class="nav-item" id="menu-niveauxScolaires">
+                <a href="{{ route('niveauxScolaires.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-award"></i>
+                    {{__('PkgApprenants::niveauxScolaire.plural')}}
                 </a>
             </li>
             @endcan
@@ -78,19 +78,11 @@
                 </a>
             </li>
             @endcan
-            @can('index-niveauxScolaire') 
-            <li class="nav-item" id="menu-niveauxScolaires">
-                <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-award"></i>
-                    {{__('PkgApprenants::niveauxScolaire.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-nationalite') 
-            <li class="nav-item" id="menu-nationalites">
-                <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-map-marked-alt"></i>
-                    {{__('PkgApprenants::nationalite.plural')}}
+            @can('index-apprenant') 
+            <li class="nav-item" id="menu-apprenants">
+                <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-id-card"></i>
+                    {{__('PkgApprenants::apprenant.plural')}}
                 </a>
             </li>
             @endcan
@@ -102,11 +94,19 @@
                 </a>
             </li>
             @endcan
-            @can('index-apprenant') 
-            <li class="nav-item" id="menu-apprenants">
-                <a href="{{ route('apprenants.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/apprenants') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-id-card"></i>
-                    {{__('PkgApprenants::apprenant.plural')}}
+            @can('index-nationalite') 
+            <li class="nav-item" id="menu-nationalites">
+                <a href="{{ route('nationalites.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/nationalites') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-map-marked-alt"></i>
+                    {{__('PkgApprenants::nationalite.plural')}}
+                </a>
+            </li>
+            @endcan
+            @can('index-niveauxScolaire') 
+            <li class="nav-item" id="menu-niveauxScolaires">
+                <a href="{{ route('niveauxScolaires.index') }}" class="nav-link {{ Request::is('admin/PkgApprenants/niveauxScolaires') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-award"></i>
+                    {{__('PkgApprenants::niveauxScolaire.plural')}}
                 </a>
             </li>
             @endcan

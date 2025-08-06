@@ -218,7 +218,15 @@ trait RealisationTacheServiceCrud
                 }
             }
 
+          
+
         }
+
+        if ($entity->wasChanged('note')) {
+            // 3️⃣ Répartir la note sur les prototypes associés
+            $this->repartirNoteDansRealisationUaPrototypes($entity);
+        }
+          
 
         
     }
@@ -302,5 +310,108 @@ trait RealisationTacheServiceCrud
       
         return $realisationTache;
     }
+
+    /**
+     * Répartit la note de la tâche sur les RealisationUaPrototypes associés,
+     * en fonction du taux de remplissage (note / barème),
+     * tout en respectant les barèmes et en arrondissant à 0.25.
+     *
+     * ✅ À la fin, la somme exacte des notes des prototypes sera égale à la note de la tâche.
+     *
+     * 🔢 Exemple :
+     *  - P1 = 3 / 5  → taux = 0.6
+     *  - P2 = 3 / 6  → taux = 0.5
+     *  - total taux = 1.1
+     *  - Ratio P1 = 0.6 / 1.1 ≈ 0.5455
+     *  - Ratio P2 = 0.5 / 1.1 ≈ 0.4545
+     *  - Pour une note globale de 5 :
+     *      P1 ≈ 2.73 → arrondi à 2.75
+     *      P2 ≈ 2.27 → arrondi à 2.25
+     */
+    public function repartirNoteDansRealisationUaPrototypes(RealisationTache $entity): void
+    {
+        $prototypes = $entity->realisationUaPrototypes;
+
+        if ($prototypes->isEmpty() || $entity->note === null) {
+            return;
+        }
+
+        // ⚠️ Ne garder que les prototypes avec un barème > 0
+        $prototypes = $prototypes->filter(fn($p) => $p->bareme > 0);
+        if ($prototypes->isEmpty()) return;
+
+        // 🧮 Fonction pour arrondir à un multiple de 0.25
+        $roundToQuarter = fn($value) => round($value * 4) / 4;
+
+        // 🎯 Étape 1 : calcul du total des taux de remplissage (note actuelle / barème)
+        $totalRemplissage = $prototypes->sum(function ($p) {
+            $note = $p->note ?? 0;
+            return $note / $p->bareme;
+        });
+
+        // Si aucun taux valide → on sort
+        if ($totalRemplissage <= 0) return;
+
+        $noteTotale = $entity->note;
+        $repartitions = [];
+
+        // 1️⃣ Répartition initiale avec arrondi à 0.25
+        $totalAttribue = 0;
+        foreach ($prototypes as $p) {
+            $note = $p->note ?? 0;
+            $remplissage = $note / $p->bareme; // Exemple : 3 / 5 = 0.6
+            $ratio = $remplissage / $totalRemplissage; // Exemple : 0.6 / 1.1 ≈ 0.5455
+            $noteProposee = $roundToQuarter($noteTotale * $ratio); // Ex: 5 * 0.5455 ≈ 2.75
+            $noteAppliquee = min($noteProposee, $p->bareme);
+            $noteAppliquee = $roundToQuarter($noteAppliquee);
+
+            $repartitions[] = [
+                'proto' => $p,
+                'note_appliquee' => $noteAppliquee,
+                'reste_possible' => max($p->bareme - $noteAppliquee, 0),
+            ];
+
+            $totalAttribue += $noteAppliquee;
+        }
+
+        // 2️⃣ Correction finale : forcer la somme exacte = note de la tâche
+        $écart = round($noteTotale - $totalAttribue, 2); // positif ou négatif
+
+        if (abs($écart) >= 0.01) {
+            // Trier selon capacité (si ajout) ou poids (si retrait)
+            usort($repartitions, function ($a, $b) use ($écart) {
+                return $écart > 0
+                    ? $b['reste_possible'] <=> $a['reste_possible']
+                    : $b['note_appliquee'] <=> $a['note_appliquee'];
+            });
+
+            $step = 0.25;
+            $iterations = abs(round($écart / $step));
+
+            foreach ($repartitions as &$entry) {
+                if ($iterations <= 0) break;
+
+                $proto = $entry['proto'];
+                $note = $entry['note_appliquee'];
+
+                if ($écart > 0 && $note + $step <= $proto->bareme) {
+                    $entry['note_appliquee'] += $step;
+                    $iterations--;
+                }
+
+                if ($écart < 0 && $note - $step >= 0) {
+                    $entry['note_appliquee'] -= $step;
+                    $iterations--;
+                }
+            }
+        }
+
+        // 3️⃣ Application finale (arrondi garanti à 0.25)
+        foreach ($repartitions as $entry) {
+            $entry['proto']->note = $roundToQuarter($entry['note_appliquee']);
+            $entry['proto']->save();
+        }
+    }
+
 
 }

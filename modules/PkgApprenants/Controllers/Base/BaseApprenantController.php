@@ -48,6 +48,8 @@ class BaseApprenantController extends AdminController
              
         $this->viewState->setContextKeyIfEmpty('apprenant.index');
         
+        // userHasSentFilter doit être évalué après l'initialisation de contexteKey,
+        // mais avant l'application des filtres système.
         $userHasSentFilter = $this->viewState->getFilterVariables('apprenant');
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
