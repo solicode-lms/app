@@ -26,10 +26,11 @@ class BaseRealisationProjetService extends BaseService
         'date_debut',
         'date_fin',
         'etats_realisation_projet_id',
-        'progression_cache',
         'note_cache',
         'rapport',
-        'bareme_cache'
+        'bareme_cache',
+        'progression_execution_cache',
+        'progression_validation_cache'
     ];
 
     /**

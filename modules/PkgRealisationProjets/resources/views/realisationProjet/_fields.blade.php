@@ -196,36 +196,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_cache" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_cache" id="bulk_field_progression_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="progression_cache">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_cache')) }}
-            
-          </label>
-              <input
-        name="progression_cache"
-        type="number"
-        class="form-control"
-        
-        
-        
-        id="progression_cache"
-        step="0.01"
-        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_cache') }}"
-        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_cache, 2, '.', '') : old('progression_cache') }}">
-          @error('progression_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="note_cache" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
@@ -307,6 +277,66 @@
         placeholder="{{ __('PkgRealisationProjets::realisationProjet.bareme_cache') }}"
         value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->bareme_cache, 2, '.', '') : old('bareme_cache') }}">
           @error('bareme_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_execution_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_execution_cache" id="bulk_field_progression_execution_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="progression_execution_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_execution_cache')) }}
+            
+          </label>
+              <input
+        name="progression_execution_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="progression_execution_cache"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_execution_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_execution_cache, 2, '.', '') : old('progression_execution_cache') }}">
+          @error('progression_execution_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_validation_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_validation_cache" id="bulk_field_progression_validation_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="progression_validation_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache')) }}
+            
+          </label>
+              <input
+        name="progression_validation_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="progression_validation_cache"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_validation_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_validation_cache, 2, '.', '') : old('progression_validation_cache') }}">
+          @error('progression_validation_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
