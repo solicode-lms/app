@@ -47,7 +47,7 @@
                          @if($itemTache->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
                         <li class="nav-item">
                             <a class="nav-link" id="tache-hasmany-tabs-tacheAffectation-tab" data-toggle="pill" href="#tache-hasmany-tabs-tacheAffectation" role="tab" aria-controls="tache-hasmany-tabs-tacheAffectation" aria-selected="false">
-                                <i class="nav-icon fa-table"></i>
+                                <i class="nav-icon fas fa-table"></i>
                                 {{ucfirst(__('PkgRealisationTache::tacheAffectation.plural'))}}
                             </a>
                         </li>

@@ -66,6 +66,16 @@ class AffectationProjetService extends BaseAffectationProjetService
             throw new \Exception("Aucun apprenant trouvé pour cette affectation.");
         }
 
+        // ✅ Créer les TacheAffectations associées aux tâches du projet
+        $taches = Tache::where('projet_id', $affectationProjet->projet_id)->get();
+
+        foreach ($taches as $tache) {
+            $tacheAffectationService->create([
+                'tache_id' => $tache->id,
+                'affectation_projet_id' => $affectationProjet->id,
+            ]);
+        }
+        
         foreach ($apprenants as $apprenant) {
             $realisationProjetService->create([
                 'apprenant_id' => $apprenant->id,
@@ -77,15 +87,7 @@ class AffectationProjetService extends BaseAffectationProjetService
             ]);
         }
 
-         // ✅ Créer les TacheAffectations associées aux tâches du projet
-        $taches = Tache::where('projet_id', $affectationProjet->projet_id)->get();
-
-        foreach ($taches as $tache) {
-            $tacheAffectationService->create([
-                'tache_id' => $tache->id,
-                'affectation_projet_id' => $affectationProjet->id,
-            ]);
-        }
+        
 
         (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
     }

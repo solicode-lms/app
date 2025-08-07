@@ -9,8 +9,9 @@
                     $bulkEdit = $tacheAffectations_permissions['edit-tacheAffectation'] || $tacheAffectations_permissions['destroy-tacheAffectation'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="41" field="tache_id" modelname="tacheAffectation" label="{!!ucfirst(__('PkgCreationTache::tache.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="41" field="affectation_projet_id" modelname="tacheAffectation" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="tache_id" modelname="tacheAffectation" label="{!!ucfirst(__('PkgCreationTache::tache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332" field="affectation_projet_id" modelname="tacheAffectation" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="27.333333333333332"  field="pourcentage_realisation_cache" modelname="tacheAffectation" label="{!!ucfirst(__('PkgRealisationTache::tacheAffectation.pourcentage_realisation_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -22,12 +23,16 @@
                 @endphp
                 <tr id="tacheAffectation-row-{{$tacheAffectation->id}}" data-id="{{$tacheAffectation->id}}">
                     <x-checkbox-row :item="$tacheAffectation" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $tacheAffectation->tache }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="tache_id"  data-toggle="tooltip" title="{{ $tacheAffectation->tache }}" >
                         {{  $tacheAffectation->tache }}
 
                     </td>
-                    <td style="max-width: 41%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $tacheAffectation->affectationProjet }}" >
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $tacheAffectation->affectationProjet }}" >
                         {{  $tacheAffectation->affectationProjet }}
+
+                    </td>
+                    <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="pourcentage_realisation_cache"  data-toggle="tooltip" title="{{ $tacheAffectation->pourcentage_realisation_cache }}" >
+                        {{ $tacheAffectation->pourcentage_realisation_cache }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

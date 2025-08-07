@@ -349,5 +349,12 @@
         "value_boolean": 1,
         "e_data_field_reference": "tache_affectations_hasMany_realisation_taches_tache_affectation_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "TacheAffectation_pourcentage_realisation_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "TacheAffectation_pourcentage_realisation_cache",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]
