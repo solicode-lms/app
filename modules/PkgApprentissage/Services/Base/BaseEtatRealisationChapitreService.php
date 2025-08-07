@@ -66,25 +66,25 @@ class BaseEtatRealisationChapitreService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $etatRealisationChapitre = $this->find($data['id']);
+            $etatRealisationChapitre->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $etatRealisationChapitre = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($etatRealisationChapitre->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $etatRealisationChapitre->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($etatRealisationChapitre->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($etatRealisationChapitre->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $etatRealisationChapitre;
     }
 
     public function initFieldsFilterable()

@@ -67,25 +67,25 @@ class BaseSysModuleService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $sysModule = $this->find($data['id']);
+            $sysModule->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $sysModule = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($sysModule->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $sysModule->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($sysModule->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($sysModule->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $sysModule;
     }
 
     public function initFieldsFilterable()

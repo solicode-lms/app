@@ -62,25 +62,25 @@ class BaseSpecialiteService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $specialite = $this->find($data['id']);
+            $specialite->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $specialite = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($specialite->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $specialite->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($specialite->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($specialite->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $specialite;
     }
 
     public function initFieldsFilterable()

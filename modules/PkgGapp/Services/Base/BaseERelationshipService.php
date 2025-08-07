@@ -73,25 +73,25 @@ class BaseERelationshipService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $eRelationship = $this->find($data['id']);
+            $eRelationship->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $eRelationship = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($eRelationship->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $eRelationship->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($eRelationship->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($eRelationship->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $eRelationship;
     }
 
     public function initFieldsFilterable()

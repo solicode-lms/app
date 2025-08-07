@@ -65,25 +65,25 @@ class BaseCompetenceService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $competence = $this->find($data['id']);
+            $competence->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $competence = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($competence->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $competence->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($competence->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($competence->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $competence;
     }
 
     public function initFieldsFilterable()

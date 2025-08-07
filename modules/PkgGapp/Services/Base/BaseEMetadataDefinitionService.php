@@ -66,25 +66,25 @@ class BaseEMetadataDefinitionService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $eMetadataDefinition = $this->find($data['id']);
+            $eMetadataDefinition->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $eMetadataDefinition = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($eMetadataDefinition->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $eMetadataDefinition->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($eMetadataDefinition->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($eMetadataDefinition->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $eMetadataDefinition;
     }
 
     public function initFieldsFilterable()

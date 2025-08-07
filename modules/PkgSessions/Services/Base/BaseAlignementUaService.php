@@ -64,25 +64,25 @@ class BaseAlignementUaService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $alignementUa = $this->find($data['id']);
+            $alignementUa->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $alignementUa = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($alignementUa->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $alignementUa->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($alignementUa->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($alignementUa->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $alignementUa;
     }
 
     public function initFieldsFilterable()

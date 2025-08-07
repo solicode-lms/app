@@ -63,25 +63,25 @@ class BaseTacheAffectationService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $tacheAffectation = $this->find($data['id']);
+            $tacheAffectation->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $tacheAffectation = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($tacheAffectation->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $tacheAffectation->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($tacheAffectation->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($tacheAffectation->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $tacheAffectation;
     }
 
     public function initFieldsFilterable()

@@ -76,25 +76,25 @@ class BaseSessionFormationService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $sessionFormation = $this->find($data['id']);
+            $sessionFormation->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $sessionFormation = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($sessionFormation->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $sessionFormation->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($sessionFormation->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($sessionFormation->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $sessionFormation;
     }
 
     public function initFieldsFilterable()

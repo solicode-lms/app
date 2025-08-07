@@ -63,25 +63,25 @@ class BaseNationaliteService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $nationalite = $this->find($data['id']);
+            $nationalite->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $nationalite = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($nationalite->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $nationalite->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($nationalite->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($nationalite->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $nationalite;
     }
 
     public function initFieldsFilterable()

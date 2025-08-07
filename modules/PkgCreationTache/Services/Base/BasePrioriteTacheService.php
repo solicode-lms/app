@@ -64,25 +64,25 @@ class BasePrioriteTacheService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $prioriteTache = $this->find($data['id']);
+            $prioriteTache->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $prioriteTache = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($prioriteTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $prioriteTache->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($prioriteTache->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($prioriteTache->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $prioriteTache;
     }
 
     public function initFieldsFilterable()

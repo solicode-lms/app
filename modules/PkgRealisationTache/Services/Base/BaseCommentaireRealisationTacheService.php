@@ -65,25 +65,25 @@ class BaseCommentaireRealisationTacheService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $commentaireRealisationTache = $this->find($data['id']);
+            $commentaireRealisationTache->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $commentaireRealisationTache = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($commentaireRealisationTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $commentaireRealisationTache->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($commentaireRealisationTache->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($commentaireRealisationTache->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $commentaireRealisationTache;
     }
 
     public function initFieldsFilterable()

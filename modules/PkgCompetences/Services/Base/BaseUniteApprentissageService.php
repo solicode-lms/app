@@ -66,25 +66,25 @@ class BaseUniteApprentissageService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $uniteApprentissage = $this->find($data['id']);
+            $uniteApprentissage->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $uniteApprentissage = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($uniteApprentissage->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $uniteApprentissage->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($uniteApprentissage->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($uniteApprentissage->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $uniteApprentissage;
     }
 
     public function initFieldsFilterable()

@@ -66,25 +66,25 @@ class BaseEvaluateurService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $evaluateur = $this->find($data['id']);
+            $evaluateur->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $evaluateur = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($evaluateur->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $evaluateur->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($evaluateur->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($evaluateur->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $evaluateur;
     }
 
     public function initFieldsFilterable()

@@ -70,25 +70,25 @@ class BaseRealisationMicroCompetenceService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $realisationMicroCompetence = $this->find($data['id']);
+            $realisationMicroCompetence->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $realisationMicroCompetence = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($realisationMicroCompetence->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $realisationMicroCompetence->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($realisationMicroCompetence->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($realisationMicroCompetence->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $realisationMicroCompetence;
     }
 
     public function initFieldsFilterable()

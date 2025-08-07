@@ -79,25 +79,25 @@ class BaseApprenantKonosyService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $apprenantKonosy = $this->find($data['id']);
+            $apprenantKonosy->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $apprenantKonosy = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($apprenantKonosy->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $apprenantKonosy->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($apprenantKonosy->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($apprenantKonosy->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $apprenantKonosy;
     }
 
     public function initFieldsFilterable()

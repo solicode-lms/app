@@ -62,25 +62,25 @@ class BaseEPackageService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $ePackage = $this->find($data['id']);
+            $ePackage->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $ePackage = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($ePackage->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $ePackage->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($ePackage->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($ePackage->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $ePackage;
     }
 
     public function initFieldsFilterable()

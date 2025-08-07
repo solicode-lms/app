@@ -63,25 +63,25 @@ class BaseAnneeFormationService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $anneeFormation = $this->find($data['id']);
+            $anneeFormation->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $anneeFormation = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($anneeFormation->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $anneeFormation->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($anneeFormation->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($anneeFormation->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $anneeFormation;
     }
 
     public function initFieldsFilterable()

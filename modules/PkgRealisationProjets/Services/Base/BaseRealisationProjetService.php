@@ -66,25 +66,25 @@ class BaseRealisationProjetService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $realisationProjet = $this->find($data['id']);
+            $realisationProjet->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $realisationProjet = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($realisationProjet->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $realisationProjet->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($realisationProjet->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($realisationProjet->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $realisationProjet;
     }
 
     public function initFieldsFilterable()

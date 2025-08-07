@@ -73,25 +73,25 @@ class BaseEDataFieldService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $eDataField = $this->find($data['id']);
+            $eDataField->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $eDataField = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($eDataField->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $eDataField->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($eDataField->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($eDataField->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $eDataField;
     }
 
     public function initFieldsFilterable()

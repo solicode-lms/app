@@ -71,25 +71,25 @@ class BaseTacheService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $tache = $this->find($data['id']);
+            $tache->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $tache = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($tache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $tache->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($tache->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($tache->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $tache;
     }
 
     public function initFieldsFilterable()

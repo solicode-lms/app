@@ -66,25 +66,25 @@ class BaseWorkflowTacheService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $workflowTache = $this->find($data['id']);
+            $workflowTache->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $workflowTache = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($workflowTache->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $workflowTache->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($workflowTache->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($workflowTache->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $workflowTache;
     }
 
     public function initFieldsFilterable()

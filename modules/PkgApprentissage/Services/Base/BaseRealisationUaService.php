@@ -69,25 +69,25 @@ class BaseRealisationUaService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $realisationUa = $this->find($data['id']);
+            $realisationUa->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $realisationUa = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($realisationUa->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $realisationUa->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($realisationUa->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($realisationUa->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $realisationUa;
     }
 
     public function initFieldsFilterable()

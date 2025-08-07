@@ -64,25 +64,25 @@ class BaseFeatureDomainService extends BaseService
     {
         // 🧾 Chargement ou initialisation de l'entité
         if (!empty($data['id'])) {
-            $realisationTache = $this->find($data['id']);
-            $realisationTache->fill($data);
+            $featureDomain = $this->find($data['id']);
+            $featureDomain->fill($data);
         } else {
-            $realisationTache = $this->createInstance($data);
+            $featureDomain = $this->createInstance($data);
         }
 
         // 🛠️ Traitement spécifique en mode édition
-        if (!empty($realisationTache->id)) {
+        if (!empty($featureDomain->id)) {
             // 🔄 Déclaration des composants hasMany à mettre à jour
-            $realisationTache->hasManyInputsToUpdate = [
+            $featureDomain->hasManyInputsToUpdate = [
             ];
 
             // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
-            if (!empty($realisationTache->hasManyInputsToUpdate)) {
-                $this->updateOnlyExistanteAttribute($realisationTache->id, $data);
+            if (!empty($featureDomain->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($featureDomain->id, $data);
             }
         }
 
-        return $realisationTache;
+        return $featureDomain;
     }
 
     public function initFieldsFilterable()
