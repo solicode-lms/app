@@ -69,6 +69,7 @@ class WorkflowTacheService extends BaseWorkflowTacheService
                         'formateur_id' => $formateur->id,
                         'sys_color_id' => $workflow->sys_color_id,
                         'workflow_tache_id' => $workflow->id,
+                        'ordre' => $workflow->ordre,
                         'is_editable_only_by_formateur' => $workflow->is_editable_only_by_formateur ?? false,
                     ]);
                     $totalSynced++;
