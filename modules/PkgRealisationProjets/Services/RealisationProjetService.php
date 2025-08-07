@@ -139,7 +139,6 @@ class RealisationProjetService extends BaseRealisationProjetService
 
      }
 
-
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
         $perPage = $perPage ?: $this->paginationLimit;
@@ -184,7 +183,6 @@ class RealisationProjetService extends BaseRealisationProjetService
        
     }
     
- 
     /**
      * Règles métiers appliquées avant la mise à jour d'un RealisationProjet.
      *
@@ -249,8 +247,7 @@ class RealisationProjetService extends BaseRealisationProjetService
             ]);
         }
     }
-
-
+    
     public function afterCreateRules($realisationProjet): void
     {
         if (!$realisationProjet instanceof RealisationProjet) {
@@ -271,158 +268,153 @@ class RealisationProjetService extends BaseRealisationProjetService
         $this->creerRealisationTaches($realisationProjet);
     }
 
-/**
- * Envoie une notification à l'apprenant assigné au projet.
- *
- * @param \Modules\PkgRealisationProjets\Models\RealisationProjet $realisationProjet
- * @return void
- */
-private function notifierApprenant(RealisationProjet $realisationProjet): void
-{
-    $apprenant = $realisationProjet->apprenant;
+    /**
+     * Envoie une notification à l'apprenant assigné au projet.
+     *
+     * @param \Modules\PkgRealisationProjets\Models\RealisationProjet $realisationProjet
+     * @return void
+     */
+    private function notifierApprenant(RealisationProjet $realisationProjet): void
+    {
+        $apprenant = $realisationProjet->apprenant;
 
-    if ($apprenant && $apprenant->user) {
-        /** @var \Modules\PkgNotification\Services\NotificationService $notificationService */
-        $notificationService = app(\Modules\PkgNotification\Services\NotificationService::class);
+        if ($apprenant && $apprenant->user) {
+            /** @var \Modules\PkgNotification\Services\NotificationService $notificationService */
+            $notificationService = app(\Modules\PkgNotification\Services\NotificationService::class);
 
-        $notificationService->sendNotification(
-            userId: $apprenant->user->id,
-            title: 'Nouveau Projet de Réalisation Assigné',
-            message: "Vous avez été assigné à un nouveau projet de réalisation. Consultez votre espace projets.",
-            data: [
-                'lien' => route('realisationProjets.index', [
-                    'contextKey' => 'realisationProjet.index',
-                    'action' => 'edit',
-                    'id' => $realisationProjet->id
-                ]),
-                'realisationProjet' => $realisationProjet->id
-            ],
-            type: NotificationType::NOUVEAU_PROJET->value
-        );
-    }
-}
-
-private function creerRealisationTaches(RealisationProjet $realisationProjet): void
-{
-    $formateur_id = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
-        ? Auth::user()->formateur?->id
-        : null;
-
-    $affectationProjet = $realisationProjet->affectationProjet;
-    $taches = $affectationProjet->projet->taches;
-    $mobilisationUas = $affectationProjet->projet->mobilisationUas ?? collect();
-
-    // Récupération de l'état initial de réalisation de tâche
-    $etatInitialRealisationTache = $formateur_id
-        ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
-        : null;
-
-    // Déclaration des variables pour les services
-    $realisationTacheService = new RealisationTacheService();
-    $realisationUaService = new RealisationUaService();
-
-    $realisationChapitreService = app(RealisationChapitreService::class);
-    $realisationUaProjetService = app(RealisationUaProjetService::class);
-    $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
-    $realisationMicroCompetenceService = app(RealisationMicroCompetenceService::class);
-
-    // pour chaque tâche du projet, on crée une RealisationTache
-    // et on lie les chapitres et RealisationChapitre, RealisationUAprojet, RealisationUAPrototype
-    foreach ($taches as $tache) {
-
-
-        $tacheAffectation = $tache->tacheAffectations
-        ->where('affectation_projet_id', $affectationProjet->id)
-        ->first();
-
-        // Création de la RealisationTache
-        $realisationTache = $realisationTacheService->create([
-            'realisation_projet_id' => $realisationProjet->id,
-            'tache_id' => $tache->id,
-            'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
-            'tache_affectation_id' => $tacheAffectation?->id
-        ]);
-
-        // Liaison avec les chapitres
-        if($tache->chapitre) {
-
-            //  Récupération ou création de la RealisationUA
-            $realisationUA = $realisationUaService->getOrCreateApprenant(
-                $realisationProjet->apprenant_id,
-                $tache->chapitre->unite_apprentissage_id
+            $notificationService->sendNotification(
+                userId: $apprenant->user->id,
+                title: 'Nouveau Projet de Réalisation Assigné',
+                message: "Vous avez été assigné à un nouveau projet de réalisation. Consultez votre espace projets.",
+                data: [
+                    'lien' => route('realisationProjets.index', [
+                        'contextKey' => 'realisationProjet.index',
+                        'action' => 'edit',
+                        'id' => $realisationProjet->id
+                    ]),
+                    'realisationProjet' => $realisationProjet->id
+                ],
+                type: NotificationType::NOUVEAU_PROJET->value
             );
-
-            // Vérification de l'existence d'une RealisationChapitre
-            $tache->chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
-                ->where('realisation_ua_id', $realisationUA->id)
-                ->whereNull('realisation_tache_id')
-                ->first();
-
-            if ($tache->chapitreExistant) {
-                $tache->chapitreExistant->update(['realisation_tache_id' => $realisationTache->id]);
-            } else {
-                $realisationChapitreService->create([
-                    'realisation_tache_id' => $realisationTache->id,
-                    'chapitre_id'          => $tache->chapitre->id,
-                    'realisation_ua_id'    => $realisationUA->id
-                ]);
-            }
         }
+    }
 
-        // Création RealisationUaPrototype
-        if($tache->phaseEvaluation?->code == "N2"){
-            // Création des UA projets et prototypes pour chaque mobilisation d'UA
-                foreach ($mobilisationUas as $mobilisation) {
+    private function creerRealisationTaches(RealisationProjet $realisationProjet): void
+    {
+        $formateur_id = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
+            ? Auth::user()->formateur?->id
+            : null;
 
+        $affectationProjet = $realisationProjet->affectationProjet;
+        $taches = $affectationProjet->projet->taches;
+        $mobilisationUas = $affectationProjet->projet->mobilisationUas ?? collect();
+
+        // Récupération de l'état initial de réalisation de tâche
+        $etatInitialRealisationTache = $formateur_id
+            ? (new EtatRealisationTacheService())->getDefaultEtatByFormateurId($formateur_id)
+            : null;
+
+        // Déclaration des variables pour les services
+        $realisationTacheService = new RealisationTacheService();
+        $realisationUaService = new RealisationUaService();
+
+        $realisationChapitreService = app(RealisationChapitreService::class);
+        $realisationUaProjetService = app(RealisationUaProjetService::class);
+        $realisationUaPrototypeService = app(RealisationUaPrototypeService::class);
+        $realisationMicroCompetenceService = app(RealisationMicroCompetenceService::class);
+
+        // pour chaque tâche du projet, on crée une RealisationTache
+        // et on lie les chapitres et RealisationChapitre, RealisationUAprojet, RealisationUAPrototype
+        foreach ($taches as $tache) {
+
+
+            $tacheAffectation = $tache->tacheAffectations
+            ->where('affectation_projet_id', $affectationProjet->id)
+            ->first();
+
+            // Création de la RealisationTache
+            $realisationTache = $realisationTacheService->create([
+                'realisation_projet_id' => $realisationProjet->id,
+                'tache_id' => $tache->id,
+                'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
+                'tache_affectation_id' => $tacheAffectation?->id
+            ]);
+
+            // Liaison avec les chapitres
+            if($tache->chapitre) {
+
+                //  Récupération ou création de la RealisationUA
+                $realisationUA = $realisationUaService->getOrCreateApprenant(
+                    $realisationProjet->apprenant_id,
+                    $tache->chapitre->unite_apprentissage_id
+                );
+
+                // Vérification de l'existence d'une RealisationChapitre
+                $tache->chapitreExistant = RealisationChapitre::where('chapitre_id', $tache->chapitre->id)
+                    ->where('realisation_ua_id', $realisationUA->id)
+                    ->whereNull('realisation_tache_id')
+                    ->first();
+
+                if ($tache->chapitreExistant) {
+                    $tache->chapitreExistant->update(['realisation_tache_id' => $realisationTache->id]);
+                } else {
+                    $realisationChapitreService->create([
+                        'realisation_tache_id' => $realisationTache->id,
+                        'chapitre_id'          => $tache->chapitre->id,
+                        'realisation_ua_id'    => $realisationUA->id
+                    ]);
+                }
+            }
+
+            // Création RealisationUaPrototype
+            if($tache->phaseEvaluation?->code == "N2"){
+                // Création des UA projets et prototypes pour chaque mobilisation d'UA
+                    foreach ($mobilisationUas as $mobilisation) {
+
+
+                        $realisationUA = $realisationUaService->getOrCreateApprenant(
+                            $realisationProjet->apprenant_id,
+                            $mobilisation->unite_apprentissage_id
+                        );
+
+                        $realisationUaPrototypeService->create([
+                            'realisation_tache_id' => $realisationTache->id,
+                            'realisation_ua_id'    => $realisationUA->id,
+                            'bareme'               => $mobilisation->bareme_evaluation_prototype ?? 0,
+                        ]);
+                    }
+            }
+
+            // Création RealisationUaProjet
+            if($tache->phaseEvaluation?->code == "N3"){
+                    // Création des UA projets et prototypes pour chaque mobilisation d'UA
+                    foreach ($mobilisationUas as $mobilisation) {
 
                     $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
+                            $realisationProjet->apprenant_id,
+                            $mobilisation->unite_apprentissage_id
+                        );
 
-                    $realisationUaPrototypeService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id'    => $realisationUA->id,
-                        'bareme'               => $mobilisation->bareme_evaluation_prototype ?? 0,
-                    ]);
-                }
+                        $realisationUaProjetService->create([
+                            'realisation_tache_id' => $realisationTache->id,
+                            'realisation_ua_id'    => $realisationUA->id,
+                            'bareme'               => $mobilisation->bareme_evaluation_projet ?? 0,
+                        ]);
+                    }
+            }
+
         }
 
-        // Création RealisationUaProjet
-        if($tache->phaseEvaluation?->code == "N3"){
-                // Création des UA projets et prototypes pour chaque mobilisation d'UA
-                foreach ($mobilisationUas as $mobilisation) {
-
-                   $realisationUA = $realisationUaService->getOrCreateApprenant(
-                        $realisationProjet->apprenant_id,
-                        $mobilisation->unite_apprentissage_id
-                    );
-
-                    $realisationUaProjetService->create([
-                        'realisation_tache_id' => $realisationTache->id,
-                        'realisation_ua_id'    => $realisationUA->id,
-                        'bareme'               => $mobilisation->bareme_evaluation_projet ?? 0,
-                    ]);
-                }
-        }
-
+        
     }
 
-    
-}
-
-private function getOrCreateRealisationUa(int $uniteApprentissageId, int $realisationMicroCompetenceId): int
-{
-    return RealisationUa::firstOrCreate([
-        'unite_apprentissage_id' => $uniteApprentissageId,
-        'realisation_micro_competence_id' => $realisationMicroCompetenceId,
-    ])->id;
-}
-
-
-
-
-    
+    private function getOrCreateRealisationUa(int $uniteApprentissageId, int $realisationMicroCompetenceId): int
+    {
+        return RealisationUa::firstOrCreate([
+            'unite_apprentissage_id' => $uniteApprentissageId,
+            'realisation_micro_competence_id' => $realisationMicroCompetenceId,
+        ])->id;
+    }
 
     public function syncApprenantsAvecRealisationProjets($affectationProjet, $nouveauxApprenants)
     {
@@ -449,6 +441,64 @@ private function getOrCreateRealisationUa(int $uniteApprentissageId, int $realis
                 'rapport' => null,
                 'etats_realisation_projet_id' => null,
             ]);
+        }
+    }
+
+    /**
+     * Met à jour dynamiquement l'état du projet selon l'état de ses tâches.
+     *
+     * @param RealisationProjet $realisationProjet
+     * @return void
+     */
+    public function mettreAJourEtatDepuisRealisationTaches(RealisationProjet $realisationProjet): void
+    {
+        if (!$realisationProjet instanceof RealisationProjet) {
+            return;
+        }
+
+        $realisationProjet->loadMissing('realisationTaches.etatRealisationTache.workflowTache');
+
+        $codesTaches = $realisationProjet->realisationTaches
+            ->pluck('etatRealisationTache.workflowTache.code')
+            ->filter()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        if (empty($codesTaches)) {
+            return;
+        }
+
+        $nouvelEtatCode = null;
+
+        // ✅ DONE : toutes les tâches sont DONE
+        if (collect($codesTaches)->every(fn($code) => $code === 'DONE')) {
+            $nouvelEtatCode = 'DONE';
+
+        // ✅ TO_APPROVE : toutes les tâches sont TO_APPROVE ou DONE
+        } elseif (collect($codesTaches)->every(fn($code) => in_array($code, ['TO_APPROVE', 'DONE']))) {
+            $nouvelEtatCode = 'TO_APPROVE';
+
+        // ✅ PAUSED : toutes les tâches sont PAUSED
+        } elseif (collect($codesTaches)->every(fn($code) => $code === 'PAUSED')) {
+            $nouvelEtatCode = 'PAUSED';
+
+        } elseif (collect($codesTaches)->every(fn($code) => $code === 'TODO')) {
+            $nouvelEtatCode = 'TODO';
+
+        // ✅ IN_PROGRESS : au moins une tâche est IN_PROGRESS
+        } else {
+            $nouvelEtatCode = 'IN_PROGRESS';
+        }
+
+        // Appliquer l’état si différent
+        if ($nouvelEtatCode) {
+            $etat = EtatsRealisationProjet::where('code', $nouvelEtatCode)->first();
+
+            if ($etat && $realisationProjet->etats_realisation_projet_id !== $etat->id) {
+                $realisationProjet->etats_realisation_projet_id = $etat->id;
+                $realisationProjet->save();
+            }
         }
     }
 

@@ -3,6 +3,7 @@
 
 namespace Modules\PkgRealisationTache\Observers;
 
+use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 
 class RealisationTacheObserver
@@ -20,7 +21,13 @@ class RealisationTacheObserver
      */
     public function updated(RealisationTache $realisationTache): void
     {
-        $a = 0;
+        if ($realisationTache->isDirty('etat_realisation_tache_id')) {
+        $realisationProjet = $realisationTache->realisationProjet;
+
+        if ($realisationProjet) {
+            app(RealisationProjetService::class)->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
+        }
+    }
     }
 
     /**

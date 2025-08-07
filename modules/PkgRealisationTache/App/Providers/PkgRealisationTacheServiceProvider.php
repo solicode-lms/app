@@ -10,10 +10,10 @@ use Modules\PkgRealisationTache\Observers\RealisationTacheObserver;
 class PkgRealisationTacheServiceProvider extends BasePkgRealisationTacheServiceProvider
 {
     
-    public function boot(): void
-    {
-        parent::boot();
-        RealisationTache::observe(RealisationTacheObserver::class);
-    }
+    // public function boot(): void
+    // {
+    //     parent::boot();
+    //     RealisationTache::observe(RealisationTacheObserver::class);
+    // }
 
 }

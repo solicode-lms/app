@@ -1272,7 +1272,7 @@ CREATE TABLE `realisation_taches` (
   `note` double DEFAULT NULL,
   `remarque_evaluateur` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `realisation_projet_id` bigint unsigned NOT NULL,
-  `etat_realisation_tache_id` bigint unsigned DEFAULT NULL,
+  `etat_realisation_tache_id` bigint unsigned NOT NULL,
   `remarques_formateur` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `remarques_apprenant` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1284,7 +1284,7 @@ CREATE TABLE `realisation_taches` (
   KEY `realisation_taches_realisation_projet_id_foreign` (`realisation_projet_id`),
   KEY `realisation_taches_etat_realisation_tache_id_foreign` (`etat_realisation_tache_id`),
   KEY `realisation_taches_tache_affectation_id_foreign` (`tache_affectation_id`),
-  CONSTRAINT `realisation_taches_etat_realisation_tache_id_foreign` FOREIGN KEY (`etat_realisation_tache_id`) REFERENCES `etat_realisation_taches` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `realisation_taches_etat_realisation_tache_id_foreign` FOREIGN KEY (`etat_realisation_tache_id`) REFERENCES `etat_realisation_taches` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `realisation_taches_realisation_projet_id_foreign` FOREIGN KEY (`realisation_projet_id`) REFERENCES `realisation_projets` (`id`) ON DELETE CASCADE,
   CONSTRAINT `realisation_taches_tache_affectation_id_foreign` FOREIGN KEY (`tache_affectation_id`) REFERENCES `tache_affectations` (`id`) ON DELETE CASCADE,
   CONSTRAINT `realisation_taches_tache_id_foreign` FOREIGN KEY (`tache_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE
@@ -1954,3 +1954,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (175,'2025_08_03_20
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (176,'2025_08_04_105012_update_realisation_uas_and_micro_competences_nullable_note',54);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (177,'2025_08_07_081245_create_tache_affectations_table',55);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (178,'2025_08_07_082723_add_is_live_coding_to_realisation_taches_table',56);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (179,'2025_08_07_110622_update_etat_realisation_tache_id_not_null_in_realisation_taches',57);

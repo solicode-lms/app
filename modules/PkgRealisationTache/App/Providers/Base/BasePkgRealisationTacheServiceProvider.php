@@ -8,6 +8,7 @@ namespace Modules\PkgRealisationTache\App\Providers\Base;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BasePkgRealisationTacheServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class BasePkgRealisationTacheServiceProvider extends ServiceProvider
             __DIR__ . '/../../../resources/lang',
             'PkgRealisationTache'
         );
+
+        $this->registerObservers();
     }
 
     /**
@@ -72,5 +75,28 @@ class BasePkgRealisationTacheServiceProvider extends ServiceProvider
     {
         // Ajouter une logique pour déterminer les middlewares si nécessaire.
         return ['web'];
+    }
+
+    protected function registerObservers()
+    {
+        $observerPath = __DIR__ . '/../../../Observers';
+        $namespace = 'Modules\\PkgRealisationTache\\Observers\\';
+        $modelNamespace = 'Modules\\PkgRealisationTache\\Models\\';
+
+        if (!is_dir($observerPath)) {
+            return;
+        }
+
+        foreach (glob($observerPath . '/*Observer.php') as $file) {
+            $fileName = basename($file, '.php'); // ex: RealisationTacheObserver
+            $modelName = Str::replaceLast('Observer', '', $fileName); // RealisationTache
+
+            $observerClass = $namespace . $fileName;
+            $modelClass = $modelNamespace . $modelName;
+
+            if (class_exists($modelClass) && class_exists($observerClass)) {
+                $modelClass::observe($observerClass);
+            }
+        }
     }
 }
