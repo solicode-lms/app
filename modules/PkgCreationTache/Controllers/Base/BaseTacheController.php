@@ -10,6 +10,7 @@ use Modules\PkgCompetences\Services\PhaseEvaluationService;
 use Modules\PkgCreationTache\Services\PrioriteTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Services\TacheAffectationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -185,11 +186,18 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->edit($id);
 
 
+        $this->viewState->set('scope.tacheAffectation.tache_id', $id);
+        
+
+        $tacheAffectationService =  new TacheAffectationService();
+        $tacheAffectations_view_data = $tacheAffectationService->prepareDataForIndexView();
+        extract($tacheAffectations_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._show', array_merge(compact('itemTache'),));
+            return view('PkgCreationTache::tache._show', array_merge(compact('itemTache'),$tacheAffectation_compact_value));
         }
 
-        return view('PkgCreationTache::tache.show', array_merge(compact('itemTache'),));
+        return view('PkgCreationTache::tache.show', array_merge(compact('itemTache'),$tacheAffectation_compact_value));
 
     }
     /**
@@ -224,13 +232,20 @@ class BaseTacheController extends AdminController
         $realisationTaches_view_data = $realisationTacheService->prepareDataForIndexView();
         extract($realisationTaches_view_data);
 
+        $this->viewState->set('scope.tacheAffectation.tache_id', $id);
+        
+
+        $tacheAffectationService =  new TacheAffectationService();
+        $tacheAffectations_view_data = $tacheAffectationService->prepareDataForIndexView();
+        extract($tacheAffectations_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value));
+            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value));
+        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
 
 
     }

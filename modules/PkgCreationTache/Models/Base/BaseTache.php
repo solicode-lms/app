@@ -17,6 +17,7 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgCreationTache\Models\PrioriteTache;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
 
 /**
  * Classe BaseTache
@@ -135,6 +136,15 @@ class BaseTache extends BaseModel
     public function realisationTaches(): HasMany
     {
         return $this->hasMany(RealisationTache::class, 'tache_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Taches.
+     *
+     * @return HasMany
+     */
+    public function tacheAffectations(): HasMany
+    {
+        return $this->hasMany(TacheAffectation::class, 'tache_id', 'id');
     }
 
 

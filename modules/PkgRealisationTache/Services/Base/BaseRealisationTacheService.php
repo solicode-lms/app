@@ -24,12 +24,14 @@ class BaseRealisationTacheService extends BaseService
         'tache_id',
         'realisation_projet_id',
         'dateDebut',
+        'is_live_coding',
         'dateFin',
         'remarque_evaluateur',
         'etat_realisation_tache_id',
         'note',
         'remarques_formateur',
-        'remarques_apprenant'
+        'remarques_apprenant',
+        'tache_affectation_id'
     ];
 
     /**
@@ -148,6 +150,23 @@ class BaseRealisationTacheService extends BaseService
                         \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 
                         'nom',
                         $etatRealisationTaches
+                    );
+                }
+            
+            
+                if (!array_key_exists('tache_affectation_id', $scopeVariables)) {
+
+
+                    $tacheAffectationService = new \Modules\PkgRealisationTache\Services\TacheAffectationService();
+                    $tacheAffectationIds = $this->getAvailableFilterValues('tache_affectation_id');
+                    $tacheAffectations = $tacheAffectationService->getByIds($tacheAffectationIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationTache::tacheAffectation.plural"), 
+                        'tache_affectation_id', 
+                        \Modules\PkgRealisationTache\Models\TacheAffectation::class, 
+                        'id',
+                        $tacheAffectations
                     );
                 }
             

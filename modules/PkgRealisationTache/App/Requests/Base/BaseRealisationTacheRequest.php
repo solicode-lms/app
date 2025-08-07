@@ -32,12 +32,14 @@ class BaseRealisationTacheRequest extends FormRequest
             'tache_id' => 'required',
             'realisation_projet_id' => 'required',
             'dateDebut' => 'required',
+            'is_live_coding' => 'required|boolean',
             'dateFin' => 'nullable',
             'remarque_evaluateur' => 'nullable|string',
             'etat_realisation_tache_id' => 'required',
             'note' => 'nullable',
             'remarques_formateur' => 'nullable|string',
-            'remarques_apprenant' => 'nullable|string'
+            'remarques_apprenant' => 'nullable|string',
+            'tache_affectation_id' => 'required'
         ];
     }
 
@@ -52,12 +54,14 @@ class BaseRealisationTacheRequest extends FormRequest
             'tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.realisation_projet_id')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateDebut')]),
+            'is_live_coding.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.is_live_coding')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateFin')]),
             'remarque_evaluateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarque_evaluateur')]),
             'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.etat_realisation_tache_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.note')]),
             'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_formateur')]),
-            'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_apprenant')])
+            'remarques_apprenant.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_apprenant')]),
+            'tache_affectation_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_affectation_id')])
         ];
     }
 

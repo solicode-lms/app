@@ -7,13 +7,16 @@
     },
     {
         "reference": "tache_affectations_displayInSideBar",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_model_reference": "tache_affectations",
         "e_metadata_definition_reference": "displayInSideBar"
     },
     {
         "reference": "tache_affectations_iconModel",
-        "value_string": "fa-table",
+        "value_boolean": 0,
+        "value_string": "fas fa-table",
+        "value_float": 0,
         "e_model_reference": "tache_affectations",
         "e_metadata_definition_reference": "iconModel"
     },

@@ -44,6 +44,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemAffectationProjet->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="affectationProjet-hasmany-tabs-tacheAffectation-tab" data-toggle="pill" href="#affectationProjet-hasmany-tabs-tacheAffectation" role="tab" aria-controls="affectationProjet-hasmany-tabs-tacheAffectation" aria-selected="false">
+                                <i class="nav-icon fa-table"></i>
+                                {{ucfirst(__('PkgRealisationTache::tacheAffectation.plural'))}}
+                            </a>
+                        </li>
+                        @endif
 
                        
                         </ul>
@@ -57,6 +65,11 @@
                             @if($itemAffectationProjet->realisationProjets->count() > 0 || auth()->user()?->can('create-realisationProjet'))
                             <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-realisationProjet" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-realisationProjet-tab">
                                 @include('PkgRealisationProjets::realisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
+                            </div>
+                            @endif
+                            @if($itemAffectationProjet->tacheAffectations->count() > 0 || auth()->user()?->can('create-tacheAffectation'))
+                            <div class="tab-pane fade" id="affectationProjet-hasmany-tabs-tacheAffectation" role="tabpanel" aria-labelledby="affectationProjet-hasmany-tabs-tacheAffectation-tab">
+                                @include('PkgRealisationTache::tacheAffectation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'affectationProjet.edit_' . $itemAffectationProjet->id])
                             </div>
                             @endif
 

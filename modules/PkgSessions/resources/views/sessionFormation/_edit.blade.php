@@ -55,7 +55,7 @@
                          @if($itemSessionFormation->projets->count() > 0 || auth()->user()?->can('create-projet'))
                         <li class="nav-item">
                             <a class="nav-link" id="sessionFormation-hasmany-tabs-projet-tab" data-toggle="pill" href="#sessionFormation-hasmany-tabs-projet" role="tab" aria-controls="sessionFormation-hasmany-tabs-projet" aria-selected="false">
-                                <i class="nav-icon fas fa-lightbulb"></i>
+                                <i class="nav-icon fas fa-rocket"></i>
                                 {{ucfirst(__('PkgCreationProjet::projet.plural'))}}
                             </a>
                         </li>

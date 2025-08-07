@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationTache;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
@@ -37,7 +38,8 @@ class BaseRealisationTache extends BaseModel
     protected $with = [
       //  'tache',
       //  'realisationProjet',
-      //  'etatRealisationTache'
+      //  'etatRealisationTache',
+      //  'tacheAffectation'
     ];
 
 
@@ -80,7 +82,7 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'etat_realisation_tache_id', 'note', 'remarques_formateur', 'remarques_apprenant'
+        'tache_id', 'realisation_projet_id', 'dateDebut', 'is_live_coding', 'dateFin', 'remarque_evaluateur', 'etat_realisation_tache_id', 'note', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
     ];
     public $manyToOne = [
         'Tache' => [
@@ -99,6 +101,11 @@ class BaseRealisationTache extends BaseModel
             'relation' => 'etatRealisationTaches' , 
             "foreign_key" => "etat_realisation_tache_id", 
             "sortByPath" => "etatRealisationTache.workflowTache.ordre"
+            ],
+        'TacheAffectation' => [
+            'model' => "Modules\\PkgRealisationTache\\Models\\TacheAffectation",
+            'relation' => 'tacheAffectations' , 
+            "foreign_key" => "tache_affectation_id", 
             ]
     ];
 
@@ -129,6 +136,15 @@ class BaseRealisationTache extends BaseModel
     public function etatRealisationTache(): BelongsTo
     {
         return $this->belongsTo(EtatRealisationTache::class, 'etat_realisation_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour TacheAffectation.
+     *
+     * @return BelongsTo
+     */
+    public function tacheAffectation(): BelongsTo
+    {
+        return $this->belongsTo(TacheAffectation::class, 'tache_affectation_id', 'id');
     }
 
 

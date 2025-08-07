@@ -5,30 +5,30 @@
 
 namespace Modules\PkgRealisationTache\App\Imports\Base;
 
-use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class BaseRealisationTacheImport implements ToModel, WithHeadingRow
+class BaseTacheAffectationImport implements ToModel, WithHeadingRow
 {
     /**
      * Vérifie si un enregistrement avec la même référence existe.
      *
      * @param string $reference Référence unique de l'enregistrement.
-     * @return RealisationTache|null
+     * @return TacheAffectation|null
      */
-    private function findExistingRecord($reference): ?RealisationTache
+    private function findExistingRecord($reference): ?TacheAffectation
     {
         if($reference == null) return null;
-        return RealisationTache::where('reference', $reference)->first();
+        return TacheAffectation::where('reference', $reference)->first();
     }
 
     /**
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
-     * @return RealisationTache|null
+     * @return TacheAffectation|null
      */
     public function model(array $row)
     {
@@ -55,18 +55,10 @@ class BaseRealisationTacheImport implements ToModel, WithHeadingRow
         }
 
         // Création d'un nouvel enregistrement
-        return new RealisationTache([
+        return new TacheAffectation([
              'tache_id' => $values[0] ?? null,
-             'realisation_projet_id' => $values[1] ?? null,
-             'dateDebut' => $values[2] ?? null,
-             'is_live_coding' => $values[3] ?? null,
-             'dateFin' => $values[4] ?? null,
-             'remarque_evaluateur' => $values[5] ?? null,
-             'etat_realisation_tache_id' => $values[6] ?? null,
-             'note' => $values[7] ?? null,
-             'remarques_formateur' => $values[8] ?? null,
-             'remarques_apprenant' => $values[9] ?? null,
-             'tache_affectation_id' => $values[10] ?? null,
+             'affectation_projet_id' => $values[1] ?? null,
+             'pourcentage_realisation_cache' => $values[2] ?? null,
              'reference' => $reference,
         ]);
 

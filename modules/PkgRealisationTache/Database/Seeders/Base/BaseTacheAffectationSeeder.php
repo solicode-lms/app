@@ -16,13 +16,13 @@ use Modules\Core\Models\SysModule;
 use Modules\PkgAutorisation\Models\Permission;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgAutorisation\Models\User;
-use Modules\PkgRealisationTache\Models\RealisationTache;
-use Modules\PkgRealisationTache\Services\RealisationTacheService;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
+use Modules\PkgRealisationTache\Services\TacheAffectationService;
 
 
-class BaseRealisationTacheSeeder extends Seeder
+class BaseTacheAffectationSeeder extends Seeder
 {
-    public static int $order = 51;
+    public static int $order = 91;
 
     // Permissions spécifiques pour chaque type de fonctionnalité
     protected array  $featurePermissions = [
@@ -47,7 +47,7 @@ class BaseRealisationTacheSeeder extends Seeder
 
     public function seedFromCsv(): void
     {
-        $filePath = base_path("modules/PkgRealisationTache/Database/data/realisationTaches.csv");
+        $filePath = base_path("modules/PkgRealisationTache/Database/data/tacheAffectations.csv");
         
         if (!file_exists($filePath) || filesize($filePath) === 0) {
             return;
@@ -65,7 +65,7 @@ class BaseRealisationTacheSeeder extends Seeder
             return;
         }
 
-        $realisationTacheService = new RealisationTacheService();
+        $tacheAffectationService = new TacheAffectationService();
 
         // Lire les données restantes en associant chaque valeur à son nom de colonne
         while (($data = fgetcsv($csvFile)) !== false) {
@@ -78,41 +78,23 @@ class BaseRealisationTacheSeeder extends Seeder
                     $tache_id = \Modules\PkgCreationTache\Models\Tache::where('reference', $row["tache_reference"])
                         ->value('id');
                 }
-                $realisation_projet_id = null;
-                if (!empty($row["realisation_projet_reference"])) {
-                    $realisation_projet_id = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('reference', $row["realisation_projet_reference"])
-                        ->value('id');
-                }
-                $etat_realisation_tache_id = null;
-                if (!empty($row["etat_realisation_tache_reference"])) {
-                    $etat_realisation_tache_id = \Modules\PkgRealisationTache\Models\EtatRealisationTache::where('reference', $row["etat_realisation_tache_reference"])
-                        ->value('id');
-                }
-                $tache_affectation_id = null;
-                if (!empty($row["tache_affectation_reference"])) {
-                    $tache_affectation_id = \Modules\PkgRealisationTache\Models\TacheAffectation::where('reference', $row["tache_affectation_reference"])
+                $affectation_projet_id = null;
+                if (!empty($row["affectation_projet_reference"])) {
+                    $affectation_projet_id = \Modules\PkgRealisationProjets\Models\AffectationProjet::where('reference', $row["affectation_projet_reference"])
                         ->value('id');
                 }
 
 
-                $realisationTacheData =[
+                $tacheAffectationData =[
                         "tache_id" => $tache_id,
-                        "realisation_projet_id" => $realisation_projet_id,
-                        "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
-                        "is_live_coding" => isset($row["is_live_coding"]) && $row["is_live_coding"] !== "" ? $row["is_live_coding"] : null,
-                        "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
-                        "remarque_evaluateur" => isset($row["remarque_evaluateur"]) && $row["remarque_evaluateur"] !== "" ? $row["remarque_evaluateur"] : null,
-                        "etat_realisation_tache_id" => $etat_realisation_tache_id,
-                        "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
-                        "remarques_formateur" => isset($row["remarques_formateur"]) && $row["remarques_formateur"] !== "" ? $row["remarques_formateur"] : null,
-                        "remarques_apprenant" => isset($row["remarques_apprenant"]) && $row["remarques_apprenant"] !== "" ? $row["remarques_apprenant"] : null,
-                        "tache_affectation_id" => $tache_affectation_id,
+                        "affectation_projet_id" => $affectation_projet_id,
+                        "pourcentage_realisation_cache" => isset($row["pourcentage_realisation_cache"]) && $row["pourcentage_realisation_cache"] !== "" ? $row["pourcentage_realisation_cache"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
-                    $realisationTacheService->updateOrCreate(["reference" => $row["reference"]], $realisationTacheData);
+                    $tacheAffectationService->updateOrCreate(["reference" => $row["reference"]], $tacheAffectationData);
                 } else {
-                    $realisationTacheService->create($realisationTacheData);
+                    $tacheAffectationService->create($tacheAffectationData);
                 }
             }
         }
@@ -135,9 +117,9 @@ class BaseRealisationTacheSeeder extends Seeder
         }
 
         // Configuration unique pour ce contrôleur et domaine
-        $controllerName = 'RealisationTacheController';
-        $controllerBaseName = 'realisationTache';
-        $domainName = 'RealisationTache';
+        $controllerName = 'TacheAffectationController';
+        $controllerBaseName = 'tacheAffectation';
+        $domainName = 'TacheAffectation';
 
         // Ajouter le contrôleur
         $sysController = SysController::firstOrCreate(

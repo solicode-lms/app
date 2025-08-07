@@ -17,6 +17,7 @@ use Modules\PkgApprenants\Models\SousGroupe;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Modules\PkgRealisationProjets\Models\RealisationProjet;
+use Modules\PkgRealisationTache\Models\TacheAffectation;
 
 /**
  * Classe BaseAffectationProjet
@@ -136,6 +137,15 @@ class BaseAffectationProjet extends BaseModel
     public function realisationProjets(): HasMany
     {
         return $this->hasMany(RealisationProjet::class, 'affectation_projet_id', 'id');
+    }
+    /**
+     * Relation HasMany pour AffectationProjets.
+     *
+     * @return HasMany
+     */
+    public function tacheAffectations(): HasMany
+    {
+        return $this->hasMany(TacheAffectation::class, 'affectation_projet_id', 'id');
     }
 
 

@@ -128,10 +128,31 @@
             </div>
             </div>
             <div class="row no-gutters mb-4">
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.is_live_coding')) }}</small>
+                  @if($itemRealisationTache->is_live_coding)
+                  <span class="badge badge-success">{{ __('Oui') }}</span>
+                  @else
+                  <span class="badge badge-secondary">{{ __('Non') }}</span>
+                  @endif                </div>
+            </div>
             <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::realisationTache.remarque_evaluateur')) }}</small>
 @include('PkgRealisationTache::realisationTache.custom.fields.remarque_evaluateur',['entity' => $itemRealisationTache])
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tacheAffectation.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationTache->tacheAffectation)
+                  {{ $itemRealisationTache->tacheAffectation }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
                 </div>
             </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">

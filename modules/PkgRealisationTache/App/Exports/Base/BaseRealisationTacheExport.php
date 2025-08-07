@@ -35,12 +35,14 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => 'tache_reference',
                 'realisation_projet_reference' => 'realisation_projet_reference',
                 'dateDebut' => 'dateDebut',
+                'is_live_coding' => 'is_live_coding',
                 'dateFin' => 'dateFin',
                 'remarque_evaluateur' => 'remarque_evaluateur',
                 'etat_realisation_tache_reference' => 'etat_realisation_tache_reference',
                 'note' => 'note',
                 'remarques_formateur' => 'remarques_formateur',
                 'remarques_apprenant' => 'remarques_apprenant',
+                'tache_affectation_reference' => 'tache_affectation_reference',
                 'reference' => 'reference',
             ];
         } else {
@@ -48,12 +50,14 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => __('PkgRealisationTache::realisationTache.tache_reference'),
                 'realisation_projet_reference' => __('PkgRealisationTache::realisationTache.realisation_projet_reference'),
                 'dateDebut' => __('PkgRealisationTache::realisationTache.dateDebut'),
+                'is_live_coding' => __('PkgRealisationTache::realisationTache.is_live_coding'),
                 'dateFin' => __('PkgRealisationTache::realisationTache.dateFin'),
                 'remarque_evaluateur' => __('PkgRealisationTache::realisationTache.remarque_evaluateur'),
                 'etat_realisation_tache_reference' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_reference'),
                 'note' => __('PkgRealisationTache::realisationTache.note'),
                 'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
                 'remarques_apprenant' => __('PkgRealisationTache::realisationTache.remarques_apprenant'),
+                'tache_affectation_reference' => __('PkgRealisationTache::realisationTache.tache_affectation_reference'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -69,12 +73,14 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'tache_reference' => $realisationTache->tache?->reference,
                 'realisation_projet_reference' => $realisationTache->realisationProjet?->reference,
                 'dateDebut' => $realisationTache->dateDebut,
+                'is_live_coding' => $realisationTache->is_live_coding ? '1' : '0',
                 'dateFin' => $realisationTache->dateFin,
                 'remarque_evaluateur' => $realisationTache->remarque_evaluateur,
                 'etat_realisation_tache_reference' => $realisationTache->etatRealisationTache?->reference,
                 'note' => $realisationTache->note,
                 'remarques_formateur' => $realisationTache->remarques_formateur,
                 'remarques_apprenant' => $realisationTache->remarques_apprenant,
+                'tache_affectation_reference' => $realisationTache->tacheAffectation?->reference,
                 'reference' => $realisationTache->reference,
             ];
         });
