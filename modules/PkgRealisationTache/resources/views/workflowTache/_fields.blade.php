@@ -154,14 +154,14 @@
           @endif
           <label for="is_editable_only_by_formateur">
             {{ ucfirst(__('PkgRealisationTache::workflowTache.is_editable_only_by_formateur')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <input type="hidden" name="is_editable_only_by_formateur" value="0">
             <input
                 name="is_editable_only_by_formateur"
                 type="checkbox"
                 class="form-control d-block"
-                required
+                
                 
                 
                 id="is_editable_only_by_formateur"

@@ -37,7 +37,10 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'etats_realisation_projet_reference' => 'etats_realisation_projet_reference',
+                'progression_cache' => 'progression_cache',
+                'note_cache' => 'note_cache',
                 'rapport' => 'rapport',
+                'bareme_cache' => 'bareme_cache',
                 'reference' => 'reference',
             ];
         } else {
@@ -47,7 +50,10 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => __('PkgRealisationProjets::realisationProjet.date_debut'),
                 'date_fin' => __('PkgRealisationProjets::realisationProjet.date_fin'),
                 'etats_realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_reference'),
+                'progression_cache' => __('PkgRealisationProjets::realisationProjet.progression_cache'),
+                'note_cache' => __('PkgRealisationProjets::realisationProjet.note_cache'),
                 'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
+                'bareme_cache' => __('PkgRealisationProjets::realisationProjet.bareme_cache'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -65,7 +71,10 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => $realisationProjet->date_debut,
                 'date_fin' => $realisationProjet->date_fin,
                 'etats_realisation_projet_reference' => $realisationProjet->etatsRealisationProjet?->reference,
+                'progression_cache' => $realisationProjet->progression_cache,
+                'note_cache' => $realisationProjet->note_cache,
                 'rapport' => $realisationProjet->rapport,
+                'bareme_cache' => $realisationProjet->bareme_cache,
                 'reference' => $realisationProjet->reference,
             ];
         });

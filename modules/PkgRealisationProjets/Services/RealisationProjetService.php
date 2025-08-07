@@ -247,7 +247,7 @@ class RealisationProjetService extends BaseRealisationProjetService
             ]);
         }
     }
-    
+
     public function afterCreateRules($realisationProjet): void
     {
         if (!$realisationProjet instanceof RealisationProjet) {
@@ -501,5 +501,35 @@ class RealisationProjetService extends BaseRealisationProjetService
             }
         }
     }
+
+
+    /**
+     * Calcule et met à jour progression_cache, note_cache et bareme_cache
+     * pour un projet donné.
+     */
+    public function mettreAJourProgressionDepuisEtatDesTaches(RealisationProjet $realisationProjet): void
+    {
+        $realisationProjet->loadMissing('realisationTaches.etatRealisationTache.workflowTache');
+
+        $taches = $realisationProjet->realisationTaches;
+        $total = $taches->count();
+
+        if ($total === 0) {
+            $realisationProjet->progression_cache = 0;
+            $realisationProjet->save();
+            return;
+        }
+
+        // Compter les tâches dont l’état ≠ TODO
+        $realisees = $taches->filter(function ($tache) {
+            return optional($tache->etatRealisationTache?->workflowTache)->code !== 'TODO';
+        })->count();
+
+        $progression = ($realisees / $total) * 100;
+
+        $realisationProjet->progression_cache = round($progression, 2);
+        $realisationProjet->save();
+    }
+
 
 }

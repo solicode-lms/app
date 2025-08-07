@@ -61,6 +61,18 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationProjet->progression_cache))
+                  {{ number_format($itemRealisationProjet->progression_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}</small>
                   <div class="progress progress-sm">
                       <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationProjet->avancement_projet }}%">
@@ -69,6 +81,18 @@
                   <small>
                       {{$itemRealisationProjet->avancement_projet }}% Terminé
                   </small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationProjet->note_cache))
+                  {{ number_format($itemRealisationProjet->note_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
                 </div>
             </div>
             <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
@@ -80,6 +104,18 @@
                   @else
                     <span class="text-muted">—</span>
                   @endif                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.bareme_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationProjet->bareme_cache))
+                  {{ number_format($itemRealisationProjet->bareme_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
             </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >

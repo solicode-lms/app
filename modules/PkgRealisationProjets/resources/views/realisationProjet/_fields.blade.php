@@ -196,6 +196,66 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="progression_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_cache" id="bulk_field_progression_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="progression_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_cache')) }}
+            
+          </label>
+              <input
+        name="progression_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="progression_cache"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_cache, 2, '.', '') : old('progression_cache') }}">
+          @error('progression_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="note_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note_cache" id="bulk_field_note_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="note_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}
+            
+          </label>
+              <input
+        name="note_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="note_cache"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.note_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->note_cache, 2, '.', '') : old('note_cache') }}">
+          @error('note_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="rapport" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -217,6 +277,36 @@
                 id="rapport"
                 placeholder="{{ __('PkgRealisationProjets::realisationProjet.rapport') }}">{{ $itemRealisationProjet ? $itemRealisationProjet->rapport : old('rapport') }}</textarea>
           @error('rapport')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="bareme_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_cache" id="bulk_field_bareme_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="bareme_cache">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.bareme_cache')) }}
+            
+          </label>
+              <input
+        name="bareme_cache"
+        type="number"
+        class="form-control"
+        
+        
+        
+        id="bareme_cache"
+        step="0.01"
+        placeholder="{{ __('PkgRealisationProjets::realisationProjet.bareme_cache') }}"
+        value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->bareme_cache, 2, '.', '') : old('bareme_cache') }}">
+          @error('bareme_cache')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

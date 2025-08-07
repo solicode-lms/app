@@ -34,7 +34,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'date_debut' => 'required',
             'date_fin' => 'nullable',
             'etats_realisation_projet_id' => 'required',
-            'rapport' => 'nullable|string'
+            'progression_cache' => 'nullable',
+            'note_cache' => 'nullable',
+            'rapport' => 'nullable|string',
+            'bareme_cache' => 'nullable'
         ];
     }
 
@@ -51,7 +54,10 @@ class BaseRealisationProjetRequest extends FormRequest
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
             'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
-            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
+            'progression_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_cache')]),
+            'note_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.note_cache')]),
+            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')]),
+            'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.bareme_cache')])
         ];
     }
 

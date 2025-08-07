@@ -7,5 +7,6 @@ return [
     'code' => 'code',
     'titre' => 'titre',
     'description' => 'description',
-    'ordre' => '#'
+    'ordre' => '#',
+    'is_editable_only_by_formateur' => 'Modifiable uniquement par le formateur',
 ];
