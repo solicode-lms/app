@@ -2,7 +2,7 @@
 
 
 return [
-    'singular' => 'État de de Tâche',
+    'singular' => 'État de Tâche',
     'plural' => 'États de Tâches',
     'nom' => 'Nom',
     'description' => 'Description',

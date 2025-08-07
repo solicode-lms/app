@@ -69,119 +69,10 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="realisation_projet_id" :bulkEdit="$bulkEdit">
-      @php $canEditrealisation_projet_id = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_projet_id" id="bulk_field_realisation_projet_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_projet_id">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_projet_id" 
-            {{ $canEditrealisation_projet_id ? '' : 'disabled' }}
-            required
-            
-            
-            name="realisation_projet_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationProjets as $realisationProjet)
-                    <option value="{{ $realisationProjet->id }}"
-                        {{ (isset($itemRealisationTache) && $itemRealisationTache->realisation_projet_id == $realisationProjet->id) || (old('realisation_projet_id>') == $realisationProjet->id) ? 'selected' : '' }}>
-                        {{ $realisationProjet }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_projet_id')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 
     </div>
   
     
-
-    
-      <h5 class="debut-groupe-title text-info">{{ __('Dates de réalisation') }}</h5>
-      <hr class="debut-groupe-hr">
-    
-    <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateDebut" :bulkEdit="$bulkEdit">
-      @php $canEditdateDebut = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
-
-      <div class="form-group col-12 col-md-3">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateDebut" id="bulk_field_dateDebut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="dateDebut">
-            {{ ucfirst(__('PkgRealisationTache::realisationTache.dateDebut')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="dateDebut"
-                type="text"
-                class="form-control datetimepicker"
-                required
-                
-                
-                id="dateDebut"
-                {{ $canEditdateDebut ? '' : 'disabled' }}
-                placeholder="{{ __('PkgRealisationTache::realisationTache.dateDebut') }}"
-                value="{{ $itemRealisationTache ? $itemRealisationTache->dateDebut : old('dateDebut') }}">
-
-          @error('dateDebut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="dateFin" :bulkEdit="$bulkEdit">
-      @php $canEditdateFin = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'admin')); @endphp
-
-      <div class="form-group col-12 col-md-3">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dateFin" id="bulk_field_dateFin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="dateFin">
-            {{ ucfirst(__('PkgRealisationTache::realisationTache.dateFin')) }}
-            
-          </label>
-                      <input
-                name="dateFin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="dateFin"
-                {{ $canEditdateFin ? '' : 'disabled' }}
-                placeholder="{{ __('PkgRealisationTache::realisationTache.dateFin') }}"
-                value="{{ $itemRealisationTache ? $itemRealisationTache->dateFin : old('dateFin') }}">
-
-          @error('dateFin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-
-    </div>
-  
     
 
     
@@ -199,7 +90,7 @@
           </div>
           @endif
           <label for="etat_realisation_tache_id">
-            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.singular')) }}
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.etat_realisation_tache_id')) }}
             <span class="text-danger">*</span>
           </label>
                       <select 
@@ -251,6 +142,38 @@
         placeholder="{{ __('PkgRealisationTache::realisationTache.note') }}"
         value="{{ $itemRealisationTache ? number_format($itemRealisationTache->note, 2, '.', '') : old('note') }}">
           @error('note')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="is_live_coding" :bulkEdit="$bulkEdit">
+      @php $canEditis_live_coding = !$itemRealisationTache || !$itemRealisationTache->id || Auth::user()->hasAnyRole(explode(',', 'formateur,admin')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_live_coding" id="bulk_field_is_live_coding" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="is_live_coding">
+            {{ ucfirst(__('PkgRealisationTache::realisationTache.is_live_coding')) }}
+            
+          </label>
+                      <input type="hidden" name="is_live_coding" value="0">
+            <input
+                name="is_live_coding"
+                type="checkbox"
+                class="form-control d-block"
+                
+                
+                
+                id="is_live_coding"
+                {{ $canEditis_live_coding ? '' : 'disabled' }}
+                value="1"
+                {{ old('is_live_coding', $itemRealisationTache ? $itemRealisationTache->is_live_coding : 0) ? 'checked' : '' }}>
+          @error('is_live_coding')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -397,37 +320,7 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="is_live_coding" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="is_live_coding" id="bulk_field_is_live_coding" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="is_live_coding">
-            {{ ucfirst(__('PkgRealisationTache::realisationTache.is_live_coding')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input type="hidden" name="is_live_coding" value="0">
-            <input
-                name="is_live_coding"
-                type="checkbox"
-                class="form-control"
-                required
-                
-                
-                id="is_live_coding"
-                value="1"
-                {{ old('is_live_coding', $itemRealisationTache ? $itemRealisationTache->is_live_coding : 0) ? 'checked' : '' }}>
-          @error('is_live_coding')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="remarque_evaluateur" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="remarque_evaluateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -448,40 +341,6 @@
                 id="remarque_evaluateur"
                 placeholder="{{ __('PkgRealisationTache::realisationTache.remarque_evaluateur') }}">{{ $itemRealisationTache ? $itemRealisationTache->remarque_evaluateur : old('remarque_evaluateur') }}</textarea>
           @error('remarque_evaluateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationTache" field="tache_affectation_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="tache_affectation_id" id="bulk_field_tache_affectation_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="tache_affectation_id">
-            {{ ucfirst(__('PkgRealisationTache::tacheAffectation.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="tache_affectation_id" 
-            required
-            
-            
-            name="tache_affectation_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($tacheAffectations as $tacheAffectation)
-                    <option value="{{ $tacheAffectation->id }}"
-                        {{ (isset($itemRealisationTache) && $itemRealisationTache->tache_affectation_id == $tacheAffectation->id) || (old('tache_affectation_id>') == $tacheAffectation->id) ? 'selected' : '' }}>
-                        {{ $tacheAffectation }}
-                    </option>
-                @endforeach
-            </select>
-          @error('tache_affectation_id')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

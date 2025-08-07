@@ -21,6 +21,7 @@
     $inputValue = old('note', $myNote !== null ? number_format($myNote, 2, '.', '') : '');
 @endphp
 
+@if($canEditnote && $maxNote > 0)
 <div class="form-group col-12 col-md-6">
     @if ($bulkEdit)
         <div class="bulk-check">
@@ -62,4 +63,5 @@
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
+@endif
 

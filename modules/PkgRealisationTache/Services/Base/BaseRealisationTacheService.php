@@ -24,11 +24,11 @@ class BaseRealisationTacheService extends BaseService
         'tache_id',
         'realisation_projet_id',
         'dateDebut',
-        'is_live_coding',
         'dateFin',
         'remarque_evaluateur',
         'etat_realisation_tache_id',
         'note',
+        'is_live_coding',
         'remarques_formateur',
         'remarques_apprenant',
         'tache_affectation_id'

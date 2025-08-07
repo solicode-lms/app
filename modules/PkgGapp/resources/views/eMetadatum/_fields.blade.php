@@ -46,7 +46,7 @@
             <input
                 name="value_boolean"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 

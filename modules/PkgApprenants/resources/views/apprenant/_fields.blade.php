@@ -526,7 +526,7 @@
             <input
                 name="actif"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 

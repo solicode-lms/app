@@ -259,7 +259,7 @@
             <input
                 name="db_primaryKey"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 
@@ -289,7 +289,7 @@
             <input
                 name="db_nullable"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 
@@ -319,7 +319,7 @@
             <input
                 name="db_unique"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 
@@ -349,7 +349,7 @@
             <input
                 name="calculable"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 

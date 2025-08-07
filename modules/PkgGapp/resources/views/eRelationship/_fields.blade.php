@@ -172,7 +172,7 @@
             <input
                 name="cascade_on_delete"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 required
                 
                 
@@ -202,7 +202,7 @@
             <input
                 name="is_cascade"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 required
                 
                 

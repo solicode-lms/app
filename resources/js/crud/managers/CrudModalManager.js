@@ -32,7 +32,7 @@ export class CrudModalManager {
         this.modalUI = new ModalUI(config,this);
         this.contexteEventHandler = new ContexteStateEventHandler(config);
 
-        if (this.config.parent_manager_id != null) {
+        if (window.crudModalManagers && this.config.parent_manager_id != null) {
             this.parent_manager = window.crudModalManagers[this.config.parent_manager_id];
         }
        

@@ -104,7 +104,7 @@
             <input
                 name="is_pivot_table"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 required
                 
                 

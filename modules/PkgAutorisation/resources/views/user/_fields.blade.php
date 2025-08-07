@@ -163,7 +163,7 @@
             <input
                 name="must_change_password"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 
                 
                 

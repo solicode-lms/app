@@ -160,7 +160,7 @@
             <input
                 name="is_editable_only_by_formateur"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 required
                 
                 

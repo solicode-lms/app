@@ -165,7 +165,7 @@
             <input
                 name="is_active"
                 type="checkbox"
-                class="form-control"
+                class="form-control d-block"
                 required
                 
                 

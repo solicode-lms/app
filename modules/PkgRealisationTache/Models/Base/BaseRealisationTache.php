@@ -82,7 +82,7 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'realisation_projet_id', 'dateDebut', 'is_live_coding', 'dateFin', 'remarque_evaluateur', 'etat_realisation_tache_id', 'note', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
+        'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'etat_realisation_tache_id', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
     ];
     public $manyToOne = [
         'Tache' => [
