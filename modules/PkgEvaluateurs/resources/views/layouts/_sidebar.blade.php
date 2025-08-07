@@ -1,25 +1,25 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-evaluateur', 'index-etatEvaluationProjet', 'index-evaluationRealisationProjet'])
+@accessiblePermissions(['index-etatEvaluationProjet', 'index-evaluateur', 'index-evaluationRealisationProjet'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-evaluateur')
-            <li class="nav-item" id="menu-evaluateurs">
-                <a href="{{ route('evaluateurs.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-user-check"></i>
-                    {{__('PkgEvaluateurs::evaluateur.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-etatEvaluationProjet')
             <li class="nav-item" id="menu-etatEvaluationProjets">
                 <a href="{{ route('etatEvaluationProjets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgEvaluateurs/etatEvaluationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fa-table"></i>
                     {{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}
+                </a>
+            </li>
+            @endcan
+            @can('index-evaluateur')
+            <li class="nav-item" id="menu-evaluateurs">
+                <a href="{{ route('evaluateurs.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user-check"></i>
+                    {{__('PkgEvaluateurs::evaluateur.plural')}}
                 </a>
             </li>
             @endcan
@@ -43,19 +43,19 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-evaluateur') 
-            <li class="nav-item" id="menu-evaluateurs">
-                <a href="{{ route('evaluateurs.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-user-check"></i>
-                    {{__('PkgEvaluateurs::evaluateur.plural')}}
-                </a>
-            </li>
-            @endcan
             @can('index-etatEvaluationProjet') 
             <li class="nav-item" id="menu-etatEvaluationProjets">
                 <a href="{{ route('etatEvaluationProjets.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/etatEvaluationProjets') ? 'active' : '' }}">
                     <i class="nav-icon fa-table"></i>
                     {{__('PkgEvaluateurs::etatEvaluationProjet.plural')}}
+                </a>
+            </li>
+            @endcan
+            @can('index-evaluateur') 
+            <li class="nav-item" id="menu-evaluateurs">
+                <a href="{{ route('evaluateurs.index') }}" class="nav-link {{ Request::is('admin/PkgEvaluateurs/evaluateurs') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user-check"></i>
+                    {{__('PkgEvaluateurs::evaluateur.plural')}}
                 </a>
             </li>
             @endcan
