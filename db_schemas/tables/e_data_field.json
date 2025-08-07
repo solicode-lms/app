@@ -12030,48 +12030,6 @@
         "description": "<p>Afficher le nom et prénom de l'apprenant</p>"
     },
     {
-        "id": 922,
-        "reference": "RealisationProjet-avancement_projet",
-        "name": "avancement_projet",
-        "column_name": "avancement_projet",
-        "data_type": "Float",
-        "field_order": 5,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT \r\n  ROUND(\r\n    (\r\n      SELECT COUNT(*) \r\n      FROM realisation_taches rt\r\n      JOIN etat_realisation_taches ert ON ert.id = rt.etat_realisation_tache_id\r\n      JOIN workflow_taches wt ON wt.id = ert.workflow_tache_id\r\n      WHERE rt.realisation_projet_id = realisation_projets.id\r\n        AND wt.code IN ('TERMINEE', 'EN_VALIDATION')\r\n    ) * 100 /\r\n    GREATEST(1,\r\n      (SELECT COUNT(*) \r\n       FROM realisation_taches rt2 \r\n       WHERE rt2.realisation_projet_id = realisation_projets.id)\r\n    )\r\n  , 0)",
-        "description": ""
-    },
-    {
-        "id": 923,
-        "reference": "RealisationProjet-note",
-        "name": "note",
-        "column_name": "note",
-        "data_type": "Float",
-        "field_order": 10,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT SUM(note)\r\nFROM realisation_taches\r\nWHERE realisation_taches.realisation_projet_id = realisation_projets.id",
-        "description": ""
-    },
-    {
-        "id": 924,
-        "reference": "RealisationProjet-bareme_note",
-        "name": "bareme_note",
-        "column_name": "bareme_note",
-        "data_type": "Float",
-        "field_order": 10,
-        "db_nullable": 0,
-        "db_primaryKey": 0,
-        "db_unique": 0,
-        "calculable": 1,
-        "calculable_sql": "SELECT SUM(t.note)\r\n        FROM realisation_taches rt\r\n        JOIN taches t ON rt.tache_id = t.id\r\n        WHERE rt.realisation_projet_id = realisation_projets.id\r\n          AND rt.note IS NOT NULL\r\n          AND rt.note >= 0",
-        "description": ""
-    },
-    {
         "id": 925,
         "reference": "RealisationTache-nombre_livrables",
         "name": "nombre_livrables",

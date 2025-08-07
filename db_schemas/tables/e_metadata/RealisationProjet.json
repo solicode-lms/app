@@ -417,35 +417,6 @@
         "e_metadata_definition_reference": "nature"
     },
     {
-        "reference": "RealisationProjet-avancement_projet_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "RealisationProjet-avancement_projet_displayOrder",
-        "value_integer": 6,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "RealisationProjet-avancement_projet_displayInTable",
-        "value_boolean": 1,
-        "value_float": 0,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "RealisationProjet-avancement_projet_nature",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": {
-            "nature": "progression"
-        },
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "nature"
-    },
-    {
         "reference": "RealisationProjet_rapport_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "RealisationProjet_rapport",
@@ -515,12 +486,6 @@
         "reference": "RealisationProjet_updated_at_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "RealisationProjet_updated_at",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "RealisationProjet-avancement_projet_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -670,68 +635,11 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "RealisationProjet-avancement_projet_viewShowFieldVisible",
-        "value_boolean": 1,
-        "value_float": 0,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
-        "reference": "RealisationProjet-avancement_projet_inputMdWidth",
-        "value_boolean": 1,
-        "value_integer": 6,
-        "value_float": 0,
-        "e_data_field_reference": "RealisationProjet-avancement_projet",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "realisation_projets_editOnFullScreen",
         "value_boolean": 1,
         "value_float": 0,
         "e_model_reference": "realisation_projets",
         "e_metadata_definition_reference": "editOnFullScreen"
-    },
-    {
-        "reference": "RealisationProjet-note_displayInTable",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-note",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "RealisationProjet-note_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-note",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "RealisationProjet-note_displayOrder",
-        "value_integer": 7,
-        "e_data_field_reference": "RealisationProjet-note",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "RealisationProjet-note_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-note",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "RealisationProjet-bareme_note_required",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-bareme_note",
-        "e_metadata_definition_reference": "required"
-    },
-    {
-        "reference": "RealisationProjet-bareme_note_displayOrder",
-        "value_integer": 12,
-        "e_data_field_reference": "RealisationProjet-bareme_note",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "RealisationProjet-bareme_note_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "RealisationProjet-bareme_note",
-        "e_metadata_definition_reference": "sortable"
     },
     {
         "reference": "realisation_projets_hasMany_evaluation_realisation_projets_realisation_projet_id_editHasMany",

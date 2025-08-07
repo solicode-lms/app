@@ -32,6 +32,7 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
     {
         if ($this->format === 'csv') {
             return [
+                'ordre' => 'ordre',
                 'nom' => 'nom',
                 'workflow_tache_reference' => 'workflow_tache_reference',
                 'sys_color_reference' => 'sys_color_reference',
@@ -42,6 +43,7 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
             ];
         } else {
             return [
+                'ordre' => __('PkgRealisationTache::etatRealisationTache.ordre'),
                 'nom' => __('PkgRealisationTache::etatRealisationTache.nom'),
                 'workflow_tache_reference' => __('PkgRealisationTache::etatRealisationTache.workflow_tache_reference'),
                 'sys_color_reference' => __('PkgRealisationTache::etatRealisationTache.sys_color_reference'),
@@ -60,6 +62,7 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
     {
         return $this->data->map(function ($etatRealisationTache) {
             return [
+                'ordre' => (string) $etatRealisationTache->ordre,
                 'nom' => $etatRealisationTache->nom,
                 'workflow_tache_reference' => $etatRealisationTache->workflowTache?->reference,
                 'sys_color_reference' => $etatRealisationTache->sysColor?->reference,

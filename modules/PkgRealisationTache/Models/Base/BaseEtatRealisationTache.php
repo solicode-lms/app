@@ -49,7 +49,7 @@ class BaseEtatRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'nom', 'workflow_tache_id', 'sys_color_id', 'is_editable_only_by_formateur', 'formateur_id', 'description'
+        'ordre', 'nom', 'workflow_tache_id', 'sys_color_id', 'is_editable_only_by_formateur', 'formateur_id', 'description'
     ];
     public $manyToOne = [
         'WorkflowTache' => [

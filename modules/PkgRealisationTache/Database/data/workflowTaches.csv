@@ -1,5 +1,5 @@
 "ordre","code","titre","description","is_editable_only_by_formateur","reference","sys_color_reference"
-"1","TODO","À faire","La tâche est prévue mais pas encore commencée","0","TODO","secondary"
+"1","TODO","À faire","La tâche est prévue mais pas encore commencée.","0","TODO","secondary"
 "3","IN_PROGRESS","En cours","La tâche est en cours de réalisation","0","IN_PROGRESS","info"
 "2","PAUSED","En pause","La tâche est temporairement suspendue","0","PAUSED","danger"
 "4","REVISION_NECESSAIRE","Révision nécessaire","La tâche nécessite une révision ou correction","0","REVISION_NECESSAIRE","info"

@@ -21,6 +21,7 @@ class BaseEtatRealisationTacheService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
+        'ordre',
         'nom',
         'workflow_tache_id',
         'sys_color_id',

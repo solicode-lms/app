@@ -6,6 +6,17 @@
             <div class="row no-gutters mb-4">
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.ordre')) }}</small>
+                  <span>
+                    @if(! is_null($itemEtatRealisationTache->ordre))
+                      {{ $itemEtatRealisationTache->ordre }}
+                    @else
+                      —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::etatRealisationTache.nom')) }}</small>
     {{-- Affichage texte par défaut --}}
     @if(!is_null($itemEtatRealisationTache->nom) && $itemEtatRealisationTache->nom !== '')

@@ -91,6 +91,7 @@ class BaseEtatRealisationTacheSeeder extends Seeder
 
 
                 $etatRealisationTacheData =[
+                        "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "workflow_tache_id" => $workflow_tache_id,
                         "sys_color_id" => $sys_color_id,

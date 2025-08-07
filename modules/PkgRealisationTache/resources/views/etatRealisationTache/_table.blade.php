@@ -9,10 +9,11 @@
                     $bulkEdit = $etatRealisationTaches_permissions['edit-etatRealisationTache'] || $etatRealisationTaches_permissions['destroy-etatRealisationTache'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="20.5"  field="nom" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::etatRealisationTache.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::workflowTache.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5" field="sys_color_id" modelname="etatRealisationTache" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="20.5" field="formateur_id" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::etatRealisationTache.ordre'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5"  field="nom" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::etatRealisationTache.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5" field="workflow_tache_id" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgRealisationTache::workflowTache.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5" field="sys_color_id" modelname="etatRealisationTache" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="19.5" field="formateur_id" modelname="etatRealisationTache" label="{!!ucfirst(__('PkgFormation::formateur.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -24,22 +25,28 @@
                 @endphp
                 <tr id="etatRealisationTache-row-{{$etatRealisationTache->id}}" data-id="{{$etatRealisationTache->id}}">
                     <x-checkbox-row :item="$etatRealisationTache" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
+                    <td style="max-width: 4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="ordre"  data-toggle="tooltip" title="{{ $etatRealisationTache->ordre }}" >
+                            <div class="sortable-button d-flex justify-content-left align-items-center" style="height: 100%;  min-height: 26px;">
+                            <i class="fas fa-th-list" title="{{ $etatRealisationTache->ordre }}"  data-toggle="tooltip" ></i>  
+                        </div>
+
+                    </td>
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationTache->nom }}" >
                         {{ $etatRealisationTache->nom }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="workflow_tache_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="workflow_tache_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->workflowTache }}" >
                         {{  $etatRealisationTache->workflowTache }}
 
                     </td>
-                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
+                    <td style="max-width: 19.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->sysColor }}" >
                         <x-badge 
                         :text="$etatRealisationTache->sysColor->name ?? ''" 
                         :background="$etatRealisationTache->sysColor->hex ?? '#6c757d'" 
                         />
 
                     </td>
-                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
+                    <td style="max-width: 19.5%;" class=" text-truncate" data-id="{{$etatRealisationTache->id}}" data-field="formateur_id"  data-toggle="tooltip" title="{{ $etatRealisationTache->formateur }}" >
                         {{  $etatRealisationTache->formateur }}
 
                     </td>

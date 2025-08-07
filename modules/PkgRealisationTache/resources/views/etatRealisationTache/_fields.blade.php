@@ -30,7 +30,36 @@
 
     
     <div class="row">
-        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="nom" :bulkEdit="$bulkEdit">
+        <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="ordre" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="ordre" id="bulk_field_ordre" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="ordre">
+            {{ ucfirst(__('PkgRealisationTache::etatRealisationTache.ordre')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="ordre"
+                type="number"
+                class="form-control"
+                required
+                
+                
+                id="ordre"
+                placeholder="{{ __('PkgRealisationTache::etatRealisationTache.ordre') }}"
+                value="{{ $itemEtatRealisationTache ? $itemEtatRealisationTache->ordre : old('ordre') }}">
+          @error('ordre')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationTache" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -69,11 +98,11 @@
           @endif
           <label for="workflow_tache_id">
             {{ ucfirst(__('PkgRealisationTache::workflowTache.singular')) }}
-            
+            <span class="text-danger">*</span>
           </label>
                       <select 
             id="workflow_tache_id" 
-            
+            required
             
             
             name="workflow_tache_id" 

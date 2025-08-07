@@ -29,8 +29,9 @@ class BaseEtatRealisationTacheRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ordre' => 'required|integer',
             'nom' => 'required|string|max:255',
-            'workflow_tache_id' => 'nullable',
+            'workflow_tache_id' => 'required',
             'sys_color_id' => 'required',
             'is_editable_only_by_formateur' => 'nullable|boolean',
             'formateur_id' => 'required',
@@ -46,6 +47,7 @@ class BaseEtatRealisationTacheRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'ordre.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.ordre')]),
             'nom.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.nom')]),
             'nom.max' => __('validation.nomMax'),
             'workflow_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::EtatRealisationTache.workflow_tache_id')]),
