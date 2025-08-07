@@ -139,17 +139,6 @@ class RealisationProjetService extends BaseRealisationProjetService
 
      }
 
-    public function dataCalcul($realisationProjet)
-    {
-        // En Cas d'édit
-        if(isset($realisationProjet->id)){
-          
-        }
-      
-        return $realisationProjet;
-    }
-
-
 
     public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator
     {
@@ -341,11 +330,17 @@ private function creerRealisationTaches(RealisationProjet $realisationProjet): v
     // et on lie les chapitres et RealisationChapitre, RealisationUAprojet, RealisationUAPrototype
     foreach ($taches as $tache) {
 
+
+        $tacheAffectation = $tache->tacheAffectations
+        ->where('affectation_projet_id', $affectationProjet->id)
+        ->first();
+
         // Création de la RealisationTache
         $realisationTache = $realisationTacheService->create([
             'realisation_projet_id' => $realisationProjet->id,
             'tache_id' => $tache->id,
-            'etat_realisation_tache_id' => $etatInitialRealisationTache?->id
+            'etat_realisation_tache_id' => $etatInitialRealisationTache?->id,
+            'tache_affectation_id' => $tacheAffectation?->id
         ]);
 
         // Liaison avec les chapitres

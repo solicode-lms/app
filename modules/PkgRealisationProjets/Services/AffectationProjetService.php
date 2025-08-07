@@ -3,9 +3,11 @@
 namespace Modules\PkgRealisationProjets\Services;
 
 use Modules\PkgApprenants\Services\GroupeService;
+use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\Base\BaseAffectationProjetService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService;
+use Modules\PkgRealisationTache\Services\TacheAffectationService;
 
 /**
  * Classe AffectationProjetService pour gérer la persistance de l'entité AffectationProjet.
@@ -43,19 +45,13 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
-    public function dataCalcul($affectationProjet)
-    {
-        // En Cas d'édit
-        if(isset($affectationProjet->id)){
-          
-        }
-      
-        return $affectationProjet;
-    }
-
+    /**
+     * Création des realisationProjets
+     */
     public function afterCreateRules($affectationProjet, $id)
     {
         $realisationProjetService = new RealisationProjetService();
+        $tacheAffectationService = new TacheAffectationService();
 
         // Priorité au sous-groupe si présent
         $apprenants = collect();
@@ -78,6 +74,16 @@ class AffectationProjetService extends BaseAffectationProjetService
                 'date_fin' => $affectationProjet->date_fin,
                 'rapport' => null,
                 'etats_realisation_projet_id' => null,
+            ]);
+        }
+
+         // ✅ Créer les TacheAffectations associées aux tâches du projet
+        $taches = Tache::where('projet_id', $affectationProjet->projet_id)->get();
+
+        foreach ($taches as $tache) {
+            $tacheAffectationService->create([
+                'tache_id' => $tache->id,
+                'affectation_projet_id' => $affectationProjet->id,
             ]);
         }
 
