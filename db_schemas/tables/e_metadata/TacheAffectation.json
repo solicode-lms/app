@@ -356,5 +356,15 @@
         "value_float": 0,
         "e_data_field_reference": "TacheAffectation_pourcentage_realisation_cache",
         "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "TacheAffectation_pourcentage_realisation_cache_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "progression"
+        },
+        "e_data_field_reference": "TacheAffectation_pourcentage_realisation_cache",
+        "e_metadata_definition_reference": "nature"
     }
 ]

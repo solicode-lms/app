@@ -17,5 +17,6 @@ return [
     'projet_title' => 'projet',
     'deadline' => 'deadline',
     'nombre_livrables' => 'livrables',
-    'note' => 'note'
+    'note' => 'note',
+    'is_live_coding' => 'Live coding validé'
 ];

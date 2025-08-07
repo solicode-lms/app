@@ -31,13 +31,13 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationTache::tacheAffectation.pourcentage_realisation_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemTacheAffectation->pourcentage_realisation_cache))
-                  {{ number_format($itemTacheAffectation->pourcentage_realisation_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+                  <div class="progress progress-sm">
+                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemTacheAffectation->pourcentage_realisation_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemTacheAffectation->pourcentage_realisation_cache }}%">
+                      </div>
+                  </div>
+                  <small>
+                      {{$itemTacheAffectation->pourcentage_realisation_cache }}% Terminé
+                  </small>
                 </div>
             </div>
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">

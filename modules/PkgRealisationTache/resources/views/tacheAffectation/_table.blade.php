@@ -32,7 +32,13 @@
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$tacheAffectation->id}}" data-field="pourcentage_realisation_cache"  data-toggle="tooltip" title="{{ $tacheAffectation->pourcentage_realisation_cache }}" >
-                        {{ $tacheAffectation->pourcentage_realisation_cache }}
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $tacheAffectation->pourcentage_realisation_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $tacheAffectation->pourcentage_realisation_cache }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{ $tacheAffectation->pourcentage_realisation_cache }}% Terminé
+                        </small>
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
