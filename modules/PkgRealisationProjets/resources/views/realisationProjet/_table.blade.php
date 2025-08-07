@@ -9,12 +9,10 @@
                     $bulkEdit = $realisationProjets_permissions['edit-realisationProjet'] || $realisationProjets_permissions['destroy-realisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="avancement_projet" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="note" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.note'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="20.5"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,14 +24,14 @@
                 @endphp
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}" data-id="{{$realisationProjet->id}}">
                     <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
                         {{  $realisationProjet->apprenant }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 20.5%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
                         :text="$realisationProjet->etatsRealisationProjet" 
@@ -42,20 +40,7 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="avancement_projet"  data-toggle="tooltip" title="{{ $realisationProjet->avancement_projet }}" >
-                        <div class="progress progress-sm">
-                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->avancement_projet }}%">
-                            </div>
-                        </div>
-                        <small>
-                            {{ $realisationProjet->avancement_projet }}% Terminé
-                        </small>
-
-                    </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="note"  data-toggle="tooltip" title="{{ $realisationProjet->note }}" >
-                        @include('PkgRealisationProjets::realisationProjet.custom.fields.note', ['entity' => $realisationProjet])
-                    </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 20.5%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', ['entity' => $realisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

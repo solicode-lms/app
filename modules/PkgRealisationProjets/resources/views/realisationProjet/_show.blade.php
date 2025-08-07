@@ -61,18 +61,6 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.avancement_projet')) }}</small>
-                  <div class="progress progress-sm">
-                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationProjet->avancement_projet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationProjet->avancement_projet }}%">
-                      </div>
-                  </div>
-                  <small>
-                      {{$itemRealisationProjet->avancement_projet }}% Terminé
-                  </small>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
                   <span>
                   @if(! is_null($itemRealisationProjet->note_cache))

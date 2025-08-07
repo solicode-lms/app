@@ -12030,7 +12030,7 @@
         "description": "<p>Afficher le nom et prénom de l'apprenant</p>"
     },
     {
-        "id": 925,
+        "id": 922,
         "reference": "RealisationTache-nombre_livrables",
         "name": "nombre_livrables",
         "column_name": "nombre_livrables",
@@ -12044,7 +12044,7 @@
         "description": ""
     },
     {
-        "id": 926,
+        "id": 923,
         "reference": "RealisationTache-nom_prenom_apprenant",
         "name": "nom_prenom_apprenant",
         "column_name": "nom_prenom_apprenant",
@@ -12058,7 +12058,7 @@
         "description": ""
     },
     {
-        "id": 927,
+        "id": 924,
         "reference": "RealisationTache-projet_title",
         "name": "projet_title",
         "column_name": "projet_title",
@@ -12072,7 +12072,7 @@
         "description": ""
     },
     {
-        "id": 928,
+        "id": 925,
         "reference": "RealisationTache-deadline",
         "name": "deadline",
         "column_name": "deadline",
@@ -12086,7 +12086,7 @@
         "description": ""
     },
     {
-        "id": 929,
+        "id": 926,
         "reference": "RealisationUaProjet_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -12100,7 +12100,7 @@
         "description": ""
     },
     {
-        "id": 930,
+        "id": 927,
         "reference": "RealisationUaPrototype_criteres_evaluation",
         "name": "criteres_evaluation",
         "column_name": "criteres_evaluation",
@@ -12114,7 +12114,7 @@
         "description": ""
     },
     {
-        "id": 931,
+        "id": 928,
         "reference": "Widget-package",
         "name": "package",
         "column_name": "package",
@@ -12128,7 +12128,7 @@
         "description": ""
     },
     {
-        "id": 932,
+        "id": 929,
         "reference": "WidgetUtilisateur-sys_module_id",
         "name": "sys_module_id",
         "column_name": "sys_module_id",
@@ -12142,7 +12142,7 @@
         "description": ""
     },
     {
-        "id": 933,
+        "id": 930,
         "reference": "WidgetUtilisateur-package",
         "name": "package",
         "column_name": "package",
@@ -12156,7 +12156,7 @@
         "description": ""
     },
     {
-        "id": 934,
+        "id": 931,
         "reference": "WidgetUtilisateur-type",
         "name": "type",
         "column_name": "type",

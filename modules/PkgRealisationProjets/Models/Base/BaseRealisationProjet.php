@@ -42,37 +42,6 @@ class BaseRealisationProjet extends BaseModel
         parent::__construct($attributes); 
         $this->isOwnedByUser =  true;
         $this->ownerRelationPath = "affectationProjet.projet.formateur.user,apprenant.user";
-        // Colonne dynamique : avancement_projet
-        $sql = "SELECT 
-          ROUND(
-            (
-              SELECT COUNT(*) 
-              FROM realisation_taches rt
-              JOIN etat_realisation_taches ert ON ert.id = rt.etat_realisation_tache_id
-              JOIN workflow_taches wt ON wt.id = ert.workflow_tache_id
-              WHERE rt.realisation_projet_id = realisation_projets.id
-                AND wt.code IN ('TERMINEE', 'EN_VALIDATION')
-            ) * 100 /
-            GREATEST(1,
-              (SELECT COUNT(*) 
-               FROM realisation_taches rt2 
-               WHERE rt2.realisation_projet_id = realisation_projets.id)
-            )
-          , 0)";
-        static::addDynamicAttribute('avancement_projet', $sql);
-        // Colonne dynamique : note
-        $sql = "SELECT SUM(note)
-        FROM realisation_taches
-        WHERE realisation_taches.realisation_projet_id = realisation_projets.id";
-        static::addDynamicAttribute('note', $sql);
-        // Colonne dynamique : bareme_note
-        $sql = "SELECT SUM(t.note)
-                FROM realisation_taches rt
-                JOIN taches t ON rt.tache_id = t.id
-                WHERE rt.realisation_projet_id = realisation_projets.id
-                  AND rt.note IS NOT NULL
-                  AND rt.note >= 0";
-        static::addDynamicAttribute('bareme_note', $sql);
     }
 
     
