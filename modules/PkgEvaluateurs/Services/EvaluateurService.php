@@ -12,15 +12,7 @@ use Modules\PkgEvaluateurs\Services\Base\BaseEvaluateurService;
  */
 class EvaluateurService extends BaseEvaluateurService
 {
-    public function dataCalcul($evaluateur)
-    {
-        // En Cas d'édit
-        if(isset($evaluateur->id)){
-          
-        }
-      
-        return $evaluateur;
-    }
+   
 
 
 

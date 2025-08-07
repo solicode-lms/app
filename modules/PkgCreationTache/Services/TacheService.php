@@ -28,15 +28,7 @@ class TacheService extends BaseTacheService
     protected $ordreGroupColumn = "projet_id";
 
 
-    public function dataCalcul($tache)
-    {
-        // En Cas d'édit
-        if(isset($tache->id)){
-          
-        }
-      
-        return $tache;
-    }
+   
 
 
     // public function paginate(array $params = [], int $perPage = 0, array $columns = ['*']): LengthAwarePaginator

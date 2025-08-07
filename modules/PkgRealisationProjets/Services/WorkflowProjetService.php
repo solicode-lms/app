@@ -10,14 +10,6 @@ use Modules\PkgRealisationProjets\Services\Base\BaseWorkflowProjetService;
  */
 class WorkflowProjetService extends BaseWorkflowProjetService
 {
-    public function dataCalcul($workflowProjet)
-    {
-        // En Cas d'édit
-        if(isset($workflowProjet->id)){
-          
-        }
-      
-        return $workflowProjet;
-    }
+  
    
 }

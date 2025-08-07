@@ -25,8 +25,10 @@ class WidgetUtilisateurService extends BaseWidgetUtilisateurService
     /**
      * Pré-remplit les données lors de la création d'un widget utilisateur.
      */
-    public function dataCalcul($widgetUtilisateur)
+    public function dataCalcul($data)
     {
+        $widgetUtilisateur = parent::dataCalcul($data);
+
         if (!isset($widgetUtilisateur->id)) {
             $widgetUtilisateur->titre = $widgetUtilisateur->widget->name;
             $widgetUtilisateur->sous_titre = $widgetUtilisateur->widget->label;

@@ -32,8 +32,9 @@ class NotificationService extends BaseNotificationService
     /**
      * Calculs dynamiques sur l'entité Notification
      */
-    public function dataCalcul($notification)
+    public function dataCalcul($data): mixed
     {
+        $notification = parent::dataCalcul($data);
         // En cas d'édition ou enrichissement de données
         if (isset($notification->id)) {
             $notification->is_read = (bool) $notification->is_read;

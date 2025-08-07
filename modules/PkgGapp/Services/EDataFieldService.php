@@ -16,15 +16,7 @@ class EDataFieldService extends BaseEDataFieldService
 {
     use GappCommands;
     
-    public function dataCalcul($eDataField)
-    {
-        // En Cas d'édit
-        if(isset($eDataField->id)){
-          
-        }
-      
-        return $eDataField;
-    }
+    
    
     public function create($data)
     {

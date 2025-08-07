@@ -16,15 +16,7 @@ use Modules\PkgNotification\Services\NotificationService;
  */
 class HistoriqueRealisationTacheService extends BaseHistoriqueRealisationTacheService
 {
-    public function dataCalcul($historiqueRealisationTache)
-    {
-        // En Cas d'édit
-        if(isset($historiqueRealisationTache->id)){
-          
-        }
-      
-        return $historiqueRealisationTache;
-    }
+    
 
     /**
      * Enregistrer les changement effectuer sur un objet realisationTache

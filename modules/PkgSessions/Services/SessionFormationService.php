@@ -9,15 +9,7 @@ use Modules\PkgSessions\Services\Base\BaseSessionFormationService;
  */
 class SessionFormationService extends BaseSessionFormationService
 {
-    public function dataCalcul($sessionFormation)
-    {
-        // En Cas d'édit
-        if(isset($sessionFormation->id)){
-          
-        }
-      
-        return $sessionFormation;
-    }
+   
 
     public function add_projet(int $sessionFormationId)
     {

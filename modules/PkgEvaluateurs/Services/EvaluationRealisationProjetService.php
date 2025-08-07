@@ -268,14 +268,6 @@ class EvaluationRealisationProjetService extends BaseEvaluationRealisationProjet
 
 
 
-    public function dataCalcul($evaluationRealisationProjet)
-    {
-        // En Cas d'édit
-        if(isset($evaluationRealisationProjet->id)){
-          
-        }
-      
-        return $evaluationRealisationProjet;
-    }
+   
    
 }

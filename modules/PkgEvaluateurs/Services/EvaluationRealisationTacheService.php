@@ -99,14 +99,6 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             ->orderBy('t.ordre', 'asc');
     }
 
-    public function dataCalcul($evaluationRealisationTache)
-    {
-        // En Cas d'édit
-        if(isset($evaluationRealisationTache->id)){
-          
-        }
-      
-        return $evaluationRealisationTache;
-    }
+    
    
 }

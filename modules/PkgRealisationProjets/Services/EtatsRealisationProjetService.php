@@ -16,15 +16,7 @@ class EtatsRealisationProjetService extends BaseEtatsRealisationProjetService
         'sysColor',
     ];
 
-    public function dataCalcul($etatsRealisationProjet)
-    {
-        // En Cas d'édit
-        if(isset($etatsRealisationProjet->id)){
-          
-        }
-      
-        return $etatsRealisationProjet;
-    }
+    
 
     /**
      * Récupérer les états de réalisation de projet associés à un formateur donné.

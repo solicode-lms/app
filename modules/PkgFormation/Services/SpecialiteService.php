@@ -12,14 +12,6 @@ class SpecialiteService extends BaseSpecialiteService
      protected array $index_with_relations = ['formateurs'];
 
 
-    public function dataCalcul($specialite)
-    {
-        // En Cas d'édit
-        if(isset($specialite->id)){
-          
-        }
-      
-        return $specialite;
-    }
+   
    
 }

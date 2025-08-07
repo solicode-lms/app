@@ -15,15 +15,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
 
     protected array $index_with_relations = ['sysColor','workflowTache','formateur'];
     
-    public function dataCalcul($etatRealisationTache)
-    {
-        // En Cas d'édit
-        if(isset($etatRealisationTache->id)){
-          
-        }
-      
-        return $etatRealisationTache;
-    }
+   
 
     /**
      * Récupérer les états de réalisation des tâches associés à un formateur donné.

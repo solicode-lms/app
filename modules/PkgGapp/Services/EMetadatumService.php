@@ -14,8 +14,12 @@ class EMetadatumService extends BaseEMetadatumService
 {
     use GappCommands;
 
-    public function dataCalcul($eMetadatum)
+    public function dataCalcul($data)
     {
+
+
+        $eMetadatum = parent::dataCalcul($data);
+
         // En Cas d'édit
         if(isset($eMetadatum->id)){
           

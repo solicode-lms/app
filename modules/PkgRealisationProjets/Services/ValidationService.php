@@ -10,14 +10,6 @@ use Modules\PkgRealisationProjets\Services\Base\BaseValidationService;
  */
 class ValidationService extends BaseValidationService
 {
-    public function dataCalcul($validation)
-    {
-        // En Cas d'édit
-        if(isset($validation->id)){
-          
-        }
-      
-        return $validation;
-    }
+   
    
 }

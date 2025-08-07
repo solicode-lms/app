@@ -13,16 +13,7 @@ class EMetadataDefinitionService extends BaseEMetadataDefinitionService
 {
     use GappCommands;
     
-    public function dataCalcul($eMetadataDefinition)
-    {
-        // En Cas d'édit
-        if(isset($eMetadataDefinition->id)){
-          
-        }
-      
-        return $eMetadataDefinition;
-    }
-
+    
 
     /**
      * Override de la méthode create
