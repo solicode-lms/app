@@ -155,7 +155,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationChapitres->contains(fn($c) =>
-                optional($c->etatRealisationChapitre)->code !== 'DONE'
+                optional($c->etatRealisationChapitre)->code !== 'APPROVED'
             )) {
                 return 'IN_PROGRESS_CHAPITRE';
             }
@@ -163,7 +163,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationUaPrototypes->contains(fn($p) =>
-                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'DONE'
+                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'APPROVED'
             )) {
                 return 'IN_PROGRESS_PROTOTYPE';
             }
@@ -171,7 +171,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationUaProjets->contains(fn($p) =>
-                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'DONE'
+                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'APPROVED'
             )) {
                 return 'IN_PROGRESS_PROJET';
             }

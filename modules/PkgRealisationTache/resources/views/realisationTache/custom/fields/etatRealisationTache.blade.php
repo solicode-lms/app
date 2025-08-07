@@ -26,3 +26,13 @@
         — Note : {{ $entity->note }} / {{ $entity->tache?->note }}
     </span>
 @endif
+
+
+@if($entity->tacheAffectation?->pourcentage_realisation_cache !== null)
+    @php
+        $progression = $entity->tacheAffectation->pourcentage_realisation_cache;
+    @endphp
+    <small class="text-muted d-block" title="% des apprenants ont terminé cette tâche">
+        —   <i class="fas fa-users me-1"></i> {{ $progression }}% réalisés
+    </small>
+@endif

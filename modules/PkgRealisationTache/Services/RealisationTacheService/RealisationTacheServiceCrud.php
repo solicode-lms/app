@@ -289,8 +289,7 @@ trait RealisationTacheServiceCrud
             'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
             'IN_LIVE_CODING' => 'IN_LIVE_CODING',
             'TO_APPROVE'      => 'TO_APPROVE',
-            'DONE'           => 'DONE',
-            'BLOCKED' => 'BLOCKED'
+            'APPROVED'           => 'DONE'
         ];
 
         $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;

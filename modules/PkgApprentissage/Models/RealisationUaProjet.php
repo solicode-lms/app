@@ -31,7 +31,7 @@ class RealisationUaProjet extends BaseRealisationUaProjet
             }
 
             // Affecter date_fin si code = DONE
-            if (is_null($model->date_fin) && $workflow->code === 'DONE') {
+            if (is_null($model->date_fin) && $workflow->code === 'APPROVED') {
                 $model->date_fin = now();
             }
 

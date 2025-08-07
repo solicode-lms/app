@@ -202,70 +202,6 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_debut" :bulkEdit="$bulkEdit">
-      @php $canEditdate_debut = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_debut">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <input
-                name="date_debut"
-                type="text"
-                class="form-control datetimepicker"
-                required
-                
-                
-                id="date_debut"
-                {{ $canEditdate_debut ? '' : 'disabled' }}
-                placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_debut') }}"
-                value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_debut : old('date_debut') }}">
-
-          @error('date_debut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_fin" :bulkEdit="$bulkEdit">
-      @php $canEditdate_fin = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}
-            
-          </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                {{ $canEditdate_fin ? '' : 'disabled' }}
-                placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_fin') }}"
-                value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="bareme_cache" :bulkEdit="$bulkEdit">
       @php $canEditbareme_cache = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
@@ -324,6 +260,70 @@
         placeholder="{{ __('PkgRealisationProjets::realisationProjet.progression_execution_cache') }}"
         value="{{ $itemRealisationProjet ? number_format($itemRealisationProjet->progression_execution_cache, 2, '.', '') : old('progression_execution_cache') }}">
           @error('progression_execution_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_debut" :bulkEdit="$bulkEdit">
+      @php $canEditdate_debut = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_debut">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <input
+                name="date_debut"
+                type="text"
+                class="form-control datetimepicker"
+                required
+                
+                
+                id="date_debut"
+                {{ $canEditdate_debut ? '' : 'disabled' }}
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_debut') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_debut : old('date_debut') }}">
+
+          @error('date_debut')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationProjet" field="date_fin" :bulkEdit="$bulkEdit">
+      @php $canEditdate_fin = !$itemRealisationProjet || !$itemRealisationProjet->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="date_fin">
+            {{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_fin')) }}
+            
+          </label>
+                      <input
+                name="date_fin"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="date_fin"
+                {{ $canEditdate_fin ? '' : 'disabled' }}
+                placeholder="{{ __('PkgRealisationProjets::realisationProjet.date_fin') }}"
+                value="{{ $itemRealisationProjet ? $itemRealisationProjet->date_fin : old('date_fin') }}">
+
+          @error('date_fin')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

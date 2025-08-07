@@ -82,8 +82,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
             'IN_LIVE_CODING'      => 'IN_LIVE_CODING',
             'TO_APPROVE'     => 'TO_APPROVE',
-            'DONE'           => 'DONE',
-            'BLOCKED' => 'BLOCKED'
+            'DONE'           => 'APPROVED',
         ];
 
         $codeTache = $mapping[$etatChapitre->code] ?? null;

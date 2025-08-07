@@ -9,12 +9,12 @@
                     $bulkEdit = $realisationProjets_permissions['edit-realisationProjet'] || $realisationProjets_permissions['destroy-realisationProjet'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="progression_validation_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="note_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="13.666666666666666"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.livrables'))!!}" />
+                <x-sortable-column :sortable="true" width="13.4" field="affectation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::affectationProjet.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.4" field="apprenant_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.4" field="etats_realisation_projet_id" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id'))!!}" />
+                <x-sortable-column :sortable="true" width="15"  field="progression_validation_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="13.4"  field="note_cache" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="13.4"  field="LivrablesRealisation" modelname="realisationProjet" label="{!!ucfirst(__('PkgRealisationProjets::realisationProjet.livrables'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -26,14 +26,14 @@
                 @endphp
                 <tr id="realisationProjet-row-{{$realisationProjet->id}}" data-id="{{$realisationProjet->id}}">
                     <x-checkbox-row :item="$realisationProjet" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
+                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="affectation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->affectationProjet }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.affectationProjet', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
+                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationProjet->apprenant }}" >
                         {{  $realisationProjet->apprenant }}
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
+                    <td style="max-width: 13.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="etats_realisation_projet_id"  data-toggle="tooltip" title="{{ $realisationProjet->etatsRealisationProjet }}" >
                         @if(!empty($realisationProjet->etatsRealisationProjet))
                         <x-badge 
                         :text="$realisationProjet->etatsRealisationProjet" 
@@ -42,20 +42,13 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="progression_validation_cache"  data-toggle="tooltip" title="{{ $realisationProjet->progression_validation_cache }}" >
-                        <div class="progress progress-sm">
-                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationProjet->progression_validation_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationProjet->progression_validation_cache }}%">
-                            </div>
-                        </div>
-                        <small>
-                            {{ $realisationProjet->progression_validation_cache }}% Terminé
-                        </small>
-
+                    <td style="max-width: 15%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="progression_validation_cache"  data-toggle="tooltip" title="{{ $realisationProjet->progression_validation_cache }}" >
+                        @include('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationProjet->note_cache }}" >
+                    <td style="max-width: 13.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationProjet->note_cache }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', ['entity' => $realisationProjet])
                     </td>
-                    <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
+                    <td style="max-width: 13.4%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', ['entity' => $realisationProjet])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

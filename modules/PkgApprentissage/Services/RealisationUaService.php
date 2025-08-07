@@ -175,7 +175,7 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
 
         if (isset($item->realisation_tache_id)) {
             $etat = $item->realisationTache?->etatRealisationTache?->workflowTache->code;
-            return $etat === 'DONE';
+            return $etat === 'APPROVED';
         }
 
         return false;
@@ -216,12 +216,12 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
         }
 
         // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
-        $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
+        $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'APPROVED');
         $allPrototypesDone = $prototypes->every(fn($p) =>
-            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'DONE'
+            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
         $allProjetsDone = $projets->every(fn($p) =>
-            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'DONE'
+            $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
 
         if ($allChapitresDone && $allPrototypesDone && $allProjetsDone) {

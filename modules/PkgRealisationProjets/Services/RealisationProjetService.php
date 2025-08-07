@@ -472,11 +472,11 @@ class RealisationProjetService extends BaseRealisationProjetService
         $nouvelEtatCode = null;
 
         // ✅ DONE : toutes les tâches sont DONE
-        if (collect($codesTaches)->every(fn($code) => $code === 'DONE')) {
+        if (collect($codesTaches)->every(fn($code) => $code === 'APPROVED')) {
             $nouvelEtatCode = 'DONE';
 
         // ✅ TO_APPROVE : toutes les tâches sont TO_APPROVE ou DONE
-        } elseif (collect($codesTaches)->every(fn($code) => in_array($code, ['TO_APPROVE', 'DONE']))) {
+        } elseif (collect($codesTaches)->every(fn($code) => in_array($code, ['TO_APPROVE', 'APPROVED']))) {
             $nouvelEtatCode = 'TO_APPROVE';
 
         // ✅ PAUSED : toutes les tâches sont PAUSED

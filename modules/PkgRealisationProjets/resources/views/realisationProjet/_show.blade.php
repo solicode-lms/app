@@ -40,13 +40,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache')) }}</small>
-                  <div class="progress progress-sm">
-                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationProjet->progression_validation_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationProjet->progression_validation_cache }}%">
-                      </div>
-                  </div>
-                  <small>
-                      {{$itemRealisationProjet->progression_validation_cache }}% Terminé
-                  </small>
+@include('PkgRealisationProjets::realisationProjet.custom.fields.progression_validation_cache',['entity' => $itemRealisationProjet])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
@@ -55,6 +49,15 @@
 @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache',['entity' => $itemRealisationProjet])
                 </div>
             </div>
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
+                  </div>
+                  </div>
+            </div>
+
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}</small>
@@ -77,40 +80,7 @@
                     @endif
                   </span>                </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.bareme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationProjet->bareme_cache))
-                  {{ number_format($itemRealisationProjet->bareme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_execution_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationProjet->progression_execution_cache))
-                  {{ number_format($itemRealisationProjet->progression_execution_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
-                  <div class="border rounded p-2 h-100 " >
-                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}</small>
-                  <div class="pt-2">
-                        @include('PkgRealisationTache::realisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
-                  </div>
-                  </div>
-            </div>
-
-            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.livrables')) }}</small>
                   <div class="pt-2">
@@ -119,7 +89,7 @@
                   </div>
             </div>
 
-            <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgEvaluateurs::evaluationRealisationProjet.plural')) }}</small>
                   <div class="pt-2">

@@ -24,7 +24,7 @@ trait RealisationTacheWorkflow
         $workflowsBloquants = [
             'IN_PROGRESS',
             'TO_APPROVE',
-            'DONE',
+            'APPROVED',
         ];
 
         return in_array($workflowCode, $workflowsBloquants, true);
@@ -48,7 +48,7 @@ trait RealisationTacheWorkflow
             return;
         }
 
-        $etatsFinaux = ['DONE', 'TO_APPROVE', 'READY_FOR_LIVE_CODING'];
+        $etatsFinaux = ['APPROVED', 'TO_APPROVE', 'READY_FOR_LIVE_CODING'];
 
         $tachesBloquantes = RealisationTache::where('realisation_projet_id', $projetId)
             ->whereHas('tache', function ($query) use ($prioriteActuelle) {
