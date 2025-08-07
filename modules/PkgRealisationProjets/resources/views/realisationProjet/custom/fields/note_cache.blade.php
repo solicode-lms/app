@@ -1,6 +1,6 @@
 @php
-    $note         = $entity->note;                              // somme des notes
-    $bareme       = $entity->bareme_note;                       // barème total
+    $note         = $entity->note_cache;                              // somme des notes
+    $bareme       = $entity->bareme_cache;                       // barème total
 
     // dd($entity->affectationProjet->echelle_note_cible);
     $echelle      = $entity->affectationProjet->echelle_note_cible ?? null;

@@ -51,7 +51,7 @@ class BaseRealisationProjet extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'affectation_projet_id', 'apprenant_id', 'date_debut', 'date_fin', 'etats_realisation_projet_id', 'note_cache', 'rapport', 'bareme_cache', 'progression_execution_cache', 'progression_validation_cache'
+        'affectation_projet_id', 'apprenant_id', 'etats_realisation_projet_id', 'progression_validation_cache', 'note_cache', 'date_debut', 'date_fin', 'bareme_cache', 'progression_execution_cache', 'rapport'
     ];
     public $manyToOne = [
         'AffectationProjet' => [

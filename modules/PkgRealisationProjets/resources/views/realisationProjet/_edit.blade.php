@@ -48,7 +48,7 @@
                         <li class="nav-item">
                             <a class="nav-link" id="realisationProjet-hasmany-tabs-livrablesRealisation-tab" data-toggle="pill" href="#realisationProjet-hasmany-tabs-livrablesRealisation" role="tab" aria-controls="realisationProjet-hasmany-tabs-livrablesRealisation" aria-selected="false">
                                 <i class="nav-icon fas fa-file-code"></i>
-                                {{ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural'))}}
+                                {{ucfirst(__('PkgRealisationProjets::realisationProjet.livrables'))}}
                             </a>
                         </li>
                         @endif

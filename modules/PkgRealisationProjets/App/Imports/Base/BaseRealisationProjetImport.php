@@ -58,14 +58,14 @@ class BaseRealisationProjetImport implements ToModel, WithHeadingRow
         return new RealisationProjet([
              'affectation_projet_id' => $values[0] ?? null,
              'apprenant_id' => $values[1] ?? null,
-             'date_debut' => $values[2] ?? null,
-             'date_fin' => $values[3] ?? null,
-             'etats_realisation_projet_id' => $values[4] ?? null,
-             'note_cache' => $values[5] ?? null,
-             'rapport' => $values[6] ?? null,
+             'etats_realisation_projet_id' => $values[2] ?? null,
+             'progression_validation_cache' => $values[3] ?? null,
+             'note_cache' => $values[4] ?? null,
+             'date_debut' => $values[5] ?? null,
+             'date_fin' => $values[6] ?? null,
              'bareme_cache' => $values[7] ?? null,
              'progression_execution_cache' => $values[8] ?? null,
-             'progression_validation_cache' => $values[9] ?? null,
+             'rapport' => $values[9] ?? null,
              'reference' => $reference,
         ]);
 

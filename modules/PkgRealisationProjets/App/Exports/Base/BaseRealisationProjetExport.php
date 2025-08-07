@@ -34,28 +34,28 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
             return [
                 'affectation_projet_reference' => 'affectation_projet_reference',
                 'apprenant_reference' => 'apprenant_reference',
+                'etats_realisation_projet_reference' => 'etats_realisation_projet_reference',
+                'progression_validation_cache' => 'progression_validation_cache',
+                'note_cache' => 'note_cache',
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
-                'etats_realisation_projet_reference' => 'etats_realisation_projet_reference',
-                'note_cache' => 'note_cache',
-                'rapport' => 'rapport',
                 'bareme_cache' => 'bareme_cache',
                 'progression_execution_cache' => 'progression_execution_cache',
-                'progression_validation_cache' => 'progression_validation_cache',
+                'rapport' => 'rapport',
                 'reference' => 'reference',
             ];
         } else {
             return [
                 'affectation_projet_reference' => __('PkgRealisationProjets::realisationProjet.affectation_projet_reference'),
                 'apprenant_reference' => __('PkgRealisationProjets::realisationProjet.apprenant_reference'),
+                'etats_realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_reference'),
+                'progression_validation_cache' => __('PkgRealisationProjets::realisationProjet.progression_validation_cache'),
+                'note_cache' => __('PkgRealisationProjets::realisationProjet.note_cache'),
                 'date_debut' => __('PkgRealisationProjets::realisationProjet.date_debut'),
                 'date_fin' => __('PkgRealisationProjets::realisationProjet.date_fin'),
-                'etats_realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_reference'),
-                'note_cache' => __('PkgRealisationProjets::realisationProjet.note_cache'),
-                'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
                 'bareme_cache' => __('PkgRealisationProjets::realisationProjet.bareme_cache'),
                 'progression_execution_cache' => __('PkgRealisationProjets::realisationProjet.progression_execution_cache'),
-                'progression_validation_cache' => __('PkgRealisationProjets::realisationProjet.progression_validation_cache'),
+                'rapport' => __('PkgRealisationProjets::realisationProjet.rapport'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -70,14 +70,14 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
             return [
                 'affectation_projet_reference' => $realisationProjet->affectationProjet?->reference,
                 'apprenant_reference' => $realisationProjet->apprenant?->reference,
+                'etats_realisation_projet_reference' => $realisationProjet->etatsRealisationProjet?->reference,
+                'progression_validation_cache' => $realisationProjet->progression_validation_cache,
+                'note_cache' => $realisationProjet->note_cache,
                 'date_debut' => $realisationProjet->date_debut,
                 'date_fin' => $realisationProjet->date_fin,
-                'etats_realisation_projet_reference' => $realisationProjet->etatsRealisationProjet?->reference,
-                'note_cache' => $realisationProjet->note_cache,
-                'rapport' => $realisationProjet->rapport,
                 'bareme_cache' => $realisationProjet->bareme_cache,
                 'progression_execution_cache' => $realisationProjet->progression_execution_cache,
-                'progression_validation_cache' => $realisationProjet->progression_validation_cache,
+                'rapport' => $realisationProjet->rapport,
                 'reference' => $realisationProjet->reference,
             ];
         });

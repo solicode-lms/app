@@ -21,13 +21,19 @@ class RealisationTacheObserver
      */
     public function updated(RealisationTache $realisationTache): void
     {
-        if ($realisationTache->isDirty('etat_realisation_tache_id')) {
+        $realisationProjetService = app(RealisationProjetService::class);
         $realisationProjet = $realisationTache->realisationProjet;
 
-        if ($realisationProjet) {
-            app(RealisationProjetService::class)->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
+        if ($realisationTache->isDirty('etat_realisation_tache_id')) {
+            $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
+            $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationProjet);
         }
-    }
+
+         if ($realisationTache->isDirty('note')) {
+            $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationProjet);
+        }
+
+        
     }
 
     /**

@@ -31,14 +31,14 @@ class BaseRealisationProjetRequest extends FormRequest
         return [
             'affectation_projet_id' => 'required',
             'apprenant_id' => 'required',
+            'etats_realisation_projet_id' => 'required',
+            'progression_validation_cache' => 'nullable',
+            'note_cache' => 'nullable',
             'date_debut' => 'required',
             'date_fin' => 'nullable',
-            'etats_realisation_projet_id' => 'required',
-            'note_cache' => 'nullable',
-            'rapport' => 'nullable|string',
             'bareme_cache' => 'nullable',
             'progression_execution_cache' => 'nullable',
-            'progression_validation_cache' => 'nullable'
+            'rapport' => 'nullable|string'
         ];
     }
 
@@ -52,14 +52,14 @@ class BaseRealisationProjetRequest extends FormRequest
         return [
             'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.affectation_projet_id')]),
             'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.apprenant_id')]),
+            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
+            'progression_validation_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_validation_cache')]),
+            'note_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.note_cache')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.date_fin')]),
-            'etats_realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.etats_realisation_projet_id')]),
-            'note_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.note_cache')]),
-            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.bareme_cache')]),
             'progression_execution_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_execution_cache')]),
-            'progression_validation_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.progression_validation_cache')])
+            'rapport.required' => __('validation.required', ['attribute' => __('PkgRealisationProjets::RealisationProjet.rapport')])
         ];
     }
 
@@ -71,9 +71,23 @@ class BaseRealisationProjetRequest extends FormRequest
         // Définition des rôles autorisés pour chaque champ
         $editableFieldsByRoles = [
             
-            'affectation_projet_id' => "formateur",
+            'affectation_projet_id' => "root",
             
-            'apprenant_id' => "formateur",
+            'apprenant_id' => "root",
+            
+            'etats_realisation_projet_id' => "root",
+            
+            'progression_validation_cache' => "root",
+            
+            'note_cache' => "root",
+            
+            'date_debut' => "root",
+            
+            'date_fin' => "root",
+            
+            'bareme_cache' => "root",
+            
+            'progression_execution_cache' => "root",
             
         ];
 

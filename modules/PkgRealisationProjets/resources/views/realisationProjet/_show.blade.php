@@ -24,6 +24,45 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.etats_realisation_projet_id')) }}</small>
+
+                {{-- Affichage sous forme de badge --}}
+                @if($itemRealisationProjet->etatsRealisationProjet)
+                  <x-badge 
+                    :text="$itemRealisationProjet->etatsRealisationProjet" 
+                    :background="$itemRealisationProjet->etatsRealisationProjet->sysColor->hex ?? '#6c757d'" 
+                  />
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache')) }}</small>
+                  <div class="progress progress-sm">
+                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationProjet->progression_validation_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationProjet->progression_validation_cache }}%">
+                      </div>
+                  </div>
+                  <small>
+                      {{$itemRealisationProjet->progression_validation_cache }}% Terminé
+                  </small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationProjet->note_cache))
+                  {{ number_format($itemRealisationProjet->note_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.date_debut')) }}</small>
                   <span>
                     @if ($itemRealisationProjet->date_debut)
@@ -43,43 +82,6 @@
                     —
                     @endif
                   </span>                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.singular')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationProjet->etatsRealisationProjet)
-                  <x-badge 
-                    :text="$itemRealisationProjet->etatsRealisationProjet" 
-                    :background="$itemRealisationProjet->etatsRealisationProjet->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.note_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationProjet->note_cache))
-                  {{ number_format($itemRealisationProjet->note_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
-            <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.rapport')) }}</small>
-                  <!-- Valeur avec sauts de ligne -->
-                  @if(! is_null($itemRealisationProjet->rapport) && $itemRealisationProjet->rapport !== '')
-                    {!! $itemRealisationProjet->rapport !!}
-                  @else
-                    <span class="text-muted">—</span>
-                  @endif                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
@@ -105,18 +107,6 @@
                   </span>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgRealisationProjets::realisationProjet.progression_validation_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationProjet->progression_validation_cache))
-                  {{ number_format($itemRealisationProjet->progression_validation_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
-            </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationTache::realisationTache.plural')) }}</small>
@@ -128,7 +118,7 @@
 
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
-                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::livrablesRealisation.plural')) }}</small>
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::realisationProjet.livrables')) }}</small>
                   <div class="pt-2">
                         @include('PkgRealisationProjets::livrablesRealisation._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationProjet.show_' . $itemRealisationProjet->id])
                   </div>
