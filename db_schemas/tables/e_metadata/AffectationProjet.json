@@ -810,5 +810,29 @@
         },
         "e_data_field_reference": "AffectationProjet_groupe_id",
         "e_metadata_definition_reference": "dynamicDropdown"
+    },
+    {
+        "reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id_displayOrder",
+        "value_integer": 16,
+        "e_data_field_reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

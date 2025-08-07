@@ -865,6 +865,18 @@
     },
     {
         "id": 73,
+        "reference": "tache_affectations",
+        "name": "TacheAffectation",
+        "table_name": "tache_affectations",
+        "icon": "fa-table",
+        "description": "Automatically generated model for tache_affectations",
+        "e_package_id": 11,
+        "is_pivot_table": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 74,
         "reference": "taches",
         "name": "Tache",
         "table_name": "taches",
@@ -876,7 +888,7 @@
         "updated_at": null
     },
     {
-        "id": 74,
+        "id": 75,
         "reference": "unite_apprentissages",
         "name": "UniteApprentissage",
         "table_name": "unite_apprentissages",
@@ -888,7 +900,7 @@
         "updated_at": null
     },
     {
-        "id": 75,
+        "id": 76,
         "reference": "user_model_filters",
         "name": "UserModelFilter",
         "table_name": "user_model_filters",
@@ -900,7 +912,7 @@
         "updated_at": null
     },
     {
-        "id": 76,
+        "id": 77,
         "reference": "users",
         "name": "User",
         "table_name": "users",
@@ -912,7 +924,7 @@
         "updated_at": null
     },
     {
-        "id": 77,
+        "id": 78,
         "reference": "widget_operations",
         "name": "WidgetOperation",
         "table_name": "widget_operations",
@@ -924,7 +936,7 @@
         "updated_at": null
     },
     {
-        "id": 78,
+        "id": 79,
         "reference": "widget_types",
         "name": "WidgetType",
         "table_name": "widget_types",
@@ -936,7 +948,7 @@
         "updated_at": null
     },
     {
-        "id": 79,
+        "id": 80,
         "reference": "widget_utilisateurs",
         "name": "WidgetUtilisateur",
         "table_name": "widget_utilisateurs",
@@ -948,7 +960,7 @@
         "updated_at": null
     },
     {
-        "id": 80,
+        "id": 81,
         "reference": "widgets",
         "name": "Widget",
         "table_name": "widgets",
@@ -960,7 +972,7 @@
         "updated_at": null
     },
     {
-        "id": 81,
+        "id": 82,
         "reference": "workflow_taches",
         "name": "WorkflowTache",
         "table_name": "workflow_taches",

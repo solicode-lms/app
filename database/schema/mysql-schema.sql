@@ -1266,6 +1266,7 @@ CREATE TABLE `realisation_taches` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `dateDebut` datetime DEFAULT NULL,
   `dateFin` datetime DEFAULT NULL,
+  `is_live_coding` tinyint(1) NOT NULL DEFAULT '0',
   `reference` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tache_id` bigint unsigned NOT NULL,
   `note` double DEFAULT NULL,
@@ -1276,13 +1277,16 @@ CREATE TABLE `realisation_taches` (
   `remarques_apprenant` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `tache_affectation_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `realisation_taches_reference_unique` (`reference`),
   KEY `realisation_taches_tache_id_foreign` (`tache_id`),
   KEY `realisation_taches_realisation_projet_id_foreign` (`realisation_projet_id`),
   KEY `realisation_taches_etat_realisation_tache_id_foreign` (`etat_realisation_tache_id`),
+  KEY `realisation_taches_tache_affectation_id_foreign` (`tache_affectation_id`),
   CONSTRAINT `realisation_taches_etat_realisation_tache_id_foreign` FOREIGN KEY (`etat_realisation_tache_id`) REFERENCES `etat_realisation_taches` (`id`) ON DELETE SET NULL,
   CONSTRAINT `realisation_taches_realisation_projet_id_foreign` FOREIGN KEY (`realisation_projet_id`) REFERENCES `realisation_projets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `realisation_taches_tache_affectation_id_foreign` FOREIGN KEY (`tache_affectation_id`) REFERENCES `tache_affectations` (`id`) ON DELETE CASCADE,
   CONSTRAINT `realisation_taches_tache_id_foreign` FOREIGN KEY (`tache_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1591,6 +1595,25 @@ CREATE TABLE `sys_modules` (
   UNIQUE KEY `sys_modules_reference_unique` (`reference`),
   KEY `sys_modules_sys_color_id_foreign` (`sys_color_id`),
   CONSTRAINT `sys_modules_sys_color_id_foreign` FOREIGN KEY (`sys_color_id`) REFERENCES `sys_colors` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `tache_affectations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tache_affectations` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tache_id` bigint unsigned NOT NULL,
+  `affectation_projet_id` bigint unsigned NOT NULL,
+  `pourcentage_realisation_cache` double NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `reference` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tache_affectations_tache_id_affectation_projet_id_unique` (`tache_id`,`affectation_projet_id`),
+  UNIQUE KEY `tache_affectations_reference_unique` (`reference`),
+  KEY `tache_affectations_affectation_projet_id_foreign` (`affectation_projet_id`),
+  CONSTRAINT `tache_affectations_affectation_projet_id_foreign` FOREIGN KEY (`affectation_projet_id`) REFERENCES `affectation_projets` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `tache_affectations_tache_id_foreign` FOREIGN KEY (`tache_id`) REFERENCES `taches` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `taches`;
@@ -1929,3 +1952,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (173,'2025_07_30_16
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (174,'2025_07_30_162549_update_unique_key_on_user_model_filters_table',52);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (175,'2025_08_03_205207_alter_note_nullable_in_realisation_ua_tables',53);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (176,'2025_08_04_105012_update_realisation_uas_and_micro_competences_nullable_note',54);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (177,'2025_08_07_081245_create_tache_affectations_table',55);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (178,'2025_08_07_082723_add_is_live_coding_to_realisation_taches_table',56);

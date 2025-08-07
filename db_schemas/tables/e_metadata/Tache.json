@@ -882,5 +882,29 @@
         "value_float": 0,
         "e_data_field_reference": "Tache_note",
         "e_metadata_definition_reference": "columnWidth"
+    },
+    {
+        "reference": "taches_hasMany_tache_affectations_tache_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_tache_affectations_tache_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "taches_hasMany_tache_affectations_tache_id_displayOrder",
+        "value_integer": 18,
+        "e_data_field_reference": "taches_hasMany_tache_affectations_tache_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "taches_hasMany_tache_affectations_tache_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "taches_hasMany_tache_affectations_tache_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "taches_hasMany_tache_affectations_tache_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "taches_hasMany_tache_affectations_tache_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
