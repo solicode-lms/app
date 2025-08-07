@@ -513,5 +513,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "WorkflowTache_is_editable_only_by_formateur",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "workflow_taches_entityActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [],
+        "e_model_reference": "workflow_taches",
+        "e_metadata_definition_reference": "entityActions"
+    },
+    {
+        "reference": "workflow_taches_indexActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [
+            {
+                "icon": "fas fa-sync-alt",
+                "route": "workflowTaches.resyncEtatsFormateurs",
+                "title": "Synchroniser les états des formateurs",
+                "action": "resyncEtatsFormateurs",
+                "permission": "create-workflowTache"
+            }
+        ],
+        "e_model_reference": "workflow_taches",
+        "e_metadata_definition_reference": "indexActions"
     }
 ]

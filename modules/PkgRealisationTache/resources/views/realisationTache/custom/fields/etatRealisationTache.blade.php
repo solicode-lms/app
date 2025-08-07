@@ -12,7 +12,7 @@
     — {{ $dateModification->diffForHumans() }}
 </span>
 @endif
-@if($entity->etatRealisationTache?->workflowTache->code == "EN_VALIDATION")
+@if($entity->etatRealisationTache?->workflowTache?->code == "EN_VALIDATION")
 {{-- Il faut l'optimiser pour le chargement : il créer plus de 500 requête SQL en cas des tâches en validation --}}
 {{-- @foreach($entity->getRevisionsBeforePriority() as $tacheEnRevision)
     <span class="d-block text-muted small" title="Révision : {{ $tacheEnRevision->tache?->titre }}" data-toggle="tooltip">

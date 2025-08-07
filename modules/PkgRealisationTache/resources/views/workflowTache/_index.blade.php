@@ -73,6 +73,11 @@
                             <div class="d-flex align-items-center justify-content-end">
                         
                                 <div class="actions d-flex align-items-center crud-action">
+                                    @can("create-workflowTache")
+                                    <a href="{{ route('workflowTaches.resyncEtatsFormateurs') }}" data-toggle="tooltip" title="Synchroniser les états des formateurs" class="btn btn-sm btn-outline-info context-state  mr-2 ">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
+                                    @endcan
                                 </div>
                                 <x-crud-actions
                                     :instanceItem="$workflowTache_instance"

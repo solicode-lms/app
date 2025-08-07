@@ -623,5 +623,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "sys_colors_hasMany_etat_realisation_uas_sys_color_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_indexActions",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": [],
+        "e_model_reference": "sys_colors",
+        "e_metadata_definition_reference": "indexActions"
     }
 ]

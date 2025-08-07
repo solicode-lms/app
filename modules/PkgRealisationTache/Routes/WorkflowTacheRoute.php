@@ -9,6 +9,7 @@ use Modules\PkgRealisationTache\Controllers\WorkflowTacheController;
 // routes for workflowTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+         Route::get('workflowTaches/resyncEtatsFormateurs', [WorkflowTacheController::class, 'resyncEtatsFormateurs'])->name('workflowTaches.resyncEtatsFormateurs');
         Route::get('workflowTaches/getData', [WorkflowTacheController::class, 'getData'])->name('workflowTaches.getData');
         // ✅ Route JSON
         Route::get('workflowTaches/json/{id}', [WorkflowTacheController::class, 'getWorkflowTache'])
