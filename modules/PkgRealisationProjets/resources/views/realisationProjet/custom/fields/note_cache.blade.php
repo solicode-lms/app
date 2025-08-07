@@ -13,7 +13,6 @@
 @endphp
 
 
-
 @if ($bareme > 0)
 
 

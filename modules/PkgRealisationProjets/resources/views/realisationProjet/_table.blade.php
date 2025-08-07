@@ -53,8 +53,7 @@
 
                     </td>
                     <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationProjet->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationProjet->note_cache }}" >
-                        {{ $realisationProjet->note_cache }}
-
+                        @include('PkgRealisationProjets::realisationProjet.custom.fields.note_cache', ['entity' => $realisationProjet])
                     </td>
                     <td style="max-width: 13.666666666666666%;" class=" text-truncate" data-id="{{$realisationProjet->id}}" data-field="LivrablesRealisation"  data-toggle="tooltip" title="{{ $realisationProjet->livrablesRealisations }}" >
                         @include('PkgRealisationProjets::realisationProjet.custom.fields.livrablesRealisations', ['entity' => $realisationProjet])

@@ -584,7 +584,7 @@ class RealisationProjetService extends BaseRealisationProjetService
         foreach ($realisationTaches as $tache) {
             if (!is_null($tache->note)) {
                 $noteTotale += $tache->note;
-                $baremeTotal += $tache->bareme ?? 0;
+                $baremeTotal += $tache->tache->note ?? 0;
             }
         }
 
