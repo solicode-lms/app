@@ -225,18 +225,9 @@ protected function addProjectTasks($projet, $session)
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    public function dataCalcul($projet)
+    public function dataCalcul($data)
     {
+        $projet = parent::dataCalcul($data);
         // En cas de création
         if (empty($projet->id) && $projet->session_formation_id) {
             // Récupérer la session de formation liée

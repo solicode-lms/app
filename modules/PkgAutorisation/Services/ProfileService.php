@@ -13,15 +13,7 @@ use Illuminate\Validation\ValidationException;
  */
 class ProfileService extends BaseProfileService
 {
-    public function dataCalcul($profile)
-    {
-        // En Cas d'édit
-        if(isset($profile->id)){
-          
-        }
-      
-        return $profile;
-    }
+   
 
  
     

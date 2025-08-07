@@ -12,15 +12,5 @@ class CompetenceService extends BaseCompetenceService
 
     protected array $index_with_relations = ['module.filiere', 'module.filiere.groupes.formateurs', 'module.filiere.groupes.apprenants'];
 
-    public function dataCalcul($competence)
-    {
-        
-        $competence->code = $competence->nom . "+++";
-        // En Cas d'édit
-        if(isset($competence->id)){
-          
-        }
-      
-        return $competence;
-    }
+  
 }

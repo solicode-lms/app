@@ -58,16 +58,7 @@ class ApprenantService extends BaseApprenantService
     //     $record->update($data);
     // }
     
-    public function dataCalcul($apprenant)
-    {
-        // En Cas d'édit
-        if(isset($apprenant->id)){
-          
-        }
-      
-        return $apprenant;
-    }
-
+   
     public function edit(int $id){
 
         return $this->model::withoutGlobalScope('inactif')->findOrFail($id);

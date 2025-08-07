@@ -13,14 +13,6 @@ class ResourceService extends BaseResourceService
       protected array $index_with_relations = ['projet'];
 
 
-    public function dataCalcul($resource)
-    {
-        // En Cas d'édit
-        if(isset($resource->id)){
-          
-        }
-      
-        return $resource;
-    }
+   
    
 }

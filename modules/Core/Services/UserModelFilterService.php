@@ -9,15 +9,7 @@ use Modules\Core\Services\Base\BaseUserModelFilterService;
  */
 class UserModelFilterService extends BaseUserModelFilterService
 {
-    public function dataCalcul($userModelFilter)
-    {
-        // En Cas d'édit
-        if(isset($userModelFilter->id)){
-          
-        }
-      
-        return $userModelFilter;
-    }
+   
 
     public function storeLastFilter(string $context_key, string $modelName, array $filters): void
     {

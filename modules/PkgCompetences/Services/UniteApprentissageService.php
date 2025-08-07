@@ -20,15 +20,7 @@ class UniteApprentissageService extends BaseUniteApprentissageService
     ];
 
 
-    public function dataCalcul($uniteApprentissage)
-    {
-        // En Cas d'édit
-        if(isset($uniteApprentissage->id)){
-          
-        }
-      
-        return $uniteApprentissage;
-    }
+    
 
 
     public function uniteApprentissageNonAligneeQuery(): Builder

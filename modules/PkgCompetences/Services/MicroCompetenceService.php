@@ -48,14 +48,6 @@ class MicroCompetenceService extends BaseMicroCompetenceService
     }
 
 
-    public function dataCalcul($microCompetence)
-    {
-        // En Cas d'édit
-        if(isset($microCompetence->id)){
-          
-        }
-      
-        return $microCompetence;
-    }
+   
    
 }

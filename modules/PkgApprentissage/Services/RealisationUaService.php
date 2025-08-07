@@ -16,15 +16,7 @@ use Modules\PkgCompetences\Models\UniteApprentissage;
  */
 class RealisationUaService extends BaseRealisationUaService
 {
-    public function dataCalcul($realisationUa)
-    {
-        // En Cas d'édit
-        if(isset($realisationUa->id)){
-          
-        }
-      
-        return $realisationUa;
-    }
+  
 
     public function afterCreateRules(RealisationUa $realisationUa): void
     {

@@ -16,15 +16,7 @@ class UserService extends BaseUserService
 
     protected array $index_with_relations = ['roles'];
 
-    public function dataCalcul($user)
-    {
-        // En Cas d'édit
-        if(isset($user->id)){
-          
-        }
-      
-        return $user;
-    }
+   
 
    /**
      * Initialise le mot de passe de l'utilisateur à "12345678".

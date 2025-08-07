@@ -23,15 +23,7 @@ class GroupeService extends BaseGroupeService
     }
 
 
-    public function dataCalcul($groupe)
-    {
-        // En Cas d'édit
-        if(isset($groupe->id)){
-          
-        }
-      
-        return $groupe;
-    }
+    
 
 
    

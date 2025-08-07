@@ -13,15 +13,7 @@ use Modules\PkgCompetences\Services\UniteApprentissageService;
  */
 class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceService
 {
-    public function dataCalcul($realisationMicroCompetence)
-    {
-        // En Cas d'édit
-        if(isset($realisationMicroCompetence->id)){
-          
-        }
-      
-        return $realisationMicroCompetence;
-    }
+    
 
     public function create(array|object $data)
     {

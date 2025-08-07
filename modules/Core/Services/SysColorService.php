@@ -9,16 +9,7 @@ use Modules\Core\Services\Base\BaseSysColorService;
  */
 class SysColorService extends BaseSysColorService
 {
-    public function dataCalcul($sysColor)
-    {
-        // En Cas d'édit
-        if(isset($sysColor->id)){
-          
-        }
-      
-        return $sysColor;
-    }
-
+ 
     function getTextColorForBackground($hexColor): string
     {
         // Supprimer le "#" si présent
