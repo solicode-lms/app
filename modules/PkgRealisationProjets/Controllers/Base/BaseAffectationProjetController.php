@@ -171,8 +171,6 @@ class BaseAffectationProjetController extends AdminController
      */
     public function store(AffectationProjetRequest $request) {
         $validatedData = $request->validated();
-
-
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
         if ($request->ajax()) {
@@ -180,13 +178,15 @@ class BaseAffectationProjetController extends AdminController
                 'entityToString' => $affectationProjet,
                 'modelName' => __('PkgRealisationProjets::affectationProjet.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-            array_merge(
-                ['entity_id' => $affectationProjet->id],
-                $this->service->job_token ? ['traitement_token' => $this->service->job_token] : []
-            )
+                array_merge(
+                    ['entity_id' => $affectationProjet->id],
+                    $this->service->job_token ? ['traitement_token' => $this->service->job_token] : []
+                )
             );
+
         }
 
         return redirect()->route('affectationProjets.edit',['affectationProjet' => $affectationProjet->id])->with(
