@@ -71,10 +71,11 @@ export class CreateAction extends Action {
                 },
             })
                 .done((data1) => {
-                    // const traitement_token = data1.data?.traitement_token;
-                    // if (traitement_token) {
-                    //     this.pollTraitementStatus(traitement_token); // Appelle ton polling
-                    // }
+                    
+                    const traitement_token = data1.data?.traitement_token;
+                    if (traitement_token) {
+                        this.pollTraitementStatus(traitement_token); // Appelle ton polling
+                    }
                     
                     this.tableUI.indexUI.formUI.loader.hide();
                     this.handleSuccess(this.SuscesMessage);
@@ -140,12 +141,16 @@ export class CreateAction extends Action {
      * @param {function} onDoneCallback - Fonction à appeler quand le traitement est terminé.
      */
     pollTraitementStatus(token, onDoneCallback = null) {
+
+        this.loader.showNomBloquante("En Traitement");
+
         const interval = setInterval(() => {
             $.get('/admin/traitement/status/' + token, function (res) {
                 const status = res.status;
 
                 if (status === 'done') {
                     clearInterval(interval);
+                     this.loader.hide();
                     NotificationHandler.showSuccess('✅ Traitement terminé.');
                     if (typeof onDoneCallback === 'function') {
                         onDoneCallback();

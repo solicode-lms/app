@@ -20,14 +20,14 @@ class AffectationProjetController extends BaseAffectationProjetController
 {
 
 
-    public function store(AffectationProjetRequest $request) {
+    // public function store(AffectationProjetRequest $request) {
         
-        // Augment le temps d'execution : à 2min, pardéfaut : 30 s
-        // il faut de temps pour la création des RealisationChapitre
-        ini_set('max_execution_time', 120); // en secondes
-        parent::store($request);
+    //     // Augment le temps d'execution : à 2min, pardéfaut : 30 s
+    //     // il faut de temps pour la création des RealisationChapitre
+    //     ini_set('max_execution_time', 120); // en secondes
+    //     parent::store($request);
          
-    }
+    // }
    
     /**
      * @DynamicPermissionIgnore
@@ -126,6 +126,9 @@ class AffectationProjetController extends BaseAffectationProjetController
         } else {
             exec("php \"$path\" > /dev/null 2>&1 &");
         }
+
+
+        
 
         return $token;
     }

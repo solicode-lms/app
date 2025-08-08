@@ -177,7 +177,7 @@ class BaseAffectationProjetController extends AdminController
 
     //     // 💥 Traitement différé si méthode existante
     //     //  if (method_exists($this->affectationProjetService, 'runAsyncAfterCreate')) {
-    //         $traitement_token = $this->lancerTraitementDiffere($affectationProjet->id, 'AffectationProjet');
+        $traitement_token = $this->lancerTraitementDiffere($affectationProjet->id, 'AffectationProjet');
     //    // }
         
         if ($request->ajax()) {
@@ -188,7 +188,8 @@ class BaseAffectationProjetController extends AdminController
             return JsonResponseHelper::success(
              $message,
              [
-                'entity_id' => $affectationProjet->id
+                'entity_id' => $affectationProjet->id,
+                'traitement_token' => $traitement_token
                 ]
             );
         }
