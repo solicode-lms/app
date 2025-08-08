@@ -48,15 +48,6 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
-    // id, méthodeName
-    public function job($method,$id)
-    {
-        $token = Str::uuid()->toString();
-        Cache::put("traitement.$token.status", 'pending', 3600);
-        dispatch(new TraitementAsync("PkgRealisationProjets","AffectationProjet", $method,$id, $token));
-        return $token;
-    }
-
     public function afterCreateJob($id,  $token):string
     {
         $affectationProjet = $this->find($id);
@@ -124,12 +115,6 @@ class AffectationProjetService extends BaseAffectationProjetService
         return "done";
     }
 
-    /**
-     * Création des realisationProjets
-     */
-    public function afterCreateRules($affectationProjet, $id)
-    {
-    }
 
  public function afterUpdateRules($affectationProjet, $id)
     {

@@ -175,11 +175,6 @@ class BaseAffectationProjetController extends AdminController
 
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
-        // // Enregistrer traitement_token dans ViewState
-        // $traitement_token = null;
-        // $traitement_token = $this->service->job("afterCreateAsync", $affectationProjet->id);
-   
-        
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $affectationProjet,
