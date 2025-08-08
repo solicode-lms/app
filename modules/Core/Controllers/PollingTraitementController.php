@@ -11,7 +11,9 @@ use Modules\Core\Controllers\Base\AdminController;
 class PollingTraitementController extends AdminController
 {
  
-
+    /**
+     * @DynamicPermissionIgnore
+     */
     public function status($token)
     {
         $status = Cache::get("traitement.$token", 'unknown');

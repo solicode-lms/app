@@ -3,8 +3,10 @@
 
 namespace Modules\PkgRealisationProjets\Controllers;
 
-use DragonCode\Support\Facades\Filesystem\File;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
@@ -92,7 +94,7 @@ class AffectationProjetController extends BaseAffectationProjetController
     protected function lancerTraitementDiffere(int $id, string $modelName): ?string
     {
         $token = Str::uuid();
-        $serviceClass = "Modules\\Pkg{$modelName}\\Services\\{$modelName}Service";
+        $serviceClass = "Modules\\PkgRealisationProjets\\Services\\{$modelName}Service";
         $path = storage_path("app/traitements/temp_$token.php");
 
         File::ensureDirectoryExists(dirname($path));
@@ -115,8 +117,8 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
         PHP;
 
-        \File::put($path, $script);
-        \Cache::put("traitement.$token", 'pending', 3600);
+        File::put($path, $script);
+        Cache::put("traitement.$token", 'pending', 3600);
 
         // Exécution asynchrone
         if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {

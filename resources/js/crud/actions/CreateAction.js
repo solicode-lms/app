@@ -66,12 +66,15 @@ export class CreateAction extends Action {
                 url: actionUrl,
                 method: method,
                 data: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // 🔥 force Laravel à détecter l'AJAX
+                },
             })
-                .done((data) => {
-                    const traitement_token = data.data?.traitement_token;
-                    if (traitement_token) {
-                        this.pollTraitementStatus(traitement_token); // Appelle ton polling
-                    }
+                .done((data1) => {
+                    // const traitement_token = data1.data?.traitement_token;
+                    // if (traitement_token) {
+                    //     this.pollTraitementStatus(traitement_token); // Appelle ton polling
+                    // }
                     
                     this.tableUI.indexUI.formUI.loader.hide();
                     this.handleSuccess(this.SuscesMessage);
@@ -84,7 +87,7 @@ export class CreateAction extends Action {
 
                     if(this.config.edit_has_many){
 
-                        const entity_id = parseInt( data.data[`entity_id`]);
+                        const entity_id = parseInt( data1.data[`entity_id`]);
 
                         this.tableUI.entityEditor.editEntity(entity_id);
                         this.tableUI.entityLoader.loadEntities();
