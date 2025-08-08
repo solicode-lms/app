@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\TraitementLourdJob;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetsPV;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;
@@ -93,42 +94,12 @@ class AffectationProjetController extends BaseAffectationProjetController
 
     protected function lancerTraitementDiffere(int $id, string $modelName): ?string
     {
-        $token = Str::uuid();
-        $serviceClass = "Modules\\PkgRealisationProjets\\Services\\{$modelName}Service";
-        $path = storage_path("app/traitements/temp_$token.php");
+        $token = Str::uuid()->toString();
 
-        File::ensureDirectoryExists(dirname($path));
-
-        $script = <<<PHP
-        <?php
-        require __DIR__.'/../../../vendor/autoload.php';
-        \$app = require __DIR__.'/../../../bootstrap/app.php';
-        \$kernel = \$app->make(Illuminate\\Contracts\\Console\\Kernel::class);
-        \$app->make('Illuminate\\Contracts\\Http\\Kernel')->handle(
-            Illuminate\\Http\\Request::capture()
-        );
-
-        try {
-            \$service = new $serviceClass();
-            \$service->runAsyncAfterCreate($id);
-            cache()->put("traitement.$token", 'done', 3600);
-        } catch (Throwable \$e) {
-            cache()->put("traitement.$token", "error: " . \$e->getMessage(), 3600);
-        }
-        PHP;
-
-        File::put($path, $script);
         Cache::put("traitement.$token", 'pending', 3600);
 
-        // Exécution asynchrone
-        if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {
-            pclose(popen("start /B php \"$path\"", "r"));
-        } else {
-            exec("php \"$path\" > /dev/null 2>&1 &");
-        }
-
-
-        
+        // ✅ Dispatch après la réponse HTTP
+        dispatch(new TraitementLourdJob($modelName, $id, $token))->delay(5);
 
         return $token;
     }

@@ -10,6 +10,7 @@ export class BaseAction {
         this.config = config;
         // Table Loader
         this.loader = new LoadingIndicator(config.tableSelector);
+        this.loader_traitement = new LoadingIndicator(config.tableSelector);
         this.viewStateService = this.config.viewStateService;
         this.SuscesMessage = "";
     }

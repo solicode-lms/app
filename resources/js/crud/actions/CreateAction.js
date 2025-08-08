@@ -142,7 +142,7 @@ export class CreateAction extends Action {
      */
     pollTraitementStatus(token, onDoneCallback = null) {
 
-        this.loader.showNomBloquante("En Traitement");
+        this.loader_traitement.showNomBloquante("En Traitement");
 
         const interval = setInterval(() => {
             $.get('/admin/traitement/status/' + token, function (res) {
@@ -150,7 +150,7 @@ export class CreateAction extends Action {
 
                 if (status === 'done') {
                     clearInterval(interval);
-                     this.loader.hide();
+                     this.loader_traitement.hide();
                     NotificationHandler.showSuccess('✅ Traitement terminé.');
                     if (typeof onDoneCallback === 'function') {
                         onDoneCallback();

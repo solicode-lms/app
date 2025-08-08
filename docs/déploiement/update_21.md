@@ -45,3 +45,11 @@ php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
 
 ````
 
+
+
+dans .env
+
+
+````conf
+QUEUE_CONNECTION=sync
+````
