@@ -68,6 +68,11 @@ export class CreateAction extends Action {
                 data: formData,
             })
                 .done((data) => {
+                    const traitement_token = data.data?.traitement_token;
+                    if (traitement_token) {
+                        this.pollTraitementStatus(traitement_token); // Appelle ton polling
+                    }
+                    
                     this.tableUI.indexUI.formUI.loader.hide();
                     this.handleSuccess(this.SuscesMessage);
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
@@ -124,4 +129,34 @@ export class CreateAction extends Action {
             this.addEntity();
         });
     }
+
+
+    /**
+     * Surveille l'état d'un traitement différé côté serveur (polling).
+     * @param {string} token - Le token unique du traitement (généré après création).
+     * @param {function} onDoneCallback - Fonction à appeler quand le traitement est terminé.
+     */
+    pollTraitementStatus(token, onDoneCallback = null) {
+        const interval = setInterval(() => {
+            $.get('/admin/traitement/status/' + token, function (res) {
+                const status = res.status;
+
+                if (status === 'done') {
+                    clearInterval(interval);
+                    NotificationHandler.showSuccess('✅ Traitement terminé.');
+                    if (typeof onDoneCallback === 'function') {
+                        onDoneCallback();
+                    } else {
+                        location.reload();
+                    }
+                } else if (status.startsWith('error')) {
+                    clearInterval(interval);
+                    NotificationHandler.showError('❌ Erreur pendant le traitement : ' + status);
+                } else {
+                    console.log('⏳ Traitement en cours...');
+                }
+            });
+        }, 2000); // ➕ Tu peux ajuster la fréquence si besoin
+    }
+
 }

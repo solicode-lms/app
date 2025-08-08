@@ -173,6 +173,13 @@ class BaseAffectationProjetController extends AdminController
         $validatedData = $request->validated();
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
+        $traitement_token = null;
+
+        // 💥 Traitement différé si méthode existante
+        if (method_exists($this->affectationProjetService, 'runAsyncAfterCreate')) {
+            $traitement_token = $this->lancerTraitementDiffere($affectationProjet->id, 'AffectationProjet');
+        }
+        
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [
                 'entityToString' => $affectationProjet,
@@ -180,7 +187,10 @@ class BaseAffectationProjetController extends AdminController
         
             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $affectationProjet->id]
+             [
+                'entity_id' => $affectationProjet->id,
+                'traitement_token' => $traitement_token
+                ]
             );
         }
 

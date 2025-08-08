@@ -3,6 +3,7 @@
 
 namespace Modules\PkgRealisationProjets\Controllers;
 
+use DragonCode\Support\Facades\Filesystem\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -85,4 +86,46 @@ class AffectationProjetController extends BaseAffectationProjetController
             return response()->json(['error' => 'Format non supporté'], 400);
         }
     }
+
+
+
+    protected function lancerTraitementDiffere(int $id, string $modelName): ?string
+    {
+        $token = Str::uuid();
+        $serviceClass = "Modules\\Pkg{$modelName}\\Services\\{$modelName}Service";
+        $path = storage_path("app/traitements/temp_$token.php");
+
+        File::ensureDirectoryExists(dirname($path));
+
+        $script = <<<PHP
+        <?php
+        require __DIR__.'/../../../vendor/autoload.php';
+        \$app = require __DIR__.'/../../../bootstrap/app.php';
+        \$kernel = \$app->make(Illuminate\\Contracts\\Console\\Kernel::class);
+        \$app->make('Illuminate\\Contracts\\Http\\Kernel')->handle(
+            Illuminate\\Http\\Request::capture()
+        );
+
+        try {
+            \$service = new $serviceClass();
+            \$service->runAsyncAfterCreate($id);
+            cache()->put("traitement.$token", 'done', 3600);
+        } catch (Throwable \$e) {
+            cache()->put("traitement.$token", "error: " . \$e->getMessage(), 3600);
+        }
+        PHP;
+
+        \File::put($path, $script);
+        \Cache::put("traitement.$token", 'pending', 3600);
+
+        // Exécution asynchrone
+        if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {
+            pclose(popen("start /B php \"$path\"", "r"));
+        } else {
+            exec("php \"$path\" > /dev/null 2>&1 &");
+        }
+
+        return $token;
+    }
+ 
 }

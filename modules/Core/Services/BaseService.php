@@ -19,9 +19,10 @@ use Modules\Core\Services\Traits\{
     RelationTrait,
     FilterTrait,
     SortTrait,
-    StatsTrait
+    StatsTrait,
+    OrdreTraite
 };
-use Modules\PkgNotification\Services\NotificationService;
+
 
 /**
  * Classe abstraite BaseService qui fournit une implémentation de base
@@ -32,9 +33,10 @@ abstract class BaseService implements ServiceInterface
 
     use 
         MessageTrait,
+        QueryBuilderTrait, 
         PaginateTrait, 
         SortTrait,
-        QueryBuilderTrait, 
+        OrdreTraite,
         CrudTrait, 
         CrudReadTrait, 
         CrudCreateTrait, 
@@ -138,94 +140,53 @@ abstract class BaseService implements ServiceInterface
         return $query->get();
     }
 
+
     /**
-     * Summary of reorderOrdreColumn
-     * @param mixed $ancienOrdre
-     * @param int $nouvelOrdre
-     * @param int $idEnCoursModification : pour ne pas changer l'ordre de l'objet en cours de modification
-     * @param mixed $groupValue
-     * @return void
-     */
-    protected function reorderOrdreColumn(?int $ancienOrdre, int $nouvelOrdre, int $idEnCoursModification = null, $groupValue = null): void
+         * Résout dynamiquement le nom de la classe à partir de son nom court (ex: "Apprenant"),
+         * en cherchant dans les namespaces des modules déclarés dans SoliLMS.
+         *
+         * @param string $className Nom court de la classe (ex: "Apprenant")
+         * @return object|null Instance de la classe si trouvée, sinon null
+         */
+    function resolveClassByName(string $className): ?object
     {
-        $this->normalizeOrdreIfNeeded($groupValue);
+        $modulePaths = [
+            'PkgApprenants',
+            'PkgFormation',
+            'PkgCompetences',
+            'PkgCreationProjet',
+            'PkgRealisationProjets',
+            'PkgCreationTache',
+            'PkgRealisationTache',
+            'PkgApprentissage',
+            'PkgEvaluateurs',
+            'PkgNotification',
+            'PkgAutorisation',
+            'PkgWidgets',
+            'PkgSessions',
+            'PkgGapp',
+            'Core'
+        ];
 
-        if ($ancienOrdre !== null && $nouvelOrdre === $ancienOrdre) {
-            return;
-        }
+        foreach ($modulePaths as $module) {
+            $fqcn = "Modules\\$module\\Services\\$className";
+            if (class_exists($fqcn)) {
+                return new $fqcn();
+            }
 
-        $query = $this->model->newQuery();
-
-        if ($idEnCoursModification !== null) {
-            $query->where('id', '!=', $idEnCoursModification);
-        }
-
-        // ✅ Appliquer la contrainte de groupe si nécessaire
-        if ($this->ordreGroupColumn && $groupValue !== null) {
-            $query->where($this->ordreGroupColumn, $groupValue);
-        }
-
-        if ($ancienOrdre === null) {
-            $query->where('ordre', '>=', $nouvelOrdre)
-                ->orderBy('ordre', 'desc')
-                ->get()
-                ->each(function ($item) {
-                    $item->ordre += 1;
-                    $item->save();
-                });
-        } else {
-            if ($nouvelOrdre > $ancienOrdre) {
-                $query->whereBetween('ordre', [$ancienOrdre + 1, $nouvelOrdre])
-                    ->orderBy('ordre')
-                    ->get()
-                    ->each(function ($item) {
-                        $item->ordre -= 1;
-                        $item->save();
-                    });
-            } else {
-                $query->whereBetween('ordre', [$nouvelOrdre, $ancienOrdre - 1])
-                    ->orderBy('ordre', 'desc')
-                    ->get()
-                    ->each(function ($item) {
-                        $item->ordre += 1;
-                        $item->save();
-                    });
+            // En fallback, certains modules utilisent Entities à la place de Models
+            $fqcnEntity = "Modules\\$module\\Models\\$className";
+            if (class_exists($fqcnEntity)) {
+                return new $fqcnEntity();
             }
         }
+
+        return null;
     }
 
-    
-
-    protected function normalizeOrdreIfNeeded($groupValue = null): void
+    public function runAsyncAfterCreate(int $id): void
     {
-        $query = $this->model->newQuery();
-    
-        if ($this->ordreGroupColumn && $groupValue !== null) {
-            $query->where($this->ordreGroupColumn, $groupValue);
-        }
-    
-        $elementsSansOrdre = $query->where(function($q){
-                                    $q->whereNull('ordre')->orWhere('ordre', '');
-                                })
-                                ->orderBy('id')
-                                ->get();
-    
-        if ($elementsSansOrdre->isEmpty()) {
-            return;
-        }
-    
-        // Trouver l'ordre maximal actuel dans le groupe
-        $maxOrdreQuery = $this->model->newQuery();
-        if ($this->ordreGroupColumn && $groupValue !== null) {
-            $maxOrdreQuery->where($this->ordreGroupColumn, $groupValue);
-        }
-        $maxOrdre = $maxOrdreQuery->max('ordre') ?? 0;
-    
-        foreach ($elementsSansOrdre as $element) {
-            $maxOrdre++;
-            $element->ordre = $maxOrdre;
-            $element->save();
-        }
+        // Surcharger dans le service concerné
     }
     
 

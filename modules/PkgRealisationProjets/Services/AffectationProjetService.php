@@ -45,10 +45,16 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
+    public function runAsyncAfterCreate(int $id): void
+    {
+        $entity = $this->find($id);
+        $this->afterCreateRules1($entity, $id);
+    }
+
     /**
      * Création des realisationProjets
      */
-    public function afterCreateRules($affectationProjet, $id)
+    public function afterCreateRules1($affectationProjet, $id)
     {
         $realisationProjetService = new RealisationProjetService();
         $tacheAffectationService = new TacheAffectationService();
