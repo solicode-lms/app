@@ -48,6 +48,9 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
+    /**
+     * Ce job s'execute automatique
+     */
     public function afterCreateJob($id,  $token):string
     {
         $affectationProjet = $this->find($id);
