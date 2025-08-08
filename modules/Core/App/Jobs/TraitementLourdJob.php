@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+
 class TraitementLourdJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
@@ -30,10 +31,11 @@ class TraitementLourdJob implements ShouldQueue
 
         try {
             $service = new $serviceClass();
-            $service->runAsyncAfterCreate($this->id); // 💥 À définir dans ton service
-            Cache::put("traitement.{$this->token}", 'done', 3600);
+            $status = $service->runAsyncAfterCreate($this->id, $this->token); // 💥 À définir dans ton service
+            Cache::put("traitement.{$this->token}.status",  $status, 3600);
         } catch (\Throwable $e) {
-            Cache::put("traitement.{$this->token}", 'error: ' . $e->getMessage(), 3600);
+            Cache::put("traitement.{$this->token}.messageError",  $e->getMessage(), 3600);
+            Cache::put("traitement.{$this->token}.status",  "error");
         }
     }
 }

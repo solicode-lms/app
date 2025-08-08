@@ -171,14 +171,13 @@ class BaseAffectationProjetController extends AdminController
      */
     public function store(AffectationProjetRequest $request) {
         $validatedData = $request->validated();
+
+
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
         $traitement_token = null;
-
-    //     // 💥 Traitement différé si méthode existante
-    //     //  if (method_exists($this->affectationProjetService, 'runAsyncAfterCreate')) {
-        $traitement_token = $this->lancerTraitementDiffere($affectationProjet->id, 'AffectationProjet');
-    //    // }
+        $traitement_token = $this->service->job($affectationProjet->id, 'AffectationProjet');
+   
         
         if ($request->ajax()) {
              $message = __('Core::msg.addSuccess', [

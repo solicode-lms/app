@@ -63,6 +63,7 @@ trait CrudCreateTrait
     public function create(array|object $data)
     {
         return DB::transaction(function () use ($data) {
+            
             $this->executeRules('before', 'create', $data, null);
 
             if (is_object($data) && $data instanceof Model) {

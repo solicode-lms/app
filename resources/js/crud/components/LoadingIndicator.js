@@ -65,9 +65,11 @@ export class LoadingIndicator {
             console.error('Conteneur de chargement introuvable.');
             return false;
         }
+        
+        let loadingDiv = document.getElementById(this.loadingElementId);
 
         // Vérifier si l'indicateur est déjà affiché
-        if (!document.getElementById(this.loadingElementId)) {
+         if (!loadingDiv) {
             const loadingDiv = document.createElement('div');
             loadingDiv.id = this.loadingElementId;
             loadingDiv.className = 'd-flex align-items-center p-2 shadow-sm';
@@ -89,10 +91,16 @@ export class LoadingIndicator {
             // Contenu de l'indicateur
             loadingDiv.innerHTML = `
                 <span class="spinner-border spinner-border-sm text-danger me-2"> </span>
-                <span style="padding:2px">${msg} ...</span>
+                <span style="padding:2px" class="loading-message">${msg} ...</span>
             `;
 
             container.appendChild(loadingDiv);
+        }else {
+            // 🔄 Mettre à jour le message si l’indicateur est déjà affiché
+            const messageSpan = loadingDiv.querySelector('.loading-message');
+            if (messageSpan) {
+                messageSpan.textContent = `${msg} ...`;
+            }
         }
 
         return true;

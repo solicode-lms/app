@@ -2,6 +2,9 @@
 
 namespace Modules\PkgRealisationProjets\Services;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Modules\Core\App\Jobs\TraitementLourdJob;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -45,17 +48,23 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
-    public function runAsyncAfterCreate(int $id): void
+    public function job(int $id, string $modelName): ?string
     {
-        $entity = $this->find($id);
-        $this->afterCreateRules1($entity, $id);
+        $token = Str::uuid()->toString();
+        Cache::put("traitement.$token.status", 'pending', 3600);
+        dispatch(new TraitementLourdJob($modelName, $id, $token));
+        return $token;
     }
 
-    /**
-     * Création des realisationProjets
-     */
-    public function afterCreateRules1($affectationProjet, $id)
+    public function runAsyncAfterCreate($id,  $token):string
     {
+        $affectationProjet = $this->find($id);
+       
+        if($affectationProjet == null){
+            Cache::put("traitement.$token.status", 'error', 3600);
+            Cache::put("traitement.$token.messageError", "L'affectation n'existe pas", 3600);
+             return "error";
+        }
         $realisationProjetService = new RealisationProjetService();
         $tacheAffectationService = new TacheAffectationService();
 
@@ -75,11 +84,22 @@ class AffectationProjetService extends BaseAffectationProjetService
         // ✅ Créer les TacheAffectations associées aux tâches du projet
         $taches = Tache::where('projet_id', $affectationProjet->projet_id)->get();
 
+
+        // Progression de traitement
+        $total = $taches->count() + $apprenants->count() + 1; // +1 pour SyncEvaluation
+        $done = 0;
+        $updateProgress = function () use (&$done, $total, $token) {
+            $done++;
+            $progress = intval(($done / $total) * 100);
+            Cache::put("traitement.$token.progress", $progress, 3600);
+        };
+        
         foreach ($taches as $tache) {
             $tacheAffectationService->create([
                 'tache_id' => $tache->id,
                 'affectation_projet_id' => $affectationProjet->id,
             ]);
+            $updateProgress();
         }
         
         foreach ($apprenants as $apprenant) {
@@ -91,11 +111,23 @@ class AffectationProjetService extends BaseAffectationProjetService
                 'rapport' => null,
                 'etats_realisation_projet_id' => null,
             ]);
+            $updateProgress();
         }
 
         
 
         (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
+        $updateProgress();
+
+
+        return "done";
+    }
+
+    /**
+     * Création des realisationProjets
+     */
+    public function afterCreateRules1($affectationProjet, $id)
+    {
     }
 
  public function afterUpdateRules($affectationProjet, $id)

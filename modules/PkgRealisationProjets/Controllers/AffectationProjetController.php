@@ -90,18 +90,4 @@ class AffectationProjetController extends BaseAffectationProjetController
         }
     }
 
-
-
-    protected function lancerTraitementDiffere(int $id, string $modelName): ?string
-    {
-        $token = Str::uuid()->toString();
-
-        Cache::put("traitement.$token", 'pending', 3600);
-
-        // ✅ Dispatch après la réponse HTTP
-        dispatch(new TraitementLourdJob($modelName, $id, $token))->delay(5);
-
-        return $token;
-    }
- 
 }

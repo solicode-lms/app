@@ -184,7 +184,7 @@ abstract class BaseService implements ServiceInterface
         return null;
     }
 
-    public function runAsyncAfterCreate(int $id): void
+    public function runAsyncAfterCreate($id, $token): string
     {
         // Surcharger dans le service concerné
     }

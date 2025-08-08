@@ -70,11 +70,12 @@ export class CreateAction extends Action {
                     'X-Requested-With': 'XMLHttpRequest' // 🔥 force Laravel à détecter l'AJAX
                 },
             })
-                .done((data1) => {
+                .done((data) => {
                     
-                    const traitement_token = data1.data?.traitement_token;
+                    // Affichage de message de progression de traitement
+                    const traitement_token = data.data?.traitement_token;
                     if (traitement_token) {
-                        this.pollTraitementStatus(traitement_token); // Appelle ton polling
+                        this.pollTraitementStatus(traitement_token);
                     }
                     
                     this.tableUI.indexUI.formUI.loader.hide();
@@ -88,7 +89,7 @@ export class CreateAction extends Action {
 
                     if(this.config.edit_has_many){
 
-                        const entity_id = parseInt( data1.data[`entity_id`]);
+                        const entity_id = parseInt( data.data[`entity_id`]);
 
                         this.tableUI.entityEditor.editEntity(entity_id);
                         this.tableUI.entityLoader.loadEntities();
@@ -135,36 +136,69 @@ export class CreateAction extends Action {
     }
 
 
-    /**
-     * Surveille l'état d'un traitement différé côté serveur (polling).
-     * @param {string} token - Le token unique du traitement (généré après création).
-     * @param {function} onDoneCallback - Fonction à appeler quand le traitement est terminé.
-     */
-    pollTraitementStatus(token, onDoneCallback = null) {
+/**
+ * Lance le traitement différé (sans attendre la réponse) puis démarre le polling.
+ *
+ * @param {string} token - Token du traitement à surveiller
+ * @param {object|null} loader - Loader avec .showNomBloquante() et .hide()
+ * @param {function|null} onDoneCallback - Fonction appelée après traitement terminé
+ */ 
+   pollTraitementStatus(token, onDoneCallback = null) {
 
-        this.loader_traitement.showNomBloquante("En Traitement");
+    let loader = this.loader_traitement;
+    loader.showNomBloquante("⏳ Traitement lancé...");
+    let error = false;
 
-        const interval = setInterval(() => {
-            $.get('/admin/traitement/status/' + token, function (res) {
+
+    $.get('/admin/traitement/start')
+    .done(() => {
+    })
+    .fail((xhr) => {
+        // ❌ Une erreur est survenue côté serveur
+        const message = xhr.responseJSON?.message || 'Erreur lors du démarrage du traitement.';
+        NotificationHandler.showError('❌ ' + message);
+        loader?.hide();
+        error = true;
+    });
+
+
+    // ⏱️ Démarrer le polling
+    const poll = () => {
+        $.get('/admin/traitement/status/' + token)
+            .done((res) => {
                 const status = res.status;
+                const progress = res.progress ?? 0;
+                const messageError = res.messageError ?? "";
 
                 if (status === 'done') {
-                    clearInterval(interval);
-                     this.loader_traitement.hide();
+                    if (loader) loader.hide();
                     NotificationHandler.showSuccess('✅ Traitement terminé.');
+
                     if (typeof onDoneCallback === 'function') {
                         onDoneCallback();
                     } else {
                         location.reload();
                     }
+
                 } else if (status.startsWith('error')) {
-                    clearInterval(interval);
-                    NotificationHandler.showError('❌ Erreur pendant le traitement : ' + status);
+                    if (loader) loader.hide();
+                    NotificationHandler.showError('❌ Erreur traitement : ' + messageError);
                 } else {
-                    console.log('⏳ Traitement en cours...');
+                    if(!error){
+                        loader?.showNomBloquante(`⏳ Traitement en cours... ${progress}%`);
+                        setTimeout(poll, 2000);
+                    }
                 }
+            })
+            .fail(() => {
+                if (loader) loader.hide();
+                NotificationHandler.showError('❌ Erreur réseau pendant le polling.');
             });
-        }, 2000); // ➕ Tu peux ajuster la fréquence si besoin
-    }
+    };
+
+    poll(); // 🚀 Lancer immédiatement la boucle de polling
+}
+
+
 
 }
