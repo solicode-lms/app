@@ -175,8 +175,9 @@ class BaseAffectationProjetController extends AdminController
 
         $affectationProjet = $this->affectationProjetService->create($validatedData);
 
-        $traitement_token = null;
-        $traitement_token = $this->service->job($affectationProjet->id, 'AffectationProjet');
+        // // Enregistrer traitement_token dans ViewState
+        // $traitement_token = null;
+        // $traitement_token = $this->service->job("afterCreateAsync", $affectationProjet->id);
    
         
         if ($request->ajax()) {
@@ -186,10 +187,10 @@ class BaseAffectationProjetController extends AdminController
         
             return JsonResponseHelper::success(
              $message,
-             [
-                'entity_id' => $affectationProjet->id,
-                'traitement_token' => $traitement_token
-                ]
+            array_merge(
+                ['entity_id' => $affectationProjet->id],
+                $this->service->job_token ? ['traitement_token' => $this->service->job_token] : []
+            )
             );
         }
 

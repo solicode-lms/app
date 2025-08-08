@@ -4,7 +4,7 @@ namespace Modules\PkgRealisationProjets\Services;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Modules\Core\App\Jobs\TraitementLourdJob;
+use Modules\Core\App\Jobs\TraitementAsync;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -48,15 +48,16 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
-    public function job(int $id, string $modelName): ?string
+    // id, méthodeName
+    public function job($method,$id)
     {
         $token = Str::uuid()->toString();
         Cache::put("traitement.$token.status", 'pending', 3600);
-        dispatch(new TraitementLourdJob($modelName, $id, $token));
+        dispatch(new TraitementAsync("PkgRealisationProjets","AffectationProjet", $method,$id, $token));
         return $token;
     }
 
-    public function runAsyncAfterCreate($id,  $token):string
+    public function afterCreateJob($id,  $token):string
     {
         $affectationProjet = $this->find($id);
        
@@ -126,7 +127,7 @@ class AffectationProjetService extends BaseAffectationProjetService
     /**
      * Création des realisationProjets
      */
-    public function afterCreateRules1($affectationProjet, $id)
+    public function afterCreateRules($affectationProjet, $id)
     {
     }
 

@@ -98,6 +98,7 @@ trait CrudCreateTrait
 
             // Exécuter les règles après création
             $this->executeRules('after', 'create', $entity, $entity->id);
+            $this->executeJob('after', 'create', $entity->id);
 
             return $entity;
         });

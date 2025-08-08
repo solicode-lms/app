@@ -59,6 +59,8 @@ abstract class BaseService implements ServiceInterface
     protected $sessionState;
     protected $model;
     protected $modelName;
+
+    protected $moduleName;
     protected $paginationLimit = 20;
 
     
@@ -83,6 +85,10 @@ abstract class BaseService implements ServiceInterface
      * Exemple : 'projet_id' pour les tâches.
      */
     protected $ordreGroupColumn = null;
+
+
+
+    public $job_token = null;
 
     /**
      * Méthode abstraite pour obtenir les champs recherchables.
@@ -120,6 +126,13 @@ abstract class BaseService implements ServiceInterface
     public function __construct(Model $model){
         $this->model = $model;
         $this->modelName = lcfirst(class_basename($model));
+        
+        
+        // 📌 Déterminer automatiquement le nom du module à partir du namespace du modèle
+        $fullNamespace = get_class($model); // ex: Modules\PkgRealisationProjets\Models\AffectationProjet
+        $parts = explode('\\', $fullNamespace);
+        $this->moduleName = $parts[1] ?? null; // ex: "PkgRealisationProjets"
+
         // Scrop management
         $this->viewState = app(ViewStateService::class);
         $this->sessionState = app(SessionState::class);
@@ -184,10 +197,6 @@ abstract class BaseService implements ServiceInterface
         return null;
     }
 
-    public function runAsyncAfterCreate($id, $token): string
-    {
-        // Surcharger dans le service concerné
-    }
-    
+
 
 }

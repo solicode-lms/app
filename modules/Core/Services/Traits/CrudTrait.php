@@ -5,6 +5,10 @@ namespace Modules\Core\Services\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Modules\Core\App\Jobs\GenericAsyncServiceJob;
+use Modules\Core\App\Jobs\TraitementAsync;
 
 trait CrudTrait
 {
@@ -32,6 +36,49 @@ trait CrudTrait
                 $this->{$methodName}($dataOrEntity);
             }
         }
+    }
+
+
+
+
+
+
+    /**
+     * Exécute dynamiquement un traitement différé (Job) avant ou après une action.
+     *
+     * @param string $when   'before' ou 'after'
+     * @param string $action 'create', 'update', etc.
+     * @param string|null $module Nom du module (ex: 'PkgRealisationProjets')
+     * @param string|null $service Nom du service sans suffixe (ex: 'AffectationProjet')
+     * @param int|null $id   ID de l’entité cible
+     * @return string|null   Le token généré pour suivre l’état du job (ou null si pas de job trouvé)
+     */
+    protected function executeJob(string $when, string $action, int|null $id = null): ?string
+    {
+        $methodName = "{$when}" . ucfirst($action) . "Job";
+
+        if (!method_exists($this, $methodName)) {
+            return null;
+        }
+
+        $token = Str::uuid()->toString();
+
+        
+        Cache::put("traitement.{$token}.status", 'pending', 3600);
+
+        // Dispatch du job générique
+        dispatch(new TraitementAsync(
+            ucfirst($this->moduleName),
+            ucfirst( $this->modelName),
+            $methodName,
+            $id,
+            $token,
+        ));
+
+        // Enregistre le token dans la classe
+        $this->job_token = $token;
+
+        return $token;
     }
 
 
