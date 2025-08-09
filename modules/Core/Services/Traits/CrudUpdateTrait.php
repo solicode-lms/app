@@ -11,35 +11,38 @@ trait CrudUpdateTrait
 
     public function updateOnlyExistanteAttribute($idOrItem, array $data)
     {
+        return DB::transaction(function () use ($idOrItem,$data) {
 
-        $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
-        $id = $entity->id;
+            $entity = is_object($idOrItem) ? $idOrItem : $this->find($idOrItem);
+            $id = $entity->id;
 
 
-        $this->executeRules('before', 'update', $data, $id);
- 
-        if (!$entity) {
-            return false;
-        }
-
-        if ($this->hasOrdreColumn()) {
-            $ancienOrdre = $entity->ordre;
+            $this->executeRules('before', 'update', $data, $id);
     
-            if (!isset($data['ordre']) || $data['ordre'] === null) {
-                $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+            if (!$entity) {
+                return false;
             }
-    
-            $nouvelOrdre = $data['ordre'];
-    
-            if ($nouvelOrdre !== $ancienOrdre) {
-                $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $entity->id, $entity->projet_id);
+
+            if ($this->hasOrdreColumn()) {
+                $ancienOrdre = $entity->ordre;
+        
+                if (!isset($data['ordre']) || $data['ordre'] === null) {
+                    $data['ordre'] = $ancienOrdre ?? $this->getNextOrdre();
+                }
+        
+                $nouvelOrdre = $data['ordre'];
+        
+                if ($nouvelOrdre !== $ancienOrdre) {
+                    $this->reorderOrdreColumn($ancienOrdre, $nouvelOrdre, $entity->id, $entity->projet_id);
+                }
             }
-        }
 
 
-       $entity->update($data);
-       $this->executeRules('after', 'update', $entity, $id);
-       return $entity;
+            $entity->update($data);
+            $this->executeRules('after', 'update', $entity, $id);
+                $this->executeJob('after', 'create', $entity->id);
+            return $entity;
+        });
     }
 
     /**

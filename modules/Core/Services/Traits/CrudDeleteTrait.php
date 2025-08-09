@@ -4,6 +4,7 @@ namespace Modules\Core\Services\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 trait CrudDeleteTrait
 {
@@ -15,12 +16,15 @@ trait CrudDeleteTrait
      */
     public function destroy($id){
        
-        $entity = $this->model->find($id);
-        $this->executeRules('before', 'delete', $entity, $id);
-        // TODO :throw exception if $entity is null
-        $entity->delete();
-        $this->executeRules('after', 'delete', $entity, $id);
-        return  $entity;
+        return DB::transaction(function () use ($id) {
+            $entity = $this->model->find($id);
+            $this->executeRules('before', 'delete', $entity, $id);
+            // TODO :throw exception if $entity is null
+            $entity->delete();
+            $this->executeRules('after', 'delete', $entity, $id);
+            $this->executeJob('after', 'create', $entity->id);
+            return  $entity;
+        });
     }
 
 }
