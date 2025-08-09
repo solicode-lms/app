@@ -87,26 +87,16 @@ export class CreateAction extends Action {
                         onSuccess();
                     }
 
-                    if(this.config.edit_has_many){
+                    this.handleAfterCreateAction(data);
 
-                        const entity_id = parseInt( data.data[`entity_id`]);
+                    // if(this.config.edit_has_many && this.config.afterCreateAction != ''){
+                    //     const entity_id = parseInt( data.data[`entity_id`]);
+                    //     this.tableUI.entityEditor.editEntity(entity_id);
+                    //     this.tableUI.entityLoader.loadEntities();
 
-                        this.tableUI.entityEditor.editEntity(entity_id);
-                        this.tableUI.entityLoader.loadEntities();
-
-                        // // redirect to edit 
-                        // let editUrl = this.getUrlWithId(this.config.editUrl, entity_id); // Générer l'URL dynamique
-                        // editUrl = this.appendParamsToUrl(
-                        //     editUrl,
-                        //     this.viewStateService.getContextParams()
-                        // );
-
-                        // window.location.href  = editUrl;
-
-
-                    }else{
-                        this.tableUI.entityLoader.loadEntities(); // Recharger les entités
-                    }
+                    // }else{
+                    //     this.tableUI.entityLoader.loadEntities(); // Recharger les entités
+                    // }
                    
                    
                 })
@@ -197,6 +187,48 @@ export class CreateAction extends Action {
     poll(); // 🚀 Lancer immédiatement la boucle de polling
 }
 
+
+/**
+ * Gère l'action après création d'une entité selon afterCreateAction.
+ * - "" + edit_has_many = true → 'update'
+ * - index → recharge la liste
+ * - edit  → ouvre l'éditeur + recharge
+ * - update → idem edit
+ * - custom:<route> → route spécifique
+ *
+ * @param {object} data - Données de la réponse backend (avec entity_id)
+ */
+handleAfterCreateAction(data = {}) {
+  const rawId = data?.data?.entity_id ?? data?.entity_id ?? data?.id;
+  const entityId = Number.parseInt(rawId, 10);
+  const hasValidId = Number.isInteger(entityId) && entityId > 0;
+
+  // Normalisation de l'action
+  let action = (this.config?.afterCreateAction || '').trim().toLowerCase();
+
+  // Règle spéciale : si vide et edit_has_many → update
+  if (!action && this.config?.edit_has_many) {
+    action = 'update';
+  }
+
+  const reloadIndex = () => this.tableUI?.entityLoader?.loadEntities?.();
+
+  switch (action) {
+    case 'edit':
+    case 'update':
+      if (hasValidId) {
+        this.tableUI?.entityEditor?.editEntity?.(entityId);
+      }
+      reloadIndex();
+      break;
+
+    case 'index':
+    case '':
+    default:
+      reloadIndex();
+      break;
+  }
+}
 
 
 }
