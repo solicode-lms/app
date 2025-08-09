@@ -14,7 +14,7 @@ export default class ConfigCrudManagerHelper extends ConfigHelper {
  
         this.editOnFullScreen = config.editOnFullScreen;
         this.edit_has_many = config.edit_has_many;
-
+        this.afterCreateAction = config.afterCreateAction
 
         this.crudSelector = config.crudSelector;
         this.tableSelector = config.tableSelector;

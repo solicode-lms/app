@@ -183,13 +183,13 @@ class BaseAffectationProjetController extends AdminController
              $message,
                 array_merge(
                     ['entity_id' => $affectationProjet->id],
-                    $this->service->job_token ? ['traitement_token' => $this->service->job_token] : []
+                    $this->service->getJobToken() ? ['traitement_token' => $this->service->getJobToken()] : []
                 )
             );
 
         }
 
-        return redirect()->route('affectationProjets.edit',['affectationProjet' => $affectationProjet->id])->with(
+        return redirect()->route('affectationProjets.index')->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $affectationProjet,
