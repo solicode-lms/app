@@ -1066,5 +1066,17 @@
         "description": "<p>Indique si le champs est visible dans l'interface Show, il prend la valeur de&nbsp;viewFormFieldVisible si il n'est pas déclarer</p>",
         "created_at": null,
         "updated_at": null
+    },
+    {
+        "id": 90,
+        "reference": "afterCreateAction",
+        "name": "afterCreateAction",
+        "type": "String",
+        "scope": "model",
+        "default_value": "index",
+        "groupe": "controller",
+        "description": "<div style=\"color: rgb(0, 0, 0); font-family: Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; line-height: 19px; white-space: pre;\"><div>Déterminer le comportement ou la route de redirection après la création d’un enregistrement (<span style=\"color: #800000;\">`store`</span>) dans un module Laravel généré par Gapp.</div><div>Elle permet de définir de manière déclarative si, après un <span style=\"color: #800000;\">`store`</span>, l’interface doit :</div><br><div><span style=\"color: #0451a5;\">*</span> Rediriger vers l’écran d’édition.</div><div><span style=\"color: #0451a5;\">*</span> Revenir à la liste.</div><div><span style=\"color: #0451a5;\">*</span> Ouvrir l’écran de visualisation.</div><div><span style=\"color: #0451a5;\">*</span> Ou toute autre action future supportée.</div></div>",
+        "created_at": null,
+        "updated_at": null
     }
 ]

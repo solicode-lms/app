@@ -49,74 +49,96 @@ class AffectationProjetService extends BaseAffectationProjetService
 
 
     /**
-     * Ce job s'execute automatique
+     * Traitement différé après création d'une AffectationProjet.
+     * - Crée les TacheAffectations pour chaque tâche du projet
+     * - Crée les RéalisationProjet pour chaque apprenant (groupe/sous-groupe)
+     * - Synchronise les évaluations
+     * - Met à jour la progression (cache) et le statut (running/done/error)
+     *
+     * @param  int    $id     ID de l'affectation projet
+     * @param  string $token  Token de suivi du traitement (fourni par executeJob)
+     * @return string         'done' | 'error'
      */
-    public function afterCreateJob($id,  $token):string
+    public function afterCreateJob(int $id, string $token): string
     {
-        $affectationProjet = $this->find($id);
-       
-        if($affectationProjet == null){
-            Cache::put("traitement.$token.status", 'error', 3600);
-            Cache::put("traitement.$token.messageError", "L'affectation n'existe pas", 3600);
-             return "error";
+        try {
+            // 1) Récupération de l'affectation
+            $affectation = $this->find($id);
+
+            if (!$affectation) {
+                $this->jobSetError($token, "L'affectation n'existe pas (id={$id}).");
+                return 'error';
+            }
+
+            // 2) Récupération des apprenants (priorité sous-groupe)
+            $apprenants = collect();
+            if ($affectation?->sousGroupe) {
+                $apprenants = $affectation->sousGroupe->apprenants;
+            } elseif ($affectation?->groupe) {
+                $apprenants = $affectation->groupe->apprenants;
+            }
+
+            if ($apprenants->isEmpty()) {
+                $this->jobSetError($token, "Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
+                return 'error';
+            }
+
+            // 3) Récupération des tâches du projet
+            $taches = \Modules\PkgCreationTache\Models\Tache::query()
+                ->where('projet_id', $affectation->projet_id)
+                ->get();
+
+            // 4) Initialisation progression (tâches + apprenants + sync évaluation)
+            $total = $taches->count() + $apprenants->count() + 1; // +1 pour la sync des évaluations
+            $update = $this->jobProgressUpdater($token, $total);  // status -> running, progress=0
+
+            // 5) Services nécessaires (résolus via le conteneur)
+            /** @var \Modules\PkgRealisationTache\Services\TacheAffectationService $tacheAffectationService */
+            $tacheAffectationService = app(\Modules\PkgRealisationTache\Services\TacheAffectationService::class);
+
+            /** @var \Modules\PkgRealisationProjets\Services\RealisationProjetService $realisationProjetService */
+            $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\RealisationProjetService::class);
+
+            /** @var \Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService $evaluationService */
+            $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
+
+            // 6) Création des TacheAffectations
+            foreach ($taches as $tache) {
+                $tacheAffectationService->create([
+                    'tache_id' => $tache->id,
+                    'affectation_projet_id' => $affectation->id,
+                ]);
+                $update(); // +1 step
+            }
+
+            // 7) Création des RéalisationProjet
+            foreach ($apprenants as $apprenant) {
+                $realisationProjetService->create([
+                    'apprenant_id'            => $apprenant->id,
+                    'affectation_projet_id'   => $affectation->id,
+                    'date_debut'              => $affectation->date_debut,
+                    'date_fin'                => $affectation->date_fin,
+                    'rapport'                 => null,
+                    'etats_realisation_projet_id' => null,
+                ]);
+                $update(); // +1 step
+            }
+
+            // 8) Synchronisation des évaluations
+            $evaluationService->SyncEvaluationRealisationProjet($affectation);
+            $update(); // +1 step (sync)
+
+            // 9) Fin OK
+            $this->jobFinish($token); // progress=100, status=done
+            return 'done';
+
+        } catch (\Throwable $e) {
+            // En cas d'erreur, on stocke status=error + message
+            $this->jobFail($token, $e);
+            return 'error';
         }
-        $realisationProjetService = new RealisationProjetService();
-        $tacheAffectationService = new TacheAffectationService();
-
-        // Priorité au sous-groupe si présent
-        $apprenants = collect();
-
-        if ($affectationProjet?->sousGroupe) {
-            $apprenants = $affectationProjet->sousGroupe->apprenants;
-        } elseif ($affectationProjet?->groupe) {
-            $apprenants = $affectationProjet->groupe->apprenants;
-        }
-
-        if ($apprenants->isEmpty()) {
-            throw new \Exception("Aucun apprenant trouvé pour cette affectation.");
-        }
-
-        // ✅ Créer les TacheAffectations associées aux tâches du projet
-        $taches = Tache::where('projet_id', $affectationProjet->projet_id)->get();
-
-
-        // Progression de traitement
-        $total = $taches->count() + $apprenants->count() + 1; // +1 pour SyncEvaluation
-        $done = 0;
-        $updateProgress = function () use (&$done, $total, $token) {
-            $done++;
-            $progress = intval(($done / $total) * 100);
-            Cache::put("traitement.$token.progress", $progress, 3600);
-        };
-        
-        foreach ($taches as $tache) {
-            $tacheAffectationService->create([
-                'tache_id' => $tache->id,
-                'affectation_projet_id' => $affectationProjet->id,
-            ]);
-            $updateProgress();
-        }
-        
-        foreach ($apprenants as $apprenant) {
-            $realisationProjetService->create([
-                'apprenant_id' => $apprenant->id,
-                'affectation_projet_id' => $affectationProjet->id,
-                'date_debut' => $affectationProjet->date_debut,
-                'date_fin' => $affectationProjet->date_fin,
-                'rapport' => null,
-                'etats_realisation_projet_id' => null,
-            ]);
-            $updateProgress();
-        }
-
-        
-
-        (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
-        $updateProgress();
-
-
-        return "done";
     }
+
 
 
  public function afterUpdateRules($affectationProjet, $id)

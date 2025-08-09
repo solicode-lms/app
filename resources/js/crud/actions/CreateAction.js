@@ -176,8 +176,6 @@ export class CreateAction extends Action {
 
                     if (typeof onDoneCallback === 'function') {
                         onDoneCallback();
-                    } else {
-                        location.reload();
                     }
 
                 } else if (status.startsWith('error')) {

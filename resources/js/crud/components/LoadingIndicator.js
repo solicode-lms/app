@@ -77,7 +77,7 @@ export class LoadingIndicator {
             // Style du rectangle en haut à droite
             loadingDiv.style.position = 'absolute';
             loadingDiv.style.top = '10px';
-            loadingDiv.style.right = '10px';
+            loadingDiv.style.right = '20px';
             loadingDiv.style.background = '#f8d7da'; // Rouge clair pour indiquer le chargement
             loadingDiv.style.color = '#721c24';
             loadingDiv.style.border = '1px solid #f5c6cb';

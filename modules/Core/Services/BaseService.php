@@ -20,7 +20,8 @@ use Modules\Core\Services\Traits\{
     FilterTrait,
     SortTrait,
     StatsTrait,
-    OrdreTraite
+    OrdreTraite,
+    JobTrait
 };
 
 
@@ -45,7 +46,8 @@ abstract class BaseService implements ServiceInterface
         CrudEditTrait, 
         RelationTrait, 
         FilterTrait, 
-        StatsTrait;
+        StatsTrait,
+        JobTrait;
 
     // EagerLoading Charger les relations nécessaires : il est utilisé dans PaginateTrait
     protected array $index_with_relations = [];
@@ -86,9 +88,6 @@ abstract class BaseService implements ServiceInterface
      */
     protected $ordreGroupColumn = null;
 
-
-
-    public $job_token = null;
 
     /**
      * Méthode abstraite pour obtenir les champs recherchables.
