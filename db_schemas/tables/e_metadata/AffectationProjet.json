@@ -834,5 +834,27 @@
         "value_boolean": 1,
         "e_data_field_reference": "affectation_projets_hasMany_tache_affectations_affectation_projet_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "affectation_projets_afterCreateAction",
+        "value_boolean": 1,
+        "value_string": "index",
+        "value_float": 0,
+        "value_json": [
+            {
+                "role": "formateur",
+                "dataScope": "scope",
+                "userModelName": "User",
+                "ownerRelationPath": "apprenant.groupes.formateurs.user"
+            },
+            {
+                "role": "apprenant",
+                "dataScope": "filter",
+                "userModelName": "Apprenant",
+                "ownerRelationPath": "apprenant.user"
+            }
+        ],
+        "e_model_reference": "affectation_projets",
+        "e_metadata_definition_reference": "afterCreateAction"
     }
 ]
