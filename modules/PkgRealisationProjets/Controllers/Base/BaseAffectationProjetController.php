@@ -183,7 +183,7 @@ class BaseAffectationProjetController extends AdminController
              $message,
                 array_merge(
                     ['entity_id' => $affectationProjet->id],
-                    $this->service->getJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
             );
 
