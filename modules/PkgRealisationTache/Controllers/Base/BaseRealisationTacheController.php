@@ -176,13 +176,18 @@ class BaseRealisationTacheController extends AdminController
                 'entityToString' => $realisationTache,
                 'modelName' => __('PkgRealisationTache::realisationTache.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $realisationTache->id]
+                array_merge(
+                    ['entity_id' => $realisationTache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('realisationTaches.edit',['realisationTache' => $realisationTache->id])->with(
+        return redirect()->route('realisationTaches.edit', ['realisationTache' => $realisationTache->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $realisationTache,
@@ -353,18 +358,16 @@ class BaseRealisationTacheController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-        
+
         // 🔹 Récupérer les valeurs de ces champs
         $valeursChamps = [];
         foreach ($champsCoches as $field) {
             $valeursChamps[$field] = $request->input($field);
         }
 
-
         $jobManager = new JobManager();
         $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
          
-
         dispatch(new BulkEditJob(
             ucfirst($this->service->moduleName),
             ucfirst($this->service->modelName),
@@ -376,12 +379,11 @@ class BaseRealisationTacheController extends AdminController
         ));
 
        
-         return JsonResponseHelper::success(
+        return JsonResponseHelper::success(
              __('Mise à jour en masse effectuée avec succès.'),
                 ['traitement_token' => $jobManager->getToken()]
         );
-    
-       
+
     }
     /**
      */
