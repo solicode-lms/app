@@ -4,7 +4,7 @@ namespace Modules\Core\Services\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Modules\Core\App\Jobs\TraitementAsync;
+use Modules\Core\App\Jobs\TraitementCrudJob;
 
 trait JobTrait
 {
@@ -31,14 +31,10 @@ trait JobTrait
             return null;
         }
 
-        $token = $this->jobMakeToken();
-        $this->jobSetStatus($token, 'pending');
-
-        // Enregistre le token côté instance (utile si on veut le réutiliser)
-        $this->job_token = $token;
+        $token = $this->initJob($methodName);
 
         // Dispatch du job générique (le job appellera $service->$methodName($id, $token))
-        dispatch(new TraitementAsync(
+        dispatch(new TraitementCrudJob(
             ucfirst($this->moduleName),
             ucfirst($this->modelName),
             $methodName,
@@ -47,6 +43,21 @@ trait JobTrait
         ));
 
         return $token;
+    }
+
+    public function initJob($methodName){
+
+        $token = $this->jobMakeToken();
+        $this->jobSetStatus($token, 'pending');
+
+        // Enregistre le token côté instance (utile si on veut le réutiliser)
+        $this->job_token = $token;
+
+        // 💾 Sauvegarder le nom de la méthode pour jobFail()
+        $this->jobCachePut($token, 'method', $methodName);
+
+        return  $token;
+
     }
 
     /* ------------------------------
@@ -139,12 +150,20 @@ trait JobTrait
     /**
      * Termine en erreur en stockant le message (et optionnellement l’exception).
      */
-    protected function jobFail(string $token, \Throwable $e, bool $exposeTrace = false): void
+    protected function jobFail($id , string $token, \Throwable $e, bool $exposeTrace = false): void
     {
         $this->jobSetError($token, $e->getMessage());
 
         if ($exposeTrace) {
             $this->jobCachePut($token, 'trace', collect($e->getTrace())->take(10)->all());
+        }
+
+        // 📥 Récupérer le nom de la méthode enregistré au dispatch
+        $methodName = $this->jobCacheGet($token, 'method');
+
+        // ❗ Suppression UNIQUEMENT pour le job "after create"
+        if ($methodName && str_starts_with($methodName, 'afterCreateJob')) {
+             $this->destroy($id);
         }
     }
 

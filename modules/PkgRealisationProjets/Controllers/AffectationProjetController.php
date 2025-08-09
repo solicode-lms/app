@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Core\App\Jobs\TraitementAsync;
+use Modules\Core\App\Jobs\TraitementCrudJob;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetsPV;
 use Modules\PkgRealisationProjets\App\Exports\RealisationProjetExport;

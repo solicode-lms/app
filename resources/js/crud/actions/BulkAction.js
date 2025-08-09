@@ -2,11 +2,12 @@ import { BaseAction } from './BaseAction';
 import EventUtil from '../utils/EventUtil';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
+import { CrudAction } from './CrudAction';
 
-export class BulkAction extends BaseAction {
+export class BulkAction extends CrudAction {
 
     constructor(config, tableUI) {
-        super(config);
+         super(config,tableUI);
         this.config = config;
         this.tableUI = tableUI;
         this.successMessage = 'Action en masse effectuée avec succès.';
@@ -127,6 +128,14 @@ export class BulkAction extends BaseAction {
             data: formData
         })
             .done((data) => {
+
+                // Affichage de message de progression de traitement
+                const traitement_token = data.data?.traitement_token;
+                if (traitement_token) {
+                    this.pollTraitementStatus(traitement_token);
+                }
+
+
                 this.tableUI.indexUI.formUI.loader.hide();
                 NotificationHandler.show(data.type, data.title, data.message);
                 this.tableUI.indexUI.modalUI.close();

@@ -2,8 +2,10 @@
 
 namespace Modules\Core\Services;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\Core\Services\Contracts\ServiceInterface;
 
 use Modules\Core\Services\Traits\{
@@ -60,9 +62,9 @@ abstract class BaseService implements ServiceInterface
     protected $viewState;
     protected $sessionState;
     protected $model;
-    protected $modelName;
+    public $modelName;
 
-    protected $moduleName;
+    public $moduleName;
     protected $paginationLimit = 20;
 
     
@@ -194,6 +196,22 @@ abstract class BaseService implements ServiceInterface
         }
 
         return null;
+    }
+
+    /**
+     * Vérifie si l'utilisateur courant est autorisé à exécuter une action sur une entité.
+     *
+     * @param string $ability  Nom de l'action (ex: 'view', 'update', 'delete')
+     * @param mixed  $entity   L'entité ou la classe concernée
+     *
+     * @throws AuthorizationException
+     */
+    protected function authorize(string $ability, mixed $entity): void
+    {
+        if (Gate::denies($ability, $entity)) {
+            throw new AuthorizationException("Vous n'êtes pas autorisé à effectuer cette action.");
+        }
+        
     }
 
 

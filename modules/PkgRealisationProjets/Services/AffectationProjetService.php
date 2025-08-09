@@ -2,9 +2,10 @@
 
 namespace Modules\PkgRealisationProjets\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Modules\Core\App\Jobs\TraitementAsync;
+use Modules\Core\App\Jobs\TraitementCrudJob;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -60,7 +61,7 @@ class AffectationProjetService extends BaseAffectationProjetService
      * @return string         'done' | 'error'
      */
     public function afterCreateJob(int $id, string $token): string
-    {
+        {
         try {
             // 1) Récupération de l'affectation
             $affectation = $this->find($id);
@@ -111,6 +112,7 @@ class AffectationProjetService extends BaseAffectationProjetService
                 $update(); // +1 step
             }
 
+           
             // 7) Création des RéalisationProjet
             foreach ($apprenants as $apprenant) {
                 $realisationProjetService->create([
@@ -124,6 +126,8 @@ class AffectationProjetService extends BaseAffectationProjetService
                 $update(); // +1 step
             }
 
+         
+
             // 8) Synchronisation des évaluations
             $evaluationService->SyncEvaluationRealisationProjet($affectation);
             $update(); // +1 step (sync)
@@ -134,7 +138,7 @@ class AffectationProjetService extends BaseAffectationProjetService
 
         } catch (\Throwable $e) {
             // En cas d'erreur, on stocke status=error + message
-            $this->jobFail($token, $e);
+            $this->jobFail($id,$token, $e);
             return 'error';
         }
     }

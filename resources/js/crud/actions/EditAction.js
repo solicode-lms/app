@@ -2,12 +2,13 @@ import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
 import { NotificationHandler } from '../components/NotificationHandler';
+import { CrudAction } from './CrudAction';
  
 
-export class EditAction extends Action {
+export class EditAction extends CrudAction {
 
     constructor(config, tableUI, containerSelector = null) {
-        super(config);
+        super(config,tableUI);
         this.config = config;
         this.tableUI = tableUI;
         this.containerSelector = containerSelector || this.config.crudSelector;
@@ -94,6 +95,12 @@ export class EditAction extends Action {
                 data: formData,
             })
                 .done((data) => {
+
+                    // Affichage de message de progression de traitement
+                    const traitement_token = data.data?.traitement_token;
+                    if (traitement_token) {
+                        this.pollTraitementStatus(traitement_token);
+                    }
 
                     this.tableUI.indexUI.formUI.loader.hide();
                     NotificationHandler.show(data.type,data.title,data.message);

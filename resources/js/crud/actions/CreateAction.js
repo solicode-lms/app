@@ -3,10 +3,11 @@ import { ViewStateService } from '../components/ViewStateService';
 import { NotificationHandler } from '../components/NotificationHandler';
 import { Action } from './Action';
 import EventUtil from '../utils/EventUtil';
-export class CreateAction extends Action {
+import { CrudAction } from './CrudAction';
+export class CreateAction extends CrudAction {
 
     constructor(config, tableUI) {
-        super(config);
+        super(config,tableUI);
         this.config = config;  
         this.tableUI = tableUI;
         this.SuscesMessage = 'Nouvelle entité ajoutée avec succès.';
@@ -65,10 +66,7 @@ export class CreateAction extends Action {
             $.ajax({
                 url: actionUrl,
                 method: method,
-                data: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest' // 🔥 force Laravel à détecter l'AJAX
-                },
+                data: formData
             })
                 .done((data) => {
                     
@@ -115,7 +113,7 @@ export class CreateAction extends Action {
 
 
 
-        /**
+    /**
      * Gère les événements liés à l'ajout d'une entité.
      */
     handleAddEntity() {
@@ -125,110 +123,47 @@ export class CreateAction extends Action {
         });
     }
 
+    /**
+     * Gère l'action après création d'une entité selon afterCreateAction.
+     * - "" + edit_has_many = true → 'update'
+     * - index → recharge la liste
+     * - edit  → ouvre l'éditeur + recharge
+     * - update → idem edit
+     * - custom:<route> → route spécifique
+     *
+     * @param {object} data - Données de la réponse backend (avec entity_id)
+     */
+    handleAfterCreateAction(data = {}) {
+    const rawId = data?.data?.entity_id ?? data?.entity_id ?? data?.id;
+    const entityId = Number.parseInt(rawId, 10);
+    const hasValidId = Number.isInteger(entityId) && entityId > 0;
 
-/**
- * Lance le traitement différé (sans attendre la réponse) puis démarre le polling.
- *
- * @param {string} token - Token du traitement à surveiller
- * @param {object|null} loader - Loader avec .showNomBloquante() et .hide()
- * @param {function|null} onDoneCallback - Fonction appelée après traitement terminé
- */ 
-   pollTraitementStatus(token, onDoneCallback = null) {
+    // Normalisation de l'action
+    let action = (this.config?.afterCreateAction || '').trim().toLowerCase();
 
-    let loader = this.loader_traitement;
-    loader.showNomBloquante("⏳ Traitement lancé...");
-    let error = false;
+    // Règle spéciale : si vide et edit_has_many → update
+    if (!action && this.config?.edit_has_many) {
+        action = 'update';
+    }
 
+    const reloadIndex = () => this.tableUI?.entityLoader?.loadEntities?.();
 
-    $.get('/admin/traitement/start')
-    .done(() => {
-    })
-    .fail((xhr) => {
-        // ❌ Une erreur est survenue côté serveur
-        const message = xhr.responseJSON?.message || 'Erreur lors du démarrage du traitement.';
-        NotificationHandler.showError('❌ ' + message);
-        loader?.hide();
-        error = true;
-    });
+    switch (action) {
+        case 'edit':
+        case 'update':
+        if (hasValidId) {
+            this.tableUI?.entityEditor?.editEntity?.(entityId);
+        }
+        reloadIndex();
+        break;
 
-
-    // ⏱️ Démarrer le polling
-    const poll = () => {
-        $.get('/admin/traitement/status/' + token)
-            .done((res) => {
-                const status = res.status;
-                const progress = res.progress ?? 0;
-                const messageError = res.messageError ?? "";
-
-                if (status === 'done') {
-                    if (loader) loader.hide();
-                    NotificationHandler.showSuccess('✅ Traitement terminé.');
-
-                    if (typeof onDoneCallback === 'function') {
-                        onDoneCallback();
-                    }
-
-                } else if (status.startsWith('error')) {
-                    if (loader) loader.hide();
-                    NotificationHandler.showError('❌ Erreur traitement : ' + messageError);
-                } else {
-                    if(!error){
-                        loader?.showNomBloquante(`⏳ Traitement en cours... ${progress}%`);
-                        setTimeout(poll, 2000);
-                    }
-                }
-            })
-            .fail(() => {
-                if (loader) loader.hide();
-                NotificationHandler.showError('❌ Erreur réseau pendant le polling.');
-            });
-    };
-
-    poll(); // 🚀 Lancer immédiatement la boucle de polling
-}
-
-
-/**
- * Gère l'action après création d'une entité selon afterCreateAction.
- * - "" + edit_has_many = true → 'update'
- * - index → recharge la liste
- * - edit  → ouvre l'éditeur + recharge
- * - update → idem edit
- * - custom:<route> → route spécifique
- *
- * @param {object} data - Données de la réponse backend (avec entity_id)
- */
-handleAfterCreateAction(data = {}) {
-  const rawId = data?.data?.entity_id ?? data?.entity_id ?? data?.id;
-  const entityId = Number.parseInt(rawId, 10);
-  const hasValidId = Number.isInteger(entityId) && entityId > 0;
-
-  // Normalisation de l'action
-  let action = (this.config?.afterCreateAction || '').trim().toLowerCase();
-
-  // Règle spéciale : si vide et edit_has_many → update
-  if (!action && this.config?.edit_has_many) {
-    action = 'update';
-  }
-
-  const reloadIndex = () => this.tableUI?.entityLoader?.loadEntities?.();
-
-  switch (action) {
-    case 'edit':
-    case 'update':
-      if (hasValidId) {
-        this.tableUI?.entityEditor?.editEntity?.(entityId);
-      }
-      reloadIndex();
-      break;
-
-    case 'index':
-    case '':
-    default:
-      reloadIndex();
-      break;
-  }
-}
+        case 'index':
+        case '':
+        default:
+        reloadIndex();
+        break;
+    }
+    }
 
 
 }

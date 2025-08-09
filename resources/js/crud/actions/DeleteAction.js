@@ -3,11 +3,12 @@ import { NotificationHandler } from '../components/NotificationHandler';
 import { LoadListAction } from './LoadListAction';
 import { AjaxErrorHandler } from '../components/AjaxErrorHandler';
 import EventUtil from '../utils/EventUtil';
+import { CrudAction } from './CrudAction';
 
-export class DeleteAction extends Action {
+export class DeleteAction extends CrudAction {
 
     constructor(config, tableUI) {
-        super(config);
+         super(config,tableUI);
         this.config = config;
         this.tableUI = tableUI;
        

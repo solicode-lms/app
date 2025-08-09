@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
-class TraitementAsync implements ShouldQueue
+class BulkEditJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,6 +19,11 @@ class TraitementAsync implements ShouldQueue
     protected string $token;
     protected string $method;
 
+    protected  $realisationTache_ids;
+    protected  $valeursChamps;
+    
+
+    protected  $champsCoches;
     /**
      * @param string $module Nom du module (ex: "PkgRealisationProjets")
      * @param string $service Nom de la classe service (ex: "AffectationProjet" → sans suffixe "Service")
@@ -25,13 +31,15 @@ class TraitementAsync implements ShouldQueue
      * @param string $token Jeton unique de suivi
      * @param string $method Nom de la méthode à appeler (par défaut "runAsyncAfterCreate")
      */
-    public function __construct(string $module, string $service,string $method, int $id, string $token,  )
+    public function __construct(string $module, string $service,string $method, string $token, $realisationTache_ids , $champsCoches, $valeursChamps  )
     {
         $this->module = $module;
         $this->service = $service;
-        $this->id = $id;
+        $this->realisationTache_ids = $realisationTache_ids;
+        $this->champsCoches = $champsCoches;
         $this->token = $token;
         $this->method = $method;
+        $this->valeursChamps = $valeursChamps;
     }
 
     public function handle(): void
@@ -49,13 +57,28 @@ class TraitementAsync implements ShouldQueue
                 throw new \BadMethodCallException("Méthode {$this->method} non trouvée dans {$serviceClass}.");
             }
 
-            $result = $service->{$this->method}($this->id, $this->token);
+            $result = $service->{$this->method}($this->token,$this->realisationTache_ids, $this->champsCoches,$this->valeursChamps);
 
             Cache::put("traitement.{$this->token}.status", $result ?? 'done', 3600);
 
         } catch (\Throwable $e) {
             Cache::put("traitement.{$this->token}.status", 'error', 3600);
             Cache::put("traitement.{$this->token}.messageError", $e->getMessage(), 3600);
+
+          
         }
+    }
+
+    /**
+     * Détermine si le job courant correspond au post-traitement d'une création.
+     * Ajuste la liste selon ta convention de nommage.
+     */
+    protected function isAfterCreateJob(): bool
+    {
+        $afterCreateMethods = [
+            'afterCreateJob'
+        ];
+
+        return in_array($this->method, $afterCreateMethods, true);
     }
 }

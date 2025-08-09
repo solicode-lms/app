@@ -75,14 +75,14 @@ export class LoadingIndicator {
             loadingDiv.className = 'd-flex align-items-center p-2 shadow-sm';
     
             // Style du rectangle en haut à droite
-            loadingDiv.style.position = 'absolute';
+            loadingDiv.style.position = 'fixed';
             loadingDiv.style.top = '10px';
-            loadingDiv.style.right = '20px';
+            loadingDiv.style.right = '40px';
             loadingDiv.style.background = '#f8d7da'; // Rouge clair pour indiquer le chargement
             loadingDiv.style.color = '#721c24';
             loadingDiv.style.border = '1px solid #f5c6cb';
             loadingDiv.style.borderRadius = '5px';
-            loadingDiv.style.zIndex = '1070'; // Suffisamment haut pour être visible
+            loadingDiv.style.zIndex = '999999'; // 🔹 AU-DESSUS DES MODALS
             loadingDiv.style.fontSize = '14px';
             loadingDiv.style.fontWeight = 'bold';
             loadingDiv.style.minWidth = '120px';

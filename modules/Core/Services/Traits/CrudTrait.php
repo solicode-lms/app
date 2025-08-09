@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\GenericAsyncServiceJob;
-use Modules\Core\App\Jobs\TraitementAsync;
+use Modules\Core\App\Jobs\TraitementCrudJob;
 
 trait CrudTrait
 {

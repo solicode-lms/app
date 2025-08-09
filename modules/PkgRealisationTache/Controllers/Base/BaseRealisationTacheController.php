@@ -20,6 +20,7 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationTache\App\Requests\RealisationTacheRequest;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
 use Modules\PkgRealisationTache\App\Exports\RealisationTacheExport;
 use Modules\PkgRealisationTache\App\Imports\RealisationTacheImport;
 use Modules\Core\Services\ContextState;
@@ -351,24 +352,33 @@ class BaseRealisationTacheController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($realisationTache_ids as $id) {
-            $entity = $this->realisationTacheService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->realisationTacheService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->realisationTacheService->updateOnlyExistanteAttribute($id, $data);
-            }
+        
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
 
+
+        $token = $this->service->initJob("bulkUpdateJob");
+
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $token,
+            $realisationTache_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+         return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $this->service->getJobToken()]
+        );
+    
+       
     }
     /**
      */

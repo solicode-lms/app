@@ -453,4 +453,28 @@ trait RealisationTacheServiceCrud
     }
 
 
+    public function bulkUpdateJob($token, $realisationTache_ids, $champsCoches, $valeursChamps){
+         
+        $total = count( $realisationTache_ids); 
+        $update = $this->jobProgressUpdater($token, $total);
+
+        
+        foreach ($realisationTache_ids as $id) {
+            $entity = $this->find($id);
+            $this->authorize('update', $entity);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $update();
+        }
+    }
+
 }
