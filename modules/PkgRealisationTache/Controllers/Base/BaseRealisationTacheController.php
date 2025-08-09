@@ -21,6 +21,7 @@ use Modules\PkgRealisationTache\App\Requests\RealisationTacheRequest;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\App\Exports\RealisationTacheExport;
 use Modules\PkgRealisationTache\App\Imports\RealisationTacheImport;
 use Modules\Core\Services\ContextState;
@@ -360,13 +361,15 @@ class BaseRealisationTacheController extends AdminController
         }
 
 
-        $token = $this->service->initJob("bulkUpdateJob");
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
 
         dispatch(new BulkEditJob(
             ucfirst($this->service->moduleName),
             ucfirst($this->service->modelName),
             "bulkUpdateJob",
-            $token,
+            $jobManager->getToken(),
             $realisationTache_ids,
             $champsCoches,
             $valeursChamps
@@ -375,7 +378,7 @@ class BaseRealisationTacheController extends AdminController
        
          return JsonResponseHelper::success(
              __('Mise à jour en masse effectuée avec succès.'),
-                ['traitement_token' => $this->service->getJobToken()]
+                ['traitement_token' => $jobManager->getToken()]
         );
     
        

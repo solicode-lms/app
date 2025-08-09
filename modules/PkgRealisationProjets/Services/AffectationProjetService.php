@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\TraitementCrudJob;
+use Modules\Core\Manager\JobManager;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -62,12 +63,15 @@ class AffectationProjetService extends BaseAffectationProjetService
      */
     public function afterCreateJob(int $id, string $token): string
         {
+
+        
+
         try {
             // 1) Récupération de l'affectation
             $affectation = $this->find($id);
 
             if (!$affectation) {
-                $this->jobSetError($token, "L'affectation n'existe pas (id={$id}).");
+                $this->jobManager->setError("L'affectation n'existe pas (id={$id}).");
                 return 'error';
             }
 
@@ -80,7 +84,7 @@ class AffectationProjetService extends BaseAffectationProjetService
             }
 
             if ($apprenants->isEmpty()) {
-                $this->jobSetError($token, "Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
+               $this->jobManager->setError("Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
                 return 'error';
             }
 
@@ -90,8 +94,8 @@ class AffectationProjetService extends BaseAffectationProjetService
                 ->get();
 
             // 4) Initialisation progression (tâches + apprenants + sync évaluation)
-            $total = $taches->count() + $apprenants->count() + 1; // +1 pour la sync des évaluations
-            $update = $this->jobProgressUpdater($token, $total);  // status -> running, progress=0
+            $total = $taches->count() + $apprenants->count() + 1;
+            $jobManager = new JobManager($token,$total);
 
             // 5) Services nécessaires (résolus via le conteneur)
             /** @var \Modules\PkgRealisationTache\Services\TacheAffectationService $tacheAffectationService */
@@ -109,7 +113,7 @@ class AffectationProjetService extends BaseAffectationProjetService
                     'tache_id' => $tache->id,
                     'affectation_projet_id' => $affectation->id,
                 ]);
-                $update(); // +1 step
+                $jobManager->tick();
             }
 
            
@@ -123,22 +127,25 @@ class AffectationProjetService extends BaseAffectationProjetService
                     'rapport'                 => null,
                     'etats_realisation_projet_id' => null,
                 ]);
-                $update(); // +1 step
+                 $jobManager->tick();
             }
 
          
 
             // 8) Synchronisation des évaluations
             $evaluationService->SyncEvaluationRealisationProjet($affectation);
-            $update(); // +1 step (sync)
+            $jobManager->tick();
 
             // 9) Fin OK
-            $this->jobFinish($token); // progress=100, status=done
+            $jobManager->finish(); // progress=100, status=done
             return 'done';
 
         } catch (\Throwable $e) {
-            // En cas d'erreur, on stocke status=error + message
-            $this->jobFail($id,$token, $e);
+
+            $jobManager->fail(function () use ($id) {
+                // Suppression de l'entité si afterCreate
+                $this->destroy($id);
+            }, true, $e);
             return 'error';
         }
     }

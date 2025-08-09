@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\Manager\JobManager;
 use Modules\Core\Services\Contracts\ServiceInterface;
 
 use Modules\Core\Services\Traits\{
@@ -50,6 +51,14 @@ abstract class BaseService implements ServiceInterface
         FilterTrait, 
         StatsTrait,
         JobTrait;
+
+
+    protected ?string $crudJobToken = null;
+    public function getCrudJobToken(): ?string
+    {
+        return $this->crudJobToken;
+    }
+
 
     // EagerLoading Charger les relations nécessaires : il est utilisé dans PaginateTrait
     protected array $index_with_relations = [];
@@ -137,7 +146,6 @@ abstract class BaseService implements ServiceInterface
         // Scrop management
         $this->viewState = app(ViewStateService::class);
         $this->sessionState = app(SessionState::class);
-    
     }
 
     public function getData(string $filter, $value)

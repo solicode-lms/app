@@ -16,6 +16,7 @@ use Modules\PkgRealisationTache\Database\Seeders\EtatRealisationTacheSeeder;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
 use Modules\PkgCompetences\Services\ChapitreService;
@@ -455,10 +456,11 @@ trait RealisationTacheServiceCrud
 
     public function bulkUpdateJob($token, $realisationTache_ids, $champsCoches, $valeursChamps){
          
+       
         $total = count( $realisationTache_ids); 
-        $update = $this->jobProgressUpdater($token, $total);
+        $jobManager = new JobManager($token,$total);
+     
 
-        
         foreach ($realisationTache_ids as $id) {
             $entity = $this->find($id);
             $this->authorize('update', $entity);
@@ -473,8 +475,11 @@ trait RealisationTacheServiceCrud
                 $this->updateOnlyExistanteAttribute($id, $data);
             }
 
-            $update();
+            $jobManager->tick();
+            
         }
+
+        return "done";
     }
 
 }

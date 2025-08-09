@@ -5,180 +5,218 @@ namespace Modules\Core\Services\Traits;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\TraitementCrudJob;
+use Modules\Core\App\Manager\JobManager;
 
 trait JobTrait
 {
-    /** @var string|null */
-    protected ?string $job_token = null;
-    public function getJobToken(): ?string
-    {
-        return $this->job_token;
-    }
 
     /**
-     * Exécute dynamiquement un traitement différé (Job) avant ou après une action.
+     * Exécute un job différé lié à une action CRUD.
      *
-     * @param  'before'|'after'  $when
-     * @param  string            $action  ex: create, update...
-     * @param  int|null          $id
-     * @return string|null       token pour suivre l’état du job (ou null si méthode absente)
+     * @param 'before'|'after' $when
+     * @param string           $action   Exemple: create, update...
+     * @param int|null         $id       ID de l'entité
+     * @return string|null     Token pour suivre l’état du job (ou null si méthode absente)
      */
-    protected function executeJob(string $when, string $action, int|null $id = null): ?string
+    protected function executeJob(string $when, string $action, ?int $id = null): ?string
     {
         $methodName = "{$when}" . ucfirst($action) . "Job";
-
+        
+        // Si la méthode n'existe pas dans le service → on ne lance rien
         if (!method_exists($this, $methodName)) {
             return null;
         }
+        
+        $jobManager = new JobManager();
+        $jobManager->init($methodName, $this->modelName, $this->moduleName);
+        $this->crudJobToken = $jobManager->getToken();
 
-        $token = $this->initJob($methodName);
+        
 
-        // Dispatch du job générique (le job appellera $service->$methodName($id, $token))
+        // Dispatch du job générique
         dispatch(new TraitementCrudJob(
             ucfirst($this->moduleName),
             ucfirst($this->modelName),
             $methodName,
             $id,
-            $token
+            $jobManager->getToken()
         ));
 
-        return $token;
+        return $jobManager->getToken();
     }
 
-    public function initJob($methodName){
 
-        $token = $this->jobMakeToken();
-        $this->jobSetStatus($token, 'pending');
+    // // /** @var string|null */
+    // // protected ?string $job_token = null;
+    // // public function getJobToken(): ?string
+    // // {
+    // //     return $this->job_token;
+    // // }
 
-        // Enregistre le token côté instance (utile si on veut le réutiliser)
-        $this->job_token = $token;
+    // /**
+    //  * Exécute dynamiquement un traitement différé (Job) avant ou après une action.
+    //  *
+    //  * @param  'before'|'after'  $when
+    //  * @param  string            $action  ex: create, update...
+    //  * @param  int|null          $id
+    //  * @return string|null       token pour suivre l’état du job (ou null si méthode absente)
+    //  */
+    // protected function executeJob(string $when, string $action, int|null $id = null): ?string
+    // {
+    //     $methodName = "{$when}" . ucfirst($action) . "Job";
 
-        // 💾 Sauvegarder le nom de la méthode pour jobFail()
-        $this->jobCachePut($token, 'method', $methodName);
+    //     if (!method_exists($this, $methodName)) {
+    //         return null;
+    //     }
 
-        return  $token;
+    //     $token = $this->initJob($methodName);
 
-    }
+    //     // Dispatch du job générique (le job appellera $service->$methodName($id, $token))
+    //     dispatch(new TraitementCrudJob(
+    //         ucfirst($this->moduleName),
+    //         ucfirst($this->modelName),
+    //         $methodName,
+    //         $id,
+    //         $token
+    //     ));
 
-    /* ------------------------------
-     * Helpers génériques de Job/Cache
-     * ------------------------------ */
+    //     return $token;
+    // }
 
-    protected function jobMakeToken(): string
-    {
-        return Str::uuid()->toString();
-    }
+    // public function initJob($methodName){
 
-    protected function jobKey(string $token, string $suffix): string
-    {
-        return "traitement.{$token}.{$suffix}";
-    }
+    //     $token = $this->jobMakeToken();
+    //     $this->jobSetStatus($token, 'pending');
 
-    protected function jobCachePut(string $token, string $suffix, mixed $value, int $ttl = 3600): void
-    {
-        Cache::put($this->jobKey($token, $suffix), $value, $ttl);
-    }
+    //     // Enregistre le token côté instance (utile si on veut le réutiliser)
+    //     $this->job_token = $token;
 
-    protected function jobCacheGet(string $token, string $suffix, mixed $default = null): mixed
-    {
-        return Cache::get($this->jobKey($token, $suffix), $default);
-    }
+    //     // 💾 Sauvegarder le nom de la méthode pour jobFail()
+    //     $this->jobCachePut($token, 'method', $methodName);
 
-    /* ------------------------------
-     * Gestion d’état & messages
-     * ------------------------------ */
+    //     return  $token;
 
-    protected function jobSetStatus(string $token, string $status): void
-    {
-        $this->jobCachePut($token, 'status', $status);
-    }
+    // }
 
-    protected function jobSetError(string $token, string $message): void
-    {
-        $this->jobSetStatus($token, 'error');
-        $this->jobCachePut($token, 'messageError', $message);
-    }
+    // /* ------------------------------
+    //  * Helpers génériques de Job/Cache
+    //  * ------------------------------ */
 
-    protected function jobSetMessage(string $token, string $message): void
-    {
-        $this->jobCachePut($token, 'message', $message);
-    }
+    // protected function jobMakeToken(): string
+    // {
+    //     return Str::uuid()->toString();
+    // }
 
-    /* ------------------------------
-     * Progression (%)
-     * ------------------------------ */
+    // protected function jobKey(string $token, string $suffix): string
+    // {
+    //     return "traitement.{$token}.{$suffix}";
+    // }
 
-    /**
-     * Initialise la progression (stocke total/done/progress et met le status à 'running').
-     */
-    protected function jobInitProgress(string $token, int $total): void
-    {
-        $total = max(0, $total);
-        $this->jobCachePut($token, 'total', $total);
-        $this->jobCachePut($token, 'done', 0);
-        $this->jobCachePut($token, 'progress', $total === 0 ? 100 : 0);
-        $this->jobSetStatus($token, $total === 0 ? 'done' : 'running');
-    }
+    // protected function jobCachePut(string $token, string $suffix, mixed $value, int $ttl = 3600): void
+    // {
+    //     Cache::put($this->jobKey($token, $suffix), $value, $ttl);
+    // }
 
-    /**
-     * Incrémente l’avancement et recalcule le pourcentage.
-     */
-    protected function jobTick(string $token, int $step = 1): void
-    {
-        $total = (int) $this->jobCacheGet($token, 'total', 0);
-        $done  = (int) $this->jobCacheGet($token, 'done', 0) + max(0, $step);
+    // protected function jobCacheGet(string $token, string $suffix, mixed $default = null): mixed
+    // {
+    //     return Cache::get($this->jobKey($token, $suffix), $default);
+    // }
 
-        if ($total > 0) {
-            $progress = (int) floor(($done / $total) * 100);
-        } else {
-            $progress = 100;
-        }
+    // /* ------------------------------
+    //  * Gestion d’état & messages
+    //  * ------------------------------ */
 
-        $this->jobCachePut($token, 'done', $done);
-        $this->jobCachePut($token, 'progress', max(0, min(100, $progress)));
-    }
+    // protected function jobSetStatus(string $token, string $status): void
+    // {
+    //     $this->jobCachePut($token, 'status', $status);
+    // }
 
-    /**
-     * Termine avec succès (100% + status=done).
-     */
-    protected function jobFinish(string $token): void
-    {
-        $this->jobCachePut($token, 'progress', 100);
-        $this->jobSetStatus($token, 'done');
-    }
+    // protected function jobSetError(string $token, string $message): void
+    // {
+    //     $this->jobSetStatus($token, 'error');
+    //     $this->jobCachePut($token, 'messageError', $message);
+    // }
 
-    /**
-     * Termine en erreur en stockant le message (et optionnellement l’exception).
-     */
-    protected function jobFail($id , string $token, \Throwable $e, bool $exposeTrace = false): void
-    {
-        $this->jobSetError($token, $e->getMessage());
+    // protected function jobSetMessage(string $token, string $message): void
+    // {
+    //     $this->jobCachePut($token, 'message', $message);
+    // }
 
-        if ($exposeTrace) {
-            $this->jobCachePut($token, 'trace', collect($e->getTrace())->take(10)->all());
-        }
+    // /* ------------------------------
+    //  * Progression (%)
+    //  * ------------------------------ */
 
-        // 📥 Récupérer le nom de la méthode enregistré au dispatch
-        $methodName = $this->jobCacheGet($token, 'method');
+    // /**
+    //  * Initialise la progression (stocke total/done/progress et met le status à 'running').
+    //  */
+    // protected function jobInitProgress(string $token, int $total): void
+    // {
+    //     $total = max(0, $total);
+    //     $this->jobCachePut($token, 'total', $total);
+    //     $this->jobCachePut($token, 'done', 0);
+    //     $this->jobCachePut($token, 'progress', $total === 0 ? 100 : 0);
+    //     $this->jobSetStatus($token, $total === 0 ? 'done' : 'running');
+    // }
 
-        // ❗ Suppression UNIQUEMENT pour le job "after create"
-        if ($methodName && str_starts_with($methodName, 'afterCreateJob')) {
-             $this->destroy($id);
-        }
-    }
+    // /**
+    //  * Incrémente l’avancement et recalcule le pourcentage.
+    //  */
+    // protected function jobTick(string $token, int $step = 1): void
+    // {
+    //     $total = (int) $this->jobCacheGet($token, 'total', 0);
+    //     $done  = (int) $this->jobCacheGet($token, 'done', 0) + max(0, $step);
 
-    /**
-     * Fournit un petit "updater" pratique à utiliser dans le job.
-     * Exemple d’usage :
-     *   $update = $this->jobProgressUpdater($token, $total);
-     *   foreach (...) { ... $update(); }
-     */
-    protected function jobProgressUpdater(string $token, int $total): \Closure
-    {
-        $this->jobInitProgress($token, $total);
+    //     if ($total > 0) {
+    //         $progress = (int) floor(($done / $total) * 100);
+    //     } else {
+    //         $progress = 100;
+    //     }
 
-        return function (int $step = 1) use ($token) {
-            $this->jobTick($token, $step);
-        };
-    }
+    //     $this->jobCachePut($token, 'done', $done);
+    //     $this->jobCachePut($token, 'progress', max(0, min(100, $progress)));
+    // }
+
+    // /**
+    //  * Termine avec succès (100% + status=done).
+    //  */
+    // protected function jobFinish(string $token): void
+    // {
+    //     $this->jobCachePut($token, 'progress', 100);
+    //     $this->jobSetStatus($token, 'done');
+    // }
+
+    // /**
+    //  * Termine en erreur en stockant le message (et optionnellement l’exception).
+    //  */
+    // protected function jobFail($id , string $token, \Throwable $e, bool $exposeTrace = false): void
+    // {
+    //     $this->jobSetError($token, $e->getMessage());
+
+    //     if ($exposeTrace) {
+    //         $this->jobCachePut($token, 'trace', collect($e->getTrace())->take(10)->all());
+    //     }
+
+    //     // 📥 Récupérer le nom de la méthode enregistré au dispatch
+    //     $methodName = $this->jobCacheGet($token, 'method');
+
+    //     // ❗ Suppression UNIQUEMENT pour le job "after create"
+    //     if ($methodName && str_starts_with($methodName, 'afterCreateJob')) {
+    //          $this->destroy($id);
+    //     }
+    // }
+
+    // /**
+    //  * Fournit un petit "updater" pratique à utiliser dans le job.
+    //  * Exemple d’usage :
+    //  *   $update = $this->jobProgressUpdater($token, $total);
+    //  *   foreach (...) { ... $update(); }
+    //  */
+    // protected function jobProgressUpdater(string $token, int $total): \Closure
+    // {
+    //     $this->jobInitProgress($token, $total);
+
+    //     return function (int $step = 1) use ($token) {
+    //         $this->jobTick($token, $step);
+    //     };
+    // }
 }
