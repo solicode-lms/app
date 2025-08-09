@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\TraitementCrudJob;
-use Modules\Core\Manager\JobManager;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -63,15 +63,14 @@ class AffectationProjetService extends BaseAffectationProjetService
      */
     public function afterCreateJob(int $id, string $token): string
         {
-
-        
-
-        try {
+        try  { 
+            $jobManager = new JobManager($token);
+            
             // 1) Récupération de l'affectation
             $affectation = $this->find($id);
 
             if (!$affectation) {
-                $this->jobManager->setError("L'affectation n'existe pas (id={$id}).");
+                $jobManager->setError("L'affectation n'existe pas (id={$id}).");
                 return 'error';
             }
 
@@ -84,7 +83,7 @@ class AffectationProjetService extends BaseAffectationProjetService
             }
 
             if ($apprenants->isEmpty()) {
-               $this->jobManager->setError("Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
+               $jobManager->setError("Aucun apprenant trouvé pour l'affectation #{$affectation->id}.");
                 return 'error';
             }
 
@@ -95,7 +94,7 @@ class AffectationProjetService extends BaseAffectationProjetService
 
             // 4) Initialisation progression (tâches + apprenants + sync évaluation)
             $total = $taches->count() + $apprenants->count() + 1;
-            $jobManager = new JobManager($token,$total);
+            $jobManager =  $jobManager->initProgress($total);
 
             // 5) Services nécessaires (résolus via le conteneur)
             /** @var \Modules\PkgRealisationTache\Services\TacheAffectationService $tacheAffectationService */
@@ -107,6 +106,7 @@ class AffectationProjetService extends BaseAffectationProjetService
             /** @var \Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService $evaluationService */
             $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
 
+      
             // 6) Création des TacheAffectations
             foreach ($taches as $tache) {
                 $tacheAffectationService->create([
