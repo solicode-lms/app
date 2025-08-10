@@ -7,6 +7,7 @@ namespace Modules\PkgWidgets\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgWidgets\Models\SectionWidget;
 use Modules\Core\Services\BaseService;
 
@@ -244,6 +245,34 @@ class BaseSectionWidgetService extends BaseService
             'sectionWidgets_permissions' => $sectionWidgets_permissions,
             'sectionWidgets_permissionsByItem' => $sectionWidgets_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $sectionWidget_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $sectionWidget_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($sectionWidget_ids as $id) {
+            $sectionWidget = $this->find($id);
+            $this->authorize('update', $sectionWidget);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

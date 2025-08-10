@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Modules\Core\Services\BaseService;
 
@@ -259,6 +260,34 @@ class BaseTacheAffectationService extends BaseService
             'tacheAffectations_permissions' => $tacheAffectations_permissions,
             'tacheAffectations_permissionsByItem' => $tacheAffectations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $tacheAffectation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $tacheAffectation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($tacheAffectation_ids as $id) {
+            $tacheAffectation = $this->find($id);
+            $this->authorize('update', $tacheAffectation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

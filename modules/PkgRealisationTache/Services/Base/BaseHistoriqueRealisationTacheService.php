@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -261,6 +262,34 @@ class BaseHistoriqueRealisationTacheService extends BaseService
             'historiqueRealisationTaches_permissions' => $historiqueRealisationTaches_permissions,
             'historiqueRealisationTaches_permissionsByItem' => $historiqueRealisationTaches_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $historiqueRealisationTache_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $historiqueRealisationTache_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($historiqueRealisationTache_ids as $id) {
+            $historiqueRealisationTache = $this->find($id);
+            $this->authorize('update', $historiqueRealisationTache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

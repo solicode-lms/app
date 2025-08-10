@@ -7,6 +7,7 @@ namespace Modules\PkgCompetences\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCompetences\Models\MicroCompetence;
 use Modules\Core\Services\BaseService;
 
@@ -254,6 +255,34 @@ class BaseMicroCompetenceService extends BaseService
             'microCompetences_permissions' => $microCompetences_permissions,
             'microCompetences_permissionsByItem' => $microCompetences_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $microCompetence_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $microCompetence_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($microCompetence_ids as $id) {
+            $microCompetence = $this->find($id);
+            $this->authorize('update', $microCompetence);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

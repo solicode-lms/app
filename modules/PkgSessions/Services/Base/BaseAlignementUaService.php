@@ -7,6 +7,7 @@ namespace Modules\PkgSessions\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgSessions\Models\AlignementUa;
 use Modules\Core\Services\BaseService;
 
@@ -260,6 +261,34 @@ class BaseAlignementUaService extends BaseService
             'alignementUas_permissions' => $alignementUas_permissions,
             'alignementUas_permissionsByItem' => $alignementUas_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $alignementUa_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $alignementUa_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($alignementUa_ids as $id) {
+            $alignementUa = $this->find($id);
+            $this->authorize('update', $alignementUa);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

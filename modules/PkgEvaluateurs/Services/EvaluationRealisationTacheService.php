@@ -67,7 +67,7 @@ class EvaluationRealisationTacheService extends BaseEvaluationRealisationTacheSe
             $allEvaluated = $evaluationRealisationTaches->every(fn($t) => !is_null($t->note));
 
             // Détermination du nouvel état
-            $newEtatCode = $allNotesNull ? 'A_FAIRE' : ($allEvaluated ? 'TERMINEE' : 'EN_COURS');
+            $newEtatCode = $allNotesNull ? 'TODO' : ($allEvaluated ? 'APPROVED' : 'IN_PROGRESS');
 
             // Mise à jour de l’état du projet
             $evaluationRealisationProjetService->update($evaluationRealisationProjet,[

@@ -7,6 +7,7 @@ namespace Modules\PkgWidgets\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgWidgets\Models\WidgetType;
 use Modules\Core\Services\BaseService;
 
@@ -224,6 +225,34 @@ class BaseWidgetTypeService extends BaseService
             'widgetTypes_permissions' => $widgetTypes_permissions,
             'widgetTypes_permissionsByItem' => $widgetTypes_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $widgetType_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $widgetType_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($widgetType_ids as $id) {
+            $widgetType = $this->find($id);
+            $this->authorize('update', $widgetType);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

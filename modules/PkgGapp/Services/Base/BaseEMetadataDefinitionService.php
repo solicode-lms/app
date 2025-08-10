@@ -7,6 +7,7 @@ namespace Modules\PkgGapp\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgGapp\Models\EMetadataDefinition;
 use Modules\Core\Services\BaseService;
 
@@ -237,6 +238,34 @@ class BaseEMetadataDefinitionService extends BaseService
             'eMetadataDefinitions_permissions' => $eMetadataDefinitions_permissions,
             'eMetadataDefinitions_permissionsByItem' => $eMetadataDefinitions_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $eMetadataDefinition_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $eMetadataDefinition_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($eMetadataDefinition_ids as $id) {
+            $eMetadataDefinition = $this->find($id);
+            $this->authorize('update', $eMetadataDefinition);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

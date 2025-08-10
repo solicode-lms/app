@@ -7,6 +7,7 @@ namespace Modules\PkgCompetences\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCompetences\Models\UniteApprentissage;
 use Modules\Core\Services\BaseService;
 
@@ -245,6 +246,34 @@ class BaseUniteApprentissageService extends BaseService
             'uniteApprentissages_permissions' => $uniteApprentissages_permissions,
             'uniteApprentissages_permissionsByItem' => $uniteApprentissages_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $uniteApprentissage_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $uniteApprentissage_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($uniteApprentissage_ids as $id) {
+            $uniteApprentissage = $this->find($id);
+            $this->authorize('update', $uniteApprentissage);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

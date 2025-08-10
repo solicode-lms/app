@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationProjets\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -307,6 +308,34 @@ class BaseAffectationProjetService extends BaseService
             'affectationProjets_permissions' => $affectationProjets_permissions,
             'affectationProjets_permissionsByItem' => $affectationProjets_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $affectationProjet_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $affectationProjet_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($affectationProjet_ids as $id) {
+            $affectationProjet = $this->find($id);
+            $this->authorize('update', $affectationProjet);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

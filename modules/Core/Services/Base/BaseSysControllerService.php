@@ -7,6 +7,7 @@ namespace Modules\Core\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\Core\Models\SysController;
 use Modules\Core\Services\BaseService;
 
@@ -244,6 +245,34 @@ class BaseSysControllerService extends BaseService
             'sysControllers_permissions' => $sysControllers_permissions,
             'sysControllers_permissionsByItem' => $sysControllers_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $sysController_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $sysController_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($sysController_ids as $id) {
+            $sysController = $this->find($id);
+            $this->authorize('update', $sysController);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

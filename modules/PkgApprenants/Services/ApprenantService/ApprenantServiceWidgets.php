@@ -28,7 +28,7 @@ trait ApprenantServiceWidgets
                 JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
                 JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
                 WHERE rp.apprenant_id = apprenants.id
-                AND wt.code IN ("TERMINEE", "EN_VALIDATION")
+                AND wt.code IN ("APPROVED", "TO_APPROVE")
             ) >= 7');
         })->orWhere(function ($q) {
             $q->whereRaw('(SELECT COUNT(*)
@@ -37,7 +37,7 @@ trait ApprenantServiceWidgets
                 JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
                 JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
                 WHERE rp.apprenant_id = apprenants.id
-                AND wt.code IN ("TERMINEE", "EN_VALIDATION")
+                AND wt.code IN ("APPROVED", "TO_APPROVE")
             ) = 0');
         });
 
@@ -89,7 +89,7 @@ trait ApprenantServiceWidgets
         $user = Auth::user();
 
         $query = Apprenant::whereDoesntHave('realisationProjets.realisationTaches.etatRealisationTache.workflowTache', function ($q) {
-            $q->where('code', 'A_FAIRE'); // <- Référence logique
+            $q->where('code', 'TODO'); // <- Référence logique
         });
 
         if ($user->hasRole(Role::APPRENANT_ROLE)) {
@@ -141,7 +141,7 @@ trait ApprenantServiceWidgets
         $user = Auth::user();
 
         $query = Apprenant::whereDoesntHave('realisationProjets.realisationTaches.etatRealisationTache.workflowTache', function ($q) {
-            $q->where('code', 'EN_COURS'); // <- Référence logique
+            $q->where('code', 'IN_PROGRESS'); // <- Référence logique
         });
 
         if ($user->hasRole(Role::APPRENANT_ROLE)) {
@@ -198,7 +198,7 @@ trait ApprenantServiceWidgets
         $user = Auth::user();
 
         $query = Apprenant::whereHas('realisationProjets.realisationTaches.etatRealisationTache.workflowTache', function ($q) {
-            $q->where('code', 'EN_COURS'); // <- Référence logique
+            $q->where('code', 'IN_PROGRESS'); // <- Référence logique
         });
 
         if ($user->hasRole(Role::APPRENANT_ROLE)) {
@@ -253,7 +253,7 @@ trait ApprenantServiceWidgets
         $user = Auth::user();
 
         $query = Apprenant::whereHas('realisationProjets.realisationTaches.etatRealisationTache.workflowTache', function ($q) {
-            $q->where('code', 'A_FAIRE'); // <- Référence logique
+            $q->where('code', 'TODO'); // <- Référence logique
         });
 
         if ($user->hasRole(Role::APPRENANT_ROLE)) {

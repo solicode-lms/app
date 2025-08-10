@@ -37,7 +37,7 @@
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 1,
-        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('TERMINEE', 'EN_VALIDATION')",
+        "calculable_sql": "SELECT TIMESTAMPDIFF(HOUR, MAX(rt.updated_at), NOW())\r\nFROM realisation_taches rt\r\nJOIN realisation_projets rp ON rt.realisation_projet_id = rp.id\r\nJOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id\r\nJOIN workflow_taches wt ON ert.workflow_tache_id = wt.id\r\nWHERE rp.apprenant_id = apprenants.id \r\n  AND wt.code IN ('APPROVED', 'TO_APPROVE')",
         "description": "",
         "e_model_reference": "apprenants"
     }

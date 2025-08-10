@@ -7,6 +7,7 @@ namespace Modules\PkgFormation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgFormation\Models\Module;
 use Modules\Core\Services\BaseService;
 
@@ -250,6 +251,34 @@ class BaseModuleService extends BaseService
             'modules_permissions' => $modules_permissions,
             'modules_permissionsByItem' => $modules_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $module_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $module_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($module_ids as $id) {
+            $module = $this->find($id);
+            $this->authorize('update', $module);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

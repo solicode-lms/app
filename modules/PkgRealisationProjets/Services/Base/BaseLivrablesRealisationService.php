@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationProjets\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationProjets\Models\LivrablesRealisation;
 use Modules\Core\Services\BaseService;
 
@@ -275,6 +276,34 @@ class BaseLivrablesRealisationService extends BaseService
             'livrablesRealisations_permissions' => $livrablesRealisations_permissions,
             'livrablesRealisations_permissionsByItem' => $livrablesRealisations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $livrablesRealisation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $livrablesRealisation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($livrablesRealisation_ids as $id) {
+            $livrablesRealisation = $this->find($id);
+            $this->authorize('update', $livrablesRealisation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

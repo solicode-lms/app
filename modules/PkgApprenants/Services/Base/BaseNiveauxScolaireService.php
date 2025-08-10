@@ -7,6 +7,7 @@ namespace Modules\PkgApprenants\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Models\NiveauxScolaire;
 use Modules\Core\Services\BaseService;
 
@@ -225,6 +226,34 @@ class BaseNiveauxScolaireService extends BaseService
             'niveauxScolaires_permissions' => $niveauxScolaires_permissions,
             'niveauxScolaires_permissionsByItem' => $niveauxScolaires_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $niveauxScolaire_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $niveauxScolaire_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($niveauxScolaire_ids as $id) {
+            $niveauxScolaire = $this->find($id);
+            $this->authorize('update', $niveauxScolaire);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

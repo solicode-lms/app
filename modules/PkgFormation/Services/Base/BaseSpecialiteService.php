@@ -7,6 +7,7 @@ namespace Modules\PkgFormation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgFormation\Models\Specialite;
 use Modules\Core\Services\BaseService;
 
@@ -240,6 +241,34 @@ class BaseSpecialiteService extends BaseService
             'specialites_permissions' => $specialites_permissions,
             'specialites_permissionsByItem' => $specialites_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $specialite_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $specialite_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($specialite_ids as $id) {
+            $specialite = $this->find($id);
+            $this->authorize('update', $specialite);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

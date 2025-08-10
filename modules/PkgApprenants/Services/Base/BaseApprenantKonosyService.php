@@ -7,6 +7,7 @@ namespace Modules\PkgApprenants\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Models\ApprenantKonosy;
 use Modules\Core\Services\BaseService;
 
@@ -241,6 +242,34 @@ class BaseApprenantKonosyService extends BaseService
             'apprenantKonosies_permissions' => $apprenantKonosies_permissions,
             'apprenantKonosies_permissionsByItem' => $apprenantKonosies_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $apprenantKonosy_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $apprenantKonosy_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($apprenantKonosy_ids as $id) {
+            $apprenantKonosy = $this->find($id);
+            $this->authorize('update', $apprenantKonosy);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

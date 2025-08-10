@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -278,6 +279,34 @@ class BaseCommentaireRealisationTacheService extends BaseService
             'commentaireRealisationTaches_permissions' => $commentaireRealisationTaches_permissions,
             'commentaireRealisationTaches_permissionsByItem' => $commentaireRealisationTaches_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $commentaireRealisationTache_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $commentaireRealisationTache_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($commentaireRealisationTache_ids as $id) {
+            $commentaireRealisationTache = $this->find($id);
+            $this->authorize('update', $commentaireRealisationTache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

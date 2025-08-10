@@ -7,6 +7,7 @@ namespace Modules\Core\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\Core\Models\FeatureDomain;
 use Modules\Core\Services\BaseService;
 
@@ -243,6 +244,34 @@ class BaseFeatureDomainService extends BaseService
             'featureDomains_permissions' => $featureDomains_permissions,
             'featureDomains_permissionsByItem' => $featureDomains_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $featureDomain_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $featureDomain_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($featureDomain_ids as $id) {
+            $featureDomain = $this->find($id);
+            $this->authorize('update', $featureDomain);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

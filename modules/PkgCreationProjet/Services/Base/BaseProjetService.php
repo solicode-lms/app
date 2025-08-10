@@ -7,6 +7,7 @@ namespace Modules\PkgCreationProjet\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\Core\Services\BaseService;
 
@@ -305,6 +306,34 @@ class BaseProjetService extends BaseService
             'projets_permissions' => $projets_permissions,
             'projets_permissionsByItem' => $projets_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $projet_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $projet_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($projet_ids as $id) {
+            $projet = $this->find($id);
+            $this->authorize('update', $projet);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

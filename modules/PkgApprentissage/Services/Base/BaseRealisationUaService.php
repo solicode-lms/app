@@ -7,6 +7,7 @@ namespace Modules\PkgApprentissage\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\RealisationUa;
 use Modules\Core\Services\BaseService;
 
@@ -282,6 +283,34 @@ class BaseRealisationUaService extends BaseService
             'realisationUas_permissions' => $realisationUas_permissions,
             'realisationUas_permissionsByItem' => $realisationUas_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $realisationUa_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $realisationUa_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($realisationUa_ids as $id) {
+            $realisationUa = $this->find($id);
+            $this->authorize('update', $realisationUa);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

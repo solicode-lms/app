@@ -51,7 +51,7 @@ trait RealisationTacheServiceCrud
             ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
         ) {
             $etatCode = $etat->workflowTache?->code;
-            $etatsInterdits = ['EN_COURS', 'EN_VALIDATION', 'TERMINEE'];
+            $etatsInterdits = ['IN_PROGRESS', 'TO_APPROVE', 'APPROVED'];
 
             $tache = $realisationTache->tache;
 

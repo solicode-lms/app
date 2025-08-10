@@ -7,6 +7,7 @@ namespace Modules\PkgCreationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\Core\Services\BaseService;
 
@@ -301,6 +302,34 @@ class BaseTacheService extends BaseService
             'taches_permissions' => $taches_permissions,
             'taches_permissionsByItem' => $taches_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $tache_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $tache_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($tache_ids as $id) {
+            $tache = $this->find($id);
+            $this->authorize('update', $tache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

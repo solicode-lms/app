@@ -7,6 +7,7 @@ namespace Modules\PkgWidgets\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgWidgets\Models\WidgetUtilisateur;
 use Modules\Core\Services\BaseService;
 
@@ -288,6 +289,34 @@ class BaseWidgetUtilisateurService extends BaseService
             'widgetUtilisateurs_permissions' => $widgetUtilisateurs_permissions,
             'widgetUtilisateurs_permissionsByItem' => $widgetUtilisateurs_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $widgetUtilisateur_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $widgetUtilisateur_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($widgetUtilisateur_ids as $id) {
+            $widgetUtilisateur = $this->find($id);
+            $this->authorize('update', $widgetUtilisateur);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

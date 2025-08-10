@@ -7,6 +7,7 @@ namespace Modules\PkgEvaluateurs\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationProjet;
 use Modules\Core\Services\BaseService;
 
@@ -293,6 +294,34 @@ class BaseEvaluationRealisationProjetService extends BaseService
             'evaluationRealisationProjets_permissions' => $evaluationRealisationProjets_permissions,
             'evaluationRealisationProjets_permissionsByItem' => $evaluationRealisationProjets_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $evaluationRealisationProjet_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $evaluationRealisationProjet_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($evaluationRealisationProjet_ids as $id) {
+            $evaluationRealisationProjet = $this->find($id);
+            $this->authorize('update', $evaluationRealisationProjet);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

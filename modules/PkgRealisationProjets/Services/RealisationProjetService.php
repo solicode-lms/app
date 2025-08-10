@@ -534,7 +534,7 @@ class RealisationProjetService extends BaseRealisationProjetService
 
         $total = $realisationTaches->count();
 
-        // États d'exécution (entre EN_COURS et LIVE_CODING inclus)
+        // États d'exécution (entre IN_PROGRESS et LIVE_CODING inclus)
         $executionCodes = ['NOT_VALIDATED', 'APPROVED'];
 
         // États de validation (approuvés uniquement)

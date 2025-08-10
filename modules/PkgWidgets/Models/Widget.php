@@ -16,5 +16,10 @@ class Widget extends BaseWidget
         return ($this->label ?? ($this->name ?? ""));
     }
 
+    
+    public function generateReference(): string
+    {
+        return $this->name ;
+    }
    
 }

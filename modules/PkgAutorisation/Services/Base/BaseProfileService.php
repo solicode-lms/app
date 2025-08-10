@@ -7,6 +7,7 @@ namespace Modules\PkgAutorisation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgAutorisation\Models\Profile;
 use Modules\Core\Services\BaseService;
 
@@ -258,6 +259,34 @@ class BaseProfileService extends BaseService
             'profiles_permissions' => $profiles_permissions,
             'profiles_permissionsByItem' => $profiles_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $profile_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $profile_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($profile_ids as $id) {
+            $profile = $this->find($id);
+            $this->authorize('update', $profile);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

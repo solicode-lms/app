@@ -7,6 +7,7 @@ namespace Modules\PkgGapp\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgGapp\Models\EMetadatum;
 use Modules\Core\Services\BaseService;
 
@@ -285,6 +286,34 @@ class BaseEMetadatumService extends BaseService
             'eMetadata_permissions' => $eMetadata_permissions,
             'eMetadata_permissionsByItem' => $eMetadata_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $eMetadatum_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $eMetadatum_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($eMetadatum_ids as $id) {
+            $eMetadatum = $this->find($id);
+            $this->authorize('update', $eMetadatum);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

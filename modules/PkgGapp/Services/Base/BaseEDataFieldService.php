@@ -7,6 +7,7 @@ namespace Modules\PkgGapp\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgGapp\Models\EDataField;
 use Modules\Core\Services\BaseService;
 
@@ -270,6 +271,34 @@ class BaseEDataFieldService extends BaseService
             'eDataFields_permissions' => $eDataFields_permissions,
             'eDataFields_permissionsByItem' => $eDataFields_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $eDataField_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $eDataField_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($eDataField_ids as $id) {
+            $eDataField = $this->find($id);
+            $this->authorize('update', $eDataField);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

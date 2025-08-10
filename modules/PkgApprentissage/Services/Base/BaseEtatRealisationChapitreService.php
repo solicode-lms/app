@@ -7,6 +7,7 @@ namespace Modules\PkgApprentissage\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\Core\Services\BaseService;
 
@@ -245,6 +246,34 @@ class BaseEtatRealisationChapitreService extends BaseService
             'etatRealisationChapitres_permissions' => $etatRealisationChapitres_permissions,
             'etatRealisationChapitres_permissionsByItem' => $etatRealisationChapitres_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $etatRealisationChapitre_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $etatRealisationChapitre_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($etatRealisationChapitre_ids as $id) {
+            $etatRealisationChapitre = $this->find($id);
+            $this->authorize('update', $etatRealisationChapitre);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

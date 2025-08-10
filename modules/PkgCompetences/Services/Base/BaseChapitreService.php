@@ -7,6 +7,7 @@ namespace Modules\PkgCompetences\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCompetences\Models\Chapitre;
 use Modules\Core\Services\BaseService;
 
@@ -271,6 +272,34 @@ class BaseChapitreService extends BaseService
             'chapitres_permissions' => $chapitres_permissions,
             'chapitres_permissionsByItem' => $chapitres_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $chapitre_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $chapitre_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($chapitre_ids as $id) {
+            $chapitre = $this->find($id);
+            $this->authorize('update', $chapitre);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

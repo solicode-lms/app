@@ -7,6 +7,7 @@ namespace Modules\PkgGapp\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgGapp\Models\EModel;
 use Modules\Core\Services\BaseService;
 
@@ -245,6 +246,34 @@ class BaseEModelService extends BaseService
             'eModels_permissions' => $eModels_permissions,
             'eModels_permissionsByItem' => $eModels_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $eModel_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $eModel_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($eModel_ids as $id) {
+            $eModel = $this->find($id);
+            $this->authorize('update', $eModel);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

@@ -7,6 +7,7 @@ namespace Modules\PkgAutorisation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgAutorisation\Models\Role;
 use Modules\Core\Services\BaseService;
 
@@ -224,6 +225,34 @@ class BaseRoleService extends BaseService
             'roles_permissions' => $roles_permissions,
             'roles_permissionsByItem' => $roles_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $role_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $role_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($role_ids as $id) {
+            $role = $this->find($id);
+            $this->authorize('update', $role);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

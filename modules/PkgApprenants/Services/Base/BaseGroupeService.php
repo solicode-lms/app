@@ -7,6 +7,7 @@ namespace Modules\PkgApprenants\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\Core\Services\BaseService;
 
@@ -267,6 +268,34 @@ class BaseGroupeService extends BaseService
             'groupes_permissions' => $groupes_permissions,
             'groupes_permissionsByItem' => $groupes_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $groupe_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $groupe_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($groupe_ids as $id) {
+            $groupe = $this->find($id);
+            $this->authorize('update', $groupe);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

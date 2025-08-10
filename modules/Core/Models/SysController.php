@@ -7,8 +7,5 @@ use Modules\Core\Models\Base\BaseSysController;
 
 class SysController extends BaseSysController
 {
-    public function generateReference(): string
-    {
-        return $this->slug ;
-    }
+
 }

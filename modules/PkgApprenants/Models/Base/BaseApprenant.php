@@ -58,7 +58,7 @@ class BaseApprenant extends BaseModel
         JOIN etat_realisation_taches ert ON rt.etat_realisation_tache_id = ert.id
         JOIN workflow_taches wt ON ert.workflow_tache_id = wt.id
         WHERE rp.apprenant_id = apprenants.id 
-          AND wt.code IN ('TERMINEE', 'EN_VALIDATION')";
+          AND wt.code IN ('APPROVED', 'TO_APPROVE')";
         static::addDynamicAttribute('duree_sans_terminer_tache', $sql);
         // Colonne dynamique : nombre_realisation_taches_en_cours
         $sql = "SELECT count(*) FROM realisation_taches rt 

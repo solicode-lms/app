@@ -7,6 +7,7 @@ namespace Modules\PkgFormation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgFormation\Models\AnneeFormation;
 use Modules\Core\Services\BaseService;
 
@@ -225,6 +226,34 @@ class BaseAnneeFormationService extends BaseService
             'anneeFormations_permissions' => $anneeFormations_permissions,
             'anneeFormations_permissionsByItem' => $anneeFormations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $anneeFormation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $anneeFormation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($anneeFormation_ids as $id) {
+            $anneeFormation = $this->find($id);
+            $this->authorize('update', $anneeFormation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

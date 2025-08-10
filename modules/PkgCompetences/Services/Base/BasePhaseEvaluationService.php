@@ -7,6 +7,7 @@ namespace Modules\PkgCompetences\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\Core\Services\BaseService;
 
@@ -227,6 +228,34 @@ class BasePhaseEvaluationService extends BaseService
             'phaseEvaluations_permissions' => $phaseEvaluations_permissions,
             'phaseEvaluations_permissionsByItem' => $phaseEvaluations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $phaseEvaluation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $phaseEvaluation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($phaseEvaluation_ids as $id) {
+            $phaseEvaluation = $this->find($id);
+            $this->authorize('update', $phaseEvaluation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

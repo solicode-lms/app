@@ -7,6 +7,7 @@ namespace Modules\PkgCompetences\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCompetences\Models\CritereEvaluation;
 use Modules\Core\Services\BaseService;
 
@@ -261,6 +262,34 @@ class BaseCritereEvaluationService extends BaseService
             'critereEvaluations_permissions' => $critereEvaluations_permissions,
             'critereEvaluations_permissionsByItem' => $critereEvaluations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $critereEvaluation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $critereEvaluation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($critereEvaluation_ids as $id) {
+            $critereEvaluation = $this->find($id);
+            $this->authorize('update', $critereEvaluation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

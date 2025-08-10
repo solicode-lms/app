@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\Core\Services\BaseService;
 
@@ -245,6 +246,34 @@ class BaseWorkflowTacheService extends BaseService
             'workflowTaches_permissions' => $workflowTaches_permissions,
             'workflowTaches_permissionsByItem' => $workflowTaches_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $workflowTache_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $workflowTache_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($workflowTache_ids as $id) {
+            $workflowTache = $this->find($id);
+            $this->authorize('update', $workflowTache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

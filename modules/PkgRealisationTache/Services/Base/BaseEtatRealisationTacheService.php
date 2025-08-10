@@ -7,6 +7,7 @@ namespace Modules\PkgRealisationTache\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\Core\Services\BaseService;
 
@@ -294,6 +295,34 @@ class BaseEtatRealisationTacheService extends BaseService
             'etatRealisationTaches_permissions' => $etatRealisationTaches_permissions,
             'etatRealisationTaches_permissionsByItem' => $etatRealisationTaches_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $etatRealisationTache_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $etatRealisationTache_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($etatRealisationTache_ids as $id) {
+            $etatRealisationTache = $this->find($id);
+            $this->authorize('update', $etatRealisationTache);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

@@ -7,6 +7,7 @@ namespace Modules\PkgCreationProjet\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\Core\Services\BaseService;
 
@@ -224,6 +225,34 @@ class BaseNatureLivrableService extends BaseService
             'natureLivrables_permissions' => $natureLivrables_permissions,
             'natureLivrables_permissionsByItem' => $natureLivrables_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $natureLivrable_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $natureLivrable_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($natureLivrable_ids as $id) {
+            $natureLivrable = $this->find($id);
+            $this->authorize('update', $natureLivrable);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

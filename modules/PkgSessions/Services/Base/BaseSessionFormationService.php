@@ -7,6 +7,7 @@ namespace Modules\PkgSessions\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgSessions\Models\SessionFormation;
 use Modules\Core\Services\BaseService;
 
@@ -283,6 +284,34 @@ class BaseSessionFormationService extends BaseService
             'sessionFormations_permissions' => $sessionFormations_permissions,
             'sessionFormations_permissionsByItem' => $sessionFormations_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $sessionFormation_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $sessionFormation_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($sessionFormation_ids as $id) {
+            $sessionFormation = $this->find($id);
+            $this->authorize('update', $sessionFormation);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }

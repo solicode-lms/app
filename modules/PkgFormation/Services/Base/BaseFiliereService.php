@@ -7,6 +7,7 @@ namespace Modules\PkgFormation\Services\Base;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\Core\Services\BaseService;
 
@@ -225,6 +226,34 @@ class BaseFiliereService extends BaseService
             'filieres_permissions' => $filieres_permissions,
             'filieres_permissionsByItem' => $filieres_permissionsByItem
         ];
+    }
+
+    public function bulkUpdateJob($token, $filiere_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $filiere_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($filiere_ids as $id) {
+            $filiere = $this->find($id);
+            $this->authorize('update', $filiere);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
     }
 
 }
