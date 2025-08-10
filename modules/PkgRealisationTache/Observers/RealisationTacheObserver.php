@@ -3,8 +3,10 @@
 
 namespace Modules\PkgRealisationTache\Observers;
 
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationProjets\Services\RealisationProjetService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
+use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
 
 class RealisationTacheObserver
@@ -22,33 +24,20 @@ class RealisationTacheObserver
      */
     public function updated(RealisationTache $realisationTache): void
     {
-        $realisationProjetService = app(RealisationProjetService::class);
-        $tacheAffectationService = app(TacheAffectationService::class);
+        // Récupération des champs modifiés
+        $changedFields = array_keys($realisationTache->getDirty());
 
-        $realisationProjet = $realisationTache->realisationProjet;
-        $tacheAffectation = $realisationTache->tacheAffectation;
-
-        // Si changement d'état → mettre à jour progression et état global
-        if ($realisationTache->isDirty('etat_realisation_tache_id')) {
-            if ($realisationProjet) {
-                $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationProjet);
-                $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationProjet);
-            }
-
-            if ($tacheAffectation) {
-                $tacheAffectationService->mettreAjourTacheProgression($tacheAffectation);
-                $tacheAffectationService->lancerLiveCodingSiEligible($tacheAffectation);
-                
-            }
-        }
-
-        // Si changement de note → recalcul de la note globale
-        if ($realisationTache->isDirty('note')) {
-            if ($realisationProjet) {
-                $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationProjet);
-            }
-        }
+        $jobManager = JobManager::initJob(
+            "updatedObserverJob",
+            "realisationTache",
+            "PkgRealisationTache", 
+            $realisationTache->id,
+            $changedFields
+        );
+        $jobManager->dispatchTraitementCrudJob();
     }
+
+
     /**
      * Handle the RealisationTache "deleted" event.
      */

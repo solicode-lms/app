@@ -44,6 +44,7 @@ class BulkEditJob implements ShouldQueue
 
     public function handle(): void
     {
+      
         $serviceClass = "Modules\\{$this->module}\\Services\\{$this->service}Service";
 
         try {

@@ -329,8 +329,11 @@ class BaseRealisationTacheController extends AdminController
                 'modelName' =>  __('PkgRealisationTache::realisationTache.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $realisationTache->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $realisationTache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -540,8 +543,16 @@ class BaseRealisationTacheController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+
+         return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+            );
+
+        
+         
     }
 }

@@ -36,7 +36,7 @@ export class LoadingIndicator {
             loadingDiv.className = 'd-flex justify-content-center align-items-center';
     
             // Appliquer le style pour s'assurer que l'élément reste sous le modal
-            loadingDiv.style.position = 'absolute';
+            loadingDiv.style.position = 'fixed';
             loadingDiv.style.top = '0';
             loadingDiv.style.left = '0';
             loadingDiv.style.width = '100%';
@@ -77,7 +77,7 @@ export class LoadingIndicator {
             // Style du rectangle en haut à droite
             loadingDiv.style.position = 'fixed';
             loadingDiv.style.top = '10px';
-            loadingDiv.style.right = '40px';
+             loadingDiv.style.left = '50%';
             loadingDiv.style.background = '#f8d7da'; // Rouge clair pour indiquer le chargement
             loadingDiv.style.color = '#721c24';
             loadingDiv.style.border = '1px solid #f5c6cb';

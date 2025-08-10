@@ -4,15 +4,16 @@ namespace Modules\Core\App\Manager;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Modules\Core\App\Jobs\TraitementCrudJob;
 
 class JobManager
 {
     protected ?string $token = null;
     protected ?int  $total = null;
-
     protected ?string $methodName = null;
     protected ?string $modelName = null;
     protected ?string $moduleName = null;
+    protected ?int  $id = null;
 
     public function __construct(?string $token = null, ?int $total = 0)
     {
@@ -22,8 +23,10 @@ class JobManager
             $this->total = $total;
             $this->initProgress($total);
             $this->methodName = $this->cacheGet('method');
-            $this->moduleName = $this->cacheGet('model');
+            $this->modelName = $this->cacheGet('model');
             $this->moduleName = $this->cacheGet('module');
+            $this->id = $this->cacheGet('id');
+            $this->changedFields = $this->cacheGet('changed_fields', []);
         }
     }
 
@@ -31,23 +34,60 @@ class JobManager
     {
         return $this->token;
     }
+    public function getChangedFields(): array
+    {
+        return $this->cacheGet('changed_fields', []);
+    }
 
 /**
      * Initialisation d’un nouveau job avec un methodName + moduleName
      */
-    public function init(string $methodName, string $modelName, string $moduleName): string
-    {
+    public function init(
+        string $methodName,
+        string $modelName,
+        string $moduleName,
+        ?int $id = null,
+        array $changedFields = []
+        ): string {
+   
         $this->token = Str::uuid()->toString();
         $this->methodName = $methodName;
         $this->moduleName =  ucfirst($moduleName);
         $this->modelName =  ucfirst($modelName);
+        $this->id = $id;
 
         $this->setStatus('pending');
         $this->cachePut('method', $methodName);
         $this->cachePut('model', $modelName);
         $this->cachePut('module', $moduleName);
+        $this->cachePut('module', $id);
+
+        if (!empty($changedFields)) {
+            $this->cachePut('changed_fields', $changedFields);
+        }
 
         return $this->token;
+    }
+    public static function initJob(
+        string $methodName,
+        string $modelName,
+        string $moduleName,
+        ?int $id,
+        array $changedFields = []
+    ): self {
+        $instance = new self();
+        $instance->init($methodName, $modelName, $moduleName, $id, $changedFields);
+        return $instance;
+    }
+
+    public function setLabel(string $label): void
+    {
+        $this->cachePut('label', $label);
+    }
+
+    public function getLabel(): string
+    {
+        return $this->cacheGet('label', "⏳ Traitement en cours...");
     }
 
     /* ------------------------------
@@ -144,4 +184,84 @@ class JobManager
     //         $this->tick($step);
     //     };
     // }
+
+
+    public function dispatchTraitementCrudJob(){
+
+
+        $service = $this->getServiceInstance();
+
+        if($service->getCrudJobToken()){
+             // On exécute directement la méthode sans passer par la queue
+            $service = $this->getServiceInstance();
+            if (method_exists($service, $this->methodName)) {
+                $service->{$this->methodName}($this->id, $this->getToken());
+            }
+            return;
+        }
+        // if (app()->bound('executing_in_job')) {
+           
+        // }
+
+         // Dispatch du job générique
+        dispatch(new TraitementCrudJob(
+            ucfirst($this->moduleName),
+            ucfirst($this->modelName),
+            $this->methodName,
+            $this->id,
+            $this->getToken()
+        ));
+
+        $this->setTokenInService();
+    }
+
+    /**
+     * Retourne une instance du service lié au job courant.
+     *
+     * @return mixed
+     * @throws \RuntimeException
+     */
+    public function getServiceInstance()
+    {
+        if (!$this->moduleName || !$this->modelName) {
+            throw new \RuntimeException("Impossible d'initialiser le service : moduleName ou modelName manquant.");
+        }
+
+        // Construire le FQCN du service
+        $serviceClass = "Modules\\{$this->moduleName}\\Services\\{$this->modelName}Service";
+
+        if (!class_exists($serviceClass)) {
+            throw new \RuntimeException("Service {$serviceClass} introuvable.");
+        }
+
+        return app($serviceClass);
+    }
+    /**
+     * Définit automatiquement le token dans le service lié au job courant
+     * (uniquement pour TraitementCrudJob).
+     *
+     * @return mixed Instance du service avec le token configuré
+     * @throws \RuntimeException
+     */
+    public function setTokenInService()
+    {
+        $service = $this->getServiceInstance();
+
+        if (!method_exists($service, 'setCrudJobToken')) {
+            throw new \RuntimeException("La méthode setCrudJobToken() est manquante dans " . get_class($service) . ".");
+        }
+
+        $service->setCrudJobToken($this->getToken());
+
+        return $service;
+    }
+
+
+
+    public function isDirty(string $field): bool
+    {
+        $changed = $this->getChangedFields();
+        return in_array($field, $changed, true);
+    }
+
 }

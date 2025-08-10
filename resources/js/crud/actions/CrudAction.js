@@ -55,10 +55,11 @@ export class CrudAction extends Action {
                     const status = res.status;
                     const progress = res.progress ?? 0;
                     const messageError = res.messageError ?? "";
+                    const label = res.label ?? "⏳ Traitement en cours";
 
                     if (status === 'done') {
                         if (loader) loader.hide();
-                        NotificationHandler.showSuccess('✅ Traitement terminé.');
+                       // NotificationHandler.showSuccess('✅ Traitement terminé.');
                         this.tableUI.entityLoader.loadEntities();
                         if (typeof onDoneCallback === 'function') {
                             onDoneCallback();
@@ -70,7 +71,7 @@ export class CrudAction extends Action {
                         this.tableUI.entityLoader.loadEntities();
                     } else {
                         if(!error){
-                            loader?.showNomBloquante(`⏳ Traitement en cours... ${progress}%`);
+                            loader?.showNomBloquante(`${label} ${progress}%`);
                             setTimeout(poll, 2000);
                         }
                     }

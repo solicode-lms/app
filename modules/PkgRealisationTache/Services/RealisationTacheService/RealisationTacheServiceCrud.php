@@ -24,6 +24,8 @@ use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\HistoriqueRealisationTacheService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
+use Modules\PkgRealisationProjets\Services\RealisationProjetService;
+use Modules\PkgRealisationTache\Services\TacheAffectationService;
 
 trait RealisationTacheServiceCrud
 {
@@ -31,13 +33,13 @@ trait RealisationTacheServiceCrud
     /**
      * Méthode contient les règles métier qui sont appliquer avant l'édition
      * il est utilisée avec tous les méthode qui font update
-     * @param mixed $entity
+     * @param mixed $realisationTache
      * @param array $data
      * @return void
      */
     public function beforeUpdateRules(array &$data, $id){
         
-        $entity = $this->find($id);
+        $realisationTache = $this->find($id);
 
 
         // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
@@ -51,14 +53,14 @@ trait RealisationTacheServiceCrud
             $etatCode = $etat->workflowTache?->code;
             $etatsInterdits = ['EN_COURS', 'EN_VALIDATION', 'TERMINEE'];
 
-            $tache = $entity->tache;
+            $tache = $realisationTache->tache;
 
             if ($tache->livrables()->exists()) {
                 $livrables = $tache->livrables;
                 $idsLivrables = $livrables->pluck('id');
 
                 // Récupère les IDs des livrables déjà déposés
-                $idsLivrablesDeposes = $entity->realisationProjet
+                $idsLivrablesDeposes = $realisationTache->realisationProjet
                     ->livrablesRealisations()
                     ->whereIn('livrable_id', $idsLivrables)
                     ->pluck('livrable_id');
@@ -99,15 +101,15 @@ trait RealisationTacheServiceCrud
                 // ✅ Vérifie le respect de la priorité selon le workflow
                 $workflowCode = optional($nouvelEtat->workflowTache)->code;
                 if ($this->workflowExigeRespectDesPriorites($workflowCode)) {
-                    $this->verifierTachesMoinsPrioritairesTerminees($entity,$workflowCode);
+                    $this->verifierTachesMoinsPrioritairesTerminees($realisationTache,$workflowCode);
                 }
             }
 
             // Vérification si l'état actuel existe et est modifiable uniquement par un formateur
-            if ($entity->etatRealisationTache) {
+            if ($realisationTache->etatRealisationTache) {
                 if (
-                    $entity->etatRealisationTache->is_editable_only_by_formateur
-                    && $entity->etatRealisationTache->id != $etat_realisation_tache_id
+                    $realisationTache->etatRealisationTache->is_editable_only_by_formateur
+                    && $realisationTache->etatRealisationTache->id != $etat_realisation_tache_id
                     && !Auth::user()->hasRole(Role::FORMATEUR_ROLE)
                 ) {
                     throw ValidationException::withMessages([
@@ -120,9 +122,9 @@ trait RealisationTacheServiceCrud
         if(Auth::user()->hasRole(Role::FORMATEUR_ROLE)){
                 // Si des évaluateurs existent, s'assurer que l'utilisateur y figure
                 $user = Auth::user();
-                $entity = $this->find($id);
+                $realisationTache = $this->find($id);
                 // Récupère les évaluateurs assignés au projet
-                $evaluateurs = $entity
+                $evaluateurs = $realisationTache
                     ->realisationProjet
                     ->affectationProjet
                     ->evaluateurs
@@ -140,8 +142,8 @@ trait RealisationTacheServiceCrud
     
            // Historique des modification
         $historiqueRealisationTacheService = new HistoriqueRealisationTacheService();
-        $historiqueRealisationTacheService->enregistrerChangement($entity,$data);
-        $this->mettreAJourEtatRevisionSiRemarqueModifiee($entity, $data);
+        $historiqueRealisationTacheService->enregistrerChangement($realisationTache,$data);
+        $this->mettreAJourEtatRevisionSiRemarqueModifiee($realisationTache, $data);
         
 
     }
@@ -151,15 +153,15 @@ trait RealisationTacheServiceCrud
      * affectation de dataDebut = now()
      * @param int $id
      */
-    public function afterEditRules($entity, $id)
+    public function afterEditRules($realisationTache, $id)
     {
-        if (is_null($entity->dateDebut)) {
-            $entity->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
-            $entity->save(); // il faut sauvegarder si tu veux que le changement soit persisté
+        if (is_null($realisationTache->dateDebut)) {
+            $realisationTache->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
+            $realisationTache->save(); // il faut sauvegarder si tu veux que le changement soit persisté
         }
 
         // Déja appliquer par parrent
-        // $this->markNotificationsAsRead( $entity->id);
+        // $this->markNotificationsAsRead( $realisationTache->id);
     }
 
   
@@ -184,61 +186,112 @@ trait RealisationTacheServiceCrud
     }
 
 
-    public function afterUpdateRules(RealisationTache $entity): void
-    {
-        // 1️⃣ Mettre à jour les chapitres si l’état a changé
-        if ($entity->wasChanged('etat_realisation_tache_id')) {
-            $this->synchroniserEtatsChapitreDepuisTache($entity);
+    public function afterUpdateRules(RealisationTache $realisationTache): void{
+        if ($realisationTache->isDirty('note')) {
 
-
-            // 2️⃣ Recalculer les UA concernées
-            $uaIds = collect();
-
-            $entity->loadMissing(['realisationUaPrototypes', 'realisationUaProjets']);
-
-            foreach ($entity->realisationUaPrototypes as $proto) {
-                if ($proto->realisation_ua_id) {
-                    $uaIds->push($proto->realisation_ua_id);
-                }
-            }
-
-            foreach ($entity->realisationUaProjets as $projet) {
-                if ($projet->realisation_ua_id) {
-                    $uaIds->push($projet->realisation_ua_id);
-                }
-            }
-
-            $uaIds = $uaIds->unique()->filter();
-
-            if ($uaIds->isNotEmpty()) {
-                $service = new \Modules\PkgApprentissage\Services\RealisationUaService();
-                $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
-
-                foreach ($uas as $ua) {
-                    $service->calculerProgressionEtNote($ua);
-                }
-            }
-
-          
-
-        }
-
-        if ($entity->wasChanged('note')) {
-
-            if($entity->tache->phaseEvaluation->code == "N2"){
+            if($realisationTache->tache->phaseEvaluation->code == "N2"){
                 // 3️⃣ Répartir la note sur les prototypes associés
-                $this->repartirNoteDansRealisationUaPrototypes($entity);
+                $this->repartirNoteDansRealisationUaPrototypes($realisationTache);
             }
-             if($entity->tache->phaseEvaluation->code == "N3"){
+             if($realisationTache->tache->phaseEvaluation->code == "N3"){
                 // 3️⃣ Répartir la note sur les prototypes associés
-                $this->repartirNoteDansRealisationUaProjets($entity);
+                $this->repartirNoteDansRealisationUaProjets($realisationTache);
             }
           
         }
-          
+    }
+
+
+public function updatedObserverJob(int $id, string $token): void
+{
+    $jobManager = new JobManager($token);
+    $changedFields = $jobManager->getChangedFields();
+
+    $realisationTache = $this->find($id);
+
+    // ---- 1) Calculer total ----
+    $total = 0;
+    $uaIds = collect();
+
+    if ($jobManager->isDirty('etat_realisation_tache_id')) {
+        $total++; // synchroniserEtatsChapitreDepuisTache
+
+        $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
+        foreach ($realisationTache->realisationUaPrototypes as $proto) {
+            if ($proto->realisation_ua_id) {
+                $uaIds->push($proto->realisation_ua_id);
+            }
+        }
+        foreach ($realisationTache->realisationUaProjets as $projet) {
+            if ($projet->realisation_ua_id) {
+                $uaIds->push($projet->realisation_ua_id);
+            }
+        }
+        $uaIds = $uaIds->unique()->filter();
+
+        $total += $uaIds->count(); // progression/note pour chaque UA
+        $total += 2; // maj état + progression projet
+        $total += 2; // maj progression + live coding sur tacheAffectation
+    }
+
+    if ($realisationTache->isDirty('note')) {
+        $total++; // calcul note + barème projet
+    }
+
+    // ---- 2) Init jobManager ----
+    $jobManager->initProgress($total);
+
+
+    if ($jobManager->isDirty('etat_realisation_tache_id')) {
 
         
+        $jobManager->setLabel("Synchronisation des états de chapitre");
+        $this->synchroniserEtatsChapitreDepuisTache($realisationTache);
+        $jobManager->tick();
+
+        if ($uaIds->isNotEmpty()) {
+            $service = new \Modules\PkgApprentissage\Services\RealisationUaService();
+            $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
+            foreach ($uas as $ua) {
+                $jobManager->setLabel("Calcul progression & note pour UA #{$ua->id}");
+                $service->calculerProgressionEtNote($ua);
+                $jobManager->tick();
+            }
+        }
+
+        $realisationProjetService = app(RealisationProjetService::class);
+        if ($realisationTache->realisationProjet) {
+            $jobManager->setLabel("Mise à jour état projet");
+            $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationTache->realisationProjet);
+            $jobManager->tick();
+
+            $jobManager->setLabel("Mise à jour progression projet");
+            $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationTache->realisationProjet);
+            $jobManager->tick();
+        }
+
+        $tacheAffectationService = app(TacheAffectationService::class);
+        if ($realisationTache->tacheAffectation) {
+            $jobManager->setLabel("Mise à jour progression tâche affectation");
+            $tacheAffectationService->mettreAjourTacheProgression($realisationTache->tacheAffectation);
+            $jobManager->tick();
+
+            $jobManager->setLabel("Lancer live coding si éligible");
+            $tacheAffectationService->lancerLiveCodingSiEligible($realisationTache->tacheAffectation);
+            $jobManager->tick();
+        }
     }
+
+    if ($jobManager->isDirty('note') && $realisationTache->realisationProjet) {
+        $jobManager->setLabel("Calcul note et barème projet");
+        $realisationProjetService = app(RealisationProjetService::class);
+        $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationTache->realisationProjet);
+        $jobManager->tick();
+    }
+
+    $jobManager->finish();
+}
+
 
 
     /**
@@ -462,8 +515,8 @@ trait RealisationTacheServiceCrud
      
 
         foreach ($realisationTache_ids as $id) {
-            $entity = $this->find($id);
-            $this->authorize('update', $entity);
+            $realisationTache = $this->find($id);
+            $this->authorize('update', $realisationTache);
     
             $allFields = $this->getFieldsEditable();
             $data = collect($allFields)

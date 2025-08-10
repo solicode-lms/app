@@ -426,5 +426,7 @@ class BaseEtatRealisationTacheController extends AdminController
         return JsonResponseHelper::success(__('Mise à jour réussie.'), [
             'entity_id' => $validated['id']
         ]);
+
+        
     }
 }

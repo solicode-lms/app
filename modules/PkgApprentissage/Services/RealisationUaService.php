@@ -99,7 +99,7 @@ class RealisationUaService extends BaseRealisationUaService
 
 public function calculerProgressionEtNote(RealisationUa $realisationUa): void
 {
-    $realisationUa->loadMissing([
+    $realisationUa->load([
         'realisationChapitres',
         'realisationUaPrototypes',
         'realisationUaProjets'
@@ -199,7 +199,7 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
      */
     public function calculerEtat(RealisationUa $ua): ?string
     {
-        $ua->loadMissing([
+        $ua->load([
             'realisationChapitres.etatRealisationChapitre',
             'realisationUaPrototypes.realisationTache.etatRealisationTache',
             'realisationUaProjets.realisationTache.etatRealisationTache',
@@ -216,7 +216,7 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
         }
 
         // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
-        $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'APPROVED');
+        $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
         $allPrototypesDone = $prototypes->every(fn($p) =>
             $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );

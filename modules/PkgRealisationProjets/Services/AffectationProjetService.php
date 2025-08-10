@@ -94,7 +94,7 @@ class AffectationProjetService extends BaseAffectationProjetService
 
             // 4) Initialisation progression (tâches + apprenants + sync évaluation)
             $total = $taches->count() + $apprenants->count() + 1;
-            $jobManager =  $jobManager->initProgress($total);
+            $jobManager->initProgress($total);
 
             // 5) Services nécessaires (résolus via le conteneur)
             /** @var \Modules\PkgRealisationTache\Services\TacheAffectationService $tacheAffectationService */
@@ -106,7 +106,7 @@ class AffectationProjetService extends BaseAffectationProjetService
             /** @var \Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService $evaluationService */
             $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
 
-      
+            $jobManager->setLabel("Création des tâches");
             // 6) Création des TacheAffectations
             foreach ($taches as $tache) {
                 $tacheAffectationService->create([
@@ -119,6 +119,8 @@ class AffectationProjetService extends BaseAffectationProjetService
            
             // 7) Création des RéalisationProjet
             foreach ($apprenants as $apprenant) {
+
+                $jobManager->setLabel("Création de réalisation de projet pour : " . $apprenant );
                 $realisationProjetService->create([
                     'apprenant_id'            => $apprenant->id,
                     'affectation_projet_id'   => $affectation->id,

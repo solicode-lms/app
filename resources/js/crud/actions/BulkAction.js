@@ -132,12 +132,16 @@ export class BulkAction extends CrudAction {
                 // Affichage de message de progression de traitement
                 const traitement_token = data.data?.traitement_token;
                 if (traitement_token) {
-                    this.pollTraitementStatus(traitement_token);
+                    this.pollTraitementStatus(traitement_token, () => {
+                         NotificationHandler.show(data.type, data.title, data.message);
+                    });
+                }else{
+                     NotificationHandler.show(data.type, data.title, data.message);
                 }
 
 
                 this.tableUI.indexUI.formUI.loader.hide();
-                NotificationHandler.show(data.type, data.title, data.message);
+               
                 this.tableUI.indexUI.modalUI.close();
                 if (typeof onSuccess === 'function') {
                     onSuccess();

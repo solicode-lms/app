@@ -99,11 +99,15 @@ export class EditAction extends CrudAction {
                     // Affichage de message de progression de traitement
                     const traitement_token = data.data?.traitement_token;
                     if (traitement_token) {
-                        this.pollTraitementStatus(traitement_token);
+                        this.pollTraitementStatus(traitement_token, () => {
+                            NotificationHandler.show(data.type,data.title,data.message);
+                        });
+                    }else{
+                        NotificationHandler.show(data.type,data.title,data.message);
                     }
 
                     this.tableUI.indexUI.formUI.loader.hide();
-                    NotificationHandler.show(data.type,data.title,data.message);
+                    
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni
@@ -162,8 +166,23 @@ export class EditAction extends CrudAction {
             },
         })
             .done((response) => {
-                 this.loader.hide();
-                NotificationHandler.show(response.type, response.title, response.message);
+
+
+                
+
+               // Affichage de message de progression de traitement
+                const traitement_token = data.data?.traitement_token;
+                if (traitement_token) {
+                    this.pollTraitementStatus(traitement_token, () => {
+                        NotificationHandler.show(response.type, response.title, response.message);
+                    });
+                }else{
+                     NotificationHandler.show(response.type, response.title, response.message);
+                }
+
+
+                this.loader.hide();
+               
                 if (typeof onSuccess === 'function') {
                     onSuccess(response);
                 }

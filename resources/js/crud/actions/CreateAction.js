@@ -73,11 +73,17 @@ export class CreateAction extends CrudAction {
                     // Affichage de message de progression de traitement
                     const traitement_token = data.data?.traitement_token;
                     if (traitement_token) {
-                        this.pollTraitementStatus(traitement_token);
+                        this.pollTraitementStatus(traitement_token, () => {
+                           this.handleSuccess(this.SuscesMessage);
+                        });
+                    }else{
+                       this.handleSuccess(this.SuscesMessage);
                     }
-                    
+
+
+
                     this.tableUI.indexUI.formUI.loader.hide();
-                    this.handleSuccess(this.SuscesMessage);
+                    
                     this.tableUI.indexUI.modalUI.close(); // Fermer le modal après succès
 
                      // Appeler le callback de succès si fourni

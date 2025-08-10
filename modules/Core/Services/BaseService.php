@@ -58,6 +58,10 @@ abstract class BaseService implements ServiceInterface
     {
         return $this->crudJobToken;
     }
+    public function setCrudJobToken($crudJobToken)
+    {
+        $this->crudJobToken = $crudJobToken;
+    }
 
 
     // EagerLoading Charger les relations nécessaires : il est utilisé dans PaginateTrait

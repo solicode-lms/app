@@ -63,11 +63,13 @@ class PollingTraitementController extends AdminController
         $status = Cache::get("traitement.$token.status", 'unknown');
         $progress = Cache::get("traitement.$token.progress", 0);
         $messageError = Cache::get("traitement.$token.messageError", 0);
+        $label = Cache::get("traitement.$token.label", "⏳ Traitement en cours...");
 
         return response()->json([
             'status' => $status,
             'progress' => $progress, 
-            'messageError' => $messageError
+            'messageError' => $messageError,
+            'label' => $label
         ]);
     }
 

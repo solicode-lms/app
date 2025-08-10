@@ -1,4 +1,5 @@
 import { Action } from "../../actions/Action";
+import { CrudAction } from "../../actions/CrudAction";
 import EventUtil from "../../utils/EventUtil";
 import { FormUI } from "../FormUI";
 import { LoadingIndicator } from "../LoadingIndicator";
@@ -7,9 +8,9 @@ import { NotificationHandler } from "../NotificationHandler";
 /**
  * Gère l'édition inline d'un champ dans un tableau CRUD.
  */
-export class InlineEdit extends Action {
+export class InlineEdit extends CrudAction {
     constructor(config, tableUI) {
-        super(config);
+        super(config,tableUI);
         this.config = config;
         this.tableUI = tableUI;
         this.entityEditor = tableUI.entityEditor;

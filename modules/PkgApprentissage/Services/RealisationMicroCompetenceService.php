@@ -147,7 +147,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             return 'TODO';
         }
 
-        $uas->loadMissing([
+        $uas->load([
             'realisationChapitres.etatRealisationChapitre',
             'realisationUaPrototypes.realisationTache.etatRealisationTache',
             'realisationUaProjets.realisationTache.etatRealisationTache',
@@ -155,7 +155,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         foreach ($uas as $ua) {
             if ($ua->realisationChapitres->contains(fn($c) =>
-                optional($c->etatRealisationChapitre)->code !== 'APPROVED'
+                optional($c->etatRealisationChapitre)->code !== 'DONE'
             )) {
                 return 'IN_PROGRESS_CHAPITRE';
             }
