@@ -14,6 +14,9 @@ use Modules\Core\Models\SysModule;
 
 class FeatureDomain extends BaseFeatureDomain
 {
-
+     public function generateReference(): string
+    {
+        return $this->slug ;
+    }
 
 }

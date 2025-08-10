@@ -11,4 +11,9 @@ class SysModel extends BaseSysModel
        'sysModule',
        'sysColor'
     ];
+
+    public function generateReference(): string
+    {
+        return $this->name ;
+    }
 }
