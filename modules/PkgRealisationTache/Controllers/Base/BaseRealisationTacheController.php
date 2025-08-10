@@ -550,7 +550,7 @@ class BaseRealisationTacheController extends AdminController
                     ['entity_id' => $validated['id']],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
-            );
+        );
 
         
          
