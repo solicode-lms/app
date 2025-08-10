@@ -19,7 +19,26 @@ class BasePkgWidgetsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Vous pouvez enregistrer les services spécifiques au module ici.
+        // 📌 Parcours automatique du dossier Services du package
+        $servicesPath = __DIR__ . '/../../../Services';
+        $namespace = 'Modules\\PkgWidgets\\Services\\';
+
+        if (is_dir($servicesPath)) {
+            $files = collect(File::files($servicesPath));
+            foreach ($files as $file) {
+                if ($file->getExtension() === 'php') {
+                    $className = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+                    $fullClass = $namespace . $className;
+
+                    if (class_exists($fullClass)) {
+                        // Enregistrement en singleton
+                        $this->app->singleton($fullClass, function ($app) use ($fullClass) {
+                            return new $fullClass();
+                        });
+                    }
+                }
+            }
+        }
     }
 
     /**
