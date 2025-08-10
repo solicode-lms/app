@@ -13,6 +13,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgSessions\App\Requests\AlignementUaRequest;
 use Modules\PkgSessions\Models\AlignementUa;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgSessions\App\Exports\AlignementUaExport;
 use Modules\PkgSessions\App\Imports\AlignementUaImport;
 use Modules\Core\Services\ContextState;
@@ -130,10 +132,15 @@ class BaseAlignementUaController extends AdminController
                 'entityToString' => $alignementUa,
                 'modelName' => __('PkgSessions::alignementUa.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $alignementUa->id]
+                array_merge(
+                    ['entity_id' => $alignementUa->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
         return redirect()->route('alignementUas.index')->with(
@@ -197,8 +204,11 @@ class BaseAlignementUaController extends AdminController
                 'modelName' =>  __('PkgSessions::alignementUa.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $alignementUa->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $alignementUa->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -226,23 +236,31 @@ class BaseAlignementUaController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($alignementUa_ids as $id) {
-            $entity = $this->alignementUaService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->alignementUaService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->alignementUaService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $alignementUa_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -394,8 +412,12 @@ class BaseAlignementUaController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

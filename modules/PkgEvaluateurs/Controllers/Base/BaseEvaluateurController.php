@@ -15,6 +15,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgEvaluateurs\App\Requests\EvaluateurRequest;
 use Modules\PkgEvaluateurs\Models\Evaluateur;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgEvaluateurs\App\Exports\EvaluateurExport;
 use Modules\PkgEvaluateurs\App\Imports\EvaluateurImport;
 use Modules\Core\Services\ContextState;
@@ -132,13 +134,18 @@ class BaseEvaluateurController extends AdminController
                 'entityToString' => $evaluateur,
                 'modelName' => __('PkgEvaluateurs::evaluateur.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $evaluateur->id]
+                array_merge(
+                    ['entity_id' => $evaluateur->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('evaluateurs.edit',['evaluateur' => $evaluateur->id])->with(
+        return redirect()->route('evaluateurs.edit', ['evaluateur' => $evaluateur->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $evaluateur,
@@ -220,8 +227,11 @@ class BaseEvaluateurController extends AdminController
                 'modelName' =>  __('PkgEvaluateurs::evaluateur.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $evaluateur->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $evaluateur->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -249,23 +259,31 @@ class BaseEvaluateurController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($evaluateur_ids as $id) {
-            $entity = $this->evaluateurService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->evaluateurService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->evaluateurService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $evaluateur_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -430,8 +448,12 @@ class BaseEvaluateurController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

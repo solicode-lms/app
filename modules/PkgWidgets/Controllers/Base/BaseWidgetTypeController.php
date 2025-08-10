@@ -12,6 +12,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgWidgets\App\Requests\WidgetTypeRequest;
 use Modules\PkgWidgets\Models\WidgetType;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgWidgets\App\Exports\WidgetTypeExport;
 use Modules\PkgWidgets\App\Imports\WidgetTypeImport;
 use Modules\Core\Services\ContextState;
@@ -121,13 +123,18 @@ class BaseWidgetTypeController extends AdminController
                 'entityToString' => $widgetType,
                 'modelName' => __('PkgWidgets::widgetType.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $widgetType->id]
+                array_merge(
+                    ['entity_id' => $widgetType->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('widgetTypes.edit',['widgetType' => $widgetType->id])->with(
+        return redirect()->route('widgetTypes.edit', ['widgetType' => $widgetType->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $widgetType,
@@ -200,8 +207,11 @@ class BaseWidgetTypeController extends AdminController
                 'modelName' =>  __('PkgWidgets::widgetType.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $widgetType->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $widgetType->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -229,23 +239,31 @@ class BaseWidgetTypeController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($widgetType_ids as $id) {
-            $entity = $this->widgetTypeService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->widgetTypeService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->widgetTypeService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $widgetType_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -397,8 +415,12 @@ class BaseWidgetTypeController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

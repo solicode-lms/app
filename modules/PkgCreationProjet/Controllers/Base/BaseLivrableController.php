@@ -15,6 +15,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\LivrableRequest;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationProjet\App\Exports\LivrableExport;
 use Modules\PkgCreationProjet\App\Imports\LivrableImport;
 use Modules\Core\Services\ContextState;
@@ -156,10 +158,15 @@ class BaseLivrableController extends AdminController
                 'entityToString' => $livrable,
                 'modelName' => __('PkgCreationProjet::livrable.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $livrable->id]
+                array_merge(
+                    ['entity_id' => $livrable->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
         return redirect()->route('livrables.index')->with(
@@ -240,8 +247,11 @@ class BaseLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::livrable.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $livrable->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $livrable->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -269,23 +279,31 @@ class BaseLivrableController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($livrable_ids as $id) {
-            $entity = $this->livrableService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->livrableService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->livrableService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $livrable_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -443,8 +461,12 @@ class BaseLivrableController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

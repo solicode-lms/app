@@ -14,6 +14,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationTache\App\Requests\TacheAffectationRequest;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\App\Exports\TacheAffectationExport;
 use Modules\PkgRealisationTache\App\Imports\TacheAffectationImport;
 use Modules\Core\Services\ContextState;
@@ -131,13 +133,18 @@ class BaseTacheAffectationController extends AdminController
                 'entityToString' => $tacheAffectation,
                 'modelName' => __('PkgRealisationTache::tacheAffectation.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $tacheAffectation->id]
+                array_merge(
+                    ['entity_id' => $tacheAffectation->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('tacheAffectations.edit',['tacheAffectation' => $tacheAffectation->id])->with(
+        return redirect()->route('tacheAffectations.edit', ['tacheAffectation' => $tacheAffectation->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $tacheAffectation,
@@ -212,8 +219,11 @@ class BaseTacheAffectationController extends AdminController
                 'modelName' =>  __('PkgRealisationTache::tacheAffectation.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $tacheAffectation->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $tacheAffectation->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -241,23 +251,31 @@ class BaseTacheAffectationController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($tacheAffectation_ids as $id) {
-            $entity = $this->tacheAffectationService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->tacheAffectationService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->tacheAffectationService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $tacheAffectation_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -409,8 +427,12 @@ class BaseTacheAffectationController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

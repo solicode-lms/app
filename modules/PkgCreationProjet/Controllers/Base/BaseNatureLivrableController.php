@@ -13,6 +13,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationProjet\App\Requests\NatureLivrableRequest;
 use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationProjet\App\Exports\NatureLivrableExport;
 use Modules\PkgCreationProjet\App\Imports\NatureLivrableImport;
 use Modules\Core\Services\ContextState;
@@ -122,13 +124,18 @@ class BaseNatureLivrableController extends AdminController
                 'entityToString' => $natureLivrable,
                 'modelName' => __('PkgCreationProjet::natureLivrable.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $natureLivrable->id]
+                array_merge(
+                    ['entity_id' => $natureLivrable->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('natureLivrables.edit',['natureLivrable' => $natureLivrable->id])->with(
+        return redirect()->route('natureLivrables.edit', ['natureLivrable' => $natureLivrable->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $natureLivrable,
@@ -215,8 +222,11 @@ class BaseNatureLivrableController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::natureLivrable.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $natureLivrable->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $natureLivrable->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -244,23 +254,31 @@ class BaseNatureLivrableController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($natureLivrable_ids as $id) {
-            $entity = $this->natureLivrableService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->natureLivrableService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->natureLivrableService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $natureLivrable_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -412,8 +430,12 @@ class BaseNatureLivrableController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

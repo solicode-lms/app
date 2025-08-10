@@ -14,6 +14,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgGapp\App\Requests\EMetadatumRequest;
 use Modules\PkgGapp\Models\EMetadatum;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgGapp\App\Exports\EMetadatumExport;
 use Modules\PkgGapp\App\Imports\EMetadatumImport;
 use Modules\Core\Services\ContextState;
@@ -135,10 +137,15 @@ class BaseEMetadatumController extends AdminController
                 'entityToString' => $eMetadatum,
                 'modelName' => __('PkgGapp::eMetadatum.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $eMetadatum->id]
+                array_merge(
+                    ['entity_id' => $eMetadatum->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
         return redirect()->route('eMetadata.index')->with(
@@ -203,8 +210,11 @@ class BaseEMetadatumController extends AdminController
                 'modelName' =>  __('PkgGapp::eMetadatum.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $eMetadatum->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $eMetadatum->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -232,23 +242,31 @@ class BaseEMetadatumController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($eMetadatum_ids as $id) {
-            $entity = $this->eMetadatumService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->eMetadatumService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->eMetadatumService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $eMetadatum_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -400,8 +418,12 @@ class BaseEMetadatumController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

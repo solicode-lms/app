@@ -543,16 +543,12 @@ class BaseRealisationTacheController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-
-         return JsonResponseHelper::success(
+        return JsonResponseHelper::success(
              __('Mise à jour réussie.'),
                 array_merge(
                     ['entity_id' => $validated['id']],
                     $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
                 )
         );
-
-        
-         
     }
 }

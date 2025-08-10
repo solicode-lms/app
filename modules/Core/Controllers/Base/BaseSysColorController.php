@@ -22,6 +22,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\Core\App\Requests\SysColorRequest;
 use Modules\Core\Models\SysColor;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\Core\App\Exports\SysColorExport;
 use Modules\Core\App\Imports\SysColorImport;
 use Modules\Core\Services\ContextState;
@@ -131,13 +133,18 @@ class BaseSysColorController extends AdminController
                 'entityToString' => $sysColor,
                 'modelName' => __('Core::sysColor.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $sysColor->id]
+                array_merge(
+                    ['entity_id' => $sysColor->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('sysColors.edit',['sysColor' => $sysColor->id])->with(
+        return redirect()->route('sysColors.edit', ['sysColor' => $sysColor->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $sysColor,
@@ -350,8 +357,11 @@ class BaseSysColorController extends AdminController
                 'modelName' =>  __('Core::sysColor.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $sysColor->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $sysColor->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -379,23 +389,31 @@ class BaseSysColorController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($sysColor_ids as $id) {
-            $entity = $this->sysColorService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->sysColorService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->sysColorService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $sysColor_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -547,8 +565,12 @@ class BaseSysColorController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

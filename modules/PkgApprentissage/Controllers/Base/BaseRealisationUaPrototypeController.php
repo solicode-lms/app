@@ -13,6 +13,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprentissage\App\Requests\RealisationUaPrototypeRequest;
 use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\App\Exports\RealisationUaPrototypeExport;
 use Modules\PkgApprentissage\App\Imports\RealisationUaPrototypeImport;
 use Modules\Core\Services\ContextState;
@@ -130,10 +132,15 @@ class BaseRealisationUaPrototypeController extends AdminController
                 'entityToString' => $realisationUaPrototype,
                 'modelName' => __('PkgApprentissage::realisationUaPrototype.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $realisationUaPrototype->id]
+                array_merge(
+                    ['entity_id' => $realisationUaPrototype->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
         return redirect()->route('realisationUaPrototypes.index')->with(
@@ -197,8 +204,11 @@ class BaseRealisationUaPrototypeController extends AdminController
                 'modelName' =>  __('PkgApprentissage::realisationUaPrototype.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $realisationUaPrototype->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $realisationUaPrototype->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -226,23 +236,31 @@ class BaseRealisationUaPrototypeController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($realisationUaPrototype_ids as $id) {
-            $entity = $this->realisationUaPrototypeService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->realisationUaPrototypeService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->realisationUaPrototypeService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $realisationUaPrototype_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -394,8 +412,12 @@ class BaseRealisationUaPrototypeController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

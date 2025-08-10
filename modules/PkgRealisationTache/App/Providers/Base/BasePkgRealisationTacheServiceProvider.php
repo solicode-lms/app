@@ -19,33 +19,7 @@ class BasePkgRealisationTacheServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Déclarer tous les Service comme singleton
-        $servicesPath = __DIR__ . '/../../../Services';
-        $namespace = 'Modules\\PkgRealisationTache\\Services\\';
-
-        if (is_dir($servicesPath)) {
-            foreach (glob($servicesPath . '/*.php') as $file) {
-                $className = basename($file, '.php'); // ex: RealisationTacheService
-                $fullClass = $namespace . $className;
-
-                if (class_exists($fullClass)) {
-                    // Enregistrer chaque service comme singleton
-                    $this->app->singleton($fullClass, function ($app) use ($fullClass) {
-                        // Si ton service attend un Model en 1er paramètre :
-                       
-                        $modelClass = str_replace('\\Services\\', '\\Models\\', $fullClass);
-                        $modelClass = Str::replaceLast('Service', '', $modelClass);
-
-                        if (class_exists($modelClass)) {
-                            return new $fullClass(new $modelClass());
-                        }
-
-                        // Sinon simple instanciation
-                        return new $fullClass();
-                    });
-                }
-            }
-        }
+        // Vous pouvez enregistrer les services spécifiques au module ici.
     }
 
     /**

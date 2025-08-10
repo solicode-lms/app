@@ -15,6 +15,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgApprentissage\App\Requests\RealisationMicroCompetenceRequest;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\App\Exports\RealisationMicroCompetenceExport;
 use Modules\PkgApprentissage\App\Imports\RealisationMicroCompetenceImport;
 use Modules\Core\Services\ContextState;
@@ -157,13 +159,18 @@ class BaseRealisationMicroCompetenceController extends AdminController
                 'entityToString' => $realisationMicroCompetence,
                 'modelName' => __('PkgApprentissage::realisationMicroCompetence.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $realisationMicroCompetence->id]
+                array_merge(
+                    ['entity_id' => $realisationMicroCompetence->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('realisationMicroCompetences.edit',['realisationMicroCompetence' => $realisationMicroCompetence->id])->with(
+        return redirect()->route('realisationMicroCompetences.edit', ['realisationMicroCompetence' => $realisationMicroCompetence->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $realisationMicroCompetence,
@@ -244,8 +251,11 @@ class BaseRealisationMicroCompetenceController extends AdminController
                 'modelName' =>  __('PkgApprentissage::realisationMicroCompetence.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $realisationMicroCompetence->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $realisationMicroCompetence->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -273,23 +283,31 @@ class BaseRealisationMicroCompetenceController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($realisationMicroCompetence_ids as $id) {
-            $entity = $this->realisationMicroCompetenceService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->realisationMicroCompetenceService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->realisationMicroCompetenceService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $realisationMicroCompetence_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -447,8 +465,12 @@ class BaseRealisationMicroCompetenceController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

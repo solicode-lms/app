@@ -15,6 +15,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgFormation\App\Requests\FiliereRequest;
 use Modules\PkgFormation\Models\Filiere;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgFormation\App\Exports\FiliereExport;
 use Modules\PkgFormation\App\Imports\FiliereImport;
 use Modules\Core\Services\ContextState;
@@ -124,13 +126,18 @@ class BaseFiliereController extends AdminController
                 'entityToString' => $filiere,
                 'modelName' => __('PkgFormation::filiere.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $filiere->id]
+                array_merge(
+                    ['entity_id' => $filiere->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('filieres.edit',['filiere' => $filiere->id])->with(
+        return redirect()->route('filieres.edit', ['filiere' => $filiere->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $filiere,
@@ -245,8 +252,11 @@ class BaseFiliereController extends AdminController
                 'modelName' =>  __('PkgFormation::filiere.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $filiere->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $filiere->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -274,23 +284,31 @@ class BaseFiliereController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($filiere_ids as $id) {
-            $entity = $this->filiereService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->filiereService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->filiereService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $filiere_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -442,8 +460,12 @@ class BaseFiliereController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

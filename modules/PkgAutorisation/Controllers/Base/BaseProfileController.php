@@ -12,6 +12,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgAutorisation\App\Requests\ProfileRequest;
 use Modules\PkgAutorisation\Models\Profile;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgAutorisation\App\Exports\ProfileExport;
 use Modules\PkgAutorisation\App\Imports\ProfileImport;
 use Modules\Core\Services\ContextState;
@@ -165,10 +167,15 @@ class BaseProfileController extends AdminController
                 'entityToString' => $profile,
                 'modelName' => __('PkgAutorisation::profile.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $profile->id]
+                array_merge(
+                    ['entity_id' => $profile->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
         return redirect()->route('profiles.index')->with(
@@ -242,8 +249,11 @@ class BaseProfileController extends AdminController
                 'modelName' =>  __('PkgAutorisation::profile.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $profile->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $profile->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -271,23 +281,31 @@ class BaseProfileController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($profile_ids as $id) {
-            $entity = $this->profileService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->profileService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->profileService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $profile_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -445,8 +463,12 @@ class BaseProfileController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

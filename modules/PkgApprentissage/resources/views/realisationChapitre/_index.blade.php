@@ -5,6 +5,7 @@
     window.crudModalManagersConfig = window.crudModalManagersConfig || [];
     window.crudModalManagersConfig.push({
         edit_has_many: {{ !isset($edit_has_many)? 'false' :  ($edit_has_many ? "true": "false") }},
+        afterCreateAction: '{{ !isset($afterCreateAction)? '' :  $afterCreateAction }}',
         isMany: {{ isset($isMany) && $isMany ? 'true' : 'false' }},
         data_calcul : {{ isset($data_calcul) && $data_calcul ? 'true' : 'false' }},
         parent_manager_id: {!! isset($parent_manager_id) ? "'$parent_manager_id'" : 'null' !!},

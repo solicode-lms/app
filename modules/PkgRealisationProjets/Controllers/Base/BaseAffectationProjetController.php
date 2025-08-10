@@ -18,6 +18,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationProjets\App\Requests\AffectationProjetRequest;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationProjets\App\Exports\AffectationProjetExport;
 use Modules\PkgRealisationProjets\App\Imports\AffectationProjetImport;
 use Modules\Core\Services\ContextState;
@@ -300,8 +302,11 @@ class BaseAffectationProjetController extends AdminController
                 'modelName' =>  __('PkgRealisationProjets::affectationProjet.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $affectationProjet->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $affectationProjet->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -329,23 +334,31 @@ class BaseAffectationProjetController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($affectationProjet_ids as $id) {
-            $entity = $this->affectationProjetService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->affectationProjetService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->affectationProjetService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $affectationProjet_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -516,8 +529,12 @@ class BaseAffectationProjetController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

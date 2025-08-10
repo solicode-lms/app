@@ -13,6 +13,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgRealisationTache\App\Requests\WorkflowTacheRequest;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgRealisationTache\App\Exports\WorkflowTacheExport;
 use Modules\PkgRealisationTache\App\Imports\WorkflowTacheImport;
 use Modules\Core\Services\ContextState;
@@ -126,13 +128,18 @@ class BaseWorkflowTacheController extends AdminController
                 'entityToString' => $workflowTache,
                 'modelName' => __('PkgRealisationTache::workflowTache.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $workflowTache->id]
+                array_merge(
+                    ['entity_id' => $workflowTache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('workflowTaches.edit',['workflowTache' => $workflowTache->id])->with(
+        return redirect()->route('workflowTaches.edit', ['workflowTache' => $workflowTache->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $workflowTache,
@@ -206,8 +213,11 @@ class BaseWorkflowTacheController extends AdminController
                 'modelName' =>  __('PkgRealisationTache::workflowTache.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $workflowTache->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $workflowTache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -235,23 +245,31 @@ class BaseWorkflowTacheController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($workflowTache_ids as $id) {
-            $entity = $this->workflowTacheService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->workflowTacheService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->workflowTacheService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $workflowTache_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -403,8 +421,12 @@ class BaseWorkflowTacheController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }

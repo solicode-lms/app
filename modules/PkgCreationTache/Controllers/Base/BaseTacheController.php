@@ -18,6 +18,8 @@ use Modules\Core\App\Helpers\JsonResponseHelper;
 use Modules\PkgCreationTache\App\Requests\TacheRequest;
 use Modules\PkgCreationTache\Models\Tache;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Core\App\Jobs\BulkEditJob;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgCreationTache\App\Exports\TacheExport;
 use Modules\PkgCreationTache\App\Imports\TacheImport;
 use Modules\Core\Services\ContextState;
@@ -163,13 +165,18 @@ class BaseTacheController extends AdminController
                 'entityToString' => $tache,
                 'modelName' => __('PkgCreationTache::tache.singular')]);
         
-            return JsonResponseHelper::success(
+  
+             return JsonResponseHelper::success(
              $message,
-             ['entity_id' => $tache->id]
+                array_merge(
+                    ['entity_id' => $tache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
+
         }
 
-        return redirect()->route('taches.edit',['tache' => $tache->id])->with(
+        return redirect()->route('taches.edit', ['tache' => $tache->id])->with(
             'success',
             __('Core::msg.addSuccess', [
                 'entityToString' => $tache,
@@ -262,8 +269,11 @@ class BaseTacheController extends AdminController
                 'modelName' =>  __('PkgCreationTache::tache.singular')]);
             
             return JsonResponseHelper::success(
-                $message,
-                ['entity_id' => $tache->id]
+             $message,
+                array_merge(
+                    ['entity_id' => $tache->id],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
             );
         }
 
@@ -291,23 +301,31 @@ class BaseTacheController extends AdminController
         if (empty($champsCoches)) {
             return JsonResponseHelper::error("Aucun champ sélectionné pour la mise à jour.");
         }
-    
-        foreach ($tache_ids as $id) {
-            $entity = $this->tacheService->find($id);
-            $this->authorize('update', $entity);
-    
-            $allFields = $this->tacheService->getFieldsEditable();
-            $data = collect($allFields)
-                ->filter(fn($field) => in_array($field, $champsCoches))
-                ->mapWithKeys(fn($field) => [$field => $request->input($field)])
-                ->toArray();
-    
-            if (!empty($data)) {
-                $this->tacheService->updateOnlyExistanteAttribute($id, $data);
-            }
+
+        // 🔹 Récupérer les valeurs de ces champs
+        $valeursChamps = [];
+        foreach ($champsCoches as $field) {
+            $valeursChamps[$field] = $request->input($field);
         }
-    
-        return JsonResponseHelper::success(__('Mise à jour en masse effectuée avec succès.'));
+
+        $jobManager = new JobManager();
+        $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
+         
+        dispatch(new BulkEditJob(
+            ucfirst($this->service->moduleName),
+            ucfirst($this->service->modelName),
+            "bulkUpdateJob",
+            $jobManager->getToken(),
+            $tache_ids,
+            $champsCoches,
+            $valeursChamps
+        ));
+
+       
+        return JsonResponseHelper::success(
+             __('Mise à jour en masse effectuée avec succès.'),
+                ['traitement_token' => $jobManager->getToken()]
+        );
 
     }
     /**
@@ -459,8 +477,12 @@ class BaseTacheController extends AdminController
     
         $this->getService()->updateOnlyExistanteAttribute($validated['id'], $dataToUpdate);
     
-        return JsonResponseHelper::success(__('Mise à jour réussie.'), [
-            'entity_id' => $validated['id']
-        ]);
+        return JsonResponseHelper::success(
+             __('Mise à jour réussie.'),
+                array_merge(
+                    ['entity_id' => $validated['id']],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+        );
     }
 }
