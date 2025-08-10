@@ -1,4 +1,21 @@
 
+
+## Configuration de version : 2024 = V1
+## Confoguration de QUEUE_CONNECTION
+
+dans .env
+
+````conf
+QUEUE_CONNECTION=sync
+````
+
+
+## Création de la base de données 
+
+
+
+## 
+
 ````bash
 
 # Core
@@ -41,15 +58,6 @@ php artisan db:seed --class=Modules\PkgRealisationProjets\Database\Seeders\Etats
 
 # PkgWidgets
 php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetTypeSeeder
+php artisan db:seed --class=Modules\PkgWidgets\Database\Seeders\WidgetSeeder
 
-
-````
-
-
-
-dans .env
-
-
-````conf
-QUEUE_CONNECTION=sync
 ````
