@@ -93,7 +93,7 @@
     },
     {
         "reference": "Module_id_displayOrder",
-        "value_integer": 1,
+        "value_integer": 8,
         "e_data_field_reference": "Module_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -117,31 +117,31 @@
     },
     {
         "reference": "Module_created_at_displayOrder",
-        "value_integer": 5,
+        "value_integer": 11,
         "e_data_field_reference": "Module_created_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Module_updated_at_displayOrder",
-        "value_integer": 6,
+        "value_integer": 9,
         "e_data_field_reference": "Module_updated_at",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Module_filiere_id_displayOrder",
-        "value_integer": 7,
+        "value_integer": 5,
         "e_data_field_reference": "Module_filiere_id",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "Module_reference_displayOrder",
-        "value_integer": 8,
+        "value_integer": 10,
         "e_data_field_reference": "Module_reference",
         "e_metadata_definition_reference": "displayOrder"
     },
     {
         "reference": "modules_hasMany_competences_module_id_displayOrder",
-        "value_integer": 9,
+        "value_integer": 6,
         "e_data_field_reference": "modules_hasMany_competences_module_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -275,7 +275,7 @@
     },
     {
         "reference": "Module_code_displayOrder",
-        "value_integer": 2,
+        "value_integer": 1,
         "e_data_field_reference": "Module_code",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -479,7 +479,7 @@
     },
     {
         "reference": "modules_hasMany_realisation_modules_module_id_displayOrder",
-        "value_integer": 11,
+        "value_integer": 7,
         "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
         "e_metadata_definition_reference": "displayOrder"
     },

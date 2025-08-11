@@ -49,6 +49,13 @@ class BaseRealisationModuleController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.realisationModule.apprenant.groupes.formateurs.user_id') == null){
+           $this->viewState->init('scope.realisationModule.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.realisationModule.apprenant_id') == null){
+           $this->viewState->init('scope.realisationModule.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
 
@@ -80,13 +87,20 @@ class BaseRealisationModuleController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationModule.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationModule.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         $itemRealisationModule = $this->realisationModuleService->createInstance();
         
 
-        $apprenants = $this->apprenantService->all();
         $modules = $this->moduleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationModules = $this->etatRealisationModuleService->all();
 
         $bulkEdit = false;
@@ -109,12 +123,19 @@ class BaseRealisationModuleController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationModule.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationModule.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
  
          $itemRealisationModule = $this->realisationModuleService->find($realisationModule_ids[0]);
          
  
-        $apprenants = $this->apprenantService->all();
         $modules = $this->moduleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationModules = $this->etatRealisationModuleService->all();
 
         $bulkEdit = true;
@@ -164,6 +185,7 @@ class BaseRealisationModuleController extends AdminController
         $this->viewState->setContextKey('realisationModule.show_' . $id);
 
         $itemRealisationModule = $this->realisationModuleService->edit($id);
+        $this->authorize('view', $itemRealisationModule);
 
 
         $this->viewState->set('scope.realisationCompetence.realisation_module_id', $id);
@@ -188,10 +210,11 @@ class BaseRealisationModuleController extends AdminController
 
 
         $itemRealisationModule = $this->realisationModuleService->edit($id);
+        $this->authorize('edit', $itemRealisationModule);
 
 
-        $apprenants = $this->apprenantService->all();
         $modules = $this->moduleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationModules = $this->etatRealisationModuleService->all();
 
 
@@ -215,6 +238,9 @@ class BaseRealisationModuleController extends AdminController
     /**
      */
     public function update(RealisationModuleRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationModule = $this->realisationModuleService->find($id);
+        $this->authorize('update', $realisationModule);
 
         $validatedData = $request->validated();
         $realisationModule = $this->realisationModuleService->update($id, $validatedData);
@@ -287,6 +313,9 @@ class BaseRealisationModuleController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationModule = $this->realisationModuleService->find($id);
+        $this->authorize('delete', $realisationModule);
 
         $realisationModule = $this->realisationModuleService->destroy($id);
 
@@ -321,6 +350,9 @@ class BaseRealisationModuleController extends AdminController
         }
         foreach ($realisationModule_ids as $id) {
             $entity = $this->realisationModuleService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $realisationModule = $this->realisationModuleService->find($id);
+            $this->authorize('delete', $realisationModule);
             $this->realisationModuleService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

@@ -32,31 +32,31 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
     {
         if ($this->format === 'csv') {
             return [
-                'reference' => 'reference',
-                'date_debut' => 'date_debut',
-                'date_fin' => 'date_fin',
+                'module_reference' => 'module_reference',
+                'apprenant_reference' => 'apprenant_reference',
                 'progression_cache' => 'progression_cache',
+                'etat_realisation_module_reference' => 'etat_realisation_module_reference',
                 'note_cache' => 'note_cache',
                 'bareme_cache' => 'bareme_cache',
                 'commentaire_formateur' => 'commentaire_formateur',
+                'date_fin' => 'date_fin',
+                'date_debut' => 'date_debut',
                 'dernier_update' => 'dernier_update',
-                'apprenant_reference' => 'apprenant_reference',
-                'module_reference' => 'module_reference',
-                'etat_realisation_module_reference' => 'etat_realisation_module_reference',
+                'reference' => 'reference',
             ];
         } else {
             return [
-                'reference' => __('Core::msg.reference'),
-                'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
-                'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
+                'module_reference' => __('PkgApprentissage::realisationModule.module_reference'),
+                'apprenant_reference' => __('PkgApprentissage::realisationModule.apprenant_reference'),
                 'progression_cache' => __('PkgApprentissage::realisationModule.progression_cache'),
+                'etat_realisation_module_reference' => __('PkgApprentissage::realisationModule.etat_realisation_module_reference'),
                 'note_cache' => __('PkgApprentissage::realisationModule.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationModule.bareme_cache'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationModule.commentaire_formateur'),
+                'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
+                'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
                 'dernier_update' => __('PkgApprentissage::realisationModule.dernier_update'),
-                'apprenant_reference' => __('PkgApprentissage::realisationModule.apprenant_reference'),
-                'module_reference' => __('PkgApprentissage::realisationModule.module_reference'),
-                'etat_realisation_module_reference' => __('PkgApprentissage::realisationModule.etat_realisation_module_reference'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -68,17 +68,17 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
     {
         return $this->data->map(function ($realisationModule) {
             return [
-                'reference' => $realisationModule->reference,
-                'date_debut' => $realisationModule->date_debut,
-                'date_fin' => $realisationModule->date_fin,
+                'module_reference' => $realisationModule->module?->reference,
+                'apprenant_reference' => $realisationModule->apprenant?->reference,
                 'progression_cache' => $realisationModule->progression_cache,
+                'etat_realisation_module_reference' => $realisationModule->etatRealisationModule?->reference,
                 'note_cache' => $realisationModule->note_cache,
                 'bareme_cache' => $realisationModule->bareme_cache,
                 'commentaire_formateur' => $realisationModule->commentaire_formateur,
+                'date_fin' => $realisationModule->date_fin,
+                'date_debut' => $realisationModule->date_debut,
                 'dernier_update' => $realisationModule->dernier_update,
-                'apprenant_reference' => $realisationModule->apprenant?->reference,
-                'module_reference' => $realisationModule->module?->reference,
-                'etat_realisation_module_reference' => $realisationModule->etatRealisationModule?->reference,
+                'reference' => $realisationModule->reference,
             ];
         });
     }

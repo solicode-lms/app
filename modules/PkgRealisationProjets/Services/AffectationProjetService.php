@@ -61,7 +61,7 @@ class AffectationProjetService extends BaseAffectationProjetService
      * @param  string $token  Token de suivi du traitement (fourni par executeJob)
      * @return string         'done' | 'error'
      */
-    public function afterCreateJob(int $id, string $token): string
+    public function createdObserverJob(int $id, string $token): string
         {
         try  { 
             $jobManager = new JobManager($token);

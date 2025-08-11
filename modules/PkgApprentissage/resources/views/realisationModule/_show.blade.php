@@ -6,36 +6,53 @@
             <div class="row no-gutters mb-4">
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_debut')) }}</small>
-                  <span>
-                    @if ($itemRealisationModule->date_debut)
-                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_debut)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationModule->module)
+                  {{ $itemRealisationModule->module }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}</small>
-                  <span>
-                    @if ($itemRealisationModule->date_fin)
-                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_fin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationModule->apprenant)
+                  {{ $itemRealisationModule->apprenant }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.progression_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationModule->progression_cache))
-                  {{ number_format($itemRealisationModule->progression_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+                  <div class="progress progress-sm">
+                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationModule->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationModule->progression_cache }}%">
+                      </div>
+                  </div>
+                  <small>
+                      {{$itemRealisationModule->progression_cache }}% Terminé
+                  </small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.etat_realisation_module_id')) }}</small>
+
+                {{-- Affichage sous forme de badge --}}
+                @if($itemRealisationModule->etatRealisationModule)
+                  <x-badge 
+                    :text="$itemRealisationModule->etatRealisationModule" 
+                    :background="$itemRealisationModule->etatRealisationModule->sysColor->hex ?? '#6c757d'" 
+                  />
+                @else
+                  <span class="text-muted">—</span>
+                @endif
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
@@ -74,6 +91,28 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}</small>
+                  <span>
+                    @if ($itemRealisationModule->date_fin)
+                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_fin)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_debut')) }}</small>
+                  <span>
+                    @if ($itemRealisationModule->date_debut)
+                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_debut)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.dernier_update')) }}</small>
                   <span>
                     @if ($itemRealisationModule->dernier_update)
@@ -82,45 +121,6 @@
                     —
                     @endif
                   </span>                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprenants::apprenant.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationModule->apprenant)
-                  {{ $itemRealisationModule->apprenant }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationModule->module)
-                  {{ $itemRealisationModule->module }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::etatRealisationModule.singular')) }}</small>
-
-                {{-- Affichage sous forme de badge --}}
-                @if($itemRealisationModule->etatRealisationModule)
-                  <x-badge 
-                    :text="$itemRealisationModule->etatRealisationModule" 
-                    :background="$itemRealisationModule->etatRealisationModule->sysColor->hex ?? '#6c757d'" 
-                  />
-                @else
-                  <span class="text-muted">—</span>
-                @endif
-                </div>
             </div>
             <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >

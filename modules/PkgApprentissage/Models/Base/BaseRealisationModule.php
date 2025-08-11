@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Module;
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprentissage\Models\EtatRealisationModule;
 use Modules\PkgApprentissage\Models\RealisationCompetence;
 
@@ -22,7 +22,7 @@ use Modules\PkgApprentissage\Models\RealisationCompetence;
  */
 class BaseRealisationModule extends BaseModel
 {
-    use HasFactory, HasDynamicContext;
+    use HasFactory, HasDynamicContext, OwnedByUser;
 
     /**
      * Eager-load par défaut les relations belongsTo listées dans manyToOne
@@ -30,15 +30,16 @@ class BaseRealisationModule extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'apprenant',
       //  'module',
+      //  'apprenant',
       //  'etatRealisationModule'
     ];
 
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes); 
-        $this->isOwnedByUser =  false;
+        $this->isOwnedByUser =  true;
+        $this->ownerRelationPath = "apprenant.groupes.formateurs.user,apprenant.user";
     }
 
     
@@ -48,18 +49,18 @@ class BaseRealisationModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'module_id', 'etat_realisation_module_id'
+        'module_id', 'apprenant_id', 'progression_cache', 'etat_realisation_module_id', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'date_fin', 'date_debut', 'dernier_update'
     ];
     public $manyToOne = [
-        'Apprenant' => [
-            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
-            "foreign_key" => "apprenant_id", 
-            ],
         'Module' => [
             'model' => "Modules\\PkgFormation\\Models\\Module",
             'relation' => 'modules' , 
             "foreign_key" => "module_id", 
+            ],
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
             ],
         'EtatRealisationModule' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationModule",
@@ -70,15 +71,6 @@ class BaseRealisationModule extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour Apprenant.
-     *
-     * @return BelongsTo
-     */
-    public function apprenant(): BelongsTo
-    {
-        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour Module.
      *
      * @return BelongsTo
@@ -86,6 +78,15 @@ class BaseRealisationModule extends BaseModel
     public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class, 'module_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Apprenant.
+     *
+     * @return BelongsTo
+     */
+    public function apprenant(): BelongsTo
+    {
+        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationModule.

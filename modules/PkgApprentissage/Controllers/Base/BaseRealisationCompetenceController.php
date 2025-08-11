@@ -52,6 +52,13 @@ class BaseRealisationCompetenceController extends AdminController
         $this->service->userHasSentFilter = (count($userHasSentFilter) != 0);
 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur') && $this->viewState->get('scope.realisationCompetence.apprenant.groupes.formateurs.user_id') == null){
+           $this->viewState->init('scope.realisationCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('scope.realisationCompetence.apprenant_id') == null){
+           $this->viewState->init('scope.realisationCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
 
@@ -83,6 +90,13 @@ class BaseRealisationCompetenceController extends AdminController
     /**
      */
     public function create() {
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
 
 
         $itemRealisationCompetence = $this->realisationCompetenceService->createInstance();
@@ -113,6 +127,13 @@ class BaseRealisationCompetenceController extends AdminController
 
         // Même traitement de create 
 
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationCompetence.apprenant.groupes.formateurs.user_id'  , $this->sessionState->get('user_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationCompetence.apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
  
          $itemRealisationCompetence = $this->realisationCompetenceService->find($realisationCompetence_ids[0]);
          
@@ -169,6 +190,7 @@ class BaseRealisationCompetenceController extends AdminController
         $this->viewState->setContextKey('realisationCompetence.show_' . $id);
 
         $itemRealisationCompetence = $this->realisationCompetenceService->edit($id);
+        $this->authorize('view', $itemRealisationCompetence);
 
 
         $this->viewState->set('scope.realisationMicroCompetence.realisation_competence_id', $id);
@@ -193,6 +215,7 @@ class BaseRealisationCompetenceController extends AdminController
 
 
         $itemRealisationCompetence = $this->realisationCompetenceService->edit($id);
+        $this->authorize('edit', $itemRealisationCompetence);
 
 
         $apprenants = $this->apprenantService->all();
@@ -221,6 +244,9 @@ class BaseRealisationCompetenceController extends AdminController
     /**
      */
     public function update(RealisationCompetenceRequest $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationCompetence = $this->realisationCompetenceService->find($id);
+        $this->authorize('update', $realisationCompetence);
 
         $validatedData = $request->validated();
         $realisationCompetence = $this->realisationCompetenceService->update($id, $validatedData);
@@ -293,6 +319,9 @@ class BaseRealisationCompetenceController extends AdminController
     /**
      */
     public function destroy(Request $request, string $id) {
+        // Vérifie si l'utilisateur peut mettre à jour l'objet 
+        $realisationCompetence = $this->realisationCompetenceService->find($id);
+        $this->authorize('delete', $realisationCompetence);
 
         $realisationCompetence = $this->realisationCompetenceService->destroy($id);
 
@@ -327,6 +356,9 @@ class BaseRealisationCompetenceController extends AdminController
         }
         foreach ($realisationCompetence_ids as $id) {
             $entity = $this->realisationCompetenceService->find($id);
+            // Vérifie si l'utilisateur peut mettre à jour l'objet 
+            $realisationCompetence = $this->realisationCompetenceService->find($id);
+            $this->authorize('delete', $realisationCompetence);
             $this->realisationCompetenceService->destroy($id);
         }
         return JsonResponseHelper::success(__('Core::msg.deleteSuccess', [

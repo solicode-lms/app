@@ -9,11 +9,11 @@
                     $bulkEdit = $realisationModules_permissions['edit-realisationModule'] || $realisationModules_permissions['destroy-realisationModule'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
                 <x-sortable-column :sortable="true" width="16.4" field="module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgFormation::module.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::etatRealisationModule.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.etat_realisation_module_id'))!!}" />
+                <x-sortable-column :sortable="true" width="16.4"  field="note_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.note_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,18 +25,22 @@
                 @endphp
                 <tr id="realisationModule-row-{{$realisationModule->id}}" data-id="{{$realisationModule->id}}">
                     <x-checkbox-row :item="$realisationModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationModule->date_debut }}" >
-                        <x-deadline-display :value="$realisationModule->date_debut" />
-                    </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationModule->date_fin }}" >
-                        <x-deadline-display :value="$realisationModule->date_fin" />
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
+                        {{  $realisationModule->module }}
+
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationModule->apprenant }}" >
                         {{  $realisationModule->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
-                        {{  $realisationModule->module }}
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationModule->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationModule->progression_cache }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{ $realisationModule->progression_cache }}% Terminé
+                        </small>
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="etat_realisation_module_id"  data-toggle="tooltip" title="{{ $realisationModule->etatRealisationModule }}" >
@@ -46,6 +50,10 @@
                         :background="$realisationModule->etatRealisationModule->sysColor->hex ?? '#6c757d'" 
                         />
                         @endif
+
+                    </td>
+                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
+                        {{ $realisationModule->note_cache }}
 
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">

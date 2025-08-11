@@ -73,14 +73,14 @@ class BaseRealisationModuleSeeder extends Seeder
             if ($row) {
 
 
-                $apprenant_id = null;
-                if (!empty($row["apprenant_reference"])) {
-                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
-                        ->value('id');
-                }
                 $module_id = null;
                 if (!empty($row["module_reference"])) {
                     $module_id = \Modules\PkgFormation\Models\Module::where('reference', $row["module_reference"])
+                        ->value('id');
+                }
+                $apprenant_id = null;
+                if (!empty($row["apprenant_reference"])) {
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
                         ->value('id');
                 }
                 $etat_realisation_module_id = null;
@@ -91,16 +91,16 @@ class BaseRealisationModuleSeeder extends Seeder
 
 
                 $realisationModuleData =[
-                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
-                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "module_id" => $module_id,
+                        "apprenant_id" => $apprenant_id,
                         "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
+                        "etat_realisation_module_id" => $etat_realisation_module_id,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
                         "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
-                        "apprenant_id" => $apprenant_id,
-                        "module_id" => $module_id,
-                        "etat_realisation_module_id" => $etat_realisation_module_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

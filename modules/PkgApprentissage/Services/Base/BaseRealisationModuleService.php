@@ -22,16 +22,16 @@ class BaseRealisationModuleService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'date_debut',
-        'date_fin',
+        'module_id',
+        'apprenant_id',
         'progression_cache',
+        'etat_realisation_module_id',
         'note_cache',
         'bareme_cache',
         'commentaire_formateur',
-        'dernier_update',
-        'apprenant_id',
-        'module_id',
-        'etat_realisation_module_id'
+        'date_fin',
+        'date_debut',
+        'dernier_update'
     ];
 
     /**
@@ -99,23 +99,6 @@ class BaseRealisationModuleService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('apprenant_id', $scopeVariables)) {
-
-
-                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
-                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
-                    $apprenants = $apprenantService->getByIds($apprenantIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgApprenants::apprenant.plural"), 
-                        'apprenant_id', 
-                        \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom',
-                        $apprenants
-                    );
-                }
-            
-            
                 if (!array_key_exists('module_id', $scopeVariables)) {
 
 
@@ -129,6 +112,23 @@ class BaseRealisationModuleService extends BaseService
                         \Modules\PkgFormation\Models\Module::class, 
                         'code',
                         $modules
+                    );
+                }
+            
+            
+                if (!array_key_exists('apprenant_id', $scopeVariables)) {
+
+
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::apprenant.plural"), 
+                        'apprenant_id', 
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom',
+                        $apprenants
                     );
                 }
             
@@ -176,11 +176,25 @@ class BaseRealisationModuleService extends BaseService
 
         $stats = $this->initStats();
 
+        // Ajouter les statistiques du propriétaire
+        //$contexteState = $this->getContextState();
+        // if ($contexteState !== null) {
+        //     $stats[] = $contexteState;
+        // }
         
 
         return $stats;
     }
 
+    public function getContextState()
+    {
+        $value = $this->viewState->generateTitleFromVariables();
+        return [
+                "icon" => "fas fa-filter",
+                "label" => "Filtre",
+                "value" =>  $value
+        ];
+    }
 
 
 

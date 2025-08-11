@@ -41,6 +41,8 @@ class PkgRealisationProjetsServiceProvider extends BasePkgRealisationProjetsServ
             __DIR__ . '/../../resources/lang',
             'PkgRealisationProjets'
         );
+
+        $this->registerObservers();
     }
     
 }

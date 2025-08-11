@@ -56,17 +56,17 @@ class BaseRealisationModuleImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new RealisationModule([
-             'reference' => $reference,
-             'date_debut' => $values[1] ?? null,
-             'date_fin' => $values[2] ?? null,
-             'progression_cache' => $values[3] ?? null,
+             'module_id' => $values[0] ?? null,
+             'apprenant_id' => $values[1] ?? null,
+             'progression_cache' => $values[2] ?? null,
+             'etat_realisation_module_id' => $values[3] ?? null,
              'note_cache' => $values[4] ?? null,
              'bareme_cache' => $values[5] ?? null,
              'commentaire_formateur' => $values[6] ?? null,
-             'dernier_update' => $values[7] ?? null,
-             'apprenant_id' => $values[8] ?? null,
-             'module_id' => $values[9] ?? null,
-             'etat_realisation_module_id' => $values[10] ?? null,
+             'date_fin' => $values[7] ?? null,
+             'date_debut' => $values[8] ?? null,
+             'dernier_update' => $values[9] ?? null,
+             'reference' => $reference,
         ]);
 
 
