@@ -56,18 +56,18 @@ class BaseRealisationCompetenceImport implements ToModel, WithHeadingRow
 
         // Création d'un nouvel enregistrement
         return new RealisationCompetence([
-             'reference' => $reference,
-             'date_debut' => $values[1] ?? null,
-             'date_fin' => $values[2] ?? null,
+             'competence_id' => $values[0] ?? null,
+             'realisation_module_id' => $values[1] ?? null,
+             'apprenant_id' => $values[2] ?? null,
              'progression_cache' => $values[3] ?? null,
              'note_cache' => $values[4] ?? null,
-             'bareme_cache' => $values[5] ?? null,
-             'commentaire_formateur' => $values[6] ?? null,
+             'etat_realisation_competence_id' => $values[5] ?? null,
+             'bareme_cache' => $values[6] ?? null,
              'dernier_update' => $values[7] ?? null,
-             'apprenant_id' => $values[8] ?? null,
-             'realisation_module_id' => $values[9] ?? null,
-             'competence_id' => $values[10] ?? null,
-             'etat_realisation_competence_id' => $values[11] ?? null,
+             'commentaire_formateur' => $values[8] ?? null,
+             'date_debut' => $values[9] ?? null,
+             'date_fin' => $values[10] ?? null,
+             'reference' => $reference,
         ]);
 
 

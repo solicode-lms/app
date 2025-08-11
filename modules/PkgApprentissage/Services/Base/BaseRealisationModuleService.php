@@ -28,10 +28,10 @@ class BaseRealisationModuleService extends BaseService
         'etat_realisation_module_id',
         'note_cache',
         'bareme_cache',
+        'dernier_update',
         'commentaire_formateur',
-        'date_fin',
         'date_debut',
-        'dernier_update'
+        'date_fin'
     ];
 
     /**

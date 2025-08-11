@@ -58,26 +58,19 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.note_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationModule->note_cache))
-                  {{ number_format($itemRealisationModule->note_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+@include('PkgApprentissage::realisationModule.custom.fields.note_cache',['entity' => $itemRealisationModule])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.bareme_cache')) }}</small>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.dernier_update')) }}</small>
                   <span>
-                  @if(! is_null($itemRealisationModule->bareme_cache))
-                  {{ number_format($itemRealisationModule->bareme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
-                </div>
+                    @if ($itemRealisationModule->dernier_update)
+                    {{ \Carbon\Carbon::parse($itemRealisationModule->dernier_update)->isoFormat('LLL') }}
+                    @else
+                    —
+                    @endif
+                  </span>                </div>
             </div>
             <div class="col-12 col-md-12 col-lg-12 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
@@ -88,17 +81,6 @@
                   @else
                     <span class="text-muted">—</span>
                   @endif                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
-                <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}</small>
-                  <span>
-                    @if ($itemRealisationModule->date_fin)
-                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_fin)->isoFormat('LLL') }}
-                    @else
-                    —
-                    @endif
-                  </span>                </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
@@ -113,10 +95,10 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
-                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.dernier_update')) }}</small>
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}</small>
                   <span>
-                    @if ($itemRealisationModule->dernier_update)
-                    {{ \Carbon\Carbon::parse($itemRealisationModule->dernier_update)->isoFormat('LLL') }}
+                    @if ($itemRealisationModule->date_fin)
+                    {{ \Carbon\Carbon::parse($itemRealisationModule->date_fin)->isoFormat('LLL') }}
                     @else
                     —
                     @endif

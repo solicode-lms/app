@@ -14,4 +14,5 @@ return [
     'apprenant_id' => 'Apprenant',
     'competence_id' => 'Compétence',
     'etat_realisation_competence_id' => 'État',
+    'realisation_module_id' => 'Réalisation Module'
 ];

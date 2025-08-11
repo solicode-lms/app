@@ -29,17 +29,17 @@ class BaseRealisationCompetenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_debut' => 'nullable',
-            'date_fin' => 'nullable',
+            'competence_id' => 'required',
+            'realisation_module_id' => 'required',
+            'apprenant_id' => 'required',
             'progression_cache' => 'required',
             'note_cache' => 'nullable',
+            'etat_realisation_competence_id' => 'nullable',
             'bareme_cache' => 'nullable',
-            'commentaire_formateur' => 'nullable|string',
             'dernier_update' => 'nullable',
-            'apprenant_id' => 'required',
-            'realisation_module_id' => 'required',
-            'competence_id' => 'required',
-            'etat_realisation_competence_id' => 'nullable'
+            'commentaire_formateur' => 'nullable|string',
+            'date_debut' => 'nullable',
+            'date_fin' => 'nullable'
         ];
     }
 
@@ -51,17 +51,17 @@ class BaseRealisationCompetenceRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_fin')]),
+            'competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.competence_id')]),
+            'realisation_module_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.realisation_module_id')]),
+            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.apprenant_id')]),
             'progression_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.progression_cache')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.note_cache')]),
+            'etat_realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.etat_realisation_competence_id')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.bareme_cache')]),
-            'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.commentaire_formateur')]),
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.dernier_update')]),
-            'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.apprenant_id')]),
-            'realisation_module_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.realisation_module_id')]),
-            'competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.competence_id')]),
-            'etat_realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.etat_realisation_competence_id')])
+            'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.commentaire_formateur')]),
+            'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_debut')]),
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.date_fin')])
         ];
     }
 

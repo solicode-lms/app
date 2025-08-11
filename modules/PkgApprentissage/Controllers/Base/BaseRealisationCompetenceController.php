@@ -102,9 +102,9 @@ class BaseRealisationCompetenceController extends AdminController
         $itemRealisationCompetence = $this->realisationCompetenceService->createInstance();
         
 
-        $apprenants = $this->apprenantService->all();
-        $realisationModules = $this->realisationModuleService->all();
         $competences = $this->competenceService->all();
+        $realisationModules = $this->realisationModuleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationCompetences = $this->etatRealisationCompetenceService->all();
 
         $bulkEdit = false;
@@ -138,9 +138,9 @@ class BaseRealisationCompetenceController extends AdminController
          $itemRealisationCompetence = $this->realisationCompetenceService->find($realisationCompetence_ids[0]);
          
  
-        $apprenants = $this->apprenantService->all();
-        $realisationModules = $this->realisationModuleService->all();
         $competences = $this->competenceService->all();
+        $realisationModules = $this->realisationModuleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationCompetences = $this->etatRealisationCompetenceService->all();
 
         $bulkEdit = true;
@@ -218,9 +218,9 @@ class BaseRealisationCompetenceController extends AdminController
         $this->authorize('edit', $itemRealisationCompetence);
 
 
-        $apprenants = $this->apprenantService->all();
-        $realisationModules = $this->realisationModuleService->all();
         $competences = $this->competenceService->all();
+        $realisationModules = $this->realisationModuleService->all();
+        $apprenants = $this->apprenantService->all();
         $etatRealisationCompetences = $this->etatRealisationCompetenceService->all();
 
 

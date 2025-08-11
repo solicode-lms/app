@@ -73,9 +73,9 @@ class BaseRealisationCompetenceSeeder extends Seeder
             if ($row) {
 
 
-                $apprenant_id = null;
-                if (!empty($row["apprenant_reference"])) {
-                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
+                $competence_id = null;
+                if (!empty($row["competence_reference"])) {
+                    $competence_id = \Modules\PkgCompetences\Models\Competence::where('reference', $row["competence_reference"])
                         ->value('id');
                 }
                 $realisation_module_id = null;
@@ -83,9 +83,9 @@ class BaseRealisationCompetenceSeeder extends Seeder
                     $realisation_module_id = \Modules\PkgApprentissage\Models\RealisationModule::where('reference', $row["realisation_module_reference"])
                         ->value('id');
                 }
-                $competence_id = null;
-                if (!empty($row["competence_reference"])) {
-                    $competence_id = \Modules\PkgCompetences\Models\Competence::where('reference', $row["competence_reference"])
+                $apprenant_id = null;
+                if (!empty($row["apprenant_reference"])) {
+                    $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
                         ->value('id');
                 }
                 $etat_realisation_competence_id = null;
@@ -96,17 +96,17 @@ class BaseRealisationCompetenceSeeder extends Seeder
 
 
                 $realisationCompetenceData =[
-                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
-                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
+                        "competence_id" => $competence_id,
+                        "realisation_module_id" => $realisation_module_id,
+                        "apprenant_id" => $apprenant_id,
                         "progression_cache" => isset($row["progression_cache"]) && $row["progression_cache"] !== "" ? $row["progression_cache"] : null,
                         "note_cache" => isset($row["note_cache"]) && $row["note_cache"] !== "" ? $row["note_cache"] : null,
-                        "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
-                        "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
-                        "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
-                        "apprenant_id" => $apprenant_id,
-                        "realisation_module_id" => $realisation_module_id,
-                        "competence_id" => $competence_id,
                         "etat_realisation_competence_id" => $etat_realisation_competence_id,
+                        "bareme_cache" => isset($row["bareme_cache"]) && $row["bareme_cache"] !== "" ? $row["bareme_cache"] : null,
+                        "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
+                        "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
+                        "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
+                        "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

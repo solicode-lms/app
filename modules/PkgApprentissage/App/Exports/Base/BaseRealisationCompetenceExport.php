@@ -32,33 +32,33 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
     {
         if ($this->format === 'csv') {
             return [
-                'reference' => 'reference',
-                'date_debut' => 'date_debut',
-                'date_fin' => 'date_fin',
+                'competence_reference' => 'competence_reference',
+                'realisation_module_reference' => 'realisation_module_reference',
+                'apprenant_reference' => 'apprenant_reference',
                 'progression_cache' => 'progression_cache',
                 'note_cache' => 'note_cache',
-                'bareme_cache' => 'bareme_cache',
-                'commentaire_formateur' => 'commentaire_formateur',
-                'dernier_update' => 'dernier_update',
-                'apprenant_reference' => 'apprenant_reference',
-                'realisation_module_reference' => 'realisation_module_reference',
-                'competence_reference' => 'competence_reference',
                 'etat_realisation_competence_reference' => 'etat_realisation_competence_reference',
+                'bareme_cache' => 'bareme_cache',
+                'dernier_update' => 'dernier_update',
+                'commentaire_formateur' => 'commentaire_formateur',
+                'date_debut' => 'date_debut',
+                'date_fin' => 'date_fin',
+                'reference' => 'reference',
             ];
         } else {
             return [
-                'reference' => __('Core::msg.reference'),
-                'date_debut' => __('PkgApprentissage::realisationCompetence.date_debut'),
-                'date_fin' => __('PkgApprentissage::realisationCompetence.date_fin'),
+                'competence_reference' => __('PkgApprentissage::realisationCompetence.competence_reference'),
+                'realisation_module_reference' => __('PkgApprentissage::realisationCompetence.realisation_module_reference'),
+                'apprenant_reference' => __('PkgApprentissage::realisationCompetence.apprenant_reference'),
                 'progression_cache' => __('PkgApprentissage::realisationCompetence.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationCompetence.note_cache'),
-                'bareme_cache' => __('PkgApprentissage::realisationCompetence.bareme_cache'),
-                'commentaire_formateur' => __('PkgApprentissage::realisationCompetence.commentaire_formateur'),
-                'dernier_update' => __('PkgApprentissage::realisationCompetence.dernier_update'),
-                'apprenant_reference' => __('PkgApprentissage::realisationCompetence.apprenant_reference'),
-                'realisation_module_reference' => __('PkgApprentissage::realisationCompetence.realisation_module_reference'),
-                'competence_reference' => __('PkgApprentissage::realisationCompetence.competence_reference'),
                 'etat_realisation_competence_reference' => __('PkgApprentissage::realisationCompetence.etat_realisation_competence_reference'),
+                'bareme_cache' => __('PkgApprentissage::realisationCompetence.bareme_cache'),
+                'dernier_update' => __('PkgApprentissage::realisationCompetence.dernier_update'),
+                'commentaire_formateur' => __('PkgApprentissage::realisationCompetence.commentaire_formateur'),
+                'date_debut' => __('PkgApprentissage::realisationCompetence.date_debut'),
+                'date_fin' => __('PkgApprentissage::realisationCompetence.date_fin'),
+                'reference' => __('Core::msg.reference'),
             ];
         }
     }
@@ -70,18 +70,18 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
     {
         return $this->data->map(function ($realisationCompetence) {
             return [
-                'reference' => $realisationCompetence->reference,
-                'date_debut' => $realisationCompetence->date_debut,
-                'date_fin' => $realisationCompetence->date_fin,
+                'competence_reference' => $realisationCompetence->competence?->reference,
+                'realisation_module_reference' => $realisationCompetence->realisationModule?->reference,
+                'apprenant_reference' => $realisationCompetence->apprenant?->reference,
                 'progression_cache' => $realisationCompetence->progression_cache,
                 'note_cache' => $realisationCompetence->note_cache,
-                'bareme_cache' => $realisationCompetence->bareme_cache,
-                'commentaire_formateur' => $realisationCompetence->commentaire_formateur,
-                'dernier_update' => $realisationCompetence->dernier_update,
-                'apprenant_reference' => $realisationCompetence->apprenant?->reference,
-                'realisation_module_reference' => $realisationCompetence->realisationModule?->reference,
-                'competence_reference' => $realisationCompetence->competence?->reference,
                 'etat_realisation_competence_reference' => $realisationCompetence->etatRealisationCompetence?->reference,
+                'bareme_cache' => $realisationCompetence->bareme_cache,
+                'dernier_update' => $realisationCompetence->dernier_update,
+                'commentaire_formateur' => $realisationCompetence->commentaire_formateur,
+                'date_debut' => $realisationCompetence->date_debut,
+                'date_fin' => $realisationCompetence->date_fin,
+                'reference' => $realisationCompetence->reference,
             ];
         });
     }

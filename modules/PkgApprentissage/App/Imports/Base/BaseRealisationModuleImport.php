@@ -62,10 +62,10 @@ class BaseRealisationModuleImport implements ToModel, WithHeadingRow
              'etat_realisation_module_id' => $values[3] ?? null,
              'note_cache' => $values[4] ?? null,
              'bareme_cache' => $values[5] ?? null,
-             'commentaire_formateur' => $values[6] ?? null,
-             'date_fin' => $values[7] ?? null,
+             'dernier_update' => $values[6] ?? null,
+             'commentaire_formateur' => $values[7] ?? null,
              'date_debut' => $values[8] ?? null,
-             'dernier_update' => $values[9] ?? null,
+             'date_fin' => $values[9] ?? null,
              'reference' => $reference,
         ]);
 

@@ -35,10 +35,10 @@ class BaseRealisationModuleRequest extends FormRequest
             'etat_realisation_module_id' => 'nullable',
             'note_cache' => 'nullable',
             'bareme_cache' => 'nullable',
+            'dernier_update' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
-            'date_fin' => 'nullable',
             'date_debut' => 'nullable',
-            'dernier_update' => 'nullable'
+            'date_fin' => 'nullable'
         ];
     }
 
@@ -56,10 +56,10 @@ class BaseRealisationModuleRequest extends FormRequest
             'etat_realisation_module_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.etat_realisation_module_id')]),
             'note_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.note_cache')]),
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.bareme_cache')]),
+            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.dernier_update')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.commentaire_formateur')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_fin')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_debut')]),
-            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.dernier_update')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_fin')])
         ];
     }
 

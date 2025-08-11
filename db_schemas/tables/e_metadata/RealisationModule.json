@@ -155,7 +155,7 @@
     },
     {
         "reference": "RealisationModule_date_fin_displayOrder",
-        "value_integer": 8,
+        "value_integer": 10,
         "e_data_field_reference": "RealisationModule_date_fin",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -299,13 +299,14 @@
     },
     {
         "reference": "RealisationModule_bareme_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationModule_bareme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
         "reference": "RealisationModule_commentaire_formateur_displayOrder",
-        "value_integer": 7,
+        "value_integer": 8,
         "e_data_field_reference": "RealisationModule_commentaire_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -341,7 +342,7 @@
     },
     {
         "reference": "RealisationModule_dernier_update_displayOrder",
-        "value_integer": 10,
+        "value_integer": 7,
         "e_data_field_reference": "RealisationModule_dernier_update",
         "e_metadata_definition_reference": "displayOrder"
     },

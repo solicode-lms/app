@@ -38,10 +38,10 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'etat_realisation_module_reference' => 'etat_realisation_module_reference',
                 'note_cache' => 'note_cache',
                 'bareme_cache' => 'bareme_cache',
-                'commentaire_formateur' => 'commentaire_formateur',
-                'date_fin' => 'date_fin',
-                'date_debut' => 'date_debut',
                 'dernier_update' => 'dernier_update',
+                'commentaire_formateur' => 'commentaire_formateur',
+                'date_debut' => 'date_debut',
+                'date_fin' => 'date_fin',
                 'reference' => 'reference',
             ];
         } else {
@@ -52,10 +52,10 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'etat_realisation_module_reference' => __('PkgApprentissage::realisationModule.etat_realisation_module_reference'),
                 'note_cache' => __('PkgApprentissage::realisationModule.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationModule.bareme_cache'),
-                'commentaire_formateur' => __('PkgApprentissage::realisationModule.commentaire_formateur'),
-                'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
-                'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
                 'dernier_update' => __('PkgApprentissage::realisationModule.dernier_update'),
+                'commentaire_formateur' => __('PkgApprentissage::realisationModule.commentaire_formateur'),
+                'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
+                'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -74,10 +74,10 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'etat_realisation_module_reference' => $realisationModule->etatRealisationModule?->reference,
                 'note_cache' => $realisationModule->note_cache,
                 'bareme_cache' => $realisationModule->bareme_cache,
-                'commentaire_formateur' => $realisationModule->commentaire_formateur,
-                'date_fin' => $realisationModule->date_fin,
-                'date_debut' => $realisationModule->date_debut,
                 'dernier_update' => $realisationModule->dernier_update,
+                'commentaire_formateur' => $realisationModule->commentaire_formateur,
+                'date_debut' => $realisationModule->date_debut,
+                'date_fin' => $realisationModule->date_fin,
                 'reference' => $realisationModule->reference,
             ];
         });

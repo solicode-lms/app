@@ -53,8 +53,7 @@
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
-                        {{ $realisationModule->note_cache }}
-
+                        @include('PkgApprentissage::realisationModule.custom.fields.note_cache', ['entity' => $realisationModule])
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

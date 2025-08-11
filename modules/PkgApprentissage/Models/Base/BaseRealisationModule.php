@@ -49,7 +49,7 @@ class BaseRealisationModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'module_id', 'apprenant_id', 'progression_cache', 'etat_realisation_module_id', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'date_fin', 'date_debut', 'dernier_update'
+        'module_id', 'apprenant_id', 'progression_cache', 'etat_realisation_module_id', 'note_cache', 'bareme_cache', 'dernier_update', 'commentaire_formateur', 'date_debut', 'date_fin'
     ];
     public $manyToOne = [
         'Module' => [

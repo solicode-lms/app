@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
-use Modules\PkgApprenants\Models\Apprenant;
-use Modules\PkgApprentissage\Models\RealisationModule;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgApprentissage\Models\RealisationModule;
+use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprentissage\Models\EtatRealisationCompetence;
 use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 
@@ -31,9 +31,9 @@ class BaseRealisationCompetence extends BaseModel
      * @var array
      */
     protected $with = [
-      //  'apprenant',
-      //  'realisationModule',
       //  'competence',
+      //  'realisationModule',
+      //  'apprenant',
       //  'etatRealisationCompetence'
     ];
 
@@ -51,23 +51,23 @@ class BaseRealisationCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'realisation_module_id', 'competence_id', 'etat_realisation_competence_id'
+        'competence_id', 'realisation_module_id', 'apprenant_id', 'progression_cache', 'note_cache', 'etat_realisation_competence_id', 'bareme_cache', 'dernier_update', 'commentaire_formateur', 'date_debut', 'date_fin'
     ];
     public $manyToOne = [
-        'Apprenant' => [
-            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
-            'relation' => 'apprenants' , 
-            "foreign_key" => "apprenant_id", 
+        'Competence' => [
+            'model' => "Modules\\PkgCompetences\\Models\\Competence",
+            'relation' => 'competences' , 
+            "foreign_key" => "competence_id", 
             ],
         'RealisationModule' => [
             'model' => "Modules\\PkgApprentissage\\Models\\RealisationModule",
             'relation' => 'realisationModules' , 
             "foreign_key" => "realisation_module_id", 
             ],
-        'Competence' => [
-            'model' => "Modules\\PkgCompetences\\Models\\Competence",
-            'relation' => 'competences' , 
-            "foreign_key" => "competence_id", 
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
             ],
         'EtatRealisationCompetence' => [
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationCompetence",
@@ -78,13 +78,13 @@ class BaseRealisationCompetence extends BaseModel
 
 
     /**
-     * Relation BelongsTo pour Apprenant.
+     * Relation BelongsTo pour Competence.
      *
      * @return BelongsTo
      */
-    public function apprenant(): BelongsTo
+    public function competence(): BelongsTo
     {
-        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
+        return $this->belongsTo(Competence::class, 'competence_id', 'id');
     }
     /**
      * Relation BelongsTo pour RealisationModule.
@@ -96,13 +96,13 @@ class BaseRealisationCompetence extends BaseModel
         return $this->belongsTo(RealisationModule::class, 'realisation_module_id', 'id');
     }
     /**
-     * Relation BelongsTo pour Competence.
+     * Relation BelongsTo pour Apprenant.
      *
      * @return BelongsTo
      */
-    public function competence(): BelongsTo
+    public function apprenant(): BelongsTo
     {
-        return $this->belongsTo(Competence::class, 'competence_id', 'id');
+        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
      * Relation BelongsTo pour EtatRealisationCompetence.

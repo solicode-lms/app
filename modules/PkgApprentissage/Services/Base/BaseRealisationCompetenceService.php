@@ -22,17 +22,17 @@ class BaseRealisationCompetenceService extends BaseService
      * @var array
      */
     protected $fieldsSearchable = [
-        'date_debut',
-        'date_fin',
+        'competence_id',
+        'realisation_module_id',
+        'apprenant_id',
         'progression_cache',
         'note_cache',
+        'etat_realisation_competence_id',
         'bareme_cache',
-        'commentaire_formateur',
         'dernier_update',
-        'apprenant_id',
-        'realisation_module_id',
-        'competence_id',
-        'etat_realisation_competence_id'
+        'commentaire_formateur',
+        'date_debut',
+        'date_fin'
     ];
 
     /**
@@ -100,19 +100,19 @@ class BaseRealisationCompetenceService extends BaseService
         $this->fieldsFilterable = [];
         
             
-                if (!array_key_exists('apprenant_id', $scopeVariables)) {
+                if (!array_key_exists('competence_id', $scopeVariables)) {
 
 
-                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
-                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
-                    $apprenants = $apprenantService->getByIds($apprenantIds);
+                    $competenceService = new \Modules\PkgCompetences\Services\CompetenceService();
+                    $competenceIds = $this->getAvailableFilterValues('competence_id');
+                    $competences = $competenceService->getByIds($competenceIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgApprenants::apprenant.plural"), 
-                        'apprenant_id', 
-                        \Modules\PkgApprenants\Models\Apprenant::class, 
-                        'nom',
-                        $apprenants
+                        __("PkgCompetences::competence.plural"), 
+                        'competence_id', 
+                        \Modules\PkgCompetences\Models\Competence::class, 
+                        'code',
+                        $competences
                     );
                 }
             
@@ -134,19 +134,19 @@ class BaseRealisationCompetenceService extends BaseService
                 }
             
             
-                if (!array_key_exists('competence_id', $scopeVariables)) {
+                if (!array_key_exists('apprenant_id', $scopeVariables)) {
 
 
-                    $competenceService = new \Modules\PkgCompetences\Services\CompetenceService();
-                    $competenceIds = $this->getAvailableFilterValues('competence_id');
-                    $competences = $competenceService->getByIds($competenceIds);
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
 
                     $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCompetences::competence.plural"), 
-                        'competence_id', 
-                        \Modules\PkgCompetences\Models\Competence::class, 
-                        'code',
-                        $competences
+                        __("PkgApprenants::apprenant.plural"), 
+                        'apprenant_id', 
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom',
+                        $apprenants
                     );
                 }
             

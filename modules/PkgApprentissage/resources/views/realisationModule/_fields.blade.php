@@ -222,6 +222,36 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="dernier_update" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dernier_update" id="bulk_field_dernier_update" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="dernier_update">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.dernier_update')) }}
+            
+          </label>
+                      <input
+                name="dernier_update"
+                type="text"
+                class="form-control datetimepicker"
+                
+                
+                
+                id="dernier_update"
+                placeholder="{{ __('PkgApprentissage::realisationModule.dernier_update') }}"
+                value="{{ $itemRealisationModule ? $itemRealisationModule->dernier_update : old('dernier_update') }}">
+
+          @error('dernier_update')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="commentaire_formateur" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
@@ -243,36 +273,6 @@
                 id="commentaire_formateur"
                 placeholder="{{ __('PkgApprentissage::realisationModule.commentaire_formateur') }}">{{ $itemRealisationModule ? $itemRealisationModule->commentaire_formateur : old('commentaire_formateur') }}</textarea>
           @error('commentaire_formateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="date_fin" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}
-            
-          </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                placeholder="{{ __('PkgApprentissage::realisationModule.date_fin') }}"
-                value="{{ $itemRealisationModule ? $itemRealisationModule->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
@@ -309,30 +309,30 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="dernier_update" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationModule" field="date_fin" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dernier_update" id="bulk_field_dernier_update" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="dernier_update">
-            {{ ucfirst(__('PkgApprentissage::realisationModule.dernier_update')) }}
+          <label for="date_fin">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.date_fin')) }}
             
           </label>
                       <input
-                name="dernier_update"
+                name="date_fin"
                 type="text"
                 class="form-control datetimepicker"
                 
                 
                 
-                id="dernier_update"
-                placeholder="{{ __('PkgApprentissage::realisationModule.dernier_update') }}"
-                value="{{ $itemRealisationModule ? $itemRealisationModule->dernier_update : old('dernier_update') }}">
+                id="date_fin"
+                placeholder="{{ __('PkgApprentissage::realisationModule.date_fin') }}"
+                value="{{ $itemRealisationModule ? $itemRealisationModule->date_fin : old('date_fin') }}">
 
-          @error('dernier_update')
+          @error('date_fin')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>
