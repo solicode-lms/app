@@ -375,10 +375,10 @@ class BaseAlignementUaController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedAlignementUa = $this->alignementUaService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedAlignementUa
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedAlignementUa],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

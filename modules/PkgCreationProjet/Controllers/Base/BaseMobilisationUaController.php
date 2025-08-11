@@ -375,10 +375,10 @@ class BaseMobilisationUaController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedMobilisationUa = $this->mobilisationUaService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedMobilisationUa
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedMobilisationUa],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

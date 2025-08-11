@@ -384,10 +384,10 @@ class BaseSectionWidgetController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSectionWidget = $this->sectionWidgetService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSectionWidget
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSectionWidget],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

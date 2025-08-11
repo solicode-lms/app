@@ -450,10 +450,10 @@ class BaseApprenantController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedApprenant = $this->apprenantService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedApprenant
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedApprenant],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function initPassword(Request $request, string $id) {

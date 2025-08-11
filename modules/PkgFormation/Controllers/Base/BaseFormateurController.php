@@ -442,10 +442,10 @@ class BaseFormateurController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedFormateur = $this->formateurService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedFormateur
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedFormateur],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function initPassword(Request $request, string $id) {

@@ -378,10 +378,10 @@ class BaseNationaliteController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedNationalite = $this->nationaliteService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedNationalite
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedNationalite],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

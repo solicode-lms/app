@@ -384,10 +384,10 @@ class BaseEtatRealisationCompetenceController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEtatRealisationCompetence = $this->etatRealisationCompetenceService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEtatRealisationCompetence
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEtatRealisationCompetence],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

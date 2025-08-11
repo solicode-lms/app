@@ -392,10 +392,10 @@ class BaseResourceController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedResource = $this->resourceService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedResource
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedResource],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

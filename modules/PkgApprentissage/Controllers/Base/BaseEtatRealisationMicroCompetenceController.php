@@ -369,10 +369,10 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEtatRealisationMicroCompetence
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEtatRealisationMicroCompetence],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -479,10 +479,10 @@ class BaseAffectationProjetController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedAffectationProjet = $this->affectationProjetService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedAffectationProjet
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedAffectationProjet],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function exportPV(Request $request, string $id) {

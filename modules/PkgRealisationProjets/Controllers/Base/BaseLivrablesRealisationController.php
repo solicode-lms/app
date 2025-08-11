@@ -398,10 +398,10 @@ class BaseLivrablesRealisationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedLivrablesRealisation = $this->livrablesRealisationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedLivrablesRealisation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedLivrablesRealisation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

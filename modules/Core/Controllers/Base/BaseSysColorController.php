@@ -558,10 +558,10 @@ class BaseSysColorController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSysColor = $this->sysColorService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSysColor
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSysColor],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

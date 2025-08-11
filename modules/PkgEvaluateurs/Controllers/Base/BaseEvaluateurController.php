@@ -398,10 +398,10 @@ class BaseEvaluateurController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEvaluateur = $this->evaluateurService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEvaluateur
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEvaluateur],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function initPassword(Request $request, string $id) {

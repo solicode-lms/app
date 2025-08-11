@@ -424,10 +424,10 @@ class BaseLivrableController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedLivrable = $this->livrableService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedLivrable
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedLivrable],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

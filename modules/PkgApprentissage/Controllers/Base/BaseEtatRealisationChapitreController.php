@@ -369,10 +369,10 @@ class BaseEtatRealisationChapitreController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEtatRealisationChapitre = $this->etatRealisationChapitreService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEtatRealisationChapitre
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEtatRealisationChapitre],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

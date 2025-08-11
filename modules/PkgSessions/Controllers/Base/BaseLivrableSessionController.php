@@ -375,10 +375,10 @@ class BaseLivrableSessionController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedLivrableSession = $this->livrableSessionService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedLivrableSession
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedLivrableSession],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

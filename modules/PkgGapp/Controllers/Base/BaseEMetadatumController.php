@@ -381,10 +381,10 @@ class BaseEMetadatumController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEMetadatum = $this->eMetadatumService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEMetadatum
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEMetadatum],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

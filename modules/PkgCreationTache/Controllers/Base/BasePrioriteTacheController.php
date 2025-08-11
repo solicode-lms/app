@@ -392,10 +392,10 @@ class BasePrioriteTacheController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedPrioriteTache = $this->prioriteTacheService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedPrioriteTache
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedPrioriteTache],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

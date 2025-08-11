@@ -384,10 +384,10 @@ class BaseSysControllerController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSysController = $this->sysControllerService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSysController
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSysController],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

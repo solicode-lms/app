@@ -381,10 +381,10 @@ class BaseCommentaireRealisationTacheController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedCommentaireRealisationTache = $this->commentaireRealisationTacheService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedCommentaireRealisationTache
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedCommentaireRealisationTache],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -423,10 +423,10 @@ class BaseFiliereController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedFiliere = $this->filiereService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedFiliere
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedFiliere],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -390,10 +390,10 @@ class BaseTacheAffectationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedTacheAffectation = $this->tacheAffectationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedTacheAffectation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedTacheAffectation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

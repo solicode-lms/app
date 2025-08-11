@@ -375,10 +375,10 @@ class BaseRealisationUaProjetController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedRealisationUaProjet = $this->realisationUaProjetService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedRealisationUaProjet
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedRealisationUaProjet],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -378,10 +378,10 @@ class BaseEMetadataDefinitionController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEMetadataDefinition = $this->eMetadataDefinitionService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEMetadataDefinition
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEMetadataDefinition],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

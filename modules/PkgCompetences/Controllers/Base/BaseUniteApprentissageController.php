@@ -399,10 +399,10 @@ class BaseUniteApprentissageController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedUniteApprentissage = $this->uniteApprentissageService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedUniteApprentissage
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedUniteApprentissage],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -401,10 +401,10 @@ class BaseNotificationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedNotification = $this->notificationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedNotification
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedNotification],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

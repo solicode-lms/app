@@ -363,10 +363,10 @@ class BaseApprenantKonosyController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedApprenantKonosy = $this->apprenantKonosyService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedApprenantKonosy
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedApprenantKonosy],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

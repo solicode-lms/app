@@ -375,10 +375,10 @@ class BaseFeatureController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedFeature = $this->featureService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedFeature
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedFeature],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

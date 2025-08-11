@@ -390,10 +390,10 @@ class BaseEDataFieldController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEDataField = $this->eDataFieldService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEDataField
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEDataField],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

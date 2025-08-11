@@ -369,10 +369,10 @@ class BaseEtatRealisationUaController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEtatRealisationUa = $this->etatRealisationUaService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEtatRealisationUa
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEtatRealisationUa],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

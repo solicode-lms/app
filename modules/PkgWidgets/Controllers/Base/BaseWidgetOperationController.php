@@ -378,10 +378,10 @@ class BaseWidgetOperationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedWidgetOperation = $this->widgetOperationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedWidgetOperation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedWidgetOperation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

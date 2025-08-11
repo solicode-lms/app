@@ -440,10 +440,10 @@ class BaseWidgetUtilisateurController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedWidgetUtilisateur = $this->widgetUtilisateurService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedWidgetUtilisateur
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedWidgetUtilisateur],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

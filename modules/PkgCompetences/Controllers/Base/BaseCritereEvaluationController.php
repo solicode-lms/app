@@ -375,10 +375,10 @@ class BaseCritereEvaluationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedCritereEvaluation = $this->critereEvaluationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedCritereEvaluation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedCritereEvaluation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

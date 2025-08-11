@@ -378,10 +378,10 @@ class BaseEPackageController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEPackage = $this->ePackageService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEPackage
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEPackage],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

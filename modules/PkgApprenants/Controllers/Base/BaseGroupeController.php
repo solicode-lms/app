@@ -417,10 +417,10 @@ class BaseGroupeController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedGroupe = $this->groupeService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedGroupe
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedGroupe],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

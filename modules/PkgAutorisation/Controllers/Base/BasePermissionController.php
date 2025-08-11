@@ -381,10 +381,10 @@ class BasePermissionController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedPermission = $this->permissionService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedPermission
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedPermission],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -419,10 +419,10 @@ class BaseEvaluationRealisationProjetController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEvaluationRealisationProjet = $this->evaluationRealisationProjetService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEvaluationRealisationProjet
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEvaluationRealisationProjet],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

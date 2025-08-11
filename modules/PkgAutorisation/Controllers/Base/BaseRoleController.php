@@ -381,10 +381,10 @@ class BaseRoleController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedRole = $this->roleService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedRole
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedRole],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

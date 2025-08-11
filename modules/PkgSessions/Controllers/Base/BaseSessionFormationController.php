@@ -420,10 +420,10 @@ class BaseSessionFormationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSessionFormation = $this->sessionFormationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSessionFormation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSessionFormation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function add_projet(Request $request, string $id) {

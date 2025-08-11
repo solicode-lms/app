@@ -489,10 +489,10 @@ class BaseUserController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedUser = $this->userService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedUser
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedUser],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function initPassword(Request $request, string $id) {

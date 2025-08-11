@@ -399,10 +399,10 @@ class BaseModuleController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedModule = $this->moduleService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedModule
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedModule],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

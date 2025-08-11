@@ -392,10 +392,10 @@ class BaseMicroCompetenceController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedMicroCompetence = $this->microCompetenceService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedMicroCompetence
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedMicroCompetence],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function startFormation(Request $request, string $id) {

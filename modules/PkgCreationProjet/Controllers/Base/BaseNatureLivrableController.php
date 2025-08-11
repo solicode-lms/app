@@ -393,10 +393,10 @@ class BaseNatureLivrableController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedNatureLivrable = $this->natureLivrableService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedNatureLivrable
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedNatureLivrable],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

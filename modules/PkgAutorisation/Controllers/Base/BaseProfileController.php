@@ -426,10 +426,10 @@ class BaseProfileController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedProfile = $this->profileService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedProfile
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedProfile],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

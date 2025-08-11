@@ -414,10 +414,10 @@ class BaseEModelController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedEModel = $this->eModelService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedEModel
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedEModel],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

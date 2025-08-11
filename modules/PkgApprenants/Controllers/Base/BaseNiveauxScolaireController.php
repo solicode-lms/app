@@ -378,10 +378,10 @@ class BaseNiveauxScolaireController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedNiveauxScolaire = $this->niveauxScolaireService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedNiveauxScolaire
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedNiveauxScolaire],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

@@ -489,10 +489,10 @@ class BaseProjetController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedProjet = $this->projetService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedProjet
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedProjet],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
     public function clonerProjet(Request $request, string $id) {

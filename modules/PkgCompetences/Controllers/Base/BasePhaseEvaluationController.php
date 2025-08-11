@@ -393,10 +393,10 @@ class BasePhaseEvaluationController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedPhaseEvaluation = $this->phaseEvaluationService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedPhaseEvaluation
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedPhaseEvaluation],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

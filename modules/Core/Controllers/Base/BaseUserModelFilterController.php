@@ -369,10 +369,10 @@ class BaseUserModelFilterController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedUserModelFilter = $this->userModelFilterService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedUserModelFilter
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedUserModelFilter],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

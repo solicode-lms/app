@@ -369,10 +369,10 @@ class BaseSpecialiteController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSpecialite = $this->specialiteService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSpecialite
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSpecialite],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

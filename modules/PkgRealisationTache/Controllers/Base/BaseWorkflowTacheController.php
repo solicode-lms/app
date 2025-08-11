@@ -384,10 +384,10 @@ class BaseWorkflowTacheController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedWorkflowTache = $this->workflowTacheService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedWorkflowTache
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedWorkflowTache],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 

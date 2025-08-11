@@ -390,10 +390,10 @@ class BaseSousGroupeController extends AdminController
         // Traitement métier personnalisé (ne modifie pas la base)
         $updatedSousGroupe = $this->sousGroupeService->dataCalcul($data);
 
-        return response()->json([
-            'success' => true,
-            'entity' => $updatedSousGroupe
-        ]);
+        return response()->json(  array_merge(
+                   ['success' => true,'entity' => $updatedSousGroupe],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+        ));
     }
     
 
