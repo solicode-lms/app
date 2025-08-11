@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Module;
 use Modules\PkgCompetences\Models\MicroCompetence;
+use Modules\PkgApprentissage\Models\RealisationCompetence;
 
 /**
  * Classe BaseCompetence
@@ -75,6 +76,15 @@ class BaseCompetence extends BaseModel
     public function microCompetences(): HasMany
     {
         return $this->hasMany(MicroCompetence::class, 'competence_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Competences.
+     *
+     * @return HasMany
+     */
+    public function realisationCompetences(): HasMany
+    {
+        return $this->hasMany(RealisationCompetence::class, 'competence_id', 'id');
     }
 
 

@@ -71,6 +71,15 @@
                   </div>
             </div>
 
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationCompetence.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgApprentissage::etatRealisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
+                  </div>
+                  </div>
+            </div>
+
             <div class="col-12 col-md-6 mb-3 px-2 show-has-many">
                   <div class="border rounded p-2 h-100 " >
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationMicroCompetence.plural')) }}</small>
@@ -85,6 +94,15 @@
                   <small class="text-muted d-block">  {{ ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural')) }}</small>
                   <div class="pt-2">
                         @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
+                  </div>
+                  </div>
+            </div>
+
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::etatRealisationModule.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgApprentissage::etatRealisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.show_' . $itemSysColor->id])
                   </div>
                   </div>
             </div>

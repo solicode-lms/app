@@ -1,0 +1,317 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+
+namespace Modules\PkgApprentissage\Services\Base;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Modules\Core\App\Manager\JobManager;
+use Modules\PkgApprentissage\Models\RealisationCompetence;
+use Modules\Core\Services\BaseService;
+
+/**
+ * Classe RealisationCompetenceService pour gérer la persistance de l'entité RealisationCompetence.
+ */
+class BaseRealisationCompetenceService extends BaseService
+{
+    /**
+     * Les champs de recherche disponibles pour realisationCompetences.
+     *
+     * @var array
+     */
+    protected $fieldsSearchable = [
+        'date_debut',
+        'date_fin',
+        'progression_cache',
+        'note_cache',
+        'bareme_cache',
+        'commentaire_formateur',
+        'dernier_update',
+        'apprenant_id',
+        'competence_id',
+        'etat_realisation_competence_id'
+    ];
+
+    /**
+     * Renvoie les champs de recherche disponibles.
+     *
+     * @return array
+     */
+    public function getFieldsSearchable(): array
+    {
+        return $this->fieldsSearchable;
+    }
+
+    /**
+     * Constructeur de la classe RealisationCompetenceService.
+     */
+    public function __construct()
+    {
+        parent::__construct(new RealisationCompetence());
+        $this->fieldsFilterable = [];
+        $this->title = __('PkgApprentissage::realisationCompetence.plural');
+    }
+
+
+    /**
+     * Applique les calculs dynamiques sur les champs marqués avec l’attribut `data-calcule`
+     * pendant l’édition ou la création d’une entité.
+     *
+     * Cette méthode est utilisée dans les formulaires dynamiques pour recalculer certains champs
+     * (ex : note, barème, état, progression...) en fonction des valeurs saisies ou modifiées.
+     *
+     * Elle est déclenchée automatiquement lorsqu’un champ du formulaire possède l’attribut `data-calcule`.
+     *
+     * @param mixed $data Données en cours d’édition (array ou modèle hydraté sans persistance).
+     * @return mixed L’entité enrichie avec les champs recalculés.
+     */
+    public function dataCalcul($data)
+    {
+        // 🧾 Chargement ou initialisation de l'entité
+        if (!empty($data['id'])) {
+            $realisationCompetence = $this->find($data['id']);
+            $realisationCompetence->fill($data);
+        } else {
+            $realisationCompetence = $this->createInstance($data);
+        }
+
+        // 🛠️ Traitement spécifique en mode édition
+        if (!empty($realisationCompetence->id)) {
+            // 🔄 Déclaration des composants hasMany à mettre à jour
+            $realisationCompetence->hasManyInputsToUpdate = [
+            ];
+
+            // 💡 Mise à jour temporaire des attributs pour affichage (sans sauvegarde en base)
+            if (!empty($realisationCompetence->hasManyInputsToUpdate)) {
+                $this->updateOnlyExistanteAttribute($realisationCompetence->id, $data);
+            }
+        }
+
+        return $realisationCompetence;
+    }
+
+    public function initFieldsFilterable()
+    {
+        // Initialiser les filtres configurables dynamiquement
+        $scopeVariables = $this->viewState->getScopeVariables('realisationCompetence');
+        $this->fieldsFilterable = [];
+        
+            
+                if (!array_key_exists('apprenant_id', $scopeVariables)) {
+
+
+                    $apprenantService = new \Modules\PkgApprenants\Services\ApprenantService();
+                    $apprenantIds = $this->getAvailableFilterValues('apprenant_id');
+                    $apprenants = $apprenantService->getByIds($apprenantIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprenants::apprenant.plural"), 
+                        'apprenant_id', 
+                        \Modules\PkgApprenants\Models\Apprenant::class, 
+                        'nom',
+                        $apprenants
+                    );
+                }
+            
+            
+                if (!array_key_exists('competence_id', $scopeVariables)) {
+
+
+                    $competenceService = new \Modules\PkgCompetences\Services\CompetenceService();
+                    $competenceIds = $this->getAvailableFilterValues('competence_id');
+                    $competences = $competenceService->getByIds($competenceIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgCompetences::competence.plural"), 
+                        'competence_id', 
+                        \Modules\PkgCompetences\Models\Competence::class, 
+                        'code',
+                        $competences
+                    );
+                }
+            
+            
+                if (!array_key_exists('etat_realisation_competence_id', $scopeVariables)) {
+
+
+                    $etatRealisationCompetenceService = new \Modules\PkgApprentissage\Services\EtatRealisationCompetenceService();
+                    $etatRealisationCompetenceIds = $this->getAvailableFilterValues('etat_realisation_competence_id');
+                    $etatRealisationCompetences = $etatRealisationCompetenceService->getByIds($etatRealisationCompetenceIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::etatRealisationCompetence.plural"), 
+                        'etat_realisation_competence_id', 
+                        \Modules\PkgApprentissage\Models\EtatRealisationCompetence::class, 
+                        'nom',
+                        $etatRealisationCompetences
+                    );
+                }
+            
+
+
+
+    }
+
+
+    /**
+     * Crée une nouvelle instance de realisationCompetence.
+     *
+     * @param array $data Données pour la création.
+     * @return mixed
+     */
+    public function create(array|object $data)
+    {
+        return parent::create($data);
+    }
+
+    /**
+    * Obtenir les statistiques par Relation
+    *
+    * @return array
+    */
+    public function getRealisationCompetenceStats(): array
+    {
+
+        $stats = $this->initStats();
+
+        
+
+        return $stats;
+    }
+
+
+
+
+    /**
+     * Retourne les types de vues disponibles pour l'index (ex: table, widgets...)
+     */
+    public function getViewTypes(): array
+    {
+        return [
+            [
+                'type'  => 'table',
+                'label' => 'Vue Tableau',
+                'icon'  => 'fa-table',
+            ],
+        ];
+    }
+
+    /**
+     * Retourne le nom de la vue partielle selon le type de vue sélectionné
+     */
+    public function getPartialViewName(string $viewType): string
+    {
+        return match ($viewType) {
+            'table' => 'PkgApprentissage::realisationCompetence._table',
+            default => 'PkgApprentissage::realisationCompetence._table',
+        };
+    }
+
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // Définir le type de vue par défaut
+        $default_view_type = 'table';
+        $this->viewState->setIfEmpty('realisationCompetence_view_type', $default_view_type);
+        $realisationCompetence_viewType = $this->viewState->get('realisationCompetence_view_type', $default_view_type);
+    
+        // Si viewType = widgets, appliquer filtre visible = 1
+        if ($this->viewState->get('realisationCompetence_view_type') === 'widgets') {
+            $this->viewState->set("scope.realisationCompetence.visible", 1);
+        }else{
+            $this->viewState->remove("scope.realisationCompetence.visible");
+        }
+        
+        // Récupération des données
+        $realisationCompetences_data = $this->paginate($params);
+        $realisationCompetences_stats = $this->getrealisationCompetenceStats();
+        $realisationCompetences_total = $this->count();
+        $realisationCompetences_filters = $this->getFieldsFilterable();
+        $realisationCompetence_instance = $this->createInstance();
+        $realisationCompetence_viewTypes = $this->getViewTypes();
+        $realisationCompetence_partialViewName = $this->getPartialViewName($realisationCompetence_viewType);
+        $realisationCompetence_title = $this->title;
+        $contextKey = $this->viewState->getContextKey();
+        // Enregistrer les stats dans le ViewState
+        $this->viewState->set('stats.realisationCompetence.stats', $realisationCompetences_stats);
+    
+        $realisationCompetences_permissions = [
+
+            'edit-realisationCompetence' => Auth::user()->can('edit-realisationCompetence'),
+            'destroy-realisationCompetence' => Auth::user()->can('destroy-realisationCompetence'),
+            'show-realisationCompetence' => Auth::user()->can('show-realisationCompetence'),
+        ];
+
+        $abilities = ['update', 'delete', 'view'];
+        $realisationCompetences_permissionsByItem = [];
+        $userId = Auth::id();
+
+        foreach ($abilities as $ability) {
+            foreach ($realisationCompetences_data as $item) {
+                $realisationCompetences_permissionsByItem[$ability][$item->id] = Gate::check($ability, $item);
+            }
+        }
+
+        // Préparer les variables à injecter dans compact()
+        $compact_value = compact(
+            'realisationCompetence_viewTypes',
+            'realisationCompetence_viewType',
+            'realisationCompetences_data',
+            'realisationCompetences_stats',
+            'realisationCompetences_total',
+            'realisationCompetences_filters',
+            'realisationCompetence_instance',
+            'realisationCompetence_title',
+            'contextKey',
+            'realisationCompetences_permissions',
+            'realisationCompetences_permissionsByItem'
+        );
+    
+        return [
+            'realisationCompetences_data' => $realisationCompetences_data,
+            'realisationCompetences_stats' => $realisationCompetences_stats,
+            'realisationCompetences_total' => $realisationCompetences_total,
+            'realisationCompetences_filters' => $realisationCompetences_filters,
+            'realisationCompetence_instance' => $realisationCompetence_instance,
+            'realisationCompetence_viewType' => $realisationCompetence_viewType,
+            'realisationCompetence_viewTypes' => $realisationCompetence_viewTypes,
+            'realisationCompetence_partialViewName' => $realisationCompetence_partialViewName,
+            'contextKey' => $contextKey,
+            'realisationCompetence_compact_value' => $compact_value,
+            'realisationCompetences_permissions' => $realisationCompetences_permissions,
+            'realisationCompetences_permissionsByItem' => $realisationCompetences_permissionsByItem
+        ];
+    }
+
+    public function bulkUpdateJob($token, $realisationCompetence_ids, $champsCoches, $valeursChamps){
+         
+       
+        $total = count( $realisationCompetence_ids); 
+        $jobManager = new JobManager($token,$total);
+     
+
+        foreach ($realisationCompetence_ids as $id) {
+            $realisationCompetence = $this->find($id);
+            $this->authorize('update', $realisationCompetence);
+    
+            $allFields = $this->getFieldsEditable();
+            $data = collect($allFields)
+                ->filter(fn($field) => in_array($field, $champsCoches))
+                ->mapWithKeys(fn($field) => [$field => $valeursChamps[$field]])
+                ->toArray();
+    
+            if (!empty($data)) {
+                $this->updateOnlyExistanteAttribute($id, $data);
+            }
+
+            $jobManager->tick();
+            
+        }
+
+        return "done";
+    }
+
+}

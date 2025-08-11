@@ -6,6 +6,7 @@ namespace Modules\PkgCompetences\Controllers\Base;
 use Modules\PkgCompetences\Services\CompetenceService;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgCompetences\Services\MicroCompetenceService;
+use Modules\PkgApprentissage\Services\RealisationCompetenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -185,11 +186,18 @@ class BaseCompetenceController extends AdminController
         $microCompetences_view_data = $microCompetenceService->prepareDataForIndexView();
         extract($microCompetences_view_data);
 
+        $this->viewState->set('scope.realisationCompetence.competence_id', $id);
+        
+
+        $realisationCompetenceService =  new RealisationCompetenceService();
+        $realisationCompetences_view_data = $realisationCompetenceService->prepareDataForIndexView();
+        extract($realisationCompetences_view_data);
+
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$microCompetence_compact_value));
+            return view('PkgCompetences::competence._show', array_merge(compact('itemCompetence'),$microCompetence_compact_value, $realisationCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$microCompetence_compact_value));
+        return view('PkgCompetences::competence.show', array_merge(compact('itemCompetence'),$microCompetence_compact_value, $realisationCompetence_compact_value));
 
     }
     /**
@@ -213,13 +221,20 @@ class BaseCompetenceController extends AdminController
         $microCompetences_view_data = $microCompetenceService->prepareDataForIndexView();
         extract($microCompetences_view_data);
 
+        $this->viewState->set('scope.realisationCompetence.competence_id', $id);
+        
+
+        $realisationCompetenceService =  new RealisationCompetenceService();
+        $realisationCompetences_view_data = $realisationCompetenceService->prepareDataForIndexView();
+        extract($realisationCompetences_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','modules'),$microCompetence_compact_value));
+            return view('PkgCompetences::competence._edit', array_merge(compact('bulkEdit' , 'itemCompetence','modules'),$microCompetence_compact_value, $realisationCompetence_compact_value));
         }
 
-        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','modules'),$microCompetence_compact_value));
+        return view('PkgCompetences::competence.edit', array_merge(compact('bulkEdit' ,'itemCompetence','modules'),$microCompetence_compact_value, $realisationCompetence_compact_value));
 
 
     }

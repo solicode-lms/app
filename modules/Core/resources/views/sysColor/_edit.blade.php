@@ -76,6 +76,14 @@
                             </a>
                         </li>
                         @endif
+                         @if($itemSysColor->etatRealisationCompetences->count() > 0 || auth()->user()?->can('create-etatRealisationCompetence'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationCompetence-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationCompetence" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationCompetence" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgApprentissage::etatRealisationCompetence.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemSysColor->etatRealisationMicroCompetences->count() > 0 || auth()->user()?->can('create-etatRealisationMicroCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationMicroCompetence-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationMicroCompetence" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationMicroCompetence" aria-selected="false">
@@ -89,6 +97,14 @@
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatsRealisationProjet-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatsRealisationProjet" role="tab" aria-controls="sysColor-hasmany-tabs-etatsRealisationProjet" aria-selected="false">
                                 <i class="nav-icon fas fa-check"></i>
                                 {{ucfirst(__('PkgRealisationProjets::etatsRealisationProjet.plural'))}}
+                            </a>
+                        </li>
+                        @endif
+                         @if($itemSysColor->etatRealisationModules->count() > 0 || auth()->user()?->can('create-etatRealisationModule'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationModule" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationModule" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgApprentissage::etatRealisationModule.plural'))}}
                             </a>
                         </li>
                         @endif
@@ -159,6 +175,11 @@
                                 @include('Core::sysModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             @endif
+                            @if($itemSysColor->etatRealisationCompetences->count() > 0 || auth()->user()?->can('create-etatRealisationCompetence'))
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationCompetence" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationCompetence-tab">
+                                @include('PkgApprentissage::etatRealisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            @endif
                             @if($itemSysColor->etatRealisationMicroCompetences->count() > 0 || auth()->user()?->can('create-etatRealisationMicroCompetence'))
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationMicroCompetence" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationMicroCompetence-tab">
                                 @include('PkgApprentissage::etatRealisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
@@ -167,6 +188,11 @@
                             @if($itemSysColor->etatsRealisationProjets->count() > 0 || auth()->user()?->can('create-etatsRealisationProjet'))
                             <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatsRealisationProjet" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatsRealisationProjet-tab">
                                 @include('PkgRealisationProjets::etatsRealisationProjet._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
+                            </div>
+                            @endif
+                            @if($itemSysColor->etatRealisationModules->count() > 0 || auth()->user()?->can('create-etatRealisationModule'))
+                            <div class="tab-pane fade" id="sysColor-hasmany-tabs-etatRealisationModule" role="tabpanel" aria-labelledby="sysColor-hasmany-tabs-etatRealisationModule-tab">
+                                @include('PkgApprentissage::etatRealisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'sysColor.edit_' . $itemSysColor->id])
                             </div>
                             @endif
                             @if($itemSysColor->etatRealisationUas->count() > 0 || auth()->user()?->can('create-etatRealisationUa'))

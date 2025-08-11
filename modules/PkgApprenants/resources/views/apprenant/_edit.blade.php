@@ -36,11 +36,27 @@
                             <a class="nav-link active" id="apprenant-hasmany-tabs-home-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-home" role="tab" aria-controls="apprenant-hasmany-tabs-home" aria-selected="true">{{__('PkgApprenants::apprenant.singular')}}</a>
                         </li>
 
+                         @if($itemApprenant->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="apprenant-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationCompetence" role="tab" aria-controls="apprenant-hasmany-tabs-realisationCompetence" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationCompetence.plural'))}}
+                            </a>
+                        </li>
+                        @endif
                          @if($itemApprenant->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationMicroCompetence-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationMicroCompetence" role="tab" aria-controls="apprenant-hasmany-tabs-realisationMicroCompetence" aria-selected="false">
                                 <i class="nav-icon fas fa-certificate"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural'))}}
+                            </a>
+                        </li>
+                        @endif
+                         @if($itemApprenant->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
+                        <li class="nav-item">
+                            <a class="nav-link" id="apprenant-hasmany-tabs-realisationModule-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationModule" role="tab" aria-controls="apprenant-hasmany-tabs-realisationModule" aria-selected="false">
+                                <i class="nav-icon fas fa-table"></i>
+                                {{ucfirst(__('PkgApprentissage::realisationModule.plural'))}}
                             </a>
                         </li>
                         @endif
@@ -54,9 +70,19 @@
                                 @include('PkgApprenants::apprenant._fields')
                             </div>
 
+                            @if($itemApprenant->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
+                            <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationCompetence" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationCompetence-tab">
+                                @include('PkgApprentissage::realisationCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
+                            </div>
+                            @endif
                             @if($itemApprenant->realisationMicroCompetences->count() > 0 || auth()->user()?->can('create-realisationMicroCompetence'))
                             <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationMicroCompetence" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationMicroCompetence-tab">
                                 @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
+                            </div>
+                            @endif
+                            @if($itemApprenant->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
+                            <div class="tab-pane fade" id="apprenant-hasmany-tabs-realisationModule" role="tabpanel" aria-labelledby="apprenant-hasmany-tabs-realisationModule-tab">
+                                @include('PkgApprentissage::realisationModule._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'apprenant.edit_' . $itemApprenant->id])
                             </div>
                             @endif
 

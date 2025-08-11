@@ -6,6 +6,7 @@ namespace Modules\PkgFormation\Controllers\Base;
 use Modules\PkgFormation\Services\ModuleService;
 use Modules\PkgFormation\Services\FiliereService;
 use Modules\PkgCompetences\Services\CompetenceService;
+use Modules\PkgApprentissage\Services\RealisationModuleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\Controllers\Base\AdminController;
@@ -163,11 +164,18 @@ class BaseModuleController extends AdminController
         $competences_view_data = $competenceService->prepareDataForIndexView();
         extract($competences_view_data);
 
+        $this->viewState->set('scope.realisationModule.module_id', $id);
+        
+
+        $realisationModuleService =  new RealisationModuleService();
+        $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
+        extract($realisationModules_view_data);
+
         if (request()->ajax()) {
-            return view('PkgFormation::module._show', array_merge(compact('itemModule'),$competence_compact_value));
+            return view('PkgFormation::module._show', array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value));
         }
 
-        return view('PkgFormation::module.show', array_merge(compact('itemModule'),$competence_compact_value));
+        return view('PkgFormation::module.show', array_merge(compact('itemModule'),$competence_compact_value, $realisationModule_compact_value));
 
     }
     /**
@@ -190,13 +198,20 @@ class BaseModuleController extends AdminController
         $competences_view_data = $competenceService->prepareDataForIndexView();
         extract($competences_view_data);
 
+        $this->viewState->set('scope.realisationModule.module_id', $id);
+        
+
+        $realisationModuleService =  new RealisationModuleService();
+        $realisationModules_view_data = $realisationModuleService->prepareDataForIndexView();
+        extract($realisationModules_view_data);
+
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgFormation::module._edit', array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value));
+            return view('PkgFormation::module._edit', array_merge(compact('bulkEdit' , 'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value));
         }
 
-        return view('PkgFormation::module.edit', array_merge(compact('bulkEdit' ,'itemModule','filieres'),$competence_compact_value));
+        return view('PkgFormation::module.edit', array_merge(compact('bulkEdit' ,'itemModule','filieres'),$competence_compact_value, $realisationModule_compact_value));
 
 
     }

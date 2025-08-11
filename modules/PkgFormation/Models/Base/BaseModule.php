@@ -13,6 +13,7 @@ use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgFormation\Models\Filiere;
 use Modules\PkgCompetences\Models\Competence;
+use Modules\PkgApprentissage\Models\RealisationModule;
 
 /**
  * Classe BaseModule
@@ -74,6 +75,15 @@ class BaseModule extends BaseModel
     public function competences(): HasMany
     {
         return $this->hasMany(Competence::class, 'module_id', 'id');
+    }
+    /**
+     * Relation HasMany pour Modules.
+     *
+     * @return HasMany
+     */
+    public function realisationModules(): HasMany
+    {
+        return $this->hasMany(RealisationModule::class, 'module_id', 'id');
     }
 
 

@@ -1,0 +1,112 @@
+<?php
+// Ce fichier est maintenu par ESSARRAJ Fouad
+
+
+namespace Modules\PkgApprentissage\Models\Base;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\OwnedByUser;
+use App\Traits\HasDynamicContext;
+use Modules\Core\Models\BaseModel;
+use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgFormation\Models\Module;
+use Modules\PkgApprentissage\Models\EtatRealisationModule;
+
+/**
+ * Classe BaseRealisationModule
+ * Cette classe sert de base pour le modèle RealisationModule.
+ */
+class BaseRealisationModule extends BaseModel
+{
+    use HasFactory, HasDynamicContext;
+
+    /**
+     * Eager-load par défaut les relations belongsTo listées dans manyToOne
+     *
+     * @var array
+     */
+    protected $with = [
+      //  'apprenant',
+      //  'module',
+      //  'etatRealisationModule'
+    ];
+
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes); 
+        $this->isOwnedByUser =  false;
+    }
+
+    
+    /**
+     * Les attributs remplissables pour le modèle.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'module_id', 'etat_realisation_module_id'
+    ];
+    public $manyToOne = [
+        'Apprenant' => [
+            'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
+            'relation' => 'apprenants' , 
+            "foreign_key" => "apprenant_id", 
+            ],
+        'Module' => [
+            'model' => "Modules\\PkgFormation\\Models\\Module",
+            'relation' => 'modules' , 
+            "foreign_key" => "module_id", 
+            ],
+        'EtatRealisationModule' => [
+            'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationModule",
+            'relation' => 'etatRealisationModules' , 
+            "foreign_key" => "etat_realisation_module_id", 
+            ]
+    ];
+
+
+    /**
+     * Relation BelongsTo pour Apprenant.
+     *
+     * @return BelongsTo
+     */
+    public function apprenant(): BelongsTo
+    {
+        return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour Module.
+     *
+     * @return BelongsTo
+     */
+    public function module(): BelongsTo
+    {
+        return $this->belongsTo(Module::class, 'module_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour EtatRealisationModule.
+     *
+     * @return BelongsTo
+     */
+    public function etatRealisationModule(): BelongsTo
+    {
+        return $this->belongsTo(EtatRealisationModule::class, 'etat_realisation_module_id', 'id');
+    }
+
+
+
+
+
+    /**
+     * Méthode __toString pour représenter le modèle sous forme de chaîne.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ?? "";
+    }
+}
