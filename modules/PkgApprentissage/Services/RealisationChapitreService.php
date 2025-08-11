@@ -2,6 +2,7 @@
 
 namespace Modules\PkgApprentissage\Services;
 
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationChapitreService;
 use Modules\PkgRealisationTache\Models\RealisationTache;
@@ -15,20 +16,29 @@ use Modules\PkgRealisationTache\Services\RealisationTacheService;
  */
 class RealisationChapitreService extends BaseRealisationChapitreService
 {
+    
     /**
-     * Règles exécutées après mise à jour d’un chapitre.
+     * Job déclenché après mise à jour d’un chapitre.
      */
-    public function afterUpdateRules($realisationChapitre): void
+    public function updatedObserverJob(int $id, string $token): void
     {
-        if ($realisationChapitre->wasChanged('etat_realisation_chapitre_id')) {
+        $jobManager = new JobManager($token);
+        $realisationChapitre = $this->find($id);
 
-            if($realisationChapitre->realisationTache){
-                // Modification de RealisationTache et calcule de progression par Observer
+        if (! $realisationChapitre) {
+            return;
+        }
+
+        // 🔹 Si l'état du chapitre a changé
+        if ($jobManager->isDirty('etat_realisation_chapitre_id')) {
+            if ($realisationChapitre->realisationTache) {
+                $jobManager->setLabel("Mise à jour état tâche depuis chapitre");
                 $this->modifierEtatRealisationTache($realisationChapitre);
-            }else{
-                 // Calcule de progression 
-                 $realisationUaService = new RealisationUaService();
-                 $realisationUaService->calculerProgression($realisationChapitre->realisationUa);
+                $jobManager->tick();
+            } else {
+                $jobManager->setLabel("Calcul progression UA depuis chapitre");
+                (new RealisationUaService())->calculerProgression($realisationChapitre->realisationUa);
+                $jobManager->tick();
             }
         }
     }

@@ -122,7 +122,18 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             }
         }
 
-        $rmc->save();
+        $rmc->saveQuietly();
+
+        // 🔹 Calcul progression RealisationCompetence
+        if ($rmc->microCompetence && $rmc->microCompetence->competence) {
+            $realisationCompetenceService = new RealisationCompetenceService();
+            $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
+                $rmc->apprenant_id,
+                $rmc->microCompetence->competence_id
+            );
+            $realisationCompetenceService->calculerProgression($realisationCompetence);
+        }
+
 
 
     }

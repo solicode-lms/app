@@ -327,7 +327,6 @@ class RealisationProjetService extends BaseRealisationProjetService
         // et on lie les chapitres et RealisationChapitre, RealisationUAprojet, RealisationUAPrototype
         foreach ($taches as $tache) {
 
-
             $tacheAffectation = $tache->tacheAffectations
             ->where('affectation_projet_id', $affectationProjet->id)
             ->first();

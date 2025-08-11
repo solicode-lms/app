@@ -155,7 +155,7 @@ class RealisationUaService extends BaseRealisationUaService
             }
         }
 
-        $realisationUa->save();
+        $realisationUa->saveQuietly();
 
         // 🔁 Recalcul micro-compétence par agrégation des UAs
         (new RealisationMicroCompetenceService())
