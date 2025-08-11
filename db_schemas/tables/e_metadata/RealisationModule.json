@@ -608,5 +608,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationModule_updated_at",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id_displayOrder",
+        "value_integer": 15,
+        "e_data_field_reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "realisation_modules_hasMany_realisation_competences_realisation_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

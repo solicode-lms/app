@@ -711,5 +711,59 @@
         },
         "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_filterable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "filterable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

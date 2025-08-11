@@ -1654,6 +1654,25 @@
     },
     {
         "id": 89,
+        "reference": "realisation_competences_realisation_modules_realisation_module_id_m2o",
+        "name": "ManyToOne between realisation_competences and realisation_modules",
+        "type": "ManyToOne",
+        "source_e_model_id": 57,
+        "target_e_model_id": 59,
+        "column_name": "realisation_module_id",
+        "referenced_table": "realisation_modules",
+        "referenced_column": "id",
+        "through": null,
+        "with_column": null,
+        "is_cascade": 0,
+        "morph_name": null,
+        "description": "Automatically generated many-to-one relationship",
+        "cascade_on_delete": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 90,
         "reference": "realisation_micro_competences_etat_realisation_micro_competences_etat_realisation_micro_competence_id_m2o",
         "name": "ManyToOne between realisation_micro_competences and etat_realisation_micro_competences",
         "type": "ManyToOne",
@@ -1672,7 +1691,7 @@
         "updated_at": null
     },
     {
-        "id": 90,
+        "id": 91,
         "reference": "realisation_micro_competences_apprenants_apprenant_id_m2o",
         "name": "ManyToOne between realisation_micro_competences and apprenants",
         "type": "ManyToOne",
@@ -1691,7 +1710,7 @@
         "updated_at": null
     },
     {
-        "id": 91,
+        "id": 92,
         "reference": "realisation_micro_competences_micro_competences_micro_competence_id_m2o",
         "name": "ManyToOne between realisation_micro_competences and micro_competences",
         "type": "ManyToOne",
@@ -1710,7 +1729,26 @@
         "updated_at": null
     },
     {
-        "id": 92,
+        "id": 93,
+        "reference": "realisation_micro_competences_realisation_competences_realisation_competence_id_m2o",
+        "name": "ManyToOne between realisation_micro_competences and realisation_competences",
+        "type": "ManyToOne",
+        "source_e_model_id": 58,
+        "target_e_model_id": 57,
+        "column_name": "realisation_competence_id",
+        "referenced_table": "realisation_competences",
+        "referenced_column": "id",
+        "through": null,
+        "with_column": null,
+        "is_cascade": 0,
+        "morph_name": null,
+        "description": "Automatically generated many-to-one relationship",
+        "cascade_on_delete": 0,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 94,
         "reference": "realisation_modules_apprenants_apprenant_id_m2o",
         "name": "ManyToOne between realisation_modules and apprenants",
         "type": "ManyToOne",
@@ -1729,7 +1767,7 @@
         "updated_at": null
     },
     {
-        "id": 93,
+        "id": 95,
         "reference": "realisation_modules_etat_realisation_modules_etat_realisation_module_id_m2o",
         "name": "ManyToOne between realisation_modules and etat_realisation_modules",
         "type": "ManyToOne",
@@ -1748,7 +1786,7 @@
         "updated_at": null
     },
     {
-        "id": 94,
+        "id": 96,
         "reference": "realisation_modules_modules_module_id_m2o",
         "name": "ManyToOne between realisation_modules and modules",
         "type": "ManyToOne",
@@ -1767,7 +1805,7 @@
         "updated_at": null
     },
     {
-        "id": 95,
+        "id": 97,
         "reference": "realisation_projets_affectation_projets_affectation_projet_id_m2o",
         "name": "ManyToOne between realisation_projets and affectation_projets",
         "type": "ManyToOne",
@@ -1786,7 +1824,7 @@
         "updated_at": null
     },
     {
-        "id": 96,
+        "id": 98,
         "reference": "realisation_projets_apprenants_apprenant_id_m2o",
         "name": "ManyToOne between realisation_projets and apprenants",
         "type": "ManyToOne",
@@ -1805,7 +1843,7 @@
         "updated_at": null
     },
     {
-        "id": 97,
+        "id": 99,
         "reference": "realisation_projets_etats_realisation_projets_etats_realisation_projet_id_m2o",
         "name": "ManyToOne between realisation_projets and etats_realisation_projets",
         "type": "ManyToOne",
@@ -1824,7 +1862,7 @@
         "updated_at": null
     },
     {
-        "id": 98,
+        "id": 100,
         "reference": "realisation_taches_etat_realisation_taches_etat_realisation_tache_id_m2o",
         "name": "ManyToOne between realisation_taches and etat_realisation_taches",
         "type": "ManyToOne",
@@ -1843,7 +1881,7 @@
         "updated_at": null
     },
     {
-        "id": 99,
+        "id": 101,
         "reference": "realisation_taches_realisation_projets_realisation_projet_id_m2o",
         "name": "ManyToOne between realisation_taches and realisation_projets",
         "type": "ManyToOne",
@@ -1862,7 +1900,7 @@
         "updated_at": null
     },
     {
-        "id": 100,
+        "id": 102,
         "reference": "realisation_taches_tache_affectations_tache_affectation_id_m2o",
         "name": "ManyToOne between realisation_taches and tache_affectations",
         "type": "ManyToOne",
@@ -1881,7 +1919,7 @@
         "updated_at": null
     },
     {
-        "id": 101,
+        "id": 103,
         "reference": "realisation_taches_taches_tache_id_m2o",
         "name": "ManyToOne between realisation_taches and taches",
         "type": "ManyToOne",
@@ -1900,7 +1938,7 @@
         "updated_at": null
     },
     {
-        "id": 102,
+        "id": 104,
         "reference": "realisation_ua_projets_realisation_taches_realisation_tache_id_m2o",
         "name": "ManyToOne between realisation_ua_projets and realisation_taches",
         "type": "ManyToOne",
@@ -1919,7 +1957,7 @@
         "updated_at": null
     },
     {
-        "id": 103,
+        "id": 105,
         "reference": "realisation_ua_projets_realisation_uas_realisation_ua_id_m2o",
         "name": "ManyToOne between realisation_ua_projets and realisation_uas",
         "type": "ManyToOne",
@@ -1938,7 +1976,7 @@
         "updated_at": null
     },
     {
-        "id": 104,
+        "id": 106,
         "reference": "realisation_ua_prototypes_realisation_taches_realisation_tache_id_m2o",
         "name": "ManyToOne between realisation_ua_prototypes and realisation_taches",
         "type": "ManyToOne",
@@ -1957,7 +1995,7 @@
         "updated_at": null
     },
     {
-        "id": 105,
+        "id": 107,
         "reference": "realisation_ua_prototypes_realisation_uas_realisation_ua_id_m2o",
         "name": "ManyToOne between realisation_ua_prototypes and realisation_uas",
         "type": "ManyToOne",
@@ -1976,7 +2014,7 @@
         "updated_at": null
     },
     {
-        "id": 106,
+        "id": 108,
         "reference": "realisation_uas_etat_realisation_uas_etat_realisation_ua_id_m2o",
         "name": "ManyToOne between realisation_uas and etat_realisation_uas",
         "type": "ManyToOne",
@@ -1995,7 +2033,7 @@
         "updated_at": null
     },
     {
-        "id": 107,
+        "id": 109,
         "reference": "realisation_uas_realisation_micro_competences_realisation_micro_competence_id_m2o",
         "name": "ManyToOne between realisation_uas and realisation_micro_competences",
         "type": "ManyToOne",
@@ -2014,7 +2052,7 @@
         "updated_at": null
     },
     {
-        "id": 108,
+        "id": 110,
         "reference": "realisation_uas_unite_apprentissages_unite_apprentissage_id_m2o",
         "name": "ManyToOne between realisation_uas and unite_apprentissages",
         "type": "ManyToOne",
@@ -2033,7 +2071,7 @@
         "updated_at": null
     },
     {
-        "id": 109,
+        "id": 111,
         "reference": "resources_projets_projet_id_m2o",
         "name": "ManyToOne between resources and projets",
         "type": "ManyToOne",
@@ -2052,7 +2090,7 @@
         "updated_at": null
     },
     {
-        "id": 110,
+        "id": 112,
         "reference": "permissions_roles_role_has_permissions_m2m",
         "name": "ManyToMany between role_has_permissions and roles",
         "type": "ManyToMany",
@@ -2071,7 +2109,7 @@
         "updated_at": null
     },
     {
-        "id": 111,
+        "id": 113,
         "reference": "roles_permissions_role_has_permissions_m2m",
         "name": "ManyToMany between role_has_permissions and permissions",
         "type": "ManyToMany",
@@ -2090,7 +2128,7 @@
         "updated_at": null
     },
     {
-        "id": 112,
+        "id": 114,
         "reference": "roles_widgets_role_widget_m2m",
         "name": "ManyToMany between role_widget and widgets",
         "type": "ManyToMany",
@@ -2109,7 +2147,7 @@
         "updated_at": null
     },
     {
-        "id": 113,
+        "id": 115,
         "reference": "widgets_roles_role_widget_m2m",
         "name": "ManyToMany between role_widget and roles",
         "type": "ManyToMany",
@@ -2128,7 +2166,7 @@
         "updated_at": null
     },
     {
-        "id": 114,
+        "id": 116,
         "reference": "section_widgets_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between section_widgets and sys_colors",
         "type": "ManyToOne",
@@ -2147,7 +2185,7 @@
         "updated_at": null
     },
     {
-        "id": 115,
+        "id": 117,
         "reference": "session_formations_annee_formations_annee_formation_id_m2o",
         "name": "ManyToOne between session_formations and annee_formations",
         "type": "ManyToOne",
@@ -2166,7 +2204,7 @@
         "updated_at": null
     },
     {
-        "id": 116,
+        "id": 118,
         "reference": "session_formations_filieres_filiere_id_m2o",
         "name": "ManyToOne between session_formations and filieres",
         "type": "ManyToOne",
@@ -2185,7 +2223,7 @@
         "updated_at": null
     },
     {
-        "id": 117,
+        "id": 119,
         "reference": "sous_groupes_groupes_groupe_id_m2o",
         "name": "ManyToOne between sous_groupes and groupes",
         "type": "ManyToOne",
@@ -2204,7 +2242,7 @@
         "updated_at": null
     },
     {
-        "id": 118,
+        "id": 120,
         "reference": "sys_controllers_sys_modules_sys_module_id_m2o",
         "name": "ManyToOne between sys_controllers and sys_modules",
         "type": "ManyToOne",
@@ -2223,7 +2261,7 @@
         "updated_at": null
     },
     {
-        "id": 119,
+        "id": 121,
         "reference": "sys_models_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between sys_models and sys_colors",
         "type": "ManyToOne",
@@ -2242,7 +2280,7 @@
         "updated_at": null
     },
     {
-        "id": 120,
+        "id": 122,
         "reference": "sys_models_sys_modules_sys_module_id_m2o",
         "name": "ManyToOne between sys_models and sys_modules",
         "type": "ManyToOne",
@@ -2261,7 +2299,7 @@
         "updated_at": null
     },
     {
-        "id": 121,
+        "id": 123,
         "reference": "sys_modules_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between sys_modules and sys_colors",
         "type": "ManyToOne",
@@ -2280,7 +2318,7 @@
         "updated_at": null
     },
     {
-        "id": 122,
+        "id": 124,
         "reference": "tache_affectations_affectation_projets_affectation_projet_id_m2o",
         "name": "ManyToOne between tache_affectations and affectation_projets",
         "type": "ManyToOne",
@@ -2299,7 +2337,7 @@
         "updated_at": null
     },
     {
-        "id": 123,
+        "id": 125,
         "reference": "tache_affectations_taches_tache_id_m2o",
         "name": "ManyToOne between tache_affectations and taches",
         "type": "ManyToOne",
@@ -2318,7 +2356,7 @@
         "updated_at": null
     },
     {
-        "id": 124,
+        "id": 126,
         "reference": "taches_chapitres_chapitre_id_m2o",
         "name": "ManyToOne between taches and chapitres",
         "type": "ManyToOne",
@@ -2337,7 +2375,7 @@
         "updated_at": null
     },
     {
-        "id": 125,
+        "id": 127,
         "reference": "taches_phase_evaluations_phase_evaluation_id_m2o",
         "name": "ManyToOne between taches and phase_evaluations",
         "type": "ManyToOne",
@@ -2356,7 +2394,7 @@
         "updated_at": null
     },
     {
-        "id": 126,
+        "id": 128,
         "reference": "taches_priorite_taches_priorite_tache_id_m2o",
         "name": "ManyToOne between taches and priorite_taches",
         "type": "ManyToOne",
@@ -2375,7 +2413,7 @@
         "updated_at": null
     },
     {
-        "id": 127,
+        "id": 129,
         "reference": "taches_projets_projet_id_m2o",
         "name": "ManyToOne between taches and projets",
         "type": "ManyToOne",
@@ -2394,7 +2432,7 @@
         "updated_at": null
     },
     {
-        "id": 128,
+        "id": 130,
         "reference": "unite_apprentissages_micro_competences_micro_competence_id_m2o",
         "name": "ManyToOne between unite_apprentissages and micro_competences",
         "type": "ManyToOne",
@@ -2413,7 +2451,7 @@
         "updated_at": null
     },
     {
-        "id": 129,
+        "id": 131,
         "reference": "user_model_filters_users_user_id_m2o",
         "name": "ManyToOne between user_model_filters and users",
         "type": "ManyToOne",
@@ -2432,7 +2470,7 @@
         "updated_at": null
     },
     {
-        "id": 130,
+        "id": 132,
         "reference": "widget_utilisateurs_users_user_id_m2o",
         "name": "ManyToOne between widget_utilisateurs and users",
         "type": "ManyToOne",
@@ -2451,7 +2489,7 @@
         "updated_at": null
     },
     {
-        "id": 131,
+        "id": 133,
         "reference": "widget_utilisateurs_widgets_widget_id_m2o",
         "name": "ManyToOne between widget_utilisateurs and widgets",
         "type": "ManyToOne",
@@ -2470,7 +2508,7 @@
         "updated_at": null
     },
     {
-        "id": 132,
+        "id": 134,
         "reference": "widgets_sys_models_model_id_m2o",
         "name": "ManyToOne between widgets and sys_models",
         "type": "ManyToOne",
@@ -2489,7 +2527,7 @@
         "updated_at": null
     },
     {
-        "id": 133,
+        "id": 135,
         "reference": "widgets_widget_operations_operation_id_m2o",
         "name": "ManyToOne between widgets and widget_operations",
         "type": "ManyToOne",
@@ -2508,7 +2546,7 @@
         "updated_at": null
     },
     {
-        "id": 134,
+        "id": 136,
         "reference": "widgets_section_widgets_section_widget_id_m2o",
         "name": "ManyToOne between widgets and section_widgets",
         "type": "ManyToOne",
@@ -2527,7 +2565,7 @@
         "updated_at": null
     },
     {
-        "id": 135,
+        "id": 137,
         "reference": "widgets_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between widgets and sys_colors",
         "type": "ManyToOne",
@@ -2546,7 +2584,7 @@
         "updated_at": null
     },
     {
-        "id": 136,
+        "id": 138,
         "reference": "widgets_widget_types_type_id_m2o",
         "name": "ManyToOne between widgets and widget_types",
         "type": "ManyToOne",
@@ -2565,7 +2603,7 @@
         "updated_at": null
     },
     {
-        "id": 137,
+        "id": 139,
         "reference": "workflow_taches_sys_colors_sys_color_id_m2o",
         "name": "ManyToOne between workflow_taches and sys_colors",
         "type": "ManyToOne",
@@ -2584,7 +2622,7 @@
         "updated_at": null
     },
     {
-        "id": 138,
+        "id": 140,
         "reference": "roles_ManyToManyPolymorphic_users_model_has_roles",
         "name": "User",
         "type": "ManyToManyPolymorphic",
@@ -2603,7 +2641,7 @@
         "updated_at": null
     },
     {
-        "id": 139,
+        "id": 141,
         "reference": "users_PolymorphicManyToMany_roles_model_has_roles",
         "name": "Role",
         "type": "PolymorphicManyToMany",
