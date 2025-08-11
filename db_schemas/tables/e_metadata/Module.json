@@ -470,5 +470,29 @@
         "value_boolean": 1,
         "e_data_field_reference": "modules_hasMany_competences_module_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "modules_hasMany_realisation_modules_module_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "modules_hasMany_realisation_modules_module_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "modules_hasMany_realisation_modules_module_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "modules_hasMany_realisation_modules_module_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "modules_hasMany_realisation_modules_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

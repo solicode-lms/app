@@ -631,5 +631,69 @@
         "value_json": [],
         "e_model_reference": "sys_colors",
         "e_metadata_definition_reference": "indexActions"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id_displayOrder",
+        "value_integer": 9,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_competences_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id_editHasMany",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
+        "e_metadata_definition_reference": "editHasMany"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id_displayOrder",
+        "value_integer": 11,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id_inputMdWidth",
+        "value_integer": 12,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id_nature",
+        "value_json": {
+            "nature": "badge"
+        },
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "sys_colors_hasMany_etat_realisation_modules_sys_color_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]
