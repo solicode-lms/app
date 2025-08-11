@@ -88,6 +88,11 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                     $etat_realisation_micro_competence_id = \Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence::where('reference', $row["etat_realisation_micro_competence_reference"])
                         ->value('id');
                 }
+                $realisation_competence_id = null;
+                if (!empty($row["realisation_competence_reference"])) {
+                    $realisation_competence_id = \Modules\PkgApprentissage\Models\RealisationCompetence::where('reference', $row["realisation_competence_reference"])
+                        ->value('id');
+                }
 
 
                 $realisationMicroCompetenceData =[
@@ -101,6 +106,7 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                         "date_debut" => isset($row["date_debut"]) && $row["date_debut"] !== "" ? $row["date_debut"] : null,
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
+                        "realisation_competence_id" => $realisation_competence_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

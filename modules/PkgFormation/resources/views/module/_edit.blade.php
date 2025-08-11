@@ -47,7 +47,7 @@
                          @if($itemModule->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
                         <li class="nav-item">
                             <a class="nav-link" id="module-hasmany-tabs-realisationModule-tab" data-toggle="pill" href="#module-hasmany-tabs-realisationModule" role="tab" aria-controls="module-hasmany-tabs-realisationModule" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-medal"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationModule.plural'))}}
                             </a>
                         </li>

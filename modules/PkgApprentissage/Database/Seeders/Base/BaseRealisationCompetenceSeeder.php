@@ -78,6 +78,11 @@ class BaseRealisationCompetenceSeeder extends Seeder
                     $apprenant_id = \Modules\PkgApprenants\Models\Apprenant::where('reference', $row["apprenant_reference"])
                         ->value('id');
                 }
+                $realisation_module_id = null;
+                if (!empty($row["realisation_module_reference"])) {
+                    $realisation_module_id = \Modules\PkgApprentissage\Models\RealisationModule::where('reference', $row["realisation_module_reference"])
+                        ->value('id');
+                }
                 $competence_id = null;
                 if (!empty($row["competence_reference"])) {
                     $competence_id = \Modules\PkgCompetences\Models\Competence::where('reference', $row["competence_reference"])
@@ -99,6 +104,7 @@ class BaseRealisationCompetenceSeeder extends Seeder
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                         "apprenant_id" => $apprenant_id,
+                        "realisation_module_id" => $realisation_module_id,
                         "competence_id" => $competence_id,
                         "etat_realisation_competence_id" => $etat_realisation_competence_id,
                     "reference" => $row["reference"] ?? null ,

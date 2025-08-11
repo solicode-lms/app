@@ -79,7 +79,7 @@
                          @if($itemSysColor->etatRealisationCompetences->count() > 0 || auth()->user()?->can('create-etatRealisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationCompetence-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationCompetence" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationCompetence" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-check-square"></i>
                                 {{ucfirst(__('PkgApprentissage::etatRealisationCompetence.plural'))}}
                             </a>
                         </li>
@@ -103,7 +103,7 @@
                          @if($itemSysColor->etatRealisationModules->count() > 0 || auth()->user()?->can('create-etatRealisationModule'))
                         <li class="nav-item">
                             <a class="nav-link" id="sysColor-hasmany-tabs-etatRealisationModule-tab" data-toggle="pill" href="#sysColor-hasmany-tabs-etatRealisationModule" role="tab" aria-controls="sysColor-hasmany-tabs-etatRealisationModule" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-check-square"></i>
                                 {{ucfirst(__('PkgApprentissage::etatRealisationModule.plural'))}}
                             </a>
                         </li>

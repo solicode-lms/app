@@ -339,6 +339,40 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="realisation_competence_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_competence_id" id="bulk_field_realisation_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_competence_id">
+            {{ ucfirst(__('PkgApprentissage::realisationCompetence.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_competence_id" 
+            required
+            
+            
+            name="realisation_competence_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationCompetences as $realisationCompetence)
+                    <option value="{{ $realisationCompetence->id }}"
+                        {{ (isset($itemRealisationMicroCompetence) && $itemRealisationMicroCompetence->realisation_competence_id == $realisationCompetence->id) || (old('realisation_competence_id>') == $realisationCompetence->id) ? 'selected' : '' }}>
+                        {{ $realisationCompetence }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_competence_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

@@ -97,6 +97,18 @@
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.singular')) }}</small>
+
+                {{-- Affichage texte classique --}}
+                @if($itemRealisationCompetence->realisationModule)
+                  {{ $itemRealisationCompetence->realisationModule }}
+                @else
+                  <span class="text-muted">—</span>
+                @endif
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgCompetences::competence.singular')) }}</small>
 
                 {{-- Affichage texte classique --}}
@@ -122,6 +134,15 @@
                 @endif
                 </div>
             </div>
+            <div class="col-12 col-md-12 mb-3 px-2 show-has-many">
+                  <div class="border rounded p-2 h-100 " >
+                  <small class="text-muted d-block">  {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.plural')) }}</small>
+                  <div class="pt-2">
+                        @include('PkgApprentissage::realisationMicroCompetence._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'realisationCompetence.show_' . $itemRealisationCompetence->id])
+                  </div>
+                  </div>
+            </div>
+
             </div>
         </div>
         <div class="card-footer">

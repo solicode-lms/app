@@ -37,6 +37,7 @@ class BaseRealisationCompetenceRequest extends FormRequest
             'commentaire_formateur' => 'nullable|string',
             'dernier_update' => 'nullable',
             'apprenant_id' => 'required',
+            'realisation_module_id' => 'required',
             'competence_id' => 'required',
             'etat_realisation_competence_id' => 'nullable'
         ];
@@ -58,6 +59,7 @@ class BaseRealisationCompetenceRequest extends FormRequest
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.commentaire_formateur')]),
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.dernier_update')]),
             'apprenant_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.apprenant_id')]),
+            'realisation_module_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.realisation_module_id')]),
             'competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.competence_id')]),
             'etat_realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationCompetence.etat_realisation_competence_id')])
         ];

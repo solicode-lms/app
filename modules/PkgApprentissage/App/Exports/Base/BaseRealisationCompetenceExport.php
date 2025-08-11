@@ -41,6 +41,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'commentaire_formateur' => 'commentaire_formateur',
                 'dernier_update' => 'dernier_update',
                 'apprenant_reference' => 'apprenant_reference',
+                'realisation_module_reference' => 'realisation_module_reference',
                 'competence_reference' => 'competence_reference',
                 'etat_realisation_competence_reference' => 'etat_realisation_competence_reference',
             ];
@@ -55,6 +56,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'commentaire_formateur' => __('PkgApprentissage::realisationCompetence.commentaire_formateur'),
                 'dernier_update' => __('PkgApprentissage::realisationCompetence.dernier_update'),
                 'apprenant_reference' => __('PkgApprentissage::realisationCompetence.apprenant_reference'),
+                'realisation_module_reference' => __('PkgApprentissage::realisationCompetence.realisation_module_reference'),
                 'competence_reference' => __('PkgApprentissage::realisationCompetence.competence_reference'),
                 'etat_realisation_competence_reference' => __('PkgApprentissage::realisationCompetence.etat_realisation_competence_reference'),
             ];
@@ -77,6 +79,7 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
                 'commentaire_formateur' => $realisationCompetence->commentaire_formateur,
                 'dernier_update' => $realisationCompetence->dernier_update,
                 'apprenant_reference' => $realisationCompetence->apprenant?->reference,
+                'realisation_module_reference' => $realisationCompetence->realisationModule?->reference,
                 'competence_reference' => $realisationCompetence->competence?->reference,
                 'etat_realisation_competence_reference' => $realisationCompetence->etatRealisationCompetence?->reference,
             ];

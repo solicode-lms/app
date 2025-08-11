@@ -39,7 +39,7 @@
                          @if($itemApprenant->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationCompetence" role="tab" aria-controls="apprenant-hasmany-tabs-realisationCompetence" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-award"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationCompetence.plural'))}}
                             </a>
                         </li>
@@ -55,7 +55,7 @@
                          @if($itemApprenant->realisationModules->count() > 0 || auth()->user()?->can('create-realisationModule'))
                         <li class="nav-item">
                             <a class="nav-link" id="apprenant-hasmany-tabs-realisationModule-tab" data-toggle="pill" href="#apprenant-hasmany-tabs-realisationModule" role="tab" aria-controls="apprenant-hasmany-tabs-realisationModule" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-medal"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationModule.plural'))}}
                             </a>
                         </li>

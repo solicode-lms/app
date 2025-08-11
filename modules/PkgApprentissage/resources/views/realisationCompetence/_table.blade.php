@@ -9,11 +9,12 @@
                     $bulkEdit = $realisationCompetences_permissions['edit-realisationCompetence'] || $realisationCompetences_permissions['destroy-realisationCompetence'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_debut" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.date_debut'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="date_fin" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.date_fin'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_debut" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.date_debut'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="date_fin" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationCompetence.date_fin'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="realisation_module_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::realisationModule.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgCompetences::competence.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="etat_realisation_competence_id" modelname="realisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,21 +26,25 @@
                 @endphp
                 <tr id="realisationCompetence-row-{{$realisationCompetence->id}}" data-id="{{$realisationCompetence->id}}">
                     <x-checkbox-row :item="$realisationCompetence" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationCompetence->date_debut }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="date_debut"  data-toggle="tooltip" title="{{ $realisationCompetence->date_debut }}" >
                         <x-deadline-display :value="$realisationCompetence->date_debut" />
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationCompetence->date_fin }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="date_fin"  data-toggle="tooltip" title="{{ $realisationCompetence->date_fin }}" >
                         <x-deadline-display :value="$realisationCompetence->date_fin" />
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationCompetence->apprenant }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationCompetence->apprenant }}" >
                         {{  $realisationCompetence->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->competence }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="realisation_module_id"  data-toggle="tooltip" title="{{ $realisationCompetence->realisationModule }}" >
+                        {{  $realisationCompetence->realisationModule }}
+
+                    </td>
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->competence }}" >
                         {{  $realisationCompetence->competence }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="etat_realisation_competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->etatRealisationCompetence }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationCompetence->id}}" data-field="etat_realisation_competence_id"  data-toggle="tooltip" title="{{ $realisationCompetence->etatRealisationCompetence }}" >
                         @if(!empty($realisationCompetence->etatRealisationCompetence))
                         <x-badge 
                         :text="$realisationCompetence->etatRealisationCompetence" 

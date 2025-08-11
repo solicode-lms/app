@@ -30,6 +30,7 @@ class BaseRealisationCompetenceService extends BaseService
         'commentaire_formateur',
         'dernier_update',
         'apprenant_id',
+        'realisation_module_id',
         'competence_id',
         'etat_realisation_competence_id'
     ];
@@ -112,6 +113,23 @@ class BaseRealisationCompetenceService extends BaseService
                         \Modules\PkgApprenants\Models\Apprenant::class, 
                         'nom',
                         $apprenants
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_module_id', $scopeVariables)) {
+
+
+                    $realisationModuleService = new \Modules\PkgApprentissage\Services\RealisationModuleService();
+                    $realisationModuleIds = $this->getAvailableFilterValues('realisation_module_id');
+                    $realisationModules = $realisationModuleService->getByIds($realisationModuleIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::realisationModule.plural"), 
+                        'realisation_module_id', 
+                        \Modules\PkgApprentissage\Models\RealisationModule::class, 
+                        'id',
+                        $realisationModules
                     );
                 }
             

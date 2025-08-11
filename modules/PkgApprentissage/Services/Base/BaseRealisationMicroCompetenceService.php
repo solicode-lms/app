@@ -31,7 +31,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
         'commentaire_formateur',
         'date_debut',
         'date_fin',
-        'dernier_update'
+        'dernier_update',
+        'realisation_competence_id'
     ];
 
     /**
@@ -146,6 +147,23 @@ class BaseRealisationMicroCompetenceService extends BaseService
                         \Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence::class, 
                         'nom',
                         $etatRealisationMicroCompetences
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_competence_id', $scopeVariables)) {
+
+
+                    $realisationCompetenceService = new \Modules\PkgApprentissage\Services\RealisationCompetenceService();
+                    $realisationCompetenceIds = $this->getAvailableFilterValues('realisation_competence_id');
+                    $realisationCompetences = $realisationCompetenceService->getByIds($realisationCompetenceIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgApprentissage::realisationCompetence.plural"), 
+                        'realisation_competence_id', 
+                        \Modules\PkgApprentissage\Models\RealisationCompetence::class, 
+                        'id',
+                        $realisationCompetences
                     );
                 }
             

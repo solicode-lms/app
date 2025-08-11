@@ -38,7 +38,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
-            'dernier_update' => 'nullable'
+            'dernier_update' => 'nullable',
+            'realisation_competence_id' => 'required'
         ];
     }
 
@@ -59,7 +60,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.commentaire_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_fin')]),
-            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')])
+            'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')]),
+            'realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.realisation_competence_id')])
         ];
     }
 

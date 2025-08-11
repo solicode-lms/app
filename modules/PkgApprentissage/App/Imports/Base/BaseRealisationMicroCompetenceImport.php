@@ -66,6 +66,7 @@ class BaseRealisationMicroCompetenceImport implements ToModel, WithHeadingRow
              'date_debut' => $values[7] ?? null,
              'date_fin' => $values[8] ?? null,
              'dernier_update' => $values[9] ?? null,
+             'realisation_competence_id' => $values[10] ?? null,
              'reference' => $reference,
         ]);
 

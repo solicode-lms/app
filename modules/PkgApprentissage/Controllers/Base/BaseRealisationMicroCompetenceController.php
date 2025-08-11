@@ -7,6 +7,7 @@ use Modules\PkgApprentissage\Services\RealisationMicroCompetenceService;
 use Modules\PkgApprentissage\Services\EtatRealisationMicroCompetenceService;
 use Modules\PkgApprenants\Services\ApprenantService;
 use Modules\PkgCompetences\Services\MicroCompetenceService;
+use Modules\PkgApprentissage\Services\RealisationCompetenceService;
 use Modules\PkgApprentissage\Services\RealisationUaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,14 +28,16 @@ class BaseRealisationMicroCompetenceController extends AdminController
     protected $etatRealisationMicroCompetenceService;
     protected $apprenantService;
     protected $microCompetenceService;
+    protected $realisationCompetenceService;
 
-    public function __construct(RealisationMicroCompetenceService $realisationMicroCompetenceService, EtatRealisationMicroCompetenceService $etatRealisationMicroCompetenceService, ApprenantService $apprenantService, MicroCompetenceService $microCompetenceService) {
+    public function __construct(RealisationMicroCompetenceService $realisationMicroCompetenceService, EtatRealisationMicroCompetenceService $etatRealisationMicroCompetenceService, ApprenantService $apprenantService, MicroCompetenceService $microCompetenceService, RealisationCompetenceService $realisationCompetenceService) {
         parent::__construct();
         $this->service  =  $realisationMicroCompetenceService;
         $this->realisationMicroCompetenceService = $realisationMicroCompetenceService;
         $this->etatRealisationMicroCompetenceService = $etatRealisationMicroCompetenceService;
         $this->apprenantService = $apprenantService;
         $this->microCompetenceService = $microCompetenceService;
+        $this->realisationCompetenceService = $realisationCompetenceService;
     }
 
     /**
@@ -102,12 +105,13 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $microCompetences = $this->microCompetenceService->all();
         $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
+        $realisationCompetences = $this->realisationCompetenceService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences'));
+            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
         }
-        return view('PkgApprentissage::realisationMicroCompetence.create', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences'));
+        return view('PkgApprentissage::realisationMicroCompetence.create', compact('bulkEdit' ,'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -137,6 +141,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $microCompetences = $this->microCompetenceService->all();
         $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
+        $realisationCompetences = $this->realisationCompetenceService->all();
 
         $bulkEdit = true;
 
@@ -144,9 +149,9 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences'));
+            return view('PkgApprentissage::realisationMicroCompetence._fields', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
         }
-        return view('PkgApprentissage::realisationMicroCompetence.bulk-edit', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences'));
+        return view('PkgApprentissage::realisationMicroCompetence.bulk-edit', compact('bulkEdit', 'realisationMicroCompetence_ids', 'itemRealisationMicroCompetence', 'etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'));
     }
     /**
      */
@@ -216,6 +221,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $microCompetences = $this->microCompetenceService->all();
         $apprenants = $this->apprenantService->all();
         $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
+        $realisationCompetences = $this->realisationCompetenceService->all();
 
 
         $this->viewState->set('scope.realisationUa.realisation_micro_competence_id', $id);
@@ -228,10 +234,10 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgApprentissage::realisationMicroCompetence._edit', array_merge(compact('bulkEdit' , 'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences'),$realisationUa_compact_value));
+            return view('PkgApprentissage::realisationMicroCompetence._edit', array_merge(compact('bulkEdit' , 'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'),$realisationUa_compact_value));
         }
 
-        return view('PkgApprentissage::realisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences'),$realisationUa_compact_value));
+        return view('PkgApprentissage::realisationMicroCompetence.edit', array_merge(compact('bulkEdit' ,'itemRealisationMicroCompetence','etatRealisationMicroCompetences', 'apprenants', 'microCompetences', 'realisationCompetences'),$realisationUa_compact_value));
 
 
     }

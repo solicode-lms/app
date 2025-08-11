@@ -47,7 +47,7 @@
                          @if($itemCompetence->realisationCompetences->count() > 0 || auth()->user()?->can('create-realisationCompetence'))
                         <li class="nav-item">
                             <a class="nav-link" id="competence-hasmany-tabs-realisationCompetence-tab" data-toggle="pill" href="#competence-hasmany-tabs-realisationCompetence" role="tab" aria-controls="competence-hasmany-tabs-realisationCompetence" aria-selected="false">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-award"></i>
                                 {{ucfirst(__('PkgApprentissage::realisationCompetence.plural'))}}
                             </a>
                         </li>

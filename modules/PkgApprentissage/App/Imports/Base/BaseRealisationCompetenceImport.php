@@ -65,8 +65,9 @@ class BaseRealisationCompetenceImport implements ToModel, WithHeadingRow
              'commentaire_formateur' => $values[6] ?? null,
              'dernier_update' => $values[7] ?? null,
              'apprenant_id' => $values[8] ?? null,
-             'competence_id' => $values[9] ?? null,
-             'etat_realisation_competence_id' => $values[10] ?? null,
+             'realisation_module_id' => $values[9] ?? null,
+             'competence_id' => $values[10] ?? null,
+             'etat_realisation_competence_id' => $values[11] ?? null,
         ]);
 
 

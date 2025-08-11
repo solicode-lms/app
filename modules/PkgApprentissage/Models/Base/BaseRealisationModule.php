@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgFormation\Models\Module;
 use Modules\PkgApprentissage\Models\EtatRealisationModule;
+use Modules\PkgApprentissage\Models\RealisationCompetence;
 
 /**
  * Classe BaseRealisationModule
@@ -97,6 +98,15 @@ class BaseRealisationModule extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour RealisationModules.
+     *
+     * @return HasMany
+     */
+    public function realisationCompetences(): HasMany
+    {
+        return $this->hasMany(RealisationCompetence::class, 'realisation_module_id', 'id');
+    }
 
 
 

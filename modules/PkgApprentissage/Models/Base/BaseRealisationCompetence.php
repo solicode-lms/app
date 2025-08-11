@@ -12,8 +12,10 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgApprenants\Models\Apprenant;
+use Modules\PkgApprentissage\Models\RealisationModule;
 use Modules\PkgCompetences\Models\Competence;
 use Modules\PkgApprentissage\Models\EtatRealisationCompetence;
+use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 
 /**
  * Classe BaseRealisationCompetence
@@ -30,6 +32,7 @@ class BaseRealisationCompetence extends BaseModel
      */
     protected $with = [
       //  'apprenant',
+      //  'realisationModule',
       //  'competence',
       //  'etatRealisationCompetence'
     ];
@@ -47,13 +50,18 @@ class BaseRealisationCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'competence_id', 'etat_realisation_competence_id'
+        'date_debut', 'date_fin', 'progression_cache', 'note_cache', 'bareme_cache', 'commentaire_formateur', 'dernier_update', 'apprenant_id', 'realisation_module_id', 'competence_id', 'etat_realisation_competence_id'
     ];
     public $manyToOne = [
         'Apprenant' => [
             'model' => "Modules\\PkgApprenants\\Models\\Apprenant",
             'relation' => 'apprenants' , 
             "foreign_key" => "apprenant_id", 
+            ],
+        'RealisationModule' => [
+            'model' => "Modules\\PkgApprentissage\\Models\\RealisationModule",
+            'relation' => 'realisationModules' , 
+            "foreign_key" => "realisation_module_id", 
             ],
         'Competence' => [
             'model' => "Modules\\PkgCompetences\\Models\\Competence",
@@ -78,6 +86,15 @@ class BaseRealisationCompetence extends BaseModel
         return $this->belongsTo(Apprenant::class, 'apprenant_id', 'id');
     }
     /**
+     * Relation BelongsTo pour RealisationModule.
+     *
+     * @return BelongsTo
+     */
+    public function realisationModule(): BelongsTo
+    {
+        return $this->belongsTo(RealisationModule::class, 'realisation_module_id', 'id');
+    }
+    /**
      * Relation BelongsTo pour Competence.
      *
      * @return BelongsTo
@@ -97,6 +114,15 @@ class BaseRealisationCompetence extends BaseModel
     }
 
 
+    /**
+     * Relation HasMany pour RealisationCompetences.
+     *
+     * @return HasMany
+     */
+    public function realisationMicroCompetences(): HasMany
+    {
+        return $this->hasMany(RealisationMicroCompetence::class, 'realisation_competence_id', 'id');
+    }
 
 
 

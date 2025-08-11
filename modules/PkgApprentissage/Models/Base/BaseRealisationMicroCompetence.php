@@ -14,6 +14,7 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCompetences\Models\MicroCompetence;
 use Modules\PkgApprenants\Models\Apprenant;
 use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
+use Modules\PkgApprentissage\Models\RealisationCompetence;
 use Modules\PkgApprentissage\Models\RealisationUa;
 
 /**
@@ -32,7 +33,8 @@ class BaseRealisationMicroCompetence extends BaseModel
     protected $with = [
       //  'microCompetence',
       //  'apprenant',
-      //  'etatRealisationMicroCompetence'
+      //  'etatRealisationMicroCompetence',
+      //  'realisationCompetence'
     ];
 
 
@@ -49,7 +51,7 @@ class BaseRealisationMicroCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'micro_competence_id', 'apprenant_id', 'note_cache', 'progression_cache', 'etat_realisation_micro_competence_id', 'bareme_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'dernier_update'
+        'micro_competence_id', 'apprenant_id', 'note_cache', 'progression_cache', 'etat_realisation_micro_competence_id', 'bareme_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'dernier_update', 'realisation_competence_id'
     ];
     public $manyToOne = [
         'MicroCompetence' => [
@@ -66,6 +68,11 @@ class BaseRealisationMicroCompetence extends BaseModel
             'model' => "Modules\\PkgApprentissage\\Models\\EtatRealisationMicroCompetence",
             'relation' => 'etatRealisationMicroCompetences' , 
             "foreign_key" => "etat_realisation_micro_competence_id", 
+            ],
+        'RealisationCompetence' => [
+            'model' => "Modules\\PkgApprentissage\\Models\\RealisationCompetence",
+            'relation' => 'realisationCompetences' , 
+            "foreign_key" => "realisation_competence_id", 
             ]
     ];
 
@@ -96,6 +103,15 @@ class BaseRealisationMicroCompetence extends BaseModel
     public function etatRealisationMicroCompetence(): BelongsTo
     {
         return $this->belongsTo(EtatRealisationMicroCompetence::class, 'etat_realisation_micro_competence_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationCompetence.
+     *
+     * @return BelongsTo
+     */
+    public function realisationCompetence(): BelongsTo
+    {
+        return $this->belongsTo(RealisationCompetence::class, 'realisation_competence_id', 'id');
     }
 
 

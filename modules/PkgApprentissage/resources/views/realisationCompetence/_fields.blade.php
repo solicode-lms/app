@@ -271,6 +271,40 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationCompetence" field="realisation_module_id" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_module_id" id="bulk_field_realisation_module_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="realisation_module_id">
+            {{ ucfirst(__('PkgApprentissage::realisationModule.singular')) }}
+            <span class="text-danger">*</span>
+          </label>
+                      <select 
+            id="realisation_module_id" 
+            required
+            
+            
+            name="realisation_module_id" 
+            class="form-control select2">
+             <option value="">Sélectionnez une option</option>
+                @foreach ($realisationModules as $realisationModule)
+                    <option value="{{ $realisationModule->id }}"
+                        {{ (isset($itemRealisationCompetence) && $itemRealisationCompetence->realisation_module_id == $realisationModule->id) || (old('realisation_module_id>') == $realisationModule->id) ? 'selected' : '' }}>
+                        {{ $realisationModule }}
+                    </option>
+                @endforeach
+            </select>
+          @error('realisation_module_id')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationCompetence" field="competence_id" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">
