@@ -299,7 +299,8 @@
     },
     {
         "reference": "RealisationCompetence_bareme_cache_viewShowFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationCompetence_bareme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
@@ -741,5 +742,13 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationCompetence_realisation_module_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "RealisationCompetence_realisation_module_id_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 30,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationCompetence_realisation_module_id",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
