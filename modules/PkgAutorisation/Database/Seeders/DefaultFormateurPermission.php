@@ -65,6 +65,8 @@ class DefaultFormateurPermission extends Seeder
             'realisationUaProjet' => 'Édition sans Ajouter',
             'realisationUaPrototype' => 'Édition sans Ajouter',
             'realisationMicroCompetence' => 'Lecture',
+            'realisationCompetence' => 'Lecture',
+            'realisationModule' => 'Lecture',
             'etatRealisationMicroCompetence' => 'Lecture',
             'sessionFormation' => 'Lecture',
             'etatRealisationUa' => 'Afficher',

@@ -47,7 +47,7 @@
        $titre = __("PkgApprentissage::etatRealisationModule.singular");
     @endphp
     <x-crud-header 
-        id="etatRealisationModule-crud-header" icon="fas fa-table"  
+        id="etatRealisationModule-crud-header" icon="fas fa-check-square"  
         iconColor="text-info"
         title="{{ $etatRealisationModule_title }}"
         :breadcrumbs="[

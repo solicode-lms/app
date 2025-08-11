@@ -60,6 +60,23 @@
           </a>
         </li>
         @endcan
+
+        @can('index-realisationCompetence')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationCompetences.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationCompetence.plural')) }}" class="nav-link">
+           <i class="fas fa-award"></i>
+          </a>
+        </li>
+        @endcan
+
+        @can('index-realisationModule')
+        <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
+          <a href="{{ route('realisationModules.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprentissage::realisationModule.plural')) }}" class="nav-link">
+           <i class="fas fa-medal"></i>
+          </a>
+        </li>
+        @endcan
+
         @can('index-apprenant')
         <li class="nav-item d-none d-sm-inline-block" style="font-size: 1.3em">
           <a href="{{ route(name: 'apprenants.index') }}" data-toggle="tooltip" title="{{ ucfirst(__('PkgApprenants::apprenant.plural')) }}" class="nav-link">

@@ -62,6 +62,8 @@ class DefaultApprenantPermission extends Seeder
             'realisationUaProjet' => 'Afficher',
             'realisationUaPrototype' => 'Afficher',
             'realisationMicroCompetence' => 'Lecture',
+            'realisationCompetence' => 'Lecture',
+            'realisationModule' => 'Lecture',
             'etatRealisationMicroCompetence' => 'Afficher',
             'sessionFormation' => 'Lecture',
             'etatRealisationUa' => 'Afficher',

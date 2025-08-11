@@ -1,18 +1,17 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'RealisationModule',
-    'plural' => 'RealisationModules',
-    'date_debut' => 'date_debut',
-    'date_fin' => 'date_fin',
-    'progression_cache' => 'progression_cache',
-    'note_cache' => 'note_cache',
-    'bareme_cache' => 'bareme_cache',
-    'commentaire_formateur' => 'commentaire_formateur',
-    'dernier_update' => 'dernier_update',
-    'apprenant_id' => 'apprenant_id',
-    'module_id' => 'module_id',
-    'etat_realisation_module_id' => 'etat_realisation_module_id',
+    'singular' => 'Réalisation module',
+    'plural' => 'Réalisation des modules',
+    'date_debut' => 'Date de début',
+    'date_fin' => 'Date de fin',
+    'progression_cache' => 'Progression',
+    'note_cache' => 'Note',
+    'bareme_cache' => 'Barème',
+    'commentaire_formateur' => 'Commentaire formateur',
+    'dernier_update' => 'Dernière mise à jour',
+    'apprenant_id' => 'Apprenant',
+    'module_id' => 'Module',
+    'etat_realisation_module_id' => 'État',
 ];

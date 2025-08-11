@@ -13,7 +13,7 @@
                     <div class="card card-info crud-show">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-medal"></i>
                                  {{__("Core::msg.show") . " : " . __("PkgApprentissage::realisationModule.singular") }} - {{ $itemRealisationModule }}
                             </h3>
                         </div>

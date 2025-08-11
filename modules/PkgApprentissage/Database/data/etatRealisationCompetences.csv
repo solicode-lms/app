@@ -1,1 +1,7 @@
-ordre,nom,description,sys_color_id
+"ordre","reference","nom","description","sys_color_reference"
+"1","TODO","À faire","La compétence est planifiée mais n’a pas encore été commencée.","secondary"
+"2","IN_PROGRESS_CHAPITRE","En cours – Chapitre (Imiter)","La compétence est en phase chapitre (niveau 1 – imitation).","info"
+"3","IN_PROGRESS_PROTOTYPE","En cours – Prototype (Adapter)","La compétence est en phase prototype (niveau 2 – adaptation).","purple"
+"4","IN_PROGRESS_PROJET","En cours – Mini-projet (Transposer)","La compétence est en phase mini-projet (niveau 3 – transposition).","primary"
+"5","DONE","Terminé","La compétence est terminée et validée automatiquement par le système.","success"
+"6","PAUSED","En pause","La compétence est temporairement mise en attente.","warning"

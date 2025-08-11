@@ -1,12 +1,11 @@
 <?php
-// Ce fichier est maintenu par ESSARRAJ Fouad
 
 
 return [
-    'singular' => 'EtatRealisationModule',
-    'plural' => 'EtatRealisationModules',
-    'ordre' => 'ordre',
-    'nom' => 'nom',
-    'description' => 'description',
-    'sys_color_id' => 'sys_color_id',
+    'singular' => 'État de réalisation module',
+    'plural' => 'États de réalisation modules',
+    'ordre' => 'Ordre',
+    'nom' => 'Nom',
+    'description' => 'Description',
+    'sys_color_id' => 'Couleur système',
 ];
