@@ -1,12 +1,3 @@
-Parfait 👍
-Voici un **article structuré** qui explique clairement :
-
-* pourquoi Laravel peut être lent sous Windows avec Xdebug,
-* comment identifier le problème,
-* et les solutions (dont ta config OPcache).
-
----
-
 # 🚀 Optimiser Laravel sous Windows : comprendre l’impact de Xdebug et améliorer les performances
 
 ## 1. Contexte du problème
