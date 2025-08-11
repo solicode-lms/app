@@ -28,7 +28,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             }else{
                  // Calcule de progression 
                  $realisationUaService = new RealisationUaService();
-                 $realisationUaService->calculerProgressionEtNote($realisationChapitre->realisationUa);
+                 $realisationUaService->calculerProgression($realisationChapitre->realisationUa);
             }
         }
     }
@@ -58,7 +58,7 @@ class RealisationChapitreService extends BaseRealisationChapitreService
 
             // Calcule de progression 
             $realisationUaService = new RealisationUaService();
-            $realisationUaService->calculerProgressionEtNote($realisationChapitre->realisationUa);
+            $realisationUaService->calculerProgression($realisationChapitre->realisationUa);
         }
     }
 

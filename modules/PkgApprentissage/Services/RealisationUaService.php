@@ -50,7 +50,7 @@ class RealisationUaService extends BaseRealisationUaService
             $realisationUa->save();
         }
         // Recalcul des agrégats
-        $this->calculerProgressionEtNote($realisationUa);
+        $this->calculerProgression($realisationUa);
     }
 
     /**
@@ -94,7 +94,7 @@ class RealisationUaService extends BaseRealisationUaService
             ->firstOrFail();
     }
 
-    public function calculerProgressionEtNote(RealisationUa $realisationUa): void
+    public function calculerProgression(RealisationUa $realisationUa): void
     {
         $realisationUa->load([
             'realisationChapitres',
@@ -159,7 +159,7 @@ class RealisationUaService extends BaseRealisationUaService
 
         // 🔁 Recalcul micro-compétence par agrégation des UAs
         (new RealisationMicroCompetenceService())
-            ->calculerProgressionEtNote($realisationUa->realisationMicroCompetence);
+            ->calculerProgression($realisationUa->realisationMicroCompetence);
     }
 
 

@@ -2,6 +2,9 @@
 
 
 namespace Modules\PkgApprentissage\Services;
+
+use Modules\Core\App\Manager\JobManager;
+use Modules\PkgApprentissage\Models\RealisationUaPrototype;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationUaPrototypeService;
 
 /**
@@ -9,32 +12,49 @@ use Modules\PkgApprentissage\Services\Base\BaseRealisationUaPrototypeService;
  */
 class RealisationUaPrototypeService extends BaseRealisationUaPrototypeService
 {
-public function afterUpdateRules($realisationUaPrototype): void
-{
-        // ✅ Si la note ou le barème du prototype a changé
-        if ($realisationUaPrototype->wasChanged(['note', 'bareme'])) {
 
-            // 🔁 1. Recalculer la note globale de l'UA
-            if ($realisationUaPrototype->realisationUa) {
-                (new RealisationUaService())->calculerProgressionEtNote($realisationUaPrototype->realisationUa);
-            }
+    /**
+     * Job déclenché après mise à jour d'un RealisationUaPrototype.
+     *
+     * @param int    $id
+     * @param string $token
+     * @return void
+     */
+    public function updatedObserverJob(int $id, string $token): void
+    {
+        $jobManager = new JobManager($token);
+        $changedFields = $jobManager->getChangedFields();
 
-            // 🔁 2. Recalculer la note de la tâche à partir des prototypes
+        /** @var RealisationUaPrototype|null $realisationUaPrototype */
+        $realisationUaPrototype = RealisationUaPrototype::find($id);
+        if (! $realisationUaPrototype) {
+            return;
+        }
+
+        // 🔹 Si la note ou le barème a changé
+        if (
+            $jobManager->isDirty('note') ||
+            $jobManager->isDirty('bareme')
+        ) {
             if ($realisationUaPrototype->realisation_tache_id) {
-                $tache = $realisationUaPrototype->realisationTache;
+                $realisationTache = $realisationUaPrototype->realisationTache;
 
-                if ($tache) {
-                    $prototypes = \Modules\PkgApprentissage\Models\RealisationUaPrototype::where('realisation_tache_id', $tache->id)->get();
+                if ($realisationTache) {
+                    // Récupérer tous les prototypes liés à cette tâche
+                    $prototypes = RealisationUaPrototype::where('realisation_tache_id', $realisationTache->id)->get();
 
+                    // Calcul de la note totale (max = barème)
                     $noteTotale = $prototypes->sum(function ($proto) {
                         return min($proto->note ?? 0, $proto->bareme ?? 0);
                     });
 
-                    $tache->note = round($noteTotale, 2);
+                    // Label du job
+                    $jobManager->setLabel("Mise à jour de la note de la tâche #{$realisationTache->id}");
 
-                    // Attention si on appelle realisationTacheServiceUpdate, il va lancer la modification
-                    // de realisationUaPrototype ce qui créer un boucle infinie
-                    $tache->save();
+                    // ⚡ Mise à jour pour déclencher l’updatedObserverJob
+                    $realisationTache->update([
+                        'note' => round($noteTotale, 2)
+                    ]);
                 }
             }
         }

@@ -266,7 +266,7 @@ trait RealisationTacheServiceCrud
                 $uas = RealisationUa::whereIn('id', $uaIds)->get();
                 foreach ($uas as $ua) {
                     $jobManager->setLabel("Calcul progression pour UA #{$ua}");
-                    $realisationUaService->calculerProgressionEtNote($ua);
+                    $realisationUaService->calculerProgression($ua);
                     $jobManager->tick();
                 }
             }

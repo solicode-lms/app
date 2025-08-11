@@ -87,9 +87,9 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
     public function afterUpdateRules(RealisationMicroCompetence $rmc): void
     {
-        $this->calculerProgressionEtNote($rmc);
+        $this->calculerProgression($rmc);
     }
-    public function calculerProgressionEtNote(RealisationMicroCompetence $rmc): void
+    public function calculerProgression(RealisationMicroCompetence $rmc): void
     {
         $rmc->load('realisationUas');
 
