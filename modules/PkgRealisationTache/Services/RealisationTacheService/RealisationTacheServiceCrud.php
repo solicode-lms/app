@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprentissage\Models\EtatRealisationChapitre;
 use Modules\PkgApprentissage\Models\RealisationChapitre;
+use Modules\PkgApprentissage\Models\RealisationUa;
+use Modules\PkgApprentissage\Services\RealisationUaService;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
@@ -201,160 +203,113 @@ trait RealisationTacheServiceCrud
         }
     }
 
+    /**
+     * Calcule de progression 
+     * @param int $id
+     * @param string $token
+     * @return void
+     */
+    public function updatedObserverJob(int $id, string $token): void
+    {
+        $jobManager = new JobManager($token);
+        $changedFields = $jobManager->getChangedFields();
 
-public function updatedObserverJob(int $id, string $token): void
-{
-    $jobManager = new JobManager($token);
-    $changedFields = $jobManager->getChangedFields();
+        $realisationTache = $this->find($id);
 
-    $realisationTache = $this->find($id);
+        // Calculer total
+        $total = 0;
+        $uaIds = collect();
+        if ($jobManager->isDirty('etat_realisation_tache_id')) {
+            $total++; // synchroniserEtatsChapitreDepuisTache
 
-    // ---- 1) Calculer total ----
-    $total = 0;
-    $uaIds = collect();
+            $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
+            foreach ($realisationTache->realisationUaPrototypes as $proto) {
+                if ($proto->realisation_ua_id) {
+                    $uaIds->push($proto->realisation_ua_id);
+                }
+            }
+            foreach ($realisationTache->realisationUaProjets as $projet) {
+                if ($projet->realisation_ua_id) {
+                    $uaIds->push($projet->realisation_ua_id);
+                }
+            }
+            $uaIds = $uaIds->unique()->filter();
 
-    if ($jobManager->isDirty('etat_realisation_tache_id')) {
-        $total++; // synchroniserEtatsChapitreDepuisTache
+            $total += $uaIds->count(); // progression/note pour chaque UA
+            $total += 2; // maj état + progression projet
+            $total += 2; // maj progression + live coding sur tacheAffectation
+        }
+        if ($realisationTache->isDirty('note')) {
+            $total++; // calcul note + barème projet
+        }
+        $jobManager->initProgress($total);
 
-        $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
-        foreach ($realisationTache->realisationUaPrototypes as $proto) {
-            if ($proto->realisation_ua_id) {
-                $uaIds->push($proto->realisation_ua_id);
+
+        // Calcule de progression : Chapitre, US
+        // le changement de réalisation de tâche peut modifier la progression en 3 cas 
+        // - tache N1 = chapitre 
+        // - tache N2 = RealisationUaPrototype
+        // - tache N3 = RealisationUaProjet
+        if($jobManager->isDirty('etat_realisation_tache_id') || $jobManager->isDirty('note')){
+
+            // N1 : Calcule de progression et mettre à jour l'état de realisationChapitres
+            if($realisationTache->chapitres->count() > 0 ){
+                $jobManager->setLabel("Synchronisation des états de chapitre");
+                $realisationChapitreService = new RealisationChapitreService();
+                $realisationChapitreService->calculerProgression($realisationTache);
+                $jobManager->tick();
+            }
+
+            // N2 et N3 : Calcule de progression des Unité d'apprentissage et ces ascendance
+            if ($uaIds->isNotEmpty()) {
+                $realisationUaService = new RealisationUaService();
+                $uas = RealisationUa::whereIn('id', $uaIds)->get();
+                foreach ($uas as $ua) {
+                    $jobManager->setLabel("Calcul progression pour UA #{$ua}");
+                    $realisationUaService->calculerProgressionEtNote($ua);
+                    $jobManager->tick();
+                }
             }
         }
-        foreach ($realisationTache->realisationUaProjets as $projet) {
-            if ($projet->realisation_ua_id) {
-                $uaIds->push($projet->realisation_ua_id);
+
+
+        if ($jobManager->isDirty('etat_realisation_tache_id')) {
+
+            // Calcule de progression de Projet
+            $realisationProjetService = app(RealisationProjetService::class);
+            if ($realisationTache->realisationProjet) {
+                $jobManager->setLabel("Mise à jour état projet");
+                $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationTache->realisationProjet);
+                $jobManager->tick();
+
+                $jobManager->setLabel("Mise à jour progression projet");
+                $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationTache->realisationProjet);
+                $jobManager->tick();
             }
-        }
-        $uaIds = $uaIds->unique()->filter();
 
-        $total += $uaIds->count(); // progression/note pour chaque UA
-        $total += 2; // maj état + progression projet
-        $total += 2; // maj progression + live coding sur tacheAffectation
-    }
+            // Calcule de progression de Live coding
+            $tacheAffectationService = app(TacheAffectationService::class);
+            if ($realisationTache->tacheAffectation) {
+                $jobManager->setLabel("Mise à jour progression tâche affectation");
+                $tacheAffectationService->mettreAjourTacheProgression($realisationTache->tacheAffectation);
+                $jobManager->tick();
 
-    if ($realisationTache->isDirty('note')) {
-        $total++; // calcul note + barème projet
-    }
-
-    // ---- 2) Init jobManager ----
-    $jobManager->initProgress($total);
-
-
-    if ($jobManager->isDirty('etat_realisation_tache_id')) {
-
-        
-        $jobManager->setLabel("Synchronisation des états de chapitre");
-        $this->synchroniserEtatsChapitreDepuisTache($realisationTache);
-        $jobManager->tick();
-
-        if ($uaIds->isNotEmpty()) {
-            $service = new \Modules\PkgApprentissage\Services\RealisationUaService();
-            $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $uaIds)->get();
-            foreach ($uas as $ua) {
-                $jobManager->setLabel("Calcul progression & note pour UA #{$ua->id}");
-                $service->calculerProgressionEtNote($ua);
+                $jobManager->setLabel("Lancer live coding si éligible");
+                $tacheAffectationService->lancerLiveCodingSiEligible($realisationTache->tacheAffectation);
                 $jobManager->tick();
             }
         }
 
-        $realisationProjetService = app(RealisationProjetService::class);
-        if ($realisationTache->realisationProjet) {
-            $jobManager->setLabel("Mise à jour état projet");
-            $realisationProjetService->mettreAJourEtatDepuisRealisationTaches($realisationTache->realisationProjet);
-            $jobManager->tick();
-
-            $jobManager->setLabel("Mise à jour progression projet");
-            $realisationProjetService->mettreAJourProgressionDepuisEtatDesTaches($realisationTache->realisationProjet);
+        // Calcule de progression de Projet : Note
+        if ($jobManager->isDirty('note') && $realisationTache->realisationProjet) {
+            $jobManager->setLabel("Calcul note et barème projet");
+            $realisationProjetService = app(RealisationProjetService::class);
+            $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationTache->realisationProjet);
             $jobManager->tick();
         }
 
-        $tacheAffectationService = app(TacheAffectationService::class);
-        if ($realisationTache->tacheAffectation) {
-            $jobManager->setLabel("Mise à jour progression tâche affectation");
-            $tacheAffectationService->mettreAjourTacheProgression($realisationTache->tacheAffectation);
-            $jobManager->tick();
-
-            $jobManager->setLabel("Lancer live coding si éligible");
-            $tacheAffectationService->lancerLiveCodingSiEligible($realisationTache->tacheAffectation);
-            $jobManager->tick();
-        }
+        $jobManager->finish();
     }
-
-    if ($jobManager->isDirty('note') && $realisationTache->realisationProjet) {
-        $jobManager->setLabel("Calcul note et barème projet");
-        $realisationProjetService = app(RealisationProjetService::class);
-        $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationTache->realisationProjet);
-        $jobManager->tick();
-    }
-
-    $jobManager->finish();
-}
-
-
-
-    /**
-     * Met à jour les états des chapitres liés à une tâche lorsque son état change.
-     *
-     * @param RealisationTache $tache
-     * @return void
-     */
-    private function synchroniserEtatsChapitreDepuisTache(RealisationTache $tache): void
-    {
-        $chapitres = RealisationChapitre::where('realisation_tache_id', $tache->id)->get();
-
-        if ($chapitres->isEmpty()) {
-            return;
-        }
-
-        $etatChapitre = $this->mapEtatTacheToEtatChapitre($tache->etat_realisation_tache_id);
-
-        if (!$etatChapitre) {
-            return;
-        }
-
-        $realisationChapitreService = new RealisationChapitreService();
-
-        foreach ($chapitres as $chapitre) {
-            $realisationChapitreService->update($chapitre->id, [
-                'etat_realisation_chapitre_id' => $etatChapitre->id,
-            ]);
-        }
-    }
-
-    /**
-     * Mapper un état de tâche à un état de chapitre
-     */
-    private function mapEtatTacheToEtatChapitre(int $etatTacheId)
-    {
-        $etatTache = EtatRealisationTache::with('workflowTache')->find($etatTacheId);
-
-        if (!$etatTache || !$etatTache->workflowTache) {
-            return null;
-        }
-
-        // Table de mapping entre les codes
-        $mapping = [
-            'TODO'            => 'TODO',
-            'IN_PROGRESS'           => 'IN_PROGRESS',
-            'PAUSED'           => 'PAUSED',
-            'REVISION_NECESSAIRE'=> 'IN_PROGRESS',
-            'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
-            'IN_LIVE_CODING' => 'IN_LIVE_CODING',
-            'TO_APPROVE'      => 'TO_APPROVE',
-            'APPROVED'           => 'DONE'
-        ];
-
-        $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;
-
-        if (!$codeChapitre) {
-            return null;
-        }
-
-        return EtatRealisationChapitre::where('code', $codeChapitre)->first();
-    }
-
 
     public function repartirNoteDansRealisationUaPrototypes(RealisationTache $tache): void
     {

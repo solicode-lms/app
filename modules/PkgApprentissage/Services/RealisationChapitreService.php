@@ -18,32 +18,65 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     /**
      * Règles exécutées après mise à jour d’un chapitre.
      */
-    public function afterUpdateRules($entity): void
+    public function afterUpdateRules($realisationChapitre): void
     {
-        if ($entity->wasChanged('etat_realisation_chapitre_id')) {
-             $this->synchroniserEtatTacheLiee($entity);
-             $this->recalculerProgressionEtNoteUa($entity);
-        }
+        if ($realisationChapitre->wasChanged('etat_realisation_chapitre_id')) {
 
-      
-       
+            if($realisationChapitre->realisationTache){
+                // Modification de RealisationTache et calcule de progression par Observer
+                $this->modifierEtatRealisationTache($realisationChapitre);
+            }else{
+                 // Calcule de progression 
+                 $realisationUaService = new RealisationUaService();
+                 $realisationUaService->calculerProgressionEtNote($realisationChapitre->realisationUa);
+            }
+        }
     }
 
     /**
-     * Règle 1 — Synchroniser l’état de la tâche liée (si existe).
+     * Calculer la progression après la modification de réalisation de tâche.
+     *
+     * @param \Modules\PkgRealisationTache\Models\RealisationTache $realisationTache
+     * @return void
      */
-    private function synchroniserEtatTacheLiee($entity): void
+    public function calculerProgression($realisationTache)
     {
-        if (! $entity->realisation_tache_id) {
+        if ($realisationTache->realisationChapitres->isEmpty()) {
             return;
         }
 
-        $realisationTache = RealisationTache::find($entity->realisation_tache_id);
+        foreach ($realisationTache->realisationChapitres as $realisationChapitre) {
+
+            // 🔹 Mapper l'état de tâche vers état de chapitre
+            $etatChapitre = $this->mapEtatTacheToEtatChapitre($realisationTache->etat_realisation_tache_id);
+
+            // 🔹 Mise à jour silencieuse pour éviter de déclencher des observers
+            if ($etatChapitre && $realisationChapitre->etat_realisation_chapitre_id !== $etatChapitre->id) {
+                $realisationChapitre->etat_realisation_chapitre_id = $etatChapitre->id;
+                $realisationChapitre->saveQuietly();
+            }
+
+            // Calcule de progression 
+            $realisationUaService = new RealisationUaService();
+            $realisationUaService->calculerProgressionEtNote($realisationChapitre->realisationUa);
+        }
+    }
+
+    /**
+     * La modification de réalisation de chapitre
+     */
+    private function modifierEtatRealisationTache($realisationChapitre): void
+    {
+        if (! $realisationChapitre->realisation_tache_id) {
+            return;
+        }
+
+        $realisationTache = RealisationTache::find($realisationChapitre->realisation_tache_id);
         if (! $realisationTache) {
             return;
         }
 
-        $etatTache = $this->mapEtatChapitreToEtatTache($entity->etat_realisation_chapitre_id, $realisationTache->realisationProjet->affectationProjet->projet->formateur_id);
+        $etatTache = $this->mapEtatChapitreToEtatTache($realisationChapitre->etat_realisation_chapitre_id, $realisationTache->realisationProjet->affectationProjet->projet->formateur_id);
         $realisationTacheService = new RealisationTacheService();
         if ($etatTache &&  $realisationTache->etat_realisation_tache_id != $etatTache->id) {
             $realisationTacheService->update($realisationTache->id,[
@@ -52,18 +85,6 @@ class RealisationChapitreService extends BaseRealisationChapitreService
         }
     }
 
-    /**
-     * Règle 2 — Recalculer la note et la progression de l’UA.
-     */
-    private function recalculerProgressionEtNoteUa($entity): void
-    {
-        if (! $entity->realisationUa) {
-            return;
-        }
-
-        $service = new RealisationUaService();
-        $service->calculerProgressionEtNote($entity->realisationUa);
-    }
 
     /**
      * Règle de mapping : état chapitre → état tâche.
@@ -93,5 +114,37 @@ class RealisationChapitreService extends BaseRealisationChapitreService
         $etatTacheService = new EtatRealisationTacheService();
         return $etatTacheService->findByFormateurIdAndWorkflowCode($formateurId, $codeTache);
 
+    }
+
+       /**
+     * Mapper un état de tâche à un état de chapitre
+     */
+    private function mapEtatTacheToEtatChapitre(int $etatTacheId)
+    {
+        $etatTache = EtatRealisationTache::with('workflowTache')->find($etatTacheId);
+
+        if (!$etatTache || !$etatTache->workflowTache) {
+            return null;
+        }
+
+        // Table de mapping entre les codes
+        $mapping = [
+            'TODO'            => 'TODO',
+            'IN_PROGRESS'           => 'IN_PROGRESS',
+            'PAUSED'           => 'PAUSED',
+            'REVISION_NECESSAIRE'=> 'IN_PROGRESS',
+            'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
+            'IN_LIVE_CODING' => 'IN_LIVE_CODING',
+            'TO_APPROVE'      => 'TO_APPROVE',
+            'APPROVED'           => 'DONE'
+        ];
+
+        $codeChapitre = $mapping[$etatTache->workflowTache->code] ?? null;
+
+        if (!$codeChapitre) {
+            return null;
+        }
+
+        return EtatRealisationChapitre::where('code', $codeChapitre)->first();
     }
 }

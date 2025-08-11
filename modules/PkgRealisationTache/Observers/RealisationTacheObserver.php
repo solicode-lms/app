@@ -20,30 +20,34 @@ class RealisationTacheObserver
     }
 
     /**
-     * Handle the RealisationTache "updated" event.
+     * Événement déclenché lors de la mise à jour d'une RealisationTache.
      */
     public function updated(RealisationTache $realisationTache): void
     {
-        // Récupération des champs modifiés
+        // Champs réellement modifiés
         $changedFields = array_keys($realisationTache->getDirty());
 
-        $jobManager = JobManager::initJob(
+        JobManager::initJob(
             "updatedObserverJob",
             "realisationTache",
             "PkgRealisationTache", 
             $realisationTache->id,
             $changedFields
-        );
-        $jobManager->dispatchTraitementCrudJob();
+        )->dispatchTraitementCrudJob();
     }
 
 
     /**
-     * Handle the RealisationTache "deleted" event.
+     * Événement déclenché lors de la suppression d'une RealisationTache.
      */
     public function deleted(RealisationTache $realisationTache): void
     {
-        //
+        JobManager::initJob(
+            "deletedObserverJob",
+            "realisationTache",
+            "PkgRealisationTache",
+            $realisationTache->id
+        )->dispatchTraitementCrudJob();
     }
 
     /**

@@ -276,7 +276,7 @@ trait ApprenantServiceWidgets
     public function apprenantAvecTacheAFaire()
     {
         
-        $query = $this->apprenantAvecTacheEnCoursQuery();
+        $query = $this->apprenantAvecTacheAFaireQuery();
 
         // return $query->get();
 

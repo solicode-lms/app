@@ -42,8 +42,6 @@ class RealisationUaService extends BaseRealisationUaService
         }
     }
 
-
-
     public function afterUpdateRules($realisationUa): void
     {
         // ✅ Initialiser la date_debut si elle est encore vide
@@ -96,74 +94,73 @@ class RealisationUaService extends BaseRealisationUaService
             ->firstOrFail();
     }
 
+    public function calculerProgressionEtNote(RealisationUa $realisationUa): void
+    {
+        $realisationUa->load([
+            'realisationChapitres',
+            'realisationUaPrototypes',
+            'realisationUaProjets'
+        ]);
 
-public function calculerProgressionEtNote(RealisationUa $realisationUa): void
-{
-    $realisationUa->load([
-        'realisationChapitres',
-        'realisationUaPrototypes',
-        'realisationUaProjets'
-    ]);
+        // 🧮 Définition des parties et des poids associés
+        $parts = [
+            'chapitres' => [
+                'items' => $realisationUa->realisationChapitres,
+                'poids' => 20,
+            ],
+            'prototypes' => [
+                'items' => $realisationUa->realisationUaPrototypes,
+                'poids' => 30,
+            ],
+            'projets' => [
+                'items' => $realisationUa->realisationUaProjets,
+                'poids' => 50,
+            ],
+        ];
 
-    // 🧮 Définition des parties et des poids associés
-    $parts = [
-        'chapitres' => [
-            'items' => $realisationUa->realisationChapitres,
-            'poids' => 20,
-        ],
-        'prototypes' => [
-            'items' => $realisationUa->realisationUaPrototypes,
-            'poids' => 30,
-        ],
-        'projets' => [
-            'items' => $realisationUa->realisationUaProjets,
-            'poids' => 50,
-        ],
-    ];
+        $totalNote = 0;
+        $totalBareme = 0;
+        $progression = 0;
 
-    $totalNote = 0;
-    $totalBareme = 0;
-    $progression = 0;
+        foreach ($parts as $part) {
+            $items = $part['items'];
+            $poids = $part['poids'];
 
-    foreach ($parts as $part) {
-        $items = $part['items'];
-        $poids = $part['poids'];
+            $count = $items->count();
+            if ($count === 0) {
+                continue;
+            }
 
-        $count = $items->count();
-        if ($count === 0) {
-            continue;
+            $bareme = $items->sum(function ($e) {
+                return $e->note !== null ? ($e->bareme ?? 0) : 0;
+            });
+            $note = $items->sum(fn($e) => $e->note ?? 0);
+            $termines = $items->filter(fn($e) => $this->isItemTermine($e))->count();
+
+            $progression += ($termines / $count) * $poids;
+            $totalNote += $note ;
+            $totalBareme += $bareme;
         }
 
-        $bareme = $items->sum(function ($e) {
-            return $e->note !== null ? ($e->bareme ?? 0) : 0;
-        });
-        $note = $items->sum(fn($e) => $e->note ?? 0);
-        $termines = $items->filter(fn($e) => $this->isItemTermine($e))->count();
+        $realisationUa->progression_cache = round($progression, 1);
+        $realisationUa->note_cache = round($totalNote, 2);
+        $realisationUa->bareme_cache = round($totalBareme, 2);
 
-        $progression += ($termines / $count) * $poids;
-        $totalNote += $note ;
-        $totalBareme += $bareme;
-    }
-
-    $realisationUa->progression_cache = round($progression, 1);
-    $realisationUa->note_cache = round($totalNote, 2);
-    $realisationUa->bareme_cache = round($totalBareme, 2);
-
-    // 🔁 Mise à jour de l’état
-    $nouvelEtatCode = $this->calculerEtat($realisationUa);
-    if ($nouvelEtatCode) {
-        $nouvelEtat = EtatRealisationUa::where('code', $nouvelEtatCode)->first();
-        if ($nouvelEtat && $realisationUa->etat_realisation_ua_id !== $nouvelEtat->id) {
-            $realisationUa->etat_realisation_ua_id = $nouvelEtat->id;
+        // 🔁 Mise à jour de l’état
+        $nouvelEtatCode = $this->calculerEtat($realisationUa);
+        if ($nouvelEtatCode) {
+            $nouvelEtat = EtatRealisationUa::where('code', $nouvelEtatCode)->first();
+            if ($nouvelEtat && $realisationUa->etat_realisation_ua_id !== $nouvelEtat->id) {
+                $realisationUa->etat_realisation_ua_id = $nouvelEtat->id;
+            }
         }
+
+        $realisationUa->save();
+
+        // 🔁 Recalcul micro-compétence par agrégation des UAs
+        (new RealisationMicroCompetenceService())
+            ->calculerProgressionEtNote($realisationUa->realisationMicroCompetence);
     }
-
-    $realisationUa->save();
-
-    // 🔁 Recalcul micro-compétence par agrégation des UAs
-    (new RealisationMicroCompetenceService())
-        ->calculerProgressionEtNote($realisationUa->realisationMicroCompetence);
-}
 
 
     private function isItemTermine($item): bool
@@ -197,7 +194,7 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
      * @param RealisationUa $ua  L’unité d’apprentissage à évaluer
      * @return string|null       Le code de l’état calculé
      */
-    public function calculerEtat(RealisationUa $ua): ?string
+    private function calculerEtat(RealisationUa $ua): ?string
     {
         $ua->load([
             'realisationChapitres.etatRealisationChapitre',
@@ -243,9 +240,6 @@ public function calculerProgressionEtNote(RealisationUa $realisationUa): void
 
         return 'TODO';
     }
-
-
-
 
 
 }

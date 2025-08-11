@@ -19,6 +19,8 @@ use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\Base\BaseRealisationTacheService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheServiceCrud;
+use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheCalculeProgression;
+
 use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheServiceWidgets;
 use Modules\PkgRealisationTache\Services\RealisationTacheService\RealisationTacheWorkflow;
 use Modules\PkgRealisationProjets\Models\AffectationProjet;
@@ -34,7 +36,8 @@ class RealisationTacheService extends BaseRealisationTacheService
     use 
         RealisationTacheServiceCrud,
         RealisationTacheServiceWidgets,  
-        RealisationTacheWorkflow;
+        RealisationTacheWorkflow,
+        RealisationTacheCalculeProgression;
 
         protected array $index_with_relations = [
             'tache',
