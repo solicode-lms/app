@@ -172,12 +172,6 @@
         "e_metadata_definition_reference": "displayInTable"
     },
     {
-        "reference": "EtatRealisationModule_nom_displayField",
-        "value_boolean": 1,
-        "e_data_field_reference": "EtatRealisationModule_nom",
-        "e_metadata_definition_reference": "displayField"
-    },
-    {
         "reference": "EtatRealisationModule_nom_required",
         "value_boolean": 1,
         "e_data_field_reference": "EtatRealisationModule_nom",
@@ -405,6 +399,60 @@
         "reference": "etat_realisation_modules_hasMany_realisation_modules_etat_realisation_module_id_viewShowFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "etat_realisation_modules_hasMany_realisation_modules_etat_realisation_module_id",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationModule_code_displayInTable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "EtatRealisationModule_code_displayField",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "displayField"
+    },
+    {
+        "reference": "EtatRealisationModule_code_required",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "required"
+    },
+    {
+        "reference": "EtatRealisationModule_code_displayOrder",
+        "value_integer": 2,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "EtatRealisationModule_code_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "EtatRealisationModule_code_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "EtatRealisationModule_code_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "EtatRealisationModule_code_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "EtatRealisationModule_code_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "EtatRealisationModule_code",
         "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

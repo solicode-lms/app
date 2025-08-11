@@ -30,6 +30,7 @@ class BaseEtatRealisationModuleRequest extends FormRequest
     {
         return [
             'ordre' => 'required|integer',
+            'code' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
             'description' => 'nullable|string',
             'sys_color_id' => 'nullable'
@@ -45,6 +46,8 @@ class BaseEtatRealisationModuleRequest extends FormRequest
     {
         return [
             'ordre.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationModule.ordre')]),
+            'code.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationModule.code')]),
+            'code.max' => __('validation.codeMax'),
             'nom.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationModule.nom')]),
             'nom.max' => __('validation.nomMax'),
             'description.required' => __('validation.required', ['attribute' => __('PkgApprentissage::EtatRealisationModule.description')]),

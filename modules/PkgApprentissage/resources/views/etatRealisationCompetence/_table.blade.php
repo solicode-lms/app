@@ -10,8 +10,9 @@
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
                 <x-sortable-column :sortable="true" width="4"  field="ordre" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.ordre'))!!}" />
-                <x-sortable-column :sortable="true" width="39"  field="nom" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.nom'))!!}" />
-                <x-sortable-column :sortable="true" width="39" field="sys_color_id" modelname="etatRealisationCompetence" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="code" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.code'))!!}" />
+                <x-sortable-column :sortable="true" width="26"  field="nom" modelname="etatRealisationCompetence" label="{!!ucfirst(__('PkgApprentissage::etatRealisationCompetence.nom'))!!}" />
+                <x-sortable-column :sortable="true" width="26" field="sys_color_id" modelname="etatRealisationCompetence" label="{!!ucfirst(__('Core::sysColor.singular'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -29,11 +30,15 @@
                         </div>
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationCompetence->nom }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationCompetence->id}}" data-field="code"  data-toggle="tooltip" title="{{ $etatRealisationCompetence->code }}" >
+                        {{ $etatRealisationCompetence->code }}
+
+                    </td>
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationCompetence->id}}" data-field="nom"  data-toggle="tooltip" title="{{ $etatRealisationCompetence->nom }}" >
                         {{ $etatRealisationCompetence->nom }}
 
                     </td>
-                    <td style="max-width: 39%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationCompetence->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationCompetence->sysColor }}" >
+                    <td style="max-width: 26%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$etatRealisationCompetence->id}}" data-field="sys_color_id"  data-toggle="tooltip" title="{{ $etatRealisationCompetence->sysColor }}" >
                         <x-badge 
                         :text="$etatRealisationCompetence->sysColor->name ?? ''" 
                         :background="$etatRealisationCompetence->sysColor->hex ?? '#6c757d'" 

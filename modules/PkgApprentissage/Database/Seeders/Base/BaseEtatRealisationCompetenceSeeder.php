@@ -82,6 +82,7 @@ class BaseEtatRealisationCompetenceSeeder extends Seeder
 
                 $etatRealisationCompetenceData =[
                         "ordre" => isset($row["ordre"]) && $row["ordre"] !== "" ? $row["ordre"] : null,
+                        "code" => isset($row["code"]) && $row["code"] !== "" ? $row["code"] : null,
                         "nom" => isset($row["nom"]) && $row["nom"] !== "" ? $row["nom"] : null,
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                         "sys_color_id" => $sys_color_id,

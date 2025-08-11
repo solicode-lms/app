@@ -59,6 +59,35 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationModule" field="code" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="code" id="bulk_field_code" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="code">
+            {{ ucfirst(__('PkgApprentissage::etatRealisationModule.code')) }}
+            <span class="text-danger">*</span>
+          </label>
+           <input
+                name="code"
+                type="input"
+                class="form-control"
+                required
+                
+                
+                id="code"
+                placeholder="{{ __('PkgApprentissage::etatRealisationModule.code') }}"
+                value="{{ $itemEtatRealisationModule ? $itemEtatRealisationModule->code : old('code') }}">
+          @error('code')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemEtatRealisationModule" field="nom" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-6">

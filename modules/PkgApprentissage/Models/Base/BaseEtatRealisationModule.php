@@ -44,7 +44,7 @@ class BaseEtatRealisationModule extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'nom', 'description', 'sys_color_id'
+        'ordre', 'code', 'nom', 'description', 'sys_color_id'
     ];
     public $manyToOne = [
         'SysColor' => [
@@ -85,6 +85,6 @@ class BaseEtatRealisationModule extends BaseModel
      */
     public function __toString()
     {
-        return $this->nom ?? "";
+        return $this->code ?? "";
     }
 }

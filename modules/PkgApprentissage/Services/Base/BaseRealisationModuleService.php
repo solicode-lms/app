@@ -144,7 +144,7 @@ class BaseRealisationModuleService extends BaseService
                         __("PkgApprentissage::etatRealisationModule.plural"), 
                         'etat_realisation_module_id', 
                         \Modules\PkgApprentissage\Models\EtatRealisationModule::class, 
-                        'nom',
+                        'code',
                         $etatRealisationModules
                     );
                 }

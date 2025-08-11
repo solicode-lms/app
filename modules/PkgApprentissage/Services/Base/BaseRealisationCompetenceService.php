@@ -162,7 +162,7 @@ class BaseRealisationCompetenceService extends BaseService
                         __("PkgApprentissage::etatRealisationCompetence.plural"), 
                         'etat_realisation_competence_id', 
                         \Modules\PkgApprentissage\Models\EtatRealisationCompetence::class, 
-                        'nom',
+                        'code',
                         $etatRealisationCompetences
                     );
                 }

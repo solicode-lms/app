@@ -57,10 +57,11 @@ class BaseEtatRealisationModuleImport implements ToModel, WithHeadingRow
         // Création d'un nouvel enregistrement
         return new EtatRealisationModule([
              'ordre' => $values[0] ?? null,
+             'code' => $values[1] ?? null,
              'reference' => $reference,
-             'nom' => $values[2] ?? null,
-             'description' => $values[3] ?? null,
-             'sys_color_id' => $values[4] ?? null,
+             'nom' => $values[3] ?? null,
+             'description' => $values[4] ?? null,
+             'sys_color_id' => $values[5] ?? null,
         ]);
 
 

@@ -33,6 +33,7 @@ class BaseEtatRealisationCompetenceExport implements FromCollection, WithHeading
         if ($this->format === 'csv') {
             return [
                 'ordre' => 'ordre',
+                'code' => 'code',
                 'reference' => 'reference',
                 'nom' => 'nom',
                 'description' => 'description',
@@ -41,6 +42,7 @@ class BaseEtatRealisationCompetenceExport implements FromCollection, WithHeading
         } else {
             return [
                 'ordre' => __('PkgApprentissage::etatRealisationCompetence.ordre'),
+                'code' => __('PkgApprentissage::etatRealisationCompetence.code'),
                 'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationCompetence.nom'),
                 'description' => __('PkgApprentissage::etatRealisationCompetence.description'),
@@ -57,6 +59,7 @@ class BaseEtatRealisationCompetenceExport implements FromCollection, WithHeading
         return $this->data->map(function ($etatRealisationCompetence) {
             return [
                 'ordre' => (string) $etatRealisationCompetence->ordre,
+                'code' => $etatRealisationCompetence->code,
                 'reference' => $etatRealisationCompetence->reference,
                 'nom' => $etatRealisationCompetence->nom,
                 'description' => $etatRealisationCompetence->description,
