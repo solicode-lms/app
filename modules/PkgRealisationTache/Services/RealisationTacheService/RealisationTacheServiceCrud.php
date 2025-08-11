@@ -189,7 +189,7 @@ trait RealisationTacheServiceCrud
 
 
     public function afterUpdateRules(RealisationTache $realisationTache): void{
-        if ($realisationTache->isDirty('note')) {
+        if ($realisationTache->wasChanged('note')) {
 
             if($realisationTache->tache->phaseEvaluation->code == "N2"){
                 // 3️⃣ Répartir la note sur les prototypes associés

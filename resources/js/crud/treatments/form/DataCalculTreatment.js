@@ -3,6 +3,7 @@
 import { AjaxErrorHandler } from "../../components/AjaxErrorHandler";
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import EventUtil from '../../utils/EventUtil';
+import { CrudAction } from './../../actions/CrudAction';
 
 export class DataCalculTreatment {
     /**
@@ -18,6 +19,8 @@ export class DataCalculTreatment {
         this.lastSentData = null; // Stocke les dernières données envoyées
         this.loader = new LoadingIndicator(this.config.formSelector);
         this.disableCalcul = true;
+
+        this.CrudAction = new CrudAction(this.config,this.formUI.indexUI.tableUI);
     }
 
     /**
@@ -79,6 +82,19 @@ export class DataCalculTreatment {
         })
             .done((response) => {
                 // sourceField.prop('disabled', false);
+                console.log(response);
+                // Affichage de message de progression de traitement
+                const traitement_token = response.traitement_token;
+                console.log(traitement_token);
+                if (traitement_token) {
+                    this.CrudAction.pollTraitementStatus(traitement_token, () => {
+                        // NotificationHandler.show(response.type, response.title, response.message);
+                    });
+                }else{
+                       // NotificationHandler.show(response.type, response.title, response.message);
+                }
+
+
                 this.updateDependentFields(sourceField,response.entity);
             })
             .fail((xhr, textStatus) => {

@@ -8,4 +8,5 @@ return [
     'nom' => 'Nom',
     'description' => 'Description',
     'sys_color_id' => 'Couleur système',
+    'code' => 'Code'
 ];

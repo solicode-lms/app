@@ -169,7 +169,7 @@ export class EditAction extends CrudAction {
         })
             .done((response) => {
 
-               // Affichage de message de progression de traitement
+                // Affichage de message de progression de traitement
                 const traitement_token = response.data?.traitement_token;
                 if (traitement_token) {
                     is_traitement_token = true;

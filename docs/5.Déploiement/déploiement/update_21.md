@@ -45,8 +45,8 @@ php artisan db:seed --class=Modules\PkgSessions\Database\Seeders\AlignementUaSee
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationMicroCompetenceSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationUaSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationChapitreSeeder
-php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationModuleSeeder
 
+php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationModuleSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationCompetenceSeeder
 
 
