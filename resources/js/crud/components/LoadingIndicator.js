@@ -56,55 +56,62 @@ export class LoadingIndicator {
      * Affiche un indicateur de chargement non bloquant sous forme de rectangle en haut à droite du formulaire.
      * À utiliser pendant le calcul des champs de formulaire.
      */
-    showNomBloquante(message) {
-        const container = document.querySelector(this.containerSelector);
+showNomBloquante(message) {
+    const container = document.querySelector(this.containerSelector);
+    const msg = message || "Chargement";
 
-        const msg = message ? message : "Chargement" 
-
-        if (!container) {
-            console.error('Conteneur de chargement introuvable.');
-            return false;
-        }
-        
-        let loadingDiv = document.getElementById(this.loadingElementId);
-
-        // Vérifier si l'indicateur est déjà affiché
-         if (!loadingDiv) {
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = this.loadingElementId;
-            loadingDiv.className = 'd-flex align-items-center p-2 shadow-sm';
-    
-            // Style du rectangle en haut à droite
-            loadingDiv.style.position = 'fixed';
-            loadingDiv.style.top = '10px';
-             loadingDiv.style.left = '50%';
-            loadingDiv.style.background = '#f8d7da'; // Rouge clair pour indiquer le chargement
-            loadingDiv.style.color = '#721c24';
-            loadingDiv.style.border = '1px solid #f5c6cb';
-            loadingDiv.style.borderRadius = '5px';
-            loadingDiv.style.zIndex = '999999'; // 🔹 AU-DESSUS DES MODALS
-            loadingDiv.style.fontSize = '14px';
-            loadingDiv.style.fontWeight = 'bold';
-            loadingDiv.style.minWidth = '120px';
-            loadingDiv.style.textAlign = 'center';
-
-            // Contenu de l'indicateur
-            loadingDiv.innerHTML = `
-                <span class="spinner-border spinner-border-sm text-danger me-2"> </span>
-                <span style="padding:2px" class="loading-message">${msg} ...</span>
-            `;
-
-            container.appendChild(loadingDiv);
-        }else {
-            // 🔄 Mettre à jour le message si l’indicateur est déjà affiché
-            const messageSpan = loadingDiv.querySelector('.loading-message');
-            if (messageSpan) {
-                messageSpan.textContent = `${msg} ...`;
-            }
-        }
-
-        return true;
+    if (!container) {
+        console.error('Conteneur de chargement introuvable.');
+        return false;
     }
+
+    // Chercher si un message existe déjà pour CE loadingElementId
+    let existingDiv = document.getElementById(this.loadingElementId);
+
+    if (existingDiv) {
+        // 🔄 Mettre à jour le texte si même instance
+        const messageSpan = existingDiv.querySelector('.loading-message');
+        if (messageSpan) {
+            messageSpan.textContent = `${msg} ...`;
+        }
+    } else {
+        // 📌 Sinon créer un nouveau bloc
+        const allMessages = document.querySelectorAll('.loading-non-bloquant');
+        const messageIndex = allMessages.length;
+
+        const spacing = 10; // marge entre messages
+        const messageHeight = 40; // hauteur approximative d’un bloc
+        const topPosition = 10 + (messageIndex * (messageHeight + spacing));
+
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = this.loadingElementId;
+        loadingDiv.className = 'loading-non-bloquant d-flex align-items-center p-2 shadow-sm';
+
+        loadingDiv.style.position = 'fixed';
+        loadingDiv.style.top = `${topPosition}px`;
+        loadingDiv.style.left = '50%';
+        loadingDiv.style.transform = 'translateX(-50%)';
+        loadingDiv.style.background = '#f8d7da';
+        loadingDiv.style.color = '#721c24';
+        loadingDiv.style.border = '1px solid #f5c6cb';
+        loadingDiv.style.borderRadius = '5px';
+        loadingDiv.style.zIndex = '999999';
+        loadingDiv.style.fontSize = '14px';
+        loadingDiv.style.fontWeight = 'bold';
+        loadingDiv.style.minWidth = '120px';
+        loadingDiv.style.textAlign = 'center';
+
+        loadingDiv.innerHTML = `
+            <span class="spinner-border spinner-border-sm text-danger me-2"></span>
+            <span style="padding:2px" class="loading-message">${msg} ...</span>
+        `;
+
+        container.appendChild(loadingDiv);
+    }
+
+    return true;
+}
+
 
 
     /**
@@ -125,6 +132,15 @@ export class LoadingIndicator {
         } else {
             // console.warn('Indicateur de chargement introuvable  : ' + this.loadingElementId);
         }
+
+         // 📌 Repositionner les messages restants
+        const allMessages = document.querySelectorAll('.loading-non-bloquant');
+        allMessages.forEach((msgDiv, index) => {
+            const spacing = 10;
+            const messageHeight = 40;
+            const topPosition = 10 + (index * (messageHeight + spacing));
+            msgDiv.style.top = `${topPosition}px`;
+        });
     }
 
     /**

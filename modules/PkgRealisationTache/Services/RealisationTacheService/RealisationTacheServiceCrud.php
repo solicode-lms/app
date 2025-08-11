@@ -159,7 +159,7 @@ trait RealisationTacheServiceCrud
     {
         if (is_null($realisationTache->dateDebut)) {
             $realisationTache->dateDebut = now()->toDateString(); // format YYYY-MM-DD sans heure
-            $realisationTache->save(); // il faut sauvegarder si tu veux que le changement soit persisté
+            $realisationTache->saveQuietly(); // il faut sauvegarder si tu veux que le changement soit persisté
         }
 
         // Déja appliquer par parrent
@@ -219,26 +219,26 @@ trait RealisationTacheServiceCrud
         // Calculer total
         $total = 0;
         $uaIds = collect();
-        if ($jobManager->isDirty('etat_realisation_tache_id')) {
-            $total++; // synchroniserEtatsChapitreDepuisTache
+       
+        $total++; // synchroniserEtatsChapitreDepuisTache
 
-            $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
-            foreach ($realisationTache->realisationUaPrototypes as $proto) {
-                if ($proto->realisation_ua_id) {
-                    $uaIds->push($proto->realisation_ua_id);
-                }
+        $realisationTache->load(['realisationUaPrototypes', 'realisationUaProjets']);
+        foreach ($realisationTache->realisationUaPrototypes as $proto) {
+            if ($proto->realisation_ua_id) {
+                $uaIds->push($proto->realisation_ua_id);
             }
-            foreach ($realisationTache->realisationUaProjets as $projet) {
-                if ($projet->realisation_ua_id) {
-                    $uaIds->push($projet->realisation_ua_id);
-                }
-            }
-            $uaIds = $uaIds->unique()->filter();
-
-            $total += $uaIds->count(); // progression/note pour chaque UA
-            $total += 2; // maj état + progression projet
-            $total += 2; // maj progression + live coding sur tacheAffectation
         }
+        foreach ($realisationTache->realisationUaProjets as $projet) {
+            if ($projet->realisation_ua_id) {
+                $uaIds->push($projet->realisation_ua_id);
+            }
+        }
+        $uaIds = $uaIds->unique()->filter();
+
+        $total += $uaIds->count(); // progression/note pour chaque UA
+        $total += 2; // maj état + progression projet
+        $total += 2; // maj progression + live coding sur tacheAffectation
+        
         if ($realisationTache->isDirty('note')) {
             $total++; // calcul note + barème projet
         }
@@ -252,8 +252,11 @@ trait RealisationTacheServiceCrud
         // - tache N3 = RealisationUaProjet
         if($jobManager->isDirty('etat_realisation_tache_id') || $jobManager->isDirty('note')){
 
+
+
+
             // N1 : Calcule de progression et mettre à jour l'état de realisationChapitres
-            if($realisationTache->chapitres->count() > 0 ){
+            if(!$realisationTache->realisationChapitres->isEmpty()){
                 $jobManager->setLabel("Synchronisation des états de chapitre");
                 $realisationChapitreService = new RealisationChapitreService();
                 $realisationChapitreService->calculerProgression($realisationTache);
@@ -302,6 +305,10 @@ trait RealisationTacheServiceCrud
 
         // Calcule de progression de Projet : Note
         if ($jobManager->isDirty('note') && $realisationTache->realisationProjet) {
+
+
+            
+
             $jobManager->setLabel("Calcul note et barème projet");
             $realisationProjetService = app(RealisationProjetService::class);
             $realisationProjetService->calculerNoteEtBaremeDepuisTaches($realisationTache->realisationProjet);
@@ -457,6 +464,8 @@ trait RealisationTacheServiceCrud
         // 3️⃣ Application finale (arrondi garanti à 0.25)
         foreach ($repartitions as $entry) {
             $entry['proto']->note = $entry['note_appliquee'];
+
+            // TODO : il ne doit pas lancer l'observer Update : RealisationTache
             $entry['proto']->save();
         }
     }

@@ -34,7 +34,7 @@ class RealisationUaProjetService extends BaseRealisationUaProjetService
                     return min($projet->note ?? 0, $projet->bareme ?? 0);
                 });
 
-                $jobManager->setLabel("Mise à jour de la note de la tâche #{$tache->id}");
+                $jobManager->setLabel("Mise à jour de la note : #{$tache}");
                 $tache->update([
                     'note' => round($noteTotale, 2)
                 ]);

@@ -597,7 +597,7 @@ export class FormUI  {
         const id = idInput.value;
         const url = this.config.getEntityUrl.replace(':id', id); // URL: /realisationTaches/json/:id
 
-        this.loader.show();
+        this.loader.showNomBloquante("Mise à jour des données de formulaire");
 
         // Désactiver temporairement le calcul
         this.dynamicCalculationTreatment.disableCalcul = false;
@@ -611,7 +611,7 @@ export class FormUI  {
             .done((response) => {
                 // Tu peux enrichir ici si le back ne retourne pas { entity: ..., hasManyInputsToUpdate: ... }
                 this.showFields(response, "", {}); // on suppose aucun hasMany à recharger ici
-                NotificationHandler.showSuccess("Formulaire mis à jour avec succès.");
+                // NotificationHandler.showSuccess("Formulaire mis à jour avec succès.");
             })
             .fail((xhr) => {
                 const message = xhr.responseJSON?.message || "Erreur lors du chargement des données.";

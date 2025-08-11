@@ -150,6 +150,8 @@ export class EditAction extends CrudAction {
      * @param {Function} onSuccess - Callback appelé après succès.
      */
     update_attributes(data, onSuccess) {
+
+        let is_traitement_token = false;
         this.loader.showNomBloquante("Mise à jour");
         const url = this.config.updateAttributesUrl 
         const finalUrl = this.appendParamsToUrl(
@@ -167,14 +169,12 @@ export class EditAction extends CrudAction {
         })
             .done((response) => {
 
-
-                
-
                // Affichage de message de progression de traitement
-                const traitement_token = data.data?.traitement_token;
+                const traitement_token = response.data?.traitement_token;
                 if (traitement_token) {
+                    is_traitement_token = true;
                     this.pollTraitementStatus(traitement_token, () => {
-                        NotificationHandler.show(response.type, response.title, response.message);
+                        // NotificationHandler.show(response.type, response.title, response.message);
                     });
                 }else{
                      NotificationHandler.show(response.type, response.title, response.message);
@@ -184,7 +184,7 @@ export class EditAction extends CrudAction {
                 this.loader.hide();
                
                 if (typeof onSuccess === 'function') {
-                    onSuccess(response);
+                    onSuccess(response, is_traitement_token);
                 }
             })
             .fail((xhr) => {

@@ -53,14 +53,19 @@ abstract class BaseService implements ServiceInterface
         JobTrait;
 
 
-    protected ?string $crudJobToken = null;
+    // protected ?string $crudJobToken = null;
     public function getCrudJobToken(): ?string
     {
-        return $this->crudJobToken;
+        $v =  app()->bound('current_crud_job_token')
+            ? app('current_crud_job_token')
+            : null;
+        return $v;
     }
-    public function setCrudJobToken($crudJobToken)
+
+    public function setCrudJobToken($crudJobToken): void
     {
-        $this->crudJobToken = $crudJobToken;
+        // Stocker le token uniquement pour la durée de la requête
+        app()->instance('current_crud_job_token', $crudJobToken);
     }
 
 

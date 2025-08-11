@@ -14,6 +14,7 @@ class JobManager
     protected ?string $modelName = null;
     protected ?string $moduleName = null;
     protected ?int  $id = null;
+    // protected changedFields;
 
     public function __construct(?string $token = null, ?int $total = 0)
     {
@@ -27,6 +28,7 @@ class JobManager
             $this->moduleName = $this->cacheGet('module');
             $this->id = $this->cacheGet('id');
             $this->changedFields = $this->cacheGet('changed_fields', []);
+            $this->setTokenInService();
         }
     }
 
@@ -60,7 +62,7 @@ class JobManager
         $this->cachePut('method', $methodName);
         $this->cachePut('model', $modelName);
         $this->cachePut('module', $moduleName);
-        $this->cachePut('module', $id);
+        $this->cachePut('id', $id);
 
         if (!empty($changedFields)) {
             $this->cachePut('changed_fields', $changedFields);
@@ -136,7 +138,6 @@ class JobManager
         $this->cachePut('total', $total);
         $this->cachePut('done', 0);
         $this->cachePut('progress', $total === 0 ? 100 : 0);
-        $this->setStatus($total === 0 ? 'done' : 'running');
     }
 
     public function tick(int $step = 1): void

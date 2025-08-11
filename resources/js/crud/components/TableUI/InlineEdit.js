@@ -156,12 +156,15 @@ export class InlineEdit extends CrudAction {
         if (!formUI.validateForm()) { this._cancelEdit(); return; }
 
         const payload = { id, [field]: $input.val() };
-        this.entityEditor.update_attributes(payload, () => {
-            NotificationHandler.showSuccess('Champ mis à jour.');
-            this.tableUI.entityLoader.loadEntities().done(() => {
+        this.entityEditor.update_attributes(payload, (res, is_traitement_token) => {
+            
+            // if(!is_traitement_token){
+                this.tableUI.entityLoader.loadEntities().done(() => {
                 // après reload, on ré-init pour gérer le pending
                // this.init();
-            });
+                });
+            // }
+          
         });
         this.activeCell = null;
     }

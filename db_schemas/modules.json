@@ -159,9 +159,13 @@
         "etat_realisation_micro_competences",
         "etat_realisation_uas",
         "etat_realisation_chapitres",
+        "etat_realisation_modules",
+        "etat_realisation_competences",
         "realisation_micro_competences",
         "realisation_uas",
         "realisation_chapitres",
+        "realisation_modules",
+        "realisation_competences",
         "realisation_ua_prototypes",
         "realisation_ua_projets"
     ]
