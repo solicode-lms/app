@@ -63,7 +63,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
      */
     public function getOrCreateByApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
     {
-        // 1. Chercher si une réalisation existe déjà
+        // 🔍 Recherche si la réalisation existe déjà
         $realisation = $this->model
             ->where('apprenant_id', $apprenantId)
             ->where('micro_competence_id', $microCompetenceId)
@@ -73,13 +73,26 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             return $realisation;
         }
 
-        // 2. Créer une nouvelle réalisation avec l'état initial
+        // 📌 Récupérer la micro-compétence et sa compétence parente
+        $microCompetence = \Modules\PkgCompetences\Models\MicroCompetence::with('competence')
+            ->findOrFail($microCompetenceId);
+
+        // 🆕 Récupérer ou créer la réalisation de compétence associée
+        $realisationCompetenceService = new RealisationCompetenceService();
+        $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
+            $apprenantId,
+            $microCompetence->competence_id
+        );
+
+        // 🎯 État initial
         $ordreEtatInitial = EtatRealisationMicroCompetence::min('ordre');
         $etatRealisationId = EtatRealisationMicroCompetence::where('ordre', $ordreEtatInitial)->value('id');
 
+        // 🏗️ Création avec lien vers realisation_competence_id
         return $this->create([
-            'apprenant_id'                    => $apprenantId,
-            'micro_competence_id'             => $microCompetenceId,
+            'apprenant_id' => $apprenantId,
+            'micro_competence_id' => $microCompetenceId,
+            'realisation_competence_id' => $realisationCompetence->id, // ✅ Non nullable
             'etat_realisation_micro_competence_id' => $etatRealisationId,
             'date_debut' => now(),
         ]);
