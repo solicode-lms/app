@@ -270,7 +270,8 @@ class BaseSpecialiteController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -281,6 +282,7 @@ class BaseSpecialiteController extends AdminController
                 'modelName' =>  __('PkgFormation::specialite.singular')
                 ])
         );
+
 
     }
     /**

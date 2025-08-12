@@ -276,7 +276,8 @@ class BaseMobilisationUaController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -287,6 +288,7 @@ class BaseMobilisationUaController extends AdminController
                 'modelName' =>  __('PkgCreationProjet::mobilisationUa.singular')
                 ])
         );
+
 
     }
     /**

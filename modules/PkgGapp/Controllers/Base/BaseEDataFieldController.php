@@ -291,7 +291,8 @@ class BaseEDataFieldController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -302,6 +303,7 @@ class BaseEDataFieldController extends AdminController
                 'modelName' =>  __('PkgGapp::eDataField.singular')
                 ])
         );
+
 
     }
     /**

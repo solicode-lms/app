@@ -332,7 +332,8 @@ class BaseRealisationMicroCompetenceController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -343,6 +344,7 @@ class BaseRealisationMicroCompetenceController extends AdminController
                 'modelName' =>  __('PkgApprentissage::realisationMicroCompetence.singular')
                 ])
         );
+
 
     }
     /**

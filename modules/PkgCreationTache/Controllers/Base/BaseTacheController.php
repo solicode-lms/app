@@ -341,7 +341,8 @@ class BaseTacheController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -352,6 +353,7 @@ class BaseTacheController extends AdminController
                 'modelName' =>  __('PkgCreationTache::tache.singular')
                 ])
         );
+
 
     }
     /**

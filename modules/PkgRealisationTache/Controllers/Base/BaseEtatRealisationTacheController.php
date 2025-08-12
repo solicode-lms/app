@@ -302,7 +302,8 @@ class BaseEtatRealisationTacheController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -313,6 +314,7 @@ class BaseEtatRealisationTacheController extends AdminController
                 'modelName' =>  __('PkgRealisationTache::etatRealisationTache.singular')
                 ])
         );
+
 
     }
     /**

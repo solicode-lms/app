@@ -44,6 +44,46 @@ class RealisationChapitreService extends BaseRealisationChapitreService
     }
 
     /**
+     * Recalculer la progression pour une liste d'IDs de RealisationChapitre.
+     *
+     * @param \Illuminate\Support\Collection|array $realisationChapitresIds
+     * @return void
+     */
+    public function calculerProgressionDepuisRealisationChapitresIds($realisationChapitresIds): void
+    {
+        $realisationChapitresIds = collect($realisationChapitresIds)->filter()->unique();
+
+        if ($realisationChapitresIds->isEmpty()) {
+            return;
+        }
+
+        $realisationChapitres = $this->newQuery()
+            ->whereIn('id', $realisationChapitresIds)
+            ->with(['realisationTache', 'realisationUa'])
+            ->get();
+
+        foreach ($realisationChapitres as $realisationChapitre) {
+            $realisationTache = $realisationChapitre->realisationTache;
+
+            if ($realisationTache) {
+                // 🔁 Mapper et synchroniser l’état de chapitre à partir de l’état de tâche
+                $etatChapitre = $this->mapEtatTacheToEtatChapitre($realisationTache->etat_realisation_tache_id);
+
+                if ($etatChapitre && $realisationChapitre->etat_realisation_chapitre_id !== $etatChapitre->id) {
+                    $realisationChapitre->etat_realisation_chapitre_id = $etatChapitre->id;
+                    $realisationChapitre->saveQuietly(); // ⚠️ éviter les observers
+                }
+            }
+
+            // 🔁 Recalcul de la progression de l’UA associée
+            if ($realisationChapitre->realisationUa) {
+                $uaService = new RealisationUaService();
+                $uaService->calculerProgression($realisationChapitre->realisationUa);
+            }
+        }
+    }
+
+    /**
      * Calculer la progression après la modification de réalisation de tâche.
      *
      * @param \Modules\PkgRealisationTache\Models\RealisationTache $realisationTache
@@ -71,6 +111,9 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             $realisationUaService->calculerProgression($realisationChapitre->realisationUa);
         }
     }
+
+
+
 
     /**
      * La modification de réalisation de chapitre

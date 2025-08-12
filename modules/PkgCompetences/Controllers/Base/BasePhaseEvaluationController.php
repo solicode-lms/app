@@ -294,7 +294,8 @@ class BasePhaseEvaluationController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -305,6 +306,7 @@ class BasePhaseEvaluationController extends AdminController
                 'modelName' =>  __('PkgCompetences::phaseEvaluation.singular')
                 ])
         );
+
 
     }
     /**

@@ -38,9 +38,21 @@ export class DeleteAction extends CrudAction {
                     url: deleteUrl,
                     method: 'DELETE',
                     data: { _token: this.config.csrfToken }
-                }).done(() => {
+                }).done((response) => {
+
+                     // Affichage de message de progression de traitement
+                    const traitement_token = response?.data?.traitement_token;
+                    if (traitement_token) {
+                        this.pollTraitementStatus(traitement_token, () => {
+                           this.handleSuccess(this.suscesMessage);
+                        });
+                    }else{
+                        this.handleSuccess(this.suscesMessage);
+                    }
+
+
                     $(`#${this.config.entity_name}-row-${id}`).fadeOut(); // Supprime la ligne sans recharger
-                    this.handleSuccess(this.suscesMessage);
+                  
                 })
                 
                 .fail((xhr) => {

@@ -51,7 +51,6 @@ class AffectationProjetService extends BaseAffectationProjetService
 
 
     /**
-     * Traitement différé après création d'une AffectationProjet.
      * - Crée les TacheAffectations pour chaque tâche du projet
      * - Crée les RéalisationProjet pour chaque apprenant (groupe/sous-groupe)
      * - Synchronise les évaluations
@@ -97,13 +96,8 @@ class AffectationProjetService extends BaseAffectationProjetService
             $jobManager->initProgress($total);
 
             // 5) Services nécessaires (résolus via le conteneur)
-            /** @var \Modules\PkgRealisationTache\Services\TacheAffectationService $tacheAffectationService */
             $tacheAffectationService = app(\Modules\PkgRealisationTache\Services\TacheAffectationService::class);
-
-            /** @var \Modules\PkgRealisationProjets\Services\RealisationProjetService $realisationProjetService */
             $realisationProjetService = app(\Modules\PkgRealisationProjets\Services\RealisationProjetService::class);
-
-            /** @var \Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService $evaluationService */
             $evaluationService = app(\Modules\PkgEvaluateurs\Services\EvaluationRealisationProjetService::class);
 
             $jobManager->setLabel("Création des tâches");

@@ -49,7 +49,8 @@ class JobManager
         string $modelName,
         string $moduleName,
         ?int $id = null,
-        array $changedFields = []
+        array $changedFields = [],
+        array $payload = [] 
         ): string {
    
         $this->token = Str::uuid()->toString();
@@ -67,7 +68,10 @@ class JobManager
         if (!empty($changedFields)) {
             $this->cachePut('changed_fields', $changedFields);
         }
-
+        // Sauvegarder le payload personnalisé
+        if (!empty($payload)) {
+            $this->cachePut('payload', $payload);
+        }
         return $this->token;
     }
     public static function initJob(
@@ -75,10 +79,11 @@ class JobManager
         string $modelName,
         string $moduleName,
         ?int $id,
-        array $changedFields = []
+        array $changedFields = [],
+        array $payload = [] 
     ): self {
         $instance = new self();
-        $instance->init($methodName, $modelName, $moduleName, $id, $changedFields);
+        $instance->init($methodName, $modelName, $moduleName, $id, $changedFields, $payload);
         return $instance;
     }
 
@@ -90,6 +95,10 @@ class JobManager
     public function getLabel(): string
     {
         return $this->cacheGet('label', "⏳ Traitement en cours...");
+    }
+    public function getPayload(): array
+    {
+        return $this->cacheGet('payload', []);
     }
 
     /* ------------------------------
@@ -173,19 +182,6 @@ class JobManager
             $onAfterCreateFail();
         }
     }
-
-    /* ------------------------------
-     * Progress Updater (Closure)
-     * ------------------------------ */
-    // public function progressUpdater(int $total): \Closure
-    // {
-      
-
-    //     return function (int $step = 1) {
-    //         $this->tick($step);
-    //     };
-    // }
-
 
     public function dispatchTraitementCrudJob(){
 

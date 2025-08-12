@@ -290,7 +290,8 @@ class BasePrioriteTacheController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -301,6 +302,7 @@ class BasePrioriteTacheController extends AdminController
                 'modelName' =>  __('PkgCreationTache::prioriteTache.singular')
                 ])
         );
+
 
     }
     /**

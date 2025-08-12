@@ -285,7 +285,8 @@ class BaseFeatureDomainController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -296,6 +297,7 @@ class BaseFeatureDomainController extends AdminController
                 'modelName' =>  __('Core::featureDomain.singular')
                 ])
         );
+
 
     }
     /**

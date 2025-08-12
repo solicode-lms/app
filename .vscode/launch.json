@@ -16,7 +16,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Debug Vite (Laravel)",
-            "url": "http://localhost", // URL Vite
+            "url": "http://localhost:8000", // URL Vite
             "webRoot": "${workspaceFolder}",
             "sourceMapPathOverrides": {
                 "vite:///*": "${webRoot}/*",

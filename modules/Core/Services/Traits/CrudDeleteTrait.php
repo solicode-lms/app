@@ -20,11 +20,15 @@ trait CrudDeleteTrait
             $entity = $this->model->find($id);
             $this->executeRules('before', 'delete', $entity, $id);
             // TODO :throw exception if $entity is null
-            $entity->delete();
+            $this->delete($entity);
             $this->executeRules('after', 'delete', $entity, $id);
             $this->executeJob('after', 'create', $entity->id);
             return  $entity;
         });
+    }
+
+    public function delete($entity){
+        $entity->delete();
     }
 
 }

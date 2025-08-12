@@ -309,7 +309,8 @@ class BaseAnneeFormationController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -320,6 +321,7 @@ class BaseAnneeFormationController extends AdminController
                 'modelName' =>  __('PkgFormation::anneeFormation.singular')
                 ])
         );
+
 
     }
     /**

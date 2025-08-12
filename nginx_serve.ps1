@@ -4,8 +4,8 @@ Start-Process "nginx.exe"
 
 # 🚀 Lancer PHP-CGI en arrière-plan
 cd "C:\php\"
-Start-Process "php-cgi.exe" -ArgumentList "-b 127.0.0.1:9000" -WindowStyle Hidden
-
+Start-Process "php-cgi.exe" -ArgumentList "-b 127.0.0.1:9000"
+# Start-Process "php-cgi.exe" -ArgumentList "-b 127.0.0.1:9000" -WindowStyle Hidden
 # ↩️ Retourner au dossier du script
 cd $PSScriptRoot
 

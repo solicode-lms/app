@@ -264,7 +264,8 @@ class BaseApprenantKonosyController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -275,6 +276,7 @@ class BaseApprenantKonosyController extends AdminController
                 'modelName' =>  __('PkgApprenants::apprenantKonosy.singular')
                 ])
         );
+
 
     }
     /**

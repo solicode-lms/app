@@ -276,7 +276,8 @@ class BaseCritereEvaluationController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -287,6 +288,7 @@ class BaseCritereEvaluationController extends AdminController
                 'modelName' =>  __('PkgCompetences::critereEvaluation.singular')
                 ])
         );
+
 
     }
     /**

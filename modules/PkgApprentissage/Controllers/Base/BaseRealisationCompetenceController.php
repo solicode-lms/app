@@ -332,7 +332,8 @@ class BaseRealisationCompetenceController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -343,6 +344,7 @@ class BaseRealisationCompetenceController extends AdminController
                 'modelName' =>  __('PkgApprentissage::realisationCompetence.singular')
                 ])
         );
+
 
     }
     /**

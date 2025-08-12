@@ -369,7 +369,8 @@ class BaseRealisationProjetController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -380,6 +381,7 @@ class BaseRealisationProjetController extends AdminController
                 'modelName' =>  __('PkgRealisationProjets::realisationProjet.singular')
                 ])
         );
+
 
     }
     /**

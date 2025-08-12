@@ -291,7 +291,8 @@ class BaseSousGroupeController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -302,6 +303,7 @@ class BaseSousGroupeController extends AdminController
                 'modelName' =>  __('PkgApprenants::sousGroupe.singular')
                 ])
         );
+
 
     }
     /**

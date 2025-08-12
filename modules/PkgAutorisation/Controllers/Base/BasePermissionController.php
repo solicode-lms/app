@@ -282,7 +282,8 @@ class BasePermissionController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -293,6 +294,7 @@ class BasePermissionController extends AdminController
                 'modelName' =>  __('PkgAutorisation::permission.singular')
                 ])
         );
+
 
     }
     /**

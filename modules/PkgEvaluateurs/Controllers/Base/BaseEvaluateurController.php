@@ -299,7 +299,8 @@ class BaseEvaluateurController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -310,6 +311,7 @@ class BaseEvaluateurController extends AdminController
                 'modelName' =>  __('PkgEvaluateurs::evaluateur.singular')
                 ])
         );
+
 
     }
     /**

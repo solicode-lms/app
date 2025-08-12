@@ -315,7 +315,8 @@ class BaseSysModuleController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -326,6 +327,7 @@ class BaseSysModuleController extends AdminController
                 'modelName' =>  __('Core::sysModule.singular')
                 ])
         );
+
 
     }
     /**

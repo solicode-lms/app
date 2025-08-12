@@ -300,7 +300,8 @@ class BaseUniteApprentissageController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -311,6 +312,7 @@ class BaseUniteApprentissageController extends AdminController
                 'modelName' =>  __('PkgCompetences::uniteApprentissage.singular')
                 ])
         );
+
 
     }
     /**

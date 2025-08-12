@@ -279,7 +279,8 @@ class BaseWidgetTypeController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -290,6 +291,7 @@ class BaseWidgetTypeController extends AdminController
                 'modelName' =>  __('PkgWidgets::widgetType.singular')
                 ])
         );
+
 
     }
     /**

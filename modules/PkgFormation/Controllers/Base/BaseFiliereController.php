@@ -324,7 +324,8 @@ class BaseFiliereController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -335,6 +336,7 @@ class BaseFiliereController extends AdminController
                 'modelName' =>  __('PkgFormation::filiere.singular')
                 ])
         );
+
 
     }
     /**

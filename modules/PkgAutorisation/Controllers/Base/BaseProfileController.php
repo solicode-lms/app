@@ -324,7 +324,8 @@ class BaseProfileController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -335,6 +336,7 @@ class BaseProfileController extends AdminController
                 'modelName' =>  __('PkgAutorisation::profile.singular')
                 ])
         );
+
 
     }
     /**

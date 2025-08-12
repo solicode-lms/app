@@ -321,7 +321,8 @@ class BaseSessionFormationController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -332,6 +333,7 @@ class BaseSessionFormationController extends AdminController
                 'modelName' =>  __('PkgSessions::sessionFormation.singular')
                 ])
         );
+
 
     }
     /**

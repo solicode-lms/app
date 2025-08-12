@@ -299,7 +299,8 @@ class BaseNotificationController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -310,6 +311,7 @@ class BaseNotificationController extends AdminController
                 'modelName' =>  __('PkgNotification::notification.singular')
                 ])
         );
+
 
     }
     /**

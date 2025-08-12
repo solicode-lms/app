@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Modules\Core\App\Manager\JobManager;
 use Modules\PkgApprenants\Models\Groupe;
 use Modules\PkgApprenants\Services\GroupeService;
 use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
@@ -183,6 +184,55 @@ class RealisationProjetService extends BaseRealisationProjetService
        
     }
     
+
+    // public function delete($entity){
+    //     $entity->realisationTaches->delete();
+    //     $entity->delete();
+    // }
+
+
+      public function deletedObserverJob(int $id, string $token): void
+    {
+        $jobManager = new JobManager($token); 
+        $payload = $jobManager->getPayload();
+
+        $uaIds = collect($payload['ua_ids'] ?? []);
+        $realisation_chapitres_ids = collect($payload['realisation_chapitres_ids'] ?? []);
+
+        $total = 0;
+
+        // 1️⃣ Chapitres (N1)
+        if ($realisation_chapitres_ids->isNotEmpty()) {
+            $total++;
+        }
+
+        // 2️⃣ UA (N2 / N3)
+        $total += $uaIds->count();
+
+        $jobManager->initProgress($total);
+
+        // 1️⃣ Chapitre (N1)
+        if ($realisation_chapitres_ids->isNotEmpty()) {
+            $jobManager->setLabel("Mise à jour des chapitres");
+            $realisationChapitreService = new RealisationChapitreService();
+            $realisationChapitreService->calculerProgressionDepuisRealisationChapitresIds($realisation_chapitres_ids);
+            $jobManager->tick();
+        }
+
+        // 2️⃣ Unités d'apprentissage (UA)
+        if ($uaIds->isNotEmpty()) {
+            $realisationUaService = new RealisationUaService();
+            $uas = RealisationUa::whereIn('id', $uaIds)->get();
+            foreach ($uas as $ua) {
+                $jobManager->setLabel("Calcul progression pour UA #{$ua->id}");
+                $realisationUaService->calculerProgression($ua);
+                $jobManager->tick();
+            }
+        }
+
+        $jobManager->finish();
+    }
+
     /**
      * Règles métiers appliquées avant la mise à jour d'un RealisationProjet.
      *

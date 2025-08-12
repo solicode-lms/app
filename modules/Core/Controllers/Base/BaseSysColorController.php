@@ -459,7 +459,8 @@ class BaseSysColorController extends AdminController
             
 
             return JsonResponseHelper::success(
-                $message
+                $message,
+                $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
             );
         }
 
@@ -470,6 +471,7 @@ class BaseSysColorController extends AdminController
                 'modelName' =>  __('Core::sysColor.singular')
                 ])
         );
+
 
     }
     /**

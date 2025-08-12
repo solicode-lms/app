@@ -40,13 +40,25 @@ class RealisationTacheObserver
     /**
      * Événement déclenché lors de la suppression d'une RealisationTache.
      */
-    public function deleted(RealisationTache $realisationTache): void
+    public function deleting(RealisationTache $realisationTache): void
     {
+
+        $payload = [
+        'realisation_projet_id' => optional($realisationTache->realisationProjet)->id,
+        'tache_affectation_id' => optional($realisationTache->tacheAffectation)->id,
+        'realisation_chapitres_ids' => $realisationTache->realisationChapitres->pluck('id')->all(),
+        'ua_ids' => $realisationTache->realisationUaPrototypes->pluck('realisation_ua_id')
+            ->merge($realisationTache->realisationUaProjets->pluck('realisation_ua_id'))
+            ->filter()->unique()->values()->all(),
+        ];
+
         JobManager::initJob(
             "deletedObserverJob",
             "realisationTache",
             "PkgRealisationTache",
-            $realisationTache->id
+            $realisationTache->id,
+            [],
+            $payload
         )->dispatchTraitementCrudJob();
     }
 
