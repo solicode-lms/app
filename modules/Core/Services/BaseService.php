@@ -228,7 +228,7 @@ abstract class BaseService implements ServiceInterface
     protected function authorize(string $ability, mixed $entity): void
     {
         if (Gate::denies($ability, $entity)) {
-            throw new AuthorizationException("Vous n'êtes pas autorisé à effectuer cette action.");
+            throw new AuthorizationException("Vous n'êtes pas autorisé à effectuer cette action." . $ability . "in" . $entity );
         }
         
     }

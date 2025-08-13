@@ -2,6 +2,7 @@
 
 namespace Modules\Core\App\Manager;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\TraitementCrudJob;
@@ -202,6 +203,7 @@ class JobManager
 
          // Dispatch du job générique
         dispatch(new TraitementCrudJob(
+            Auth::id(),
             ucfirst($this->moduleName),
             ucfirst($this->modelName),
             $this->methodName,

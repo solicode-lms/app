@@ -7,11 +7,16 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Modules\PkgAutorisation\Models\User;
 
 class BulkEditJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
+
+    protected int $userId;
 
     protected string $module;
     protected string $service; // nom sans suffixe
@@ -21,6 +26,8 @@ class BulkEditJob implements ShouldQueue
 
     protected  $realisationTache_ids;
     protected  $valeursChamps;
+
+
     
 
     protected  $champsCoches;
@@ -31,8 +38,9 @@ class BulkEditJob implements ShouldQueue
      * @param string $token Jeton unique de suivi
      * @param string $method Nom de la méthode à appeler (par défaut "runAsyncAfterCreate")
      */
-    public function __construct(string $module, string $service,string $method, string $token, $realisationTache_ids , $champsCoches, $valeursChamps  )
+    public function __construct(int  $userId, string $module, string $service,string $method, string $token, $realisationTache_ids , $champsCoches, $valeursChamps  )
     {
+        $this->userId = $userId;
         $this->module = $module;
         $this->service = $service;
         $this->realisationTache_ids = $realisationTache_ids;
@@ -45,6 +53,13 @@ class BulkEditJob implements ShouldQueue
     public function handle(): void
     {
       
+
+        // Simuler la connexion de l'utilisateur
+        $user = User::find($this->userId);
+        Auth::login($user); // pour Auth::user()
+        Gate::forUser($user); // pour Gate::denies()
+
+
         $serviceClass = "Modules\\{$this->module}\\Services\\{$this->service}Service";
 
         try {

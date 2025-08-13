@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Services\Traits;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Modules\Core\App\Jobs\TraitementCrudJob;
@@ -35,6 +36,7 @@ trait JobTrait
 
         // Dispatch du job générique
         dispatch(new TraitementCrudJob(
+            Auth::id(),
             ucfirst($this->moduleName),
             ucfirst($this->modelName),
             $methodName,
