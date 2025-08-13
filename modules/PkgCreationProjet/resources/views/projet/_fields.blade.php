@@ -192,12 +192,12 @@
           @endif
           <label for="formateur_id">
             {{ ucfirst(__('PkgFormation::formateur.singular')) }}
-            <span class="text-danger">*</span>
+            
           </label>
                       <select 
             id="formateur_id" 
             {{ $canEditformateur_id ? '' : 'disabled' }}
-            required
+            
             
             
             name="formateur_id" 

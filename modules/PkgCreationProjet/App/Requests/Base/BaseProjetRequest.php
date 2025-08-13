@@ -34,7 +34,7 @@ class BaseProjetRequest extends FormRequest
             'titre' => 'required|string|max:255',
             'travail_a_faire' => 'required|string',
             'critere_de_travail' => 'required|string',
-            'formateur_id' => 'required',
+            'formateur_id' => 'nullable',
             'description' => 'nullable|string'
         ];
     }
