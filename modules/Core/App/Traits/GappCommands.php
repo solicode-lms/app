@@ -117,10 +117,10 @@ trait GappCommands
     {
         Log::info("Exécution ASYNCHRONE de la commande : " . $command);
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            pclose(popen("start /B " . $command, "r"));
+      if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            pclose(popen("start /B {$command} > " . storage_path('logs/async_cmd.log') . " 2>&1", "r"));
         } else {
-            shell_exec($command . " > /dev/null 2>&1 &");
+            shell_exec("{$command} > " . storage_path('logs/async_cmd.log') . " 2>&1 &");
         }
     }
 

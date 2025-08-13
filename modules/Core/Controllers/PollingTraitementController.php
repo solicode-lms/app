@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Modules\Core\App\Jobs\RunQueueJobs;
 use Modules\Core\Controllers\Base\AdminController;
 
 class PollingTraitementController extends AdminController
@@ -21,37 +22,28 @@ class PollingTraitementController extends AdminController
     public function start()
     {
         try {
+            $token = Str::uuid()->toString();
 
-            
-            set_time_limit(0); // ⏳ Aucune limite de temps
-            // ini_set('max_execution_time', 120); // en secondes
+            // Initialiser le statut
+            Cache::put("traitement.$token.status", 'in_progress');
+            Cache::put("traitement.$token.progress", 0);
 
-            // Lancer tous les jobs en attente via queue:work --once dans une boucle
-                while (true) {
-                    // Exécute un job
-                    Artisan::call('queue:work', [
-                        '--once' => true,
-                        '--queue' => 'default',
-                        '--tries' => 3,
-                    ]);
+            // Lancer la commande Artisan en arrière-plan
+            $this->runArtisanInBackground('traitement:run', [$token]);
 
-                    // Sortir si plus de jobs (table jobs vide)
-                    if (DB::table('jobs')->count() === 0) {
-                        break;
-                    }
-
-                    // Petite pause pour ne pas saturer le CPU
-                    usleep(200000); // 200 ms
-                }
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => true,
+                'token' => $token
+            ]);
         } catch (\Throwable $e) {
-            Log::error('[Traitement Async] Erreur lors de queue:work --once : ' . $e->getMessage());
+            Log::error('[Traitement Async] Erreur : ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'error' => $e->getMessage()
             ], 500);
         }
     }
+
 
 
      /**
@@ -72,5 +64,70 @@ class PollingTraitementController extends AdminController
             'label' => $label
         ]);
     }
+
+
+
+protected function runArtisanInBackground(string $artisanCommand, array $params = [])
+{
+    $phpPath = "php";
+    $artisan = base_path('artisan');
+
+    // Commande de base
+    $fullCommand = sprintf(
+        '%s %s %s %s',
+        escapeshellarg($phpPath),
+        escapeshellarg($artisan),
+        $artisanCommand,
+        implode(' ', array_map('escapeshellarg', $params))
+    );
+
+    if (stripos(PHP_OS_FAMILY, 'Windows') !== false) {
+        // 🚀 Windows : ajouter variables d'environnement Xdebug
+        $envCommand = "";
+        // $envCommand  = '$env:XDEBUG_MODE="debug,develop"; ';
+        // $envCommand .= '$env:XDEBUG_START_WITH_REQUEST="yes"; ';
+        // $envCommand .= '$env:XDEBUG_IDEKEY="VSCODE"; ';
+
+        // PowerShell + start /B
+        $fullCommand = 'powershell -Command "' . $envCommand . $fullCommand . '"';
+
+        $this->executeCommandAsync($fullCommand);
+        // $cmd = sprintf('start /B "" %s', $fullCommand);
+
+        
+        // pclose(popen($cmd, 'r'));
+
+    } else {
+        // 🚀 Linux : simple exécution en arrière-plan
+        $cmd = sprintf('%s > /dev/null 2>&1 &', $fullCommand);
+        exec($cmd);
+    }
+}
+
+private function executeCommandAsync($command)
+    {
+        Log::info("Exécution ASYNCHRONE de la commande : " . $command);
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            pclose(popen("start /B {$command} > " . storage_path('logs/async_cmd.log') . " 2>&1", "r"));
+        } else {
+            shell_exec("{$command} > " . storage_path('logs/async_cmd.log') . " 2>&1 &");
+        }
+    }
+private function executeCommandSync($command, $logMessage = "")
+    {
+        Log::info("Exécution SYNCHRONE de la commande : " . $command);
+
+        $output = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
+            ? shell_exec($command . " 2>&1") 
+            : shell_exec($command . " 2>&1");
+
+        if (!empty($output)) {
+            Log::info("Sortie de la commande :\n" . trim($output));
+        } else {
+            Log::error("La commande n'a retourné aucune sortie : " . $command);
+        }
+    }
+
 
 }
