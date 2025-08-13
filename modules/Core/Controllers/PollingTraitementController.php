@@ -83,13 +83,10 @@ protected function runArtisanInBackground(string $artisanCommand, array $params 
 
     if (stripos(PHP_OS_FAMILY, 'Windows') !== false) {
         // 🚀 Windows : ajouter variables d'environnement Xdebug
-        $envCommand = "";
-        // $envCommand  = '$env:XDEBUG_MODE="debug,develop"; ';
-        // $envCommand .= '$env:XDEBUG_START_WITH_REQUEST="yes"; ';
-        // $envCommand .= '$env:XDEBUG_IDEKEY="VSCODE"; ';
 
+    
         // PowerShell + start /B
-        $fullCommand = 'powershell -Command "' . $envCommand . $fullCommand . '"';
+        $fullCommand = 'powershell -Command "' . $fullCommand . '"';
 
         $this->executeCommandAsync($fullCommand);
         // $cmd = sprintf('start /B "" %s', $fullCommand);
@@ -114,20 +111,6 @@ private function executeCommandAsync($command)
             shell_exec("{$command} > " . storage_path('logs/async_cmd.log') . " 2>&1 &");
         }
     }
-private function executeCommandSync($command, $logMessage = "")
-    {
-        Log::info("Exécution SYNCHRONE de la commande : " . $command);
-
-        $output = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
-            ? shell_exec($command . " 2>&1") 
-            : shell_exec($command . " 2>&1");
-
-        if (!empty($output)) {
-            Log::info("Sortie de la commande :\n" . trim($output));
-        } else {
-            Log::error("La commande n'a retourné aucune sortie : " . $command);
-        }
-    }
-
+ 
 
 }
