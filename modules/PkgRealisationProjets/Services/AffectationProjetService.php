@@ -171,7 +171,7 @@ public function deletedObserverJob(int $id, string $token): void
 
     // 1️⃣ Progression Chapitres
     if ($realisation_chapitres_ids->isNotEmpty()) {
-        $jobManager->setLabel("🔄 Mise à jour des chapitres (N1)");
+        $jobManager->setLabel("Mise à jour des chapitres");
         app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class)
             ->calculerProgressionDepuisRealisationChapitresIds($realisation_chapitres_ids);
         $jobManager->tick();
@@ -183,7 +183,7 @@ public function deletedObserverJob(int $id, string $token): void
         $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $ua_ids)->get();
 
         foreach ($uas as $ua) {
-            $jobManager->setLabel("🔄 Recalcul de la progression pour UA #{$ua->id}");
+            $jobManager->setLabel("Recalcul de la progression pour UA #{$ua}");
             $uaService->calculerProgression($ua);
             $jobManager->tick();
         }

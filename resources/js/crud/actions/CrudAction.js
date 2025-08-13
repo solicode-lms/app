@@ -72,7 +72,7 @@ export class CrudAction extends Action {
                     } else {
                         if(!error){
                             loader?.showNomBloquante(`${label} ${progress}%`);
-                            setTimeout(poll, 2000);
+                            setTimeout(poll, 1500);
                         }
                     }
                 })
