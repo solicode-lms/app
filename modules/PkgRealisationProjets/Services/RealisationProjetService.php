@@ -351,9 +351,7 @@ class RealisationProjetService extends BaseRealisationProjetService
 
     private function creerRealisationTaches(RealisationProjet $realisationProjet): void
     {
-        $formateur_id = Auth::user()->hasRole(Role::FORMATEUR_ROLE)
-            ? Auth::user()->formateur?->id
-            : null;
+        $formateur_id = $realisationProjet->affectationProjet->projet->formateur_id;
 
         $affectationProjet = $realisationProjet->affectationProjet;
         $taches = $affectationProjet->projet->taches;

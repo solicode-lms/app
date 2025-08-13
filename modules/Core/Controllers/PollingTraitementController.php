@@ -67,50 +67,46 @@ class PollingTraitementController extends AdminController
 
 
 
-protected function runArtisanInBackground(string $artisanCommand, array $params = [])
-{
-    $phpPath = "php";
-    $artisan = base_path('artisan');
-
-    // Commande de base
-    $fullCommand = sprintf(
-        '%s %s %s %s',
-        escapeshellarg($phpPath),
-        escapeshellarg($artisan),
-        $artisanCommand,
-        implode(' ', array_map('escapeshellarg', $params))
-    );
-
-    if (stripos(PHP_OS_FAMILY, 'Windows') !== false) {
-        // 🚀 Windows : ajouter variables d'environnement Xdebug
-
-    
-        // PowerShell + start /B
-        $fullCommand = 'powershell -Command "' . $fullCommand . '"';
-
-        $this->executeCommandAsync($fullCommand);
-        // $cmd = sprintf('start /B "" %s', $fullCommand);
-
-        
-        // pclose(popen($cmd, 'r'));
-
-    } else {
-        // 🚀 Linux : simple exécution en arrière-plan
-        $cmd = sprintf('%s > /dev/null 2>&1 &', $fullCommand);
-        exec($cmd);
-    }
-}
-
-private function executeCommandAsync($command)
+ /**
+     * Lance une commande Artisan en arrière-plan (multi-OS).
+     */
+    protected function runArtisanInBackground(string $artisanCommand, array $params = [])
     {
-        Log::info("Exécution ASYNCHRONE de la commande : " . $command);
+        $phpPath   = 'php'; // Ou PHP_BINARY si CLI configuré
+        $artisan   = base_path('artisan');
+        $arguments = implode(' ', array_map('escapeshellarg', $params));
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            pclose(popen("start /B {$command} > " . storage_path('logs/async_cmd.log') . " 2>&1", "r"));
+        $fullCommand = sprintf(
+            '%s %s %s %s',
+            escapeshellarg($phpPath),
+            escapeshellarg($artisan),
+            $artisanCommand,
+            $arguments
+        );
+
+        if (stripos(PHP_OS_FAMILY, 'Windows') !== false) {
+            // Windows : PowerShell + démarrage en arrière-plan
+            $fullCommand = 'powershell -Command "' . $fullCommand . '"';
+            $this->executeCommandAsync($fullCommand);
         } else {
-            shell_exec("{$command} > " . storage_path('logs/async_cmd.log') . " 2>&1 &");
+            // Linux/Mac : démarrage en arrière-plan avec redirection
+            exec(sprintf('%s > /dev/null 2>&1 &', $fullCommand));
         }
     }
- 
+
+    /**
+     * Exécute une commande système en arrière-plan et loggue la sortie.
+     */
+    private function executeCommandAsync(string $command)
+    {
+        $logFile = storage_path('logs/async_cmd.log');
+        Log::info("Exécution ASYNCHRONE de la commande : " . $command);
+
+        if (stripos(PHP_OS_FAMILY, 'Windows') !== false) {
+            pclose(popen("start /B {$command} > {$logFile} 2>&1", "r"));
+        } else {
+            shell_exec("{$command} > {$logFile} 2>&1 &");
+        }
+    }
 
 }

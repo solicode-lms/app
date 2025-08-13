@@ -24,6 +24,7 @@ use Modules\Core\Services\Traits\{
     SortTrait,
     StatsTrait,
     OrdreTraite,
+    HandleThrowableTrait,
     JobTrait
 };
 
@@ -50,6 +51,7 @@ abstract class BaseService implements ServiceInterface
         RelationTrait, 
         FilterTrait, 
         StatsTrait,
+        HandleThrowableTrait,
         JobTrait;
 
 

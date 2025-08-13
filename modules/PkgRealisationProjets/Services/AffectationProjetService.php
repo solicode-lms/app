@@ -138,10 +138,14 @@ class AffectationProjetService extends BaseAffectationProjetService
 
         } catch (\Throwable $e) {
 
+            
+            $this->handleThrowable($e);
+
             $jobManager->fail(function () use ($id) {
                 // Suppression de l'entité si afterCreate
                 $this->destroy($id);
             }, true, $e);
+
             return 'error';
         }
     }
