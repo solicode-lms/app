@@ -9,40 +9,40 @@ use Illuminate\Support\Facades\File;
 
 class PkgRealisationProjetsServiceProvider extends BasePkgRealisationProjetsServiceProvider
 {
-    public function boot()
-    {
-        // Charger les migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../Database/Migrations');
+    // public function boot()
+    // {
+    //     // Charger les migrations
+    //     $this->loadMigrationsFrom(__DIR__ . '/../../Database/Migrations');
 
-        // Charger les fichiers de routes du module
-        $routeFiles = File::allFiles(__DIR__ . '/../../Routes');
+    //     // Charger les fichiers de routes du module
+    //     $routeFiles = File::allFiles(__DIR__ . '/../../Routes');
         
-        $routeFiles = collect(File::allFiles(__DIR__ . '/../../Routes'))
-        ->sortBy(function ($file) {
-            $name = $file->getFilename();
-            return match (true) {
-                str_contains($name, '.custom.') => 0,
-                str_contains($name, '.api.')    => 1,
-                default                       => 10,
-            };
-        });
+    //     $routeFiles = collect(File::allFiles(__DIR__ . '/../../Routes'))
+    //     ->sortBy(function ($file) {
+    //         $name = $file->getFilename();
+    //         return match (true) {
+    //             str_contains($name, '.custom.') => 0,
+    //             str_contains($name, '.api.')    => 1,
+    //             default                       => 10,
+    //         };
+    //     });
         
-        foreach ($routeFiles as $routeFile) {
-            $this->loadRouteFile($routeFile);
-        }
+    //     foreach ($routeFiles as $routeFile) {
+    //         $this->loadRouteFile($routeFile);
+    //     }
 
         
 
-        // Charger les vues du module
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'PkgRealisationProjets');
+    //     // Charger les vues du module
+    //     $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'PkgRealisationProjets');
 
-        // Charger les fichiers de traduction
-        $this->loadTranslationsFrom(
-            __DIR__ . '/../../resources/lang',
-            'PkgRealisationProjets'
-        );
+    //     // Charger les fichiers de traduction
+    //     $this->loadTranslationsFrom(
+    //         __DIR__ . '/../../resources/lang',
+    //         'PkgRealisationProjets'
+    //     );
 
-        $this->registerObservers();
-    }
+    //     $this->registerObservers();
+    // }
     
 }

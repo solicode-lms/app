@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Modules\PkgCreationProjet\Services\Base\BaseProjetService;
 use Illuminate\Support\Facades\DB;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
+use Modules\PkgCreationProjet\Models\Livrable;
+use Modules\PkgCreationProjet\Models\NatureLivrable;
 use Modules\PkgCreationTache\Models\Tache;
 use Modules\PkgRealisationProjets\Models\EtatsRealisationProjet;
 use Modules\PkgSessions\Models\SessionFormation;
@@ -109,6 +111,10 @@ class ProjetService extends BaseProjetService
                 $this->addProjectTasks($projet, $session);
             }
         }
+
+        // 🔹 Ajout des livrables par défaut
+        $this->addDefaultLivrables($projet);
+
 
     }
 
@@ -378,5 +384,40 @@ class ProjetService extends BaseProjetService
             $this->pushServiceMessage("success", "Clonage projet", "Le projet a été cloné avec succès.");
             return $nouveauProjet;
         });
+    }
+
+    /**
+     * Ajoute les livrables par défaut à un projet.
+     */
+    protected function addDefaultLivrables($projet)
+    {
+        $defaultLivrables = [
+            [
+                'titre'            => 'Code source',
+                'description'      => 'Livrable contenant le code source complet du projet',
+                'natureReference'  => 'Code'
+            ],
+            [
+                'titre'            => 'Présentation',
+                'description'      => 'Présentation du projet (slides, vidéo, etc.)',
+                'natureReference'  => 'Présentation'
+            ],
+        ];
+
+        foreach ($defaultLivrables as $livrableData) {
+            // Récupérer l’ID de la nature correspondant à la référence
+            $natureId = NatureLivrable::where('reference', $livrableData['natureReference'])->value('id');
+
+            Livrable::firstOrCreate(
+                [
+                    'projet_id'          => $projet->id,
+                    'titre'              => $livrableData['titre'],
+                ],
+                [
+                    'description'        => $livrableData['description'],
+                    'nature_livrable_id' => $natureId, // null si introuvable
+                ]
+            );
+        }
     }
 }

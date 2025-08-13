@@ -1,1 +1,9 @@
-nom,description
+nom,description,reference
+Code,"Code source de projet, généralement hébergé sur une plateforme comme GitHub.","Code"
+Présentation,"Diapositives de présentation, souvent créées avec PowerPoint ou d'autres outils.","Présentation"
+Rapport,"Rapport détaillé contenant une analyse ou une documentation du projet.","Rapport"
+Documentation,"Manuel d'utilisation ou documentation technique pour le projet.","Documentation"
+Prototype,"Version initiale ou maquette fonctionnelle du projet.","Prototype"
+Vidéo,"Vidéo démonstrative ou tutorielle expliquant le projet.","Vidéo"
+Diagramme,"Diagrammes UML ou autres visualisations structurelles du projet.","Diagramme"
+Test,"Rapport de test ou suite de tests pour valider le fonctionnement du projet.","Test"

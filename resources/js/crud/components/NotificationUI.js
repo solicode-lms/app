@@ -17,11 +17,11 @@ export class NotificationUI {
      * Initialise les événements pour les notifications.
      */
     init() {
-        // this.loadNotifications();
-        // if (!NotificationUI.autoRefreshStarted) {
-        //     this.startAutoRefresh();
-        //     NotificationUI.autoRefreshStarted = true;
-        // }
+        this.loadNotifications();
+        if (!NotificationUI.autoRefreshStarted) {
+            this.startAutoRefresh();
+            NotificationUI.autoRefreshStarted = true;
+        }
     }
 
     /**

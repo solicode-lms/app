@@ -54,6 +54,10 @@ php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealis
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationModuleSeeder
 php artisan db:seed --class=Modules\PkgApprentissage\Database\Seeders\EtatRealisationCompetenceSeeder
 
+# PkgCreationProjet
+php artisan db:seed --class=Modules\PkgCreationProjet\Database\Seeders\NatureLivrableSeeder
+
+
 
 # PkgCreationTache
 php artisan db:seed --class=Modules\PkgCreationTache\Database\Seeders\TacheSeeder
