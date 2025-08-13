@@ -32,7 +32,8 @@ class BaseRealisationMicroCompetenceService extends BaseService
         'date_debut',
         'date_fin',
         'dernier_update',
-        'realisation_competence_id'
+        'realisation_competence_id',
+        'lien_livrable'
     ];
 
     /**

@@ -31,6 +31,7 @@
     
     <div class="row">
         <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="micro_competence_id" :bulkEdit="$bulkEdit">
+      @php $canEditmicro_competence_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
@@ -44,6 +45,7 @@
           </label>
                       <select 
             id="micro_competence_id" 
+            {{ $canEditmicro_competence_id ? '' : 'disabled' }}
             required
             
             
@@ -65,6 +67,7 @@
 </x-form-field>
 
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="apprenant_id" :bulkEdit="$bulkEdit">
+      @php $canEditapprenant_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -78,6 +81,7 @@
           </label>
                       <select 
             id="apprenant_id" 
+            {{ $canEditapprenant_id ? '' : 'disabled' }}
             required
             
             
@@ -98,67 +102,8 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="note_cache" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="note_cache" id="bulk_field_note_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="note_cache">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.note_cache')) }}
-            <span class="text-danger">*</span>
-          </label>
-              <input
-        name="note_cache"
-        type="number"
-        class="form-control"
-        required
-        
-        
-        id="note_cache"
-        step="0.01"
-        placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.note_cache') }}"
-        value="{{ $itemRealisationMicroCompetence ? number_format($itemRealisationMicroCompetence->note_cache, 2, '.', '') : old('note_cache') }}">
-          @error('note_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="progression_cache" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_cache" id="bulk_field_progression_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="progression_cache">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_cache')) }}
-            <span class="text-danger">*</span>
-          </label>
-              <input
-        name="progression_cache"
-        type="number"
-        class="form-control"
-        required
-        
-        
-        id="progression_cache"
-        step="0.01"
-        placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.progression_cache') }}"
-        value="{{ $itemRealisationMicroCompetence ? number_format($itemRealisationMicroCompetence->progression_cache, 2, '.', '') : old('progression_cache') }}">
-          @error('progression_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
 <x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="etat_realisation_micro_competence_id" :bulkEdit="$bulkEdit">
+      @php $canEditetat_realisation_micro_competence_id = !$itemRealisationMicroCompetence || !$itemRealisationMicroCompetence->id || Auth::user()->hasAnyRole(explode(',', 'root')); @endphp
 
       <div class="form-group col-12 col-md-6">
           @if ($bulkEdit)
@@ -172,6 +117,7 @@
           </label>
                       <select 
             id="etat_realisation_micro_competence_id" 
+            {{ $canEditetat_realisation_micro_competence_id ? '' : 'disabled' }}
             
             
             
@@ -192,181 +138,29 @@
   
 </x-form-field>
 
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="bareme_cache" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="bareme_cache" id="bulk_field_bareme_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="bareme_cache">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.bareme_cache')) }}
-            <span class="text-danger">*</span>
-          </label>
-              <input
-        name="bareme_cache"
-        type="number"
-        class="form-control"
-        required
-        
-        
-        id="bareme_cache"
-        step="0.01"
-        placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.bareme_cache') }}"
-        value="{{ $itemRealisationMicroCompetence ? number_format($itemRealisationMicroCompetence->bareme_cache, 2, '.', '') : old('bareme_cache') }}">
-          @error('bareme_cache')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="commentaire_formateur" :bulkEdit="$bulkEdit">
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="lien_livrable" :bulkEdit="$bulkEdit">
 
       <div class="form-group col-12 col-md-12">
           @if ($bulkEdit)
           <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="commentaire_formateur" id="bulk_field_commentaire_formateur" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="lien_livrable" id="bulk_field_lien_livrable" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
           </div>
           @endif
-          <label for="commentaire_formateur">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.commentaire_formateur')) }}
+          <label for="lien_livrable">
+            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.lien_livrable')) }}
             
           </label>
-                      <textarea rows="" cols=""
-                name="commentaire_formateur"
-                class="form-control richText"
+           <input
+                name="lien_livrable"
+                type="input"
+                class="form-control"
                 
                 
                 
-                id="commentaire_formateur"
-                placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.commentaire_formateur') }}">{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->commentaire_formateur : old('commentaire_formateur') }}</textarea>
-          @error('commentaire_formateur')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="date_debut" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_debut" id="bulk_field_date_debut" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_debut">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_debut')) }}
-            
-          </label>
-                      <input
-                name="date_debut"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_debut"
-                placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.date_debut') }}"
-                value="{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->date_debut : old('date_debut') }}">
-
-          @error('date_debut')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="date_fin" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="date_fin" id="bulk_field_date_fin" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="date_fin">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.date_fin')) }}
-            
-          </label>
-                      <input
-                name="date_fin"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="date_fin"
-                placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.date_fin') }}"
-                value="{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->date_fin : old('date_fin') }}">
-
-          @error('date_fin')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="dernier_update" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="dernier_update" id="bulk_field_dernier_update" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="dernier_update">
-            {{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.dernier_update')) }}
-            
-          </label>
-                      <input
-                name="dernier_update"
-                type="text"
-                class="form-control datetimepicker"
-                
-                
-                
-                id="dernier_update"
-                placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.dernier_update') }}"
-                value="{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->dernier_update : old('dernier_update') }}">
-
-          @error('dernier_update')
-            <div class="text-danger">{{ $message }}</div>
-          @enderror
-      </div>
-  
-</x-form-field>
-
-<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationMicroCompetence" field="realisation_competence_id" :bulkEdit="$bulkEdit">
-
-      <div class="form-group col-12 col-md-6">
-          @if ($bulkEdit)
-          <div class="bulk-check">
-              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="realisation_competence_id" id="bulk_field_realisation_competence_id" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
-          </div>
-          @endif
-          <label for="realisation_competence_id">
-            {{ ucfirst(__('PkgApprentissage::realisationCompetence.singular')) }}
-            <span class="text-danger">*</span>
-          </label>
-                      <select 
-            id="realisation_competence_id" 
-            required
-            
-            
-            name="realisation_competence_id" 
-            class="form-control select2">
-             <option value="">Sélectionnez une option</option>
-                @foreach ($realisationCompetences as $realisationCompetence)
-                    <option value="{{ $realisationCompetence->id }}"
-                        {{ (isset($itemRealisationMicroCompetence) && $itemRealisationMicroCompetence->realisation_competence_id == $realisationCompetence->id) || (old('realisation_competence_id>') == $realisationCompetence->id) ? 'selected' : '' }}>
-                        {{ $realisationCompetence }}
-                    </option>
-                @endforeach
-            </select>
-          @error('realisation_competence_id')
+                id="lien_livrable"
+                placeholder="{{ __('PkgApprentissage::realisationMicroCompetence.lien_livrable') }}"
+                value="{{ $itemRealisationMicroCompetence ? $itemRealisationMicroCompetence->lien_livrable : old('lien_livrable') }}">
+          @error('lien_livrable')
             <div class="text-danger">{{ $message }}</div>
           @enderror
       </div>

@@ -52,7 +52,15 @@ class BasePkgFormationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../../Database/Migrations');
 
         // Charger les fichiers de routes du module
-        $routeFiles = File::allFiles(__DIR__ . '/../../../Routes');
+        $routeFiles = collect(File::allFiles(__DIR__ .  '/../../../Routes'))
+        ->sortBy(function ($file) {
+            $name = $file->getFilename();
+            return match (true) {
+                str_contains($name, '.custom.') => 0,
+                str_contains($name, '.api.')    => 1,
+                default                       => 10,
+            };
+        });
         foreach ($routeFiles as $routeFile) {
             $this->loadRouteFile($routeFile);
         }

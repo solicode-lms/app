@@ -118,7 +118,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_debut_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_date_debut",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -136,7 +137,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_debut_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_date_debut",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -161,7 +163,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_fin_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_date_fin",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -179,7 +182,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_date_fin_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_date_fin",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -203,7 +207,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_cache_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -221,7 +226,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_progression_cache_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -245,7 +251,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_note_cache_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_note_cache",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -287,7 +294,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_bareme_cache_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_bareme_cache",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -305,7 +313,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_bareme_cache_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_bareme_cache",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -324,7 +333,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_commentaire_formateur_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_commentaire_formateur",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -342,7 +352,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_commentaire_formateur_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_commentaire_formateur",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -360,7 +371,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_dernier_update_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_dernier_update",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -378,7 +390,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_dernier_update_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_dernier_update",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -738,7 +751,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_realisation_competence_id_displayInForm",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "displayInForm"
     },
@@ -756,7 +770,8 @@
     },
     {
         "reference": "RealisationMicroCompetence_realisation_competence_id_viewFormFieldVisible",
-        "value_boolean": 1,
+        "value_boolean": 0,
+        "value_float": 0,
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "viewFormFieldVisible"
     },
@@ -765,5 +780,178 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_displayOrder",
+        "value_integer": 14,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_inputMdWidth",
+        "value_boolean": 0,
+        "value_integer": 12,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_nature",
+        "value_json": {
+            "nature": "lien"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_sortable",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "sortable"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationMicroCompetence_micro_competence_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_micro_competence_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_apprenant_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_apprenant_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_note_cache_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_note_cache",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_progression_cache_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_progression_cache",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_etat_realisation_micro_competence_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_bareme_cache_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_bareme_cache",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "realisation_micro_competences_hasMany_realisation_uas_realisation_micro_competence_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_commentaire_formateur_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_commentaire_formateur",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_date_debut_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_date_debut",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_date_fin_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_date_fin",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_realisation_competence_id_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_realisation_competence_id",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_dernier_update_editableByRoles",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "roles": "root"
+        },
+        "e_data_field_reference": "RealisationMicroCompetence_dernier_update",
+        "e_metadata_definition_reference": "editableByRoles"
+    },
+    {
+        "reference": "RealisationMicroCompetence_lien_livrable_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationMicroCompetence_lien_livrable",
+        "e_metadata_definition_reference": "displayInTable"
     }
 ]

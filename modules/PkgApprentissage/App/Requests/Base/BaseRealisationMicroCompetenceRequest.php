@@ -39,7 +39,8 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
             'dernier_update' => 'nullable',
-            'realisation_competence_id' => 'required'
+            'realisation_competence_id' => 'required',
+            'lien_livrable' => 'nullable|string|max:255|url'
         ];
     }
 
@@ -61,9 +62,70 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.date_fin')]),
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')]),
-            'realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.realisation_competence_id')])
+            'realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.realisation_competence_id')]),
+            'lien_livrable.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.lien_livrable')]),
+            'lien_livrable.max' => __('validation.lien_livrableMax')
         ];
     }
 
+    
+    protected function prepareForValidation()
+    {
+        $user = Auth::user();
+
+        // Définition des rôles autorisés pour chaque champ
+        $editableFieldsByRoles = [
+            
+            'micro_competence_id' => "root",
+            
+            'apprenant_id' => "root",
+            
+            'note_cache' => "root",
+            
+            'progression_cache' => "root",
+            
+            'etat_realisation_micro_competence_id' => "root",
+            
+            'bareme_cache' => "root",
+            
+            'RealisationUa' => "root",
+            
+            'commentaire_formateur' => "root",
+            
+            'date_debut' => "root",
+            
+            'date_fin' => "root",
+            
+            'dernier_update' => "root",
+            
+            'realisation_competence_id' => "root",
+            
+        ];
+
+        // Charger l'instance actuelle du modèle (optionnel, selon ton contexte)
+        $realisation_micro_competence_id = $this->route('realisationMicroCompetence'); // Remplace 'model' par le bon paramètre de route
+        
+        // Vérifier si c'est une édition (realisationMicroCompetence existant dans l'URL)
+        if (!$realisation_micro_competence_id) {
+            return;
+        }
+        
+        $model = RealisationMicroCompetence::find($realisation_micro_competence_id);
+
+        
+        // Vérification et suppression des champs non autorisés
+        foreach ($editableFieldsByRoles as $field => $roles) {
+            if (!$user->hasAnyRole(explode(',', $roles))) {
+                
+
+                // Supprimer le champ pour éviter l'écrasement
+                $this->request->remove($field);
+
+                // Si le champ est absent dans la requête, on garde la valeur actuelle
+                $this->merge([$field => $model->$field]);
+                
+            }
+        }
+    }
     
 }

@@ -18,7 +18,7 @@ class SessionFormation extends BaseSessionFormation
 
      public function __toString()
     {
-        return ($this->ordre ?? "") . " " . ($this->titre ?? "");
+        return ($this->ordre ?? "") . "-" . ($this->titre ?? "");
     }
 
 }

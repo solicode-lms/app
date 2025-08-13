@@ -44,6 +44,7 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
                 'dernier_update' => 'dernier_update',
                 'realisation_competence_reference' => 'realisation_competence_reference',
                 'reference' => 'reference',
+                'lien_livrable' => 'lien_livrable',
             ];
         } else {
             return [
@@ -59,6 +60,7 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
                 'dernier_update' => __('PkgApprentissage::realisationMicroCompetence.dernier_update'),
                 'realisation_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.realisation_competence_reference'),
                 'reference' => __('Core::msg.reference'),
+                'lien_livrable' => __('PkgApprentissage::realisationMicroCompetence.lien_livrable'),
             ];
         }
     }
@@ -82,6 +84,7 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
                 'dernier_update' => $realisationMicroCompetence->dernier_update,
                 'realisation_competence_reference' => $realisationMicroCompetence->realisationCompetence?->reference,
                 'reference' => $realisationMicroCompetence->reference,
+                'lien_livrable' => $realisationMicroCompetence->lien_livrable,
             ];
         });
     }

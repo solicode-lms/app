@@ -14,4 +14,5 @@ return [
     'apprenant_id' => 'Apprenant',
     'micro_competence_id' => 'Micro-Compétence',
     'etat_realisation_micro_competence_id' => 'État',
+    'lien_livrable' => 'Livrable'
 ];

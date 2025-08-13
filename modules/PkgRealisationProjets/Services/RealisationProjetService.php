@@ -108,34 +108,17 @@ class RealisationProjetService extends BaseRealisationProjetService
 
 
         // If formateur ou apprenant
-        if(Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE)){
-            // Affichage des état de formateur
-            $etatsRealisationProjetService = new EtatsRealisationProjetService();
-            $etatsRealisationProjets = match (true) {
-                Auth::user()->hasRole(Role::FORMATEUR_ROLE) => $etatsRealisationProjetService->getByFormateur($this->sessionState->get("formateur_id")),
-                Auth::user()->hasRole(Role::APPRENANT_ROLE) => $etatsRealisationProjetService->getEtatsByFormateurPrincipalForApprenant($this->sessionState->get("apprenant_id")),
-                default => $etatsRealisationProjetService->all(),
-            };
-            $this->fieldsFilterable[] =   $this->generateManyToOneFilter(
-                __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
-                'etats_realisation_projet_id', 
-                \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class,
-                'titre',$etatsRealisationProjets);
-        }
-        // Etat - Solicode
-        if(!Auth::user()->hasAnyRole(Role::FORMATEUR_ROLE,Role::APPRENANT_ROLE) || !empty($this->viewState->get("filter.realisationTache.EtatRealisationTache.WorkflowTache.Code") ) ) {
-            // Affichage de l'état de solicode
-            $workflowProjetService = new WorkflowProjetService();
-            $workflowProjets = $workflowProjetService->all();
-            $this->fieldsFilterable[] = $this->generateRelationFilter(
-                __("PkgRealisationProjets::workflowProjet.plural"), 
-                'EtatsRealisationProjet.WorkflowProjet.Code', 
-                WorkflowProjet::class, 
-                "code",
-                "code",
-                $workflowProjets
-            );
-        }
+        $etatsRealisationProjetService = new \Modules\PkgRealisationProjets\Services\EtatsRealisationProjetService();
+        $etatsRealisationProjetIds = $this->getAvailableFilterValues('etats_realisation_projet_id');
+        $etatsRealisationProjets = $etatsRealisationProjetService->getByIds($etatsRealisationProjetIds);
+
+        $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+            __("PkgRealisationProjets::etatsRealisationProjet.plural"), 
+            'etats_realisation_projet_id', 
+            \Modules\PkgRealisationProjets\Models\EtatsRealisationProjet::class, 
+            'code',
+            $etatsRealisationProjets
+        );
 
 
      }

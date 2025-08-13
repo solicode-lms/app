@@ -8,7 +8,7 @@
     $dateModification = $last?->dateModification ? \Carbon\Carbon::parse($last->dateModification) : null;
 @endphp
 @if($dateModification)
-<span class="d-block text-muted small" title="Date de dernière modification : {{$dateModification}}" data-toggle="tooltip">
+<span class="d-block text-muted small" title="Date de dernière modification" data-toggle="tooltip">
     — {{ $dateModification->diffForHumans() }}
 </span>
 @endif
@@ -32,7 +32,7 @@
     @php
         $progression = $entity->tacheAffectation->pourcentage_realisation_cache;
     @endphp
-    <small class="text-muted d-block" title="% des apprenants ont terminé cette tâche">
+    <small class="text-muted d-block" data-toggle="tooltip" title="Progression de la classe">
         —   <i class="fas fa-users me-1"></i> {{ $progression }}% réalisés
     </small>
 @endif

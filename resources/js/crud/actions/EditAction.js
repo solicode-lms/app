@@ -188,6 +188,7 @@ export class EditAction extends CrudAction {
                 }
             })
             .fail((xhr) => {
+                this.loader.hide();
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors de la mise à jour.');
             });
     }

@@ -52,11 +52,6 @@ class BasePkgRealisationProjetsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../../Database/Migrations');
 
         // Charger les fichiers de routes du module
-        // $routeFiles = File::allFiles(__DIR__ . '/../../../Routes');
-        // foreach ($routeFiles as $routeFile) {
-        //     $this->loadRouteFile($routeFile);
-        // }
-
         $routeFiles = collect(File::allFiles(__DIR__ .  '/../../../Routes'))
         ->sortBy(function ($file) {
             $name = $file->getFilename();

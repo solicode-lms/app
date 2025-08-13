@@ -107,6 +107,7 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                         "realisation_competence_id" => $realisation_competence_id,
+                        "lien_livrable" => isset($row["lien_livrable"]) && $row["lien_livrable"] !== "" ? $row["lien_livrable"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {
