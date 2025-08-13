@@ -21,36 +21,68 @@ class DefaultAdminPermission extends Seeder
             return;
         }
 
-        // Ajouter Édition 
-        // Tableau de configuration : modèle et type d'accès
-        $permissionsMap = [
+     
+         $permissionsMap = [
+            'sysColor' => 'Lecture',
             'profile' => 'Édition sans Ajouter',
+            'competence' => 'Édition',
+            'microCompetence' => 'Édition',
+            'uniteApprentissage' => 'Édition',
+            'chapitre' => 'Édition',
+            'phaseEvaluation' => 'Afficher',
+            'critereEvaluation' => 'Édition',
+            'module' => 'Édition',
+            'anneeFormation' => 'Afficher',
+            'specialite' => 'Édition',
+            'formateur' => 'Édition',
+            'filiere' => 'Édition',
+            'niveauxScolaire' => 'Édition',
+            'nationalite' => 'Édition',
+            'groupe' => 'Édition',
+            'sousGroupe' => 'Édition',
             'apprenant' => 'Édition,initPassword',
-            'formateur' => 'Édition,initPassword',
-            'specialite' => 'Édition,Extraction',
-            'filiere' => 'Édition sans Ajouter,Extraction',
-            'competence' => 'Édition,Extraction',
-            'module' => 'Édition,Extraction',
-            'technology' => 'Édition,Extraction',
-            'niveauDifficulte' => 'Lecture',
-            'projet' => 'Lecture',
+            'natureLivrable' => 'Afficher',
+            'projet' => 'Lecture,Extraction',
             'livrable' => 'Lecture',
             'resource' => 'Lecture',
-            'transfertCompetence' => 'Lecture',
-            'affectationProjet' => 'Lecture',
+            'mobilisationUa' => 'Lecture',
+            'affectationProjet' => 'Lecture,Extraction',
             'etatsRealisationProjet' => 'Lecture',
             'livrablesRealisation' => 'Lecture',
             'realisationProjet' => 'Lecture',
-            'validation' => 'Lecture',
+            'commentaireRealisationTache' => 'Lecture',
+            'etatRealisationTache' => 'Lecture',
+            'historiqueRealisationTache' => 'Lecture',
+            'realisationTache' => 'Lecture',
+            'workflowTache' => 'Afficher',
+            'tache' => 'Lecture',
+            'notification' => 'Lecture',
+            'widget' => 'Lecture',
+            'sectionWidget' => 'Afficher',
+            'widgetUtilisateur' => 'Édition',
+            'realisationChapitre' => 'Lecture',
+            'realisationUaProjet' => 'Lecture',
+            'realisationUaPrototype' => 'Lecture',
+            'realisationMicroCompetence' => 'Lecture',
+            'realisationCompetence' => 'Lecture',
+            'realisationModule' => 'Lecture',
+            'etatRealisationMicroCompetence' => 'Lecture',
+            'sessionFormation' => 'Lecture',
+            'etatRealisationUa' => 'Afficher',
+            'etatRealisationChapitre' => 'Afficher',
+            'realisationUa' => 'Lecture',
+            'alignementUa' => 'Lecture',
+            'livrableSession' => 'Lecture',
         ];
 
         // Actions par type d'accès
-        $featurePermissions = [
-            'Afficher' => ['show'],
-            'Lecture' => ['index', 'show'],
-            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul'],
-            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul'],
+         $featurePermissions = [
+            'Afficher' => ['show','getData'],
+            'Lecture' => ['index', 'show','getData'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
+            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
             'Extraction' => ['import', 'export'],
+            'clonerProjet' => ['clonerProjet'],
             'initPassword' => ['initPassword'],
         ];
 
@@ -75,6 +107,6 @@ class DefaultAdminPermission extends Seeder
             }
         }
 
-        $this->command->info('Permissions associées au rôle "formateur" avec succès.');
+        $this->command->info('Permissions associées au rôle "admin" avec succès.');
     }
 }

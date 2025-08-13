@@ -30,6 +30,46 @@ class ProjetService extends BaseProjetService
     ];
 
 
+    public function createInstance(array $data = [])
+    {
+        // Si l'utilisateur est formateur, on injecte son formateur_id
+        if (Auth::check() && Auth::user()->hasRole('formateur')) {
+            // Récupération sécurisée du formateur_id depuis la session
+            $formateurId = $this->sessionState->get('formateur_id');
+
+            if (!$formateurId) {
+                throw new \Exception("Impossible de récupérer l'identifiant du formateur depuis la session.");
+            }
+
+            $data['formateur_id'] = $formateurId;
+        }
+
+        return parent::createInstance($data);
+    }
+
+    public function create(array|object $data)
+    {
+        // Vérifier si l'utilisateur connecté est un formateur
+        if (Auth::check() && Auth::user()->hasRole('formateur')) {
+            // Récupération sécurisée du formateur_id depuis la session
+            $formateurId = $this->sessionState->get('formateur_id');
+
+            if (!$formateurId) {
+                throw new \Exception("Impossible de récupérer l'identifiant du formateur depuis la session.");
+            }
+
+            // Forcer la valeur, peu importe ce qui est envoyé par le client
+            if (is_array($data)) {
+                $data['formateur_id'] = $formateurId;
+            } elseif (is_object($data)) {
+                $data->formateur_id = $formateurId;
+            }
+        }
+
+        return parent::create($data);
+    }
+
+
     public function beforeDeleteRules($projet)
     {
         // Vérification des affectations liées au projet
@@ -98,112 +138,110 @@ class ProjetService extends BaseProjetService
     }
 
 
-protected function addProjectTasks($projet, $session)
-{
-    $priorite = 1; // compteur de priorité progressive
-    $ordre = 1;   // compteur d'ordre
+    protected function addProjectTasks($projet, $session)
+    {
+        $priorite = 1; // compteur de priorité progressive
+        $ordre = 1;   // compteur d'ordre
 
-    // Récupérer les IDs des phases d'évaluation (N1, N2, N3)
-    $phaseN1 = PhaseEvaluation::where('code', 'N1')->value('id');
-    $phaseN2 = PhaseEvaluation::where('code', 'N2')->value('id');
-    $phaseN3 = PhaseEvaluation::where('code', 'N3')->value('id');
+        // Récupérer les IDs des phases d'évaluation (N1, N2, N3)
+        $phaseN1 = PhaseEvaluation::where('code', 'N1')->value('id');
+        $phaseN2 = PhaseEvaluation::where('code', 'N2')->value('id');
+        $phaseN3 = PhaseEvaluation::where('code', 'N3')->value('id');
 
-    // Calculer la note pour le prototype et la réalisation
-    $notePrototype = $session->alignementUas->sum(function ($alignementUa) {
-        return $alignementUa->uniteApprentissage->critereEvaluations
-            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N2')
-            ->sum('bareme');
-    });
+        // Calculer la note pour le prototype et la réalisation
+        $notePrototype = $session->alignementUas->sum(function ($alignementUa) {
+            return $alignementUa->uniteApprentissage->critereEvaluations
+                ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N2')
+                ->sum('bareme');
+        });
 
-    $noteRealisation = $session->alignementUas->sum(function ($alignementUa) {
-        return $alignementUa->uniteApprentissage->critereEvaluations
-            ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N3')
-            ->sum('bareme');
-    });
+        $noteRealisation = $session->alignementUas->sum(function ($alignementUa) {
+            return $alignementUa->uniteApprentissage->critereEvaluations
+                ->filter(fn($critere) => optional($critere->phaseEvaluation)->code === 'N3')
+                ->sum('bareme');
+        });
 
-    // Tâche Analyse
-    Tache::firstOrCreate(
-        [
-            'projet_id' => $projet->id,
-            'titre' => 'Analyse',
-        ],
-        [
-            'description' => 'Analyse du projet',
-            'priorite' => $priorite++,
-            'ordre' => $ordre++,
-            'phase_evaluation_id' => null,
-            'chapitre_id' => null
-        ]
-    );
+        // Tâche Analyse
+        Tache::firstOrCreate(
+            [
+                'projet_id' => $projet->id,
+                'titre' => 'Analyse',
+            ],
+            [
+                'description' => 'Analyse du projet',
+                'priorite' => $priorite++,
+                'ordre' => $ordre++,
+                'phase_evaluation_id' => null,
+                'chapitre_id' => null
+            ]
+        );
 
-    // Tâches Chapitre
-    foreach ($session->alignementUas as $alignementUa) {
-        foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
-            Tache::firstOrCreate(
-                [
-                    'projet_id' => $projet->id,
-                    'titre' => 'Chapitre : ' . $chapitre->nom,
-                ],
-                [
-                    'description' => $chapitre->description ?? '',
-                    'priorite' => $priorite++,
-                    'ordre' => $ordre++,
-                    'phase_evaluation_id' => $phaseN1,
-                    'chapitre_id' => $chapitre->id
-                ]
-            );
+        // Tâches Chapitre
+        foreach ($session->alignementUas as $alignementUa) {
+            foreach ($alignementUa->uniteApprentissage->chapitres as $chapitre) {
+                Tache::firstOrCreate(
+                    [
+                        'projet_id' => $projet->id,
+                        'titre' => 'Chapitre : ' . $chapitre->nom,
+                    ],
+                    [
+                        'description' => $chapitre->description ?? '',
+                        'priorite' => $priorite++,
+                        'ordre' => $ordre++,
+                        'phase_evaluation_id' => $phaseN1,
+                        'chapitre_id' => $chapitre->id
+                    ]
+                );
+            }
         }
+
+        // Tâche Prototype
+        Tache::firstOrCreate(
+            [
+                'projet_id' => $projet->id,
+                'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype  :  'Prototype',
+            ],
+            [
+                'description' => trim(($session->description_prototype ?? '') . "<br>" . ($session->contraintes_prototype ?? '')),
+                'priorite' => $priorite++,
+                'ordre' => $ordre++,
+                'phase_evaluation_id' => $phaseN2,
+                'chapitre_id' => null,
+                'note' => $notePrototype
+            ]
+        );
+
+        // Tâche Conception
+        Tache::firstOrCreate(
+            [
+                'projet_id' => $projet->id,
+                'titre' => 'Conception',
+            ],
+            [
+                'description' => 'Conception du projet',
+                'priorite' => $priorite++,
+                'ordre' => $ordre++,
+                'phase_evaluation_id' => null,
+                'chapitre_id' => null
+            ]
+        );
+
+        // Tâche Réalisation
+        Tache::firstOrCreate(
+            [
+                'projet_id' => $projet->id,
+                'titre' => 'Réalisation',
+            ],
+            [
+                'description' => 'Réalisation du projet',
+                'priorite' => $priorite++,
+                'ordre' => $ordre++,
+                'phase_evaluation_id' => $phaseN3,
+                'chapitre_id' => null,
+                'note' => $noteRealisation
+            ]
+        );
     }
-
-    // Tâche Prototype
-    Tache::firstOrCreate(
-        [
-            'projet_id' => $projet->id,
-            'titre' => $session->titre_prototype ? "Prototype : " . $session->titre_prototype  :  'Prototype',
-        ],
-        [
-            'description' => trim(($session->description_prototype ?? '') . "<br>" . ($session->contraintes_prototype ?? '')),
-            'priorite' => $priorite++,
-            'ordre' => $ordre++,
-            'phase_evaluation_id' => $phaseN2,
-            'chapitre_id' => null,
-            'note' => $notePrototype
-        ]
-    );
-
-    // Tâche Conception
-    Tache::firstOrCreate(
-        [
-            'projet_id' => $projet->id,
-            'titre' => 'Conception',
-        ],
-        [
-            'description' => 'Conception du projet',
-            'priorite' => $priorite++,
-            'ordre' => $ordre++,
-            'phase_evaluation_id' => null,
-            'chapitre_id' => null
-        ]
-    );
-
-    // Tâche Réalisation
-    Tache::firstOrCreate(
-        [
-            'projet_id' => $projet->id,
-            'titre' => 'Réalisation',
-        ],
-        [
-            'description' => 'Réalisation du projet',
-            'priorite' => $priorite++,
-            'ordre' => $ordre++,
-            'phase_evaluation_id' => $phaseN3,
-            'chapitre_id' => null,
-            'note' => $noteRealisation
-        ]
-    );
-}
-
-
 
     protected function getCriteresEtBareme($alignementUa, $niveau)
     {
@@ -223,7 +261,6 @@ protected function addProjectTasks($projet, $session)
     {
         return '<ul><li>' . implode('</li><li>', $criteres) . '</li></ul>';
     }
-
 
     public function dataCalcul($data)
     {
@@ -249,14 +286,12 @@ protected function addProjectTasks($projet, $session)
         return $projet;
     }
 
-
     public function defaultSort($query)
     {
         return $query
             ->withMax('affectationProjets', 'date_fin') // 🔥 Important
             ->orderBy('affectation_projets_max_date_fin', 'desc');
     }
-
 
     public function clonerProjet(int $projetId)
     {
@@ -344,6 +379,4 @@ protected function addProjectTasks($projet, $session)
             return $nouveauProjet;
         });
     }
-
-   
 }

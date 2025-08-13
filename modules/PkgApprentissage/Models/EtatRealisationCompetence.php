@@ -10,4 +10,9 @@ class EtatRealisationCompetence extends BaseEtatRealisationCompetence
     {
         return  $this->code ?? ""; 
     }
+
+    public function __toString()
+    {
+        return $this->nom ?? "";
+    }
 }

@@ -10,4 +10,9 @@ class EtatRealisationModule extends BaseEtatRealisationModule
     {
         return  $this->code ?? ""; 
     }
+
+    public function __toString()
+    {
+        return $this->nom ?? "";
+    }
 }
