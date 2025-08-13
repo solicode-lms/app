@@ -26,6 +26,10 @@ php artisan db:seed --class=Modules\Core\Database\Seeders\Base\BaseSysColorSeede
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultApprenantPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultFormateurPermission
 php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultAdminPermission
+php artisan db:seed --class=Modules\PkgAutorisation\Database\Seeders\DefaultGappPermission
+
+
+
 
 # PkgApprenants
 php artisan db:seed --class=Modules\PkgApprenants\Database\Seeders\ApprenantKonosySeeder

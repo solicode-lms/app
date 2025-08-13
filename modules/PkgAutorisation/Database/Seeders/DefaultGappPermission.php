@@ -30,14 +30,31 @@ class DefaultGappPermission extends Seeder
             'EModel' => 'Editeur,Extraction',
             'EPackage' => 'Lecteur,Extraction',
             'ERelationship' => 'Lecteur,Extraction',
+            'widget' => 'Lecture',
+            'sectionWidget' => 'Afficher',
+            'widgetUtilisateur' => 'Édition',
+        ];
+
+       // Actions par type d'accès
+         $featurePermissions = [
+            'Afficher' => ['show','getData'],
+            'Lecture' => ['index', 'show','getData'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
+            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
+            'Extraction' => ['import', 'export'],
+            'clonerProjet' => ['clonerProjet'],
+            'initPassword' => ['initPassword'],
         ];
 
         // Actions par type d'accès
-        $actionsByType = [
-            'Lecteur' => ['index', 'show'],
-            'Editeur' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy','dataCalcul'],
-            'Extraction' => ['export'],
-            'EditeurSansCreate' => ['index', 'show', 'store', 'edit', 'update'],
+         $featurePermissions = [
+            'Afficher' => ['show','getData'],
+            'Lecture' => ['index', 'show','getData'],
+            'Édition sans Ajouter' => ['index', 'show','edit','update','dataCalcul','getData'],
+            'Édition' => [ 'index', 'show','create','store','edit','update','destroy','dataCalcul','getData'],
+            'Extraction' => ['import', 'export'],
+            'clonerProjet' => ['clonerProjet'],
+            'initPassword' => ['initPassword'],
         ];
 
         foreach ($permissionsMap as $model => $accessTypes) {
@@ -46,7 +63,7 @@ class DefaultGappPermission extends Seeder
 
             foreach ($types as $type) {
                 $type = trim($type); // Supprimer les espaces éventuels
-                $actions = $actionsByType[$type] ?? [];
+                $actions = $featurePermissions[$type] ?? [];
 
                 foreach ($actions as $action) {
                     // Nom de la permission : action + modèle
@@ -61,6 +78,6 @@ class DefaultGappPermission extends Seeder
             }
         }
 
-        $this->command->info('Permissions associées au rôle "formateur" avec succès.');
+        $this->command->info('Permissions associées au rôle "gapp" avec succès.');
     }
 }
