@@ -224,7 +224,7 @@ class RealisationProjetService extends BaseRealisationProjetService
             $realisationUaService = new RealisationUaService();
             $uas = RealisationUa::whereIn('id', $uaIds)->get();
             foreach ($uas as $ua) {
-                $jobManager->setLabel("Calcul progression pour UA #{$ua->id}");
+                $jobManager->setLabel("Calcul progression pour UA #{$ua}");
                 $realisationUaService->calculerProgression($ua);
                 $jobManager->tick();
             }

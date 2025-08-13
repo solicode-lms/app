@@ -147,27 +147,69 @@ class AffectationProjetService extends BaseAffectationProjetService
     }
 
 
+public function deletedObserverJob(int $id, string $token): void
+{
+    $jobManager = new JobManager($token);
+    $payload = $jobManager->getPayload();
 
- public function afterUpdateRules($affectationProjet, $id)
-    {
-        $realisationProjetService = new RealisationProjetService();
+    $realisation_chapitres_ids = collect($payload['realisation_chapitres_ids'] ?? []);
+    $ua_ids = collect($payload['ua_ids'] ?? []);
 
-        $nouveauxApprenants = collect();
+    $total = 0;
 
-        if ($affectationProjet->sousGroupe) {
-            $nouveauxApprenants = $affectationProjet->sousGroupe->apprenants;
-        } elseif ($affectationProjet->groupe) {
-            $nouveauxApprenants = $affectationProjet->groupe->apprenants;
-        }
-
-        // Récupération des réalisations existantes
-        $realisationProjetService->syncApprenantsAvecRealisationProjets(
-            $affectationProjet,
-            $nouveauxApprenants
-        );
-
-        (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
+    if ($realisation_chapitres_ids->isNotEmpty()) {
+        $total++;
     }
+
+    $total += $ua_ids->count();
+
+    $jobManager->initProgress($total);
+
+    // 1️⃣ Progression Chapitres
+    if ($realisation_chapitres_ids->isNotEmpty()) {
+        $jobManager->setLabel("🔄 Mise à jour des chapitres (N1)");
+        app(\Modules\PkgApprentissage\Services\RealisationChapitreService::class)
+            ->calculerProgressionDepuisRealisationChapitresIds($realisation_chapitres_ids);
+        $jobManager->tick();
+    }
+
+    // 2️⃣ Progression des Unités d’Apprentissage
+    if ($ua_ids->isNotEmpty()) {
+        $uaService = app(\Modules\PkgApprentissage\Services\RealisationUaService::class);
+        $uas = \Modules\PkgApprentissage\Models\RealisationUa::whereIn('id', $ua_ids)->get();
+
+        foreach ($uas as $ua) {
+            $jobManager->setLabel("🔄 Recalcul de la progression pour UA #{$ua->id}");
+            $uaService->calculerProgression($ua);
+            $jobManager->tick();
+        }
+    }
+
+    $jobManager->finish();
+}
+
+
+
+    public function afterUpdateRules($affectationProjet, $id)
+        {
+            $realisationProjetService = new RealisationProjetService();
+
+            $nouveauxApprenants = collect();
+
+            if ($affectationProjet->sousGroupe) {
+                $nouveauxApprenants = $affectationProjet->sousGroupe->apprenants;
+            } elseif ($affectationProjet->groupe) {
+                $nouveauxApprenants = $affectationProjet->groupe->apprenants;
+            }
+
+            // Récupération des réalisations existantes
+            $realisationProjetService->syncApprenantsAvecRealisationProjets(
+                $affectationProjet,
+                $nouveauxApprenants
+            );
+
+            (new EvaluationRealisationProjetService())->SyncEvaluationRealisationProjet($affectationProjet);
+        }
 
    
 

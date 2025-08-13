@@ -165,43 +165,39 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
      */
     public function calculerEtatDepuisUas(RealisationMicroCompetence $rmc): ?string
     {
-        $uas = $rmc->realisationUas;
+        $uas = $rmc->realisationUas()->with('etatRealisationUa')->get();
 
         if ($uas->isEmpty()) {
             return 'TODO';
         }
 
-        $uas->load([
-            'realisationChapitres.etatRealisationChapitre',
-            'realisationUaPrototypes.realisationTache.etatRealisationTache',
-            'realisationUaProjets.realisationTache.etatRealisationTache',
-        ]);
+        $codes = $uas->pluck('etatRealisationUa.code')->filter()->values();
 
-        foreach ($uas as $ua) {
-            if ($ua->realisationChapitres->contains(fn($c) =>
-                optional($c->etatRealisationChapitre)->code !== 'DONE'
-            )) {
-                return 'IN_PROGRESS_CHAPITRE';
+        // Cas 1 : toutes en TODO → TODO
+        if ($codes->every(fn($c) => $c === 'TODO')) {
+            return 'TODO';
+        }
+
+        // Cas 2 : toutes en DONE → DONE
+        if ($codes->every(fn($c) => $c === 'DONE')) {
+            return 'DONE';
+        }
+
+        // Cas 3 : priorité des états "en cours"
+        $priorites = [
+            'IN_PROGRESS_CHAPITRE',
+            'IN_PROGRESS_PROTOTYPE',
+            'IN_PROGRESS_PROJET',
+        ];
+
+        foreach ($priorites as $etat) {
+            if ($codes->contains($etat)) {
+                return $etat;
             }
         }
 
-        foreach ($uas as $ua) {
-            if ($ua->realisationUaPrototypes->contains(fn($p) =>
-                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'APPROVED'
-            )) {
-                return 'IN_PROGRESS_PROTOTYPE';
-            }
-        }
-
-        foreach ($uas as $ua) {
-            if ($ua->realisationUaProjets->contains(fn($p) =>
-                $p->realisationTache?->etatRealisationTache->workflowTache->code !== 'APPROVED'
-            )) {
-                return 'IN_PROGRESS_PROJET';
-            }
-        }
-
-        return 'DONE';
+        // Cas 4 : fallback si aucun état trouvé
+        return 'IN_PROGRESS_CHAPITRE';
     }
 
 

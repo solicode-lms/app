@@ -93,7 +93,7 @@ class RealisationModuleService extends BaseRealisationModuleService
      */
     public function calculerEtatDepuisCompetences(RealisationModule $rm): ?string
     {
-        $competences = $rm->realisationCompetences;
+        $competences = $rm->realisationCompetences()->with('etatRealisationCompetence')->get();
 
         if ($competences->isEmpty()) {
             return 'TODO';
@@ -101,15 +101,22 @@ class RealisationModuleService extends BaseRealisationModuleService
 
         // Récupérer les codes d'état des compétences
         $codesComp = $competences
-            ->load('etatRealisationCompetence')
             ->pluck('etatRealisationCompetence.code')
             ->filter()
-            ->unique()
-            ->toArray();
+            ->values();
+
+        // Cas 1 : toutes en TODO → TODO
+        if ($codesComp->every(fn($c) => $c === 'TODO')) {
+            return 'TODO';
+        }
+
+        // Cas 2 : toutes en DONE → DONE
+        if ($codesComp->every(fn($c) => $c === 'DONE')) {
+            return 'DONE';
+        }
 
         /**
          * 🎯 Mapping des états compétences → états modules
-         * (en respectant la hiérarchie d'avancement et blocage)
          */
         $mapping = [
             'PAUSED'                  => 'PAUSED',
@@ -120,32 +127,29 @@ class RealisationModuleService extends BaseRealisationModuleService
             'DONE'                    => 'DONE',
         ];
 
+        // Traduire les états compétences vers états modules
+        $codesModule = $codesComp->map(fn($codeComp) => $mapping[$codeComp] ?? null)
+            ->filter()
+            ->values();
+
         // Priorité des états module
         $priorites = [
             'PAUSED',
             'IN_PROGRESS_INTRO',
             'IN_PROGRESS_INTERMEDIAIRE',
             'IN_PROGRESS_AVANCE',
-            'TODO',
             'DONE',
+            'TODO',
         ];
 
-        // Traduire les états compétences vers états modules
-        $codesModule = [];
-        foreach ($codesComp as $codeComp) {
-            if (isset($mapping[$codeComp])) {
-                $codesModule[] = $mapping[$codeComp];
-            }
-        }
-
-        // Retourner le premier état trouvé selon la priorité
         foreach ($priorites as $code) {
-            if (in_array($code, $codesModule, true)) {
+            if ($codesModule->contains($code)) {
                 return $code;
             }
         }
 
-        return 'TODO';
+        return 'IN_PROGRESS_CHAPITRE';
     }
+
 
 }

@@ -31,21 +31,53 @@ class AffectationProjetObserver
       
     }
 
-    /**
-     * Événement déclenché lors de la suppression d'une AffectationProjet.
+/**
+     * Événement déclenché juste avant la suppression d’un AffectationProjet.
      */
-    public function deleted(AffectationProjet $affectationProjet): void
+    public function deleting(AffectationProjet $affectationProjet): void
     {
-      
+        // Charger les relations profondes pour extraire les IDs
+        $affectationProjet->load([
+            'realisationProjets.realisationTaches.realisationChapitres',
+            'realisationProjets.realisationTaches.realisationUaPrototypes',
+            'realisationProjets.realisationTaches.realisationUaProjets',
+        ]);
+
+        // Collecter tous les realisation_chapitres_ids
+        $realisation_chapitres_ids = $affectationProjet->realisationProjets
+            ->flatMap(fn($rp) => $rp->realisationTaches)
+            ->flatMap(fn($tache) => $tache->realisationChapitres)
+            ->pluck('id')
+            ->unique()
+            ->values()
+            ->all();
+
+        // Collecter tous les realisation_ua_ids (prototypes + projets)
+        $ua_ids = $affectationProjet->realisationProjets
+            ->flatMap(fn($rp) => $rp->realisationTaches)
+            ->flatMap(fn($tache) => 
+                $tache->realisationUaPrototypes->pluck('realisation_ua_id')
+                ->merge($tache->realisationUaProjets->pluck('realisation_ua_id'))
+            )
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+
+        // Payload complet
+        $payload = [
+            'realisation_chapitres_ids' => $realisation_chapitres_ids,
+            'ua_ids' => $ua_ids,
+        ];
+
+        JobManager::initJob(
+            methodName:     "deletedObserverJob",
+            modelName:      "affectationProjet",
+            moduleName:     "PkgRealisationProjets",
+            id:             $affectationProjet->id,
+            changedFields:  [],
+            payload:        $payload
+        )->dispatchTraitementCrudJob();
     }
 
-    public function restored(AffectationProjet $affectationProjet): void
-    {
-        //
-    }
-
-    public function forceDeleted(AffectationProjet $affectationProjet): void
-    {
-        //
-    }
 }

@@ -234,11 +234,11 @@ class RealisationUaService extends BaseRealisationUaService
         }
 
         // ✅ Cas ajouté : au moins un chapitre terminé
-        if ($chapitres->contains(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE')) {
+        if ($chapitres->contains(fn($c) => optional($c->etatRealisationChapitre)->code === 'IN_PROGRESS')) {
             return 'IN_PROGRESS_CHAPITRE';
         }
 
-        return 'TODO';
+        return 'IN_PROGRESS_CHAPITRE';
     }
 
 
