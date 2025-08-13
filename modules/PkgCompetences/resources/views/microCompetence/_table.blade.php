@@ -45,9 +45,13 @@
 
                     </td>
                     <td style="max-width: 6%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$microCompetence->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $microCompetence->lien }}" >
+     @if($microCompetence->lien)
     <a href="{{ $microCompetence->lien }}" target="_blank">
-         <i class="fas fa-link"></i>
+        <i class="fas fa-link"></i>
     </a>
+    @else
+    —
+    @endif
 
 
                     </td>

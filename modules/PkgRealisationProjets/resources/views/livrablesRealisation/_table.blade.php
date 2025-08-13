@@ -28,9 +28,13 @@
 
                     </td>
                     <td style="max-width: 27.333333333333332%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$livrablesRealisation->id}}" data-field="lien"  data-toggle="tooltip" title="{{ $livrablesRealisation->lien }}" >
+     @if($livrablesRealisation->lien)
     <a href="{{ $livrablesRealisation->lien }}" target="_blank">
-         <i class="fas fa-link"></i>
+        <i class="fas fa-link"></i>
     </a>
+    @else
+    —
+    @endif
 
 
                     </td>
