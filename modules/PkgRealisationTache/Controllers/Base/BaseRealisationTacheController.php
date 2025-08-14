@@ -372,6 +372,7 @@ class BaseRealisationTacheController extends AdminController
         $jobManager->init("bulkUpdateJob",$this->service->modelName,$this->service->moduleName);
          
         dispatch(new BulkEditJob(
+            Auth::id(),
             ucfirst($this->service->moduleName),
             ucfirst($this->service->modelName),
             "bulkUpdateJob",

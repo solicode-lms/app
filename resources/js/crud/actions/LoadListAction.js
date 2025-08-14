@@ -24,7 +24,11 @@ export class LoadListAction extends BaseAction {
      * @param {number} page - Numéro de la page à charger (par défaut : 1).
      * @param {Object} filters - Objets contenant les filtres actifs.
      */
-    loadEntities(page, filters = {}) {
+    loadEntities(page, filters = {}, discret = false) {
+
+
+        // Ne pas loadEntities si une cille en edition
+        if(this.tableUI.inlineEdit.activeCell != null) return;
 
         if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;
@@ -43,8 +47,9 @@ export class LoadListAction extends BaseAction {
         );
 
         // Afficher l'indicateur de chargement
-        this.loader.showNomBloquante();
-
+         if (!discret) {
+            this.loader.showNomBloquante();
+        }
 
         // Requête AJAX pour charger les données
         return $.get(indexUrl)
@@ -58,8 +63,10 @@ export class LoadListAction extends BaseAction {
                     $(this.config.dataContainerSelector).html(html);
                     $(this.config.dataContainerOutSelector).html("");
                 }
-                this.loader.hide();
-                
+              
+                if (!discret) {
+                    this.loader.hide();
+                }
                 this.executeScripts(html);
                 this.tableUI.init();
                 this.tableUI.indexUI.filterUI.init();

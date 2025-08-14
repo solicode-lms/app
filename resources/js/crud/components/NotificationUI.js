@@ -25,6 +25,18 @@ export class NotificationUI {
     }
 
     /**
+     * Lance un auto-refresh toutes les 5 secondes.
+     */
+    startAutoRefresh() {
+        setInterval(() => {
+            if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
+                this.loadNotifications();
+                this.indexUI.tableUI.entityLoader.loadEntities(undefined, {},true);
+            }
+        }, 10000); // 10 secondes
+    }
+    
+    /**
      * Charge les notifications depuis le serveur.
      */
     loadNotifications() {
@@ -72,16 +84,7 @@ export class NotificationUI {
         container.innerHTML = html;
     }
 
-    /**
-     * Lance un auto-refresh toutes les 5 secondes.
-     */
-    startAutoRefresh() {
-        setInterval(() => {
-            if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
-                this.loadNotifications();
-            }
-        }, 30000); // 10 secondes
-    }
+ 
 
     /**
      * Initialise la détection de visibilité du navigateur.

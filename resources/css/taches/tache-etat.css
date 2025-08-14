@@ -37,6 +37,7 @@
     color: #4b5563;
     padding: 0.15rem 0; /* pas de fond, juste l'air autour */
     border-bottom: 1px solid #f3f4f6; /* séparateur léger */
+    white-space: normal;
 }
 
 .etat-tache .etat-meta:last-child {
