@@ -1,0 +1,70 @@
+.livrables-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.livrable-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.livrable-card i {
+    font-size: 1rem;
+    margin-top: 0.2rem;
+}
+
+.livrable-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.livrable-titre {
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+    word-break: break-word; /* Permet retour à la ligne */
+    white-space: normal;    /* Pas de troncature */
+}
+
+.livrable-titre:hover {
+    text-decoration: underline;
+}
+
+.livrable-sous-titre {
+    font-size: 0.78rem;
+    color: #6b7280;
+}
+
+/* Styles par état */
+.livrable-realise {
+    background-color: #f0fdf4; /* vert pâle */
+    border-left: 4px solid #22c55e;
+    color: #166534;
+}
+
+.livrable-realise:hover {
+    background-color: #dcfce7;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.livrable-manquant {
+    background-color: #fef2f2; /* rouge pâle */
+    border-left: 4px solid #dc2626;
+    color: #991b1b;
+}
+
+.livrable-manquant:hover {
+    background-color: #fee2e2;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}

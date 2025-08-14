@@ -1,9 +1,9 @@
-<ul class="livrable ">
+<ul class="livrables-list">
     @php
         $isFormateur = auth()->user()?->hasAnyRole(['formateur', 'admin']);
     @endphp
 
-    @once 
+    @once
         @php
             if (!function_exists('normalize')) {
                 function normalize($string) {
@@ -14,7 +14,7 @@
                     return $string;
                 }
             }
- 
+
             function iconLivrable($type) {
                 return [
                     'code' => 'fas fa-code-branch',
@@ -33,18 +33,14 @@
 
     @php
         $livrablesAttendus = $entity->tache?->livrables ?? collect();
-       
-        // Si lien_livrable dans realisationMicroCompetence, on l’ajoute comme livrable spécial
         $lienMicroCompetence = null;
         $microCompetence = null;
-        
+
         if ($entity->realisationChapitres && $entity->realisationChapitres->isNotEmpty()) {
             $premierChapitre = $entity->realisationChapitres->first();
-           
-          $lienMicroCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->lien_livrable ?? null;
-          $microCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->microCompetence;
-         
-         
+            $lienMicroCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->lien_livrable ?? null;
+            $microCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->microCompetence;
+
             if ($microCompetence) {
                 $livrablesAttendus->push((object) [
                     'id' => 'micro_competence_livrable',
@@ -54,14 +50,11 @@
                 ]);
             }
         }
-       
 
+        $realises = $entity->livrablesRealisations
+            ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
+            ?? collect();
 
-         // ⚡ Optimisation : utiliser la relation eager loaded
-        $realises = $entity->livrablesRealisations ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
-         ?? collect();
-
-         // 4️⃣ Ajouter le livrable spécial comme "réalisé" s’il existe
         if ($lienMicroCompetence && $microCompetence) {
             $realises->push((object) [
                 'livrable' => (object) [
@@ -76,68 +69,51 @@
             ]);
         }
 
-     
         $livrablesRealises = $realises->pluck('livrable_id')->toArray();
-
         $livrablesManquants = $livrablesAttendus->filter(
             fn($l) => !in_array($l->id, $livrablesRealises)
         );
     @endphp
 
- 
     @if ($livrablesAttendus->isEmpty())
-        <li class="text-muted text-truncate">Aucun livrable attendu pour cette tâche.</li>
+        <li class="livrable-card livrable-empty">
+            <span>Aucun livrable attendu pour cette tâche.</span>
+        </li>
     @else
-        {{-- 🌟 Livrables Réalisés --}}
+        {{-- ✅ Livrables Réalisés --}}
         @foreach ($realises as $realisation)
             @php
                 $titre1 = normalize($realisation->livrable?->titre ?? '');
                 $titre2 = normalize($realisation->titre ?? '');
                 $icon = iconLivrable($realisation->livrable?->natureLivrable?->nom ?? '');
-                $lienMicroCompetence = $entity->realisationMicroCompetence->lien_livrable ?? null;
             @endphp
-            @if (optional($realisation->livrable)->is_affichable_seulement_par_formateur !== true || $isFormateur)
-                <li class="livrable-realise"> 
-                    <a href="{{ $realisation->lien }}" target="_blank" class="d-block text-truncate">
-
-                         <i class="{{ $icon }}"></i>
-                        {{ $realisation->livrable?->titre ?? '—' }}
+            @if (!$realisation->livrable?->is_affichable_seulement_par_formateur || $isFormateur)
+                <li class="livrable-card livrable-realise">
+                    <i class="{{ $icon }}"></i>
+                    <div class="livrable-content">
+                        <a href="{{ $realisation->lien }}" target="_blank" class="livrable-titre">
+                            {{ $realisation->livrable?->titre ?? '—' }}
+                        </a>
                         @if ($titre1 !== $titre2)
-                            <span class="d-block text-muted small">— {{ $realisation->titre }}</span>
+                            <div class="livrable-sous-titre">— {{ $realisation->titre }}</div>
                         @endif
-                    </a>
-                </li>
-            @else
-                <li class="livrable-realise d-block text-truncate"> 
-                     
-
-                        <i class="{{ $icon }}"></i>
-                        {{ $realisation->livrable?->titre ?? '—' }}
-                        @if ($titre1 !== $titre2)
-                            <span class="d-block text-muted small">— {{ $realisation->titre }}</span>
-                        @endif
-                    
+                    </div>
                 </li>
             @endif
-
-
         @endforeach
 
         {{-- ⚠️ Livrables Manquants --}}
         @foreach ($livrablesManquants as $livrable)
             @php 
                 $icon = iconLivrable($livrable?->natureLivrable?->nom ?? '');
-                // 🔍 Chercher lien livrable depuis la micro-compétence
-                $lienMicroCompetence = null;
-                if ($entity->realisationChapitres && $entity->realisationChapitres->isNotEmpty()) {
-                    $premierChapitre = $entity->realisationChapitres->first();
-                    $lienMicroCompetence = $premierChapitre->realisationMicroCompetence->lien_livrable ?? null;
-                }
             @endphp
-            @if (optional($livrable)->is_affichable_seulement_par_formateur !== true || $isFormateur)
-                <li class="text-danger livrable-manquant text-truncate">
-                     <i class="{{ $icon }}"></i> {{ $livrable->titre }}
-                    <span class="d-block text-muted small" title="Non encore déposé">— Livrable non soumis</span>
+            @if (!$livrable->is_affichable_seulement_par_formateur || $isFormateur)
+                <li class="livrable-card livrable-manquant">
+                    <i class="{{ $icon }}"></i>
+                    <div class="livrable-content">
+                        <div class="livrable-titre">{{ $livrable->titre }}</div>
+                        <div class="livrable-sous-titre">— Livrable non soumis</div>
+                    </div>
                 </li>
             @endif
         @endforeach
