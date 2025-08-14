@@ -200,40 +200,6 @@
         "e_metadata_definition_reference": "inputMdWidth"
     },
     {
-        "reference": "Tache_priorite_tache_id_displayInTable",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "displayInTable"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_filterable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "filterable"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_displayOrder",
-        "value_integer": 16,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "displayOrder"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_displayInForm",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "displayInForm"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_inputMdWidth",
-        "value_boolean": 0,
-        "value_integer": 3,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "inputMdWidth"
-    },
-    {
         "reference": "Tache_created_at_displayOrder",
         "value_integer": 10,
         "e_data_field_reference": "Tache_created_at",
@@ -320,20 +286,6 @@
         "e_metadata_definition_reference": "scopeDataInEditContext"
     },
     {
-        "reference": "Tache_priorite_tache_id_scopeDataInEditContext",
-        "value_boolean": 1,
-        "value_float": 0,
-        "value_json": [
-            {
-                "key": "scope.prioriteTache.formateur_id",
-                "value": "projet.formateur_id",
-                "modelName": "Tache"
-            }
-        ],
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "scopeDataInEditContext"
-    },
-    {
         "reference": "Tache_description_isRichText",
         "value_boolean": 1,
         "e_data_field_reference": "Tache_description",
@@ -356,12 +308,6 @@
         "reference": "Tache_projet_id_sortable",
         "value_boolean": 1,
         "e_data_field_reference": "Tache_projet_id",
-        "e_metadata_definition_reference": "sortable"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_sortable",
-        "value_boolean": 1,
-        "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "sortable"
     },
     {
@@ -466,14 +412,6 @@
         "e_metadata_definition_reference": "nature"
     },
     {
-        "reference": "Tache_priorite_tache_id_metaLabel",
-        "value_boolean": 1,
-        "value_string": "priorite_tache_id",
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "metaLabel"
-    },
-    {
         "reference": "Tache_dateFin_displayInTable",
         "value_boolean": 0,
         "value_float": 0,
@@ -489,14 +427,6 @@
         },
         "e_data_field_reference": "Tache_dateFin",
         "e_metadata_definition_reference": "nature"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_columnWidth",
-        "value_boolean": 1,
-        "value_integer": 8,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "columnWidth"
     },
     {
         "reference": "Tache_titre_columnWidth",
@@ -603,20 +533,6 @@
         "e_metadata_definition_reference": "viewShowFieldVisible"
     },
     {
-        "reference": "Tache_priorite_tache_id_viewFormFieldVisible",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "viewFormFieldVisible"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_viewShowFieldVisible",
-        "value_boolean": 0,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
-        "e_metadata_definition_reference": "viewShowFieldVisible"
-    },
-    {
         "reference": "Tache_created_at_viewFormFieldVisible",
         "value_boolean": 1,
         "e_data_field_reference": "Tache_created_at",
@@ -665,14 +581,6 @@
         "value_integer": 11,
         "value_float": 0,
         "e_data_field_reference": "Tache_ordre",
-        "e_metadata_definition_reference": "viewShowFieldOrder"
-    },
-    {
-        "reference": "Tache_priorite_tache_id_viewShowFieldOrder",
-        "value_boolean": 1,
-        "value_integer": 12,
-        "value_float": 0,
-        "e_data_field_reference": "Tache_priorite_tache_id",
         "e_metadata_definition_reference": "viewShowFieldOrder"
     },
     {
