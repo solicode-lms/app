@@ -95,35 +95,36 @@ class WidgetService extends Base\BaseWidgetService
      * @return \Illuminate\Database\Eloquent\Model|false L'enregistrement mis à jour ou false si non trouvé.
      */
 
-    public function update($id, array $data)
-    {
-        // 🔹 Récupérer l'entité avant mise à jour pour capturer les anciens rôles
-        $record = $this->find($id);
+    // Remplacer par observer
+    // public function update($id, array $data)
+    // {
+    //     // 🔹 Récupérer l'entité avant mise à jour pour capturer les anciens rôles
+    //     $record = $this->find($id);
     
-        if (!$record) {
-            return false;
-        }
+    //     if (!$record) {
+    //         return false;
+    //     }
     
-        $originalRoles = collect();
-        if (method_exists($record, 'roles')) {
-            $originalRoles = $record->roles->pluck('id')->sort()->values();
-        }
+    //     $originalRoles = collect();
+    //     if (method_exists($record, 'roles')) {
+    //         $originalRoles = $record->roles->pluck('id')->sort()->values();
+    //     }
     
-        // 🔥 Appel normal à la logique de mise à jour existante
-        $record = parent::update($id, $data);
+    //     // 🔥 Appel normal à la logique de mise à jour existante
+    //     $record = parent::update($id, $data);
     
-        // 🔹 Vérifier à nouveau les rôles après update
-        if ($record && method_exists($record, 'roles')) {
-            $newRoles = $record->roles->pluck('id')->sort()->values();
+    //     // 🔹 Vérifier à nouveau les rôles après update
+    //     if ($record && method_exists($record, 'roles')) {
+    //         $newRoles = $record->roles->pluck('id')->sort()->values();
     
-            if (! $originalRoles->diff($newRoles)->isEmpty() || !$newRoles->diff($originalRoles)->isEmpty()) {
-                // Les rôles ont changé => Supprimer les widgets utilisateurs
-                $widgetUtilisateurService = new WidgetUtilisateurService();
-                $widgetUtilisateurService->deleteAllWidgetUtilisateursByWidgetId($record->id);
-            }
-        }
+    //         if (! $originalRoles->diff($newRoles)->isEmpty() || !$newRoles->diff($originalRoles)->isEmpty()) {
+    //             // Les rôles ont changé => Supprimer les widgets utilisateurs
+    //             $widgetUtilisateurService = new WidgetUtilisateurService();
+    //             $widgetUtilisateurService->deleteAllWidgetUtilisateursByWidgetId($record->id);
+    //         }
+    //     }
     
-        return $record;
-    }
+    //     return $record;
+    // }
     
 }

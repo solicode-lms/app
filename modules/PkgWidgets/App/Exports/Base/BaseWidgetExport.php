@@ -44,6 +44,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => 'reference',
                 'section_widget_reference' => 'section_widget_reference',
                 'parameters' => 'parameters',
+                'roles' => 'roles',
             ];
         } else {
             return [
@@ -59,6 +60,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => __('Core::msg.reference'),
                 'section_widget_reference' => __('PkgWidgets::widget.section_widget_reference'),
                 'parameters' => __('PkgWidgets::widget.parameters'),
+                'roles' => __('PkgAutorisation::role.reference'),
             ];
         }
     }
@@ -82,6 +84,7 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'reference' => $widget->reference,
                 'section_widget_reference' => $widget->sectionWidget?->reference,
                 'parameters' => $widget->parameters,
+                'roles' => $widget->roles->pluck('reference')->implode('|'),
             ];
         });
     }

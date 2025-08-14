@@ -1,0 +1,110 @@
+{
+  "link": {
+    "route_name": "realisationProjets.index",
+    "route_params": {
+      "showIndex": "true",
+      "contextKey": "realisationProjet.index",
+      "filter.realisationProjet.apprenant_id": "#apprenant_id"
+    }
+  },
+  "limit": 5,
+  "roles": {
+    "apprenant": {
+      "tableUI": [
+        {
+          "key": "affectationProjet.projet.titre",
+          "label": "Projet",
+          "order": 1
+        },
+        {
+          "key": "affectationProjet.date_fin",
+          "label": "Deadline",
+          "order": 2,
+          "nature": "deadline"
+        },
+        {
+          "key": "etatsRealisationProjet.workflowProjet.titre",
+          "label": "État",
+          "order": 3,
+          "nature": "badge",
+          "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+        },
+        {
+          "key": "avancement_projet",
+          "label": "Avancement",
+          "order": 4,
+          "nature": "progression"
+        }
+      ],
+      "Apprenant.User_id": "#user_id"
+    },
+    "formateur": {
+      "tableUI": [
+        {
+          "key": "affectationProjet.projet.titre",
+          "label": "Projet",
+          "order": 2
+        },
+        {
+          "key": "apprenant",
+          "label": "Apprenant",
+          "order": 1
+        },
+        {
+          "key": "etatsRealisationProjet.workflowProjet.titre",
+          "label": "État",
+          "order": 3,
+          "nature": "badge",
+          "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+        },
+        {
+          "key": "affectationProjet.date_fin",
+          "label": "Deadline",
+          "order": 5,
+          "nature": "deadline"
+        },
+        {
+          "key": "avancement_projet",
+          "label": "Avancement",
+          "order": 6,
+          "nature": "progression"
+        }
+      ],
+      "AffectationProjet.Projet.Formateur.User_id": "#user_id"
+    }
+  },
+  "tableUI": [
+    {
+      "key": "affectationProjet.projet.titre",
+      "label": "Projet",
+      "order": 3
+    },
+    {
+      "key": "affectationProjet.groupe.code",
+      "label": "Groupe",
+      "order": 1
+    },
+    {
+      "key": "apprenant",
+      "label": "Apprenant",
+      "order": 2
+    },
+    {
+      "key": "etatsRealisationProjet.workflowProjet.titre",
+      "label": "État",
+      "order": 4,
+      "nature": "badge",
+      "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+    },
+    {
+      "key": "avancement_projet",
+      "label": "Avancement",
+      "order": 5,
+      "nature": "progression"
+    }
+  ],
+  "order_by": {
+    "column": "etatsRealisationProjet.workflowProjet.ordre",
+    "direction": "desc"
+  }
+}
