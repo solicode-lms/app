@@ -26,7 +26,6 @@ class ProjetService extends BaseProjetService
         'livrables', 
         'resources', 
         'taches',
-        'taches.prioriteTache',
         'affectationProjets',
         'affectationProjets.groupe'
     ];
