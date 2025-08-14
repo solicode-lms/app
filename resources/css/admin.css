@@ -506,12 +506,28 @@ input[type="checkbox"] {
 
 
 
+/* Lien titre élégant dans tache-card */
 .tache-titre a {
-    color: #2563eb;
+    color: #2563eb; /* Bleu moderne */
+    font-weight: 600;
     text-decoration: none;
+    display: inline-block;
+    line-height: 1.3;
+    transition: color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0.25rem;
+    padding: 0.05rem 0.15rem; /* petit espace cliquable */
 }
-.tache-titre a:hover {
-    text-decoration: underline;
+
+.tache-titre a:hover,
+.tache-titre a:focus {
+    color: #1e40af; /* bleu plus profond */
+    box-shadow: inset 0 -0.15em 0 #93c5fd; /* effet souligné élégant */
+    outline: none;
+}
+
+.tache-titre a:active {
+    color: #1d4ed8;
+    box-shadow: inset 0 -0.15em 0 #60a5fa;
 }
 
 
