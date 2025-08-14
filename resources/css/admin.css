@@ -381,9 +381,9 @@ input[type="checkbox"] {
     gap: 0.25rem;
     padding: 0.5rem;
     border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08);
     white-space: normal;
     word-break: break-word;
 }
