@@ -1,40 +1,68 @@
-.livrables-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.livrables-list{
+    padding-left: 5px;
 }
 
+/* Base commune */
 .livrable-card {
     display: flex;
     align-items: flex-start;
-    gap: 0.6rem;
-    padding: 0.6rem 0.8rem;
-    border-radius: 0.5rem;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.4rem;
+    border-radius: 0.25rem;
     font-size: 0.85rem;
-    line-height: 1.4;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    list-style: none; /* Enlève le puce native */
 }
 
 .livrable-card i {
     font-size: 1rem;
-    margin-top: 0.2rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem; /* alignement vertical */
+    color: inherit; /* hérite de la couleur de l'état */
 }
 
 .livrable-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    word-break: break-word;       /* Coupe si mot trop long */
+    white-space: normal;          /* Autorise le retour à la ligne */
 }
 
+
+
+/* Livrable réalisé */
+.livrable-realise {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e40af;
+}
+
+.livrable-realise:hover {
+    background-color: #dbeafe;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Livrable manquant */
+.livrable-manquant {
+    background-color: #fef2f2;
+    border-left: 4px solid #dc2626;
+    color: #991b1b;
+}
+
+.livrable-manquant:hover {
+    background-color: #fee2e2;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Titre et sous-titre */
 .livrable-titre {
     font-weight: 500;
     color: inherit;
     text-decoration: none;
-    word-break: break-word; /* Permet retour à la ligne */
-    white-space: normal;    /* Pas de troncature */
+    display: block;
+    line-height: 1.4;
+    white-space: normal;          /* Retour à la ligne possible */
+    overflow: visible;            /* Pas de masquage */
+    text-overflow: unset;         /* Pas de "..." */
 }
 
 .livrable-titre:hover {
@@ -44,27 +72,4 @@
 .livrable-sous-titre {
     font-size: 0.78rem;
     color: #6b7280;
-}
-
-/* Styles par état */
-.livrable-realise {
-    background-color: #f0fdf4; /* vert pâle */
-    border-left: 4px solid #22c55e;
-    color: #166534;
-}
-
-.livrable-realise:hover {
-    background-color: #dcfce7;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.livrable-manquant {
-    background-color: #fef2f2; /* rouge pâle */
-    border-left: 4px solid #dc2626;
-    color: #991b1b;
-}
-
-.livrable-manquant:hover {
-    background-color: #fee2e2;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }

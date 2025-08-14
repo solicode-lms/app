@@ -1511,5 +1511,13 @@
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "metaLabel"
+    },
+    {
+        "reference": "RealisationTache-nombre_livrables_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 20,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationTache-nombre_livrables",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]
