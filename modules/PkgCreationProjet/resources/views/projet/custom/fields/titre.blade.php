@@ -1,6 +1,6 @@
 <article class="projet-card">
     <header class="projet-titre">
-        <h2><i class="fas fa-folder-open"></i> {{ $entity->titre }}</h2>
+        <h2>{{ $entity->titre }}</h2>
         <small>Projet #{{ $entity->id }}</small>
     </header>
 

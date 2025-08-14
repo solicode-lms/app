@@ -1,8 +1,10 @@
 <article class="projet-card">
     <section class="projet-section">
-        <ul class="projet-taches">
+        <ul class="projet-taches two-columns compact">
             @foreach ($entity->taches as $tache)
-                <li  class="text-truncate" ><i class="fas fa-check me-2"></i> {{ $tache }}</li>
+                <li title="{{ $tache }}">
+                    <i class="fas fa-circle"></i> {{ $tache }}
+                </li>
             @endforeach
         </ul>
     </section>
