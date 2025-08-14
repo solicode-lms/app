@@ -24,7 +24,7 @@
         @if($entity->deadline)
             <span class="tache-deadline">
                 <i class="far fa-clock"></i> 
-                <x-deadline-display :value="$realisationTache->deadline" />
+                <x-deadline-display :value="$entity->deadline" />
             </span>
         @endif
     </section>

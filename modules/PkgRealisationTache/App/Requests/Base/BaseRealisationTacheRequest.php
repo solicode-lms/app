@@ -30,11 +30,11 @@ class BaseRealisationTacheRequest extends FormRequest
     {
         return [
             'tache_id' => 'required',
+            'etat_realisation_tache_id' => 'required',
             'realisation_projet_id' => 'required',
             'dateDebut' => 'required',
             'dateFin' => 'nullable',
             'remarque_evaluateur' => 'nullable|string',
-            'etat_realisation_tache_id' => 'required',
             'note' => 'nullable',
             'is_live_coding' => 'nullable|boolean',
             'remarques_formateur' => 'nullable|string',
@@ -52,11 +52,11 @@ class BaseRealisationTacheRequest extends FormRequest
     {
         return [
             'tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.tache_id')]),
+            'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.etat_realisation_tache_id')]),
             'realisation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.realisation_projet_id')]),
             'dateDebut.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateDebut')]),
             'dateFin.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.dateFin')]),
             'remarque_evaluateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarque_evaluateur')]),
-            'etat_realisation_tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.etat_realisation_tache_id')]),
             'note.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.note')]),
             'is_live_coding.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.is_live_coding')]),
             'remarques_formateur.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::RealisationTache.remarques_formateur')]),
@@ -75,13 +75,13 @@ class BaseRealisationTacheRequest extends FormRequest
             
             'tache_id' => "admin",
             
+            'etat_realisation_tache_id' => "apprenant,formateur,admin",
+            
             'realisation_projet_id' => "admin",
             
             'dateDebut' => "admin",
             
             'dateFin' => "admin",
-            
-            'etat_realisation_tache_id' => "apprenant,formateur,admin",
             
             'note' => "formateur,evaluateur",
             

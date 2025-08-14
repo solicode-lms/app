@@ -12,8 +12,8 @@ use App\Traits\OwnedByUser;
 use App\Traits\HasDynamicContext;
 use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationTache\Models\Tache;
-use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
+use Modules\PkgRealisationProjets\Models\RealisationProjet;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
 use Modules\PkgEvaluateurs\Models\EvaluationRealisationTache;
 use Modules\PkgRealisationTache\Models\HistoriqueRealisationTache;
@@ -37,8 +37,8 @@ class BaseRealisationTache extends BaseModel
      */
     protected $with = [
       //  'tache',
-      //  'realisationProjet',
       //  'etatRealisationTache',
+      //  'realisationProjet',
       //  'tacheAffectation'
     ];
 
@@ -60,11 +60,6 @@ class BaseRealisationTache extends BaseModel
         JOIN apprenants a ON a.id = rp.apprenant_id
         WHERE rp.id = realisation_taches.realisation_projet_id";
         static::addDynamicAttribute('nom_prenom_apprenant', $sql);
-        // Colonne dynamique : deadline
-        $sql = "SELECT t.dateFin
-        FROM taches t
-        WHERE t.id = realisation_taches.tache_id";
-        static::addDynamicAttribute('deadline', $sql);
         // Colonne dynamique : nombre_livrables
         $sql = "SELECT COUNT(*) 
         FROM livrables_realisations lr
@@ -73,6 +68,11 @@ class BaseRealisationTache extends BaseModel
         WHERE lt.tache_id = realisation_taches.tache_id
         AND lr.realisation_projet_id = realisation_taches.realisation_projet_id";
         static::addDynamicAttribute('nombre_livrables', $sql);
+        // Colonne dynamique : deadline
+        $sql = "SELECT t.dateFin
+        FROM taches t
+        WHERE t.id = realisation_taches.tache_id";
+        static::addDynamicAttribute('deadline', $sql);
     }
 
     
@@ -82,7 +82,7 @@ class BaseRealisationTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'etat_realisation_tache_id', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
+        'tache_id', 'etat_realisation_tache_id', 'realisation_projet_id', 'dateDebut', 'dateFin', 'remarque_evaluateur', 'note', 'is_live_coding', 'remarques_formateur', 'remarques_apprenant', 'tache_affectation_id'
     ];
     public $manyToOne = [
         'Tache' => [
@@ -91,16 +91,16 @@ class BaseRealisationTache extends BaseModel
             "foreign_key" => "tache_id", 
             "sortByPath" => "prioriteTache.ordre"
             ],
-        'RealisationProjet' => [
-            'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
-            'relation' => 'realisationProjets' , 
-            "foreign_key" => "realisation_projet_id", 
-            ],
         'EtatRealisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\EtatRealisationTache",
             'relation' => 'etatRealisationTaches' , 
             "foreign_key" => "etat_realisation_tache_id", 
             "sortByPath" => "etatRealisationTache.workflowTache.ordre"
+            ],
+        'RealisationProjet' => [
+            'model' => "Modules\\PkgRealisationProjets\\Models\\RealisationProjet",
+            'relation' => 'realisationProjets' , 
+            "foreign_key" => "realisation_projet_id", 
             ],
         'TacheAffectation' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\TacheAffectation",
@@ -120,15 +120,6 @@ class BaseRealisationTache extends BaseModel
         return $this->belongsTo(Tache::class, 'tache_id', 'id');
     }
     /**
-     * Relation BelongsTo pour RealisationProjet.
-     *
-     * @return BelongsTo
-     */
-    public function realisationProjet(): BelongsTo
-    {
-        return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
-    }
-    /**
      * Relation BelongsTo pour EtatRealisationTache.
      *
      * @return BelongsTo
@@ -136,6 +127,15 @@ class BaseRealisationTache extends BaseModel
     public function etatRealisationTache(): BelongsTo
     {
         return $this->belongsTo(EtatRealisationTache::class, 'etat_realisation_tache_id', 'id');
+    }
+    /**
+     * Relation BelongsTo pour RealisationProjet.
+     *
+     * @return BelongsTo
+     */
+    public function realisationProjet(): BelongsTo
+    {
+        return $this->belongsTo(RealisationProjet::class, 'realisation_projet_id', 'id');
     }
     /**
      * Relation BelongsTo pour TacheAffectation.

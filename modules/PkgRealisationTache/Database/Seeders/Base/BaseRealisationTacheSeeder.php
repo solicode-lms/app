@@ -78,14 +78,14 @@ class BaseRealisationTacheSeeder extends Seeder
                     $tache_id = \Modules\PkgCreationTache\Models\Tache::where('reference', $row["tache_reference"])
                         ->value('id');
                 }
-                $realisation_projet_id = null;
-                if (!empty($row["realisation_projet_reference"])) {
-                    $realisation_projet_id = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('reference', $row["realisation_projet_reference"])
-                        ->value('id');
-                }
                 $etat_realisation_tache_id = null;
                 if (!empty($row["etat_realisation_tache_reference"])) {
                     $etat_realisation_tache_id = \Modules\PkgRealisationTache\Models\EtatRealisationTache::where('reference', $row["etat_realisation_tache_reference"])
+                        ->value('id');
+                }
+                $realisation_projet_id = null;
+                if (!empty($row["realisation_projet_reference"])) {
+                    $realisation_projet_id = \Modules\PkgRealisationProjets\Models\RealisationProjet::where('reference', $row["realisation_projet_reference"])
                         ->value('id');
                 }
                 $tache_affectation_id = null;
@@ -97,11 +97,11 @@ class BaseRealisationTacheSeeder extends Seeder
 
                 $realisationTacheData =[
                         "tache_id" => $tache_id,
+                        "etat_realisation_tache_id" => $etat_realisation_tache_id,
                         "realisation_projet_id" => $realisation_projet_id,
                         "dateDebut" => isset($row["dateDebut"]) && $row["dateDebut"] !== "" ? $row["dateDebut"] : null,
                         "dateFin" => isset($row["dateFin"]) && $row["dateFin"] !== "" ? $row["dateFin"] : null,
                         "remarque_evaluateur" => isset($row["remarque_evaluateur"]) && $row["remarque_evaluateur"] !== "" ? $row["remarque_evaluateur"] : null,
-                        "etat_realisation_tache_id" => $etat_realisation_tache_id,
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "is_live_coding" => isset($row["is_live_coding"]) && $row["is_live_coding"] !== "" ? $row["is_live_coding"] : null,
                         "remarques_formateur" => isset($row["remarques_formateur"]) && $row["remarques_formateur"] !== "" ? $row["remarques_formateur"] : null,

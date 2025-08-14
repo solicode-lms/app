@@ -49,9 +49,12 @@ export class NotificationUI {
             }
         })
         .fail((xhr) => {
-            console.log(xhr);
+           
             const errorMessage = xhr.responseText || "Erreur lors du chargement des notifications.";
-            NotificationHandler.showAlert("error", "Erreur Notifications", errorMessage);
+            console.log("NotificationUI : " + errorMessage);
+            console.log(xhr);
+            // il générer parfois une erreur 500
+            // NotificationHandler.showAlert("error", "Erreur Notifications", errorMessage);
         })
         .always(() => {
             // this.loader.hide();

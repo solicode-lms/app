@@ -4,7 +4,7 @@
         "name": "nombre_livrables",
         "column_name": "nombre_livrables",
         "data_type": "Integer",
-        "field_order": 20,
+        "field_order": 3,
         "db_nullable": 0,
         "db_primaryKey": 0,
         "db_unique": 0,

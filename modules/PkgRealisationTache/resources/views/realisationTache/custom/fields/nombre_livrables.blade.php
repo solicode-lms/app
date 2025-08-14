@@ -3,7 +3,7 @@
         $isFormateur = auth()->user()?->hasAnyRole(['formateur', 'admin']);
     @endphp
 
-    @once
+    @once 
         @php
             if (!function_exists('normalize')) {
                 function normalize($string) {

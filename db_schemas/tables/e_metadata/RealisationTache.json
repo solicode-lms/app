@@ -48,7 +48,7 @@
     {
         "reference": "RealisationTache_dateDebut_displayOrder",
         "value_boolean": 0,
-        "value_integer": 5,
+        "value_integer": 7,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateDebut",
         "e_metadata_definition_reference": "displayOrder"
@@ -71,7 +71,7 @@
     {
         "reference": "RealisationTache_dateFin_displayOrder",
         "value_boolean": 0,
-        "value_integer": 6,
+        "value_integer": 8,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_dateFin",
         "e_metadata_definition_reference": "displayOrder"
@@ -177,7 +177,7 @@
     {
         "reference": "RealisationTache_realisation_projet_id_displayOrder",
         "value_boolean": 0,
-        "value_integer": 4,
+        "value_integer": 6,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_realisation_projet_id",
         "e_metadata_definition_reference": "displayOrder"
@@ -209,7 +209,7 @@
     },
     {
         "reference": "RealisationTache_etat_realisation_tache_id_displayOrder",
-        "value_integer": 8,
+        "value_integer": 4,
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -274,7 +274,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 18,
+        "value_integer": 19,
         "e_data_field_reference": "realisation_taches_hasMany_commentaire_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -293,7 +293,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 16,
+        "value_integer": 17,
         "e_data_field_reference": "realisation_taches_hasMany_historique_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -384,7 +384,7 @@
     },
     {
         "reference": "RealisationTache_remarques_formateur_displayOrder",
-        "value_integer": 11,
+        "value_integer": 12,
         "e_data_field_reference": "RealisationTache_remarques_formateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -404,7 +404,7 @@
     },
     {
         "reference": "RealisationTache_remarques_apprenant_displayOrder",
-        "value_integer": 12,
+        "value_integer": 13,
         "e_data_field_reference": "RealisationTache_remarques_apprenant",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -503,7 +503,9 @@
     },
     {
         "reference": "RealisationTache-nombre_livrables_displayOrder",
-        "value_integer": 21,
+        "value_boolean": 0,
+        "value_integer": 5,
+        "value_float": 0,
         "e_data_field_reference": "RealisationTache-nombre_livrables",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -517,7 +519,7 @@
     {
         "reference": "RealisationTache_tache_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 35,
+        "value_integer": 40,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -525,7 +527,7 @@
     {
         "reference": "RealisationTache_etat_realisation_tache_id_columnWidth",
         "value_boolean": 1,
-        "value_integer": 12,
+        "value_integer": 15,
         "value_float": 0,
         "e_data_field_reference": "RealisationTache_etat_realisation_tache_id",
         "e_metadata_definition_reference": "columnWidth"
@@ -718,7 +720,7 @@
     },
     {
         "reference": "RealisationTache-deadline_displayOrder",
-        "value_integer": 13,
+        "value_integer": 14,
         "e_data_field_reference": "RealisationTache-deadline",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1028,7 +1030,7 @@
     },
     {
         "reference": "RealisationTache_note_displayOrder",
-        "value_integer": 9,
+        "value_integer": 10,
         "e_data_field_reference": "RealisationTache_note",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1071,7 +1073,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id_displayOrder",
-        "value_integer": 15,
+        "value_integer": 16,
         "e_data_field_reference": "realisation_taches_hasMany_evaluation_realisation_taches_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1185,7 +1187,7 @@
     },
     {
         "reference": "RealisationTache_remarque_evaluateur_displayOrder",
-        "value_integer": 7,
+        "value_integer": 9,
         "e_data_field_reference": "RealisationTache_remarque_evaluateur",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1235,7 +1237,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id_displayOrder",
-        "value_integer": 17,
+        "value_integer": 18,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_chapitres_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1262,7 +1264,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id_displayOrder",
-        "value_integer": 19,
+        "value_integer": 20,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_projets_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1289,7 +1291,7 @@
     },
     {
         "reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id_displayOrder",
-        "value_integer": 20,
+        "value_integer": 21,
         "e_data_field_reference": "realisation_taches_hasMany_realisation_ua_prototypes_realisation_tache_id",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1382,7 +1384,7 @@
     },
     {
         "reference": "RealisationTache_is_live_coding_displayOrder",
-        "value_integer": 10,
+        "value_integer": 11,
         "e_data_field_reference": "RealisationTache_is_live_coding",
         "e_metadata_definition_reference": "displayOrder"
     },
@@ -1437,7 +1439,7 @@
     },
     {
         "reference": "RealisationTache_tache_affectation_id_displayOrder",
-        "value_integer": 14,
+        "value_integer": 15,
         "e_data_field_reference": "RealisationTache_tache_affectation_id",
         "e_metadata_definition_reference": "displayOrder"
     },

@@ -33,11 +33,11 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
         if ($this->format === 'csv') {
             return [
                 'tache_reference' => 'tache_reference',
+                'etat_realisation_tache_reference' => 'etat_realisation_tache_reference',
                 'realisation_projet_reference' => 'realisation_projet_reference',
                 'dateDebut' => 'dateDebut',
                 'dateFin' => 'dateFin',
                 'remarque_evaluateur' => 'remarque_evaluateur',
-                'etat_realisation_tache_reference' => 'etat_realisation_tache_reference',
                 'note' => 'note',
                 'is_live_coding' => 'is_live_coding',
                 'remarques_formateur' => 'remarques_formateur',
@@ -48,11 +48,11 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
         } else {
             return [
                 'tache_reference' => __('PkgRealisationTache::realisationTache.tache_reference'),
+                'etat_realisation_tache_reference' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_reference'),
                 'realisation_projet_reference' => __('PkgRealisationTache::realisationTache.realisation_projet_reference'),
                 'dateDebut' => __('PkgRealisationTache::realisationTache.dateDebut'),
                 'dateFin' => __('PkgRealisationTache::realisationTache.dateFin'),
                 'remarque_evaluateur' => __('PkgRealisationTache::realisationTache.remarque_evaluateur'),
-                'etat_realisation_tache_reference' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_reference'),
                 'note' => __('PkgRealisationTache::realisationTache.note'),
                 'is_live_coding' => __('PkgRealisationTache::realisationTache.is_live_coding'),
                 'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
@@ -71,11 +71,11 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
         return $this->data->map(function ($realisationTache) {
             return [
                 'tache_reference' => $realisationTache->tache?->reference,
+                'etat_realisation_tache_reference' => $realisationTache->etatRealisationTache?->reference,
                 'realisation_projet_reference' => $realisationTache->realisationProjet?->reference,
                 'dateDebut' => $realisationTache->dateDebut,
                 'dateFin' => $realisationTache->dateFin,
                 'remarque_evaluateur' => $realisationTache->remarque_evaluateur,
-                'etat_realisation_tache_reference' => $realisationTache->etatRealisationTache?->reference,
                 'note' => $realisationTache->note,
                 'is_live_coding' => $realisationTache->is_live_coding ? '1' : '0',
                 'remarques_formateur' => $realisationTache->remarques_formateur,

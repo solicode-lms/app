@@ -23,11 +23,11 @@ class BaseRealisationTacheService extends BaseService
      */
     protected $fieldsSearchable = [
         'tache_id',
+        'etat_realisation_tache_id',
         'realisation_projet_id',
         'dateDebut',
         'dateFin',
         'remarque_evaluateur',
-        'etat_realisation_tache_id',
         'note',
         'is_live_coding',
         'remarques_formateur',
@@ -121,23 +121,6 @@ class BaseRealisationTacheService extends BaseService
                 }
             
             
-                if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
-
-
-                    $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
-                    $realisationProjetIds = $this->getAvailableFilterValues('realisation_projet_id');
-                    $realisationProjets = $realisationProjetService->getByIds($realisationProjetIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgRealisationProjets::realisationProjet.plural"), 
-                        'realisation_projet_id', 
-                        \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
-                        'id',
-                        $realisationProjets
-                    );
-                }
-            
-            
                 if (!array_key_exists('etat_realisation_tache_id', $scopeVariables)) {
 
 
@@ -151,6 +134,23 @@ class BaseRealisationTacheService extends BaseService
                         \Modules\PkgRealisationTache\Models\EtatRealisationTache::class, 
                         'nom',
                         $etatRealisationTaches
+                    );
+                }
+            
+            
+                if (!array_key_exists('realisation_projet_id', $scopeVariables)) {
+
+
+                    $realisationProjetService = new \Modules\PkgRealisationProjets\Services\RealisationProjetService();
+                    $realisationProjetIds = $this->getAvailableFilterValues('realisation_projet_id');
+                    $realisationProjets = $realisationProjetService->getByIds($realisationProjetIds);
+
+                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
+                        __("PkgRealisationProjets::realisationProjet.plural"), 
+                        'realisation_projet_id', 
+                        \Modules\PkgRealisationProjets\Models\RealisationProjet::class, 
+                        'id',
+                        $realisationProjets
                     );
                 }
             

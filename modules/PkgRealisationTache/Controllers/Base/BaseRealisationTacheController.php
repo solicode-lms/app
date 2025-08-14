@@ -111,8 +111,8 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
-        $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
+        $realisationProjets = $this->realisationProjetService->all();
         $tacheAffectations = $this->tacheAffectationService->all();
 
         $bulkEdit = false;
@@ -151,8 +151,8 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->set($key, $value);
  
         $taches = $this->tacheService->all();
-        $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
+        $realisationProjets = $this->realisationProjetService->all();
         $tacheAffectations = $this->tacheAffectationService->all();
 
         $bulkEdit = true;
@@ -263,8 +263,8 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
-        $realisationProjets = $this->realisationProjetService->all();
         $etatRealisationTaches = $this->etatRealisationTacheService->all();
+        $realisationProjets = $this->realisationProjetService->all();
         $tacheAffectations = $this->tacheAffectationService->all();
 
 
