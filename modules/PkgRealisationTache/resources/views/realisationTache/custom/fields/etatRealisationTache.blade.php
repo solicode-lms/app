@@ -12,13 +12,13 @@
     — {{ $dateModification->diffForHumans() }}
 </span>
 @endif
+
 @if($entity->etatRealisationTache?->workflowTache?->code == "TO_APPROVE")
-{{-- Il faut l'optimiser pour le chargement : il créer plus de 500 requête SQL en cas des tâches en validation --}}
-{{-- @foreach($entity->getRevisionsBeforePriority() as $tacheEnRevision)
+@foreach($entity->getRevisionsBeforePriority() as $tacheEnRevision)
     <span class="d-block text-muted small" title="Révision : {{ $tacheEnRevision->tache?->titre }}" data-toggle="tooltip">
         — Révision : {{ $tacheEnRevision->tache?->titre }}
     </span>
-@endforeach --}}
+@endforeach
 @endif
 
 @if( !is_null($entity->note) )

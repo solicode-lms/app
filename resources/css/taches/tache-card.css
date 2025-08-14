@@ -1,0 +1,97 @@
+
+
+/* Tâche */
+/* Tâche - Élégance minimaliste & compacte */
+.tache-card {
+    background: #fff;
+    border: 1px solid #eaecef;
+    border-radius: 0.25rem;
+    padding: 0.8rem 1rem; /* moins de padding */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* espace vertical réduit */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    white-space: normal;
+    word-break: break-word;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.tache-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem; /* espace réduit */
+}
+.tache-titre {
+    font-size: 1rem; /* taille réduite */
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+/* Lien titre élégant dans tache-card */
+.tache-titre a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.3;
+    transition: color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0.25rem;
+    padding: 0.05rem 0.1rem; /* zone cliquable compacte */
+}
+.tache-titre a:hover,
+.tache-titre a:focus {
+    color: #1e40af;
+  
+    outline: none;
+}
+.tache-titre a:active {
+    color: #1d4ed8;
+    box-shadow: inset 0 -0.15em 0 #60a5fa;
+}
+
+.tache-projet {
+    font-size: 0.78rem; /* réduit */
+    color: #6b7280;
+}
+
+/* Infos */
+.tache-infos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem; /* réduit */
+}
+.tache-badge-live {
+    background-color: #ede9fe;
+    color: #5b21b6;
+    font-size: 0.7rem; /* réduit */
+    padding: 0.15rem 0.45rem; /* réduit */
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+.tache-deadline {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    font-size: 0.7rem; /* réduit */
+    padding: 0.15rem 0.45rem; /* réduit */
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+/* Footer */
+.tache-footer {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 0.4rem; /* réduit */
+    font-size: 0.78rem; /* réduit */
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
