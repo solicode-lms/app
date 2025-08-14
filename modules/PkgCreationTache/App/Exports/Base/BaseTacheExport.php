@@ -43,7 +43,6 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'note' => 'note',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
                 'chapitre_reference' => 'chapitre_reference',
-                'priorite_tache_reference' => 'priorite_tache_reference',
             ];
         } else {
             return [
@@ -58,7 +57,6 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'note' => __('PkgCreationTache::tache.note'),
                 'phase_evaluation_reference' => __('PkgCreationTache::tache.phase_evaluation_reference'),
                 'chapitre_reference' => __('PkgCreationTache::tache.chapitre_reference'),
-                'priorite_tache_reference' => __('PkgCreationTache::tache.priorite_tache_reference'),
             ];
         }
     }
@@ -81,7 +79,6 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'note' => $tache->note,
                 'phase_evaluation_reference' => $tache->phaseEvaluation?->reference,
                 'chapitre_reference' => $tache->chapitre?->reference,
-                'priorite_tache_reference' => $tache->prioriteTache?->reference,
             ];
         });
     }

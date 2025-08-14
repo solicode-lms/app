@@ -7,7 +7,6 @@ use Modules\PkgCreationTache\Services\TacheService;
 use Modules\PkgCreationProjet\Services\LivrableService;
 use Modules\PkgCompetences\Services\ChapitreService;
 use Modules\PkgCompetences\Services\PhaseEvaluationService;
-use Modules\PkgCreationTache\Services\PrioriteTacheService;
 use Modules\PkgCreationProjet\Services\ProjetService;
 use Modules\PkgRealisationTache\Services\RealisationTacheService;
 use Modules\PkgRealisationTache\Services\TacheAffectationService;
@@ -30,17 +29,15 @@ class BaseTacheController extends AdminController
     protected $livrableService;
     protected $chapitreService;
     protected $phaseEvaluationService;
-    protected $prioriteTacheService;
     protected $projetService;
 
-    public function __construct(TacheService $tacheService, LivrableService $livrableService, ChapitreService $chapitreService, PhaseEvaluationService $phaseEvaluationService, PrioriteTacheService $prioriteTacheService, ProjetService $projetService) {
+    public function __construct(TacheService $tacheService, LivrableService $livrableService, ChapitreService $chapitreService, PhaseEvaluationService $phaseEvaluationService, ProjetService $projetService) {
         parent::__construct();
         $this->service  =  $tacheService;
         $this->tacheService = $tacheService;
         $this->livrableService = $livrableService;
         $this->chapitreService = $chapitreService;
         $this->phaseEvaluationService = $phaseEvaluationService;
-        $this->prioriteTacheService = $prioriteTacheService;
         $this->projetService = $projetService;
     }
 
@@ -95,22 +92,17 @@ class BaseTacheController extends AdminController
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
-        $prioriteTaches = $this->prioriteTacheService->all();
 
         $bulkEdit = false;
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'projets'));
         }
-        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'));
+        return view('PkgCreationTache::tache.create', compact('bulkEdit' ,'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'projets'));
     }
     /**
      * @DynamicPermissionIgnore
@@ -133,16 +125,11 @@ class BaseTacheController extends AdminController
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
  
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
-        $prioriteTaches = $this->prioriteTacheService->all();
 
         $bulkEdit = true;
 
@@ -150,9 +137,9 @@ class BaseTacheController extends AdminController
         $itemTache = $this->tacheService->createInstance();
         
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'));
+            return view('PkgCreationTache::tache._fields', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'projets'));
         }
-        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'));
+        return view('PkgCreationTache::tache.bulk-edit', compact('bulkEdit', 'tache_ids', 'itemTache', 'livrables', 'chapitres', 'phaseEvaluations', 'projets'));
     }
     /**
      */
@@ -220,16 +207,11 @@ class BaseTacheController extends AdminController
         $value = $itemTache->getNestedValue('projet_id');
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
-        // scopeDataInEditContext
-        $value = $itemTache->getNestedValue('projet.formateur_id');
-        $key = 'scope.prioriteTache.formateur_id';
-        $this->viewState->set($key, $value);
 
         $projets = $this->projetService->all();
         $phaseEvaluations = $this->phaseEvaluationService->all();
         $chapitres = $this->chapitreService->all();
         $livrables = $this->livrableService->all();
-        $prioriteTaches = $this->prioriteTacheService->all();
 
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);
@@ -249,10 +231,10 @@ class BaseTacheController extends AdminController
         $bulkEdit = false;
 
         if (request()->ajax()) {
-            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+            return view('PkgCreationTache::tache._edit', array_merge(compact('bulkEdit' , 'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
         }
 
-        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'prioriteTaches', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
+        return view('PkgCreationTache::tache.edit', array_merge(compact('bulkEdit' ,'itemTache','livrables', 'chapitres', 'phaseEvaluations', 'projets'),$realisationTache_compact_value, $tacheAffectation_compact_value));
 
 
     }

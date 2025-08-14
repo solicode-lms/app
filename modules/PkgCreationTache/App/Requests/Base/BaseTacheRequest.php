@@ -39,8 +39,7 @@ class BaseTacheRequest extends FormRequest
             'note' => 'nullable',
             'phase_evaluation_id' => 'nullable',
             'chapitre_id' => 'nullable',
-            'livrables' => 'nullable|array',
-            'priorite_tache_id' => 'nullable'
+            'livrables' => 'nullable|array'
         ];
     }
 
@@ -64,8 +63,7 @@ class BaseTacheRequest extends FormRequest
             'phase_evaluation_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.phase_evaluation_id')]),
             'chapitre_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.chapitre_id')]),
             'livrables.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
-            'livrables.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.livrables')]),
-            'priorite_tache_id.required' => __('validation.required', ['attribute' => __('PkgCreationTache::Tache.priorite_tache_id')])
+            'livrables.array' => __('validation.array', ['attribute' => __('PkgCreationTache::Tache.livrables')])
         ];
     }
 

@@ -14,7 +14,6 @@ use Modules\Core\Models\BaseModel;
 use Modules\PkgCreationProjet\Models\Projet;
 use Modules\PkgCompetences\Models\PhaseEvaluation;
 use Modules\PkgCompetences\Models\Chapitre;
-use Modules\PkgCreationTache\Models\PrioriteTache;
 use Modules\PkgCreationProjet\Models\Livrable;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 use Modules\PkgRealisationTache\Models\TacheAffectation;
@@ -35,8 +34,7 @@ class BaseTache extends BaseModel
     protected $with = [
       //  'projet',
       //  'phaseEvaluation',
-      //  'chapitre',
-      //  'prioriteTache'
+      //  'chapitre'
     ];
 
 
@@ -52,7 +50,7 @@ class BaseTache extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_evaluation_id', 'chapitre_id', 'priorite_tache_id'
+        'ordre', 'priorite', 'titre', 'projet_id', 'description', 'dateDebut', 'dateFin', 'note', 'phase_evaluation_id', 'chapitre_id'
     ];
     public $manyToMany = [
         'Livrable' => ['relation' => 'livrables' , "foreign_key" => "livrable_id" ]
@@ -72,11 +70,6 @@ class BaseTache extends BaseModel
             'model' => "Modules\\PkgCompetences\\Models\\Chapitre",
             'relation' => 'chapitres' , 
             "foreign_key" => "chapitre_id", 
-            ],
-        'PrioriteTache' => [
-            'model' => "Modules\\PkgCreationTache\\Models\\PrioriteTache",
-            'relation' => 'prioriteTaches' , 
-            "foreign_key" => "priorite_tache_id", 
             ]
     ];
 
@@ -107,15 +100,6 @@ class BaseTache extends BaseModel
     public function chapitre(): BelongsTo
     {
         return $this->belongsTo(Chapitre::class, 'chapitre_id', 'id');
-    }
-    /**
-     * Relation BelongsTo pour PrioriteTache.
-     *
-     * @return BelongsTo
-     */
-    public function prioriteTache(): BelongsTo
-    {
-        return $this->belongsTo(PrioriteTache::class, 'priorite_tache_id', 'id');
     }
 
     /**

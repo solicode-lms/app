@@ -1,19 +1,10 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-prioriteTache'])
+@accessiblePermissions([])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-prioriteTache')
-            <li class="nav-item" id="menu-prioriteTaches">
-                <a href="{{ route('prioriteTaches.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgCreationTache/prioriteTaches') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-list-ol"></i>
-                    {{__('PkgCreationTache::prioriteTache.plural')}}
-                </a>
-            </li>
-            @endcan
 
     @else
     <li id="menu-PkgCreationTache" class="nav-item has-treeview  {{ Request::is('admin/PkgCreationTache*') ? 'menu-open' : '' }}">
@@ -25,14 +16,6 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-prioriteTache') 
-            <li class="nav-item" id="menu-prioriteTaches">
-                <a href="{{ route('prioriteTaches.index') }}" class="nav-link {{ Request::is('admin/PkgCreationTache/prioriteTaches') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-list-ol"></i>
-                    {{__('PkgCreationTache::prioriteTache.plural')}}
-                </a>
-            </li>
-            @endcan
         </ul>
     </li>
   @endif

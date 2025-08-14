@@ -18,7 +18,6 @@ use Modules\PkgCompetences\Models\Chapitre;
 use Modules\PkgRealisationTache\Models\CommentaireRealisationTache;
 use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgCreationProjet\Models\Projet;
-use Modules\PkgCreationTache\Models\PrioriteTache;
 
 /**
  * Classe BaseFormateur
@@ -129,15 +128,6 @@ class BaseFormateur extends BaseModel
     public function projets(): HasMany
     {
         return $this->hasMany(Projet::class, 'formateur_id', 'id');
-    }
-    /**
-     * Relation HasMany pour Formateurs.
-     *
-     * @return HasMany
-     */
-    public function prioriteTaches(): HasMany
-    {
-        return $this->hasMany(PrioriteTache::class, 'formateur_id', 'id');
     }
 
 

@@ -88,11 +88,6 @@ class BaseTacheSeeder extends Seeder
                     $chapitre_id = \Modules\PkgCompetences\Models\Chapitre::where('reference', $row["chapitre_reference"])
                         ->value('id');
                 }
-                $priorite_tache_id = null;
-                if (!empty($row["priorite_tache_reference"])) {
-                    $priorite_tache_id = \Modules\PkgCreationTache\Models\PrioriteTache::where('reference', $row["priorite_tache_reference"])
-                        ->value('id');
-                }
 
 
                 $tacheData =[
@@ -106,7 +101,6 @@ class BaseTacheSeeder extends Seeder
                         "note" => isset($row["note"]) && $row["note"] !== "" ? $row["note"] : null,
                         "phase_evaluation_id" => $phase_evaluation_id,
                         "chapitre_id" => $chapitre_id,
-                        "priorite_tache_id" => $priorite_tache_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
                 if (!empty($row["reference"])) {

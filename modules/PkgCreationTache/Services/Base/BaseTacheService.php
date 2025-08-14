@@ -31,8 +31,7 @@ class BaseTacheService extends BaseService
         'dateFin',
         'note',
         'phase_evaluation_id',
-        'chapitre_id',
-        'priorite_tache_id'
+        'chapitre_id'
     ];
 
     /**
@@ -147,23 +146,6 @@ class BaseTacheService extends BaseService
                         \Modules\PkgCompetences\Models\Chapitre::class, 
                         'code',
                         $chapitres
-                    );
-                }
-            
-            
-                if (!array_key_exists('priorite_tache_id', $scopeVariables)) {
-
-
-                    $prioriteTacheService = new \Modules\PkgCreationTache\Services\PrioriteTacheService();
-                    $prioriteTacheIds = $this->getAvailableFilterValues('priorite_tache_id');
-                    $prioriteTaches = $prioriteTacheService->getByIds($prioriteTacheIds);
-
-                    $this->fieldsFilterable[] = $this->generateManyToOneFilter(
-                        __("PkgCreationTache::prioriteTache.plural"), 
-                        'priorite_tache_id', 
-                        \Modules\PkgCreationTache\Models\PrioriteTache::class, 
-                        'nom',
-                        $prioriteTaches
                     );
                 }
             

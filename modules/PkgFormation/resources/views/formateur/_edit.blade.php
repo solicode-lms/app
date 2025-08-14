@@ -52,14 +52,6 @@
                             </a>
                         </li>
                         @endif
-                         @if($itemFormateur->prioriteTaches->count() > 0 || auth()->user()?->can('create-prioriteTache'))
-                        <li class="nav-item">
-                            <a class="nav-link" id="formateur-hasmany-tabs-prioriteTache-tab" data-toggle="pill" href="#formateur-hasmany-tabs-prioriteTache" role="tab" aria-controls="formateur-hasmany-tabs-prioriteTache" aria-selected="false">
-                                <i class="nav-icon fas fa-list-ol"></i>
-                                {{ucfirst(__('PkgCreationTache::prioriteTache.plural'))}}
-                            </a>
-                        </li>
-                        @endif
 
                        
                         </ul>
@@ -78,11 +70,6 @@
                             @if($itemFormateur->etatRealisationTaches->count() > 0 || auth()->user()?->can('create-etatRealisationTache'))
                             <div class="tab-pane fade" id="formateur-hasmany-tabs-etatRealisationTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-etatRealisationTache-tab">
                                 @include('PkgRealisationTache::etatRealisationTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
-                            </div>
-                            @endif
-                            @if($itemFormateur->prioriteTaches->count() > 0 || auth()->user()?->can('create-prioriteTache'))
-                            <div class="tab-pane fade" id="formateur-hasmany-tabs-prioriteTache" role="tabpanel" aria-labelledby="formateur-hasmany-tabs-prioriteTache-tab">
-                                @include('PkgCreationTache::prioriteTache._index',['isMany' => true, "edit_has_many" => false,"contextKey" => 'formateur.edit_' . $itemFormateur->id])
                             </div>
                             @endif
 
