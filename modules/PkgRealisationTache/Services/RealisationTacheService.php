@@ -213,8 +213,8 @@ class RealisationTacheService extends BaseRealisationTacheService
             ->whereHas('etatRealisationTache.workflowTache', function(Builder $q) {
                 $q->where('code', 'REVISION_NECESSAIRE');
             })
-            ->whereHas('tache.prioriteTache', function(Builder $q) use ($priorityOrdre) {
-                $q->where('ordre', '<', $priorityOrdre);
+            ->whereHas('tache.', function(Builder $q) use ($priorityOrdre) {
+                $q->where('priorite', '<', $priorityOrdre);
             });
     }
 

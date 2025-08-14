@@ -571,7 +571,30 @@ export class FormUI  {
 
 
     static initTooltip(){
-        $('[data-toggle="tooltip"]').tooltip();
+
+
+        // Supprimer les tooltip existant avant d'initialiser
+        // $('.tooltip').remove();
+
+        // // tooltip-inner
+        // // Supprimer tous les tooltips existants avant d'en créer de nouveaux
+        $('[data-toggle="tooltip"]').tooltip('dispose');
+            
+
+        // Supprime tous les tooltips actifs avant de les recréer
+        const tooltips = $('[data-toggle="tooltip"]').tooltip({
+             placement: "auto"
+        });
+
+        tooltips.on('shown.bs.tooltip', function () {
+            const $this = $(this);
+            setTimeout(() => {
+                $this.tooltip('hide'); // Cache le tooltip
+            }, 3000); // Temps en ms avant de cacher le tooltip (ici 3 secondes)
+        });
+
+        // $('[data-toggle="tooltip"]').tooltip();
+      
     }
 
     /**

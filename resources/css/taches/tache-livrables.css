@@ -1,4 +1,4 @@
-.livrables-list{
+.livrables-list {
     padding-left: 5px;
 }
 
@@ -11,46 +11,47 @@
     margin-bottom: 0.4rem;
     border-radius: 0.25rem;
     font-size: 0.85rem;
-    list-style: none; /* Enlève le puce native */
+    list-style: none; /* enlève la puce native */
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .livrable-card i {
     font-size: 1rem;
     flex-shrink: 0;
-    margin-top: 0.15rem; /* alignement vertical */
-    color: inherit; /* hérite de la couleur de l'état */
+    margin-top: 0.15rem;
+    color: inherit;
 }
 
 .livrable-content {
     flex: 1;
-    word-break: break-word;       /* Coupe si mot trop long */
-    white-space: normal;          /* Autorise le retour à la ligne */
+    word-break: break-word;
+    white-space: normal;
 }
 
-
-
-/* Livrable réalisé */
+/* Livrable réalisé - bleu doux */
 .livrable-realise {
-    background-color: #eff6ff;
+    background-color: #f0f7ff; /* bleu pâle */
     border-left: 4px solid #3b82f6;
-    color: #1e40af;
+    color: #1e3a8a; /* bleu profond élégant */
 }
 
 .livrable-realise:hover {
-    background-color: #dbeafe;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    background-color: #e0efff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-/* Livrable manquant */
+/* Livrable manquant - rouge atténué */
 .livrable-manquant {
-    background-color: #fef2f2;
-    border-left: 4px solid #dc2626;
-    color: #991b1b;
+    background-color: #fff5f5; /* rouge très clair */
+    border-left: 4px solid #ef4444;
+    color: #7f1d1d; /* rouge brun doux */
 }
 
 .livrable-manquant:hover {
-    background-color: #fee2e2;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    background-color: #ffecec;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
 /* Titre et sous-titre */
@@ -60,9 +61,9 @@
     text-decoration: none;
     display: block;
     line-height: 1.4;
-    white-space: normal;          /* Retour à la ligne possible */
-    overflow: visible;            /* Pas de masquage */
-    text-overflow: unset;         /* Pas de "..." */
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
 }
 
 .livrable-titre:hover {

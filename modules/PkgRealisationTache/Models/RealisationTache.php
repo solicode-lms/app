@@ -3,6 +3,7 @@
 
 namespace Modules\PkgRealisationTache\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Modules\PkgCreationProjet\Models\Livrable;
@@ -60,7 +61,7 @@ public function getRealisationLivrable()
         return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
     }
 
-    public function getRevisionsBeforePriority(): \Illuminate\Database\Eloquent\Collection
+    public function getRevisionsBeforePriority(): Collection
     {
         return (new RealisationTacheService)
             ->getRevisionsNecessairesBeforePriority(realisationTacheId: $this->id);
