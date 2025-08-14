@@ -80,7 +80,7 @@ export class NotificationUI {
             if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
                 this.loadNotifications();
             }
-        }, 10000); // 10 secondes
+        }, 30000); // 10 secondes
     }
 
     /**

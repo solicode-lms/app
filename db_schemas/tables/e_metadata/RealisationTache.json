@@ -706,7 +706,7 @@
         "value_boolean": 1,
         "value_float": 0,
         "value_json": {
-            "path": "prioriteTache.ordre"
+            "path": "priorite"
         },
         "e_data_field_reference": "RealisationTache_tache_id",
         "e_metadata_definition_reference": "sortByPath"

@@ -89,7 +89,7 @@ class BaseRealisationTache extends BaseModel
             'model' => "Modules\\PkgCreationTache\\Models\\Tache",
             'relation' => 'taches' , 
             "foreign_key" => "tache_id", 
-            "sortByPath" => "prioriteTache.ordre"
+            "sortByPath" => "priorite"
             ],
         'EtatRealisationTache' => [
             'model' => "Modules\\PkgRealisationTache\\Models\\EtatRealisationTache",

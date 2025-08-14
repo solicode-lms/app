@@ -61,11 +61,11 @@ public function getRealisationLivrable()
         return ($this->tache?->titre ?? "") .  " - ". $this->realisationProjet?->apprenant ?? "";
     }
 
-    public function getRevisionsBeforePriority(): Collection
-    {
-        return (new RealisationTacheService)
-            ->getRevisionsNecessairesBeforePriority(realisationTacheId: $this->id);
-    }
+    // public function getRevisionsBeforePriority(): Collection
+    // {
+    //     return (new RealisationTacheService)
+    //         ->getRevisionsNecessairesBeforePriority(realisationTacheId: $this->id);
+    // }
 
 
 

@@ -18,13 +18,17 @@
     @endif
 
     {{-- Révisions si état = TO_APPROVE --}}
-    @if($entity->etatRealisationTache?->workflowTache?->code == "TO_APPROVE")
-        @foreach($entity->getRevisionsBeforePriority() as $tacheEnRevision)
-            <span class="etat-meta" title="Révision : {{ $tacheEnRevision->tache?->titre }}" data-toggle="tooltip">
-                <i class="fas fa-redo"></i> {{ $tacheEnRevision->tache?->titre }}
-            </span>
-        @endforeach
-    @endif
+    @php
+        $priority = $entity->tache->priorite ?? 0;
+        $revisions = ($revisionsBeforePriorityGrouped[$entity->realisation_projet_id] ?? collect())
+            ->filter(fn($rev) => $rev->tache->priorite < $priority && $rev->id !== $entity->id);
+    @endphp
+
+    @foreach($revisions as $tacheEnRevision)
+        <span class="etat-meta" title="Révision : {{ $tacheEnRevision->tache?->titre }}" data-toggle="tooltip">
+            <i class="fas fa-redo"></i> {{ $tacheEnRevision->tache?->titre }}
+        </span>
+    @endforeach
 
     {{-- Note --}}
     @if(!is_null($entity->note))

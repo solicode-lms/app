@@ -7,9 +7,7 @@ use Modules\PkgCreationTache\Models\Base\BaseTache;
 class Tache extends BaseTache
 { 
 
-     protected $with = [
-       'prioriteTache',
-    ];
+     protected $with = [];
 
     public function __toString()
     {

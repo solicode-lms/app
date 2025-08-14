@@ -41,6 +41,8 @@ class RealisationTacheService extends BaseRealisationTacheService
 
         protected array $index_with_relations = [
             'tache',
+            'realisationChapitres',
+            'tacheAffectation',
             'tache.livrables',
             'etatRealisationTache',
             'historiqueRealisationTaches',
@@ -49,6 +51,42 @@ class RealisationTacheService extends BaseRealisationTacheService
             'tache.livrables.natureLivrable',
             'livrablesRealisations.livrable.taches',
         ];
+
+
+
+
+    public function prepareDataForIndexView(array $params = []): array
+    {
+        // On récupère les données du parent
+        $baseData = parent::prepareDataForIndexView($params);
+
+        /** @var \Illuminate\Support\Collection $realisationTaches */
+        $realisationTaches = $baseData['realisationTaches_data'];
+
+        // Charger toutes les révisions nécessaires en une seule requête
+        $revisionsGrouped = RealisationTache::query()
+            ->whereHas('etatRealisationTache.workflowTache', function ($q) {
+                $q->where('code', 'REVISION_NECESSAIRE');
+            })
+            ->whereIn('realisation_projet_id', $realisationTaches->pluck('realisation_projet_id'))
+            ->with(['tache', 'etatRealisationTache.workflowTache'])
+            ->get()
+            ->groupBy('realisation_projet_id');
+
+        // Ajouter dans $baseData
+        $baseData['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
+
+        // ⚡️ L'ajouter aussi dans le compact_value pour qu'il soit disponible dans Blade
+        if (isset($baseData['realisationTache_compact_value']) && is_array($baseData['realisationTache_compact_value'])) {
+            $baseData['realisationTache_compact_value']['revisionsBeforePriorityGrouped'] = $revisionsGrouped;
+        }
+
+        return $baseData;
+    }
+
+
+
+
 
     /**
      * Summary of initFieldsFilterable
@@ -199,24 +237,24 @@ class RealisationTacheService extends BaseRealisationTacheService
      * @param  int  $realisationTacheId
      * @return Builder
      */
-   protected function revisionsBeforePriorityQuery(int $realisationTacheId): Builder
-    {
-        $current = RealisationTache::with('tache.prioriteTache')->findOrFail($realisationTacheId);
-        $projectId = $current->realisation_projet_id;
-        $priorityOrdre = optional($current->tache->prioriteTache)->ordre;
-        if($priorityOrdre == null ) {
-            $priorityOrdre  = 0;
-        }
-        return RealisationTache::query()
-            ->where('realisation_projet_id', $projectId)
-            ->where('id', '<>', $realisationTacheId)
-            ->whereHas('etatRealisationTache.workflowTache', function(Builder $q) {
-                $q->where('code', 'REVISION_NECESSAIRE');
-            })
-            ->whereHas('tache.', function(Builder $q) use ($priorityOrdre) {
-                $q->where('priorite', '<', $priorityOrdre);
-            });
-    }
+//    protected function revisionsBeforePriorityQuery(int $realisationTacheId): Builder
+//     {
+//         $current = RealisationTache::findOrFail($realisationTacheId);
+//         $projectId = $current->realisation_projet_id;
+//         $priorityOrdre = $current->tache->priorite;
+//         if($priorityOrdre == null ) {
+//             $priorityOrdre  = 0;
+//         }
+//         return RealisationTache::query()
+//             ->where('realisation_projet_id', $projectId)
+//             ->where('id', '<>', $realisationTacheId)
+//             ->whereHas('etatRealisationTache.workflowTache', function(Builder $q) {
+//                 $q->where('code', 'REVISION_NECESSAIRE');
+//             })
+//             ->whereHas('tache', function(Builder $q) use ($priorityOrdre) {
+//                 $q->where('priorite', '<', $priorityOrdre);
+//             });
+//     }
 
     /**
      * Compte les réalisations avant priorité.
@@ -224,11 +262,11 @@ class RealisationTacheService extends BaseRealisationTacheService
      * @param  int  $realisationTacheId
      * @return int
      */
-    public function countRevisionsNecessairesBeforePriority(int $realisationTacheId): int
-    {
-        return $this->revisionsBeforePriorityQuery($realisationTacheId)
-                    ->count();
-    }
+    // public function countRevisionsNecessairesBeforePriority(int $realisationTacheId): int
+    // {
+    //     return $this->revisionsBeforePriorityQuery($realisationTacheId)
+    //                 ->count();
+    // }
 
     /**
      * Récupère la liste des réalisations avant priorité.
