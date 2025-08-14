@@ -33,7 +33,7 @@ class BaseUniteApprentissageRequest extends FormRequest
             'code' => 'nullable|string|max:255',
             'nom' => 'required|string|max:255',
             'micro_competence_id' => 'required',
-            'lien' => 'nullable|string|max:255',
+            'lien' => 'nullable|string|max:255|url',
             'description' => 'nullable|string'
         ];
     }

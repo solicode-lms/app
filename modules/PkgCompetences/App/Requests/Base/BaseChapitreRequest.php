@@ -35,7 +35,7 @@ class BaseChapitreRequest extends FormRequest
             'unite_apprentissage_id' => 'required',
             'duree_en_heure' => 'required',
             'isOfficiel' => 'nullable|boolean',
-            'lien' => 'required|string|max:255',
+            'lien' => 'required|string|max:255|url',
             'description' => 'nullable|string',
             'formateur_id' => 'nullable'
         ];

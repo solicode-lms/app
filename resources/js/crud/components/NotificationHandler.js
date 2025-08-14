@@ -102,6 +102,7 @@ export class NotificationHandler {
      * @param {string} text - Texte détaillé du message.
      */
     static showAlert(type, title, text) {
+        
         Swal.fire({
             icon: type,
             title: title,

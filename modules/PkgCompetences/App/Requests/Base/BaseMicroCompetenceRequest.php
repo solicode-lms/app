@@ -34,7 +34,7 @@ class BaseMicroCompetenceRequest extends FormRequest
             'titre' => 'required|string|max:255',
             'sous_titre' => 'nullable|string|max:255',
             'competence_id' => 'nullable',
-            'lien' => 'nullable|string|max:255',
+            'lien' => 'nullable|string|max:255|url',
             'description' => 'nullable|string'
         ];
     }

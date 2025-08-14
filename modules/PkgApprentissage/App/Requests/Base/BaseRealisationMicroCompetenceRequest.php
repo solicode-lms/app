@@ -40,7 +40,7 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'date_fin' => 'nullable',
             'dernier_update' => 'nullable',
             'realisation_competence_id' => 'required',
-            'lien_livrable' => 'nullable|string|max:255'
+            'lien_livrable' => 'nullable|string|max:255|url'
         ];
     }
 

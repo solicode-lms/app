@@ -49,6 +49,7 @@ export class NotificationUI {
             }
         })
         .fail((xhr) => {
+            console.log(xhr);
             const errorMessage = xhr.responseText || "Erreur lors du chargement des notifications.";
             NotificationHandler.showAlert("error", "Erreur Notifications", errorMessage);
         })

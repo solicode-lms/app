@@ -30,7 +30,7 @@ class BaseResourceRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
-            'lien' => 'required|string|max:255',
+            'lien' => 'required|string|max:255|url',
             'description' => 'nullable|string',
             'projet_id' => 'required'
         ];

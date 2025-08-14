@@ -14,10 +14,10 @@
                     return $string;
                 }
             }
-
+ 
             function iconLivrable($type) {
                 return [
-                    'code' => 'fas fa-code',
+                    'code' => 'fas fa-code-branch',
                     'rapport' => 'fas fa-file-alt',
                     'présentation' => 'fas fa-chalkboard',
                     'documentation' => 'fas fa-book',
@@ -25,6 +25,7 @@
                     'vidéo' => 'fas fa-video',
                     'diagramme' => 'fas fa-project-diagram',
                     'test' => 'fas fa-vial',
+                    'code-chapitre' => 'fas fa-file-code',
                 ][strtolower($type)] ?? 'fas fa-file';
             }
         @endphp
@@ -32,10 +33,49 @@
 
     @php
         $livrablesAttendus = $entity->tache?->livrables ?? collect();
-        // dd($entity->tache_id);
+       
+        // Si lien_livrable dans realisationMicroCompetence, on l’ajoute comme livrable spécial
+        $lienMicroCompetence = null;
+        $microCompetence = null;
+        
+        if ($entity->realisationChapitres && $entity->realisationChapitres->isNotEmpty()) {
+            $premierChapitre = $entity->realisationChapitres->first();
+           
+          $lienMicroCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->lien_livrable ?? null;
+          $microCompetence = $premierChapitre->realisationUa->realisationMicroCompetence->microCompetence;
+         
+         
+            if ($microCompetence) {
+                $livrablesAttendus->push((object) [
+                    'id' => 'micro_competence_livrable',
+                    'titre' =>  $microCompetence->titre,
+                    'natureLivrable' => (object) ['nom' => 'code-chapitre'],
+                    'is_affichable_seulement_par_formateur' => false
+                ]);
+            }
+        }
+       
+
+
          // ⚡ Optimisation : utiliser la relation eager loaded
         $realises = $entity->livrablesRealisations ->filter(fn($r) => $r->livrable?->taches->pluck('id')->contains($entity->tache_id))
          ?? collect();
+
+         // 4️⃣ Ajouter le livrable spécial comme "réalisé" s’il existe
+        if ($lienMicroCompetence && $microCompetence) {
+            $realises->push((object) [
+                'livrable' => (object) [
+                    'id' => 'micro_competence_livrable',
+                    'titre' => $microCompetence->titre,
+                    'natureLivrable' => (object) ['nom' => 'code-chapitre'],
+                    'is_affichable_seulement_par_formateur' => false
+                ],
+                'livrable_id' => 'micro_competence_livrable',
+                'titre' => null,
+                'lien' => $lienMicroCompetence
+            ]);
+        }
+
      
         $livrablesRealises = $realises->pluck('livrable_id')->toArray();
 
@@ -54,6 +94,7 @@
                 $titre1 = normalize($realisation->livrable?->titre ?? '');
                 $titre2 = normalize($realisation->titre ?? '');
                 $icon = iconLivrable($realisation->livrable?->natureLivrable?->nom ?? '');
+                $lienMicroCompetence = $entity->realisationMicroCompetence->lien_livrable ?? null;
             @endphp
             @if (optional($realisation->livrable)->is_affichable_seulement_par_formateur !== true || $isFormateur)
                 <li class="livrable-realise"> 
@@ -78,12 +119,20 @@
                     
                 </li>
             @endif
+
+
         @endforeach
 
         {{-- ⚠️ Livrables Manquants --}}
         @foreach ($livrablesManquants as $livrable)
             @php 
                 $icon = iconLivrable($livrable?->natureLivrable?->nom ?? '');
+                // 🔍 Chercher lien livrable depuis la micro-compétence
+                $lienMicroCompetence = null;
+                if ($entity->realisationChapitres && $entity->realisationChapitres->isNotEmpty()) {
+                    $premierChapitre = $entity->realisationChapitres->first();
+                    $lienMicroCompetence = $premierChapitre->realisationMicroCompetence->lien_livrable ?? null;
+                }
             @endphp
             @if (optional($livrable)->is_affichable_seulement_par_formateur !== true || $isFormateur)
                 <li class="text-danger livrable-manquant text-truncate">

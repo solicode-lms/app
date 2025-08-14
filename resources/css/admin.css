@@ -374,6 +374,66 @@ input[type="checkbox"] {
     color: #212529;
 }
 
+/* Tâche */
+.tache-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    white-space: normal;
+    word-break: break-word;
+}
+
+.tache-card .tache-titre {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.tache-card .tache-projet {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.tache-card .tache-infos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #495057;
+}
+
+.tache-card .tache-badge-live {
+    background-color: #6610f2;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+.tache-card .tache-deadline {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.tache-card a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.tache-card a:hover {
+    text-decoration: underline;
+}
+
+
+
+
 ul.projet-taches {
     margin: 0px;
     padding: 0px;
