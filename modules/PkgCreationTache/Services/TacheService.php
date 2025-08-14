@@ -197,10 +197,10 @@ class TacheService extends BaseTacheService
     {
         $query = parent::allQuery($params,$query);
 
-        // Joindre les tables Tache et PrioriteTache avec LEFT JOIN pour inclure les tâches sans priorité
-        $query->leftJoin('priorite_taches', 'taches.priorite_tache_id', '=', 'priorite_taches.id')
-                ->orderByRaw('COALESCE(priorite_taches.ordre, 9999) ASC') // Trier par priorité (les NULL en dernier)
-                ->select('taches.*'); // Sélectionner les colonnes de la table principale
+        // // Joindre les tables Tache et PrioriteTache avec LEFT JOIN pour inclure les tâches sans priorité
+        // $query->leftJoin('priorite_taches', 'taches.priorite_tache_id', '=', 'priorite_taches.id')
+        //         ->orderByRaw('COALESCE(priorite_taches.ordre, 9999) ASC') // Trier par priorité (les NULL en dernier)
+        //         ->select('taches.*'); // Sélectionner les colonnes de la table principale
 
         return  $query;
     }

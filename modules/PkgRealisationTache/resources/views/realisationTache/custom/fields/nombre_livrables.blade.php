@@ -32,9 +32,11 @@
     @endonce
 
     @php
-        $livrablesAttendus = $entity->tache?->livrables ?? collect();
+
+        $livrablesAttendus = collect($entity->tache?->livrables ?? []);
         $lienMicroCompetence = null;
         $microCompetence = null;
+        $livrablesManquants = collect();
 
         if ($entity->realisationChapitres && $entity->realisationChapitres->isNotEmpty()) {
             $premierChapitre = $entity->realisationChapitres->first();
@@ -70,9 +72,11 @@
         }
 
         $livrablesRealises = $realises->pluck('livrable_id')->toArray();
+        $livrablesManquants = collect();
         $livrablesManquants = $livrablesAttendus->filter(
             fn($l) => !in_array($l->id, $livrablesRealises)
         );
+       
     @endphp
 
     @if ($livrablesAttendus->isEmpty())

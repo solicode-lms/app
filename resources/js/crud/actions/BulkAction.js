@@ -11,10 +11,35 @@ export class BulkAction extends CrudAction {
         this.config = config;
         this.tableUI = tableUI;
         this.successMessage = 'Action en masse effectuée avec succès.';
+        this.isSelectingRows = false;
     }
 
     init() {
+        this.bindRowSelectionWatcher();
         this.bindBulkActionButton();
+    }
+
+    /**
+     * Surveille les changements de sélection dans les lignes.
+     */
+    bindRowSelectionWatcher() {
+
+        // let parent = this;
+        // $(document).on('change', `#realisationTache-data-container .check-row`, function() {
+
+        //     const selectedCount = parent.getSelectedIds().length;
+        //     parent.isSelectingRows = selectedCount > 0;
+        //     alert(selectedCount);
+        //     console.log("isSelectingRows :", parent.isSelectingRows, "Total :", selectedCount);
+
+
+        // });
+
+        EventUtil.bindEvent('change', `${this.config.tableSelector} .check-row`, () => {
+            const selectedCount = this.getSelectedIds().length;
+            this.isSelectingRows = selectedCount > 0;
+            console.log("isSelectingRows :", this.isSelectingRows, "Total :", selectedCount);
+        });
     }
 
     /**
@@ -114,6 +139,7 @@ export class BulkAction extends CrudAction {
         const method = form.find('input[name="_method"]').val() || 'POST';
         const formData = form.serialize();
 
+        this.isSelectingRows = false;
         this.tableUI.indexUI.formUI.loader.show();
 
         if (!this.tableUI.indexUI.formUI.validateForm()) {

@@ -314,13 +314,13 @@
                 "role": "formateur",
                 "dataScope": "filter",
                 "userModelName": "Formateur",
-                "ownerRelationPath": "realisationProjet.affectationProjet.projet.formateur.user"
+                "ownerRelationPath": "realisationProjet.affectationProjet.projet.Formateur.user"
             },
             {
                 "role": "apprenant",
                 "dataScope": "filter",
                 "userModelName": "Apprenant",
-                "ownerRelationPath": "realisationProjet.apprenant.user"
+                "ownerRelationPath": "realisationProjet.Apprenant.user"
             }
         ],
         "e_model_reference": "realisation_taches",
