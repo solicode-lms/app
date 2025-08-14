@@ -1,35 +1,40 @@
 <article class="projet-card">
     <header class="projet-titre">
-        <h2>{{ $entity->titre }}</h2>
+        <h2><i class="fas fa-folder-open"></i> {{ $entity->titre }}</h2>
+        <small>Projet #{{ $entity->id }}</small>
     </header>
+
     <section class="projet-section">
-        <h3>Session de formation</h3>
+        <h3><i class="fas fa-calendar-alt"></i> Session de formation</h3>
         <ul class="projet-ressources">
-            <li> {{ $entity->sessionFormation->titre }}</li>
+            <li><i class="fas fa-chalkboard-teacher"></i>{{ $entity->sessionFormation->titre }}</li>
         </ul>
     </section>
+
     <section class="projet-section">
-        <h3>Affectations</h3>
+        <h3><i class="fas fa-users"></i> Affectations</h3>
         <ul class="projet-affectations">
             @foreach ($entity->affectationProjets as $affectationProjet)
                 <li>
-                    <strong>Groupe :</strong> {{ $affectationProjet->groupe->code }}
-                    (<small>Du {{ $affectationProjet->date_debut }} au {{ $affectationProjet->date_fin }}</small>)
+                    <i class="fas fa-user-friends"></i>
+                    <strong>{{ $affectationProjet->groupe->code }}</strong> 
+                    <small>({{ $affectationProjet->date_debut }} → {{ $affectationProjet->date_fin }})</small>
                 </li>
             @endforeach
         </ul>
     </section>
 
     <section class="projet-section">
-        <h3>Ressources</h3>
+        <h3><i class="fas fa-book"></i> Ressources</h3>
         <ul class="projet-ressources">
             @foreach ($entity->resources as $resource)
-                <li>{{ $resource->nom }}</li>
+                <li><i class="fas fa-link"></i>{{ $resource->nom }}</li>
             @endforeach
         </ul>
     </section>
 
     <footer class="projet-formateur">
+        <i class="fas fa-user-tie"></i>
         <strong>Formateur :</strong> {{ $entity->formateur }}
     </footer>
 </article>

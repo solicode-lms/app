@@ -341,38 +341,109 @@ input[type="checkbox"] {
 
 /* Projet  */
 
+
+
+/* Projet - style inspiré tache-card avec UX renforcé */
 .projet-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     white-space: normal;
     word-break: break-word;
 }
 
+/* Titre principal */
 .projet-titre h2 {
-    font-size: 1.25rem;
-}
-
-.projet-section {
-    margin-bottom: 1rem;
-}
-
-.projet-section h3 {
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: #495057;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.projet-titre h2 i {
+    color: #17a2b8;
+    font-size: 1.1rem;
+}
+.projet-titre small {
+    color: #6c757d;
+    font-size: 0.85rem;
 }
 
+/* Sections */
+.projet-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.projet-section h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #495057;
+    margin: 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.projet-section h3 i {
+    color: #17a2b8;
+    font-size: 0.9rem;
+}
+
+/* Listes d’infos */
+.projet-affectations,
+.projet-ressources {
+    padding-left: 1.2rem;
+    margin: 0;
+}
 .projet-affectations li,
 .projet-ressources li {
-    list-style-type: disc;
-    margin-left: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.projet-affectations li i,
+.projet-ressources li i {
+    color: #6c757d;
+    font-size: 0.8rem;
 }
 
+/* Footer */
 .projet-formateur {
-    border-top: 1px solid #ced4da;
+    border-top: 1px solid #dee2e6;
     padding-top: 0.5rem;
-    font-weight: 500;
-    color: #212529;
+    font-size: 0.85rem;
+    color: #343a40;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
+.projet-formateur i {
+    color: #17a2b8;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .projet-card {
+        padding: 0.75rem;
+        gap: 0.6rem;
+    }
+    .projet-titre h2 {
+        font-size: 1.05rem;
+    }
+}
+
+
+
+
 
 /* Tâche */
 .tache-card {
