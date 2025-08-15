@@ -25,6 +25,7 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -65,9 +66,10 @@ class BaseWidgetImport implements ToModel, WithHeadingRow
              'operation_id' => $values[6] ?? null,
              'color' => $values[7] ?? null,
              'sys_color_id' => $values[8] ?? null,
+             'roles' => $values[9] ?? null,
              'reference' => $reference,
-             'section_widget_id' => $values[10] ?? null,
-             'parameters' => $values[11] ?? null,
+             'section_widget_id' => $values[11] ?? null,
+             'parameters' => $values[12] ?? null,
         ]);
 
 

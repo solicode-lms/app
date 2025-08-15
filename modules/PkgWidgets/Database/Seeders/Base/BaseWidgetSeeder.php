@@ -114,16 +114,14 @@ class BaseWidgetSeeder extends Seeder
                         "parameters" => isset($row["parameters"]) && $row["parameters"] !== "" ? $row["parameters"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
                 $widget = null;
                 if (!empty($row["reference"])) {
                     $widget = $widgetService->updateOrCreate(["reference" => $row["reference"]], $widgetData);
                 } else {
                     $widget = $widgetService->create($widgetData);
                 }
-
-                // 🔹 Associer les rôles si définis
                 if (!empty($row["roles"])) {
-                    // On suppose que la colonne roles est une liste séparée par |
                     $roleReferences = array_map('trim', explode('|', $row["roles"]));
                     $roleIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $roleReferences)->pluck('id')->toArray();
 
@@ -133,8 +131,6 @@ class BaseWidgetSeeder extends Seeder
                     }
                 }
             }
-
-         
         }
 
         fclose($csvFile);

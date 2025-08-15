@@ -133,4 +133,26 @@ class WidgetUtilisateurService extends BaseWidgetUtilisateurService
     {
         return WidgetUtilisateur::where('widget_id', $widgetId)->delete();
     }
+
+    /**
+     * Supprime tous les WidgetUtilisateur d'un widget
+     * dont l'utilisateur n'a pas un des rôles autorisés.
+     *
+     * @param int   $widgetId
+     * @param array $roleIds  Liste des rôles autorisés pour ce widget
+     * @return int  Nombre d'éléments supprimés
+     */
+    public function deleteWidgetUtilisateursNotInRoles(int $widgetId, array $roleIds): int
+    {
+        if (empty($roleIds)) {
+            // Aucun rôle défini → suppression de tous les widgets utilisateurs liés
+            return WidgetUtilisateur::where('widget_id', $widgetId)->delete();
+        }
+
+        return WidgetUtilisateur::where('widget_id', $widgetId)
+            ->whereDoesntHave('user.roles', function ($query) use ($roleIds) {
+                $query->whereIn('roles.id', $roleIds);
+            })
+            ->delete();
+    }
 }

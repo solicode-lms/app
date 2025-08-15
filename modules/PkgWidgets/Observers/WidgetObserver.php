@@ -21,16 +21,16 @@ class WidgetObserver
      */
     public function updated(Widget $widget)
     {
-        $originalRoles = $widget->original_roles ?? collect();
         $newRoles = $widget->roles->pluck('id')->sort()->values();
 
-        if (
-            !$originalRoles->diff($newRoles)->isEmpty() ||
-            !$newRoles->diff($originalRoles)->isEmpty()
-        ) {
-            // Les rôles ont changé → suppression des WidgetUtilisateurs liés
-            $widgetUtilisateurService = new WidgetUtilisateurService();
-            $widgetUtilisateurService->deleteAllWidgetUtilisateursByWidgetId($widget->id);
-        }
+        // 🔹 Supprimer tous les widget_utilisateurs dont le user n'a PAS un des nouveaux rôles
+        $widgetUtilisateurService = new WidgetUtilisateurService();
+        $widgetUtilisateurService->deleteWidgetUtilisateursNotInRoles(
+            $widget->id,
+            $newRoles->toArray()
+        );
+
+        // 🔹 Ajouter pour les rôles qui viennent d'être ajoutés (si besoin)
+        // Les widgetUtilisateur seront ajouter pendant la premiere affichage de tableau de board
     }
 }
