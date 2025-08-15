@@ -32,7 +32,7 @@ export class IndexViewSwitcherAction extends Action {
             const view_type_variable = `${this.view_type_variable}`
             this.viewState.setVariable(view_type_variable,selectedType)
             this.highlightActiveView(selectedType);
-            this.tableUI.entityLoader.loadEntities(1); // Recharge la liste
+            this.tableUI.loadListAction.loadEntities(1); // Recharge la liste
             this.tableUI.indexUI.filterUI.init();
         });
     }

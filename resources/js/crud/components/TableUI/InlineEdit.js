@@ -159,7 +159,7 @@ export class InlineEdit extends CrudAction {
         this.entityEditor.update_attributes(payload, (res, is_traitement_token) => {
             
             // if(!is_traitement_token){
-                this.tableUI.entityLoader.loadEntities().done(() => {
+                this.tableUI.loadListAction.loadEntities().done(() => {
                 // après reload, on ré-init pour gérer le pending
                // this.init();
                 });

@@ -24,7 +24,7 @@ export class TableUI {
         this.showIndex = new ShowIndexAction(config,this);
         this.entityEditor = new EditAction(config,this);
         this.entityDeleter = new DeleteAction(config,this);
-        this.entityLoader = new LoadListAction(config,this);
+        this.loadListAction = new LoadListAction(config,this);
         this.entityAction = new EntityAction(config,this);
         this.bulkAction = new BulkAction(config,this);
         this.viewSwitcherAction = new IndexViewSwitcherAction(config, this);
@@ -117,7 +117,7 @@ export class TableUI {
             this.updateSortInURL(updatedSortVars);
     
             // 🔹 Recharger les entités avec les nouveaux paramètres
-            this.entityLoader.loadEntities(1);
+            this.loadListAction.loadEntities(1);
         });
     }
     

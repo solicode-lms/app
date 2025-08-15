@@ -118,7 +118,7 @@ export class EditAction extends CrudAction {
                     }
 
                     // Déja après Close Modal : il aura l'execution de loadEntities()
-                    // this.tableUI.entityLoader.loadEntities(); // Recharger les entités
+                    // this.tableUI.loadListAction.loadEntities(); // Recharger les entités
                     
                    
                    

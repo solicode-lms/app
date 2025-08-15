@@ -68,8 +68,15 @@ export class LoadListAction extends BaseAction {
                     this.loader.hide();
                 }
                 this.executeScripts(html);
+
+                
                 this.tableUI.init();
-                this.tableUI.indexUI.filterUI.init();
+                if (!discret) {
+                     this.tableUI.indexUI.filterUI.init();
+                }
+
+               
+
                 this.tableUI.indexUI.bulkActionsUI.init();
                 this.tableUI.indexUI.notificationUI.init();
                 // Afficher un message de succès (optionnel)

@@ -31,10 +31,13 @@ use Illuminate\Support\Facades\Auth;
 
  class SetViewStateMiddleware
  {
+
      public function handle(Request $request, Closure $next)
      {
-         $allParams = array_merge($request->all(), $request->route()?->parameters() ?? []);
-        
+        $allParams = array_merge(
+            $request->all(),
+            $request->route() ? $request->route()->parameters() : []
+        );
         // Récupérer viewState et contextKey depuis les paramètres
         $viewStateParams = $allParams["viewState"] ?? '{}';
         $viewStateParams = is_string($viewStateParams) ? json_decode($viewStateParams, true) : $viewStateParams;
@@ -47,6 +50,7 @@ use Illuminate\Support\Facades\Auth;
          }
  
          $viewState = app(ViewStateService::class);
+         $viewState->setExistantContextKey($contextKey);
  
          if (!empty($viewStateData)) {
              foreach ($viewStateData as $key => $value) {

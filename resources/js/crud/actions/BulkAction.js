@@ -114,7 +114,7 @@ export class BulkAction extends CrudAction {
                     })
                         .done((data) => {
                             NotificationHandler.show(data.type, data.title, data.message || `${selectedCount} élément(s) traité(s).`);
-                            this.tableUI.entityLoader.loadEntities();
+                            this.tableUI.loadListAction.loadEntities();
                         })
                         .fail((xhr) => {
                             AjaxErrorHandler.handleError(xhr, 'Erreur lors de l\'action en masse.');
@@ -172,7 +172,7 @@ export class BulkAction extends CrudAction {
                 if (typeof onSuccess === 'function') {
                     onSuccess();
                 }
-                this.tableUI.entityLoader.loadEntities();
+                this.tableUI.loadListAction.loadEntities();
             })
             .fail((xhr) => {
                 this.tableUI.indexUI.formUI.loader.hide();

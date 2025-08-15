@@ -44,7 +44,7 @@ export class CrudAction extends Action {
             NotificationHandler.showError('❌ ' + message);
             loader?.hide();
             error = true;
-            this.tableUI.entityLoader.loadEntities();
+            this.tableUI.loadListAction.loadEntities();
         });
 
 
@@ -60,7 +60,7 @@ export class CrudAction extends Action {
                     if (status === 'done') {
                         if (loader) loader.hide();
                        // NotificationHandler.showSuccess('✅ Traitement terminé.');
-                        this.tableUI.entityLoader.loadEntities();
+                        this.tableUI.loadListAction.loadEntities();
                         if (typeof onDoneCallback === 'function') {
                             onDoneCallback();
                         }
@@ -68,7 +68,7 @@ export class CrudAction extends Action {
                     } else if (status.startsWith('error')) {
                         if (loader) loader.hide();
                         NotificationHandler.showError('❌ Erreur traitement : ' + messageError);
-                        this.tableUI.entityLoader.loadEntities();
+                        this.tableUI.loadListAction.loadEntities();
                     } else {
                         if(!error){
                             loader?.showNomBloquante(`${label} ${progress}%`);
@@ -79,7 +79,7 @@ export class CrudAction extends Action {
                 .fail(() => {
                     if (loader) loader.hide();
                     NotificationHandler.showError('❌ Erreur réseau pendant le polling.');
-                    this.tableUI.entityLoader.loadEntities();
+                    this.tableUI.loadListAction.loadEntities();
                 });
         };
 

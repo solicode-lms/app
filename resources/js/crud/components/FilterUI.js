@@ -105,7 +105,7 @@ export class FilterUI {
         this.indexUI.updateURLParameters(this.getFormDataAsStateVariables());
     
         // Charger les entités avec les paramètres
-        this.indexUI.tableUI.entityLoader.loadEntities(page, formData);
+        this.indexUI.tableUI.loadListAction.loadEntities(page, formData);
 
         // TODO 
         // Update Context : ajouter ou supprimer les filtre de contexte pour adapter le formulaire 

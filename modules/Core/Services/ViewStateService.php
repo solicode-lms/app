@@ -31,7 +31,7 @@ class ViewStateService
     protected string $currentContextKey;
 
     // Indique si nous somme en première création de view state pour appliquer les paramètre d'initialisation
-    protected bool $isInit = false;
+    protected bool $isConstruct = false;
 
     public function __construct(string $currentContextKey = "default_context")
     {
@@ -39,9 +39,35 @@ class ViewStateService
         $this->viewStateData[$currentContextKey] = [];
     }
 
+    /**
+     * Retourne les valeurs par défaut à injecter dans tous les ViewState.
+     * Ces valeurs peuvent être liées aux variables d'environnement
+     * ou à d'autres paramètres globaux.
+     *
+     * @return array
+     */
+    public function getDefaultValues(): array
+    {
+        $is_xdebug = false;
+        $xdebug_mode = env('XDEBUG_MODE', 'off');
+        if($xdebug_mode != "off"){
+            $is_xdebug = true;
+        }
+        return [
+            'app.env'   => env('APP_ENV', 'production'),
+            'app.locale' => app()->getLocale(),
+            'app.is_xdebug' => $is_xdebug,
+        ];
+    }
+
     public function setContextKey(string $currentContextKey){
         $this->currentContextKey = $currentContextKey;
     }
+    public function setExistantContextKey(string $currentContextKey){
+        $this->currentContextKey = $currentContextKey;
+        $this->isConstruct = false;
+    }
+
     public function getContextKey(){
         return $this->currentContextKey;
     }
@@ -49,7 +75,16 @@ class ViewStateService
         if($this->currentContextKey == "default_context"){
             $this->currentContextKey = $currentContextKey;
             $this->viewStateData[$currentContextKey] = $this->viewStateData["default_context"];
-            $this->isInit = true;
+
+            // Injection des valeurs par défaut
+            foreach ($this->getDefaultValues() as $key => $value) {
+                if (!array_key_exists($key, $this->viewStateData[$currentContextKey])) {
+                    $this->viewStateData[$currentContextKey][$key] = $value;
+                }
+            }
+
+
+            $this->isConstruct = true;
         }
        
     }
@@ -84,7 +119,7 @@ class ViewStateService
     }
     public function init(string $key, mixed $value): void
     {
-        if($this->isInit){
+        if($this->isConstruct){
             $this->viewStateData[$this->currentContextKey][$key] = $value;
         }
        

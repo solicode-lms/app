@@ -28,12 +28,18 @@ export class NotificationUI {
      * Lance un auto-refresh toutes les 5 secondes.
      */
     startAutoRefresh() {
-        setInterval(() => {
-            if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
-                this.loadNotifications();
-                this.indexUI.tableUI.entityLoader.loadEntities(undefined, {},true);
-            }
-        }, 100000); // 10 secondes
+
+        const is_xdebug = this.config.viewStateService.getVariable("app.is_xdebug");
+
+        if(!is_xdebug){
+            setInterval(() => {
+                if (this.isTabActive) { // ✅ Ne charger que si l'onglet est actif
+                    this.loadNotifications();
+                    this.indexUI.tableUI.loadListAction.loadEntities(undefined, {},true);
+                }
+            }, 20000); // 10 secondes
+        }
+       
     }
     
     /**

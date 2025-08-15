@@ -47,7 +47,7 @@ export class EntityAction extends Action {
                         data: { _token: this.config.csrfToken }
                     }).done((data) => {
                         NotificationHandler.show(data.type,data.title,data.message);
-                        this.tableUI.entityLoader.loadEntities();
+                        this.tableUI.loadListAction.loadEntities();
                     }).fail((xhr) => {
                         AjaxErrorHandler.handleError(xhr, "Erreur lors de l'exécution de l'action sur l'entité.");
                     });
@@ -86,7 +86,7 @@ export class EntityAction extends Action {
                 this.tableUI.indexUI.modalUI.showContent(html);
                 this.executeScripts(html);
               
-                this.tableUI.entityLoader.loadEntities(); 
+                this.tableUI.loadListAction.loadEntities(); 
             })
             .fail((xhr) => {
                 AjaxErrorHandler.handleError(xhr, 'Erreur lors du chargement du formulaire.');
@@ -118,7 +118,7 @@ export class EntityAction extends Action {
             this.tableUI.indexUI.formUI.loader.hide();
             this.handleSuccess(this.successMessage);
             this.tableUI.indexUI.modalUI.close();
-            this.tableUI.entityLoader.loadEntities();
+            this.tableUI.loadListAction.loadEntities();
         })
         .fail((xhr) => {
             this.tableUI.indexUI.formUI.loader.hide();

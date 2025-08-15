@@ -96,10 +96,10 @@ export class CreateAction extends CrudAction {
                     // if(this.config.edit_has_many && this.config.afterCreateAction != ''){
                     //     const entity_id = parseInt( data.data[`entity_id`]);
                     //     this.tableUI.entityEditor.editEntity(entity_id);
-                    //     this.tableUI.entityLoader.loadEntities();
+                    //     this.tableUI.loadListAction.loadEntities();
 
                     // }else{
-                    //     this.tableUI.entityLoader.loadEntities(); // Recharger les entités
+                    //     this.tableUI.loadListAction.loadEntities(); // Recharger les entités
                     // }
                    
                    
@@ -152,7 +152,7 @@ export class CreateAction extends CrudAction {
         action = 'update';
     }
 
-    const reloadIndex = () => this.tableUI?.entityLoader?.loadEntities?.();
+    const reloadIndex = () => this.tableUI?.loadListAction?.loadEntities?.();
 
     switch (action) {
         case 'edit':

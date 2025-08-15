@@ -212,7 +212,7 @@ export class ModalUI {
 
         this.restoreParentModal();
         
-        this.indexUI.tableUI.entityLoader.loadEntities();
+        this.indexUI.tableUI.loadListAction.loadEntities();
     
         // setTimeout(() => {
         //     if ($(".dynamic-modal:visible").length === 0) {

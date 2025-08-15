@@ -708,7 +708,7 @@ export class FormUI  {
             Object.entries(hasManyInputsToUpdate).forEach(([key, managerId]) => {
                 const crudManager = window.crudModalManagers?.[managerId];
                 if (crudManager) {
-                    crudManager.tableUI.entityLoader.loadEntities(); // recharge les entités
+                    crudManager.tableUI.loadListAction.loadEntities(); // recharge les entités
                 } else {
                   //  console.warn(`⚠️ Composant hasMany non trouvé pour "${managerId}"`);
                 }

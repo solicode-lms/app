@@ -36,7 +36,7 @@ export class OrdreColumn {
                     { id: id, ordre: newPosition },
                     () => {
                         NotificationHandler.showSuccess('Ordre mis à jour.');
-                        self.tableUI.entityLoader.loadEntities();
+                        self.tableUI.loadListAction.loadEntities();
                     }
                 );
             }
