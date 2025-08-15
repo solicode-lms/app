@@ -1,25 +1,68 @@
 {
-    "link": {
-      "route_name": "realisationTaches.index",
-      "route_params": {
-        "filter.realisationTache.EtatRealisationTache.WorkflowTache.Code": "EN_COURS"
-      }
-    },
-    "roles": {
-      "admin": {
-        "etatRealisationTache.workflowTache.code": "EN_COURS"
-      },
-      "apprenant": {
-        "realisationProjet.apprenant.user_id": "#user_id",
-        "etatRealisationTache.workflowTache.code": "EN_COURS"
-      },
-      "formateur": {
-        "etatRealisationTache.workflowTache.code": "EN_COURS",
-        "realisationProjet.affectationProjet.projet.formateur.user_id": "#user_id"
-      }
-    },
-    "tableUI": {
-      "Id": "id",
-      "titre": "tache.titre"
+  "link": {
+    "route_name": "realisationTaches.index",
+    "route_params": {
+      "filter.realisationTache.etatRealisationTache.WorkflowTache.Code": "IN_PROGRESS"
     }
+  },
+  "limit": 3,
+  "roles": {
+    "admin": {
+      "etatRealisationTache.workflowTache.code": "IN_PROGRESS"
+    },
+    "apprenant": {
+      "realisationProjet.apprenant.user_id": "#user_id",
+      "etatRealisationTache.workflowTache.code": "IN_PROGRESS",
+        "tableUI": [
+            {
+              "key": "tache.titre",
+              "label": "Tâche",
+              "order": 1
+            },
+            {
+              "key": "tache.projet.titre",
+              "label": "projet",
+              "order": 2
+            }
+            ,
+            {
+              "key": "etatRealisationTache.nom",
+              "label": "État",
+              "order": 3,
+              "nature": "badge",
+              "couleur": "etatRealisationTache.sysColor.hex"
+            }
+        ]
+    },
+    "formateur": {
+      "etatRealisationTache.workflowTache.code": "IN_PROGRESS",
+      "realisationProjet.affectationProjet.projet.formateur.user_id": "#user_id"
+    }
+  },
+  "tableUI": [
+    {
+      "key": "tache.titre",
+      "label": "Tâche",
+      "order": 4
+    },
+    {
+      "key": "realisationProjet.affectationProjet.groupe",
+      "label": "groupe",
+      "order": 2
+    },
+    {
+      "key": "tache.projet.titre",
+      "label": "projet",
+      "order": 3
+    },
+    {
+      "key": "realisationProjet.apprenant",
+      "label": "apprenant",
+      "order": 1
+    }
+  ],
+  "order_by": {
+    "column": "updated_at",
+    "direction": "desc"
   }
+}

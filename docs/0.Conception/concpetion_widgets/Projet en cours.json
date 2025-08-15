@@ -7,10 +7,9 @@
       "filter.realisationProjet.apprenant_id": "#apprenant_id"
     }
   },
-  "limit": 5,
+  "limit": 3,
   "roles": {
     "apprenant": {
-      "Apprenant.User_id": "#user_id",
       "tableUI": [
         {
           "key": "affectationProjet.projet.titre",
@@ -18,19 +17,26 @@
           "order": 1
         },
         {
-          "key": "etatsRealisationProjet.workflowProjet.titre",
-          "label": "État",
+          "key": "affectationProjet.date_fin",
+          "label": "Deadline",
           "order": 2,
-          "nature": "badge",
-          "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
+          "nature": "deadline"
         },
         {
-          "key": "avancement_projet",
-          "label": "Avancement",
+          "key": "etatsRealisationProjet.titre",
+          "label": "État",
           "order": 3,
+          "nature": "badge",
+          "couleur": "etatsRealisationProjet.sysColor.hex"
+        },
+        {
+          "key": "progression_execution_cache",
+          "label": "Progression",
+          "order": 4,
           "nature": "progression"
         }
-      ]
+      ],
+      "Apprenant.User_id": "#user_id"
     },
     "formateur": {
       "tableUI": [
@@ -52,9 +58,15 @@
           "couleur": "etatsRealisationProjet.workflowProjet.sysColor.hex"
         },
         {
+          "key": "affectationProjet.date_fin",
+          "label": "Deadline",
+          "order": 5,
+          "nature": "deadline"
+        },
+        {
           "key": "avancement_projet",
           "label": "Avancement",
-          "order": 4,
+          "order": 6,
           "nature": "progression"
         }
       ],
@@ -92,7 +104,7 @@
     }
   ],
   "order_by": {
-    "column": "updated_at",
+    "column": "etatsRealisationProjet.workflowProjet.ordre",
     "direction": "desc"
   }
 }

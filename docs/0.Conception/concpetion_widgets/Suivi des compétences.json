@@ -23,13 +23,17 @@
           "nature": "progression"
         },
         {
+          "key": "note_sur_bareme",
+          "label": "note",
+          "order": 3
+        },
+        {
           "key": "etatRealisationCompetence.nom",
           "label": "État",
-          "order": 3,
+          "order": 4,
           "nature": "badge",
           "couleur": "etatRealisationCompetence.sysColor.hex"
         }
-        
       ],
       "Apprenant.User_id": "#user_id"
     },
@@ -52,9 +56,14 @@
           "nature": "progression"
         },
         {
+          "key": "note_sur_bareme",
+          "label": "note",
+          "order": 3
+        },
+        {
           "key": "etatRealisationCompetence.nom",
           "label": "État",
-          "order": 3,
+          "order": 4,
           "nature": "badge",
           "couleur": "etatRealisationCompetence.sysColor.hex"
         }
@@ -62,31 +71,36 @@
       "AffectationProjet.Projet.Formateur.User_id": "#user_id"
     }
   },
-"tableUI": [
-        {
-          "key": "apprenant",
-          "label": "Apprenant",
-          "order": 1
-        },
-        {
-          "key": "competence.nom",
-          "label": "Compétence",
-          "order": 1
-        },
-        {
-          "key": "progression_cache",
-          "label": "Progression",
-          "order": 2,
-          "nature": "progression"
-        },
-        {
-          "key": "etatRealisationCompetence.nom",
-          "label": "État",
-          "order": 3,
-          "nature": "badge",
-          "couleur": "etatRealisationCompetence.sysColor.hex"
-        }
-    ],
+  "tableUI": [
+    {
+      "key": "apprenant",
+      "label": "Apprenant",
+      "order": 1
+    },
+    {
+      "key": "competence.nom",
+      "label": "Compétence",
+      "order": 1
+    },
+    {
+      "key": "progression_cache",
+      "label": "Progression",
+      "order": 2,
+      "nature": "progression"
+    },
+    {
+          "key": "note_sur_bareme",
+          "label": "note",
+          "order": 4
+    },
+    {
+      "key": "etatRealisationCompetence.nom",
+      "label": "État",
+      "order": 3,
+      "nature": "badge",
+      "couleur": "etatRealisationCompetence.sysColor.hex"
+    }
+  ],
   "order_by": {
     "column": "etatRealisationCompetence.ordre",
     "direction": "desc"
