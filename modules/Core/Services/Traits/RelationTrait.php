@@ -39,6 +39,8 @@ trait RelationTrait
             }
             // Si la clé n'existe pas, on ne fait rien
         }
+
+        $entity->touch(); // pour lancer Observer
     }
 
     /**

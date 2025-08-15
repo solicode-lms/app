@@ -574,7 +574,7 @@ export class FormUI  {
 
 
         // Supprimer les tooltip existant avant d'initialiser
-        // $('.tooltip').remove();
+        $('.tooltip').remove();
 
         // // tooltip-inner
         // // Supprimer tous les tooltips existants avant d'en créer de nouveaux

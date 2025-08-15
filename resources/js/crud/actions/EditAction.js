@@ -78,7 +78,9 @@ export class EditAction extends CrudAction {
             const form = $(this.config.formSelector);
             const actionUrl = form.attr('action'); // URL définie dans le formulaire
             const method = form.find('input[name="_method"]').val() || 'POST'; // Méthode HTTP
-            const formData = form.serialize(); // Sérialisation des données du formulaire
+
+            let formData = form.serialize(); // Sérialisation des données du formulaire
+
             this.tableUI.indexUI.formUI.loader.show();
     
             // Valider le formulaire avant la soumission
