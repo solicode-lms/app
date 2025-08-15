@@ -72,12 +72,11 @@ class BaseWidgetRequest extends FormRequest
         ];
     }
 
-    public function prepareForValidation()
+    protected function prepareForValidation()
     {
         $this->merge([
-            'roles' => $this->has('roles') ? $this->roles : [],
+            'roles' => $this->has('roles') ? $this->roles : []
         ]);
-    }
 
-    
+    }
 }

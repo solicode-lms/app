@@ -1,16 +1,16 @@
 {{-- Ce fichier est maintenu par ESSARRAJ Fouad --}}
 
 
-@accessiblePermissions(['index-widgetType', 'index-widgetOperation', 'index-widget', 'index-sectionWidget'])
+@accessiblePermissions(['index-sectionWidget', 'index-widgetOperation', 'index-widgetType', 'index-widget'])
 @if($accessiblePermissions->isNotEmpty())
     @if($accessiblePermissions->count() === 1)
         {{-- Cas d’un seul élément accessible --}}
-            @can('index-widgetType')
-            <li class="nav-item" id="menu-widgetTypes">
-                <a href="{{ route('widgetTypes.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cube"></i>
-                    {{__('PkgWidgets::widgetType.plural')}}
+            @can('index-sectionWidget')
+            <li class="nav-item" id="menu-sectionWidgets">
+                <a href="{{ route('sectionWidgets.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgWidgets/sectionWidgets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    {{__('PkgWidgets::sectionWidget.plural')}}
                 </a>
             </li>
             @endcan
@@ -23,21 +23,21 @@
                 </a>
             </li>
             @endcan
+            @can('index-widgetType')
+            <li class="nav-item" id="menu-widgetTypes">
+                <a href="{{ route('widgetTypes.index') }}" 
+                   class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cube"></i>
+                    {{__('PkgWidgets::widgetType.plural')}}
+                </a>
+            </li>
+            @endcan
             @can('index-widget')
             <li class="nav-item" id="menu-widgets">
                 <a href="{{ route('widgets.index') }}" 
                    class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-chart-bar"></i>
                     {{__('PkgWidgets::widget.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-sectionWidget')
-            <li class="nav-item" id="menu-sectionWidgets">
-                <a href="{{ route('sectionWidgets.index') }}" 
-                   class="nav-link {{ Request::is('admin/PkgWidgets/sectionWidgets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    {{__('PkgWidgets::sectionWidget.plural')}}
                 </a>
             </li>
             @endcan
@@ -52,11 +52,11 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('index-widgetType') 
-            <li class="nav-item" id="menu-widgetTypes">
-                <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cube"></i>
-                    {{__('PkgWidgets::widgetType.plural')}}
+            @can('index-sectionWidget') 
+            <li class="nav-item" id="menu-sectionWidgets">
+                <a href="{{ route('sectionWidgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/sectionWidgets') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-table"></i>
+                    {{__('PkgWidgets::sectionWidget.plural')}}
                 </a>
             </li>
             @endcan
@@ -68,19 +68,19 @@
                 </a>
             </li>
             @endcan
+            @can('index-widgetType') 
+            <li class="nav-item" id="menu-widgetTypes">
+                <a href="{{ route('widgetTypes.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgetTypes') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cube"></i>
+                    {{__('PkgWidgets::widgetType.plural')}}
+                </a>
+            </li>
+            @endcan
             @can('index-widget') 
             <li class="nav-item" id="menu-widgets">
                 <a href="{{ route('widgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/widgets') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-chart-bar"></i>
                     {{__('PkgWidgets::widget.plural')}}
-                </a>
-            </li>
-            @endcan
-            @can('index-sectionWidget') 
-            <li class="nav-item" id="menu-sectionWidgets">
-                <a href="{{ route('sectionWidgets.index') }}" class="nav-link {{ Request::is('admin/PkgWidgets/sectionWidgets') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-table"></i>
-                    {{__('PkgWidgets::sectionWidget.plural')}}
                 </a>
             </li>
             @endcan
