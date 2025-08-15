@@ -41,10 +41,10 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'widget_operation_reference' => 'widget_operation_reference',
                 'color' => 'color',
                 'sys_color_reference' => 'sys_color_reference',
+                'roles' => 'roles',
                 'reference' => 'reference',
                 'section_widget_reference' => 'section_widget_reference',
                 'parameters' => 'parameters',
-                'roles' => 'roles',
             ];
         } else {
             return [
@@ -52,15 +52,15 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'icon' => __('PkgWidgets::widget.icon'),
                 'name' => __('PkgWidgets::widget.name'),
                 'label' => __('PkgWidgets::widget.label'),
-                'widget_type_reference' => __('PkgWidgets::widget.widget_type_reference'),
-                'sys_model_reference' => __('PkgWidgets::widget.sys_model_reference'),
-                'widget_operation_reference' => __('PkgWidgets::widget.widget_operation_reference'),
+                'widget_type_reference' => __('PkgWidgets::widgetType.singular'),
+                'sys_model_reference' => __('Core::sysModel.singular'),
+                'widget_operation_reference' => __('PkgWidgets::widgetOperation.singular'),
                 'color' => __('PkgWidgets::widget.color'),
-                'sys_color_reference' => __('PkgWidgets::widget.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
+                    'roles' => __('PkgAutorisation::role.plural'),
                 'reference' => __('Core::msg.reference'),
-                'section_widget_reference' => __('PkgWidgets::widget.section_widget_reference'),
+                'section_widget_reference' => __('PkgWidgets::sectionWidget.singular'),
                 'parameters' => __('PkgWidgets::widget.parameters'),
-                'roles' => __('PkgAutorisation::role.reference'),
             ];
         }
     }
@@ -81,10 +81,12 @@ class BaseWidgetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'widget_operation_reference' => $widget->operation?->reference,
                 'color' => $widget->color,
                 'sys_color_reference' => $widget->sysColor?->reference,
+                'roles' => $widget->roles
+                    ->pluck('reference')
+                    ->implode('|'),
                 'reference' => $widget->reference,
                 'section_widget_reference' => $widget->sectionWidget?->reference,
                 'parameters' => $widget->parameters,
-                'roles' => $widget->roles->pluck('reference')->implode('|'),
             ];
         });
     }
