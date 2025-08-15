@@ -49,5 +49,4 @@ class BaseSysColorRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -63,5 +63,11 @@ class BaseEvaluateurRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'affectationProjets' => $this->has('affectationProjets') ? $this->affectationProjets : []
+        ]);
+
+    }
 }

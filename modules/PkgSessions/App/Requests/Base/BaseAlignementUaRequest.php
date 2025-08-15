@@ -51,5 +51,4 @@ class BaseAlignementUaRequest extends FormRequest
         ];
     }
 
-    
 }

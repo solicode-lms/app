@@ -48,5 +48,4 @@ class BaseNatureLivrableRequest extends FormRequest
         ];
     }
 
-    
 }

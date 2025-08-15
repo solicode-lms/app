@@ -58,5 +58,4 @@ class BaseEModelRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -57,9 +57,9 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
         ];
     }
 
-    
     protected function prepareForValidation()
     {
+
         $user = Auth::user();
 
         // Définition des rôles autorisés pour chaque champ
@@ -102,5 +102,4 @@ class BaseRealisationUaPrototypeRequest extends FormRequest
             }
         }
     }
-    
 }

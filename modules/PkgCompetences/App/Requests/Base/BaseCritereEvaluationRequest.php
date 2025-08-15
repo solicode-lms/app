@@ -53,5 +53,4 @@ class BaseCritereEvaluationRequest extends FormRequest
         ];
     }
 
-    
 }

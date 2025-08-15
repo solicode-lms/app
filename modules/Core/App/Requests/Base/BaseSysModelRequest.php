@@ -58,5 +58,4 @@ class BaseSysModelRequest extends FormRequest
         ];
     }
 
-    
 }

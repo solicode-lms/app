@@ -51,5 +51,11 @@ class BaseSpecialiteRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'formateurs' => $this->has('formateurs') ? $this->formateurs : []
+        ]);
+
+    }
 }

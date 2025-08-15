@@ -64,9 +64,12 @@ class BaseAffectationProjetRequest extends FormRequest
         ];
     }
 
-    
     protected function prepareForValidation()
     {
+        $this->merge([
+            'evaluateurs' => $this->has('evaluateurs') ? $this->evaluateurs : []
+        ]);
+
         $user = Auth::user();
 
         // Définition des rôles autorisés pour chaque champ
@@ -103,5 +106,4 @@ class BaseAffectationProjetRequest extends FormRequest
             }
         }
     }
-    
 }

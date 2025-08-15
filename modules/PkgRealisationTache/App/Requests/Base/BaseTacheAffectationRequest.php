@@ -49,5 +49,4 @@ class BaseTacheAffectationRequest extends FormRequest
         ];
     }
 
-    
 }

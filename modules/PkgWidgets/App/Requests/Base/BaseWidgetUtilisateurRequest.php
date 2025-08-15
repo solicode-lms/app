@@ -57,5 +57,4 @@ class BaseWidgetUtilisateurRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -58,5 +58,4 @@ class BaseUniteApprentissageRequest extends FormRequest
         ];
     }
 
-    
 }

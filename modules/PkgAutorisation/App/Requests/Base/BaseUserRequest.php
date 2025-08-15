@@ -62,5 +62,11 @@ class BaseUserRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'roles' => $this->has('roles') ? $this->roles : []
+        ]);
+
+    }
 }

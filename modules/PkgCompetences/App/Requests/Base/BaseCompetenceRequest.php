@@ -56,5 +56,4 @@ class BaseCompetenceRequest extends FormRequest
         ];
     }
 
-    
 }

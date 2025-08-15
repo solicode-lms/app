@@ -53,5 +53,11 @@ class BaseSousGroupeRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'apprenants' => $this->has('apprenants') ? $this->apprenants : []
+        ]);
+
+    }
 }

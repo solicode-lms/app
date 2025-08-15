@@ -53,5 +53,4 @@ class BaseFeatureDomainRequest extends FormRequest
         ];
     }
 
-    
 }

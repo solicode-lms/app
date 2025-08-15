@@ -56,5 +56,4 @@ class BaseSectionWidgetRequest extends FormRequest
         ];
     }
 
-    
 }

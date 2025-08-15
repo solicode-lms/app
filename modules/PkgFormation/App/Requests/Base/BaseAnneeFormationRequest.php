@@ -50,5 +50,4 @@ class BaseAnneeFormationRequest extends FormRequest
         ];
     }
 
-    
 }

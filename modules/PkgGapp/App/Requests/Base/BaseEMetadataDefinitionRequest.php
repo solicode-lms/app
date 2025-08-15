@@ -59,5 +59,4 @@ class BaseEMetadataDefinitionRequest extends FormRequest
         ];
     }
 
-    
 }

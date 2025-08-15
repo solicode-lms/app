@@ -61,5 +61,4 @@ class BaseRealisationUaRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -51,5 +51,4 @@ class BaseNiveauxScolaireRequest extends FormRequest
         ];
     }
 
-    
 }

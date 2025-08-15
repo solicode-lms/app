@@ -55,5 +55,4 @@ class BaseSysControllerRequest extends FormRequest
         ];
     }
 
-    
 }

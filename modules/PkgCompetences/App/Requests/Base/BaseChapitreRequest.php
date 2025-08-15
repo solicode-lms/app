@@ -64,5 +64,4 @@ class BaseChapitreRequest extends FormRequest
         ];
     }
 
-    
 }

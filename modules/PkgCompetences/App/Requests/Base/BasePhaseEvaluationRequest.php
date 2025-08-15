@@ -55,5 +55,4 @@ class BasePhaseEvaluationRequest extends FormRequest
         ];
     }
 
-    
 }

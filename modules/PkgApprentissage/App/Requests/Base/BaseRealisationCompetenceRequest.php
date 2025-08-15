@@ -65,5 +65,4 @@ class BaseRealisationCompetenceRequest extends FormRequest
         ];
     }
 
-    
 }

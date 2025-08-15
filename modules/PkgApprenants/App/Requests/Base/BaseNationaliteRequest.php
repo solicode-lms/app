@@ -51,5 +51,4 @@ class BaseNationaliteRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -96,5 +96,12 @@ class BaseApprenantRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'sousGroupes' => $this->has('sousGroupes') ? $this->sousGroupes : [],
+            'groupes' => $this->has('groupes') ? $this->groupes : []
+        ]);
+
+    }
 }

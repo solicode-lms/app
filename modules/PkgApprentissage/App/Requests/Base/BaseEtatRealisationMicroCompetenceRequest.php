@@ -57,5 +57,4 @@ class BaseEtatRealisationMicroCompetenceRequest extends FormRequest
         ];
     }
 
-    
 }

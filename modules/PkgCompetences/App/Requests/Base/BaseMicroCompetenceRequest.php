@@ -61,5 +61,4 @@ class BaseMicroCompetenceRequest extends FormRequest
         ];
     }
 
-    
 }

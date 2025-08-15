@@ -57,5 +57,12 @@ class BasePermissionRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'features' => $this->has('features') ? $this->features : [],
+            'roles' => $this->has('roles') ? $this->roles : []
+        ]);
+
+    }
 }

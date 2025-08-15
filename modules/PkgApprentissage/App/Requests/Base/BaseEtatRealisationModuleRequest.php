@@ -55,5 +55,4 @@ class BaseEtatRealisationModuleRequest extends FormRequest
         ];
     }
 
-    
 }

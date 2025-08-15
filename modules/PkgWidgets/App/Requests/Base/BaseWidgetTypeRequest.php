@@ -48,5 +48,4 @@ class BaseWidgetTypeRequest extends FormRequest
         ];
     }
 
-    
 }

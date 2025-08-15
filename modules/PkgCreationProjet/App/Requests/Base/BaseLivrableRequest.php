@@ -57,5 +57,11 @@ class BaseLivrableRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'taches' => $this->has('taches') ? $this->taches : []
+        ]);
+
+    }
 }

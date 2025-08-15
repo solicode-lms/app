@@ -73,5 +73,4 @@ class BaseEDataFieldRequest extends FormRequest
         ];
     }
 
-    
 }

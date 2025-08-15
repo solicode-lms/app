@@ -79,5 +79,4 @@ class BaseSessionFormationRequest extends FormRequest
         ];
     }
 
-    
 }

@@ -61,5 +61,12 @@ class BaseGroupeRequest extends FormRequest
         ];
     }
 
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'apprenants' => $this->has('apprenants') ? $this->apprenants : [],
+            'formateurs' => $this->has('formateurs') ? $this->formateurs : []
+        ]);
+
+    }
 }

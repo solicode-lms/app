@@ -55,5 +55,4 @@ class BaseEtatEvaluationProjetRequest extends FormRequest
         ];
     }
 
-    
 }

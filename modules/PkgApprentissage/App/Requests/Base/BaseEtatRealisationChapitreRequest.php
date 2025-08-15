@@ -57,5 +57,4 @@ class BaseEtatRealisationChapitreRequest extends FormRequest
         ];
     }
 
-    
 }
