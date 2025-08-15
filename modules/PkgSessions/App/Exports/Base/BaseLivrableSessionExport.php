@@ -45,8 +45,8 @@ class BaseLivrableSessionExport implements FromCollection, WithHeadings, ShouldA
                 'reference' => __('Core::msg.reference'),
                 'titre' => __('PkgSessions::livrableSession.titre'),
                 'description' => __('PkgSessions::livrableSession.description'),
-                'session_formation_reference' => __('PkgSessions::livrableSession.session_formation_reference'),
-                'nature_livrable_reference' => __('PkgSessions::livrableSession.nature_livrable_reference'),
+                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
+                'nature_livrable_reference' => __('PkgCreationProjet::natureLivrable.singular'),
             ];
         }
     }

@@ -25,6 +25,7 @@ class BaseSousGroupeImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -60,6 +61,7 @@ class BaseSousGroupeImport implements ToModel, WithHeadingRow
              'nom' => $values[1] ?? null,
              'description' => $values[2] ?? null,
              'groupe_id' => $values[3] ?? null,
+             'apprenants' => $values[4] ?? null,
         ]);
 
 

@@ -41,19 +41,21 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'is_formateur_evaluateur' => 'is_formateur_evaluateur',
                 'reference' => 'reference',
                 'echelle_note_cible' => 'echelle_note_cible',
+                'evaluateurs' => 'evaluateurs',
                 'description' => 'description',
             ];
         } else {
             return [
-                'projet_reference' => __('PkgRealisationProjets::affectationProjet.projet_reference'),
-                'groupe_reference' => __('PkgRealisationProjets::affectationProjet.groupe_reference'),
-                'sous_groupe_reference' => __('PkgRealisationProjets::affectationProjet.sous_groupe_reference'),
-                'annee_formation_reference' => __('PkgRealisationProjets::affectationProjet.annee_formation_reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
+                'groupe_reference' => __('PkgApprenants::groupe.singular'),
+                'sous_groupe_reference' => __('PkgApprenants::sousGroupe.singular'),
+                'annee_formation_reference' => __('PkgFormation::anneeFormation.singular'),
                 'date_debut' => __('PkgRealisationProjets::affectationProjet.date_debut'),
                 'date_fin' => __('PkgRealisationProjets::affectationProjet.date_fin'),
                 'is_formateur_evaluateur' => __('PkgRealisationProjets::affectationProjet.is_formateur_evaluateur'),
                 'reference' => __('Core::msg.reference'),
                 'echelle_note_cible' => __('PkgRealisationProjets::affectationProjet.echelle_note_cible'),
+                    'evaluateurs' => __('PkgEvaluateurs::evaluateur.plural'),
                 'description' => __('PkgRealisationProjets::affectationProjet.description'),
             ];
         }
@@ -75,6 +77,9 @@ class BaseAffectationProjetExport implements FromCollection, WithHeadings, Shoul
                 'is_formateur_evaluateur' => $affectationProjet->is_formateur_evaluateur ? '1' : '0',
                 'reference' => $affectationProjet->reference,
                 'echelle_note_cible' => (string) $affectationProjet->echelle_note_cible,
+                'evaluateurs' => $affectationProjet->evaluateurs
+                    ->pluck('reference')
+                    ->implode('|'),
                 'description' => $affectationProjet->description,
             ];
         });

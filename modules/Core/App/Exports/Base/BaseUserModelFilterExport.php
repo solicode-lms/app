@@ -39,7 +39,7 @@ class BaseUserModelFilterExport implements FromCollection, WithHeadings, ShouldA
             ];
         } else {
             return [
-                'user_reference' => __('Core::userModelFilter.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'model_name' => __('Core::userModelFilter.model_name'),
                 'context_key' => __('Core::userModelFilter.context_key'),
                 'filters' => __('Core::userModelFilter.filters'),

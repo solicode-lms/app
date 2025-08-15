@@ -46,7 +46,7 @@ class BaseEtatEvaluationProjetExport implements FromCollection, WithHeadings, Sh
                 'titre' => __('PkgEvaluateurs::etatEvaluationProjet.titre'),
                 'description' => __('PkgEvaluateurs::etatEvaluationProjet.description'),
                 'reference' => __('Core::msg.reference'),
-                'sys_color_reference' => __('PkgEvaluateurs::etatEvaluationProjet.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
             ];
         }
     }

@@ -45,7 +45,7 @@ class BaseEtatRealisationMicroCompetenceExport implements FromCollection, WithHe
                 'ordre' => __('PkgApprentissage::etatRealisationMicroCompetence.ordre'),
                 'nom' => __('PkgApprentissage::etatRealisationMicroCompetence.nom'),
                 'code' => __('PkgApprentissage::etatRealisationMicroCompetence.code'),
-                'sys_color_reference' => __('PkgApprentissage::etatRealisationMicroCompetence.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationMicroCompetence.is_editable_only_by_formateur'),
                 'description' => __('PkgApprentissage::etatRealisationMicroCompetence.description'),
                 'reference' => __('Core::msg.reference'),

@@ -41,7 +41,7 @@ class BaseSysControllerExport implements FromCollection, WithHeadings, ShouldAut
             ];
         } else {
             return [
-                'sys_module_reference' => __('Core::sysController.sys_module_reference'),
+                'sys_module_reference' => __('Core::sysModule.singular'),
                 'name' => __('Core::sysController.name'),
                 'slug' => __('Core::sysController.slug'),
                 'description' => __('Core::sysController.description'),

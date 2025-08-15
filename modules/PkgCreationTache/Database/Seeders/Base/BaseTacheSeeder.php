@@ -103,10 +103,21 @@ class BaseTacheSeeder extends Seeder
                         "chapitre_id" => $chapitre_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $tache = null;
                 if (!empty($row["reference"])) {
-                    $tacheService->updateOrCreate(["reference" => $row["reference"]], $tacheData);
+                    $tache = $tacheService->updateOrCreate(["reference" => $row["reference"]], $tacheData);
                 } else {
-                    $tacheService->create($tacheData);
+                    $tache = $tacheService->create($tacheData);
+                }
+                if (!empty($row["livrables"])) {
+                    $livrableReferences = array_map('trim', explode('|', $row["livrables"]));
+                    $livrableIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $livrableReferences)->pluck('id')->toArray();
+
+                    if (!empty($livrableIds)) {
+                        $tache->livrables()->sync($livrableIds);
+                          $tache->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

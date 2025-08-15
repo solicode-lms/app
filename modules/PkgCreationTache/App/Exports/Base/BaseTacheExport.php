@@ -43,20 +43,22 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'note' => 'note',
                 'phase_evaluation_reference' => 'phase_evaluation_reference',
                 'chapitre_reference' => 'chapitre_reference',
+                'livrables' => 'livrables',
             ];
         } else {
             return [
                 'ordre' => __('PkgCreationTache::tache.ordre'),
                 'priorite' => __('PkgCreationTache::tache.priorite'),
                 'titre' => __('PkgCreationTache::tache.titre'),
-                'projet_reference' => __('PkgCreationTache::tache.projet_reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
                 'description' => __('PkgCreationTache::tache.description'),
                 'dateDebut' => __('PkgCreationTache::tache.dateDebut'),
                 'dateFin' => __('PkgCreationTache::tache.dateFin'),
                 'reference' => __('Core::msg.reference'),
                 'note' => __('PkgCreationTache::tache.note'),
-                'phase_evaluation_reference' => __('PkgCreationTache::tache.phase_evaluation_reference'),
-                'chapitre_reference' => __('PkgCreationTache::tache.chapitre_reference'),
+                'phase_evaluation_reference' => __('PkgCompetences::phaseEvaluation.singular'),
+                'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
+                    'livrables' => __('PkgCreationProjet::livrable.plural'),
             ];
         }
     }
@@ -79,6 +81,9 @@ class BaseTacheExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 'note' => $tache->note,
                 'phase_evaluation_reference' => $tache->phaseEvaluation?->reference,
                 'chapitre_reference' => $tache->chapitre?->reference,
+                'livrables' => $tache->livrables
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

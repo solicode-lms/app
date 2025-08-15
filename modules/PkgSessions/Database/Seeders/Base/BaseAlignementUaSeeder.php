@@ -92,10 +92,12 @@ class BaseAlignementUaSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $alignementUa = null;
                 if (!empty($row["reference"])) {
-                    $alignementUaService->updateOrCreate(["reference" => $row["reference"]], $alignementUaData);
+                    $alignementUa = $alignementUaService->updateOrCreate(["reference" => $row["reference"]], $alignementUaData);
                 } else {
-                    $alignementUaService->create($alignementUaData);
+                    $alignementUa = $alignementUaService->create($alignementUaData);
                 }
             }
         }

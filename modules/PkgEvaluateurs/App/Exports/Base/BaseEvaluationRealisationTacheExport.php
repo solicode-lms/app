@@ -41,11 +41,11 @@ class BaseEvaluationRealisationTacheExport implements FromCollection, WithHeadin
             ];
         } else {
             return [
-                'realisation_tache_reference' => __('PkgEvaluateurs::evaluationRealisationTache.realisation_tache_reference'),
-                'evaluateur_reference' => __('PkgEvaluateurs::evaluationRealisationTache.evaluateur_reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
+                'evaluateur_reference' => __('PkgEvaluateurs::evaluateur.singular'),
                 'note' => __('PkgEvaluateurs::evaluationRealisationTache.note'),
                 'message' => __('PkgEvaluateurs::evaluationRealisationTache.message'),
-                'evaluation_realisation_projet_reference' => __('PkgEvaluateurs::evaluationRealisationTache.evaluation_realisation_projet_reference'),
+                'evaluation_realisation_projet_reference' => __('PkgEvaluateurs::evaluationRealisationProjet.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

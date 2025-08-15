@@ -93,10 +93,12 @@ class BaseLivrablesRealisationSeeder extends Seeder
                         "realisation_projet_id" => $realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $livrablesRealisation = null;
                 if (!empty($row["reference"])) {
-                    $livrablesRealisationService->updateOrCreate(["reference" => $row["reference"]], $livrablesRealisationData);
+                    $livrablesRealisation = $livrablesRealisationService->updateOrCreate(["reference" => $row["reference"]], $livrablesRealisationData);
                 } else {
-                    $livrablesRealisationService->create($livrablesRealisationData);
+                    $livrablesRealisation = $livrablesRealisationService->create($livrablesRealisationData);
                 }
             }
         }

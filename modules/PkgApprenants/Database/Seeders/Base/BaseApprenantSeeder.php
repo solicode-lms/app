@@ -112,10 +112,30 @@ class BaseApprenantSeeder extends Seeder
                         "actif" => isset($row["actif"]) && $row["actif"] !== "" ? $row["actif"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $apprenant = null;
                 if (!empty($row["reference"])) {
-                    $apprenantService->updateOrCreate(["reference" => $row["reference"]], $apprenantData);
+                    $apprenant = $apprenantService->updateOrCreate(["reference" => $row["reference"]], $apprenantData);
                 } else {
-                    $apprenantService->create($apprenantData);
+                    $apprenant = $apprenantService->create($apprenantData);
+                }
+                if (!empty($row["sousGroupes"])) {
+                    $sousGroupeReferences = array_map('trim', explode('|', $row["sousGroupes"]));
+                    $sousGroupeIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $sousGroupeReferences)->pluck('id')->toArray();
+
+                    if (!empty($sousGroupeIds)) {
+                        $apprenant->sousGroupes()->sync($sousGroupeIds);
+                          $apprenant->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["groupes"])) {
+                    $groupeReferences = array_map('trim', explode('|', $row["groupes"]));
+                    $groupeIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $groupeReferences)->pluck('id')->toArray();
+
+                    if (!empty($groupeIds)) {
+                        $apprenant->groupes()->sync($groupeIds);
+                          $apprenant->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

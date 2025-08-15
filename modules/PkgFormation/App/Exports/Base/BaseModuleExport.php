@@ -45,7 +45,7 @@ class BaseModuleExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'nom' => __('PkgFormation::module.nom'),
                 'description' => __('PkgFormation::module.description'),
                 'masse_horaire' => __('PkgFormation::module.masse_horaire'),
-                'filiere_reference' => __('PkgFormation::module.filiere_reference'),
+                'filiere_reference' => __('PkgFormation::filiere.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

@@ -45,8 +45,8 @@ class BaseCritereEvaluationExport implements FromCollection, WithHeadings, Shoul
                 'reference' => __('Core::msg.reference'),
                 'intitule' => __('PkgCompetences::critereEvaluation.intitule'),
                 'bareme' => __('PkgCompetences::critereEvaluation.bareme'),
-                'phase_evaluation_reference' => __('PkgCompetences::critereEvaluation.phase_evaluation_reference'),
-                'unite_apprentissage_reference' => __('PkgCompetences::critereEvaluation.unite_apprentissage_reference'),
+                'phase_evaluation_reference' => __('PkgCompetences::phaseEvaluation.singular'),
+                'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
             ];
         }
     }

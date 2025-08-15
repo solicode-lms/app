@@ -43,7 +43,7 @@ class BaseResourceExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'nom' => __('PkgCreationProjet::resource.nom'),
                 'lien' => __('PkgCreationProjet::resource.lien'),
                 'description' => __('PkgCreationProjet::resource.description'),
-                'projet_reference' => __('PkgCreationProjet::resource.projet_reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

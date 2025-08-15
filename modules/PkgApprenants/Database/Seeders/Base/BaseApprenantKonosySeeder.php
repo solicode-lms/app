@@ -97,10 +97,12 @@ class BaseApprenantKonosySeeder extends Seeder
                         "NiveauScolaire" => isset($row["NiveauScolaire"]) && $row["NiveauScolaire"] !== "" ? $row["NiveauScolaire"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $apprenantKonosy = null;
                 if (!empty($row["reference"])) {
-                    $apprenantKonosyService->updateOrCreate(["reference" => $row["reference"]], $apprenantKonosyData);
+                    $apprenantKonosy = $apprenantKonosyService->updateOrCreate(["reference" => $row["reference"]], $apprenantKonosyData);
                 } else {
-                    $apprenantKonosyService->create($apprenantKonosyData);
+                    $apprenantKonosy = $apprenantKonosyService->create($apprenantKonosyData);
                 }
             }
         }

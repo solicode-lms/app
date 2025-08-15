@@ -48,7 +48,7 @@ class BaseWorkflowTacheExport implements FromCollection, WithHeadings, ShouldAut
                 'description' => __('PkgRealisationTache::workflowTache.description'),
                 'is_editable_only_by_formateur' => __('PkgRealisationTache::workflowTache.is_editable_only_by_formateur'),
                 'reference' => __('Core::msg.reference'),
-                'sys_color_reference' => __('PkgRealisationTache::workflowTache.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
             ];
         }
     }

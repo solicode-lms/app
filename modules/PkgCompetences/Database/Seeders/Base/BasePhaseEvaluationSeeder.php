@@ -83,10 +83,12 @@ class BasePhaseEvaluationSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $phaseEvaluation = null;
                 if (!empty($row["reference"])) {
-                    $phaseEvaluationService->updateOrCreate(["reference" => $row["reference"]], $phaseEvaluationData);
+                    $phaseEvaluation = $phaseEvaluationService->updateOrCreate(["reference" => $row["reference"]], $phaseEvaluationData);
                 } else {
-                    $phaseEvaluationService->create($phaseEvaluationData);
+                    $phaseEvaluation = $phaseEvaluationService->create($phaseEvaluationData);
                 }
             }
         }

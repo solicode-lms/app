@@ -79,10 +79,39 @@ class BaseRoleSeeder extends Seeder
                         "guard_name" => isset($row["guard_name"]) && $row["guard_name"] !== "" ? $row["guard_name"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $role = null;
                 if (!empty($row["reference"])) {
-                    $roleService->updateOrCreate(["reference" => $row["reference"]], $roleData);
+                    $role = $roleService->updateOrCreate(["reference" => $row["reference"]], $roleData);
                 } else {
-                    $roleService->create($roleData);
+                    $role = $roleService->create($roleData);
+                }
+                if (!empty($row["permissions"])) {
+                    $permissionReferences = array_map('trim', explode('|', $row["permissions"]));
+                    $permissionIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $permissionReferences)->pluck('id')->toArray();
+
+                    if (!empty($permissionIds)) {
+                        $role->permissions()->sync($permissionIds);
+                          $role->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["widgets"])) {
+                    $widgetReferences = array_map('trim', explode('|', $row["widgets"]));
+                    $widgetIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $widgetReferences)->pluck('id')->toArray();
+
+                    if (!empty($widgetIds)) {
+                        $role->widgets()->sync($widgetIds);
+                          $role->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["users"])) {
+                    $userReferences = array_map('trim', explode('|', $row["users"]));
+                    $userIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $userReferences)->pluck('id')->toArray();
+
+                    if (!empty($userIds)) {
+                        $role->users()->sync($userIds);
+                          $role->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

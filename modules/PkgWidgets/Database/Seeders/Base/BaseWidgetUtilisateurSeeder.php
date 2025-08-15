@@ -94,10 +94,12 @@ class BaseWidgetUtilisateurSeeder extends Seeder
                         "visible" => isset($row["visible"]) && $row["visible"] !== "" ? $row["visible"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $widgetUtilisateur = null;
                 if (!empty($row["reference"])) {
-                    $widgetUtilisateurService->updateOrCreate(["reference" => $row["reference"]], $widgetUtilisateurData);
+                    $widgetUtilisateur = $widgetUtilisateurService->updateOrCreate(["reference" => $row["reference"]], $widgetUtilisateurData);
                 } else {
-                    $widgetUtilisateurService->create($widgetUtilisateurData);
+                    $widgetUtilisateur = $widgetUtilisateurService->create($widgetUtilisateurData);
                 }
             }
         }

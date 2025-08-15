@@ -40,7 +40,7 @@ class BaseProfileExport implements FromCollection, WithHeadings, ShouldAutoSize,
             ];
         } else {
             return [
-                'user_reference' => __('PkgAutorisation::profile.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'phone' => __('PkgAutorisation::profile.phone'),
                 'address' => __('PkgAutorisation::profile.address'),
                 'profile_picture' => __('PkgAutorisation::profile.profile_picture'),

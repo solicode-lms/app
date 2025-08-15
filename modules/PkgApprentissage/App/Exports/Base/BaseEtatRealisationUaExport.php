@@ -45,7 +45,7 @@ class BaseEtatRealisationUaExport implements FromCollection, WithHeadings, Shoul
                 'ordre' => __('PkgApprentissage::etatRealisationUa.ordre'),
                 'nom' => __('PkgApprentissage::etatRealisationUa.nom'),
                 'code' => __('PkgApprentissage::etatRealisationUa.code'),
-                'sys_color_reference' => __('PkgApprentissage::etatRealisationUa.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'is_editable_only_by_formateur' => __('PkgApprentissage::etatRealisationUa.is_editable_only_by_formateur'),
                 'description' => __('PkgApprentissage::etatRealisationUa.description'),
                 'reference' => __('Core::msg.reference'),

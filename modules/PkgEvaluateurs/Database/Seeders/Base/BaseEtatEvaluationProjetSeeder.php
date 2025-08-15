@@ -88,10 +88,12 @@ class BaseEtatEvaluationProjetSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatEvaluationProjet = null;
                 if (!empty($row["reference"])) {
-                    $etatEvaluationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatEvaluationProjetData);
+                    $etatEvaluationProjet = $etatEvaluationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatEvaluationProjetData);
                 } else {
-                    $etatEvaluationProjetService->create($etatEvaluationProjetData);
+                    $etatEvaluationProjet = $etatEvaluationProjetService->create($etatEvaluationProjetData);
                 }
             }
         }

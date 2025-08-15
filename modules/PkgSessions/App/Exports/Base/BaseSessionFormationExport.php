@@ -55,7 +55,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
                 'ordre' => __('PkgSessions::sessionFormation.ordre'),
                 'titre' => __('PkgSessions::sessionFormation.titre'),
                 'thematique' => __('PkgSessions::sessionFormation.thematique'),
-                'filiere_reference' => __('PkgSessions::sessionFormation.filiere_reference'),
+                'filiere_reference' => __('PkgFormation::filiere.singular'),
                 'objectifs_pedagogique' => __('PkgSessions::sessionFormation.objectifs_pedagogique'),
                 'titre_prototype' => __('PkgSessions::sessionFormation.titre_prototype'),
                 'description_prototype' => __('PkgSessions::sessionFormation.description_prototype'),
@@ -68,7 +68,7 @@ class BaseSessionFormationExport implements FromCollection, WithHeadings, Should
                 'date_fin' => __('PkgSessions::sessionFormation.date_fin'),
                 'jour_feries_vacances' => __('PkgSessions::sessionFormation.jour_feries_vacances'),
                 'reference' => __('Core::msg.reference'),
-                'annee_formation_reference' => __('PkgSessions::sessionFormation.annee_formation_reference'),
+                'annee_formation_reference' => __('PkgFormation::anneeFormation.singular'),
             ];
         }
     }

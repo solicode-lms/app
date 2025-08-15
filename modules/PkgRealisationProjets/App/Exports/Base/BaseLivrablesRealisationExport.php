@@ -41,11 +41,11 @@ class BaseLivrablesRealisationExport implements FromCollection, WithHeadings, Sh
             ];
         } else {
             return [
-                'livrable_reference' => __('PkgRealisationProjets::livrablesRealisation.livrable_reference'),
+                'livrable_reference' => __('PkgCreationProjet::livrable.singular'),
                 'lien' => __('PkgRealisationProjets::livrablesRealisation.lien'),
                 'titre' => __('PkgRealisationProjets::livrablesRealisation.titre'),
                 'description' => __('PkgRealisationProjets::livrablesRealisation.description'),
-                'realisation_projet_reference' => __('PkgRealisationProjets::livrablesRealisation.realisation_projet_reference'),
+                'realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

@@ -48,17 +48,17 @@ class BaseRealisationMicroCompetenceExport implements FromCollection, WithHeadin
             ];
         } else {
             return [
-                'micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.micro_competence_reference'),
-                'apprenant_reference' => __('PkgApprentissage::realisationMicroCompetence.apprenant_reference'),
+                'micro_competence_reference' => __('PkgCompetences::microCompetence.singular'),
+                'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
                 'note_cache' => __('PkgApprentissage::realisationMicroCompetence.note_cache'),
                 'progression_cache' => __('PkgApprentissage::realisationMicroCompetence.progression_cache'),
-                'etat_realisation_micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.etat_realisation_micro_competence_reference'),
+                'etat_realisation_micro_competence_reference' => __('PkgApprentissage::etatRealisationMicroCompetence.singular'),
                 'bareme_cache' => __('PkgApprentissage::realisationMicroCompetence.bareme_cache'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationMicroCompetence.commentaire_formateur'),
                 'date_debut' => __('PkgApprentissage::realisationMicroCompetence.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationMicroCompetence.date_fin'),
                 'dernier_update' => __('PkgApprentissage::realisationMicroCompetence.dernier_update'),
-                'realisation_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.realisation_competence_reference'),
+                'realisation_competence_reference' => __('PkgApprentissage::realisationCompetence.singular'),
                 'reference' => __('Core::msg.reference'),
                 'lien_livrable' => __('PkgApprentissage::realisationMicroCompetence.lien_livrable'),
             ];

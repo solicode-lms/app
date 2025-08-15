@@ -43,8 +43,8 @@ class BaseHistoriqueRealisationTacheExport implements FromCollection, WithHeadin
             return [
                 'changement' => __('PkgRealisationTache::historiqueRealisationTache.changement'),
                 'dateModification' => __('PkgRealisationTache::historiqueRealisationTache.dateModification'),
-                'realisation_tache_reference' => __('PkgRealisationTache::historiqueRealisationTache.realisation_tache_reference'),
-                'user_reference' => __('PkgRealisationTache::historiqueRealisationTache.user_reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'reference' => __('Core::msg.reference'),
                 'isFeedback' => __('PkgRealisationTache::historiqueRealisationTache.isFeedback'),
             ];

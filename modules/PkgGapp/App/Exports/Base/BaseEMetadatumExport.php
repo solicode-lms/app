@@ -58,9 +58,9 @@ class BaseEMetadatumExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'value_enum' => __('PkgGapp::eMetadatum.value_enum'),
                 'value_json' => __('PkgGapp::eMetadatum.value_json'),
                 'value_text' => __('PkgGapp::eMetadatum.value_text'),
-                'e_model_reference' => __('PkgGapp::eMetadatum.e_model_reference'),
-                'e_data_field_reference' => __('PkgGapp::eMetadatum.e_data_field_reference'),
-                'e_metadata_definition_reference' => __('PkgGapp::eMetadatum.e_metadata_definition_reference'),
+                'e_model_reference' => __('PkgGapp::eModel.singular'),
+                'e_data_field_reference' => __('PkgGapp::eDataField.singular'),
+                'e_metadata_definition_reference' => __('PkgGapp::eMetadataDefinition.singular'),
             ];
         }
     }

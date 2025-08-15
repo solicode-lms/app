@@ -46,7 +46,7 @@ class BaseEtatRealisationCompetenceExport implements FromCollection, WithHeading
                 'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprentissage::etatRealisationCompetence.nom'),
                 'description' => __('PkgApprentissage::etatRealisationCompetence.description'),
-                'sys_color_reference' => __('PkgApprentissage::etatRealisationCompetence.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
             ];
         }
     }

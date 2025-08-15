@@ -88,10 +88,12 @@ class BaseSysModuleSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sysModule = null;
                 if (!empty($row["reference"])) {
-                    $sysModuleService->updateOrCreate(["reference" => $row["reference"]], $sysModuleData);
+                    $sysModule = $sysModuleService->updateOrCreate(["reference" => $row["reference"]], $sysModuleData);
                 } else {
-                    $sysModuleService->create($sysModuleData);
+                    $sysModule = $sysModuleService->create($sysModuleData);
                 }
             }
         }

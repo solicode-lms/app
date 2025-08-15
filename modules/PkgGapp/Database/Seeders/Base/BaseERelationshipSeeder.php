@@ -101,10 +101,12 @@ class BaseERelationshipSeeder extends Seeder
                         "morph_name" => isset($row["morph_name"]) && $row["morph_name"] !== "" ? $row["morph_name"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $eRelationship = null;
                 if (!empty($row["reference"])) {
-                    $eRelationshipService->updateOrCreate(["reference" => $row["reference"]], $eRelationshipData);
+                    $eRelationship = $eRelationshipService->updateOrCreate(["reference" => $row["reference"]], $eRelationshipData);
                 } else {
-                    $eRelationshipService->create($eRelationshipData);
+                    $eRelationship = $eRelationshipService->create($eRelationshipData);
                 }
             }
         }

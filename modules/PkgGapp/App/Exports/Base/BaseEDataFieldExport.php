@@ -50,11 +50,11 @@ class BaseEDataFieldExport implements FromCollection, WithHeadings, ShouldAutoSi
         } else {
             return [
                 'name' => __('PkgGapp::eDataField.name'),
-                'e_model_reference' => __('PkgGapp::eDataField.e_model_reference'),
+                'e_model_reference' => __('PkgGapp::eModel.singular'),
                 'data_type' => __('PkgGapp::eDataField.data_type'),
                 'default_value' => __('PkgGapp::eDataField.default_value'),
                 'column_name' => __('PkgGapp::eDataField.column_name'),
-                'e_relationship_reference' => __('PkgGapp::eDataField.e_relationship_reference'),
+                'e_relationship_reference' => __('PkgGapp::eRelationship.singular'),
                 'field_order' => __('PkgGapp::eDataField.field_order'),
                 'reference' => __('Core::msg.reference'),
                 'db_primaryKey' => __('PkgGapp::eDataField.db_primaryKey'),

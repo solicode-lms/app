@@ -36,13 +36,17 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'guard_name' => 'guard_name',
                 'sys_controller_reference' => 'sys_controller_reference',
                 'reference' => 'reference',
+                'features' => 'features',
+                'roles' => 'roles',
             ];
         } else {
             return [
                 'name' => __('PkgAutorisation::permission.name'),
                 'guard_name' => __('PkgAutorisation::permission.guard_name'),
-                'sys_controller_reference' => __('PkgAutorisation::permission.sys_controller_reference'),
+                'sys_controller_reference' => __('Core::sysController.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'features' => __('Core::feature.plural'),
+                    'roles' => __('PkgAutorisation::role.plural'),
             ];
         }
     }
@@ -58,6 +62,12 @@ class BasePermissionExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'guard_name' => $permission->guard_name,
                 'sys_controller_reference' => $permission->controller?->reference,
                 'reference' => $permission->reference,
+                'features' => $permission->features
+                    ->pluck('reference')
+                    ->implode('|'),
+                'roles' => $permission->roles
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

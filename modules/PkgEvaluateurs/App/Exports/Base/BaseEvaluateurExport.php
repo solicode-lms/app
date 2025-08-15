@@ -39,6 +39,7 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'telephone' => 'telephone',
                 'user_reference' => 'user_reference',
                 'reference' => 'reference',
+                'affectationProjets' => 'affectationProjets',
             ];
         } else {
             return [
@@ -47,8 +48,9 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'email' => __('PkgEvaluateurs::evaluateur.email'),
                 'organism' => __('PkgEvaluateurs::evaluateur.organism'),
                 'telephone' => __('PkgEvaluateurs::evaluateur.telephone'),
-                'user_reference' => __('PkgEvaluateurs::evaluateur.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'affectationProjets' => __('PkgRealisationProjets::affectationProjet.plural'),
             ];
         }
     }
@@ -67,6 +69,9 @@ class BaseEvaluateurExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'telephone' => $evaluateur->telephone,
                 'user_reference' => $evaluateur->user?->reference,
                 'reference' => $evaluateur->reference,
+                'affectationProjets' => $evaluateur->affectationProjets
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

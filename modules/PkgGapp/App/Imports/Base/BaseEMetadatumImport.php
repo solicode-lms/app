@@ -25,6 +25,7 @@ class BaseEMetadatumImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.

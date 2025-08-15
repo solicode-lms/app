@@ -93,10 +93,21 @@ class BaseLivrableSeeder extends Seeder
                         "is_affichable_seulement_par_formateur" => isset($row["is_affichable_seulement_par_formateur"]) && $row["is_affichable_seulement_par_formateur"] !== "" ? $row["is_affichable_seulement_par_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $livrable = null;
                 if (!empty($row["reference"])) {
-                    $livrableService->updateOrCreate(["reference" => $row["reference"]], $livrableData);
+                    $livrable = $livrableService->updateOrCreate(["reference" => $row["reference"]], $livrableData);
                 } else {
-                    $livrableService->create($livrableData);
+                    $livrable = $livrableService->create($livrableData);
+                }
+                if (!empty($row["taches"])) {
+                    $tacheReferences = array_map('trim', explode('|', $row["taches"]));
+                    $tacheIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $tacheReferences)->pluck('id')->toArray();
+
+                    if (!empty($tacheIds)) {
+                        $livrable->taches()->sync($tacheIds);
+                          $livrable->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

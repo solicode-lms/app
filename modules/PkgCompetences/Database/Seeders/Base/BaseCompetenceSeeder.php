@@ -88,10 +88,12 @@ class BaseCompetenceSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $competence = null;
                 if (!empty($row["reference"])) {
-                    $competenceService->updateOrCreate(["reference" => $row["reference"]], $competenceData);
+                    $competence = $competenceService->updateOrCreate(["reference" => $row["reference"]], $competenceData);
                 } else {
-                    $competenceService->create($competenceData);
+                    $competence = $competenceService->create($competenceData);
                 }
             }
         }

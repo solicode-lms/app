@@ -47,7 +47,7 @@ class BaseMicroCompetenceExport implements FromCollection, WithHeadings, ShouldA
                 'code' => __('PkgCompetences::microCompetence.code'),
                 'titre' => __('PkgCompetences::microCompetence.titre'),
                 'sous_titre' => __('PkgCompetences::microCompetence.sous_titre'),
-                'competence_reference' => __('PkgCompetences::microCompetence.competence_reference'),
+                'competence_reference' => __('PkgCompetences::competence.singular'),
                 'lien' => __('PkgCompetences::microCompetence.lien'),
                 'description' => __('PkgCompetences::microCompetence.description'),
                 'reference' => __('Core::msg.reference'),

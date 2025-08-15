@@ -93,10 +93,12 @@ class BaseHistoriqueRealisationTacheSeeder extends Seeder
                         "isFeedback" => isset($row["isFeedback"]) && $row["isFeedback"] !== "" ? $row["isFeedback"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $historiqueRealisationTache = null;
                 if (!empty($row["reference"])) {
-                    $historiqueRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $historiqueRealisationTacheData);
+                    $historiqueRealisationTache = $historiqueRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $historiqueRealisationTacheData);
                 } else {
-                    $historiqueRealisationTacheService->create($historiqueRealisationTacheData);
+                    $historiqueRealisationTache = $historiqueRealisationTacheService->create($historiqueRealisationTacheData);
                 }
             }
         }

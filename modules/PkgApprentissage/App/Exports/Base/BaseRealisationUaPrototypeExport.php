@@ -43,8 +43,8 @@ class BaseRealisationUaPrototypeExport implements FromCollection, WithHeadings, 
             ];
         } else {
             return [
-                'realisation_tache_reference' => __('PkgApprentissage::realisationUaPrototype.realisation_tache_reference'),
-                'realisation_ua_reference' => __('PkgApprentissage::realisationUaPrototype.realisation_ua_reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
+                'realisation_ua_reference' => __('PkgApprentissage::realisationUa.singular'),
                 'bareme' => __('PkgApprentissage::realisationUaPrototype.bareme'),
                 'note' => __('PkgApprentissage::realisationUaPrototype.note'),
                 'remarque_formateur' => __('PkgApprentissage::realisationUaPrototype.remarque_formateur'),

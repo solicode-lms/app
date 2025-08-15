@@ -89,10 +89,12 @@ class BaseEtatRealisationMicroCompetenceSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationMicroCompetence = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationMicroCompetenceService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationMicroCompetenceData);
+                    $etatRealisationMicroCompetence = $etatRealisationMicroCompetenceService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationMicroCompetenceData);
                 } else {
-                    $etatRealisationMicroCompetenceService->create($etatRealisationMicroCompetenceData);
+                    $etatRealisationMicroCompetence = $etatRealisationMicroCompetenceService->create($etatRealisationMicroCompetenceData);
                 }
             }
         }

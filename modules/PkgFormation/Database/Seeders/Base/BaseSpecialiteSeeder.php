@@ -80,10 +80,21 @@ class BaseSpecialiteSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $specialite = null;
                 if (!empty($row["reference"])) {
-                    $specialiteService->updateOrCreate(["reference" => $row["reference"]], $specialiteData);
+                    $specialite = $specialiteService->updateOrCreate(["reference" => $row["reference"]], $specialiteData);
                 } else {
-                    $specialiteService->create($specialiteData);
+                    $specialite = $specialiteService->create($specialiteData);
+                }
+                if (!empty($row["formateurs"])) {
+                    $formateurReferences = array_map('trim', explode('|', $row["formateurs"]));
+                    $formateurIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $formateurReferences)->pluck('id')->toArray();
+
+                    if (!empty($formateurIds)) {
+                        $specialite->formateurs()->sync($formateurIds);
+                          $specialite->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

@@ -81,10 +81,12 @@ class BaseAnneeFormationSeeder extends Seeder
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $anneeFormation = null;
                 if (!empty($row["reference"])) {
-                    $anneeFormationService->updateOrCreate(["reference" => $row["reference"]], $anneeFormationData);
+                    $anneeFormation = $anneeFormationService->updateOrCreate(["reference" => $row["reference"]], $anneeFormationData);
                 } else {
-                    $anneeFormationService->create($anneeFormationData);
+                    $anneeFormation = $anneeFormationService->create($anneeFormationData);
                 }
             }
         }

@@ -90,10 +90,12 @@ class BaseNotificationSeeder extends Seeder
                         "data" => isset($row["data"]) && $row["data"] !== "" ? $row["data"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $notification = null;
                 if (!empty($row["reference"])) {
-                    $notificationService->updateOrCreate(["reference" => $row["reference"]], $notificationData);
+                    $notification = $notificationService->updateOrCreate(["reference" => $row["reference"]], $notificationData);
                 } else {
-                    $notificationService->create($notificationData);
+                    $notification = $notificationService->create($notificationData);
                 }
             }
         }

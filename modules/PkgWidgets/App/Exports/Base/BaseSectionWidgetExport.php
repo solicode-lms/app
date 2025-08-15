@@ -45,7 +45,7 @@ class BaseSectionWidgetExport implements FromCollection, WithHeadings, ShouldAut
                 'icone' => __('PkgWidgets::sectionWidget.icone'),
                 'titre' => __('PkgWidgets::sectionWidget.titre'),
                 'sous_titre' => __('PkgWidgets::sectionWidget.sous_titre'),
-                'sys_color_reference' => __('PkgWidgets::sectionWidget.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

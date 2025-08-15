@@ -93,10 +93,30 @@ class BaseGroupeSeeder extends Seeder
                         "annee_formation_id" => $annee_formation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $groupe = null;
                 if (!empty($row["reference"])) {
-                    $groupeService->updateOrCreate(["reference" => $row["reference"]], $groupeData);
+                    $groupe = $groupeService->updateOrCreate(["reference" => $row["reference"]], $groupeData);
                 } else {
-                    $groupeService->create($groupeData);
+                    $groupe = $groupeService->create($groupeData);
+                }
+                if (!empty($row["apprenants"])) {
+                    $apprenantReferences = array_map('trim', explode('|', $row["apprenants"]));
+                    $apprenantIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $apprenantReferences)->pluck('id')->toArray();
+
+                    if (!empty($apprenantIds)) {
+                        $groupe->apprenants()->sync($apprenantIds);
+                          $groupe->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["formateurs"])) {
+                    $formateurReferences = array_map('trim', explode('|', $row["formateurs"]));
+                    $formateurIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $formateurReferences)->pluck('id')->toArray();
+
+                    if (!empty($formateurIds)) {
+                        $groupe->formateurs()->sync($formateurIds);
+                          $groupe->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

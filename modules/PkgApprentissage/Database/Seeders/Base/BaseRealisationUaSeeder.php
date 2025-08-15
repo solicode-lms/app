@@ -102,10 +102,12 @@ class BaseRealisationUaSeeder extends Seeder
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationUa = null;
                 if (!empty($row["reference"])) {
-                    $realisationUaService->updateOrCreate(["reference" => $row["reference"]], $realisationUaData);
+                    $realisationUa = $realisationUaService->updateOrCreate(["reference" => $row["reference"]], $realisationUaData);
                 } else {
-                    $realisationUaService->create($realisationUaData);
+                    $realisationUa = $realisationUaService->create($realisationUaData);
                 }
             }
         }

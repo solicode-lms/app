@@ -87,10 +87,12 @@ class BaseResourceSeeder extends Seeder
                         "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $resource = null;
                 if (!empty($row["reference"])) {
-                    $resourceService->updateOrCreate(["reference" => $row["reference"]], $resourceData);
+                    $resource = $resourceService->updateOrCreate(["reference" => $row["reference"]], $resourceData);
                 } else {
-                    $resourceService->create($resourceData);
+                    $resource = $resourceService->create($resourceData);
                 }
             }
         }

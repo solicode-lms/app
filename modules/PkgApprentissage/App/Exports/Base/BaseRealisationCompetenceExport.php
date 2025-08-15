@@ -47,12 +47,12 @@ class BaseRealisationCompetenceExport implements FromCollection, WithHeadings, S
             ];
         } else {
             return [
-                'competence_reference' => __('PkgApprentissage::realisationCompetence.competence_reference'),
-                'realisation_module_reference' => __('PkgApprentissage::realisationCompetence.realisation_module_reference'),
-                'apprenant_reference' => __('PkgApprentissage::realisationCompetence.apprenant_reference'),
+                'competence_reference' => __('PkgCompetences::competence.singular'),
+                'realisation_module_reference' => __('PkgApprentissage::realisationModule.singular'),
+                'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
                 'progression_cache' => __('PkgApprentissage::realisationCompetence.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationCompetence.note_cache'),
-                'etat_realisation_competence_reference' => __('PkgApprentissage::realisationCompetence.etat_realisation_competence_reference'),
+                'etat_realisation_competence_reference' => __('PkgApprentissage::etatRealisationCompetence.singular'),
                 'bareme_cache' => __('PkgApprentissage::realisationCompetence.bareme_cache'),
                 'dernier_update' => __('PkgApprentissage::realisationCompetence.dernier_update'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationCompetence.commentaire_formateur'),

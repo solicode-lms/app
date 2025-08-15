@@ -85,10 +85,30 @@ class BasePermissionSeeder extends Seeder
                         "controller_id" => $controller_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $permission = null;
                 if (!empty($row["reference"])) {
-                    $permissionService->updateOrCreate(["reference" => $row["reference"]], $permissionData);
+                    $permission = $permissionService->updateOrCreate(["reference" => $row["reference"]], $permissionData);
                 } else {
-                    $permissionService->create($permissionData);
+                    $permission = $permissionService->create($permissionData);
+                }
+                if (!empty($row["features"])) {
+                    $featureReferences = array_map('trim', explode('|', $row["features"]));
+                    $featureIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $featureReferences)->pluck('id')->toArray();
+
+                    if (!empty($featureIds)) {
+                        $permission->features()->sync($featureIds);
+                          $permission->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["roles"])) {
+                    $roleReferences = array_map('trim', explode('|', $row["roles"]));
+                    $roleIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $roleReferences)->pluck('id')->toArray();
+
+                    if (!empty($roleIds)) {
+                        $permission->roles()->sync($roleIds);
+                          $permission->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

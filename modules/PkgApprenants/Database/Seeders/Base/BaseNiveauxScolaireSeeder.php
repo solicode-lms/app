@@ -81,10 +81,12 @@ class BaseNiveauxScolaireSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $niveauxScolaire = null;
                 if (!empty($row["reference"])) {
-                    $niveauxScolaireService->updateOrCreate(["reference" => $row["reference"]], $niveauxScolaireData);
+                    $niveauxScolaire = $niveauxScolaireService->updateOrCreate(["reference" => $row["reference"]], $niveauxScolaireData);
                 } else {
-                    $niveauxScolaireService->create($niveauxScolaireData);
+                    $niveauxScolaire = $niveauxScolaireService->create($niveauxScolaireData);
                 }
             }
         }

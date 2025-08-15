@@ -87,10 +87,12 @@ class BaseUserModelFilterSeeder extends Seeder
                         "filters" => isset($row["filters"]) && $row["filters"] !== "" ? $row["filters"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $userModelFilter = null;
                 if (!empty($row["reference"])) {
-                    $userModelFilterService->updateOrCreate(["reference" => $row["reference"]], $userModelFilterData);
+                    $userModelFilter = $userModelFilterService->updateOrCreate(["reference" => $row["reference"]], $userModelFilterData);
                 } else {
-                    $userModelFilterService->create($userModelFilterData);
+                    $userModelFilter = $userModelFilterService->create($userModelFilterData);
                 }
             }
         }

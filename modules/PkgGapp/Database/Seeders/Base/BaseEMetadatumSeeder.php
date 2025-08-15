@@ -105,10 +105,12 @@ class BaseEMetadatumSeeder extends Seeder
                         "e_metadata_definition_id" => $e_metadata_definition_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $eMetadatum = null;
                 if (!empty($row["reference"])) {
-                    $eMetadatumService->updateOrCreate(["reference" => $row["reference"]], $eMetadatumData);
+                    $eMetadatum = $eMetadatumService->updateOrCreate(["reference" => $row["reference"]], $eMetadatumData);
                 } else {
-                    $eMetadatumService->create($eMetadatumData);
+                    $eMetadatum = $eMetadatumService->create($eMetadatumData);
                 }
             }
         }

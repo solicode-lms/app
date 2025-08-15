@@ -48,7 +48,9 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'tele_num' => 'tele_num',
                 'user_reference' => 'user_reference',
                 'reference' => 'reference',
+                'sousGroupes' => 'sousGroupes',
                 'matricule' => 'matricule',
+                'groupes' => 'groupes',
                 'date_inscription' => 'date_inscription',
                 'actif' => 'actif',
             ];
@@ -62,15 +64,17 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'cin' => __('PkgApprenants::apprenant.cin'),
                 'date_naissance' => __('PkgApprenants::apprenant.date_naissance'),
                 'sexe' => __('PkgApprenants::apprenant.sexe'),
-                'nationalite_reference' => __('PkgApprenants::apprenant.nationalite_reference'),
+                'nationalite_reference' => __('PkgApprenants::nationalite.singular'),
                 'lieu_naissance' => __('PkgApprenants::apprenant.lieu_naissance'),
                 'diplome' => __('PkgApprenants::apprenant.diplome'),
                 'adresse' => __('PkgApprenants::apprenant.adresse'),
-                'niveaux_scolaire_reference' => __('PkgApprenants::apprenant.niveaux_scolaire_reference'),
+                'niveaux_scolaire_reference' => __('PkgApprenants::niveauxScolaire.singular'),
                 'tele_num' => __('PkgApprenants::apprenant.tele_num'),
-                'user_reference' => __('PkgApprenants::apprenant.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'sousGroupes' => __('PkgApprenants::sousGroupe.plural'),
                 'matricule' => __('PkgApprenants::apprenant.matricule'),
+                    'groupes' => __('PkgApprenants::groupe.plural'),
                 'date_inscription' => __('PkgApprenants::apprenant.date_inscription'),
                 'actif' => __('PkgApprenants::apprenant.actif'),
             ];
@@ -100,7 +104,13 @@ class BaseApprenantExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'tele_num' => $apprenant->tele_num,
                 'user_reference' => $apprenant->user?->reference,
                 'reference' => $apprenant->reference,
+                'sousGroupes' => $apprenant->sousGroupes
+                    ->pluck('reference')
+                    ->implode('|'),
                 'matricule' => $apprenant->matricule,
+                'groupes' => $apprenant->groupes
+                    ->pluck('reference')
+                    ->implode('|'),
                 'date_inscription' => $apprenant->date_inscription,
                 'actif' => $apprenant->actif ? '1' : '0',
             ];

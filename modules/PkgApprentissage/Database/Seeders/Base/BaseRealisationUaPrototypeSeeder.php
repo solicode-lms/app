@@ -95,10 +95,12 @@ class BaseRealisationUaPrototypeSeeder extends Seeder
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationUaPrototype = null;
                 if (!empty($row["reference"])) {
-                    $realisationUaPrototypeService->updateOrCreate(["reference" => $row["reference"]], $realisationUaPrototypeData);
+                    $realisationUaPrototype = $realisationUaPrototypeService->updateOrCreate(["reference" => $row["reference"]], $realisationUaPrototypeData);
                 } else {
-                    $realisationUaPrototypeService->create($realisationUaPrototypeData);
+                    $realisationUaPrototype = $realisationUaPrototypeService->create($realisationUaPrototypeData);
                 }
             }
         }

@@ -41,10 +41,10 @@ class BaseEvaluationRealisationProjetExport implements FromCollection, WithHeadi
             ];
         } else {
             return [
-                'realisation_projet_reference' => __('PkgEvaluateurs::evaluationRealisationProjet.realisation_projet_reference'),
-                'evaluateur_reference' => __('PkgEvaluateurs::evaluationRealisationProjet.evaluateur_reference'),
+                'realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.singular'),
+                'evaluateur_reference' => __('PkgEvaluateurs::evaluateur.singular'),
                 'date_evaluation' => __('PkgEvaluateurs::evaluationRealisationProjet.date_evaluation'),
-                'etat_evaluation_projet_reference' => __('PkgEvaluateurs::evaluationRealisationProjet.etat_evaluation_projet_reference'),
+                'etat_evaluation_projet_reference' => __('PkgEvaluateurs::etatEvaluationProjet.singular'),
                 'remarques' => __('PkgEvaluateurs::evaluationRealisationProjet.remarques'),
                 'reference' => __('Core::msg.reference'),
             ];

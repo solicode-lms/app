@@ -81,10 +81,12 @@ class BaseNationaliteSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $nationalite = null;
                 if (!empty($row["reference"])) {
-                    $nationaliteService->updateOrCreate(["reference" => $row["reference"]], $nationaliteData);
+                    $nationalite = $nationaliteService->updateOrCreate(["reference" => $row["reference"]], $nationaliteData);
                 } else {
-                    $nationaliteService->create($nationaliteData);
+                    $nationalite = $nationaliteService->create($nationaliteData);
                 }
             }
         }

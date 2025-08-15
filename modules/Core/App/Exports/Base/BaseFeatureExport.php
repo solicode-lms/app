@@ -36,13 +36,15 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'description' => 'description',
                 'feature_domain_reference' => 'feature_domain_reference',
                 'reference' => 'reference',
+                'permissions' => 'permissions',
             ];
         } else {
             return [
                 'name' => __('Core::feature.name'),
                 'description' => __('Core::feature.description'),
-                'feature_domain_reference' => __('Core::feature.feature_domain_reference'),
+                'feature_domain_reference' => __('Core::featureDomain.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'permissions' => __('PkgAutorisation::permission.plural'),
             ];
         }
     }
@@ -58,6 +60,9 @@ class BaseFeatureExport implements FromCollection, WithHeadings, ShouldAutoSize,
                 'description' => $feature->description,
                 'feature_domain_reference' => $feature->featureDomain?->reference,
                 'reference' => $feature->reference,
+                'permissions' => $feature->permissions
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

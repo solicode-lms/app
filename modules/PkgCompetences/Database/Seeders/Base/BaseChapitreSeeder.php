@@ -97,10 +97,12 @@ class BaseChapitreSeeder extends Seeder
                         "formateur_id" => $formateur_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $chapitre = null;
                 if (!empty($row["reference"])) {
-                    $chapitreService->updateOrCreate(["reference" => $row["reference"]], $chapitreData);
+                    $chapitre = $chapitreService->updateOrCreate(["reference" => $row["reference"]], $chapitreData);
                 } else {
-                    $chapitreService->create($chapitreData);
+                    $chapitre = $chapitreService->create($chapitreData);
                 }
             }
         }

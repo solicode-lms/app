@@ -44,8 +44,8 @@ class BaseSysModelExport implements FromCollection, WithHeadings, ShouldAutoSize
             return [
                 'name' => __('Core::sysModel.name'),
                 'model' => __('Core::sysModel.model'),
-                'sys_module_reference' => __('Core::sysModel.sys_module_reference'),
-                'sys_color_reference' => __('Core::sysModel.sys_color_reference'),
+                'sys_module_reference' => __('Core::sysModule.singular'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'reference' => __('Core::msg.reference'),
                 'icone' => __('Core::sysModel.icone'),
                 'description' => __('Core::sysModel.description'),

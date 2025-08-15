@@ -41,8 +41,8 @@ class BaseAlignementUaExport implements FromCollection, WithHeadings, ShouldAuto
         } else {
             return [
                 'ordre' => __('PkgSessions::alignementUa.ordre'),
-                'unite_apprentissage_reference' => __('PkgSessions::alignementUa.unite_apprentissage_reference'),
-                'session_formation_reference' => __('PkgSessions::alignementUa.session_formation_reference'),
+                'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
+                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
                 'description' => __('PkgSessions::alignementUa.description'),
                 'reference' => __('Core::msg.reference'),
             ];

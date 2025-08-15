@@ -98,10 +98,12 @@ class BaseEvaluationRealisationTacheSeeder extends Seeder
                         "evaluation_realisation_projet_id" => $evaluation_realisation_projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $evaluationRealisationTache = null;
                 if (!empty($row["reference"])) {
-                    $evaluationRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $evaluationRealisationTacheData);
+                    $evaluationRealisationTache = $evaluationRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $evaluationRealisationTacheData);
                 } else {
-                    $evaluationRealisationTacheService->create($evaluationRealisationTacheData);
+                    $evaluationRealisationTache = $evaluationRealisationTacheService->create($evaluationRealisationTacheData);
                 }
             }
         }

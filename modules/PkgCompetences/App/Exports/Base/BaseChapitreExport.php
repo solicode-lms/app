@@ -48,12 +48,12 @@ class BaseChapitreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'ordre' => __('PkgCompetences::chapitre.ordre'),
                 'code' => __('PkgCompetences::chapitre.code'),
                 'nom' => __('PkgCompetences::chapitre.nom'),
-                'unite_apprentissage_reference' => __('PkgCompetences::chapitre.unite_apprentissage_reference'),
+                'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
                 'duree_en_heure' => __('PkgCompetences::chapitre.duree_en_heure'),
                 'isOfficiel' => __('PkgCompetences::chapitre.isOfficiel'),
                 'lien' => __('PkgCompetences::chapitre.lien'),
                 'description' => __('PkgCompetences::chapitre.description'),
-                'formateur_reference' => __('PkgCompetences::chapitre.formateur_reference'),
+                'formateur_reference' => __('PkgFormation::formateur.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

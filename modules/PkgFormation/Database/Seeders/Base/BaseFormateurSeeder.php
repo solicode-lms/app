@@ -97,10 +97,30 @@ class BaseFormateurSeeder extends Seeder
                         "user_id" => $user_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $formateur = null;
                 if (!empty($row["reference"])) {
-                    $formateurService->updateOrCreate(["reference" => $row["reference"]], $formateurData);
+                    $formateur = $formateurService->updateOrCreate(["reference" => $row["reference"]], $formateurData);
                 } else {
-                    $formateurService->create($formateurData);
+                    $formateur = $formateurService->create($formateurData);
+                }
+                if (!empty($row["specialites"])) {
+                    $specialiteReferences = array_map('trim', explode('|', $row["specialites"]));
+                    $specialiteIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $specialiteReferences)->pluck('id')->toArray();
+
+                    if (!empty($specialiteIds)) {
+                        $formateur->specialites()->sync($specialiteIds);
+                          $formateur->touch(); // pour lancer Observer
+                    }
+                }
+                if (!empty($row["groupes"])) {
+                    $groupeReferences = array_map('trim', explode('|', $row["groupes"]));
+                    $groupeIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $groupeReferences)->pluck('id')->toArray();
+
+                    if (!empty($groupeIds)) {
+                        $formateur->groupes()->sync($groupeIds);
+                          $formateur->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

@@ -35,12 +35,18 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'name' => 'name',
                 'guard_name' => 'guard_name',
                 'reference' => 'reference',
+                'permissions' => 'permissions',
+                'widgets' => 'widgets',
+                'users' => 'users',
             ];
         } else {
             return [
                 'name' => __('PkgAutorisation::role.name'),
                 'guard_name' => __('PkgAutorisation::role.guard_name'),
                 'reference' => __('Core::msg.reference'),
+                    'permissions' => __('PkgAutorisation::permission.plural'),
+                    'widgets' => __('PkgWidgets::widget.plural'),
+                    'users' => __('PkgAutorisation::user.plural'),
             ];
         }
     }
@@ -55,6 +61,15 @@ class BaseRoleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'name' => $role->name,
                 'guard_name' => $role->guard_name,
                 'reference' => $role->reference,
+                'permissions' => $role->permissions
+                    ->pluck('reference')
+                    ->implode('|'),
+                'widgets' => $role->widgets
+                    ->pluck('reference')
+                    ->implode('|'),
+                'users' => $role->users
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

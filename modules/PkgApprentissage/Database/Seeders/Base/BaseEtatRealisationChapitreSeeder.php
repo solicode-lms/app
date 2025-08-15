@@ -89,10 +89,12 @@ class BaseEtatRealisationChapitreSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationChapitre = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationChapitreService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationChapitreData);
+                    $etatRealisationChapitre = $etatRealisationChapitreService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationChapitreData);
                 } else {
-                    $etatRealisationChapitreService->create($etatRealisationChapitreData);
+                    $etatRealisationChapitre = $etatRealisationChapitreService->create($etatRealisationChapitreData);
                 }
             }
         }

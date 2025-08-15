@@ -25,6 +25,7 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -72,9 +73,11 @@ class BaseApprenantImport implements ToModel, WithHeadingRow
              'tele_num' => $values[13] ?? null,
              'user_id' => $values[14] ?? null,
              'reference' => $reference,
-             'matricule' => $values[16] ?? null,
-             'date_inscription' => $values[17] ?? null,
-             'actif' => $values[18] ?? null,
+             'sousGroupes' => $values[16] ?? null,
+             'matricule' => $values[17] ?? null,
+             'groupes' => $values[18] ?? null,
+             'date_inscription' => $values[19] ?? null,
+             'actif' => $values[20] ?? null,
         ]);
 
 

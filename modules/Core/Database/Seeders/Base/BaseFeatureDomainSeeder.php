@@ -86,10 +86,12 @@ class BaseFeatureDomainSeeder extends Seeder
                         "sys_module_id" => $sys_module_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $featureDomain = null;
                 if (!empty($row["reference"])) {
-                    $featureDomainService->updateOrCreate(["reference" => $row["reference"]], $featureDomainData);
+                    $featureDomain = $featureDomainService->updateOrCreate(["reference" => $row["reference"]], $featureDomainData);
                 } else {
-                    $featureDomainService->create($featureDomainData);
+                    $featureDomain = $featureDomainService->create($featureDomainData);
                 }
             }
         }

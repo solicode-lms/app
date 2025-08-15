@@ -108,10 +108,21 @@ class BaseAffectationProjetSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $affectationProjet = null;
                 if (!empty($row["reference"])) {
-                    $affectationProjetService->updateOrCreate(["reference" => $row["reference"]], $affectationProjetData);
+                    $affectationProjet = $affectationProjetService->updateOrCreate(["reference" => $row["reference"]], $affectationProjetData);
                 } else {
-                    $affectationProjetService->create($affectationProjetData);
+                    $affectationProjet = $affectationProjetService->create($affectationProjetData);
+                }
+                if (!empty($row["evaluateurs"])) {
+                    $evaluateurReferences = array_map('trim', explode('|', $row["evaluateurs"]));
+                    $evaluateurIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $evaluateurReferences)->pluck('id')->toArray();
+
+                    if (!empty($evaluateurIds)) {
+                        $affectationProjet->evaluateurs()->sync($evaluateurIds);
+                          $affectationProjet->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

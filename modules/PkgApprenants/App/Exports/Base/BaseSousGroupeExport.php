@@ -36,13 +36,15 @@ class BaseSousGroupeExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'nom' => 'nom',
                 'description' => 'description',
                 'groupe_reference' => 'groupe_reference',
+                'apprenants' => 'apprenants',
             ];
         } else {
             return [
                 'reference' => __('Core::msg.reference'),
                 'nom' => __('PkgApprenants::sousGroupe.nom'),
                 'description' => __('PkgApprenants::sousGroupe.description'),
-                'groupe_reference' => __('PkgApprenants::sousGroupe.groupe_reference'),
+                'groupe_reference' => __('PkgApprenants::groupe.singular'),
+                    'apprenants' => __('PkgApprenants::apprenant.plural'),
             ];
         }
     }
@@ -58,6 +60,9 @@ class BaseSousGroupeExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'nom' => $sousGroupe->nom,
                 'description' => $sousGroupe->description,
                 'groupe_reference' => $sousGroupe->groupe?->reference,
+                'apprenants' => $sousGroupe->apprenants
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

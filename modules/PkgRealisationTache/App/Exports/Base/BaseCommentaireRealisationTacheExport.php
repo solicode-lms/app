@@ -44,9 +44,9 @@ class BaseCommentaireRealisationTacheExport implements FromCollection, WithHeadi
                 'commentaire' => __('PkgRealisationTache::commentaireRealisationTache.commentaire'),
                 'dateCommentaire' => __('PkgRealisationTache::commentaireRealisationTache.dateCommentaire'),
                 'reference' => __('Core::msg.reference'),
-                'realisation_tache_reference' => __('PkgRealisationTache::commentaireRealisationTache.realisation_tache_reference'),
-                'formateur_reference' => __('PkgRealisationTache::commentaireRealisationTache.formateur_reference'),
-                'apprenant_reference' => __('PkgRealisationTache::commentaireRealisationTache.apprenant_reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
+                'formateur_reference' => __('PkgFormation::formateur.singular'),
+                'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
             ];
         }
     }

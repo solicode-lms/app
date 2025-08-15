@@ -88,10 +88,12 @@ class BaseModuleSeeder extends Seeder
                         "filiere_id" => $filiere_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $module = null;
                 if (!empty($row["reference"])) {
-                    $moduleService->updateOrCreate(["reference" => $row["reference"]], $moduleData);
+                    $module = $moduleService->updateOrCreate(["reference" => $row["reference"]], $moduleData);
                 } else {
-                    $moduleService->create($moduleData);
+                    $module = $moduleService->create($moduleData);
                 }
             }
         }

@@ -80,10 +80,12 @@ class BaseEPackageSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $ePackage = null;
                 if (!empty($row["reference"])) {
-                    $ePackageService->updateOrCreate(["reference" => $row["reference"]], $ePackageData);
+                    $ePackage = $ePackageService->updateOrCreate(["reference" => $row["reference"]], $ePackageData);
                 } else {
-                    $ePackageService->create($ePackageData);
+                    $ePackage = $ePackageService->create($ePackageData);
                 }
             }
         }

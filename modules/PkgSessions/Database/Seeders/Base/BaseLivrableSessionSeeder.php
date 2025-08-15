@@ -93,10 +93,12 @@ class BaseLivrableSessionSeeder extends Seeder
                         "nature_livrable_id" => $nature_livrable_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $livrableSession = null;
                 if (!empty($row["reference"])) {
-                    $livrableSessionService->updateOrCreate(["reference" => $row["reference"]], $livrableSessionData);
+                    $livrableSession = $livrableSessionService->updateOrCreate(["reference" => $row["reference"]], $livrableSessionData);
                 } else {
-                    $livrableSessionService->create($livrableSessionData);
+                    $livrableSession = $livrableSessionService->create($livrableSessionData);
                 }
             }
         }

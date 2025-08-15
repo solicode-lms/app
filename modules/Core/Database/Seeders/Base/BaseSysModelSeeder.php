@@ -94,10 +94,12 @@ class BaseSysModelSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sysModel = null;
                 if (!empty($row["reference"])) {
-                    $sysModelService->updateOrCreate(["reference" => $row["reference"]], $sysModelData);
+                    $sysModel = $sysModelService->updateOrCreate(["reference" => $row["reference"]], $sysModelData);
                 } else {
-                    $sysModelService->create($sysModelData);
+                    $sysModel = $sysModelService->create($sysModelData);
                 }
             }
         }

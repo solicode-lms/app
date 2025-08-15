@@ -43,12 +43,12 @@ class BaseRealisationChapitreExport implements FromCollection, WithHeadings, Sho
             ];
         } else {
             return [
-                'chapitre_reference' => __('PkgApprentissage::realisationChapitre.chapitre_reference'),
-                'etat_realisation_chapitre_reference' => __('PkgApprentissage::realisationChapitre.etat_realisation_chapitre_reference'),
+                'chapitre_reference' => __('PkgCompetences::chapitre.singular'),
+                'etat_realisation_chapitre_reference' => __('PkgApprentissage::etatRealisationChapitre.singular'),
                 'date_debut' => __('PkgApprentissage::realisationChapitre.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationChapitre.date_fin'),
-                'realisation_ua_reference' => __('PkgApprentissage::realisationChapitre.realisation_ua_reference'),
-                'realisation_tache_reference' => __('PkgApprentissage::realisationChapitre.realisation_tache_reference'),
+                'realisation_ua_reference' => __('PkgApprentissage::realisationUa.singular'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
                 'commentaire_formateur' => __('PkgApprentissage::realisationChapitre.commentaire_formateur'),
                 'reference' => __('Core::msg.reference'),
             ];

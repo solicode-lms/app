@@ -46,9 +46,9 @@ class BaseRealisationProjetExport implements FromCollection, WithHeadings, Shoul
             ];
         } else {
             return [
-                'affectation_projet_reference' => __('PkgRealisationProjets::realisationProjet.affectation_projet_reference'),
-                'apprenant_reference' => __('PkgRealisationProjets::realisationProjet.apprenant_reference'),
-                'etats_realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.etats_realisation_projet_reference'),
+                'affectation_projet_reference' => __('PkgRealisationProjets::affectationProjet.singular'),
+                'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
+                'etats_realisation_projet_reference' => __('PkgRealisationProjets::etatsRealisationProjet.singular'),
                 'progression_validation_cache' => __('PkgRealisationProjets::realisationProjet.progression_validation_cache'),
                 'note_cache' => __('PkgRealisationProjets::realisationProjet.note_cache'),
                 'bareme_cache' => __('PkgRealisationProjets::realisationProjet.bareme_cache'),

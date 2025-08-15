@@ -38,15 +38,17 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => 'description',
                 'reference' => 'reference',
                 'is_affichable_seulement_par_formateur' => 'is_affichable_seulement_par_formateur',
+                'taches' => 'taches',
             ];
         } else {
             return [
-                'nature_livrable_reference' => __('PkgCreationProjet::livrable.nature_livrable_reference'),
+                'nature_livrable_reference' => __('PkgCreationProjet::natureLivrable.singular'),
                 'titre' => __('PkgCreationProjet::livrable.titre'),
-                'projet_reference' => __('PkgCreationProjet::livrable.projet_reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
                 'description' => __('PkgCreationProjet::livrable.description'),
                 'reference' => __('Core::msg.reference'),
                 'is_affichable_seulement_par_formateur' => __('PkgCreationProjet::livrable.is_affichable_seulement_par_formateur'),
+                    'taches' => __('PkgCreationTache::tache.plural'),
             ];
         }
     }
@@ -64,6 +66,9 @@ class BaseLivrableExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'description' => $livrable->description,
                 'reference' => $livrable->reference,
                 'is_affichable_seulement_par_formateur' => $livrable->is_affichable_seulement_par_formateur ? '1' : '0',
+                'taches' => $livrable->taches
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

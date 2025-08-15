@@ -80,10 +80,12 @@ class BaseWidgetOperationSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $widgetOperation = null;
                 if (!empty($row["reference"])) {
-                    $widgetOperationService->updateOrCreate(["reference" => $row["reference"]], $widgetOperationData);
+                    $widgetOperation = $widgetOperationService->updateOrCreate(["reference" => $row["reference"]], $widgetOperationData);
                 } else {
-                    $widgetOperationService->create($widgetOperationData);
+                    $widgetOperation = $widgetOperationService->create($widgetOperationData);
                 }
             }
         }

@@ -89,10 +89,12 @@ class BaseEModelSeeder extends Seeder
                         "e_package_id" => $e_package_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $eModel = null;
                 if (!empty($row["reference"])) {
-                    $eModelService->updateOrCreate(["reference" => $row["reference"]], $eModelData);
+                    $eModel = $eModelService->updateOrCreate(["reference" => $row["reference"]], $eModelData);
                 } else {
-                    $eModelService->create($eModelData);
+                    $eModel = $eModelService->create($eModelData);
                 }
             }
         }

@@ -89,10 +89,12 @@ class BaseUniteApprentissageSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $uniteApprentissage = null;
                 if (!empty($row["reference"])) {
-                    $uniteApprentissageService->updateOrCreate(["reference" => $row["reference"]], $uniteApprentissageData);
+                    $uniteApprentissage = $uniteApprentissageService->updateOrCreate(["reference" => $row["reference"]], $uniteApprentissageData);
                 } else {
-                    $uniteApprentissageService->create($uniteApprentissageData);
+                    $uniteApprentissage = $uniteApprentissageService->create($uniteApprentissageData);
                 }
             }
         }

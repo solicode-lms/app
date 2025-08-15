@@ -47,7 +47,7 @@ class BaseNotificationExport implements FromCollection, WithHeadings, ShouldAuto
                 'message' => __('PkgNotification::notification.message'),
                 'sent_at' => __('PkgNotification::notification.sent_at'),
                 'is_read' => __('PkgNotification::notification.is_read'),
-                'user_reference' => __('PkgNotification::notification.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'data' => __('PkgNotification::notification.data'),
             ];
         }

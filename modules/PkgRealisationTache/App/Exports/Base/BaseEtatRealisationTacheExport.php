@@ -45,11 +45,11 @@ class BaseEtatRealisationTacheExport implements FromCollection, WithHeadings, Sh
             return [
                 'ordre' => __('PkgRealisationTache::etatRealisationTache.ordre'),
                 'nom' => __('PkgRealisationTache::etatRealisationTache.nom'),
-                'workflow_tache_reference' => __('PkgRealisationTache::etatRealisationTache.workflow_tache_reference'),
-                'sys_color_reference' => __('PkgRealisationTache::etatRealisationTache.sys_color_reference'),
+                'workflow_tache_reference' => __('PkgRealisationTache::workflowTache.singular'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'is_editable_only_by_formateur' => __('PkgRealisationTache::etatRealisationTache.is_editable_only_by_formateur'),
                 'reference' => __('Core::msg.reference'),
-                'formateur_reference' => __('PkgRealisationTache::etatRealisationTache.formateur_reference'),
+                'formateur_reference' => __('PkgFormation::formateur.singular'),
                 'description' => __('PkgRealisationTache::etatRealisationTache.description'),
             ];
         }

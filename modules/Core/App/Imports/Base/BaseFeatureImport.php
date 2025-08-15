@@ -25,6 +25,7 @@ class BaseFeatureImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -60,6 +61,7 @@ class BaseFeatureImport implements ToModel, WithHeadingRow
              'description' => $values[1] ?? null,
              'feature_domain_id' => $values[2] ?? null,
              'reference' => $reference,
+             'permissions' => $values[4] ?? null,
         ]);
 
 

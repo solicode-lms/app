@@ -36,7 +36,9 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'nom' => 'nom',
                 'prenom' => 'prenom',
                 'prenom_arab' => 'prenom_arab',
+                'specialites' => 'specialites',
                 'nom_arab' => 'nom_arab',
+                'groupes' => 'groupes',
                 'email' => 'email',
                 'tele_num' => 'tele_num',
                 'adresse' => 'adresse',
@@ -53,7 +55,9 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'nom' => __('PkgFormation::formateur.nom'),
                 'prenom' => __('PkgFormation::formateur.prenom'),
                 'prenom_arab' => __('PkgFormation::formateur.prenom_arab'),
+                    'specialites' => __('PkgFormation::specialite.plural'),
                 'nom_arab' => __('PkgFormation::formateur.nom_arab'),
+                    'groupes' => __('PkgApprenants::groupe.plural'),
                 'email' => __('PkgFormation::formateur.email'),
                 'tele_num' => __('PkgFormation::formateur.tele_num'),
                 'adresse' => __('PkgFormation::formateur.adresse'),
@@ -61,7 +65,7 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'echelle' => __('PkgFormation::formateur.echelle'),
                 'echelon' => __('PkgFormation::formateur.echelon'),
                 'profile_image' => __('PkgFormation::formateur.profile_image'),
-                'user_reference' => __('PkgFormation::formateur.user_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }
@@ -78,7 +82,13 @@ class BaseFormateurExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'nom' => $formateur->nom,
                 'prenom' => $formateur->prenom,
                 'prenom_arab' => $formateur->prenom_arab,
+                'specialites' => $formateur->specialites
+                    ->pluck('reference')
+                    ->implode('|'),
                 'nom_arab' => $formateur->nom_arab,
+                'groupes' => $formateur->groupes
+                    ->pluck('reference')
+                    ->implode('|'),
                 'email' => $formateur->email,
                 'tele_num' => $formateur->tele_num,
                 'adresse' => $formateur->adresse,

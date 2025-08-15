@@ -88,10 +88,12 @@ class BaseEtatRealisationCompetenceSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationCompetence = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationCompetenceService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationCompetenceData);
+                    $etatRealisationCompetence = $etatRealisationCompetenceService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationCompetenceData);
                 } else {
-                    $etatRealisationCompetenceService->create($etatRealisationCompetenceData);
+                    $etatRealisationCompetence = $etatRealisationCompetenceService->create($etatRealisationCompetenceData);
                 }
             }
         }

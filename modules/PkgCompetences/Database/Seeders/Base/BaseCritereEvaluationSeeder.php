@@ -93,10 +93,12 @@ class BaseCritereEvaluationSeeder extends Seeder
                         "unite_apprentissage_id" => $unite_apprentissage_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $critereEvaluation = null;
                 if (!empty($row["reference"])) {
-                    $critereEvaluationService->updateOrCreate(["reference" => $row["reference"]], $critereEvaluationData);
+                    $critereEvaluation = $critereEvaluationService->updateOrCreate(["reference" => $row["reference"]], $critereEvaluationData);
                 } else {
-                    $critereEvaluationService->create($critereEvaluationData);
+                    $critereEvaluation = $critereEvaluationService->create($critereEvaluationData);
                 }
             }
         }

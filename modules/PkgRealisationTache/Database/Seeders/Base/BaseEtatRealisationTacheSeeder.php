@@ -100,10 +100,12 @@ class BaseEtatRealisationTacheSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationTache = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationTacheData);
+                    $etatRealisationTache = $etatRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationTacheData);
                 } else {
-                    $etatRealisationTacheService->create($etatRealisationTacheData);
+                    $etatRealisationTache = $etatRealisationTacheService->create($etatRealisationTacheData);
                 }
             }
         }

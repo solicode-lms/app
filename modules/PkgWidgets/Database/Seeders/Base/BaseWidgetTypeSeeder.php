@@ -80,10 +80,12 @@ class BaseWidgetTypeSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $widgetType = null;
                 if (!empty($row["reference"])) {
-                    $widgetTypeService->updateOrCreate(["reference" => $row["reference"]], $widgetTypeData);
+                    $widgetType = $widgetTypeService->updateOrCreate(["reference" => $row["reference"]], $widgetTypeData);
                 } else {
-                    $widgetTypeService->create($widgetTypeData);
+                    $widgetType = $widgetTypeService->create($widgetTypeData);
                 }
             }
         }

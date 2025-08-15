@@ -48,7 +48,7 @@ class BaseEModelExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'icon' => __('PkgGapp::eModel.icon'),
                 'is_pivot_table' => __('PkgGapp::eModel.is_pivot_table'),
                 'description' => __('PkgGapp::eModel.description'),
-                'e_package_reference' => __('PkgGapp::eModel.e_package_reference'),
+                'e_package_reference' => __('PkgGapp::ePackage.singular'),
             ];
         }
     }

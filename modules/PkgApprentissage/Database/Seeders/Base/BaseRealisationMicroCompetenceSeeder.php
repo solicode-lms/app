@@ -110,10 +110,12 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                         "lien_livrable" => isset($row["lien_livrable"]) && $row["lien_livrable"] !== "" ? $row["lien_livrable"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationMicroCompetence = null;
                 if (!empty($row["reference"])) {
-                    $realisationMicroCompetenceService->updateOrCreate(["reference" => $row["reference"]], $realisationMicroCompetenceData);
+                    $realisationMicroCompetence = $realisationMicroCompetenceService->updateOrCreate(["reference" => $row["reference"]], $realisationMicroCompetenceData);
                 } else {
-                    $realisationMicroCompetenceService->create($realisationMicroCompetenceData);
+                    $realisationMicroCompetence = $realisationMicroCompetenceService->create($realisationMicroCompetenceData);
                 }
             }
         }

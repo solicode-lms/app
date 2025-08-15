@@ -91,10 +91,12 @@ class BaseTacheAffectationSeeder extends Seeder
                         "pourcentage_realisation_cache" => isset($row["pourcentage_realisation_cache"]) && $row["pourcentage_realisation_cache"] !== "" ? $row["pourcentage_realisation_cache"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $tacheAffectation = null;
                 if (!empty($row["reference"])) {
-                    $tacheAffectationService->updateOrCreate(["reference" => $row["reference"]], $tacheAffectationData);
+                    $tacheAffectation = $tacheAffectationService->updateOrCreate(["reference" => $row["reference"]], $tacheAffectationData);
                 } else {
-                    $tacheAffectationService->create($tacheAffectationData);
+                    $tacheAffectation = $tacheAffectationService->create($tacheAffectationData);
                 }
             }
         }

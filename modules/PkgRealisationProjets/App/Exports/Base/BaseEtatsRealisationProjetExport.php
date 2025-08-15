@@ -47,7 +47,7 @@ class BaseEtatsRealisationProjetExport implements FromCollection, WithHeadings, 
                 'code' => __('PkgRealisationProjets::etatsRealisationProjet.code'),
                 'description' => __('PkgRealisationProjets::etatsRealisationProjet.description'),
                 'reference' => __('Core::msg.reference'),
-                'sys_color_reference' => __('PkgRealisationProjets::etatsRealisationProjet.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'is_editable_by_formateur' => __('PkgRealisationProjets::etatsRealisationProjet.is_editable_by_formateur'),
             ];
         }

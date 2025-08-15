@@ -109,10 +109,12 @@ class BaseRealisationTacheSeeder extends Seeder
                         "tache_affectation_id" => $tache_affectation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationTache = null;
                 if (!empty($row["reference"])) {
-                    $realisationTacheService->updateOrCreate(["reference" => $row["reference"]], $realisationTacheData);
+                    $realisationTache = $realisationTacheService->updateOrCreate(["reference" => $row["reference"]], $realisationTacheData);
                 } else {
-                    $realisationTacheService->create($realisationTacheData);
+                    $realisationTache = $realisationTacheService->create($realisationTacheData);
                 }
             }
         }

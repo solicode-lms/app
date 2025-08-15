@@ -105,10 +105,12 @@ class BaseSessionFormationSeeder extends Seeder
                         "annee_formation_id" => $annee_formation_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sessionFormation = null;
                 if (!empty($row["reference"])) {
-                    $sessionFormationService->updateOrCreate(["reference" => $row["reference"]], $sessionFormationData);
+                    $sessionFormation = $sessionFormationService->updateOrCreate(["reference" => $row["reference"]], $sessionFormationData);
                 } else {
-                    $sessionFormationService->create($sessionFormationData);
+                    $sessionFormation = $sessionFormationService->create($sessionFormationData);
                 }
             }
         }

@@ -38,15 +38,19 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'filiere_reference' => 'filiere_reference',
                 'annee_formation_reference' => 'annee_formation_reference',
                 'reference' => 'reference',
+                'apprenants' => 'apprenants',
+                'formateurs' => 'formateurs',
             ];
         } else {
             return [
                 'code' => __('PkgApprenants::groupe.code'),
                 'nom' => __('PkgApprenants::groupe.nom'),
                 'description' => __('PkgApprenants::groupe.description'),
-                'filiere_reference' => __('PkgApprenants::groupe.filiere_reference'),
-                'annee_formation_reference' => __('PkgApprenants::groupe.annee_formation_reference'),
+                'filiere_reference' => __('PkgFormation::filiere.singular'),
+                'annee_formation_reference' => __('PkgFormation::anneeFormation.singular'),
                 'reference' => __('Core::msg.reference'),
+                    'apprenants' => __('PkgApprenants::apprenant.plural'),
+                    'formateurs' => __('PkgFormation::formateur.plural'),
             ];
         }
     }
@@ -64,6 +68,12 @@ class BaseGroupeExport implements FromCollection, WithHeadings, ShouldAutoSize, 
                 'filiere_reference' => $groupe->filiere?->reference,
                 'annee_formation_reference' => $groupe->anneeFormation?->reference,
                 'reference' => $groupe->reference,
+                'apprenants' => $groupe->apprenants
+                    ->pluck('reference')
+                    ->implode('|'),
+                'formateurs' => $groupe->formateurs
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

@@ -43,7 +43,7 @@ class BaseFeatureDomainExport implements FromCollection, WithHeadings, ShouldAut
                 'name' => __('Core::featureDomain.name'),
                 'slug' => __('Core::featureDomain.slug'),
                 'description' => __('Core::featureDomain.description'),
-                'sys_module_reference' => __('Core::featureDomain.sys_module_reference'),
+                'sys_module_reference' => __('Core::sysModule.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

@@ -47,9 +47,9 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
             ];
         } else {
             return [
-                'tache_reference' => __('PkgRealisationTache::realisationTache.tache_reference'),
-                'etat_realisation_tache_reference' => __('PkgRealisationTache::realisationTache.etat_realisation_tache_reference'),
-                'realisation_projet_reference' => __('PkgRealisationTache::realisationTache.realisation_projet_reference'),
+                'tache_reference' => __('PkgCreationTache::tache.singular'),
+                'etat_realisation_tache_reference' => __('PkgRealisationTache::etatRealisationTache.singular'),
+                'realisation_projet_reference' => __('PkgRealisationProjets::realisationProjet.singular'),
                 'dateDebut' => __('PkgRealisationTache::realisationTache.dateDebut'),
                 'dateFin' => __('PkgRealisationTache::realisationTache.dateFin'),
                 'remarque_evaluateur' => __('PkgRealisationTache::realisationTache.remarque_evaluateur'),
@@ -57,7 +57,7 @@ class BaseRealisationTacheExport implements FromCollection, WithHeadings, Should
                 'is_live_coding' => __('PkgRealisationTache::realisationTache.is_live_coding'),
                 'remarques_formateur' => __('PkgRealisationTache::realisationTache.remarques_formateur'),
                 'remarques_apprenant' => __('PkgRealisationTache::realisationTache.remarques_apprenant'),
-                'tache_affectation_reference' => __('PkgRealisationTache::realisationTache.tache_affectation_reference'),
+                'tache_affectation_reference' => __('PkgRealisationTache::tacheAffectation.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

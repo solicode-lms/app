@@ -49,7 +49,7 @@ class BaseSysModuleExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 'description' => __('Core::sysModule.description'),
                 'is_active' => __('Core::sysModule.is_active'),
                 'version' => __('Core::sysModule.version'),
-                'sys_color_reference' => __('Core::sysModule.sys_color_reference'),
+                'sys_color_reference' => __('Core::sysColor.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

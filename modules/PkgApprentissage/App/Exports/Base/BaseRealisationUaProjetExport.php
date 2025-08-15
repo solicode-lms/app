@@ -43,8 +43,8 @@ class BaseRealisationUaProjetExport implements FromCollection, WithHeadings, Sho
             ];
         } else {
             return [
-                'realisation_tache_reference' => __('PkgApprentissage::realisationUaProjet.realisation_tache_reference'),
-                'realisation_ua_reference' => __('PkgApprentissage::realisationUaProjet.realisation_ua_reference'),
+                'realisation_tache_reference' => __('PkgRealisationTache::realisationTache.singular'),
+                'realisation_ua_reference' => __('PkgApprentissage::realisationUa.singular'),
                 'note' => __('PkgApprentissage::realisationUaProjet.note'),
                 'bareme' => __('PkgApprentissage::realisationUaProjet.bareme'),
                 'remarque_formateur' => __('PkgApprentissage::realisationUaProjet.remarque_formateur'),

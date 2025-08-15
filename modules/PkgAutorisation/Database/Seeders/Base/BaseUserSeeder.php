@@ -84,10 +84,21 @@ class BaseUserSeeder extends Seeder
                         "remember_token" => isset($row["remember_token"]) && $row["remember_token"] !== "" ? $row["remember_token"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $user = null;
                 if (!empty($row["reference"])) {
-                    $userService->updateOrCreate(["reference" => $row["reference"]], $userData);
+                    $user = $userService->updateOrCreate(["reference" => $row["reference"]], $userData);
                 } else {
-                    $userService->create($userData);
+                    $user = $userService->create($userData);
+                }
+                if (!empty($row["roles"])) {
+                    $roleReferences = array_map('trim', explode('|', $row["roles"]));
+                    $roleIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $roleReferences)->pluck('id')->toArray();
+
+                    if (!empty($roleIds)) {
+                        $user->roles()->sync($roleIds);
+                          $user->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

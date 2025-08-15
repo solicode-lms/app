@@ -98,10 +98,12 @@ class BaseCommentaireRealisationTacheSeeder extends Seeder
                         "apprenant_id" => $apprenant_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $commentaireRealisationTache = null;
                 if (!empty($row["reference"])) {
-                    $commentaireRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $commentaireRealisationTacheData);
+                    $commentaireRealisationTache = $commentaireRealisationTacheService->updateOrCreate(["reference" => $row["reference"]], $commentaireRealisationTacheData);
                 } else {
-                    $commentaireRealisationTacheService->create($commentaireRealisationTacheData);
+                    $commentaireRealisationTache = $commentaireRealisationTacheService->create($commentaireRealisationTacheData);
                 }
             }
         }

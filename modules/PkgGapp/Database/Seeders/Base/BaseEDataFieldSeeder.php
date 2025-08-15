@@ -101,10 +101,12 @@ class BaseEDataFieldSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $eDataField = null;
                 if (!empty($row["reference"])) {
-                    $eDataFieldService->updateOrCreate(["reference" => $row["reference"]], $eDataFieldData);
+                    $eDataField = $eDataFieldService->updateOrCreate(["reference" => $row["reference"]], $eDataFieldData);
                 } else {
-                    $eDataFieldService->create($eDataFieldData);
+                    $eDataField = $eDataFieldService->create($eDataFieldData);
                 }
             }
         }

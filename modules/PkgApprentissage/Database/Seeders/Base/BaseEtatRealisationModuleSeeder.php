@@ -88,10 +88,12 @@ class BaseEtatRealisationModuleSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationModule = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationModuleService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationModuleData);
+                    $etatRealisationModule = $etatRealisationModuleService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationModuleData);
                 } else {
-                    $etatRealisationModuleService->create($etatRealisationModuleData);
+                    $etatRealisationModule = $etatRealisationModuleService->create($etatRealisationModuleData);
                 }
             }
         }

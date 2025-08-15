@@ -39,6 +39,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'must_change_password' => 'must_change_password',
                 'remember_token' => 'remember_token',
                 'reference' => 'reference',
+                'roles' => 'roles',
             ];
         } else {
             return [
@@ -49,6 +50,7 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'must_change_password' => __('PkgAutorisation::user.must_change_password'),
                 'remember_token' => __('PkgAutorisation::user.remember_token'),
                 'reference' => __('Core::msg.reference'),
+                    'roles' => __('PkgAutorisation::role.plural'),
             ];
         }
     }
@@ -67,6 +69,9 @@ class BaseUserExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 'must_change_password' => $user->must_change_password ? '1' : '0',
                 'remember_token' => $user->remember_token,
                 'reference' => $user->reference,
+                'roles' => $user->roles
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

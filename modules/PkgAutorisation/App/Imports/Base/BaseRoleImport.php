@@ -25,6 +25,7 @@ class BaseRoleImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -59,6 +60,9 @@ class BaseRoleImport implements ToModel, WithHeadingRow
              'name' => $values[0] ?? null,
              'guard_name' => $values[1] ?? null,
              'reference' => $reference,
+             'permissions' => $values[3] ?? null,
+             'widgets' => $values[4] ?? null,
+             'users' => $values[5] ?? null,
         ]);
 
 

@@ -88,10 +88,12 @@ class BaseSectionWidgetSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sectionWidget = null;
                 if (!empty($row["reference"])) {
-                    $sectionWidgetService->updateOrCreate(["reference" => $row["reference"]], $sectionWidgetData);
+                    $sectionWidget = $sectionWidgetService->updateOrCreate(["reference" => $row["reference"]], $sectionWidgetData);
                 } else {
-                    $sectionWidgetService->create($sectionWidgetData);
+                    $sectionWidget = $sectionWidgetService->create($sectionWidgetData);
                 }
             }
         }

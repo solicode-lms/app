@@ -84,10 +84,12 @@ class BaseEMetadataDefinitionSeeder extends Seeder
                         "default_value" => isset($row["default_value"]) && $row["default_value"] !== "" ? $row["default_value"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $eMetadataDefinition = null;
                 if (!empty($row["reference"])) {
-                    $eMetadataDefinitionService->updateOrCreate(["reference" => $row["reference"]], $eMetadataDefinitionData);
+                    $eMetadataDefinition = $eMetadataDefinitionService->updateOrCreate(["reference" => $row["reference"]], $eMetadataDefinitionData);
                 } else {
-                    $eMetadataDefinitionService->create($eMetadataDefinitionData);
+                    $eMetadataDefinition = $eMetadataDefinitionService->create($eMetadataDefinitionData);
                 }
             }
         }

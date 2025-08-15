@@ -46,10 +46,10 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
             ];
         } else {
             return [
-                'module_reference' => __('PkgApprentissage::realisationModule.module_reference'),
-                'apprenant_reference' => __('PkgApprentissage::realisationModule.apprenant_reference'),
+                'module_reference' => __('PkgFormation::module.singular'),
+                'apprenant_reference' => __('PkgApprenants::apprenant.singular'),
                 'progression_cache' => __('PkgApprentissage::realisationModule.progression_cache'),
-                'etat_realisation_module_reference' => __('PkgApprentissage::realisationModule.etat_realisation_module_reference'),
+                'etat_realisation_module_reference' => __('PkgApprentissage::etatRealisationModule.singular'),
                 'note_cache' => __('PkgApprentissage::realisationModule.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationModule.bareme_cache'),
                 'dernier_update' => __('PkgApprentissage::realisationModule.dernier_update'),

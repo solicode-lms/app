@@ -91,10 +91,12 @@ class BaseMicroCompetenceSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $microCompetence = null;
                 if (!empty($row["reference"])) {
-                    $microCompetenceService->updateOrCreate(["reference" => $row["reference"]], $microCompetenceData);
+                    $microCompetence = $microCompetenceService->updateOrCreate(["reference" => $row["reference"]], $microCompetenceData);
                 } else {
-                    $microCompetenceService->create($microCompetenceData);
+                    $microCompetence = $microCompetenceService->create($microCompetenceData);
                 }
             }
         }

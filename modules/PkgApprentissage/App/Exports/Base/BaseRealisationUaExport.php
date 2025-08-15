@@ -45,9 +45,9 @@ class BaseRealisationUaExport implements FromCollection, WithHeadings, ShouldAut
             ];
         } else {
             return [
-                'unite_apprentissage_reference' => __('PkgApprentissage::realisationUa.unite_apprentissage_reference'),
-                'realisation_micro_competence_reference' => __('PkgApprentissage::realisationUa.realisation_micro_competence_reference'),
-                'etat_realisation_ua_reference' => __('PkgApprentissage::realisationUa.etat_realisation_ua_reference'),
+                'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
+                'realisation_micro_competence_reference' => __('PkgApprentissage::realisationMicroCompetence.singular'),
+                'etat_realisation_ua_reference' => __('PkgApprentissage::etatRealisationUa.singular'),
                 'progression_cache' => __('PkgApprentissage::realisationUa.progression_cache'),
                 'note_cache' => __('PkgApprentissage::realisationUa.note_cache'),
                 'bareme_cache' => __('PkgApprentissage::realisationUa.bareme_cache'),

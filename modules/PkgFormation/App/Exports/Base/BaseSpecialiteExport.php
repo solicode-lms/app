@@ -35,12 +35,14 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'nom' => 'nom',
                 'description' => 'description',
                 'reference' => 'reference',
+                'formateurs' => 'formateurs',
             ];
         } else {
             return [
                 'nom' => __('PkgFormation::specialite.nom'),
                 'description' => __('PkgFormation::specialite.description'),
                 'reference' => __('Core::msg.reference'),
+                    'formateurs' => __('PkgFormation::formateur.plural'),
             ];
         }
     }
@@ -55,6 +57,9 @@ class BaseSpecialiteExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'nom' => $specialite->nom,
                 'description' => $specialite->description,
                 'reference' => $specialite->reference,
+                'formateurs' => $specialite->formateurs
+                    ->pluck('reference')
+                    ->implode('|'),
             ];
         });
     }

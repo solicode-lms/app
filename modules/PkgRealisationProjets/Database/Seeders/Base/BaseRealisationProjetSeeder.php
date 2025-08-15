@@ -103,10 +103,12 @@ class BaseRealisationProjetSeeder extends Seeder
                         "rapport" => isset($row["rapport"]) && $row["rapport"] !== "" ? $row["rapport"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationProjet = null;
                 if (!empty($row["reference"])) {
-                    $realisationProjetService->updateOrCreate(["reference" => $row["reference"]], $realisationProjetData);
+                    $realisationProjet = $realisationProjetService->updateOrCreate(["reference" => $row["reference"]], $realisationProjetData);
                 } else {
-                    $realisationProjetService->create($realisationProjetData);
+                    $realisationProjet = $realisationProjetService->create($realisationProjetData);
                 }
             }
         }

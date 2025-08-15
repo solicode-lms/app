@@ -85,10 +85,21 @@ class BaseFeatureSeeder extends Seeder
                         "feature_domain_id" => $feature_domain_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $feature = null;
                 if (!empty($row["reference"])) {
-                    $featureService->updateOrCreate(["reference" => $row["reference"]], $featureData);
+                    $feature = $featureService->updateOrCreate(["reference" => $row["reference"]], $featureData);
                 } else {
-                    $featureService->create($featureData);
+                    $feature = $featureService->create($featureData);
+                }
+                if (!empty($row["permissions"])) {
+                    $permissionReferences = array_map('trim', explode('|', $row["permissions"]));
+                    $permissionIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $permissionReferences)->pluck('id')->toArray();
+
+                    if (!empty($permissionIds)) {
+                        $feature->permissions()->sync($permissionIds);
+                          $feature->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

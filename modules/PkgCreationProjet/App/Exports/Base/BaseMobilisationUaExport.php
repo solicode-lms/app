@@ -43,13 +43,13 @@ class BaseMobilisationUaExport implements FromCollection, WithHeadings, ShouldAu
             ];
         } else {
             return [
-                'unite_apprentissage_reference' => __('PkgCreationProjet::mobilisationUa.unite_apprentissage_reference'),
+                'unite_apprentissage_reference' => __('PkgCompetences::uniteApprentissage.singular'),
                 'bareme_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_prototype'),
                 'criteres_evaluation_prototype' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_prototype'),
                 'bareme_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.bareme_evaluation_projet'),
                 'criteres_evaluation_projet' => __('PkgCreationProjet::mobilisationUa.criteres_evaluation_projet'),
                 'description' => __('PkgCreationProjet::mobilisationUa.description'),
-                'projet_reference' => __('PkgCreationProjet::mobilisationUa.projet_reference'),
+                'projet_reference' => __('PkgCreationProjet::projet.singular'),
                 'reference' => __('Core::msg.reference'),
             ];
         }

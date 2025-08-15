@@ -95,10 +95,12 @@ class BaseMobilisationUaSeeder extends Seeder
                         "projet_id" => $projet_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $mobilisationUa = null;
                 if (!empty($row["reference"])) {
-                    $mobilisationUaService->updateOrCreate(["reference" => $row["reference"]], $mobilisationUaData);
+                    $mobilisationUa = $mobilisationUaService->updateOrCreate(["reference" => $row["reference"]], $mobilisationUaData);
                 } else {
-                    $mobilisationUaService->create($mobilisationUaData);
+                    $mobilisationUa = $mobilisationUaService->create($mobilisationUaData);
                 }
             }
         }

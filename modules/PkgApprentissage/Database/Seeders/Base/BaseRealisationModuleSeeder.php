@@ -103,10 +103,12 @@ class BaseRealisationModuleSeeder extends Seeder
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationModule = null;
                 if (!empty($row["reference"])) {
-                    $realisationModuleService->updateOrCreate(["reference" => $row["reference"]], $realisationModuleData);
+                    $realisationModule = $realisationModuleService->updateOrCreate(["reference" => $row["reference"]], $realisationModuleData);
                 } else {
-                    $realisationModuleService->create($realisationModuleData);
+                    $realisationModule = $realisationModuleService->create($realisationModuleData);
                 }
             }
         }

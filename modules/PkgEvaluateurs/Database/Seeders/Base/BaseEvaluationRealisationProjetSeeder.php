@@ -98,10 +98,12 @@ class BaseEvaluationRealisationProjetSeeder extends Seeder
                         "remarques" => isset($row["remarques"]) && $row["remarques"] !== "" ? $row["remarques"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $evaluationRealisationProjet = null;
                 if (!empty($row["reference"])) {
-                    $evaluationRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $evaluationRealisationProjetData);
+                    $evaluationRealisationProjet = $evaluationRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $evaluationRealisationProjetData);
                 } else {
-                    $evaluationRealisationProjetService->create($evaluationRealisationProjetData);
+                    $evaluationRealisationProjet = $evaluationRealisationProjetService->create($evaluationRealisationProjetData);
                 }
             }
         }

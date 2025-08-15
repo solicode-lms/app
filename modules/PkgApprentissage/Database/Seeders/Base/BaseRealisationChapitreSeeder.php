@@ -105,10 +105,12 @@ class BaseRealisationChapitreSeeder extends Seeder
                         "commentaire_formateur" => isset($row["commentaire_formateur"]) && $row["commentaire_formateur"] !== "" ? $row["commentaire_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationChapitre = null;
                 if (!empty($row["reference"])) {
-                    $realisationChapitreService->updateOrCreate(["reference" => $row["reference"]], $realisationChapitreData);
+                    $realisationChapitre = $realisationChapitreService->updateOrCreate(["reference" => $row["reference"]], $realisationChapitreData);
                 } else {
-                    $realisationChapitreService->create($realisationChapitreData);
+                    $realisationChapitre = $realisationChapitreService->create($realisationChapitreData);
                 }
             }
         }

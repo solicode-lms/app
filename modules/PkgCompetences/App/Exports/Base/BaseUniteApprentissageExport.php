@@ -45,7 +45,7 @@ class BaseUniteApprentissageExport implements FromCollection, WithHeadings, Shou
                 'ordre' => __('PkgCompetences::uniteApprentissage.ordre'),
                 'code' => __('PkgCompetences::uniteApprentissage.code'),
                 'nom' => __('PkgCompetences::uniteApprentissage.nom'),
-                'micro_competence_reference' => __('PkgCompetences::uniteApprentissage.micro_competence_reference'),
+                'micro_competence_reference' => __('PkgCompetences::microCompetence.singular'),
                 'lien' => __('PkgCompetences::uniteApprentissage.lien'),
                 'description' => __('PkgCompetences::uniteApprentissage.description'),
                 'reference' => __('Core::msg.reference'),

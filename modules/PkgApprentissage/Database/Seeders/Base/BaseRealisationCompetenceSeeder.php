@@ -109,10 +109,12 @@ class BaseRealisationCompetenceSeeder extends Seeder
                         "date_fin" => isset($row["date_fin"]) && $row["date_fin"] !== "" ? $row["date_fin"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $realisationCompetence = null;
                 if (!empty($row["reference"])) {
-                    $realisationCompetenceService->updateOrCreate(["reference" => $row["reference"]], $realisationCompetenceData);
+                    $realisationCompetence = $realisationCompetenceService->updateOrCreate(["reference" => $row["reference"]], $realisationCompetenceData);
                 } else {
-                    $realisationCompetenceService->create($realisationCompetenceData);
+                    $realisationCompetence = $realisationCompetenceService->create($realisationCompetenceData);
                 }
             }
         }

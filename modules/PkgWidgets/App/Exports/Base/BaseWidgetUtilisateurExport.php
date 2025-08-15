@@ -42,8 +42,8 @@ class BaseWidgetUtilisateurExport implements FromCollection, WithHeadings, Shoul
         } else {
             return [
                 'ordre' => __('PkgWidgets::widgetUtilisateur.ordre'),
-                'user_reference' => __('PkgWidgets::widgetUtilisateur.user_reference'),
-                'widget_reference' => __('PkgWidgets::widgetUtilisateur.widget_reference'),
+                'user_reference' => __('PkgAutorisation::user.singular'),
+                'widget_reference' => __('PkgWidgets::widget.singular'),
                 'titre' => __('PkgWidgets::widgetUtilisateur.titre'),
                 'sous_titre' => __('PkgWidgets::widgetUtilisateur.sous_titre'),
                 'visible' => __('PkgWidgets::widgetUtilisateur.visible'),

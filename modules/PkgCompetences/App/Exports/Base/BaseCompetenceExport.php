@@ -44,7 +44,7 @@ class BaseCompetenceExport implements FromCollection, WithHeadings, ShouldAutoSi
                 'code' => __('PkgCompetences::competence.code'),
                 'mini_code' => __('PkgCompetences::competence.mini_code'),
                 'nom' => __('PkgCompetences::competence.nom'),
-                'module_reference' => __('PkgCompetences::competence.module_reference'),
+                'module_reference' => __('PkgFormation::module.singular'),
                 'description' => __('PkgCompetences::competence.description'),
                 'reference' => __('Core::msg.reference'),
             ];

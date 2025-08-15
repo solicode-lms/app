@@ -43,12 +43,12 @@ class BaseProjetExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             ];
         } else {
             return [
-                'session_formation_reference' => __('PkgCreationProjet::projet.session_formation_reference'),
-                'filiere_reference' => __('PkgCreationProjet::projet.filiere_reference'),
+                'session_formation_reference' => __('PkgSessions::sessionFormation.singular'),
+                'filiere_reference' => __('PkgFormation::filiere.singular'),
                 'titre' => __('PkgCreationProjet::projet.titre'),
                 'travail_a_faire' => __('PkgCreationProjet::projet.travail_a_faire'),
                 'critere_de_travail' => __('PkgCreationProjet::projet.critere_de_travail'),
-                'formateur_reference' => __('PkgCreationProjet::projet.formateur_reference'),
+                'formateur_reference' => __('PkgFormation::formateur.singular'),
                 'description' => __('PkgCreationProjet::projet.description'),
                 'reference' => __('Core::msg.reference'),
             ];

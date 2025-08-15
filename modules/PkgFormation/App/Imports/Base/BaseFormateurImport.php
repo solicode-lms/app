@@ -25,6 +25,7 @@ class BaseFormateurImport implements ToModel, WithHeadingRow
     }
 
     /**
+     * TODO : Il faut importer ManyToOne et ManyToMany By reference
      * Crée ou met à jour un enregistrement à partir des données importées.
      *
      * @param array $row Ligne de données importée.
@@ -60,15 +61,17 @@ class BaseFormateurImport implements ToModel, WithHeadingRow
              'nom' => $values[1] ?? null,
              'prenom' => $values[2] ?? null,
              'prenom_arab' => $values[3] ?? null,
-             'nom_arab' => $values[4] ?? null,
-             'email' => $values[5] ?? null,
-             'tele_num' => $values[6] ?? null,
-             'adresse' => $values[7] ?? null,
-             'diplome' => $values[8] ?? null,
-             'echelle' => $values[9] ?? null,
-             'echelon' => $values[10] ?? null,
-             'profile_image' => $values[11] ?? null,
-             'user_id' => $values[12] ?? null,
+             'specialites' => $values[4] ?? null,
+             'nom_arab' => $values[5] ?? null,
+             'groupes' => $values[6] ?? null,
+             'email' => $values[7] ?? null,
+             'tele_num' => $values[8] ?? null,
+             'adresse' => $values[9] ?? null,
+             'diplome' => $values[10] ?? null,
+             'echelle' => $values[11] ?? null,
+             'echelon' => $values[12] ?? null,
+             'profile_image' => $values[13] ?? null,
+             'user_id' => $values[14] ?? null,
              'reference' => $reference,
         ]);
 

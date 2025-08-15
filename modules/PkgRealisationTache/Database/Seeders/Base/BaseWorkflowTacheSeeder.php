@@ -89,10 +89,12 @@ class BaseWorkflowTacheSeeder extends Seeder
                         "sys_color_id" => $sys_color_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $workflowTache = null;
                 if (!empty($row["reference"])) {
-                    $workflowTacheService->updateOrCreate(["reference" => $row["reference"]], $workflowTacheData);
+                    $workflowTache = $workflowTacheService->updateOrCreate(["reference" => $row["reference"]], $workflowTacheData);
                 } else {
-                    $workflowTacheService->create($workflowTacheData);
+                    $workflowTache = $workflowTacheService->create($workflowTacheData);
                 }
             }
         }

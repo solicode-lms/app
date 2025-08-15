@@ -89,10 +89,12 @@ class BaseEtatRealisationUaSeeder extends Seeder
                         "description" => isset($row["description"]) && $row["description"] !== "" ? $row["description"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatRealisationUa = null;
                 if (!empty($row["reference"])) {
-                    $etatRealisationUaService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationUaData);
+                    $etatRealisationUa = $etatRealisationUaService->updateOrCreate(["reference" => $row["reference"]], $etatRealisationUaData);
                 } else {
-                    $etatRealisationUaService->create($etatRealisationUaData);
+                    $etatRealisationUa = $etatRealisationUaService->create($etatRealisationUaData);
                 }
             }
         }

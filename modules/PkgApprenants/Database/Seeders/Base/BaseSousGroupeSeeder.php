@@ -86,10 +86,21 @@ class BaseSousGroupeSeeder extends Seeder
                         "groupe_id" => $groupe_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sousGroupe = null;
                 if (!empty($row["reference"])) {
-                    $sousGroupeService->updateOrCreate(["reference" => $row["reference"]], $sousGroupeData);
+                    $sousGroupe = $sousGroupeService->updateOrCreate(["reference" => $row["reference"]], $sousGroupeData);
                 } else {
-                    $sousGroupeService->create($sousGroupeData);
+                    $sousGroupe = $sousGroupeService->create($sousGroupeData);
+                }
+                if (!empty($row["apprenants"])) {
+                    $apprenantReferences = array_map('trim', explode('|', $row["apprenants"]));
+                    $apprenantIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $apprenantReferences)->pluck('id')->toArray();
+
+                    if (!empty($apprenantIds)) {
+                        $sousGroupe->apprenants()->sync($apprenantIds);
+                          $sousGroupe->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

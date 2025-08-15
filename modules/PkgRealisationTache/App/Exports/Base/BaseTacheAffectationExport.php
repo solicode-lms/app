@@ -39,8 +39,8 @@ class BaseTacheAffectationExport implements FromCollection, WithHeadings, Should
             ];
         } else {
             return [
-                'tache_reference' => __('PkgRealisationTache::tacheAffectation.tache_reference'),
-                'affectation_projet_reference' => __('PkgRealisationTache::tacheAffectation.affectation_projet_reference'),
+                'tache_reference' => __('PkgCreationTache::tache.singular'),
+                'affectation_projet_reference' => __('PkgRealisationProjets::affectationProjet.singular'),
                 'pourcentage_realisation_cache' => __('PkgRealisationTache::tacheAffectation.pourcentage_realisation_cache'),
                 'reference' => __('Core::msg.reference'),
             ];

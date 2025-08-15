@@ -90,10 +90,21 @@ class BaseEvaluateurSeeder extends Seeder
                         "user_id" => $user_id,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $evaluateur = null;
                 if (!empty($row["reference"])) {
-                    $evaluateurService->updateOrCreate(["reference" => $row["reference"]], $evaluateurData);
+                    $evaluateur = $evaluateurService->updateOrCreate(["reference" => $row["reference"]], $evaluateurData);
                 } else {
-                    $evaluateurService->create($evaluateurData);
+                    $evaluateur = $evaluateurService->create($evaluateurData);
+                }
+                if (!empty($row["affectationProjets"])) {
+                    $affectationProjetReferences = array_map('trim', explode('|', $row["affectationProjets"]));
+                    $affectationProjetIds = \Modules\PkgAutorisation\Models\Role::whereIn('reference', $affectationProjetReferences)->pluck('id')->toArray();
+
+                    if (!empty($affectationProjetIds)) {
+                        $evaluateur->affectationProjets()->sync($affectationProjetIds);
+                          $evaluateur->touch(); // pour lancer Observer
+                    }
                 }
             }
         }

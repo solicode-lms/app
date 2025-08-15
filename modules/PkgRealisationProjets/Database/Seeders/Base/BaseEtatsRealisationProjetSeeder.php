@@ -89,10 +89,12 @@ class BaseEtatsRealisationProjetSeeder extends Seeder
                         "is_editable_by_formateur" => isset($row["is_editable_by_formateur"]) && $row["is_editable_by_formateur"] !== "" ? $row["is_editable_by_formateur"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $etatsRealisationProjet = null;
                 if (!empty($row["reference"])) {
-                    $etatsRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatsRealisationProjetData);
+                    $etatsRealisationProjet = $etatsRealisationProjetService->updateOrCreate(["reference" => $row["reference"]], $etatsRealisationProjetData);
                 } else {
-                    $etatsRealisationProjetService->create($etatsRealisationProjetData);
+                    $etatsRealisationProjet = $etatsRealisationProjetService->create($etatsRealisationProjetData);
                 }
             }
         }

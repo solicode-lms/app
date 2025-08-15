@@ -87,10 +87,12 @@ class BaseSysControllerSeeder extends Seeder
                         "is_active" => isset($row["is_active"]) && $row["is_active"] !== "" ? $row["is_active"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
+
+                $sysController = null;
                 if (!empty($row["reference"])) {
-                    $sysControllerService->updateOrCreate(["reference" => $row["reference"]], $sysControllerData);
+                    $sysController = $sysControllerService->updateOrCreate(["reference" => $row["reference"]], $sysControllerData);
                 } else {
-                    $sysControllerService->create($sysControllerData);
+                    $sysController = $sysControllerService->create($sysControllerData);
                 }
             }
         }
