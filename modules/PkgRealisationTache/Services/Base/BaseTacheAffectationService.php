@@ -24,7 +24,8 @@ class BaseTacheAffectationService extends BaseService
     protected $fieldsSearchable = [
         'tache_id',
         'affectation_projet_id',
-        'pourcentage_realisation_cache'
+        'pourcentage_realisation_cache',
+        'apprenant_live_coding_cache'
     ];
 
     /**

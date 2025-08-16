@@ -46,7 +46,7 @@ class BaseTacheAffectation extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'tache_id', 'affectation_projet_id', 'pourcentage_realisation_cache'
+        'tache_id', 'affectation_projet_id', 'pourcentage_realisation_cache', 'apprenant_live_coding_cache'
     ];
     public $manyToOne = [
         'Tache' => [

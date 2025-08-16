@@ -31,7 +31,8 @@ class BaseTacheAffectationRequest extends FormRequest
         return [
             'tache_id' => 'required',
             'affectation_projet_id' => 'required',
-            'pourcentage_realisation_cache' => 'required'
+            'pourcentage_realisation_cache' => 'required',
+            'apprenant_live_coding_cache' => 'nullable'
         ];
     }
 
@@ -45,7 +46,8 @@ class BaseTacheAffectationRequest extends FormRequest
         return [
             'tache_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TacheAffectation.tache_id')]),
             'affectation_projet_id.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TacheAffectation.affectation_projet_id')]),
-            'pourcentage_realisation_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TacheAffectation.pourcentage_realisation_cache')])
+            'pourcentage_realisation_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TacheAffectation.pourcentage_realisation_cache')]),
+            'apprenant_live_coding_cache.required' => __('validation.required', ['attribute' => __('PkgRealisationTache::TacheAffectation.apprenant_live_coding_cache')])
         ];
     }
 

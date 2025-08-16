@@ -366,5 +366,35 @@
         },
         "e_data_field_reference": "TacheAffectation_pourcentage_realisation_cache",
         "e_metadata_definition_reference": "nature"
+    },
+    {
+        "reference": "TacheAffectation_apprenant_live_coding_cache_displayOrder",
+        "value_integer": 7,
+        "e_data_field_reference": "TacheAffectation_apprenant_live_coding_cache",
+        "e_metadata_definition_reference": "displayOrder"
+    },
+    {
+        "reference": "TacheAffectation_apprenant_live_coding_cache_displayInForm",
+        "value_boolean": 1,
+        "e_data_field_reference": "TacheAffectation_apprenant_live_coding_cache",
+        "e_metadata_definition_reference": "displayInForm"
+    },
+    {
+        "reference": "TacheAffectation_apprenant_live_coding_cache_inputMdWidth",
+        "value_integer": 6,
+        "e_data_field_reference": "TacheAffectation_apprenant_live_coding_cache",
+        "e_metadata_definition_reference": "inputMdWidth"
+    },
+    {
+        "reference": "TacheAffectation_apprenant_live_coding_cache_viewFormFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TacheAffectation_apprenant_live_coding_cache",
+        "e_metadata_definition_reference": "viewFormFieldVisible"
+    },
+    {
+        "reference": "TacheAffectation_apprenant_live_coding_cache_viewShowFieldVisible",
+        "value_boolean": 1,
+        "e_data_field_reference": "TacheAffectation_apprenant_live_coding_cache",
+        "e_metadata_definition_reference": "viewShowFieldVisible"
     }
 ]

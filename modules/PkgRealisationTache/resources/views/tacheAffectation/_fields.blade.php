@@ -128,6 +128,37 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemTacheAffectation" field="apprenant_live_coding_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="apprenant_live_coding_cache" id="bulk_field_apprenant_live_coding_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="apprenant_live_coding_cache">
+            {{ ucfirst(__('PkgRealisationTache::tacheAffectation.apprenant_live_coding_cache')) }}
+            
+          </label>
+              <div class="form-control editeur_json code-editor"
+        contenteditable="true">{{ $itemTacheAffectation ? $itemTacheAffectation->apprenant_live_coding_cache : old('apprenant_live_coding_cache') }}</div>
+    <input
+        type="hidden"
+        name="apprenant_live_coding_cache"
+        class="form-control"
+        id="apprenant_live_coding_cache"
+         
+        
+        
+        value = "{{ $itemTacheAffectation ? $itemTacheAffectation->apprenant_live_coding_cache : old('apprenant_live_coding_cache') }}"
+    >
+          @error('apprenant_live_coding_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   
