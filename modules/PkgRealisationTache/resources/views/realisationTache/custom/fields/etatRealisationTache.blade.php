@@ -58,4 +58,25 @@
             <i class="{{ $icone }}"></i> {{ $progression }}% réalisés par la classe
         </span>
     @endif
+
+
+
+    {{-- Afficher les autres tâches Live Coding du même projet --}}
+    @php
+        $tachesLiveCoding = $entity->realisationProjet
+            ? $entity->realisationProjet->realisationTaches
+                ->where('is_live_coding', true)
+                ->where('id', '!=', $entity->id)
+            : collect();
+    @endphp
+
+    @foreach($tachesLiveCoding as $tacheLC)
+        <span class="etat-meta" 
+              title="Autre tâche validée en live coding : {{ $tacheLC->tache?->titre }}" 
+              data-toggle="tooltip">
+            <i class="fas fa-laptop-code text-indigo"></i>
+            {{ $tacheLC->tache?->titre }}
+        </span>
+    @endforeach
+
 </div>

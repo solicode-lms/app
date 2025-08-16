@@ -50,6 +50,7 @@ class RealisationTacheService extends BaseRealisationTacheService
             'realisationProjet.affectationProjet',
             'tache.livrables.natureLivrable',
             'livrablesRealisations.livrable.taches',
+            'realisationProjet.realisationTaches.tache',
         ];
 
 

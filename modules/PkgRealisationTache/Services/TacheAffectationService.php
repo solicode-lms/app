@@ -69,7 +69,7 @@ public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): 
 
     if (($tacheAffectation->pourcentage_realisation_cache ?? 0) < 50) return;
 
-    $codesValides = ['TO_APPROVE', 'READY_FOR_LIVE_CODING'];
+    $codesValides = ['TO_APPROVE'];
 
     $tachesEligibles = $tacheAffectation->realisationTaches()
         ->with([
@@ -92,7 +92,7 @@ public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): 
                     ?->date_debut ?? now()->startOfYear();
 
     // 🔁 Tri par nombre de live coding faits par apprenant cette année
-    $apprenantSelectionne = $tachesEligibles->sortBy(function ($tache) use ($anneeDebut) {
+    $apprenantSelectionne_realisation_tache = $tachesEligibles->sortBy(function ($tache) use ($anneeDebut) {
         $apprenantId = $tache->realisationProjet->apprenant_id;
 
         return RealisationTache::whereHas('realisationProjet', fn($q) => 
@@ -102,7 +102,7 @@ public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): 
             ->count();
     })->first();
 
-    if (!$apprenantSelectionne) return;
+    if (!$apprenantSelectionne_realisation_tache) return;
 
     // 🎯 Récupérer l’état "IN_LIVE_CODING"
     $formateurId = $tacheAffectation?->affectationProjet
@@ -110,14 +110,14 @@ public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): 
         ?->formateur_id;
 
     $etatLiveCoding = EtatRealisationTache::whereHas('workflowTache', fn($q) =>
-            $q->where('code', 'IN_LIVE_CODING'))
+            $q->where('code', 'READY_FOR_LIVE_CODING'))
         ->where('formateur_id', $formateurId)
         ->first();
 
     if (!$etatLiveCoding) return;
 
     // ✅ Mettre à jour l’état et is_live_coding
-    $apprenantSelectionne->update([
+    $apprenantSelectionne_realisation_tache->update([
         'is_live_coding' => true,
         'etat_realisation_tache_id' => $etatLiveCoding->id,
     ]);

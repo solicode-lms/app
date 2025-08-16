@@ -19,8 +19,19 @@ class RealisationTache extends BaseRealisationTache
        'tache.livrables',
        'realisationProjet.apprenant',
        'etatRealisationTache',
-       'livrablesRealisations'
+       'livrablesRealisations',
     ];
+
+    public function autresLiveCoding()
+    {
+        return $this->hasMany(RealisationTache::class, 'tache_id', 'tache_id')
+            ->whereHas('realisationProjet', function ($q) {
+                $q->where('affectation_projet_id', $this->realisationProjet->affectation_projet_id)
+                ->where('apprenant_id', '!=', $this->realisationProjet->apprenant_id);
+            })
+            ->where('is_live_coding', true);
+    }
+
    
 /**
  *  Remplacé par livrablesRealisations pour optimisation
