@@ -125,7 +125,7 @@ public function lancerLiveCodingSiEligible(TacheAffectation $tacheAffectation): 
     // ✅ Sauvegarder l’apprenant dans le champ JSON
     $tacheAffectation->update([
         'apprenant_live_coding_cache' => [
-            'apprenant' => $apprenantSelectionne_realisation_tache->realisationProjet->apprenant,
+            'apprenant' => (string) $apprenantSelectionne_realisation_tache->realisationProjet->apprenant,
             'realisation_tache_id' => $apprenantSelectionne_realisation_tache->id,
             'date' => now()->toDateTimeString(),
         ]

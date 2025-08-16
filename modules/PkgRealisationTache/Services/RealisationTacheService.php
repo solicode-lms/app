@@ -39,6 +39,9 @@ class RealisationTacheService extends BaseRealisationTacheService
         RealisationTacheWorkflow,
         RealisationTacheCalculeProgression;
 
+
+      
+
         protected array $index_with_relations = [
             'tache',
             'realisationChapitres',

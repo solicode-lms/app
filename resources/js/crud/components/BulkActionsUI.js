@@ -70,7 +70,13 @@ export class BulkActionsUI {
         EventUtil.bindEvent('change', `${this.config.crudSelector} .check-all-rows`, (e) => {
             const isChecked = e.currentTarget.checked;
             const checkboxes = document.querySelectorAll(`${this.config.crudSelector} .check-row`);
-            checkboxes.forEach(cb => cb.checked = isChecked);
+           
+            checkboxes.forEach(cb => {
+                cb.checked = isChecked;
+                // dans event change on calcule les champs selection, qui bloque la notification
+                cb.dispatchEvent(new Event('change', { bubbles: true })); // ✅ simule le "change"
+            });
+            
             this.updateCheckAllState();
         });
     }

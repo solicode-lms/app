@@ -32,6 +32,9 @@ use Modules\PkgRealisationTache\Services\TacheAffectationService;
 trait RealisationTacheServiceCrud
 {
 
+
+    
+
     /**
      * Méthode contient les règles métier qui sont appliquer avant l'édition
      * il est utilisée avec tous les méthode qui font update

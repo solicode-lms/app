@@ -38,6 +38,7 @@ export class BulkAction extends CrudAction {
         EventUtil.bindEvent('change', `${this.config.tableSelector} .check-row`, () => {
             const selectedCount = this.getSelectedIds().length;
             this.isSelectingRows = selectedCount > 0;
+            console.log(selectedCount);
             console.log("isSelectingRows :", this.isSelectingRows, "Total :", selectedCount);
         });
     }

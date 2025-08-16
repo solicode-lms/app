@@ -95,3 +95,8 @@
         @endcan
        
       </ul>
+
+
+@if(getenv('XDEBUG_MODE') !== 'off')
+     {{ getenv('XDEBUG_MODE') }}
+@endif

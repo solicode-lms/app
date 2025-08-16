@@ -3,7 +3,10 @@
 
 namespace Modules\PkgRealisationTache\Services;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\PkgAutorisation\Models\Role;
 use Modules\PkgRealisationTache\Models\WorkflowTache;
 use Modules\PkgRealisationTache\Services\Base\BaseEtatRealisationTacheService;
 
@@ -14,8 +17,34 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
 {
 
     protected array $index_with_relations = ['sysColor','workflowTache','formateur'];
-    
+
+    // ✅ Définir ici la whitelist des états autorisés pour un apprenant
+    protected array $workflowTacheAutorisesApprenant = [
+        'TODO',
+        'IN_PROGRESS',
+        'PAUSED',
+        'IN_LIVE_CODING',
+        'TO_APPROVE',
+    ];
    
+    /**
+     * Override de all() avec filtrage selon le rôle
+     */
+    public function all(array $columns = ['*']): Collection
+    {
+        return $this->model->withScope(function ()  {
+
+            $query = $this->newQuery();
+            // Si rôle Apprenant → appliquer le filtre sur WorkflowTache
+            if (Auth::check() && Auth::user()->hasRole(Role::APPRENANT_ROLE)) {
+                $query->whereHas('workflowTache', function ($q) {
+                    $q->whereIn('code', $this->workflowTacheAutorisesApprenant);
+                });
+            }
+            $query->orderBy('ordre');
+            return $query->get();
+        });
+    }
 
     /**
      * Récupérer les états de réalisation des tâches associés à un formateur donné.

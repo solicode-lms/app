@@ -60,8 +60,8 @@ class BaseRealisationTacheController extends AdminController
         if(Auth::user()->hasRole('formateur') && $this->viewState->get('filter.realisationTache.realisationProjet.affectationProjet.projet.Formateur_id') == null){
            $this->viewState->init('filter.realisationTache.realisationProjet.affectationProjet.projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
         }
-        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.realisationProjet.Apprenant_id') == null){
-           $this->viewState->init('filter.realisationTache.realisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        if(Auth::user()->hasRole('apprenant') && $this->viewState->get('filter.realisationTache.RealisationProjet.Apprenant_id') == null){
+           $this->viewState->init('filter.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
         }
 
 

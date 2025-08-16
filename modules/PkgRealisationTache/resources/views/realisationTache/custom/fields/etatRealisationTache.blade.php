@@ -60,23 +60,21 @@
     @endif
 
 
-
-    {{-- Afficher les autres tâches Live Coding du même projet --}}
+    {{-- Apprenant en live coding --}}
     @php
-        $tachesLiveCoding = $entity->realisationProjet
-            ? $entity->realisationProjet->realisationTaches
-                ->where('is_live_coding', true)
-                ->where('id', '!=', $entity->id)
-            : collect();
+        $apprenant_live_coding = $entity->tacheAffectation?->apprenant_live_coding_cache ?? null;
     @endphp
 
-    @foreach($tachesLiveCoding as $tacheLC)
+    @if($apprenant_live_coding && isset($apprenant_live_coding['apprenant']))
         <span class="etat-meta" 
-              title="Autre tâche validée en live coding : {{ $tacheLC->tache?->titre }}" 
-              data-toggle="tooltip">
+            title="Apprenant chargé de live coding"
+            data-toggle="tooltip">
             <i class="fas fa-laptop-code text-indigo"></i>
-            {{ $tacheLC->tache?->titre }}
+            {{-- Si relation apprenant est dispo --}}
+          
+            {{$apprenant_live_coding['apprenant']}}
         </span>
-    @endforeach
+    @endif
+   
 
 </div>
