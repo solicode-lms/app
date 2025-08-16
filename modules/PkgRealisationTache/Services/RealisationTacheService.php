@@ -154,13 +154,13 @@ class RealisationTacheService extends BaseRealisationTacheService
             // Afficher les états de formateur pour ce projet
             $etats = $affectationProjet->projet->formateur->etatRealisationTaches;
         }
-        // elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
-        //     // Cas 2 : Formateur sans projet sélectionné
-        //     // Afficher les états génériques du formateur
-        //     $etats = $etatService->getEtatRealisationTacheByFormateurId(
-        //        $this->sessionState->get("formateur_id")
-        //     );
-        // }
+        elseif (Auth::user()->hasRole(Role::FORMATEUR_ROLE)) {
+            // Cas 2 : Formateur sans projet sélectionné
+            // Afficher les états génériques du formateur
+            $etats = $etatService->getEtatRealisationTacheByFormateurId(
+               $this->sessionState->get("formateur_id")
+            );
+        }
         else {
             // Cas 3 : Apprenant ou autre rôle
             // Aucun état formateur -> liste vide pour masquer le filtre
