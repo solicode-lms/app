@@ -262,10 +262,10 @@ class BaseRealisationTacheController extends AdminController
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
 
-        $taches = $this->tacheService->all();
+        $taches = $this->tacheService->getAllForSelect($itemRealisationTache->tache);
         $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
-        $realisationProjets = $this->realisationProjetService->all();
-        $tacheAffectations = $this->tacheAffectationService->all();
+        $realisationProjets = $this->realisationProjetService->getAllForSelect($itemRealisationTache->realisationProjet);
+        $tacheAffectations = $this->tacheAffectationService->getAllForSelect($itemRealisationTache->tacheAffectation);
 
 
         $this->viewState->set('scope.evaluationRealisationTache.realisation_tache_id', $id);
