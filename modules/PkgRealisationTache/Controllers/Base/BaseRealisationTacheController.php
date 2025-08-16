@@ -263,7 +263,7 @@ class BaseRealisationTacheController extends AdminController
         $this->viewState->set($key, $value);
 
         $taches = $this->tacheService->all();
-        $etatRealisationTaches = $this->etatRealisationTacheService->all();
+        $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
         $realisationProjets = $this->realisationProjetService->all();
         $tacheAffectations = $this->tacheAffectationService->all();
 

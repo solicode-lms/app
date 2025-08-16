@@ -48,47 +48,103 @@ trait RealisationTacheServiceCrud
 
 
         // ❌ Bloquer l'état si la tâche a des livrables mais aucun n'est encore déposé
-        // Il test si $etat est null
-        // Il ne l'applique pas au formateur
-        if (
-            !Auth::user()->hasRole(Role::FORMATEUR_ROLE) &&
-            isset($data["etat_realisation_tache_id"]) &&
-            ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
-        ) {
-            $etatCode = $etat->workflowTache?->code;
-            $etatsInterdits = ['IN_PROGRESS', 'TO_APPROVE', 'APPROVED'];
+        // // Il test si $etat est null
+        // // Il ne l'applique pas au formateur
+        // if (
+        //     !Auth::user()->hasRole(Role::FORMATEUR_ROLE) &&
+        //     isset($data["etat_realisation_tache_id"]) &&
+        //     ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
+        // ) {
+        //     $etatCode = $etat->workflowTache?->code;
+        //     $etatsInterdits = ['IN_PROGRESS', 'TO_APPROVE', 'APPROVED'];
 
-            $tache = $realisationTache->tache;
+        //     $tache = $realisationTache->tache;
 
-            if ($tache->livrables()->exists()) {
-                $livrables = $tache->livrables;
-                $idsLivrables = $livrables->pluck('id');
+        //     if ($tache->livrables()->exists()) {
+        //         $livrables = $tache->livrables;
+        //         $idsLivrables = $livrables->pluck('id');
 
-                // Récupère les IDs des livrables déjà déposés
-                $idsLivrablesDeposes = $realisationTache->realisationProjet
-                    ->livrablesRealisations()
-                    ->whereIn('livrable_id', $idsLivrables)
-                    ->pluck('livrable_id');
+        //         // Récupère les IDs des livrables déjà déposés
+        //         $idsLivrablesDeposes = $realisationTache->realisationProjet
+        //             ->livrablesRealisations()
+        //             ->whereIn('livrable_id', $idsLivrables)
+        //             ->pluck('livrable_id');
 
-                // Filtre les livrables non encore déposés
-                $livrablesManquants = $livrables->filter(function ($livrable) use ($idsLivrablesDeposes) {
-                    return !$idsLivrablesDeposes->contains($livrable->id);
-                });
+        //         // Filtre les livrables non encore déposés
+        //         $livrablesManquants = $livrables->filter(function ($livrable) use ($idsLivrablesDeposes) {
+        //             return !$idsLivrablesDeposes->contains($livrable->id);
+        //         });
 
-                if ($livrablesManquants->isNotEmpty() && in_array($etatCode, $etatsInterdits)) {
-                    $nomsLivrables = $livrablesManquants->pluck('titre')->filter()->map(function ($titre) {
-                        return "<li>" . e($titre) . "</li>";
-                    })->join('');
+        //         if ($livrablesManquants->isNotEmpty() && in_array($etatCode, $etatsInterdits)) {
+        //             $nomsLivrables = $livrablesManquants->pluck('titre')->filter()->map(function ($titre) {
+        //                 return "<li>" . e($titre) . "</li>";
+        //             })->join('');
 
-                    $message = "<p>Impossible de passer à l’état « {$etat->nom} », </br> les livrables suivants sont requis mais non déposés :</p><ul>{$nomsLivrables}</ul>";
+        //             $message = "<p>Impossible de passer à l’état « {$etat->nom} », </br> les livrables suivants sont requis mais non déposés :</p><ul>{$nomsLivrables}</ul>";
 
-                    throw ValidationException::withMessages([
-                        'etat_realisation_tache_id' => $message
-                    ]);
-                }
-            }
-        }
+        //             throw ValidationException::withMessages([
+        //                 'etat_realisation_tache_id' => $message
+        //             ]);
+        //         }
+        //     }
+        // }
 
+// ❌ Bloquer l'état si la tâche ou ses micro-compétences associées ont des livrables manquants
+if (
+    !Auth::user()->hasRole(Role::FORMATEUR_ROLE) &&
+    isset($data["etat_realisation_tache_id"]) &&
+    ($etat = EtatRealisationTache::find($data["etat_realisation_tache_id"]))
+) {
+    $etatCode = $etat->workflowTache?->code;
+    $etatsInterdits = ['IN_PROGRESS', 'TO_APPROVE', 'APPROVED'];
+
+    $tache = $realisationTache->tache;
+
+    // 1️⃣ Livrables attendus côté tâche
+    $livrablesTache = $tache->livrables ?? collect();
+
+    // Vérification des dépôts côté tâche
+    $livrablesManquantsTache = collect();
+    if ($livrablesTache->isNotEmpty()) {
+        $idsLivrables = $livrablesTache->pluck('id');
+
+        $idsLivrablesDeposes = $realisationTache->realisationProjet
+            ->livrablesRealisations()
+            ->whereIn('livrable_id', $idsLivrables)
+            ->pluck('livrable_id');
+
+        $livrablesManquantsTache = $livrablesTache
+            ->filter(fn($livrable) => !$idsLivrablesDeposes->contains($livrable->id))
+            ->map(fn($livrable) => "Tâche : " . ($livrable->titre ?? "Sans titre"));
+    }
+
+    // 2️⃣ Livrables attendus côté micro-compétences
+   $realisationMicro = $realisationTache->realisationChapitres
+    ->map(fn($rc) => $rc->realisationUa?->realisationMicroCompetence) // un seul UA par chapitre
+    ->filter(); // enlève les null
+
+    $livrablesManquantsMicro = $realisationMicro
+        ->filter(fn($rmc) => empty($rmc->lien_livrable))
+        ->map(fn($rmc) => "Autoformation : " . ($rmc->microCompetence?->titre ?? "Sans titre"));
+
+
+    // 3️⃣ Si livrables manquants → bloquer
+    if (
+        ($livrablesManquantsTache->isNotEmpty() || $livrablesManquantsMicro->isNotEmpty()) &&
+        in_array($etatCode, $etatsInterdits)
+    ) {
+        $listeManquants = $livrablesManquantsTache
+            ->merge($livrablesManquantsMicro)
+            ->map(fn($titre) => "<li>" . e($titre) . "</li>")
+            ->join('');
+
+        $message = "<p>Impossible de passer à l’état « {$etat->nom} », </br> les livrables suivants sont requis mais non déposés :</p><ul>{$listeManquants}</ul>";
+
+        throw ValidationException::withMessages([
+            'etat_realisation_tache_id' => $message
+        ]);
+    }
+}
 
 
         // Empêcher un apprenant d'affecter un état réservé aux formateurs

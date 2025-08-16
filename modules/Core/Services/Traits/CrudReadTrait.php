@@ -21,6 +21,16 @@ trait CrudReadTrait
         return $this->model->withScope(fn() =>  $this->model::all());
     }
 
+
+     /**
+     * méthode utilise pour trouver les élément à afficher dans select en cas de edit et create
+     */
+    public function getAllForSelect($entity): Collection
+    {
+        return $this->model->withScope(fn() =>  $this->model::all());
+    }
+
+
     public function count(): int
     {
         return $this->model->withScope(fn () => $this->model::query()->count());

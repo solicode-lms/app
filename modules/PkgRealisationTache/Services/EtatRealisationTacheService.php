@@ -30,8 +30,13 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
     /**
      * Override de all() avec filtrage selon le rôle
      */
-    public function all(array $columns = ['*']): Collection
+    public function getAllForSelect($etatRealisationTache): Collection
     {
+
+        if($etatRealisationTache){
+             $this->workflowTacheAutorisesApprenant[] = $etatRealisationTache?->workflowTache?->code;
+        }
+       
         return $this->model->withScope(function ()  {
 
             $query = $this->newQuery();
