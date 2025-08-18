@@ -26,4 +26,9 @@ class RealisationCompetence extends BaseRealisationCompetence
 
         return "—"; // Rien si l'un des deux manque ou bareme = 0
     }
+
+    public function generateReference(): string
+    {
+        return  $this->compete->reference . "-" . $this->apprenant->reference  ; 
+    }
 }

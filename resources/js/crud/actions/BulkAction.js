@@ -57,6 +57,10 @@ export class BulkAction extends CrudAction {
             const actionType = button.dataset.actionType || 'ajax';
 
             const selectedIds = this.getSelectedIds();
+
+            // pour permttre mettre à jour TableUI
+            this.isSelectingRows = false;
+
             const selectedCount = selectedIds.length;
 
             if (selectedCount === 0) {

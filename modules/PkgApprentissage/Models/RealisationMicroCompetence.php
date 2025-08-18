@@ -49,4 +49,9 @@ class RealisationMicroCompetence extends BaseRealisationMicroCompetence
         return $this->microCompetence->titre . "-" . $this->apprenant;
     }
 
+    public function generateReference(): string
+    {
+        return  $this->microCompetence->reference . "-" . $this->apprenant->reference  ; 
+    }
+
 }

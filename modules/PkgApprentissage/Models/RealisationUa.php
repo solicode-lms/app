@@ -51,4 +51,9 @@ class RealisationUa extends BaseRealisationUa
     {
         return $this->uniteApprentissage;
     }
+
+     public function generateReference(): string
+    {
+        return  $this->realisationMicroCompetence->reference . "-" . $this->uniteApprentissage->reference  ; 
+    }
 }

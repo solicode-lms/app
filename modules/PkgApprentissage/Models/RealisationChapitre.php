@@ -41,4 +41,10 @@ class RealisationChapitre extends BaseRealisationChapitre
         });
     }
 
+     public function generateReference(): string
+    {
+        return  $this->realisationUa->reference . "-" . $this->chapitre->reference  ; 
+    }
+ 
+
 }
