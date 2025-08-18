@@ -138,10 +138,10 @@ class BaseRealisationCompetenceController extends AdminController
          $itemRealisationCompetence = $this->realisationCompetenceService->find($realisationCompetence_ids[0]);
          
  
-        $competences = $this->competenceService->all();
-        $realisationModules = $this->realisationModuleService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationCompetences = $this->etatRealisationCompetenceService->all();
+        $competences = $this->competenceService->getAllForSelect($itemRealisationCompetence->competence);
+        $realisationModules = $this->realisationModuleService->getAllForSelect($itemRealisationCompetence->realisationModule);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationCompetence->apprenant);
+        $etatRealisationCompetences = $this->etatRealisationCompetenceService->getAllForSelect($itemRealisationCompetence->etatRealisationCompetence);
 
         $bulkEdit = true;
 
@@ -218,10 +218,10 @@ class BaseRealisationCompetenceController extends AdminController
         $this->authorize('edit', $itemRealisationCompetence);
 
 
-        $competences = $this->competenceService->all();
-        $realisationModules = $this->realisationModuleService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationCompetences = $this->etatRealisationCompetenceService->all();
+        $competences = $this->competenceService->getAllForSelect($itemRealisationCompetence->competence);
+        $realisationModules = $this->realisationModuleService->getAllForSelect($itemRealisationCompetence->realisationModule);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationCompetence->apprenant);
+        $etatRealisationCompetences = $this->etatRealisationCompetenceService->getAllForSelect($itemRealisationCompetence->etatRealisationCompetence);
 
 
         $this->viewState->set('scope.realisationMicroCompetence.realisation_competence_id', $id);

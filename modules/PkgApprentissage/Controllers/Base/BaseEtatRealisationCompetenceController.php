@@ -105,7 +105,7 @@ class BaseEtatRealisationCompetenceController extends AdminController
          $itemEtatRealisationCompetence = $this->etatRealisationCompetenceService->find($etatRealisationCompetence_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationCompetence->sysColor);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseEtatRealisationCompetenceController extends AdminController
         $itemEtatRealisationCompetence = $this->etatRealisationCompetenceService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationCompetence->sysColor);
 
 
         $this->viewState->set('scope.realisationCompetence.etat_realisation_competence_id', $id);

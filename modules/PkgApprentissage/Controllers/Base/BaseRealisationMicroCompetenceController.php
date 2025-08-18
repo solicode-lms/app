@@ -138,10 +138,10 @@ class BaseRealisationMicroCompetenceController extends AdminController
          $itemRealisationMicroCompetence = $this->realisationMicroCompetenceService->find($realisationMicroCompetence_ids[0]);
          
  
-        $microCompetences = $this->microCompetenceService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
-        $realisationCompetences = $this->realisationCompetenceService->all();
+        $microCompetences = $this->microCompetenceService->getAllForSelect($itemRealisationMicroCompetence->microCompetence);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationMicroCompetence->apprenant);
+        $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->getAllForSelect($itemRealisationMicroCompetence->etatRealisationMicroCompetence);
+        $realisationCompetences = $this->realisationCompetenceService->getAllForSelect($itemRealisationMicroCompetence->realisationCompetence);
 
         $bulkEdit = true;
 
@@ -218,10 +218,10 @@ class BaseRealisationMicroCompetenceController extends AdminController
         $this->authorize('edit', $itemRealisationMicroCompetence);
 
 
-        $microCompetences = $this->microCompetenceService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->all();
-        $realisationCompetences = $this->realisationCompetenceService->all();
+        $microCompetences = $this->microCompetenceService->getAllForSelect($itemRealisationMicroCompetence->microCompetence);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationMicroCompetence->apprenant);
+        $etatRealisationMicroCompetences = $this->etatRealisationMicroCompetenceService->getAllForSelect($itemRealisationMicroCompetence->etatRealisationMicroCompetence);
+        $realisationCompetences = $this->realisationCompetenceService->getAllForSelect($itemRealisationMicroCompetence->realisationCompetence);
 
 
         $this->viewState->set('scope.realisationUa.realisation_micro_competence_id', $id);

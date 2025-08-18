@@ -108,8 +108,8 @@ class BaseLivrableSessionController extends AdminController
          $itemLivrableSession = $this->livrableSessionService->find($livrableSession_ids[0]);
          
  
-        $sessionFormations = $this->sessionFormationService->all();
-        $natureLivrables = $this->natureLivrableService->all();
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemLivrableSession->sessionFormation);
+        $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrableSession->natureLivrable);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseLivrableSessionController extends AdminController
         $itemLivrableSession = $this->livrableSessionService->edit($id);
 
 
-        $sessionFormations = $this->sessionFormationService->all();
-        $natureLivrables = $this->natureLivrableService->all();
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemLivrableSession->sessionFormation);
+        $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrableSession->natureLivrable);
 
 
         $bulkEdit = false;

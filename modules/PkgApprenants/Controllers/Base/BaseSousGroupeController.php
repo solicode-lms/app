@@ -109,8 +109,8 @@ class BaseSousGroupeController extends AdminController
          $itemSousGroupe = $this->sousGroupeService->find($sousGroupe_ids[0]);
          
  
-        $groupes = $this->groupeService->all();
-        $apprenants = $this->apprenantService->all();
+        $groupes = $this->groupeService->getAllForSelect($itemSousGroupe->groupe);
+        $apprenants = $this->apprenantService->getAllForSelect($itemSousGroupe->);
 
         $bulkEdit = true;
 
@@ -185,8 +185,8 @@ class BaseSousGroupeController extends AdminController
         $itemSousGroupe = $this->sousGroupeService->edit($id);
 
 
-        $groupes = $this->groupeService->all();
-        $apprenants = $this->apprenantService->all();
+        $groupes = $this->groupeService->getAllForSelect($itemSousGroupe->groupe);
+        $apprenants = $this->apprenantService->getAllForSelect($itemSousGroupe->);
 
 
         $this->viewState->set('scope.affectationProjet.sous_groupe_id', $id);

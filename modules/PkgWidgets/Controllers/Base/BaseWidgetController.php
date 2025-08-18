@@ -125,12 +125,12 @@ class BaseWidgetController extends AdminController
          $itemWidget = $this->widgetService->find($widget_ids[0]);
          
  
-        $widgetTypes = $this->widgetTypeService->all();
-        $sysModels = $this->sysModelService->all();
-        $widgetOperations = $this->widgetOperationService->all();
-        $sysColors = $this->sysColorService->all();
-        $roles = $this->roleService->all();
-        $sectionWidgets = $this->sectionWidgetService->all();
+        $widgetTypes = $this->widgetTypeService->getAllForSelect($itemWidget->type);
+        $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
+        $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
+        $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
+        $roles = $this->roleService->getAllForSelect($itemWidget->);
+        $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
 
         $bulkEdit = true;
 
@@ -205,12 +205,12 @@ class BaseWidgetController extends AdminController
         $itemWidget = $this->widgetService->edit($id);
 
 
-        $widgetTypes = $this->widgetTypeService->all();
-        $sysModels = $this->sysModelService->all();
-        $widgetOperations = $this->widgetOperationService->all();
-        $sysColors = $this->sysColorService->all();
-        $roles = $this->roleService->all();
-        $sectionWidgets = $this->sectionWidgetService->all();
+        $widgetTypes = $this->widgetTypeService->getAllForSelect($itemWidget->type);
+        $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
+        $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
+        $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
+        $roles = $this->roleService->getAllForSelect($itemWidget->);
+        $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
 
 
         $bulkEdit = false;

@@ -108,8 +108,8 @@ class BaseChapitreController extends AdminController
          $itemChapitre = $this->chapitreService->find($chapitre_ids[0]);
          
  
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $formateurs = $this->formateurService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemChapitre->uniteApprentissage);
+        $formateurs = $this->formateurService->getAllForSelect($itemChapitre->formateur);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseChapitreController extends AdminController
         $itemChapitre = $this->chapitreService->edit($id);
 
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $formateurs = $this->formateurService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemChapitre->uniteApprentissage);
+        $formateurs = $this->formateurService->getAllForSelect($itemChapitre->formateur);
 
 
         $bulkEdit = false;

@@ -106,7 +106,7 @@ class BaseUniteApprentissageController extends AdminController
          $itemUniteApprentissage = $this->uniteApprentissageService->find($uniteApprentissage_ids[0]);
          
  
-        $microCompetences = $this->microCompetenceService->all();
+        $microCompetences = $this->microCompetenceService->getAllForSelect($itemUniteApprentissage->microCompetence);
 
         $bulkEdit = true;
 
@@ -188,7 +188,7 @@ class BaseUniteApprentissageController extends AdminController
         $itemUniteApprentissage = $this->uniteApprentissageService->edit($id);
 
 
-        $microCompetences = $this->microCompetenceService->all();
+        $microCompetences = $this->microCompetenceService->getAllForSelect($itemUniteApprentissage->microCompetence);
 
 
         $this->viewState->set('scope.chapitre.unite_apprentissage_id', $id);

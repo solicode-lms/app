@@ -109,8 +109,8 @@ class BaseEDataFieldController extends AdminController
          $itemEDataField = $this->eDataFieldService->find($eDataField_ids[0]);
          
  
-        $eModels = $this->eModelService->all();
-        $eRelationships = $this->eRelationshipService->all();
+        $eModels = $this->eModelService->getAllForSelect($itemEDataField->eModel);
+        $eRelationships = $this->eRelationshipService->getAllForSelect($itemEDataField->eRelationship);
 
         $bulkEdit = true;
 
@@ -185,8 +185,8 @@ class BaseEDataFieldController extends AdminController
         $itemEDataField = $this->eDataFieldService->edit($id);
 
 
-        $eModels = $this->eModelService->all();
-        $eRelationships = $this->eRelationshipService->all();
+        $eModels = $this->eModelService->getAllForSelect($itemEDataField->eModel);
+        $eRelationships = $this->eRelationshipService->getAllForSelect($itemEDataField->eRelationship);
 
 
         $this->viewState->set('scope.eMetadatum.e_data_field_id', $id);

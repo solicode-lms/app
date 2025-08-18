@@ -105,7 +105,7 @@ class BaseWorkflowTacheController extends AdminController
          $itemWorkflowTache = $this->workflowTacheService->find($workflowTache_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemWorkflowTache->sysColor);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseWorkflowTacheController extends AdminController
         $itemWorkflowTache = $this->workflowTacheService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemWorkflowTache->sysColor);
 
 
         $this->viewState->set('scope.etatRealisationTache.workflow_tache_id', $id);

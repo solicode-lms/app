@@ -106,7 +106,7 @@ class BaseModuleController extends AdminController
          $itemModule = $this->moduleService->find($module_ids[0]);
          
  
-        $filieres = $this->filiereService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemModule->filiere);
 
         $bulkEdit = true;
 
@@ -188,7 +188,7 @@ class BaseModuleController extends AdminController
         $itemModule = $this->moduleService->edit($id);
 
 
-        $filieres = $this->filiereService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemModule->filiere);
 
 
         $this->viewState->set('scope.competence.module_id', $id);

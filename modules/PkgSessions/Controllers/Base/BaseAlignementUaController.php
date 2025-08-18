@@ -108,8 +108,8 @@ class BaseAlignementUaController extends AdminController
          $itemAlignementUa = $this->alignementUaService->find($alignementUa_ids[0]);
          
  
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $sessionFormations = $this->sessionFormationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemAlignementUa->uniteApprentissage);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemAlignementUa->sessionFormation);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseAlignementUaController extends AdminController
         $itemAlignementUa = $this->alignementUaService->edit($id);
 
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $sessionFormations = $this->sessionFormationService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemAlignementUa->uniteApprentissage);
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemAlignementUa->sessionFormation);
 
 
         $bulkEdit = false;

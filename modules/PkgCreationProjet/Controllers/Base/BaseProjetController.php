@@ -139,9 +139,9 @@ class BaseProjetController extends AdminController
          $itemProjet = $this->projetService->find($projet_ids[0]);
          
  
-        $sessionFormations = $this->sessionFormationService->all();
-        $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
+        $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
+        $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
         $bulkEdit = true;
 
@@ -242,9 +242,9 @@ class BaseProjetController extends AdminController
         $this->authorize('edit', $itemProjet);
 
 
-        $sessionFormations = $this->sessionFormationService->all();
-        $filieres = $this->filiereService->all();
-        $formateurs = $this->formateurService->all();
+        $sessionFormations = $this->sessionFormationService->getAllForSelect($itemProjet->sessionFormation);
+        $filieres = $this->filiereService->getAllForSelect($itemProjet->filiere);
+        $formateurs = $this->formateurService->getAllForSelect($itemProjet->formateur);
 
 
         $this->viewState->set('scope.affectationProjet.projet_id', $id);

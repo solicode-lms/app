@@ -112,9 +112,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
          $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->find($evaluationRealisationTache_ids[0]);
          
  
-        $realisationTaches = $this->realisationTacheService->all();
-        $evaluateurs = $this->evaluateurService->all();
-        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemEvaluationRealisationTache->realisationTache);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemEvaluationRealisationTache->evaluateur);
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->getAllForSelect($itemEvaluationRealisationTache->evaluationRealisationProjet);
 
         $bulkEdit = true;
 
@@ -182,9 +182,9 @@ class BaseEvaluationRealisationTacheController extends AdminController
         $itemEvaluationRealisationTache = $this->evaluationRealisationTacheService->edit($id);
 
 
-        $realisationTaches = $this->realisationTacheService->all();
-        $evaluateurs = $this->evaluateurService->all();
-        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemEvaluationRealisationTache->realisationTache);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemEvaluationRealisationTache->evaluateur);
+        $evaluationRealisationProjets = $this->evaluationRealisationProjetService->getAllForSelect($itemEvaluationRealisationTache->evaluationRealisationProjet);
 
 
         $bulkEdit = false;

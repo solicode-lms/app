@@ -118,10 +118,10 @@ class BaseGroupeController extends AdminController
          $itemGroupe = $this->groupeService->find($groupe_ids[0]);
          
  
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemGroupe->filiere);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemGroupe->anneeFormation);
+        $apprenants = $this->apprenantService->getAllForSelect($itemGroupe->);
+        $formateurs = $this->formateurService->getAllForSelect($itemGroupe->);
 
         $bulkEdit = true;
 
@@ -203,10 +203,10 @@ class BaseGroupeController extends AdminController
         $itemGroupe = $this->groupeService->edit($id);
 
 
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $apprenants = $this->apprenantService->all();
-        $formateurs = $this->formateurService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemGroupe->filiere);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemGroupe->anneeFormation);
+        $apprenants = $this->apprenantService->getAllForSelect($itemGroupe->);
+        $formateurs = $this->formateurService->getAllForSelect($itemGroupe->);
 
 
         $this->viewState->set('scope.affectationProjet.groupe_id', $id);

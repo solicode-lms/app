@@ -134,9 +134,9 @@ class BaseRealisationModuleController extends AdminController
          $itemRealisationModule = $this->realisationModuleService->find($realisationModule_ids[0]);
          
  
-        $modules = $this->moduleService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationModules = $this->etatRealisationModuleService->all();
+        $modules = $this->moduleService->getAllForSelect($itemRealisationModule->module);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationModule->apprenant);
+        $etatRealisationModules = $this->etatRealisationModuleService->getAllForSelect($itemRealisationModule->etatRealisationModule);
 
         $bulkEdit = true;
 
@@ -213,9 +213,9 @@ class BaseRealisationModuleController extends AdminController
         $this->authorize('edit', $itemRealisationModule);
 
 
-        $modules = $this->moduleService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatRealisationModules = $this->etatRealisationModuleService->all();
+        $modules = $this->moduleService->getAllForSelect($itemRealisationModule->module);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationModule->apprenant);
+        $etatRealisationModules = $this->etatRealisationModuleService->getAllForSelect($itemRealisationModule->etatRealisationModule);
 
 
         $this->viewState->set('scope.realisationCompetence.realisation_module_id', $id);

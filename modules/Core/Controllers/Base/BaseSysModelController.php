@@ -109,8 +109,8 @@ class BaseSysModelController extends AdminController
          $itemSysModel = $this->sysModelService->find($sysModel_ids[0]);
          
  
-        $sysModules = $this->sysModuleService->all();
-        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemSysModel->sysModule);
+        $sysColors = $this->sysColorService->getAllForSelect($itemSysModel->sysColor);
 
         $bulkEdit = true;
 
@@ -185,8 +185,8 @@ class BaseSysModelController extends AdminController
         $itemSysModel = $this->sysModelService->edit($id);
 
 
-        $sysModules = $this->sysModuleService->all();
-        $sysColors = $this->sysColorService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemSysModel->sysModule);
+        $sysColors = $this->sysColorService->getAllForSelect($itemSysModel->sysColor);
 
 
         $this->viewState->set('scope.widget.model_id', $id);

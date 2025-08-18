@@ -126,10 +126,10 @@ class BaseTacheController extends AdminController
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
  
-        $projets = $this->projetService->all();
-        $phaseEvaluations = $this->phaseEvaluationService->all();
-        $chapitres = $this->chapitreService->all();
-        $livrables = $this->livrableService->all();
+        $projets = $this->projetService->getAllForSelect($itemTache->projet);
+        $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
+        $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
+        $livrables = $this->livrableService->getAllForSelect($itemTache->);
 
         $bulkEdit = true;
 
@@ -208,10 +208,10 @@ class BaseTacheController extends AdminController
         $key = 'scope.livrable.projet_id';
         $this->viewState->set($key, $value);
 
-        $projets = $this->projetService->all();
-        $phaseEvaluations = $this->phaseEvaluationService->all();
-        $chapitres = $this->chapitreService->all();
-        $livrables = $this->livrableService->all();
+        $projets = $this->projetService->getAllForSelect($itemTache->projet);
+        $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
+        $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
+        $livrables = $this->livrableService->getAllForSelect($itemTache->);
 
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);

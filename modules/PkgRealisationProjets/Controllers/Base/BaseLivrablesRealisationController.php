@@ -120,8 +120,8 @@ class BaseLivrablesRealisationController extends AdminController
          $itemLivrablesRealisation = $this->livrablesRealisationService->find($livrablesRealisation_ids[0]);
          
  
-        $livrables = $this->livrableService->all();
-        $realisationProjets = $this->realisationProjetService->all();
+        $livrables = $this->livrableService->getAllForSelect($itemLivrablesRealisation->livrable);
+        $realisationProjets = $this->realisationProjetService->getAllForSelect($itemLivrablesRealisation->realisationProjet);
 
         $bulkEdit = true;
 
@@ -191,8 +191,8 @@ class BaseLivrablesRealisationController extends AdminController
         $this->authorize('edit', $itemLivrablesRealisation);
 
 
-        $livrables = $this->livrableService->all();
-        $realisationProjets = $this->realisationProjetService->all();
+        $livrables = $this->livrableService->getAllForSelect($itemLivrablesRealisation->livrable);
+        $realisationProjets = $this->realisationProjetService->getAllForSelect($itemLivrablesRealisation->realisationProjet);
 
 
         $bulkEdit = false;

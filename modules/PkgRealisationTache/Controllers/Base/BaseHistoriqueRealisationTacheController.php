@@ -108,8 +108,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
          $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->find($historiqueRealisationTache_ids[0]);
          
  
-        $realisationTaches = $this->realisationTacheService->all();
-        $users = $this->userService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemHistoriqueRealisationTache->realisationTache);
+        $users = $this->userService->getAllForSelect($itemHistoriqueRealisationTache->user);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseHistoriqueRealisationTacheController extends AdminController
         $itemHistoriqueRealisationTache = $this->historiqueRealisationTacheService->edit($id);
 
 
-        $realisationTaches = $this->realisationTacheService->all();
-        $users = $this->userService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemHistoriqueRealisationTache->realisationTache);
+        $users = $this->userService->getAllForSelect($itemHistoriqueRealisationTache->user);
 
 
         $bulkEdit = false;

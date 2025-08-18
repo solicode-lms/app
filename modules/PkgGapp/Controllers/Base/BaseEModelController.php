@@ -107,7 +107,7 @@ class BaseEModelController extends AdminController
          $itemEModel = $this->eModelService->find($eModel_ids[0]);
          
  
-        $ePackages = $this->ePackageService->all();
+        $ePackages = $this->ePackageService->getAllForSelect($itemEModel->ePackage);
 
         $bulkEdit = true;
 
@@ -203,7 +203,7 @@ class BaseEModelController extends AdminController
         $itemEModel = $this->eModelService->edit($id);
 
 
-        $ePackages = $this->ePackageService->all();
+        $ePackages = $this->ePackageService->getAllForSelect($itemEModel->ePackage);
 
 
         $this->viewState->set('scope.eDataField.e_model_id', $id);

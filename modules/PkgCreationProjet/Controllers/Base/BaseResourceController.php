@@ -116,7 +116,7 @@ class BaseResourceController extends AdminController
          $itemResource = $this->resourceService->find($resource_ids[0]);
          
  
-        $projets = $this->projetService->all();
+        $projets = $this->projetService->getAllForSelect($itemResource->projet);
 
         $bulkEdit = true;
 
@@ -186,7 +186,7 @@ class BaseResourceController extends AdminController
         $this->authorize('edit', $itemResource);
 
 
-        $projets = $this->projetService->all();
+        $projets = $this->projetService->getAllForSelect($itemResource->projet);
 
 
         $bulkEdit = false;

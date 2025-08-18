@@ -108,8 +108,8 @@ class BaseMobilisationUaController extends AdminController
          $itemMobilisationUa = $this->mobilisationUaService->find($mobilisationUa_ids[0]);
          
  
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $projets = $this->projetService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemMobilisationUa->uniteApprentissage);
+        $projets = $this->projetService->getAllForSelect($itemMobilisationUa->projet);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseMobilisationUaController extends AdminController
         $itemMobilisationUa = $this->mobilisationUaService->edit($id);
 
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $projets = $this->projetService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemMobilisationUa->uniteApprentissage);
+        $projets = $this->projetService->getAllForSelect($itemMobilisationUa->projet);
 
 
         $bulkEdit = false;

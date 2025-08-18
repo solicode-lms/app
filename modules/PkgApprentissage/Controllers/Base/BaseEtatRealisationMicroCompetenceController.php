@@ -104,7 +104,7 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
          $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->find($etatRealisationMicroCompetence_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationMicroCompetence->sysColor);
 
         $bulkEdit = true;
 
@@ -172,7 +172,7 @@ class BaseEtatRealisationMicroCompetenceController extends AdminController
         $itemEtatRealisationMicroCompetence = $this->etatRealisationMicroCompetenceService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationMicroCompetence->sysColor);
 
 
         $bulkEdit = false;

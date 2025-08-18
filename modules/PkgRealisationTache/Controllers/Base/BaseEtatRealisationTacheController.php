@@ -124,9 +124,9 @@ class BaseEtatRealisationTacheController extends AdminController
          $itemEtatRealisationTache = $this->etatRealisationTacheService->find($etatRealisationTache_ids[0]);
          
  
-        $workflowTaches = $this->workflowTacheService->all();
-        $sysColors = $this->sysColorService->all();
-        $formateurs = $this->formateurService->all();
+        $workflowTaches = $this->workflowTacheService->getAllForSelect($itemEtatRealisationTache->workflowTache);
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationTache->sysColor);
+        $formateurs = $this->formateurService->getAllForSelect($itemEtatRealisationTache->formateur);
 
         $bulkEdit = true;
 
@@ -196,9 +196,9 @@ class BaseEtatRealisationTacheController extends AdminController
         $this->authorize('edit', $itemEtatRealisationTache);
 
 
-        $workflowTaches = $this->workflowTacheService->all();
-        $sysColors = $this->sysColorService->all();
-        $formateurs = $this->formateurService->all();
+        $workflowTaches = $this->workflowTacheService->getAllForSelect($itemEtatRealisationTache->workflowTache);
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationTache->sysColor);
+        $formateurs = $this->formateurService->getAllForSelect($itemEtatRealisationTache->formateur);
 
 
         $bulkEdit = false;

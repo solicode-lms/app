@@ -150,10 +150,10 @@ class BaseRealisationTacheController extends AdminController
         $key = 'scope.etatRealisationTache.formateur_id';
         $this->viewState->set($key, $value);
  
-        $taches = $this->tacheService->all();
-       $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
-        $realisationProjets = $this->realisationProjetService->all();
-        $tacheAffectations = $this->tacheAffectationService->all();
+        $taches = $this->tacheService->getAllForSelect($itemRealisationTache->tache);
+        $etatRealisationTaches = $this->etatRealisationTacheService->getAllForSelect($itemRealisationTache->etatRealisationTache);
+        $realisationProjets = $this->realisationProjetService->getAllForSelect($itemRealisationTache->realisationProjet);
+        $tacheAffectations = $this->tacheAffectationService->getAllForSelect($itemRealisationTache->tacheAffectation);
 
         $bulkEdit = true;
 

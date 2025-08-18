@@ -112,7 +112,7 @@ class BaseUserController extends AdminController
          $itemUser = $this->userService->find($user_ids[0]);
          
  
-        $roles = $this->roleService->all();
+        $roles = $this->roleService->getAllForSelect($itemUser->);
 
         $bulkEdit = true;
 
@@ -236,7 +236,7 @@ class BaseUserController extends AdminController
         $itemUser = $this->userService->edit($id);
 
 
-        $roles = $this->roleService->all();
+        $roles = $this->roleService->getAllForSelect($itemUser->);
 
 
         $this->viewState->set('scope.apprenant.user_id', $id);

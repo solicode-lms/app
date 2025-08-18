@@ -104,7 +104,7 @@ class BaseUserModelFilterController extends AdminController
          $itemUserModelFilter = $this->userModelFilterService->find($userModelFilter_ids[0]);
          
  
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemUserModelFilter->user);
 
         $bulkEdit = true;
 
@@ -172,7 +172,7 @@ class BaseUserModelFilterController extends AdminController
         $itemUserModelFilter = $this->userModelFilterService->edit($id);
 
 
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemUserModelFilter->user);
 
 
         $bulkEdit = false;

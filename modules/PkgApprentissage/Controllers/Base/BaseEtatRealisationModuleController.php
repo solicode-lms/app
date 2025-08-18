@@ -105,7 +105,7 @@ class BaseEtatRealisationModuleController extends AdminController
          $itemEtatRealisationModule = $this->etatRealisationModuleService->find($etatRealisationModule_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationModule->sysColor);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseEtatRealisationModuleController extends AdminController
         $itemEtatRealisationModule = $this->etatRealisationModuleService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationModule->sysColor);
 
 
         $this->viewState->set('scope.realisationModule.etat_realisation_module_id', $id);

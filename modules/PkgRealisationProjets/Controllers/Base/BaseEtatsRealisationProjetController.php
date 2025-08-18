@@ -107,7 +107,7 @@ class BaseEtatsRealisationProjetController extends AdminController
          $itemEtatsRealisationProjet = $this->etatsRealisationProjetService->find($etatsRealisationProjet_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatsRealisationProjet->sysColor);
 
         $bulkEdit = true;
 
@@ -177,7 +177,7 @@ class BaseEtatsRealisationProjetController extends AdminController
         $this->authorize('edit', $itemEtatsRealisationProjet);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatsRealisationProjet->sysColor);
 
 
         $bulkEdit = false;

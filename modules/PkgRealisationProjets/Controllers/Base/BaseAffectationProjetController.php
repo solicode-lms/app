@@ -153,11 +153,11 @@ class BaseAffectationProjetController extends AdminController
          $itemAffectationProjet = $this->affectationProjetService->find($affectationProjet_ids[0]);
          
  
-        $projets = $this->projetService->all();
-        $groupes = $this->groupeService->all();
-        $sousGroupes = $this->sousGroupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $evaluateurs = $this->evaluateurService->all();
+        $projets = $this->projetService->getAllForSelect($itemAffectationProjet->projet);
+        $groupes = $this->groupeService->getAllForSelect($itemAffectationProjet->groupe);
+        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemAffectationProjet->sousGroupe);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemAffectationProjet->anneeFormation);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->);
 
         $bulkEdit = true;
 
@@ -251,11 +251,11 @@ class BaseAffectationProjetController extends AdminController
         $this->authorize('edit', $itemAffectationProjet);
 
 
-        $projets = $this->projetService->all();
-        $groupes = $this->groupeService->all();
-        $sousGroupes = $this->sousGroupeService->all();
-        $anneeFormations = $this->anneeFormationService->all();
-        $evaluateurs = $this->evaluateurService->all();
+        $projets = $this->projetService->getAllForSelect($itemAffectationProjet->projet);
+        $groupes = $this->groupeService->getAllForSelect($itemAffectationProjet->groupe);
+        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemAffectationProjet->sousGroupe);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemAffectationProjet->anneeFormation);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->);
 
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);

@@ -127,7 +127,7 @@ class BaseCompetenceController extends AdminController
          $itemCompetence = $this->competenceService->find($competence_ids[0]);
          
  
-        $modules = $this->moduleService->all();
+        $modules = $this->moduleService->getAllForSelect($itemCompetence->module);
 
         $bulkEdit = true;
 
@@ -211,7 +211,7 @@ class BaseCompetenceController extends AdminController
         $this->authorize('edit', $itemCompetence);
 
 
-        $modules = $this->moduleService->all();
+        $modules = $this->moduleService->getAllForSelect($itemCompetence->module);
 
 
         $this->viewState->set('scope.microCompetence.competence_id', $id);

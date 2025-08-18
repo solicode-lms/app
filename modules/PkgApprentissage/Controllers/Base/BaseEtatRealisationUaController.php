@@ -104,7 +104,7 @@ class BaseEtatRealisationUaController extends AdminController
          $itemEtatRealisationUa = $this->etatRealisationUaService->find($etatRealisationUa_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationUa->sysColor);
 
         $bulkEdit = true;
 
@@ -172,7 +172,7 @@ class BaseEtatRealisationUaController extends AdminController
         $itemEtatRealisationUa = $this->etatRealisationUaService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationUa->sysColor);
 
 
         $bulkEdit = false;

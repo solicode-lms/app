@@ -160,8 +160,8 @@ class BaseWidgetUtilisateurController extends AdminController
          $itemWidgetUtilisateur = $this->widgetUtilisateurService->find($widgetUtilisateur_ids[0]);
          
  
-        $users = $this->userService->all();
-        $widgets = $this->widgetService->all();
+        $users = $this->userService->getAllForSelect($itemWidgetUtilisateur->user);
+        $widgets = $this->widgetService->getAllForSelect($itemWidgetUtilisateur->widget);
         $sysModules = $this->sysModuleService->all();
 
         $bulkEdit = true;
@@ -232,8 +232,9 @@ class BaseWidgetUtilisateurController extends AdminController
         $this->authorize('edit', $itemWidgetUtilisateur);
 
 
-        $users = $this->userService->all();
-        $widgets = $this->widgetService->all();
+        $users = $this->userService->getAllForSelect($itemWidgetUtilisateur->user);
+        $widgets = $this->widgetService->getAllForSelect($itemWidgetUtilisateur->widget);
+        aa
         $sysModules = $this->sysModuleService->all();
 
 

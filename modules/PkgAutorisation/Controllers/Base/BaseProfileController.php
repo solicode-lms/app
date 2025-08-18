@@ -144,7 +144,7 @@ class BaseProfileController extends AdminController
          $itemProfile = $this->profileService->find($profile_ids[0]);
          
  
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemProfile->user);
 
         $bulkEdit = true;
 
@@ -220,7 +220,7 @@ class BaseProfileController extends AdminController
         $this->authorize('edit', $itemProfile);
 
 
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemProfile->user);
 
 
         $bulkEdit = false;

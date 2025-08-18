@@ -105,7 +105,7 @@ class BaseSysControllerController extends AdminController
          $itemSysController = $this->sysControllerService->find($sysController_ids[0]);
          
  
-        $sysModules = $this->sysModuleService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemSysController->sysModule);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseSysControllerController extends AdminController
         $itemSysController = $this->sysControllerService->edit($id);
 
 
-        $sysModules = $this->sysModuleService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemSysController->sysModule);
 
 
         $this->viewState->set('scope.permission.controller_id', $id);

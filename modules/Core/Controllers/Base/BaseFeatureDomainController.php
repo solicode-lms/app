@@ -105,7 +105,7 @@ class BaseFeatureDomainController extends AdminController
          $itemFeatureDomain = $this->featureDomainService->find($featureDomain_ids[0]);
          
  
-        $sysModules = $this->sysModuleService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemFeatureDomain->sysModule);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseFeatureDomainController extends AdminController
         $itemFeatureDomain = $this->featureDomainService->edit($id);
 
 
-        $sysModules = $this->sysModuleService->all();
+        $sysModules = $this->sysModuleService->getAllForSelect($itemFeatureDomain->sysModule);
 
 
         $this->viewState->set('scope.feature.feature_domain_id', $id);

@@ -108,8 +108,8 @@ class BaseFeatureController extends AdminController
          $itemFeature = $this->featureService->find($feature_ids[0]);
          
  
-        $featureDomains = $this->featureDomainService->all();
-        $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->getAllForSelect($itemFeature->featureDomain);
+        $permissions = $this->permissionService->getAllForSelect($itemFeature->);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseFeatureController extends AdminController
         $itemFeature = $this->featureService->edit($id);
 
 
-        $featureDomains = $this->featureDomainService->all();
-        $permissions = $this->permissionService->all();
+        $featureDomains = $this->featureDomainService->getAllForSelect($itemFeature->featureDomain);
+        $permissions = $this->permissionService->getAllForSelect($itemFeature->);
 
 
         $bulkEdit = false;

@@ -115,9 +115,9 @@ class BaseRealisationUaController extends AdminController
          $itemRealisationUa = $this->realisationUaService->find($realisationUa_ids[0]);
          
  
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
-        $etatRealisationUas = $this->etatRealisationUaService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemRealisationUa->uniteApprentissage);
+        $realisationMicroCompetences = $this->realisationMicroCompetenceService->getAllForSelect($itemRealisationUa->realisationMicroCompetence);
+        $etatRealisationUas = $this->etatRealisationUaService->getAllForSelect($itemRealisationUa->etatRealisationUa);
 
         $bulkEdit = true;
 
@@ -206,9 +206,9 @@ class BaseRealisationUaController extends AdminController
         $itemRealisationUa = $this->realisationUaService->edit($id);
 
 
-        $uniteApprentissages = $this->uniteApprentissageService->all();
-        $realisationMicroCompetences = $this->realisationMicroCompetenceService->all();
-        $etatRealisationUas = $this->etatRealisationUaService->all();
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemRealisationUa->uniteApprentissage);
+        $realisationMicroCompetences = $this->realisationMicroCompetenceService->getAllForSelect($itemRealisationUa->realisationMicroCompetence);
+        $etatRealisationUas = $this->etatRealisationUaService->getAllForSelect($itemRealisationUa->etatRealisationUa);
 
 
         $this->viewState->set('scope.realisationChapitre.realisation_ua_id', $id);

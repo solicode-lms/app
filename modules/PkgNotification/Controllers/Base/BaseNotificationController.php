@@ -125,7 +125,7 @@ class BaseNotificationController extends AdminController
          $itemNotification = $this->notificationService->find($notification_ids[0]);
          
  
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemNotification->user);
 
         $bulkEdit = true;
 
@@ -195,7 +195,7 @@ class BaseNotificationController extends AdminController
         $this->authorize('edit', $itemNotification);
 
 
-        $users = $this->userService->all();
+        $users = $this->userService->getAllForSelect($itemNotification->user);
 
 
         $bulkEdit = false;

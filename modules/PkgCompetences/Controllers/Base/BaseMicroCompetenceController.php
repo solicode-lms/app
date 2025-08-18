@@ -106,7 +106,7 @@ class BaseMicroCompetenceController extends AdminController
          $itemMicroCompetence = $this->microCompetenceService->find($microCompetence_ids[0]);
          
  
-        $competences = $this->competenceService->all();
+        $competences = $this->competenceService->getAllForSelect($itemMicroCompetence->competence);
 
         $bulkEdit = true;
 
@@ -181,7 +181,7 @@ class BaseMicroCompetenceController extends AdminController
         $itemMicroCompetence = $this->microCompetenceService->edit($id);
 
 
-        $competences = $this->competenceService->all();
+        $competences = $this->competenceService->getAllForSelect($itemMicroCompetence->competence);
 
 
         $this->viewState->set('scope.uniteApprentissage.micro_competence_id', $id);

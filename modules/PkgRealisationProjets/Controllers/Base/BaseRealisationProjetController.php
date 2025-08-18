@@ -144,9 +144,9 @@ class BaseRealisationProjetController extends AdminController
         $key = 'scope.etatsRealisationProjet.formateur_id';
         $this->viewState->set($key, $value);
  
-        $affectationProjets = $this->affectationProjetService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemRealisationProjet->affectationProjet);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationProjet->apprenant);
+        $etatsRealisationProjets = $this->etatsRealisationProjetService->getAllForSelect($itemRealisationProjet->etatsRealisationProjet);
 
         $bulkEdit = true;
 
@@ -245,9 +245,9 @@ class BaseRealisationProjetController extends AdminController
         $key = 'scope.etatsRealisationProjet.formateur_id';
         $this->viewState->set($key, $value);
 
-        $affectationProjets = $this->affectationProjetService->all();
-        $apprenants = $this->apprenantService->all();
-        $etatsRealisationProjets = $this->etatsRealisationProjetService->all();
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemRealisationProjet->affectationProjet);
+        $apprenants = $this->apprenantService->getAllForSelect($itemRealisationProjet->apprenant);
+        $etatsRealisationProjets = $this->etatsRealisationProjetService->getAllForSelect($itemRealisationProjet->etatsRealisationProjet);
 
 
         $this->viewState->set('scope.realisationTache.realisation_projet_id', $id);

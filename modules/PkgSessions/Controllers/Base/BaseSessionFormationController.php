@@ -111,8 +111,8 @@ class BaseSessionFormationController extends AdminController
          $itemSessionFormation = $this->sessionFormationService->find($sessionFormation_ids[0]);
          
  
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemSessionFormation->filiere);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemSessionFormation->anneeFormation);
 
         $bulkEdit = true;
 
@@ -201,8 +201,8 @@ class BaseSessionFormationController extends AdminController
         $itemSessionFormation = $this->sessionFormationService->edit($id);
 
 
-        $filieres = $this->filiereService->all();
-        $anneeFormations = $this->anneeFormationService->all();
+        $filieres = $this->filiereService->getAllForSelect($itemSessionFormation->filiere);
+        $anneeFormations = $this->anneeFormationService->getAllForSelect($itemSessionFormation->anneeFormation);
 
 
         $this->viewState->set('scope.alignementUa.session_formation_id', $id);

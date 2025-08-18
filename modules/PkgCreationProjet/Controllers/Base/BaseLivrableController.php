@@ -133,9 +133,9 @@ class BaseLivrableController extends AdminController
         $key = 'scope.tache.projet_id';
         $this->viewState->set($key, $value);
  
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
-        $taches = $this->tacheService->all();
+        $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrable->natureLivrable);
+        $projets = $this->projetService->getAllForSelect($itemLivrable->projet);
+        $taches = $this->tacheService->getAllForSelect($itemLivrable->);
 
         $bulkEdit = true;
 
@@ -216,9 +216,9 @@ class BaseLivrableController extends AdminController
         $key = 'scope.tache.projet_id';
         $this->viewState->set($key, $value);
 
-        $natureLivrables = $this->natureLivrableService->all();
-        $projets = $this->projetService->all();
-        $taches = $this->tacheService->all();
+        $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrable->natureLivrable);
+        $projets = $this->projetService->getAllForSelect($itemLivrable->projet);
+        $taches = $this->tacheService->getAllForSelect($itemLivrable->);
 
 
         $bulkEdit = false;

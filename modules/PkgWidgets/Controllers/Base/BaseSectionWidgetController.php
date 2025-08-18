@@ -105,7 +105,7 @@ class BaseSectionWidgetController extends AdminController
          $itemSectionWidget = $this->sectionWidgetService->find($sectionWidget_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemSectionWidget->sysColor);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseSectionWidgetController extends AdminController
         $itemSectionWidget = $this->sectionWidgetService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemSectionWidget->sysColor);
 
 
         $this->viewState->set('scope.widget.section_widget_id', $id);

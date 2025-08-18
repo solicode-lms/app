@@ -112,9 +112,9 @@ class BaseEMetadatumController extends AdminController
          $itemEMetadatum = $this->eMetadatumService->find($eMetadatum_ids[0]);
          
  
-        $eModels = $this->eModelService->all();
-        $eDataFields = $this->eDataFieldService->all();
-        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->getAllForSelect($itemEMetadatum->eModel);
+        $eDataFields = $this->eDataFieldService->getAllForSelect($itemEMetadatum->eDataField);
+        $eMetadataDefinitions = $this->eMetadataDefinitionService->getAllForSelect($itemEMetadatum->eMetadataDefinition);
 
         $bulkEdit = true;
 
@@ -182,9 +182,9 @@ class BaseEMetadatumController extends AdminController
         $itemEMetadatum = $this->eMetadatumService->edit($id);
 
 
-        $eModels = $this->eModelService->all();
-        $eDataFields = $this->eDataFieldService->all();
-        $eMetadataDefinitions = $this->eMetadataDefinitionService->all();
+        $eModels = $this->eModelService->getAllForSelect($itemEMetadatum->eModel);
+        $eDataFields = $this->eDataFieldService->getAllForSelect($itemEMetadatum->eDataField);
+        $eMetadataDefinitions = $this->eMetadataDefinitionService->getAllForSelect($itemEMetadatum->eMetadataDefinition);
 
 
         $bulkEdit = false;

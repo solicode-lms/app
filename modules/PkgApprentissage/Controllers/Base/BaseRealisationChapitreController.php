@@ -137,10 +137,10 @@ class BaseRealisationChapitreController extends AdminController
          $itemRealisationChapitre = $this->realisationChapitreService->find($realisationChapitre_ids[0]);
          
  
-        $chapitres = $this->chapitreService->all();
-        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
-        $realisationUas = $this->realisationUaService->all();
-        $realisationTaches = $this->realisationTacheService->all();
+        $chapitres = $this->chapitreService->getAllForSelect($itemRealisationChapitre->chapitre);
+        $etatRealisationChapitres = $this->etatRealisationChapitreService->getAllForSelect($itemRealisationChapitre->etatRealisationChapitre);
+        $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationChapitre->realisationUa);
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationChapitre->realisationTache);
 
         $bulkEdit = true;
 
@@ -210,10 +210,10 @@ class BaseRealisationChapitreController extends AdminController
         $this->authorize('edit', $itemRealisationChapitre);
 
 
-        $chapitres = $this->chapitreService->all();
-        $etatRealisationChapitres = $this->etatRealisationChapitreService->all();
-        $realisationUas = $this->realisationUaService->all();
-        $realisationTaches = $this->realisationTacheService->all();
+        $chapitres = $this->chapitreService->getAllForSelect($itemRealisationChapitre->chapitre);
+        $etatRealisationChapitres = $this->etatRealisationChapitreService->getAllForSelect($itemRealisationChapitre->etatRealisationChapitre);
+        $realisationUas = $this->realisationUaService->getAllForSelect($itemRealisationChapitre->realisationUa);
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemRealisationChapitre->realisationTache);
 
 
         $bulkEdit = false;

@@ -104,7 +104,7 @@ class BaseEtatRealisationChapitreController extends AdminController
          $itemEtatRealisationChapitre = $this->etatRealisationChapitreService->find($etatRealisationChapitre_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationChapitre->sysColor);
 
         $bulkEdit = true;
 
@@ -172,7 +172,7 @@ class BaseEtatRealisationChapitreController extends AdminController
         $itemEtatRealisationChapitre = $this->etatRealisationChapitreService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatRealisationChapitre->sysColor);
 
 
         $bulkEdit = false;

@@ -112,9 +112,9 @@ class BaseCommentaireRealisationTacheController extends AdminController
          $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->find($commentaireRealisationTache_ids[0]);
          
  
-        $realisationTaches = $this->realisationTacheService->all();
-        $formateurs = $this->formateurService->all();
-        $apprenants = $this->apprenantService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemCommentaireRealisationTache->realisationTache);
+        $formateurs = $this->formateurService->getAllForSelect($itemCommentaireRealisationTache->formateur);
+        $apprenants = $this->apprenantService->getAllForSelect($itemCommentaireRealisationTache->apprenant);
 
         $bulkEdit = true;
 
@@ -182,9 +182,9 @@ class BaseCommentaireRealisationTacheController extends AdminController
         $itemCommentaireRealisationTache = $this->commentaireRealisationTacheService->edit($id);
 
 
-        $realisationTaches = $this->realisationTacheService->all();
-        $formateurs = $this->formateurService->all();
-        $apprenants = $this->apprenantService->all();
+        $realisationTaches = $this->realisationTacheService->getAllForSelect($itemCommentaireRealisationTache->realisationTache);
+        $formateurs = $this->formateurService->getAllForSelect($itemCommentaireRealisationTache->formateur);
+        $apprenants = $this->apprenantService->getAllForSelect($itemCommentaireRealisationTache->apprenant);
 
 
         $bulkEdit = false;

@@ -107,7 +107,7 @@ class BaseSysModuleController extends AdminController
          $itemSysModule = $this->sysModuleService->find($sysModule_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemSysModule->sysColor);
 
         $bulkEdit = true;
 
@@ -196,7 +196,7 @@ class BaseSysModuleController extends AdminController
         $itemSysModule = $this->sysModuleService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemSysModule->sysColor);
 
 
         $this->viewState->set('scope.featureDomain.sys_module_id', $id);

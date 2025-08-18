@@ -104,7 +104,7 @@ class BaseSpecialiteController extends AdminController
          $itemSpecialite = $this->specialiteService->find($specialite_ids[0]);
          
  
-        $formateurs = $this->formateurService->all();
+        $formateurs = $this->formateurService->getAllForSelect($itemSpecialite->);
 
         $bulkEdit = true;
 
@@ -172,7 +172,7 @@ class BaseSpecialiteController extends AdminController
         $itemSpecialite = $this->specialiteService->edit($id);
 
 
-        $formateurs = $this->formateurService->all();
+        $formateurs = $this->formateurService->getAllForSelect($itemSpecialite->);
 
 
         $bulkEdit = false;

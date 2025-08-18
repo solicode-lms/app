@@ -109,8 +109,8 @@ class BaseTacheAffectationController extends AdminController
          $itemTacheAffectation = $this->tacheAffectationService->find($tacheAffectation_ids[0]);
          
  
-        $taches = $this->tacheService->all();
-        $affectationProjets = $this->affectationProjetService->all();
+        $taches = $this->tacheService->getAllForSelect($itemTacheAffectation->tache);
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemTacheAffectation->affectationProjet);
 
         $bulkEdit = true;
 
@@ -185,8 +185,8 @@ class BaseTacheAffectationController extends AdminController
         $itemTacheAffectation = $this->tacheAffectationService->edit($id);
 
 
-        $taches = $this->tacheService->all();
-        $affectationProjets = $this->affectationProjetService->all();
+        $taches = $this->tacheService->getAllForSelect($itemTacheAffectation->tache);
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemTacheAffectation->affectationProjet);
 
 
         $this->viewState->set('scope.realisationTache.tache_affectation_id', $id);

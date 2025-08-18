@@ -105,7 +105,7 @@ class BaseEtatEvaluationProjetController extends AdminController
          $itemEtatEvaluationProjet = $this->etatEvaluationProjetService->find($etatEvaluationProjet_ids[0]);
          
  
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatEvaluationProjet->sysColor);
 
         $bulkEdit = true;
 
@@ -180,7 +180,7 @@ class BaseEtatEvaluationProjetController extends AdminController
         $itemEtatEvaluationProjet = $this->etatEvaluationProjetService->edit($id);
 
 
-        $sysColors = $this->sysColorService->all();
+        $sysColors = $this->sysColorService->getAllForSelect($itemEtatEvaluationProjet->sysColor);
 
 
         $this->viewState->set('scope.evaluationRealisationProjet.etat_evaluation_projet_id', $id);

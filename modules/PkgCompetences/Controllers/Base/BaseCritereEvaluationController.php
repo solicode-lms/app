@@ -108,8 +108,8 @@ class BaseCritereEvaluationController extends AdminController
          $itemCritereEvaluation = $this->critereEvaluationService->find($critereEvaluation_ids[0]);
          
  
-        $phaseEvaluations = $this->phaseEvaluationService->all();
-        $uniteApprentissages = $this->uniteApprentissageService->all();
+        $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemCritereEvaluation->phaseEvaluation);
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemCritereEvaluation->uniteApprentissage);
 
         $bulkEdit = true;
 
@@ -177,8 +177,8 @@ class BaseCritereEvaluationController extends AdminController
         $itemCritereEvaluation = $this->critereEvaluationService->edit($id);
 
 
-        $phaseEvaluations = $this->phaseEvaluationService->all();
-        $uniteApprentissages = $this->uniteApprentissageService->all();
+        $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemCritereEvaluation->phaseEvaluation);
+        $uniteApprentissages = $this->uniteApprentissageService->getAllForSelect($itemCritereEvaluation->uniteApprentissage);
 
 
         $bulkEdit = false;
