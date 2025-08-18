@@ -77,13 +77,19 @@ class RealisationUaService extends BaseRealisationUaService
             return $realisationUa;
         }
 
-        // Identifier la micro-compétence liée à l'unité d'apprentissage
-        $microCompetenceId = UniteApprentissage::findOrFail($uniteApprentissageId)
-            ->micro_competence_id;
+        // 🔎 Récupérer l’UA et son module
+        $ua = UniteApprentissage::with('microCompetence.competence.module')
+            ->findOrFail($uniteApprentissageId);
 
-        // Forcer la création via la réalisation de micro-compétence
-        (new RealisationMicroCompetenceService())
-            ->getOrCreateByApprenant($apprenantId, $microCompetenceId);
+        $moduleId = $ua->microCompetence?->competence?->module_id;
+
+        if (! $moduleId) {
+            throw new \RuntimeException("Impossible de déterminer le module lié à l’unité d’apprentissage #$uniteApprentissageId");
+        }
+
+        // ✅ Créer RealisationModule si inexistant
+        $realisationModuleService = new RealisationModuleService();
+        $realisationModuleService->getOrCreateByApprenant($apprenantId, $moduleId);
 
         // Rechercher à nouveau la réalisation UA (elle est créée par afterCreateRules)
         return $this->model

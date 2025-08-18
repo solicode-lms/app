@@ -189,6 +189,9 @@ class JobManager
 
         $service = $this->getServiceInstance();
 
+        // $CRUD_JOBS_ENABLED = env('CRUD_JOBS_ENABLED', false);
+        //  if($service->getCrudJobToken() ||  !$CRUD_JOBS_ENABLED){
+
         if($service->getCrudJobToken()){
              // On exécute directement la méthode sans passer par la queue
             $service = $this->getServiceInstance();

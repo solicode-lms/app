@@ -14,6 +14,6 @@ class RealisationModule extends BaseRealisationModule
 
     public function generateReference(): string
     {
-        return  $this->competence->reference . "-" . $this->apprenant->reference  ; 
+        return  $this->module->reference . "-" . $this->apprenant->reference  ; 
     }
 }

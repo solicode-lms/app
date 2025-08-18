@@ -60,41 +60,41 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
      * @param  int $microCompetenceId
      * @return RealisationMicroCompetence
      */
-    public function getOrCreateByApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
-    {
-        // 🔍 Recherche si la réalisation existe déjà
-        $realisation = $this->model
-            ->where('apprenant_id', $apprenantId)
-            ->where('micro_competence_id', $microCompetenceId)
-            ->first();
+    // public function getOrCreateByApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
+    // {
+    //     // 🔍 Recherche si la réalisation existe déjà
+    //     $realisation = $this->model
+    //         ->where('apprenant_id', $apprenantId)
+    //         ->where('micro_competence_id', $microCompetenceId)
+    //         ->first();
 
-        if ($realisation) {
-            return $realisation;
-        }
+    //     if ($realisation) {
+    //         return $realisation;
+    //     }
 
-        // 📌 Récupérer la micro-compétence et sa compétence parente
-        $microCompetence = \Modules\PkgCompetences\Models\MicroCompetence::with('competence')
-            ->findOrFail($microCompetenceId);
+    //     // 📌 Récupérer la micro-compétence et sa compétence parente
+    //     $microCompetence = \Modules\PkgCompetences\Models\MicroCompetence::with('competence')
+    //         ->findOrFail($microCompetenceId);
 
-        // 🆕 Récupérer ou créer la réalisation de compétence associée
-        $realisationCompetenceService = new RealisationCompetenceService();
-        $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
-            $apprenantId,
-            $microCompetence->competence_id
-        );
+    //     // 🆕 Récupérer ou créer la réalisation de compétence associée
+    //     $realisationCompetenceService = new RealisationCompetenceService();
+    //     $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
+    //         $apprenantId,
+    //         $microCompetence->competence_id
+    //     );
 
-        // 🎯 État initial
-        $etatRealisationId = EtatRealisationMicroCompetence::where('code', 'TODO')->first()->id;
+    //     // 🎯 État initial
+    //     $etatRealisationId = EtatRealisationMicroCompetence::where('code', 'TODO')->first()->id;
 
-        // 🏗️ Création avec lien vers realisation_competence_id
-        return $this->create([
-            'apprenant_id' => $apprenantId,
-            'micro_competence_id' => $microCompetenceId,
-            'realisation_competence_id' => $realisationCompetence->id, // ✅ Non nullable
-            'etat_realisation_micro_competence_id' => $etatRealisationId,
-            'date_debut' => now(),
-        ]);
-    }
+    //     // 🏗️ Création avec lien vers realisation_competence_id
+    //     return $this->create([
+    //         'apprenant_id' => $apprenantId,
+    //         'micro_competence_id' => $microCompetenceId,
+    //         'realisation_competence_id' => $realisationCompetence->id, // ✅ Non nullable
+    //         'etat_realisation_micro_competence_id' => $etatRealisationId,
+    //         'date_debut' => now(),
+    //     ]);
+    // }
 
     public function afterUpdateRules(RealisationMicroCompetence $rmc): void
     {
@@ -136,16 +136,9 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         $rmc->saveQuietly();
 
         // 🔹 Calcul progression RealisationCompetence
-        if ($rmc->microCompetence && $rmc->microCompetence->competence) {
-            $realisationCompetenceService = new RealisationCompetenceService();
-            $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
-                $rmc->apprenant_id,
-                $rmc->microCompetence->competence_id
-            );
-            $realisationCompetenceService->calculerProgression($realisationCompetence);
-        }
-
-
+        $realisationCompetenceService = new RealisationCompetenceService();
+        $realisationCompetenceService->calculerProgression($rmc->realisationCompetence);
+        
 
     }
 
