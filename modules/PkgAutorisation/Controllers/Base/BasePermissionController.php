@@ -113,8 +113,8 @@ class BasePermissionController extends AdminController
          
  
         $sysControllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
-        $features = $this->featureService->getAllForSelect($itemPermission->);
-        $roles = $this->roleService->getAllForSelect($itemPermission->);
+        $features = $this->featureService->getAllForSelect($itemPermission->features);
+        $roles = $this->roleService->getAllForSelect($itemPermission->roles);
 
         $bulkEdit = true;
 
@@ -183,8 +183,8 @@ class BasePermissionController extends AdminController
 
 
         $sysControllers = $this->sysControllerService->getAllForSelect($itemPermission->controller);
-        $features = $this->featureService->getAllForSelect($itemPermission->);
-        $roles = $this->roleService->getAllForSelect($itemPermission->);
+        $features = $this->featureService->getAllForSelect($itemPermission->features);
+        $roles = $this->roleService->getAllForSelect($itemPermission->roles);
 
 
         $bulkEdit = false;

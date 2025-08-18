@@ -157,7 +157,7 @@ class BaseAffectationProjetController extends AdminController
         $groupes = $this->groupeService->getAllForSelect($itemAffectationProjet->groupe);
         $sousGroupes = $this->sousGroupeService->getAllForSelect($itemAffectationProjet->sousGroupe);
         $anneeFormations = $this->anneeFormationService->getAllForSelect($itemAffectationProjet->anneeFormation);
-        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->evaluateurs);
 
         $bulkEdit = true;
 
@@ -255,7 +255,7 @@ class BaseAffectationProjetController extends AdminController
         $groupes = $this->groupeService->getAllForSelect($itemAffectationProjet->groupe);
         $sousGroupes = $this->sousGroupeService->getAllForSelect($itemAffectationProjet->sousGroupe);
         $anneeFormations = $this->anneeFormationService->getAllForSelect($itemAffectationProjet->anneeFormation);
-        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->);
+        $evaluateurs = $this->evaluateurService->getAllForSelect($itemAffectationProjet->evaluateurs);
 
 
         $this->viewState->set('scope.realisationProjet.affectation_projet_id', $id);

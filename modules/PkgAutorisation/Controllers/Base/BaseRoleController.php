@@ -112,9 +112,9 @@ class BaseRoleController extends AdminController
          $itemRole = $this->roleService->find($role_ids[0]);
          
  
-        $permissions = $this->permissionService->getAllForSelect($itemRole->);
-        $widgets = $this->widgetService->getAllForSelect($itemRole->);
-        $users = $this->userService->getAllForSelect($itemRole->);
+        $permissions = $this->permissionService->getAllForSelect($itemRole->permissions);
+        $widgets = $this->widgetService->getAllForSelect($itemRole->widgets);
+        $users = $this->userService->getAllForSelect($itemRole->users);
 
         $bulkEdit = true;
 
@@ -182,9 +182,9 @@ class BaseRoleController extends AdminController
         $itemRole = $this->roleService->edit($id);
 
 
-        $permissions = $this->permissionService->getAllForSelect($itemRole->);
-        $widgets = $this->widgetService->getAllForSelect($itemRole->);
-        $users = $this->userService->getAllForSelect($itemRole->);
+        $permissions = $this->permissionService->getAllForSelect($itemRole->permissions);
+        $widgets = $this->widgetService->getAllForSelect($itemRole->widgets);
+        $users = $this->userService->getAllForSelect($itemRole->users);
 
 
         $bulkEdit = false;

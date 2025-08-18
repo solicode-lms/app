@@ -135,7 +135,7 @@ class BaseLivrableController extends AdminController
  
         $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrable->natureLivrable);
         $projets = $this->projetService->getAllForSelect($itemLivrable->projet);
-        $taches = $this->tacheService->getAllForSelect($itemLivrable->);
+        $taches = $this->tacheService->getAllForSelect($itemLivrable->taches);
 
         $bulkEdit = true;
 
@@ -218,7 +218,7 @@ class BaseLivrableController extends AdminController
 
         $natureLivrables = $this->natureLivrableService->getAllForSelect($itemLivrable->natureLivrable);
         $projets = $this->projetService->getAllForSelect($itemLivrable->projet);
-        $taches = $this->tacheService->getAllForSelect($itemLivrable->);
+        $taches = $this->tacheService->getAllForSelect($itemLivrable->taches);
 
 
         $bulkEdit = false;

@@ -111,7 +111,7 @@ class BaseEvaluateurController extends AdminController
          
  
         $users = $this->userService->getAllForSelect($itemEvaluateur->user);
-        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemEvaluateur->);
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemEvaluateur->affectationProjets);
 
         $bulkEdit = true;
 
@@ -194,7 +194,7 @@ class BaseEvaluateurController extends AdminController
 
 
         $users = $this->userService->getAllForSelect($itemEvaluateur->user);
-        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemEvaluateur->);
+        $affectationProjets = $this->affectationProjetService->getAllForSelect($itemEvaluateur->affectationProjets);
 
 
         $this->viewState->set('scope.evaluationRealisationProjet.evaluateur_id', $id);

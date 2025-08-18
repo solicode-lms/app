@@ -129,7 +129,7 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
         $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
         $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
-        $roles = $this->roleService->getAllForSelect($itemWidget->);
+        $roles = $this->roleService->getAllForSelect($itemWidget->roles);
         $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
 
         $bulkEdit = true;
@@ -209,7 +209,7 @@ class BaseWidgetController extends AdminController
         $sysModels = $this->sysModelService->getAllForSelect($itemWidget->model);
         $widgetOperations = $this->widgetOperationService->getAllForSelect($itemWidget->operation);
         $sysColors = $this->sysColorService->getAllForSelect($itemWidget->sysColor);
-        $roles = $this->roleService->getAllForSelect($itemWidget->);
+        $roles = $this->roleService->getAllForSelect($itemWidget->roles);
         $sectionWidgets = $this->sectionWidgetService->getAllForSelect($itemWidget->sectionWidget);
 
 

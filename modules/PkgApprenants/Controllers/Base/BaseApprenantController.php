@@ -131,8 +131,8 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->getAllForSelect($itemApprenant->nationalite);
         $niveauxScolaires = $this->niveauxScolaireService->getAllForSelect($itemApprenant->niveauxScolaire);
         $users = $this->userService->getAllForSelect($itemApprenant->user);
-        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->);
-        $groupes = $this->groupeService->getAllForSelect($itemApprenant->);
+        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->sousGroupes);
+        $groupes = $this->groupeService->getAllForSelect($itemApprenant->groupes);
 
         $bulkEdit = true;
 
@@ -231,8 +231,8 @@ class BaseApprenantController extends AdminController
         $nationalites = $this->nationaliteService->getAllForSelect($itemApprenant->nationalite);
         $niveauxScolaires = $this->niveauxScolaireService->getAllForSelect($itemApprenant->niveauxScolaire);
         $users = $this->userService->getAllForSelect($itemApprenant->user);
-        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->);
-        $groupes = $this->groupeService->getAllForSelect($itemApprenant->);
+        $sousGroupes = $this->sousGroupeService->getAllForSelect($itemApprenant->sousGroupes);
+        $groupes = $this->groupeService->getAllForSelect($itemApprenant->groupes);
 
 
         $this->viewState->set('scope.realisationCompetence.apprenant_id', $id);

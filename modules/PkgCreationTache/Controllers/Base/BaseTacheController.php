@@ -129,7 +129,7 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->getAllForSelect($itemTache->projet);
         $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
-        $livrables = $this->livrableService->getAllForSelect($itemTache->);
+        $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
 
         $bulkEdit = true;
 
@@ -211,7 +211,7 @@ class BaseTacheController extends AdminController
         $projets = $this->projetService->getAllForSelect($itemTache->projet);
         $phaseEvaluations = $this->phaseEvaluationService->getAllForSelect($itemTache->phaseEvaluation);
         $chapitres = $this->chapitreService->getAllForSelect($itemTache->chapitre);
-        $livrables = $this->livrableService->getAllForSelect($itemTache->);
+        $livrables = $this->livrableService->getAllForSelect($itemTache->livrables);
 
 
         $this->viewState->set('scope.realisationTache.tache_id', $id);

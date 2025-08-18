@@ -116,8 +116,8 @@ class BaseFormateurController extends AdminController
          $itemFormateur = $this->formateurService->find($formateur_ids[0]);
          
  
-        $specialites = $this->specialiteService->getAllForSelect($itemFormateur->);
-        $groupes = $this->groupeService->getAllForSelect($itemFormateur->);
+        $specialites = $this->specialiteService->getAllForSelect($itemFormateur->specialites);
+        $groupes = $this->groupeService->getAllForSelect($itemFormateur->groupes);
         $users = $this->userService->getAllForSelect($itemFormateur->user);
 
         $bulkEdit = true;
@@ -214,8 +214,8 @@ class BaseFormateurController extends AdminController
         $itemFormateur = $this->formateurService->edit($id);
 
 
-        $specialites = $this->specialiteService->getAllForSelect($itemFormateur->);
-        $groupes = $this->groupeService->getAllForSelect($itemFormateur->);
+        $specialites = $this->specialiteService->getAllForSelect($itemFormateur->specialites);
+        $groupes = $this->groupeService->getAllForSelect($itemFormateur->groupes);
         $users = $this->userService->getAllForSelect($itemFormateur->user);
 
 

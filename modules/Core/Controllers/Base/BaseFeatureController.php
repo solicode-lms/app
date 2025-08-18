@@ -109,7 +109,7 @@ class BaseFeatureController extends AdminController
          
  
         $featureDomains = $this->featureDomainService->getAllForSelect($itemFeature->featureDomain);
-        $permissions = $this->permissionService->getAllForSelect($itemFeature->);
+        $permissions = $this->permissionService->getAllForSelect($itemFeature->permissions);
 
         $bulkEdit = true;
 
@@ -178,7 +178,7 @@ class BaseFeatureController extends AdminController
 
 
         $featureDomains = $this->featureDomainService->getAllForSelect($itemFeature->featureDomain);
-        $permissions = $this->permissionService->getAllForSelect($itemFeature->);
+        $permissions = $this->permissionService->getAllForSelect($itemFeature->permissions);
 
 
         $bulkEdit = false;
