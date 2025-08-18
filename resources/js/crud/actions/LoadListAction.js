@@ -17,6 +17,23 @@ export class LoadListAction extends BaseAction {
         this.config = config;
         this.tableUI = tableUI;
         this.indexUrl = config.indexUrl;
+
+        /**
+         * Compteur incrémental pour identifier les requêtes.
+         * Permet de distinguer la dernière requête envoyée
+         * et d’ignorer les réponses "en retard".
+         *
+         * 🛑 Problème :
+         * Si deux appels AJAX sont lancés presque en même temps
+         * (par exemple un auto-refresh discret et une recherche utilisateur),
+         * il se peut que la première requête (ancienne) termine APRES la seconde.
+         * Résultat → l’UI serait écrasée par des données obsolètes.
+         *
+         * ✅ Solution :
+         * On associe un ID unique à chaque requête et
+         * on n’applique les résultats QUE si c’est la requête la plus récente.
+         */
+        this.lastRequestId = 0;
     }
 
     /**
@@ -46,14 +63,35 @@ export class LoadListAction extends BaseAction {
             this.viewStateService.getContextParams()
         );
 
+
         // Afficher l'indicateur de chargement
-         if (!discret) {
+        if (!discret) {
             this.loader.showNomBloquante();
         }
+
+        // 🔹 incrémenter l'id de la requête
+        const requestId = ++this.lastRequestId;
 
         // Requête AJAX pour charger les données
         return $.get(indexUrl)
             .done((html) => {
+
+                /**
+                 * 🛑 Problème possible :
+                 * Cette réponse correspond peut-être à une requête plus ancienne
+                 * (envoyée avant mais arrivée après).
+                 *
+                 * ✅ Solution :
+                 * Vérifier que cette réponse correspond bien à la dernière requête envoyée.
+                 * Sinon, on l’ignore pour éviter d’écraser l’UI avec des données périmées.
+                 */
+                if (requestId !== this.lastRequestId) {
+                    console.debug("⚠️ Réponse ignorée (requête obsolète)", { requestId, last: this.lastRequestId });
+                    return;
+                }
+
+               
+
                 // TODO : à mettre dans this.config
                 const view_type = this.config.viewStateService.getVariable(this.config.view_type_variable) || "table";
                 if(view_type == "widgets"){
@@ -63,7 +101,7 @@ export class LoadListAction extends BaseAction {
                     $(this.config.dataContainerSelector).html(html);
                     $(this.config.dataContainerOutSelector).html("");
                 }
-              
+            
                 if (!discret) {
                     this.loader.hide();
                 }
@@ -72,10 +110,10 @@ export class LoadListAction extends BaseAction {
                 
                 this.tableUI.init();
                 if (!discret) {
-                     this.tableUI.indexUI.filterUI.init();
+                    this.tableUI.indexUI.filterUI.init();
                 }
 
-               
+            
 
                 this.tableUI.indexUI.bulkActionsUI.init();
                 this.tableUI.indexUI.notificationUI.init();
@@ -85,8 +123,9 @@ export class LoadListAction extends BaseAction {
                 if(this.config.data_calcul && this.config.isMany && this.config.managerInstance.parent_manager){
                     this.config.managerInstance.parent_manager.formUI.reloadData();
                 }
-               
-                 
+              
+                
+                    
             })
             .fail((xhr) => {
                 AjaxErrorHandler.handleError(xhr, "Erreur lors du chargement des données.");

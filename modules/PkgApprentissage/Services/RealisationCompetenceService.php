@@ -3,7 +3,9 @@
 namespace Modules\PkgApprentissage\Services;
 
 use Modules\PkgApprentissage\Models\EtatRealisationCompetence;
+use Modules\PkgApprentissage\Models\EtatRealisationMicroCompetence;
 use Modules\PkgApprentissage\Models\RealisationCompetence;
+use Modules\PkgApprentissage\Models\RealisationMicroCompetence;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationCompetenceService;
 use Modules\PkgCompetences\Services\CompetenceService;
 
@@ -17,11 +19,39 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         $data = (array) $data;
 
         if (empty($data['etat_realisation_competence_id'])) {
-            $ordreEtatInitial = EtatRealisationCompetence::min('ordre');
-            $data['etat_realisation_competence_id'] = EtatRealisationCompetence::where('ordre', $ordreEtatInitial)->value('id');
+            $data['etat_realisation_competence_id'] = EtatRealisationCompetence::where('code', 'TODO')->first()->id;
         }
 
         return parent::create($data);
+    }
+
+    protected function afterCreateRules($realisationCompetence, $id): void
+    {
+        // 🔎 Récupérer les micro-compétences de la compétence
+        $microCompetences = $realisationCompetence->competence?->microCompetences ?? collect();
+        if ($microCompetences->isEmpty()) {
+            return;
+        }
+
+        // ✅ État par défaut "TODO"
+        $etatTodoMicro = EtatRealisationMicroCompetence::where('code', 'TODO')->first();
+        $realisationMicroService = new RealisationMicroCompetenceService();
+
+        foreach ($microCompetences as $micro) {
+            $exists = RealisationMicroCompetence::where('realisation_competence_id', $realisationCompetence->id)
+                ->where('micro_competence_id', $micro->id)
+                ->where('apprenant_id', $realisationCompetence->apprenant_id)
+                ->exists();
+
+            if (!$exists) {
+                $realisationMicroService->create([
+                    'realisation_competence_id'            => $realisationCompetence->id,
+                    'micro_competence_id'                  => $micro->id,
+                    'apprenant_id'                         => $realisationCompetence->apprenant_id,
+                    'etat_realisation_micro_competence_id' => $etatTodoMicro?->id,
+                ]);
+            }
+        }
     }
 
     /**
@@ -51,8 +81,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
         );
 
         // 🎯 État initial
-        $ordreEtatInitial = EtatRealisationCompetence::min('ordre');
-        $etatId = EtatRealisationCompetence::where('ordre', $ordreEtatInitial)->value('id');
+        $etatId = EtatRealisationCompetence::where('code', 'TODO')->first()->id;
 
         // 🏗️ Création avec lien vers realisation_module_id
         return $this->create([

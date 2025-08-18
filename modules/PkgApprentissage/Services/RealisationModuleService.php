@@ -2,7 +2,9 @@
 
 namespace Modules\PkgApprentissage\Services;
 
+use Modules\PkgApprentissage\Models\EtatRealisationCompetence;
 use Modules\PkgApprentissage\Models\EtatRealisationModule;
+use Modules\PkgApprentissage\Models\RealisationCompetence;
 use Modules\PkgApprentissage\Models\RealisationModule;
 use Modules\PkgApprentissage\Services\Base\BaseRealisationModuleService;
 
@@ -16,12 +18,45 @@ class RealisationModuleService extends BaseRealisationModuleService
         $data = (array) $data;
 
         if (empty($data['etat_realisation_module_id'])) {
-            $ordreEtatInitial = EtatRealisationModule::min('ordre');
-            $data['etat_realisation_module_id'] = EtatRealisationModule::where('ordre', $ordreEtatInitial)->value('id');
+            $data['etat_realisation_module_id'] = EtatRealisationModule::where('code', 'TODO')->first()->id;
         }
 
         return parent::create($data);
     }
+
+     /**
+     * Règles exécutées après la création d’un RealisationModule.
+     */
+    protected function afterCreateRules($realisationModule, $id): void
+    {
+        // 🔎 Récupérer toutes les compétences liées au module
+        $competences = $realisationModule->module?->competences ?? collect();
+
+        if ($competences->isEmpty()) {
+            return;
+        }
+
+        // ✅ État par défaut "TODO"
+        $etatTodo = EtatRealisationCompetence::where('code', 'TODO')->first();
+        $realisationCompetenceService = new RealisationCompetenceService();
+
+        foreach ($competences as $competence) {
+            $exists = RealisationCompetence::where('realisation_module_id', $realisationModule->id)
+                ->where('competence_id', $competence->id)
+                ->where('apprenant_id', $realisationModule->apprenant_id) // 🔑 associer l’apprenant
+                ->exists();
+
+            if (!$exists) {
+                $realisationCompetenceService->create([
+                    'realisation_module_id'          => $realisationModule->id,
+                    'competence_id'                  => $competence->id,
+                    'apprenant_id'                   => $realisationModule->apprenant_id, // ✅ on lie l’apprenant
+                    'etat_realisation_competence_id' => $etatTodo?->id,
+                ]);
+            }
+        }
+    }
+    
 
     /**
      * Récupère ou crée une réalisation de module pour un apprenant
@@ -37,7 +72,7 @@ class RealisationModuleService extends BaseRealisationModuleService
             return $realisation;
         }
 
-        $ordreEtatInitial = EtatRealisationModule::min('ordre');
+        $ordreEtatInitial = EtatRealisationModule::where('code', 'TODO')->first();
         $etatId = EtatRealisationModule::where('ordre', $ordreEtatInitial)->value('id');
 
         return $this->create([

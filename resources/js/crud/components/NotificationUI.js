@@ -37,7 +37,7 @@ export class NotificationUI {
                     this.loadNotifications();
                     this.indexUI.tableUI.loadListAction.loadEntities(undefined, {},true);
                 }
-            }, 20000); // 10 secondes
+            }, 15000); // 10 secondes
         }
        
     }

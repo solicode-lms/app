@@ -214,10 +214,10 @@ class RealisationUaService extends BaseRealisationUaService
 
         // 🎯 Cas 2 : Tous chapitres, prototypes, projets = DONE
         $allChapitresDone = $chapitres->every(fn($c) => optional($c->etatRealisationChapitre)->code === 'DONE');
-        $allPrototypesDone = $prototypes->every(fn($p) =>
+        $allPrototypesDone = $prototypes->isNotEmpty() && $prototypes->every(fn($p) =>
             $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
-        $allProjetsDone = $projets->every(fn($p) =>
+        $allProjetsDone =  $projets->isNotEmpty() && $projets->every(fn($p) =>
             $p->realisationTache?->etatRealisationTache->workflowTache->code === 'APPROVED'
         );
 

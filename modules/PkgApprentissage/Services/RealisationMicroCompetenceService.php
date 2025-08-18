@@ -22,8 +22,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
 
         // Vérifier si l'état est fourni, sinon assigner l'état par défaut
         if (empty($data['etat_realisation_micro_competence_id'])) {
-            $ordreEtatInitial = EtatRealisationMicroCompetence::min('ordre');
-            $data['etat_realisation_micro_competence_id'] = EtatRealisationMicroCompetence::where('ordre', $ordreEtatInitial)->value('id');
+            $data['etat_realisation_micro_competence_id'] = EtatRealisationMicroCompetence::where('code', 'TODO')->first()->id;
         }
 
         return parent::create($data);
@@ -85,8 +84,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         );
 
         // 🎯 État initial
-        $ordreEtatInitial = EtatRealisationMicroCompetence::min('ordre');
-        $etatRealisationId = EtatRealisationMicroCompetence::where('ordre', $ordreEtatInitial)->value('id');
+        $etatRealisationId = EtatRealisationMicroCompetence::where('code', 'TODO')->first()->id;
 
         // 🏗️ Création avec lien vers realisation_competence_id
         return $this->create([

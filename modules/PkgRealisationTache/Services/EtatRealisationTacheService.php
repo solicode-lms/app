@@ -81,7 +81,7 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
     }
 
    /**
-     * Récupère l'état par défaut (ordre minimal) défini par un formateur.
+     * Récupère l'état par défaut  TODO
      * S'il n'existe pas, les états sont créés à partir des workflows.
      *
      * @param int $formateurId
@@ -89,26 +89,30 @@ class EtatRealisationTacheService extends BaseEtatRealisationTacheService
      */
     public function getDefaultEtatByFormateurId(int $formateurId)
     {
-        $workflowTacheMin = WorkflowTache::orderBy('ordre', 'asc')->first();
-        if (!$workflowTacheMin) {
-            return null;
-        }
-
-        $defaultEtat = $this->model
+        // 1. On cherche directement l'état "TODO"
+        $etatTodo = $this->model
             ->where('formateur_id', $formateurId)
-            ->where('workflow_tache_id', $workflowTacheMin->id)
+            ->whereHas('workflowTache', function ($q) {
+                $q->where('code', 'TODO');
+            })
             ->first();
 
-        if (!$defaultEtat) {
+        // 2. Si non trouvé, on crée les états par défaut pour ce formateur
+        if (!$etatTodo) {
             $this->createDefaultEtatsFromWorkflow($formateurId);
-            $defaultEtat = $this->model
+
+            // 3. On relance la recherche du TODO
+            $etatTodo = $this->model
                 ->where('formateur_id', $formateurId)
-                ->where('workflow_tache_id', $workflowTacheMin->id)
+                ->whereHas('workflowTache', function ($q) {
+                    $q->where('code', 'TODO');
+                })
                 ->first();
         }
 
-        return $defaultEtat;
+        return $etatTodo;
     }
+
 
        /**
      * Crée les états de réalisation par défaut à partir des workflows pour un formateur donné.

@@ -286,11 +286,12 @@ class RealisationProjetService extends BaseRealisationProjetService
         if (!$realisationProjet instanceof RealisationProjet) {
             return; // 🛡️ Vérification de sécurité
         }
-        // Étape 1 : Affecter l'état avec l'ordre minimal si aucun état n'est défini
+         // Étape 1 : Affecter l'état "TODO" s'il existe
         if (empty($realisationProjet->etats_realisation_projet_id)) {
-            $etatDefaut = EtatsRealisationProjet::orderBy('ordre', 'asc')->first();
-            if ($etatDefaut) {
-                $realisationProjet->etats_realisation_projet_id = $etatDefaut->id;
+            $etatTodo = EtatsRealisationProjet::where('code', 'TODO')->first();
+
+            if ($etatTodo) {
+                $realisationProjet->etats_realisation_projet_id = $etatTodo->id;
                 $realisationProjet->save();
             }
         }
