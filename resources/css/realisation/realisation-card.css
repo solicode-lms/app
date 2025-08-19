@@ -1,35 +1,25 @@
 /* ========================= */
-/* 🎯 Carte Réalisation (Compétence / Module / UA) */
+/* 🎯 Carte Réalisation (compacte) */
 /* ========================= */
 
 .realisation-card {
     background: #fff;
     border: 1px solid #e5e7eb;
-    border-radius: 0.3rem;
-    padding: 1rem;
+    border-radius: 0.25rem; /* coins plus petits */
+    padding: 0.7rem 0.8rem; /* padding réduit */
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    gap: 0.4rem; /* espace vertical réduit */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     white-space: normal;
     word-break: break-word;
     font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-/* 🎯 Variante pour module */
-.realisation-module {
-    border-left: 4px solid #2563eb;
-}
-
-/* 🎯 Variante pour UA */
-.realisation-ua {
-    border-left: 4px solid #10b981;
-}
-
-/* 🎯 Variante pour compétence */
-.realisation-competence {
-    border-left: 4px solid #9333ea;
-}
+/* 🎯 Variantes */
+.realisation-module { border-left: 3px solid #2563eb; }
+.realisation-ua { border-left: 3px solid #10b981; }
+.realisation-competence { border-left: 3px solid #9333ea; }
 
 /* ========================= */
 /* Header */
@@ -37,13 +27,14 @@
 .realisation-header {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.15rem; /* espace réduit */
 }
 .realisation-titre {
-    font-size: 1.05rem;
+    font-size: 0.95rem; /* plus petit */
     font-weight: 600;
     color: #111827;
     margin: 0;
+    line-height: 1.3;
 }
 .realisation-titre a {
     color: #2563eb;
@@ -56,9 +47,8 @@
     color: #1e40af;
     outline: none;
 }
-
 .realisation-soustitre {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #6b7280;
 }
 
@@ -68,18 +58,18 @@
 .realisation-infos {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.25rem; /* réduit */
 }
 .realisation-badge {
     background-color: #f3f4f6;
     color: #374151;
-    font-size: 0.72rem;
-    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem; /* plus petit */
+    padding: 0.15rem 0.4rem; /* compact */
     border-radius: 999px;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.2rem;
 }
 .realisation-etat {
     background-color: #e0f2fe;
@@ -91,55 +81,41 @@
 }
 
 /* ========================= */
-/* 📖 Lecture pédagogique (style élégant et simple) */
+/* 📖 Lecture pédagogique (compacte) */
 /* ========================= */
 .realisation-lecture {
-    background: #fff; /* même fond que la carte */
-    border-left: 1px solid #2563eb; /* simple liseré bleu pour marquer la section */
-    padding: 0.5rem 0.9rem;
-    font-size: 0.85rem;
-    line-height: 1.6;
+    background: #fff;
+    border-left: 2px solid #2563eb;
+    padding: 0.4rem 0.7rem; /* plus compact */
+    font-size: 0.78rem; /* réduit */
+    line-height: 1.4;
     color: #374151;
     white-space: normal;
     word-break: break-word;
 }
-
-/* Paragraphes */
-.realisation-lecture p {
-    margin: 0.4rem 0;
-}
-
-/* Listes */
+.realisation-lecture p { margin: 0.25rem 0; }
 .realisation-lecture ul,
 .realisation-lecture ol {
-    margin: 0.4rem 0 0.4rem 1.2rem;
-    padding-left: 1rem;
+    margin: 0.3rem 0 0.3rem 1rem;
+    padding-left: 0.8rem;
 }
-.realisation-lecture li {
-    margin-bottom: 0.25rem;
-}
-
-/* Titres internes éventuels */
+.realisation-lecture li { margin-bottom: 0.15rem; }
 .realisation-lecture h4,
 .realisation-lecture h5 {
-    margin: 0.6rem 0 0.3rem;
-    font-size: 0.9rem;
+    margin: 0.4rem 0 0.2rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #1f2937;
 }
-
-/* Mise en valeur (blockquote / note) */
 .realisation-lecture blockquote {
-    border-left: 3px solid #9333ea; /* violet doux */
-    margin: 0.5rem 0;
-    padding: 0.4rem 0.8rem;
+    border-left: 2px solid #9333ea;
+    margin: 0.3rem 0;
+    padding: 0.3rem 0.6rem;
     font-style: italic;
     color: #4b5563;
-    background: #fafafa; /* très léger contraste */
-    border-radius: 0.25rem;
+    background: #fafafa;
+    border-radius: 0.2rem;
 }
-
-/* Liens */
 .realisation-lecture a {
     color: #2563eb;
     font-weight: 500;
@@ -152,16 +128,15 @@
     border-color: #2563eb;
 }
 
-
 /* ========================= */
 /* Footer */
 /* ========================= */
 .realisation-footer {
     border-top: 1px solid #f3f4f6;
-    padding-top: 0.5rem;
-    font-size: 0.8rem;
+    padding-top: 0.4rem; /* réduit */
+    font-size: 0.75rem; /* plus petit */
     color: #374151;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
 }
