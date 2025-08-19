@@ -6983,11 +6983,10 @@
         "column_name": "taux_rythme_cache",
         "data_type": "Float",
         "field_order": 17,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0.00",
         "description": "Field in table realisation_competences"
     },
     {
@@ -7220,11 +7219,10 @@
         "column_name": "taux_rythme_cache",
         "data_type": "Float",
         "field_order": 18,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0.00",
         "description": "Field in table realisation_micro_competences"
     },
     {
@@ -7431,11 +7429,10 @@
         "column_name": "taux_rythme_cache",
         "data_type": "Float",
         "field_order": 16,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0.00",
         "description": "Field in table realisation_modules"
     },
     {
@@ -8295,11 +8292,10 @@
         "column_name": "taux_rythme_cache",
         "data_type": "Float",
         "field_order": 15,
-        "db_nullable": 0,
+        "db_nullable": 1,
         "db_primaryKey": 0,
         "db_unique": 0,
         "calculable": 0,
-        "default_value": "0.00",
         "description": "Field in table realisation_uas"
     },
     {

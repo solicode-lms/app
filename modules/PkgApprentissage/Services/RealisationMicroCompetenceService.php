@@ -52,49 +52,7 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         }
     }
 
-  
-    /**
-     * Récupère ou crée une réalisation de micro-compétence pour un apprenant.
-     *
-     * @param  int $apprenantId
-     * @param  int $microCompetenceId
-     * @return RealisationMicroCompetence
-     */
-    // public function getOrCreateByApprenant(int $apprenantId, int $microCompetenceId): RealisationMicroCompetence
-    // {
-    //     // 🔍 Recherche si la réalisation existe déjà
-    //     $realisation = $this->model
-    //         ->where('apprenant_id', $apprenantId)
-    //         ->where('micro_competence_id', $microCompetenceId)
-    //         ->first();
 
-    //     if ($realisation) {
-    //         return $realisation;
-    //     }
-
-    //     // 📌 Récupérer la micro-compétence et sa compétence parente
-    //     $microCompetence = \Modules\PkgCompetences\Models\MicroCompetence::with('competence')
-    //         ->findOrFail($microCompetenceId);
-
-    //     // 🆕 Récupérer ou créer la réalisation de compétence associée
-    //     $realisationCompetenceService = new RealisationCompetenceService();
-    //     $realisationCompetence = $realisationCompetenceService->getOrCreateByApprenant(
-    //         $apprenantId,
-    //         $microCompetence->competence_id
-    //     );
-
-    //     // 🎯 État initial
-    //     $etatRealisationId = EtatRealisationMicroCompetence::where('code', 'TODO')->first()->id;
-
-    //     // 🏗️ Création avec lien vers realisation_competence_id
-    //     return $this->create([
-    //         'apprenant_id' => $apprenantId,
-    //         'micro_competence_id' => $microCompetenceId,
-    //         'realisation_competence_id' => $realisationCompetence->id, // ✅ Non nullable
-    //         'etat_realisation_micro_competence_id' => $etatRealisationId,
-    //         'date_debut' => now(),
-    //     ]);
-    // }
 
     public function afterUpdateRules(RealisationMicroCompetence $rmc): void
     {
@@ -111,20 +69,32 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
             $rmc->progression_cache = 0;
             $rmc->note_cache = 0;
             $rmc->bareme_cache = 0;
+            $rmc->progression_ideal_cache = 0;
+            $rmc->taux_rythme_cache = null;
             $rmc->save();
             return;
         }
 
+        // ✅ Agrégats sur les UAs
         $totalNote = $uas->sum(fn($ua) => $ua->note_cache ?? 0);
         $totalBareme = $uas->sum(fn($ua) => $ua->bareme_cache ?? 0);
         $totalProgression = $uas->sum(fn($ua) => $ua->progression_cache ?? 0);
+        $totalProgressionIdeal = $uas->sum(fn($ua) => $ua->progression_ideal_cache ?? 0);
 
+        // ✅ Progressions
         $rmc->progression_cache = round($totalProgression / $totalUa, 1);
+        $rmc->progression_ideal_cache = round($totalProgressionIdeal / $totalUa, 1);
+
+        // ✅ Notes & barèmes
         $rmc->note_cache = round($totalNote, 2);
         $rmc->bareme_cache = round($totalBareme, 2);
 
+        // ✅ Taux de rythme
+        $rmc->taux_rythme_cache = $rmc->progression_ideal_cache > 0
+            ? round(($rmc->progression_cache / $rmc->progression_ideal_cache) * 100, 1)
+            : null;
 
-        // Calcul de l’état global de la micro-compétence
+        // ✅ Calcul de l’état global de la micro-compétence
         $nouvelEtatCode = $this->calculerEtatDepuisUas($rmc);
         if ($nouvelEtatCode) {
             $nouvelEtat = EtatRealisationMicroCompetence::where('code', $nouvelEtatCode)->first();
@@ -138,8 +108,6 @@ class RealisationMicroCompetenceService extends BaseRealisationMicroCompetenceSe
         // 🔹 Calcul progression RealisationCompetence
         $realisationCompetenceService = new RealisationCompetenceService();
         $realisationCompetenceService->calculerProgression($rmc->realisationCompetence);
-        
-
     }
 
     /**

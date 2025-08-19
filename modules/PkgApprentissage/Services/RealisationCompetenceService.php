@@ -108,19 +108,32 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
             $rc->progression_cache = 0;
             $rc->note_cache = 0;
             $rc->bareme_cache = 0;
+            $rc->progression_ideal_cache = 0;
+            $rc->taux_rythme_cache = null;
             $rc->save();
             return;
         }
 
+        // ✅ Agrégats sur les micro-compétences
         $totalNote = $rmcs->sum(fn($rmc) => $rmc->note_cache ?? 0);
         $totalBareme = $rmcs->sum(fn($rmc) => $rmc->bareme_cache ?? 0);
         $totalProgression = $rmcs->sum(fn($rmc) => $rmc->progression_cache ?? 0);
+        $totalProgressionIdeal = $rmcs->sum(fn($rmc) => $rmc->progression_ideal_cache ?? 0);
 
+        // ✅ Progressions
         $rc->progression_cache = round($totalProgression / $totalRmc, 1);
+        $rc->progression_ideal_cache = round($totalProgressionIdeal / $totalRmc, 1);
+
+        // ✅ Notes & barèmes
         $rc->note_cache = round($totalNote, 2);
         $rc->bareme_cache = round($totalBareme, 2);
 
-        // Calcul de l’état global de la compétence
+        // ✅ Taux de rythme (nullable si progression idéale = 0)
+        $rc->taux_rythme_cache = $rc->progression_ideal_cache > 0
+            ? round(($rc->progression_cache / $rc->progression_ideal_cache) * 100, 1)
+            : null;
+
+        // ✅ Calcul de l’état global
         $nouvelEtatCode = $this->calculerEtatDepuisMicroCompetences($rc);
         if ($nouvelEtatCode) {
             $nouvelEtat = EtatRealisationCompetence::where('code', $nouvelEtatCode)->first();
@@ -131,7 +144,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
 
         $rc->saveQuietly();
 
-         // 🔹 Calcul progression RealisationModule
+        // 🔹 Calcul progression RealisationModule
         if ($rc->competence && $rc->competence->module) {
             $realisationModuleService = new RealisationModuleService();
             $realisationModule = $realisationModuleService->getOrCreateByApprenant(
@@ -141,6 +154,7 @@ class RealisationCompetenceService extends BaseRealisationCompetenceService
             $realisationModuleService->calculerProgression($realisationModule);
         }
     }
+
 
 
     /**
