@@ -46,13 +46,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationUa.progression_cache')) }}</small>
-                  <div class="progress progress-sm">
-                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationUa->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationUa->progression_cache }}%">
-                      </div>
-                  </div>
-                  <small>
-                      {{$itemRealisationUa->progression_cache }}% Terminé
-                  </small>
+@include('PkgApprentissage::realisationUa.custom.fields.progression_cache',['entity' => $itemRealisationUa])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">

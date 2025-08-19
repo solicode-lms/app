@@ -800,5 +800,13 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationUa_taux_rythme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationUa_progression_cache_columnWidth",
+        "value_boolean": 1,
+        "value_integer": 25,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationUa_progression_cache",
+        "e_metadata_definition_reference": "columnWidth"
     }
 ]

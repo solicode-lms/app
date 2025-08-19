@@ -9,6 +9,7 @@
     {{-- ✅ Validé --}}
     <div class="progress-bar bg-success" 
          style="width: {{ $validation }}%;" 
+         data-toggle="tooltip"
          title="Validé ({{ $validation }}%)">
     </div>
 
@@ -16,6 +17,7 @@
     @if($nonValide > 0)
     <div class="progress-bar bg-danger" 
          style="width: {{ $nonValide }}%;" 
+         data-toggle="tooltip"
          title="Exécuté non validé ({{ $nonValide }}%)">
     </div>
     @endif
@@ -24,6 +26,7 @@
     @if($nonCommence > 0)
     <div class="progress-bar bg-light" 
          style="width: {{ $nonCommence }}%;" 
+         data-toggle="tooltip"
          title="Non commencé ({{ $nonCommence }}%)">
     </div>
     @endif

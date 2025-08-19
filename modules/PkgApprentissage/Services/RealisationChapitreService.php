@@ -189,6 +189,8 @@ class RealisationChapitreService extends BaseRealisationChapitreService
             'READY_FOR_LIVE_CODING' => 'READY_FOR_LIVE_CODING',
             'IN_LIVE_CODING' => 'IN_LIVE_CODING',
             'TO_APPROVE'      => 'TO_APPROVE',
+            'NOT_VALIDATED' => 'TODO',
+            'LATE' => 'IN_PROGRESS',
             'APPROVED'           => 'DONE'
         ];
 

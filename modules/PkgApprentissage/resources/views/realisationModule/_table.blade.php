@@ -34,14 +34,7 @@
 
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
-                        <div class="progress progress-sm">
-                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationModule->progression_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationModule->progression_cache }}%">
-                            </div>
-                        </div>
-                        <small>
-                            {{ $realisationModule->progression_cache }}% Terminé
-                        </small>
-
+                        @include('PkgApprentissage::realisationModule.custom.fields.progression_cache', ['entity' => $realisationModule])
                     </td>
                     <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="etat_realisation_module_id"  data-toggle="tooltip" title="{{ $realisationModule->etatRealisationModule }}" >
                         @if(!empty($realisationModule->etatRealisationModule))
