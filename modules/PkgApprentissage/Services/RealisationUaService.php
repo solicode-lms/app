@@ -159,15 +159,15 @@ class RealisationUaService extends BaseRealisationUaService
             $totalBareme += $bareme;
         }
 
-        $realisationUa->progression_cache       = round($progressionReelle, 1);
-        $realisationUa->progression_ideal_cache = round($progressionIdeale, 1);
-        $realisationUa->note_cache              = round($totalNote, 2);
-        $realisationUa->bareme_cache            = round($totalBareme, 2);
+        $realisationUa->progression_cache       = (float) number_format($progressionReelle, 2, '.', '');
+        $realisationUa->progression_ideal_cache = (float) number_format($progressionIdeale, 2, '.', '');
+        $realisationUa->note_cache              = (float) number_format($totalNote, 2, '.', '');
+        $realisationUa->bareme_cache            = (float) number_format($totalBareme, 2, '.', '');
 
         // ✅ Taux de rythme
         $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
-            ? round(($progressionReelle / $realisationUa->progression_ideal_cache) * 100, 1)
-            : null;
+        ? $this->formatPourcentage(($progressionReelle / $realisationUa->progression_ideal_cache) * 100)
+        : null;
 
         // 🔁 Mise à jour de l’état
         $nouvelEtatCode = $this->calculerEtat($realisationUa);
@@ -185,6 +185,19 @@ class RealisationUaService extends BaseRealisationUaService
             ->calculerProgression($realisationUa->realisationMicroCompetence);
     }
 
+    private function formatPourcentage(float $valeur): float
+    {
+        // Arrondi standard à 2 décimales
+        $valeur = (float) number_format($valeur, 2, '.', '');
+
+        // ✅ Forcer à 100 si >= 99.95
+        if ($valeur >= 99.95) {
+            return 100.00;
+        }
+
+        // ✅ Ne jamais dépasser 100
+        return min(100.00, $valeur);
+    }
 
 
     private function isActiveProgress($item): bool
