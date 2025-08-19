@@ -3,10 +3,13 @@
 
 namespace Modules\PkgApprentissage\Models;
 use Modules\PkgApprentissage\Models\Base\BaseRealisationUa;
+use Modules\PkgApprentissage\Models\Traits\LecturePedagogieTrait;
 
 class RealisationUa extends BaseRealisationUa
 {
 
+    use LecturePedagogieTrait;
+    
     protected $with = [
        'realisationMicroCompetence',
        'uniteApprentissage',

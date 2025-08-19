@@ -3,10 +3,11 @@
 
 namespace Modules\PkgApprentissage\Models;
 use Modules\PkgApprentissage\Models\Base\BaseRealisationMicroCompetence;
+use Modules\PkgApprentissage\Models\Traits\LecturePedagogieTrait;
 
 class RealisationMicroCompetence extends BaseRealisationMicroCompetence
 {
-
+    use LecturePedagogieTrait;
     protected $with = [
         'apprenant',
         'microCompetence',

@@ -772,5 +772,22 @@
         "value_boolean": 1,
         "e_data_field_reference": "RealisationModule_taux_rythme_cache",
         "e_metadata_definition_reference": "viewShowFieldVisible"
+    },
+    {
+        "reference": "RealisationModule_taux_rythme_cache_displayInTable",
+        "value_boolean": 1,
+        "value_float": 0,
+        "e_data_field_reference": "RealisationModule_taux_rythme_cache",
+        "e_metadata_definition_reference": "displayInTable"
+    },
+    {
+        "reference": "RealisationModule_taux_rythme_cache_nature",
+        "value_boolean": 1,
+        "value_float": 0,
+        "value_json": {
+            "nature": "progression"
+        },
+        "e_data_field_reference": "RealisationModule_taux_rythme_cache",
+        "e_metadata_definition_reference": "nature"
     }
 ]

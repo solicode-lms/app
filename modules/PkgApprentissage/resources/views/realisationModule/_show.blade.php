@@ -122,13 +122,13 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationModule.taux_rythme_cache')) }}</small>
-                  <span>
-                  @if(! is_null($itemRealisationModule->taux_rythme_cache))
-                  {{ number_format($itemRealisationModule->taux_rythme_cache, 2, '.', '') }}
-                  @else
-                  —
-                  @endif
-                  </span>
+                  <div class="progress progress-sm">
+                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{$itemRealisationModule->taux_rythme_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{$itemRealisationModule->taux_rythme_cache }}%">
+                      </div>
+                  </div>
+                  <small>
+                      {{$itemRealisationModule->taux_rythme_cache }}% Terminé
+                  </small>
                 </div>
             </div>
             </div>

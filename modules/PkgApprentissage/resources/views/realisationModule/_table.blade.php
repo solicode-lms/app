@@ -9,11 +9,12 @@
                     $bulkEdit = $realisationModules_permissions['edit-realisationModule'] || $realisationModules_permissions['destroy-realisationModule'];
                 @endphp
                 <x-checkbox-header :bulkEdit="$bulkEdit" />
-                <x-sortable-column :sortable="true" width="16.4" field="module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgFormation::module.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="apprenant_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="progression_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.progression_cache'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4" field="etat_realisation_module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.etat_realisation_module_id'))!!}" />
-                <x-sortable-column :sortable="true" width="16.4"  field="note_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgFormation::module.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="apprenant_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprenants::apprenant.singular'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="progression_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.progression_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666" field="etat_realisation_module_id" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.etat_realisation_module_id'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="note_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.note_cache'))!!}" />
+                <x-sortable-column :sortable="true" width="13.666666666666666"  field="taux_rythme_cache" modelname="realisationModule" label="{!!ucfirst(__('PkgApprentissage::realisationModule.taux_rythme_cache'))!!}" />
                 <th class="text-center">{{ __('Core::msg.action') }}</th>
             </tr>
         </thead>
@@ -25,18 +26,18 @@
                 @endphp
                 <tr id="realisationModule-row-{{$realisationModule->id}}" data-id="{{$realisationModule->id}}">
                     <x-checkbox-row :item="$realisationModule" :bulkEdit="$bulkEdit" />
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="module_id"  data-toggle="tooltip" title="{{ $realisationModule->module }}" >
                         {{  $realisationModule->module }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationModule->apprenant }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="apprenant_id"  data-toggle="tooltip" title="{{ $realisationModule->apprenant }}" >
                         {{  $realisationModule->apprenant }}
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="progression_cache"  data-toggle="tooltip" title="{{ $realisationModule->progression_cache }}" >
                         @include('PkgApprentissage::realisationModule.custom.fields.progression_cache', ['entity' => $realisationModule])
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="etat_realisation_module_id"  data-toggle="tooltip" title="{{ $realisationModule->etatRealisationModule }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="etat_realisation_module_id"  data-toggle="tooltip" title="{{ $realisationModule->etatRealisationModule }}" >
                         @if(!empty($realisationModule->etatRealisationModule))
                         <x-badge 
                         :text="$realisationModule->etatRealisationModule" 
@@ -45,8 +46,18 @@
                         @endif
 
                     </td>
-                    <td style="max-width: 16.4%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="note_cache"  data-toggle="tooltip" title="{{ $realisationModule->note_cache }}" >
                         @include('PkgApprentissage::realisationModule.custom.fields.note_cache', ['entity' => $realisationModule])
+                    </td>
+                    <td style="max-width: 13.666666666666666%;" class="{{ $isEditable ? 'editable-cell' : '' }} text-truncate" data-id="{{$realisationModule->id}}" data-field="taux_rythme_cache"  data-toggle="tooltip" title="{{ $realisationModule->taux_rythme_cache }}" >
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{ $realisationModule->taux_rythme_cache }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $realisationModule->taux_rythme_cache }}%">
+                            </div>
+                        </div>
+                        <small>
+                            {{ $realisationModule->taux_rythme_cache }}% Terminé
+                        </small>
+
                     </td>
                     <td class="text-right wrappable" style="max-width: 15%;">
 

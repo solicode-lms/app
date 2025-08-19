@@ -21,7 +21,7 @@
 @import './taches/tache-card.css';
 @import './taches/tache-etat.css';
 @import './taches/tache-livrables.css';
-
+@import './competence/competence-card.css';
 
 :root {
 
