@@ -373,6 +373,66 @@
   
 </x-form-field>
 
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationCompetence" field="progression_ideal_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="progression_ideal_cache" id="bulk_field_progression_ideal_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="progression_ideal_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationCompetence.progression_ideal_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="progression_ideal_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="progression_ideal_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationCompetence.progression_ideal_cache') }}"
+        value="{{ $itemRealisationCompetence ? number_format($itemRealisationCompetence->progression_ideal_cache, 2, '.', '') : old('progression_ideal_cache') }}">
+          @error('progression_ideal_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
+<x-form-field :defined_vars="get_defined_vars()" :entity="$itemRealisationCompetence" field="taux_rythme_cache" :bulkEdit="$bulkEdit">
+
+      <div class="form-group col-12 col-md-6">
+          @if ($bulkEdit)
+          <div class="bulk-check">
+              <input type="checkbox" class="check-input" name="fields_modifiables[]" value="taux_rythme_cache" id="bulk_field_taux_rythme_cache" title="Appliquer ce champ à tous les éléments sélectionnés" data-toggle="tooltip">
+          </div>
+          @endif
+          <label for="taux_rythme_cache">
+            {{ ucfirst(__('PkgApprentissage::realisationCompetence.taux_rythme_cache')) }}
+            <span class="text-danger">*</span>
+          </label>
+              <input
+        name="taux_rythme_cache"
+        type="number"
+        class="form-control"
+        required
+        
+        
+        id="taux_rythme_cache"
+        step="0.01"
+        placeholder="{{ __('PkgApprentissage::realisationCompetence.taux_rythme_cache') }}"
+        value="{{ $itemRealisationCompetence ? number_format($itemRealisationCompetence->taux_rythme_cache, 2, '.', '') : old('taux_rythme_cache') }}">
+          @error('taux_rythme_cache')
+            <div class="text-danger">{{ $message }}</div>
+          @enderror
+      </div>
+  
+</x-form-field>
+
 
     </div>
   

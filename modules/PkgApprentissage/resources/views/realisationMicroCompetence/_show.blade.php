@@ -140,6 +140,30 @@
 
                 </div>
             </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.progression_ideal_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationMicroCompetence->progression_ideal_cache))
+                  {{ number_format($itemRealisationMicroCompetence->progression_ideal_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
+                <div class="border rounded p-2 h-100">
+                  <small class="text-muted d-block">{{ ucfirst(__('PkgApprentissage::realisationMicroCompetence.taux_rythme_cache')) }}</small>
+                  <span>
+                  @if(! is_null($itemRealisationMicroCompetence->taux_rythme_cache))
+                  {{ number_format($itemRealisationMicroCompetence->taux_rythme_cache, 2, '.', '') }}
+                  @else
+                  —
+                  @endif
+                  </span>
+                </div>
+            </div>
             </div>
         </div>
         <div class="card-footer">

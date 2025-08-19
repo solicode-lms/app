@@ -108,6 +108,8 @@ class BaseRealisationMicroCompetenceSeeder extends Seeder
                         "dernier_update" => isset($row["dernier_update"]) && $row["dernier_update"] !== "" ? $row["dernier_update"] : null,
                         "realisation_competence_id" => $realisation_competence_id,
                         "lien_livrable" => isset($row["lien_livrable"]) && $row["lien_livrable"] !== "" ? $row["lien_livrable"] : null,
+                        "progression_ideal_cache" => isset($row["progression_ideal_cache"]) && $row["progression_ideal_cache"] !== "" ? $row["progression_ideal_cache"] : null,
+                        "taux_rythme_cache" => isset($row["taux_rythme_cache"]) && $row["taux_rythme_cache"] !== "" ? $row["taux_rythme_cache"] : null,
                     "reference" => $row["reference"] ?? null ,
                 ];
 

@@ -14,4 +14,6 @@ return [
     'apprenant_id' => 'Apprenant',
     'module_id' => 'Module',
     'etat_realisation_module_id' => 'État',
+    'progression_ideal_cache' => 'Progression idéale',
+    'taux_rythme_cache' => 'Taux de rythme'
 ];

@@ -14,5 +14,7 @@ return [
     'apprenant_id' => 'Apprenant',
     'competence_id' => 'Compétence',
     'etat_realisation_competence_id' => 'État',
-    'realisation_module_id' => 'Réalisation Module'
+    'realisation_module_id' => 'Réalisation Module',
+    'progression_ideal_cache' => 'Progression idéale',
+    'taux_rythme_cache' => 'Taux de rythme'
 ];

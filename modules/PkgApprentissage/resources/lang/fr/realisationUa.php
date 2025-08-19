@@ -13,4 +13,7 @@ return [
     'realisation_micro_competence_id' => 'Réalisation de la micro-compétence',
     'unite_apprentissage_id' => 'Unité d’apprentissage',
     'etat_realisation_ua_id' => 'État',
+    'progression_ideal_cache' => 'Progression idéale',
+    'taux_rythme_cache' => 'Taux de rythme'
+
 ];

@@ -69,6 +69,8 @@ class BaseRealisationCompetenceImport implements ToModel, WithHeadingRow
              'date_debut' => $values[9] ?? null,
              'date_fin' => $values[10] ?? null,
              'reference' => $reference,
+             'progression_ideal_cache' => $values[12] ?? null,
+             'taux_rythme_cache' => $values[13] ?? null,
         ]);
 
 

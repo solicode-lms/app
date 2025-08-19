@@ -32,7 +32,9 @@ class BaseRealisationCompetenceService extends BaseService
         'dernier_update',
         'commentaire_formateur',
         'date_debut',
-        'date_fin'
+        'date_fin',
+        'progression_ideal_cache',
+        'taux_rythme_cache'
     ];
 
     /**

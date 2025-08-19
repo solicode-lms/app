@@ -51,7 +51,7 @@ class BaseRealisationMicroCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'micro_competence_id', 'apprenant_id', 'note_cache', 'progression_cache', 'etat_realisation_micro_competence_id', 'bareme_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'dernier_update', 'realisation_competence_id', 'lien_livrable'
+        'micro_competence_id', 'apprenant_id', 'note_cache', 'progression_cache', 'etat_realisation_micro_competence_id', 'bareme_cache', 'commentaire_formateur', 'date_debut', 'date_fin', 'dernier_update', 'realisation_competence_id', 'lien_livrable', 'progression_ideal_cache', 'taux_rythme_cache'
     ];
     public $manyToOne = [
         'MicroCompetence' => [

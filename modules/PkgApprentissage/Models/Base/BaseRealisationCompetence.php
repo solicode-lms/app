@@ -51,7 +51,7 @@ class BaseRealisationCompetence extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'competence_id', 'realisation_module_id', 'apprenant_id', 'progression_cache', 'note_cache', 'etat_realisation_competence_id', 'bareme_cache', 'dernier_update', 'commentaire_formateur', 'date_debut', 'date_fin'
+        'competence_id', 'realisation_module_id', 'apprenant_id', 'progression_cache', 'note_cache', 'etat_realisation_competence_id', 'bareme_cache', 'dernier_update', 'commentaire_formateur', 'date_debut', 'date_fin', 'progression_ideal_cache', 'taux_rythme_cache'
     ];
     public $manyToOne = [
         'Competence' => [

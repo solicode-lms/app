@@ -40,7 +40,9 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'date_fin' => 'nullable',
             'dernier_update' => 'nullable',
             'realisation_competence_id' => 'required',
-            'lien_livrable' => 'nullable|string|max:255|url'
+            'lien_livrable' => 'nullable|string|max:255|url',
+            'progression_ideal_cache' => 'required',
+            'taux_rythme_cache' => 'required'
         ];
     }
 
@@ -64,7 +66,9 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.dernier_update')]),
             'realisation_competence_id.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.realisation_competence_id')]),
             'lien_livrable.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.lien_livrable')]),
-            'lien_livrable.max' => __('validation.lien_livrableMax')
+            'lien_livrable.max' => __('validation.lien_livrableMax'),
+            'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.progression_ideal_cache')]),
+            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationMicroCompetence.taux_rythme_cache')])
         ];
     }
 

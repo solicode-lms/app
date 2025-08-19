@@ -43,6 +43,8 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => 'date_debut',
                 'date_fin' => 'date_fin',
                 'reference' => 'reference',
+                'progression_ideal_cache' => 'progression_ideal_cache',
+                'taux_rythme_cache' => 'taux_rythme_cache',
             ];
         } else {
             return [
@@ -57,6 +59,8 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => __('PkgApprentissage::realisationModule.date_debut'),
                 'date_fin' => __('PkgApprentissage::realisationModule.date_fin'),
                 'reference' => __('Core::msg.reference'),
+                'progression_ideal_cache' => __('PkgApprentissage::realisationModule.progression_ideal_cache'),
+                'taux_rythme_cache' => __('PkgApprentissage::realisationModule.taux_rythme_cache'),
             ];
         }
     }
@@ -79,6 +83,8 @@ class BaseRealisationModuleExport implements FromCollection, WithHeadings, Shoul
                 'date_debut' => $realisationModule->date_debut,
                 'date_fin' => $realisationModule->date_fin,
                 'reference' => $realisationModule->reference,
+                'progression_ideal_cache' => $realisationModule->progression_ideal_cache,
+                'taux_rythme_cache' => $realisationModule->taux_rythme_cache,
             ];
         });
     }

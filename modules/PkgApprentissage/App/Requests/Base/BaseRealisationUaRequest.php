@@ -37,7 +37,9 @@ class BaseRealisationUaRequest extends FormRequest
             'bareme_cache' => 'nullable',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
-            'commentaire_formateur' => 'nullable|string'
+            'commentaire_formateur' => 'nullable|string',
+            'progression_ideal_cache' => 'required',
+            'taux_rythme_cache' => 'required'
         ];
     }
 
@@ -57,7 +59,9 @@ class BaseRealisationUaRequest extends FormRequest
             'bareme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.bareme_cache')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.date_debut')]),
             'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.date_fin')]),
-            'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.commentaire_formateur')])
+            'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.commentaire_formateur')]),
+            'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.progression_ideal_cache')]),
+            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationUa.taux_rythme_cache')])
         ];
     }
 

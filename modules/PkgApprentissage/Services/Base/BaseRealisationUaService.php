@@ -30,7 +30,9 @@ class BaseRealisationUaService extends BaseService
         'bareme_cache',
         'date_debut',
         'date_fin',
-        'commentaire_formateur'
+        'commentaire_formateur',
+        'progression_ideal_cache',
+        'taux_rythme_cache'
     ];
 
     /**

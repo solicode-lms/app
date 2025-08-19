@@ -67,6 +67,8 @@ class BaseRealisationUaImport implements ToModel, WithHeadingRow
              'date_fin' => $values[7] ?? null,
              'commentaire_formateur' => $values[8] ?? null,
              'reference' => $reference,
+             'progression_ideal_cache' => $values[10] ?? null,
+             'taux_rythme_cache' => $values[11] ?? null,
         ]);
 
 

@@ -14,5 +14,7 @@ return [
     'apprenant_id' => 'Apprenant',
     'micro_competence_id' => 'Micro-Compétence',
     'etat_realisation_micro_competence_id' => 'État',
-    'lien_livrable' => 'Livrable'
+    'lien_livrable' => 'Livrable',
+    'progression_ideal_cache' => 'Progression idéale',
+    'taux_rythme_cache' => 'Taux de rythme'
 ];

@@ -126,7 +126,11 @@ class RealisationUaService extends BaseRealisationUaService
 
         $totalNote = 0;
         $totalBareme = 0;
-        $progression = 0;
+        $progressionReelle = 0;
+        $progressionIdeale = 0;
+
+        $hasProjetOuPrototype = $realisationUa->realisationUaPrototypes->isNotEmpty()
+                         || $realisationUa->realisationUaProjets->isNotEmpty();
 
         foreach ($parts as $part) {
             $items = $part['items'];
@@ -137,20 +141,35 @@ class RealisationUaService extends BaseRealisationUaService
                 continue;
             }
 
+             // ✅ Progression idéale uniquement si UA contient au moins projet/prototype
+            if ($hasProjetOuPrototype) {
+                $progressionIdeale += $poids;
+            }
+
             $bareme = $items->sum(function ($e) {
                 return $e->note !== null ? ($e->bareme ?? 0) : 0;
             });
             $note = $items->sum(fn($e) => $e->note ?? 0);
             $termines = $items->filter(fn($e) => $this->isItemTermine($e))->count();
 
-            $progression += ($termines / $count) * $poids;
+            $progressionReelle += ($termines / $count) * $poids;
             $totalNote += $note ;
             $totalBareme += $bareme;
         }
 
-        $realisationUa->progression_cache = round($progression, 1);
+        $realisationUa->progression_cache = round($progressionReelle, 1);
         $realisationUa->note_cache = round($totalNote, 2);
         $realisationUa->bareme_cache = round($totalBareme, 2);
+
+        // ⚠️ UA sans projet/prototype → progression idéale = 0
+        $realisationUa->progression_ideal_cache = $hasProjetOuPrototype
+        ? round($progressionIdeale, 1)
+        : 0;
+
+        // ✅ Taux de rythme
+        $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
+        ? round(($progressionReelle / $realisationUa->progression_ideal_cache) * 100, 1)
+        : null;
 
         // 🔁 Mise à jour de l’état
         $nouvelEtatCode = $this->calculerEtat($realisationUa);

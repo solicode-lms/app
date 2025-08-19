@@ -38,7 +38,9 @@ class BaseRealisationModuleRequest extends FormRequest
             'dernier_update' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
-            'date_fin' => 'nullable'
+            'date_fin' => 'nullable',
+            'progression_ideal_cache' => 'required',
+            'taux_rythme_cache' => 'required'
         ];
     }
 
@@ -59,7 +61,9 @@ class BaseRealisationModuleRequest extends FormRequest
             'dernier_update.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.dernier_update')]),
             'commentaire_formateur.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.commentaire_formateur')]),
             'date_debut.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_debut')]),
-            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_fin')])
+            'date_fin.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.date_fin')]),
+            'progression_ideal_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.progression_ideal_cache')]),
+            'taux_rythme_cache.required' => __('validation.required', ['attribute' => __('PkgApprentissage::RealisationModule.taux_rythme_cache')])
         ];
     }
 
