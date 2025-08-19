@@ -103,9 +103,9 @@ class RealisationUaService extends BaseRealisationUaService
     public function calculerProgression(RealisationUa $realisationUa): void
     {
         $realisationUa->load([
-            'realisationChapitres',
-            'realisationUaPrototypes',
-            'realisationUaProjets'
+            'realisationChapitres.etatRealisationChapitre',
+            'realisationUaPrototypes.realisationTache.etatRealisationTache',
+            'realisationUaProjets.realisationTache.etatRealisationTache'
         ]);
 
         // 🧮 Définition des parties et des poids associés
@@ -129,47 +129,45 @@ class RealisationUaService extends BaseRealisationUaService
         $progressionReelle = 0;
         $progressionIdeale = 0;
 
-        $hasProjetOuPrototype = $realisationUa->realisationUaPrototypes->isNotEmpty()
-                         || $realisationUa->realisationUaProjets->isNotEmpty();
-
         foreach ($parts as $part) {
             $items = $part['items'];
             $poids = $part['poids'];
 
-            $count = $items->count();
-            if ($count === 0) {
+            if ($items->isEmpty()) {
                 continue;
             }
 
-             // ✅ Progression idéale uniquement si UA contient au moins projet/prototype
-            if ($hasProjetOuPrototype) {
-                $progressionIdeale += $poids;
+            // ✅ Séparer les tâches "activées" (≠ TODO)
+            $actives = $items->filter(fn($e) => $this->isActive($e));
+
+            $countAll   = $items->count();   // total (utile pour progression réelle)
+            $countActif = $actives->count(); // seulement ≠ TODO
+
+            // 🟢 Progression réelle (toutes les tâches comptent)
+            $termines = $items->filter(fn($e) => $this->isActiveProgress($e))->count();
+            $progressionReelle += ($termines / $countAll) * $poids;
+
+            // 🎯 Progression idéale (seules les tâches activées comptent)
+            if ($countActif > 0) {
+                $progressionIdeale += ($countActif / $countAll) * $poids;
             }
 
-            $bareme = $items->sum(function ($e) {
-                return $e->note !== null ? ($e->bareme ?? 0) : 0;
-            });
-            $note = $items->sum(fn($e) => $e->note ?? 0);
-            $termines = $items->filter(fn($e) => $this->isItemTermine($e))->count();
-
-            $progressionReelle += ($termines / $count) * $poids;
-            $totalNote += $note ;
+            // Notes
+            $bareme = $items->sum(fn($e) => $e->note !== null ? ($e->bareme ?? 0) : 0);
+            $note   = $items->sum(fn($e) => $e->note ?? 0);
+            $totalNote   += $note;
             $totalBareme += $bareme;
         }
 
-        $realisationUa->progression_cache = round($progressionReelle, 1);
-        $realisationUa->note_cache = round($totalNote, 2);
-        $realisationUa->bareme_cache = round($totalBareme, 2);
-
-        // ⚠️ UA sans projet/prototype → progression idéale = 0
-        $realisationUa->progression_ideal_cache = $hasProjetOuPrototype
-        ? round($progressionIdeale, 1)
-        : 0;
+        $realisationUa->progression_cache       = round($progressionReelle, 1);
+        $realisationUa->progression_ideal_cache = round($progressionIdeale, 1);
+        $realisationUa->note_cache              = round($totalNote, 2);
+        $realisationUa->bareme_cache            = round($totalBareme, 2);
 
         // ✅ Taux de rythme
         $realisationUa->taux_rythme_cache = $realisationUa->progression_ideal_cache > 0
-        ? round(($progressionReelle / $realisationUa->progression_ideal_cache) * 100, 1)
-        : null;
+            ? round(($progressionReelle / $realisationUa->progression_ideal_cache) * 100, 1)
+            : null;
 
         // 🔁 Mise à jour de l’état
         $nouvelEtatCode = $this->calculerEtat($realisationUa);
@@ -188,21 +186,39 @@ class RealisationUaService extends BaseRealisationUaService
     }
 
 
-    private function isItemTermine($item): bool
+
+    private function isActiveProgress($item): bool
     {
-        // Cas chapitre : on teste le code de l’état du chapitre
-        if (isset($item->etatRealisationChapitre)) {
-            return optional($item->etatRealisationChapitre)->code === 'DONE';
-        }
+        // ✅ États qui NE sont PAS en cours
+        $etatsTacheInProgress = ['READY_FOR_LIVE_CODING', 'IN_LIVE_CODING','TO_APPROVE','APPROVED'];
 
         if (isset($item->realisation_tache_id)) {
-            $etat = $item->realisationTache?->etatRealisationTache?->workflowTache->code;
-            return $etat === 'APPROVED';
+            $etat = $item->realisationTache?->etatRealisationTache?->workflowTache?->code;
+
+            // 🚀 En cours si état défini et pas dans la liste des "non en cours"
+            return $etat !== null && in_array($etat, $etatsTacheInProgress, true);
         }
 
         return false;
     }
 
+
+    /**
+     * Détermine si un item est "actif"
+     * (= il a quitté l’état TODO, donc a été démarré).
+     */
+    private function isActive($item): bool
+    {
+        // ✅ États considérés comme "inactifs"
+        $etatsInactifs = ['TODO', 'IN_PROGRESS','REVISION_NECESSAIRE'];
+
+        if (isset($item->realisationTache)) {
+            $etat = optional($item->realisationTache?->etatRealisationTache?->workflowTache)->code;
+            return $etat !== null && !in_array($etat, $etatsInactifs, true);
+        }
+
+        return false;
+    }
 
     /**
      * Calcule l’état global d’une réalisation d’unité d’apprentissage (UA),
