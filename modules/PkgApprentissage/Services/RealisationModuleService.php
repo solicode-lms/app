@@ -97,19 +97,32 @@ class RealisationModuleService extends BaseRealisationModuleService
             $rm->progression_cache = 0;
             $rm->note_cache = 0;
             $rm->bareme_cache = 0;
+            $rm->progression_ideal_cache = 0;
+            $rm->taux_rythme_cache = null;
             $rm->save();
             return;
         }
 
+        // ✅ Agrégats sur les compétences
         $totalNote = $competences->sum(fn($c) => $c->note_cache ?? 0);
         $totalBareme = $competences->sum(fn($c) => $c->bareme_cache ?? 0);
         $totalProgression = $competences->sum(fn($c) => $c->progression_cache ?? 0);
+        $totalProgressionIdeal = $competences->sum(fn($c) => $c->progression_ideal_cache ?? 0);
 
+        // ✅ Progressions
         $rm->progression_cache = round($totalProgression / $totalComp, 1);
+        $rm->progression_ideal_cache = round($totalProgressionIdeal / $totalComp, 1);
+
+        // ✅ Notes & barèmes
         $rm->note_cache = round($totalNote, 2);
         $rm->bareme_cache = round($totalBareme, 2);
 
-        // Calcul de l’état global du module
+        // ✅ Taux de rythme (nullable si progression idéale = 0)
+        $rm->taux_rythme_cache = $rm->progression_ideal_cache > 0
+            ? round(($rm->progression_cache / $rm->progression_ideal_cache) * 100, 1)
+            : null;
+
+        // ✅ Calcul de l’état global du module
         $nouvelEtatCode = $this->calculerEtatDepuisCompetences($rm);
         if ($nouvelEtatCode) {
             $nouvelEtat = EtatRealisationModule::where('code', $nouvelEtatCode)->first();
@@ -120,8 +133,9 @@ class RealisationModuleService extends BaseRealisationModuleService
 
         $rm->saveQuietly();
 
-        // Ici on pourrait recalculer la progression d'un niveau supérieur (parcours, bloc, etc.)
+        // 🔜 Ici tu pourras recalculer la progression d'un niveau supérieur (parcours, bloc, etc.)
     }
+
 
     /**
      * Déterminer l'état d'un module en fonction de ses compétences
