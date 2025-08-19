@@ -234,7 +234,6 @@ class BaseWidgetUtilisateurController extends AdminController
 
         $users = $this->userService->getAllForSelect($itemWidgetUtilisateur->user);
         $widgets = $this->widgetService->getAllForSelect($itemWidgetUtilisateur->widget);
-        aa
         $sysModules = $this->sysModuleService->all();
 
 

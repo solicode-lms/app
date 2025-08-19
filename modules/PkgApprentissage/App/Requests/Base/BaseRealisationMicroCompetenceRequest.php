@@ -31,10 +31,10 @@ class BaseRealisationMicroCompetenceRequest extends FormRequest
         return [
             'micro_competence_id' => 'required',
             'apprenant_id' => 'required',
-            'note_cache' => 'required',
+            'note_cache' => 'nullable',
             'progression_cache' => 'required',
             'etat_realisation_micro_competence_id' => 'nullable',
-            'bareme_cache' => 'required',
+            'bareme_cache' => 'nullable',
             'commentaire_formateur' => 'nullable|string',
             'date_debut' => 'nullable',
             'date_fin' => 'nullable',
