@@ -1,8 +1,8 @@
 /* ========================= */
-/* 🎯 Carte Compétence/Module/UA */
+/* 🎯 Carte Réalisation (Compétence / Module / UA) */
 /* ========================= */
 
-.competence-card {
+.realisation-card {
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 0.4rem;
@@ -17,47 +17,47 @@
 }
 
 /* 🎯 Variante pour module */
-.module-card {
+.realisation-module {
     border-left: 4px solid #2563eb;
 }
 
 /* 🎯 Variante pour UA */
-.ua-card {
+.realisation-ua {
     border-left: 4px solid #10b981;
 }
 
 /* 🎯 Variante pour compétence */
-.realisation-competence-card {
+.realisation-competence {
     border-left: 4px solid #9333ea;
 }
 
 /* ========================= */
 /* Header */
 /* ========================= */
-.competence-header {
+.realisation-header {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
 }
-.competence-titre {
+.realisation-titre {
     font-size: 1.05rem;
     font-weight: 600;
     color: #111827;
     margin: 0;
 }
-.competence-titre a {
+.realisation-titre a {
     color: #2563eb;
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
 }
-.competence-titre a:hover,
-.competence-titre a:focus {
+.realisation-titre a:hover,
+.realisation-titre a:focus {
     color: #1e40af;
     outline: none;
 }
 
-.competence-soustitre {
+.realisation-soustitre {
     font-size: 0.8rem;
     color: #6b7280;
 }
@@ -65,12 +65,12 @@
 /* ========================= */
 /* Infos (badges, état, note) */
 /* ========================= */
-.competence-infos {
+.realisation-infos {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
 }
-.competence-badge {
+.realisation-badge {
     background-color: #f3f4f6;
     color: #374151;
     font-size: 0.72rem;
@@ -81,19 +81,79 @@
     align-items: center;
     gap: 0.25rem;
 }
-.competence-etat {
+.realisation-etat {
     background-color: #e0f2fe;
     color: #0369a1;
 }
-.competence-note {
+.realisation-note {
     background-color: #fef3c7;
     color: #92400e;
 }
 
 /* ========================= */
+/* 📖 Lecture pédagogique */
+/* ========================= */
+.realisation-lecture {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.35rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #374151;
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Paragraphes */
+.realisation-lecture p {
+    margin: 0.3rem 0;
+}
+
+/* Listes */
+.realisation-lecture ul,
+.realisation-lecture ol {
+    margin: 0.4rem 0 0.4rem 1.2rem;
+    padding-left: 0.8rem;
+}
+.realisation-lecture li {
+    margin-bottom: 0.25rem;
+}
+
+/* Titres internes éventuels */
+.realisation-lecture h4,
+.realisation-lecture h5 {
+    margin: 0.5rem 0 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Mise en valeur (blockquote / note) */
+.realisation-lecture blockquote {
+    border-left: 3px solid #2563eb;
+    margin: 0.4rem 0;
+    padding: 0.3rem 0.6rem;
+    font-style: italic;
+    color: #374151;
+    background: #f3f4f6;
+    border-radius: 0.25rem;
+}
+
+/* Liens */
+.realisation-lecture a {
+    color: #2563eb;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+.realisation-lecture a:hover {
+    color: #1e40af;
+}
+
+/* ========================= */
 /* Footer */
 /* ========================= */
-.competence-footer {
+.realisation-footer {
     border-top: 1px solid #f3f4f6;
     padding-top: 0.5rem;
     font-size: 0.8rem;

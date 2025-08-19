@@ -1,1 +1,0 @@
- {{  $realisationModule->module }}

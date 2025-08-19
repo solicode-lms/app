@@ -7,13 +7,7 @@
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
                 <div class="border rounded p-2 h-100">
                   <small class="text-muted d-block">{{ ucfirst(__('PkgFormation::module.singular')) }}</small>
-
-                {{-- Affichage texte classique --}}
-                @if($itemRealisationModule->module)
-                  {{ $itemRealisationModule->module }}
-                @else
-                  <span class="text-muted">—</span>
-                @endif
+@include('PkgApprentissage::realisationModule.custom.fields.module',['entity' => $itemRealisationModule])
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6 mb-3 px-2">
