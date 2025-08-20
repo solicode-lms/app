@@ -114,9 +114,9 @@ class RealisationTacheService extends BaseRealisationTacheService
                     ->getAllForSelect($e->etatRealisationTache); 
 
                 // Pour le front → transformer en [{value, label}, ...]
-                $values = $options->map(fn($label, $id) => [
-                    'value' => (int) $id,
-                    'label' => (string) $label,
+                $values = $options->map(fn($entity, $id) => [
+                    'value' => (int) $entity->id,
+                    'label' => (string) $entity,
                 ])->values();
 
                 $meta += [

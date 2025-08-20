@@ -33,8 +33,6 @@ export class EditAction extends CrudAction {
 
         let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
         
-   
-
         editUrl = this.appendParamsToUrl(
             editUrl,
             this.viewStateService.getContextParams()

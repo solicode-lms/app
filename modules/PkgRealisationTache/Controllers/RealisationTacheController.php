@@ -30,10 +30,28 @@ class RealisationTacheController extends BaseRealisationTacheController
      */
     public function fieldMeta(int $id, string $field)
     {
-        $entity = RealisationTache::findOrFail($id);
+
+        // Bulk edit form traitement 
+
+        $this->authorizeAction('update');
+
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
+ 
+        $itemRealisationTache = RealisationTache::findOrFail($id);
+
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
 
         return response()->json(
-            $this->service->buildFieldMeta($entity, $field)
+            $this->service->buildFieldMeta($itemRealisationTache, $field)
         );
     }
 
@@ -43,11 +61,31 @@ class RealisationTacheController extends BaseRealisationTacheController
      */
     public function patchInline(Request $request, int $id)
     {
-        $entity = RealisationTache::findOrFail($id);
 
+
+
+        // Bulk edit form traitement 
+
+        $this->authorizeAction('update');
+
+        // // ownedByUser
+        // if(Auth::user()->hasRole('formateur')){
+        //    $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        // }
+        // if(Auth::user()->hasRole('apprenant')){
+        //    $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        // }
+ 
+        $itemRealisationTache = RealisationTache::findOrFail($id);
+
+        // // scopeDataInEditContext
+        // $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        // $key = 'scope.etatRealisationTache.formateur_id';
+        // $this->viewState->set($key, $value);
+ 
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
-        $etag = $this->service->etag($entity);
+        $etag = $this->service->etag($itemRealisationTache);
 
         if ($ifMatch && $ifMatch !== $etag) {
             return response()->json(['error' => 'conflict'], 409);
@@ -55,7 +93,7 @@ class RealisationTacheController extends BaseRealisationTacheController
 
         // Appliquer le patch
         $changes = $request->input('changes', []);
-        $updated = $this->service->applyInlinePatch($entity, $changes);
+        $updated = $this->service->applyInlinePatch($itemRealisationTache, $changes);
 
         return response()->json([
             "ok"        => true,

@@ -1,4 +1,6 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
+import { CrudAction } from "../../actions/CrudAction";
+import { LoadingIndicator } from "../LoadingIndicator";
 import { fieldRegistry } from "./FieldRegistry";
 import { metaCache } from "./MetaCache";
 
@@ -8,10 +10,21 @@ import { metaCache } from "./MetaCache";
  * - Navigation Enter / Escape / Tab / Shift+Tab
  * - Optimistic UI avec rollback si erreur
  */
-export class CellOrchestrator {
-    constructor() {
+export class CellOrchestrator extends CrudAction {
+
+    constructor(config, tableUI) {
+        super(config,tableUI);
+        this.config = config;
+        this.tableUI = tableUI;
         this.active = null; // cellule en cours d’édition
         this.editor = null; // éditeur monté
+
+        // Loader lié à la table
+        this.loader = new LoadingIndicator(this.config.tableSelector);
+    }
+
+    init() {
+        this.bindTable(this.config.tableSelector);
     }
 
     /**
@@ -58,6 +71,11 @@ export class CellOrchestrator {
             // 1. Charger les metas depuis le cache ou API
             const meta = await metaCache.getMeta("realisationTache", id, field);
 
+            // ✅ Sauvegarder le contenu original AVANT de remplacer
+            if (!td.dataset.original) {
+                td.dataset.original = td.innerHTML;
+            }
+
             // 2. Créer l’éditeur
             this.editor = fieldRegistry.create(meta.type, {});
             const value = meta.value ?? td.textContent;
@@ -80,13 +98,24 @@ export class CellOrchestrator {
         const field = td.dataset.field;
 
         // Optimistic UI : affichage provisoire
-        const oldContent = td.textContent;
+        // Récupérer contenu initial depuis data-original
+        const oldContent = td.dataset.original ?? td.innerHTML;
+
         // td.textContent = newValue;
         td.classList.add("updating");
 
         try {
+
+            let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
+            editUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
+            editUrl = this.appendParamsToUrl(
+                editUrl,
+                this.viewStateService.getContextParams()
+            );
+
+
             const res = await fetch(
-                `/admin/PkgRealisationTache/realisationTaches/${id}/inline`,
+                editUrl,
                 {
                     method: "PATCH",
                     headers: {
@@ -119,7 +148,7 @@ export class CellOrchestrator {
             metaCache.set("realisationTache", id, field, meta);
         } catch (err) {
             console.error("Erreur PATCH inline:", err);
-            td.textContent = oldContent; // rollback
+            td.innerHTML = oldContent; // rollback
             td.classList.remove("updating");
         } finally {
             this.active = null;

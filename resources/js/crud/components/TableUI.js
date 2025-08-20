@@ -10,8 +10,8 @@ import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
 import { ShowIndexAction } from "../actions/ShowIndexAction";
 import { BulkAction } from "../actions/BulkAction";
 import { OrdreColumn } from "./TableUI/OrdreColumn";
+import { CellOrchestrator } from "./inline-edit/CellOrchestrator";
 // import { InlineEdit } from "./TableUI/InlineEdit";
-import { InlineEdit } from "./inline-edit/InlineEdit";
 export class TableUI {
     constructor(config, indexUI) {
        
@@ -29,7 +29,7 @@ export class TableUI {
         this.bulkAction = new BulkAction(config,this);
         this.viewSwitcherAction = new IndexViewSwitcherAction(config, this);
         this.ordreColumn = new OrdreColumn(config, this);
-        this.inlineEdit = new InlineEdit(config, this);
+        this.cellOrchestrator = new CellOrchestrator(config, this);
     }
 
     init(){
@@ -46,7 +46,7 @@ export class TableUI {
         this.initTruncatText();
         this.initWidgets();
         this.ordreColumn.init();
-        this.inlineEdit.init();
+        this.cellOrchestrator.init();
     }
 
     
