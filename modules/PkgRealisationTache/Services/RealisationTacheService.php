@@ -4,6 +4,7 @@ namespace Modules\PkgRealisationTache\Services;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\PkgApprenants\Models\Apprenant;
@@ -27,6 +28,7 @@ use Modules\PkgRealisationProjets\Models\AffectationProjet;
 use Modules\PkgRealisationProjets\Services\AffectationProjetService;
 use Modules\PkgEvaluateurs\Services\EvaluationRealisationTacheService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Classe RealisationTacheService pour gérer la persistance de l'entité RealisationTache.
@@ -55,6 +57,209 @@ class RealisationTacheService extends BaseRealisationTacheService
             'livrablesRealisations.livrable.taches',
             'realisationProjet.realisationTaches.tache',
         ];
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Liste des champs autorisés à l’édition inline
+     */
+    public function getFieldsEditable(): array
+    {
+        return [
+            'etat_realisation_tache_id',
+            'dateDebut',
+            'dateFin',
+            'note',
+            'is_live_coding',
+            'remarques_formateur',
+            'remarques_apprenant',
+            'remarque_evaluateur',
+        ];
+    }
+
+    /**
+     * Génère un ETag basé sur updated_at
+     */
+    public function etag(RealisationTache $e): string
+    {
+        $ver = optional($e->updated_at)->timestamp ?? 0;
+        return 'W/"rt-' . $e->id . '-' . $ver . '"';
+    }
+
+    /**
+     * Construit les métadonnées d’un champ (type, options, validation…)
+     */
+    public function buildFieldMeta(RealisationTache $e, string $field): array
+    {
+        $meta = [
+            'entity' => 'realisation_tache',
+            'id'     => $e->id,
+            'field'  => $field,
+            'writable' => in_array($field, $this->getFieldsEditable()),
+            'etag'   => $this->etag($e),
+            'schema_version' => 'v1',
+        ];
+
+        switch ($field) {
+            case 'etat_realisation_tache_id':
+                // $options est une Collection [id => libelle]
+                $options = app(EtatRealisationTacheService::class)
+                    ->getAllForSelect($e->etatRealisationTache); 
+
+                // Pour le front → transformer en [{value, label}, ...]
+                $values = $options->map(fn($label, $id) => [
+                    'value' => (int) $id,
+                    'label' => (string) $label,
+                ])->values();
+
+                $meta += [
+                    'type' => 'select',
+                    'required' => true,
+                    'options' => [
+                        'source' => 'static',
+                        'values' => $values,
+                    ],
+                    // Validation Laravel → accepte uniquement les IDs présents en clé
+                    'validation' => [
+                        'integer',
+                        'in:' . $options->keys()->implode(','),
+                    ],
+                    'value' => $e->etat_realisation_tache_id,
+                ];
+                break;
+
+            case 'dateDebut':
+            case 'dateFin':
+                $meta += [
+                    'type' => 'date',
+                    'validation' => ['date'],
+                    'value' => optional($e->$field)->format('Y-m-d'),
+                ];
+                break;
+
+            case 'note':
+                $meta += [
+                    'type' => 'number',
+                    'validation' => ['numeric', 'min:0', 'max:20'],
+                    'value' => $e->note,
+                ];
+                break;
+
+            case 'is_live_coding':
+                $meta += [
+                    'type' => 'boolean',
+                    'validation' => ['boolean'],
+                    'value' => (bool) $e->is_live_coding,
+                ];
+                break;
+
+            case 'remarques_formateur':
+            case 'remarques_apprenant':
+            case 'remarque_evaluateur':
+                $meta += [
+                    'type' => 'text',
+                    'validation' => ['string', 'nullable'],
+                    'value' => $e->$field,
+                ];
+                break;
+
+            default:
+                abort(404, "Champ $field non pris en charge pour l’édition inline.");
+        }
+
+        return $meta;
+    }
+
+    /**
+     * Applique un PATCH inline (validation + sauvegarde)
+     */
+    public function applyInlinePatch(RealisationTache $e, array $changes): RealisationTache
+    {
+        $allowed = $this->getFieldsEditable();
+        $filtered = Arr::only($changes, $allowed);
+
+        if (empty($filtered)) {
+            abort(422, 'Aucun champ autorisé.');
+        }
+
+        $rules = [];
+        foreach ($filtered as $field => $value) {
+            $meta = $this->buildFieldMeta($e, $field);
+            $rules[$field] = $meta['validation'] ?? ['nullable'];
+        }
+
+        Validator::make($filtered, $rules)->validate();
+
+        $e->fill($filtered);
+        $e->save();
+
+        return $e;
+    }
+
+    /**
+     * Formatte les valeurs pour l’affichage inline
+     */
+    public function formatDisplayValues(RealisationTache $e, array $fields): array
+    {
+        $out = [];
+        foreach ($fields as $field) {
+            switch ($field) {
+                case 'etat_realisation_tache_id':
+                    // $label = optional($e->etatRealisationTache)->libelle ?? '—';
+                    // $code  = optional($e->etatRealisationTache->workflowTache)->code;
+                    // $palette = ['TODO' => 'secondary', 'DOING' => 'warning', 'APPROVED' => 'success'];
+                    // $out[$field] = [
+                    //     'text'  => $label,
+                    //     'badge' => $palette[$code] ?? 'secondary',
+                    // ];
+                     // ⚡ Utiliser un Blade partial pour produire le HTML final
+                    $html = view('PkgRealisationTache::realisationTache.custom.fields.etatRealisationTache', [
+                        'entity' => $e
+                    ])->render();
+
+                $out[$field] = [
+                    'html' => $html, // rendu complet du partial
+                ];
+                    break;
+
+                case 'dateDebut':
+                case 'dateFin':
+                    $out[$field] = ['text' => optional($e->$field)->format('Y-m-d') ?? '—'];
+                    break;
+
+                case 'note':
+                    $out[$field] = ['text' => $e->note !== null ? $e->note . '/20' : '—'];
+                    break;
+
+                case 'is_live_coding':
+                    $out[$field] = ['text' => $e->is_live_coding ? 'Oui' : 'Non'];
+                    break;
+
+                case 'remarques_formateur':
+                case 'remarques_apprenant':
+                case 'remarque_evaluateur':
+                    $out[$field] = ['text' => (string) $e->$field ?? '—'];
+                    break;
+
+                default:
+                    $out[$field] = ['text' => (string) data_get($e, $field, '—')];
+            }
+        }
+        return $out;
+    }
+
+
+
+
+
+
 
 
 

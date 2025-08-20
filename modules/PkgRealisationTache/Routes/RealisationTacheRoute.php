@@ -9,6 +9,19 @@ use Modules\PkgRealisationTache\Controllers\RealisationTacheController;
 // routes for realisationTache management
 Route::middleware('auth')->group(function () {
     Route::prefix('/admin/PkgRealisationTache')->group(function () {
+        
+        
+         // ====================================================
+        // ✅ Nouvelles routes inline edit avec le même controller
+        // ====================================================
+        Route::get('realisationTaches/{id}/field/{field}/meta', [RealisationTacheController::class, 'fieldMeta'])
+            ->name('realisationTaches.field.meta');
+
+        Route::patch('realisationTaches/{id}/inline', [RealisationTacheController::class, 'patchInline'])
+            ->name('realisationTaches.patchInline');
+
+        
+        
         Route::get('realisationTaches/getData', [RealisationTacheController::class, 'getData'])->name('realisationTaches.getData');
         // ✅ Route JSON
         Route::get('realisationTaches/json/{id}', [RealisationTacheController::class, 'getRealisationTache'])
@@ -36,6 +49,8 @@ Route::middleware('auth')->group(function () {
         Route::post('realisationTaches/update-attributes', [RealisationTacheController::class, 'updateAttributes'])->name('realisationTaches.updateAttributes');
 
     
+       
+
 
     });
 });

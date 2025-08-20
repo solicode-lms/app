@@ -10,8 +10,8 @@ import { IndexViewSwitcherAction } from "../actions/IndexViewSwitcherAction";
 import { ShowIndexAction } from "../actions/ShowIndexAction";
 import { BulkAction } from "../actions/BulkAction";
 import { OrdreColumn } from "./TableUI/OrdreColumn";
-import { InlineEdit } from "./TableUI/InlineEdit";
-
+// import { InlineEdit } from "./TableUI/InlineEdit";
+import { InlineEdit } from "./inline-edit/InlineEdit";
 export class TableUI {
     constructor(config, indexUI) {
        

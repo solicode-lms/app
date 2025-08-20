@@ -8,6 +8,7 @@ use Modules\PkgRealisationTache\Controllers\Base\BaseRealisationTacheController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Core\App\Helpers\JsonResponseHelper;
+use Modules\PkgRealisationTache\Models\EtatRealisationTache;
 use Modules\PkgRealisationTache\Models\RealisationTache;
 
 class RealisationTacheController extends BaseRealisationTacheController
@@ -21,5 +22,48 @@ class RealisationTacheController extends BaseRealisationTacheController
         }
         return parent::index($request);
     }
+
+
+    /**
+     * Retourne les métadonnées d’un champ (type, options, validation, etag…)
+     *  @DynamicPermissionIgnore
+     */
+    public function fieldMeta(int $id, string $field)
+    {
+        $entity = RealisationTache::findOrFail($id);
+
+        return response()->json(
+            $this->service->buildFieldMeta($entity, $field)
+        );
+    }
+
+    /**
+     * PATCH inline d’une cellule avec gestion de l’ETag
+     * @DynamicPermissionIgnore
+     */
+    public function patchInline(Request $request, int $id)
+    {
+        $entity = RealisationTache::findOrFail($id);
+
+        // Vérification ETag
+        $ifMatch = $request->header('If-Match');
+        $etag = $this->service->etag($entity);
+
+        if ($ifMatch && $ifMatch !== $etag) {
+            return response()->json(['error' => 'conflict'], 409);
+        }
+
+        // Appliquer le patch
+        $changes = $request->input('changes', []);
+        $updated = $this->service->applyInlinePatch($entity, $changes);
+
+        return response()->json([
+            "ok"        => true,
+            "entity_id" => $updated->id,
+            "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+            "etag"      => $this->service->etag($updated),
+        ]);
+    }
+
     
 }
