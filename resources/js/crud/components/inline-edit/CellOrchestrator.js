@@ -1,5 +1,6 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 import { CrudAction } from "../../actions/CrudAction";
+import { AjaxErrorHandler } from "../AjaxErrorHandler";
 import { LoadingIndicator } from "../LoadingIndicator";
 import { NotificationHandler } from "../NotificationHandler";
 import { fieldRegistry } from "./FieldRegistry";
@@ -69,8 +70,11 @@ export class CellOrchestrator extends CrudAction {
         const field = td.dataset.field;
 
         try {
+
+            this.loader.showNomBloquante("");
             // 1. Charger les metas depuis le cache ou API
             const meta = await metaCache.getMeta("realisationTache", id, field);
+            this.loader.hide();
 
             // ✅ Sauvegarder le contenu original AVANT de remplacer
             if (!td.dataset.original) {
@@ -98,72 +102,68 @@ export class CellOrchestrator extends CrudAction {
     async commitChange(td, meta, newValue) {
         const id = td.dataset.id;
         const field = td.dataset.field;
-
-        // Optimistic UI : affichage provisoire
-        // Récupérer contenu initial depuis data-original
         const oldContent = td.dataset.original ?? td.innerHTML;
 
-        // td.textContent = newValue;
         td.classList.add("updating");
-        this.loader.showNomBloquante();
+        this.loader.showNomBloquante("Mise à jour en cours...");
 
-        try {
+        let editUrl = this.getUrlWithId(this.config.editUrl, id);
+        editUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
+        editUrl = this.appendParamsToUrl(editUrl, this.viewStateService.getContextParams());
 
-            let editUrl = this.getUrlWithId(this.config.editUrl, id); // Générer l'URL dynamique
-            editUrl = `/admin/PkgRealisationTache/realisationTaches/${id}/inline`;
-            editUrl = this.appendParamsToUrl(
-                editUrl,
-                this.viewStateService.getContextParams()
-            );
+        $.ajax({
+            url: editUrl,
+            method: "PATCH",
+            headers: {
+                "If-Match": meta.etag,
+                "X-CSRF-TOKEN": this.config.csrfToken
+            },
+            contentType: "application/json",
+            data: JSON.stringify({ changes: { [field]: newValue } }),
+        })
+            .done((data) => {
 
 
-            const res = await fetch(
-                editUrl,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "If-Match": meta.etag,
-                        "X-CSRF-TOKEN": document
-                            .querySelector('meta[name="csrf-token"]')
-                            .getAttribute("content"),
-                    },
-                    body: JSON.stringify({ changes: { [field]: newValue } }),
+                // Affichage de message de progression de traitement
+                const traitement_token = data?.traitement_token;
+                if (traitement_token) {
+                    this.pollTraitementStatus(traitement_token, () => {
+                       ;
+                    });
+                }else{
+                    
                 }
-            );
 
-            if (res.status === 409) {
-                alert("⚠️ Conflit de version (ETag). Recharge la ligne.");
-                td.textContent = oldContent;
+
+                // ✅ Mettre à jour le rendu
+                td.innerHTML = data.display[field]?.html ?? newValue;
                 td.classList.remove("updating");
-                return;
-            }
 
-            if (!res.ok) {
-                throw new Error(`Erreur HTTP ${res.status} - ${res}`);
-            }
+                // ✅ Mettre à jour le cache meta
+                meta.etag = data.etag;
+                meta.value = newValue;
+                metaCache.set("realisationTache", id, field, meta);
 
-            const data = await res.json();
+                NotificationHandler.showSuccess("Valeur mise à jour avec succès.");
+            })
+            .fail((xhr) => {
+                td.innerHTML = oldContent; // rollback
+                td.classList.remove("updating");
 
-            // ✅ Mettre à jour le rendu
-            td.innerHTML = data.display[field]?.html ?? newValue;
-            td.classList.remove("updating");
+                // Si conflit ETag
+                if (xhr.status === 409) {
+                    NotificationHandler.showError("⚠️ Conflit de version. Rechargez la ligne.");
+                    return;
+                }
 
-            // ✅ Mettre à jour le cache meta avec le nouvel etag
-            meta.etag = data.etag;
-            meta.value = newValue;
-            metaCache.set("realisationTache", id, field, meta);
-        } catch (err) {
-            console.error("Erreur PATCH inline:", err);
-            td.innerHTML = oldContent; // rollback
-            td.classList.remove("updating");
-            NotificationHandler.showError("Erreur lors de la mise à jour." +  err.message);
-        } finally {
-            td.classList.remove("updating");
-            this.loader.hide();
-            this.active = null;
-            this.editor = null;
-        }
+                // Utiliser ton gestionnaire global
+                AjaxErrorHandler.handleError(xhr, "Erreur lors de la mise à jour.");
+            })
+            .always(() => {
+                this.loader.hide();
+                this.active = null;
+                this.editor = null;
+            });
     }
 
     cancelEdit() {

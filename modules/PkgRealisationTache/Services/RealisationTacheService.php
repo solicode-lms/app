@@ -195,11 +195,11 @@ class RealisationTacheService extends BaseRealisationTacheService
             $rules[$field] = $meta['validation'] ?? ['nullable'];
         }
 
-        Validator::make($filtered, $rules)->validate();
+        // Validator::make($filtered, $rules)->validate();
 
         $e->fill($filtered);
         $e->save();
-
+        $e->refresh();
         return $e;
     }
 
@@ -208,6 +208,7 @@ class RealisationTacheService extends BaseRealisationTacheService
      */
     public function formatDisplayValues(RealisationTache $e, array $fields): array
     {
+      
         $out = [];
         foreach ($fields as $field) {
             switch ($field) {

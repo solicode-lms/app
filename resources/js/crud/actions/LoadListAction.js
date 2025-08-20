@@ -45,7 +45,7 @@ export class LoadListAction extends BaseAction {
 
 
         // Ne pas loadEntities si une cille en edition
-        if(this.tableUI.inlineEdit.activeCell != null || this.tableUI.bulkAction.isSelectingRows  ) return;
+        // if(this.tableUI.inlineEdit.activeCell != null || this.tableUI.bulkAction.isSelectingRows  ) return;
 
         if(page === undefined){
             page = this.tableUI.indexUI.paginationUI.page;

@@ -68,20 +68,20 @@ class RealisationTacheController extends BaseRealisationTacheController
 
         $this->authorizeAction('update');
 
-        // // ownedByUser
-        // if(Auth::user()->hasRole('formateur')){
-        //    $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
-        // }
-        // if(Auth::user()->hasRole('apprenant')){
-        //    $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
-        // }
+        // ownedByUser
+        if(Auth::user()->hasRole('formateur')){
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.AffectationProjet.Projet.Formateur_id'  , $this->sessionState->get('formateur_id'));
+        }
+        if(Auth::user()->hasRole('apprenant')){
+           $this->viewState->set('scope_form.realisationTache.RealisationProjet.Apprenant_id'  , $this->sessionState->get('apprenant_id'));
+        }
  
         $itemRealisationTache = RealisationTache::findOrFail($id);
 
-        // // scopeDataInEditContext
-        // $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
-        // $key = 'scope.etatRealisationTache.formateur_id';
-        // $this->viewState->set($key, $value);
+        // scopeDataInEditContext
+        $value = $itemRealisationTache->getNestedValue('tache.projet.formateur_id');
+        $key = 'scope.etatRealisationTache.formateur_id';
+        $this->viewState->set($key, $value);
  
         // Vérification ETag
         $ifMatch = $request->header('If-Match');
@@ -95,12 +95,17 @@ class RealisationTacheController extends BaseRealisationTacheController
         $changes = $request->input('changes', []);
         $updated = $this->service->applyInlinePatch($itemRealisationTache, $changes);
 
-        return response()->json([
-            "ok"        => true,
-            "entity_id" => $updated->id,
-            "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
-            "etag"      => $this->service->etag($updated),
-        ]);
+        return response()->json(
+        array_merge(
+                    [
+                        "ok"        => true,
+                        "entity_id" => $updated->id,
+                        "display"   => $this->service->formatDisplayValues($updated, array_keys($changes)),
+                        "etag"      => $this->service->etag($updated),
+                    ],
+                    $this->service->getCrudJobToken() ? ['traitement_token' => $this->service->getCrudJobToken()] : []
+                )
+    );
     }
 
     
