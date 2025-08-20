@@ -1,6 +1,7 @@
 // Ce fichier est maintenu par ESSARRAJ Fouad
 import { CrudAction } from "../../actions/CrudAction";
 import { LoadingIndicator } from "../LoadingIndicator";
+import { NotificationHandler } from "../NotificationHandler";
 import { fieldRegistry } from "./FieldRegistry";
 import { metaCache } from "./MetaCache";
 
@@ -89,6 +90,7 @@ export class CellOrchestrator extends CrudAction {
                 onCancel: () => this.cancelEdit(),
             });
         } catch (err) {
+            NotificationHandler.showError("Impossible d'activer l’édition.");
             console.error("Erreur activation cellule:", err);
         }
     }
@@ -103,6 +105,7 @@ export class CellOrchestrator extends CrudAction {
 
         // td.textContent = newValue;
         td.classList.add("updating");
+        this.loader.showNomBloquante();
 
         try {
 
@@ -136,6 +139,10 @@ export class CellOrchestrator extends CrudAction {
                 return;
             }
 
+            if (!res.ok) {
+                throw new Error(`Erreur HTTP ${res.status} - ${res}`);
+            }
+
             const data = await res.json();
 
             // ✅ Mettre à jour le rendu
@@ -150,7 +157,10 @@ export class CellOrchestrator extends CrudAction {
             console.error("Erreur PATCH inline:", err);
             td.innerHTML = oldContent; // rollback
             td.classList.remove("updating");
+            NotificationHandler.showError("Erreur lors de la mise à jour." +  err.message);
         } finally {
+            td.classList.remove("updating");
+            this.loader.hide();
             this.active = null;
             this.editor = null;
         }
@@ -159,7 +169,7 @@ export class CellOrchestrator extends CrudAction {
     cancelEdit() {
         if (!this.active || !this.editor) return;
         // rollback contenu
-        this.active.textContent = this.active.dataset.original || this.active.textContent;
+        this.active.innerHTML = this.active.dataset.original || this.active.textContent;
         this.editor.destroy();
         this.active = null;
         this.editor = null;
